@@ -427,11 +427,11 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
       marked:
-        specifier: ^7.0.5
-        version: 7.0.5
+        specifier: ^11.0.0
+        version: 11.0.0
       marked-base-url:
         specifier: ^1.0.6
-        version: 1.1.1(marked@7.0.5)
+        version: 1.1.1(marked@11.0.0)
     devDependencies:
       '@types/dompurify':
         specifier: ^3.0.2
@@ -2138,6 +2138,7 @@ packages:
   /@xmldom/xmldom@0.8.10:
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
     engines: {node: '>=10.0.0'}
+    requiresBuild: true
     dev: true
 
   /@yarnpkg/lockfile@1.1.0:
@@ -4344,17 +4345,18 @@ packages:
     dependencies:
       semver: 6.3.1
 
-  /marked-base-url@1.1.1(marked@7.0.5):
+  /marked-base-url@1.1.1(marked@11.0.0):
     resolution: {integrity: sha512-MCuBheOk7Y496A5O7PpY1NMjw9pcLfBCY9NdOe9lAhjXMBKXqRe1me/r7ipFSti1WiJ6OarH0XW9kVsS11jvSw==}
     peerDependencies:
       marked: '>= 4 < 11'
     dependencies:
-      marked: 7.0.5
+      marked: 11.0.0
     dev: false
 
-  /marked@7.0.5:
-    resolution: {integrity: sha512-lwNAFTfXgqpt/XvK17a/8wY9/q6fcSPZT1aP6QW0u74VwaJF/Z9KbRcX23sWE4tODM+AolJNcUtErTkgOeFP/Q==}
-    engines: {node: '>= 16'}
+  /marked@11.0.0:
+    resolution: {integrity: sha512-2GsW34uXaFEGTQ/+3rCnNC6vUYTAgFuDLGl70v/aWinA5mIJtTrrFAmfbLOfVvgPyxXuDVL9He/7reCK+6j3Sw==}
+    engines: {node: '>= 18'}
+    hasBin: true
     dev: false
 
   /matcher@3.0.0:
@@ -6203,6 +6205,7 @@ packages:
   /xmlbuilder@15.1.1:
     resolution: {integrity: sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==}
     engines: {node: '>=8.0'}
+    requiresBuild: true
     dev: true
 
   /y18n@5.0.8:
