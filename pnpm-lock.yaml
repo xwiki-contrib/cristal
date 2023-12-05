@@ -54,8 +54,8 @@ importers:
         specifier: ^3.6.3
         version: 3.6.3(rollup@4.4.1)(typescript@5.2.2)(vite@5.0.5)
       vite-plugin-inspect:
-        specifier: ^0.7.42
-        version: 0.7.42(rollup@4.4.1)(vite@5.0.5)
+        specifier: ^0.8.0
+        version: 0.8.1(rollup@4.4.1)(vite@5.0.5)
       vite-plugin-vuetify:
         specifier: ^1.0.2
         version: 1.0.2(vite@5.0.5)(vue@3.3.9)(vuetify@3.4.4)
@@ -555,8 +555,8 @@ importers:
         specifier: 5.0.5
         version: 5.0.5(@types/node@20.8.10)
       vite-plugin-inspect:
-        specifier: ^0.7.42
-        version: 0.7.42(rollup@4.4.1)(vite@5.0.5)
+        specifier: ^0.8.0
+        version: 0.8.1(rollup@4.4.1)(vite@5.0.5)
       vite-plugin-vuetify:
         specifier: ^1.0.2
         version: 1.0.2(vite@5.0.5)(vue@3.3.8)(vuetify@3.4.0)
@@ -638,8 +638,8 @@ importers:
         specifier: ^3.6.3
         version: 3.6.3(rollup@4.4.1)(typescript@5.2.2)(vite@5.0.5)
       vite-plugin-inspect:
-        specifier: ^0.7.42
-        version: 0.7.42(rollup@4.4.1)(vite@5.0.5)
+        specifier: ^0.8.0
+        version: 0.8.1(rollup@4.4.1)(vite@5.0.5)
       vite-plugin-vuetify:
         specifier: ^1.0.2
         version: 1.0.2(vite@5.0.5)(vue@3.3.8)(vuetify@3.4.0)
@@ -1916,7 +1916,7 @@ packages:
       '@vue/shared': 3.3.9
       estree-walker: 2.0.2
       magic-string: 0.30.5
-      postcss: 8.4.31
+      postcss: 8.4.32
       source-map-js: 1.0.2
 
   /@vue/compiler-ssr@3.3.8:
@@ -2126,6 +2126,7 @@ packages:
   /@xmldom/xmldom@0.8.10:
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
     engines: {node: '>=10.0.0'}
+    requiresBuild: true
     dev: true
 
   /@yarnpkg/lockfile@1.1.0:
@@ -4028,6 +4029,7 @@ packages:
   /is-docker@3.0.0:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    hasBin: true
     dev: true
 
   /is-extglob@2.1.1:
@@ -4050,6 +4052,7 @@ packages:
   /is-inside-container@1.0.0:
     resolution: {integrity: sha512-KIYLCCJghfHZxqjYBE7rEy0OBuTd5xCHS7tHVgvCLkx7StIoaxwNW3hCALgEUjFfeRk+MG/Qxmp/vtETEF3tRA==}
     engines: {node: '>=14.16'}
+    hasBin: true
     dependencies:
       is-docker: 3.0.0
     dev: true
@@ -5801,8 +5804,8 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-inspect@0.7.42(rollup@4.4.1)(vite@5.0.5):
-    resolution: {integrity: sha512-JCyX86wr3siQc+p9Kd0t8VkFHAJag0RaQVIpdFGSv5FEaePEVB6+V/RGtz2dQkkGSXQzRWrPs4cU3dRKg32bXw==}
+  /vite-plugin-inspect@0.8.1(rollup@4.4.1)(vite@5.0.5):
+    resolution: {integrity: sha512-oPBPVGp6tBd5KdY/qY6lrbLXqrbHRG0hZLvEaJfiZ/GQfDB+szRuLHblQh1oi1Hhh8GeLit/50l4xfs2SA+TCA==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -6198,6 +6201,7 @@ packages:
   /xmlbuilder@15.1.1:
     resolution: {integrity: sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==}
     engines: {node: '>=8.0'}
+    requiresBuild: true
     dev: true
 
   /y18n@5.0.8:
