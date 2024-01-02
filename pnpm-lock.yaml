@@ -554,8 +554,8 @@ importers:
         specifier: 4.5.1
         version: 4.5.1(@types/node@20.10.3)
       vite-plugin-comlink:
-        specifier: ^3.0.5
-        version: 3.0.5(comlink@4.4.1)(vite@4.5.1)
+        specifier: ^4.0.0
+        version: 4.0.0(comlink@4.4.1)(vite@4.5.1)
       vue-tsc:
         specifier: 1.8.25
         version: 1.8.25(typescript@5.3.2)
@@ -597,8 +597,8 @@ importers:
         specifier: 4.5.1
         version: 4.5.1(@types/node@20.10.3)
       vite-plugin-comlink:
-        specifier: ^3.0.5
-        version: 3.0.5(comlink@4.4.1)(vite@4.5.1)
+        specifier: ^4.0.0
+        version: 4.0.0(comlink@4.4.1)(vite@4.5.1)
       vue-tsc:
         specifier: 1.8.25
         version: 1.8.25(typescript@5.3.2)
@@ -754,8 +754,8 @@ importers:
         specifier: 4.5.1
         version: 4.5.1(@types/node@20.10.3)
       vite-plugin-comlink:
-        specifier: ^3.0.5
-        version: 3.0.5(comlink@4.4.1)(vite@4.5.1)
+        specifier: ^4.0.0
+        version: 4.0.0(comlink@4.4.1)(vite@4.5.1)
       vite-plugin-dts:
         specifier: 3.6.4
         version: 3.6.4(@types/node@20.10.3)(rollup@4.6.1)(typescript@5.3.2)(vite@4.5.1)
@@ -4660,14 +4660,10 @@ packages:
     dev: true
     optional: true
 
-  /json5@2.2.1:
-    resolution: {integrity: sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==}
-    engines: {node: '>=6'}
-    dev: true
-
   /json5@2.2.3:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
+    hasBin: true
     dev: true
 
   /jsonc-parser@3.2.0:
@@ -4797,11 +4793,11 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /magic-string@0.26.7:
-    resolution: {integrity: sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==}
+  /magic-string@0.27.0:
+    resolution: {integrity: sha512-8UnnX2PeRAPZuN12svgR9j7M1uWMovg/CEnIwIG0LFkXSJJe4PdfUGiTGl8V9bsBHFUtfVINcSyYxd7q+kx9fA==}
     engines: {node: '>=12'}
     dependencies:
-      sourcemap-codec: 1.4.8
+      '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
   /magic-string@0.30.0:
@@ -5943,8 +5939,9 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /sourcemap-codec@1.4.8:
-    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
+  /source-map@0.7.4:
+    resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
+    engines: {node: '>= 8'}
     dev: true
 
   /spdx-correct@3.2.0:
@@ -6457,15 +6454,16 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-comlink@3.0.5(comlink@4.4.1)(vite@4.5.1):
-    resolution: {integrity: sha512-my8BE9GFJEaLc7l3e2SfRUL8JJsN9On8PiW7q4Eyq3g6DHUsNqo5WlS7Butuzc8ngrs24Tf1RC8Xfdda+E5T9w==}
+  /vite-plugin-comlink@4.0.0(comlink@4.4.1)(vite@4.5.1):
+    resolution: {integrity: sha512-fXD+7oPwqvT528ujeg9QXCLuFZIvbtEWQlhu2UV/+Fj9IAAoL8tqcscnNasmDvXl0HwaARVIzoA2iScuTHv++Q==}
     peerDependencies:
       comlink: ^4.3.1
       vite: '>=2.9.6'
     dependencies:
       comlink: 4.4.1
-      json5: 2.2.1
-      magic-string: 0.26.7
+      json5: 2.2.3
+      magic-string: 0.27.0
+      source-map: 0.7.4
       vite: 4.5.1(@types/node@20.10.3)
     dev: true
 
