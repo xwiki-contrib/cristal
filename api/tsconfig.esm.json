@@ -1,0 +1,12 @@
+
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist/esm",
+    "moduleResolution": "Node",
+    "declaration": false,
+    "resolveJsonModule": true,
+    "module": "ESNext"
+  },
+  "extends": "./tsconfig.cjs.json",
+}

@@ -1,5 +1,3 @@
-import { mergeConfig } from "vitest/config";
-import defaultConfig from "@cristal/dev-config/vitest.config";
-import localConfig from "./vite.config";
+import { defineConfig } from "vitest/config";
 
-export default mergeConfig(defaultConfig, localConfig);
+export default defineConfig({});
