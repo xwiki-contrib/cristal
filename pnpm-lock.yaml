@@ -289,8 +289,8 @@ importers:
         specifier: 7.0.3
         version: 7.0.3
       electron:
-        specifier: 28.2.1
-        version: 28.2.1
+        specifier: 28.2.8
+        version: 28.2.8
       electron-builder:
         specifier: 24.9.1
         version: 24.9.1
@@ -307,8 +307,8 @@ importers:
         specifier: 7.0.3
         version: 7.0.3
       electron:
-        specifier: 28.2.1
-        version: 28.2.1
+        specifier: 28.2.8
+        version: 28.2.8
       rimraf:
         specifier: 5.0.5
         version: 5.0.5
@@ -3655,8 +3655,8 @@ packages:
       - supports-color
     dev: false
 
-  /electron@28.2.1:
-    resolution: {integrity: sha512-wlzXf+OvOiVlBf9dcSeMMf7Q+N6DG+wtgFbMK0sA/JpIJcdosRbLMQwLg/LTwNVKIbmayqFLDp4FmmFkEMhbYA==}
+  /electron@28.2.8:
+    resolution: {integrity: sha512-VgXw2OHqPJkobIC7X9eWh3atptjnELaP+zlbF9Oz00ridlaOWmtLPsp6OaXbLw35URpMr0iYesq8okKp7S0k+g==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
@@ -3721,6 +3721,7 @@ packages:
   /es-errors@1.0.0:
     resolution: {integrity: sha512-yHV74THqMJUyFKkHyN7hyENcEZM3Dj2a2IrdClY+IT4BFQHkIVwlh8s6uZfjsFydMdNHv0F5mWgAA3ajFbsvVQ==}
     engines: {node: '>= 0.4'}
+    requiresBuild: true
 
   /es6-error@4.1.1:
     resolution: {integrity: sha512-Um/+FxMr9CISWh0bi5Zv0iOD+4cFh5qLeks1qhAopKVAJw3drgKbKySikp7wGhDL0HPeaja0P5ULZrxLkniUVg==}
