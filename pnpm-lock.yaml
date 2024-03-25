@@ -106,8 +106,8 @@ importers:
         specifier: workspace:^
         version: link:../../api
       '@gouvfr/dsfr':
-        specifier: 1.11.0
-        version: 1.11.0
+        specifier: 1.11.2
+        version: 1.11.2
       '@gouvminint/vue-dsfr':
         specifier: 5.8.0
         version: 5.8.0(oh-vue-icons@1.0.0-rc3)(vue-router@4.2.4)(vue@3.3.10)
@@ -1238,8 +1238,8 @@ packages:
     resolution: {integrity: sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==}
     dev: false
 
-  /@gouvfr/dsfr@1.11.0:
-    resolution: {integrity: sha512-RD+kUk9iJJ4B7xFdAFCNQz0LRqYiMy9dajlKfgnmDPSrYHm+JCJpYCzXhNjYyp4FJggMafRd1ZqJJ6KW6aM0Jw==}
+  /@gouvfr/dsfr@1.11.2:
+    resolution: {integrity: sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==}
     engines: {node: '>=18.16.1'}
     dev: false
 
@@ -1251,7 +1251,7 @@ packages:
       vue: ^3.3.4
       vue-router: ^4.2.4
     dependencies:
-      '@gouvfr/dsfr': 1.11.0
+      '@gouvfr/dsfr': 1.11.2
       focus-trap: 7.5.4
       focus-trap-vue: 4.0.3(focus-trap@7.5.4)(vue@3.3.10)
       oh-vue-icons: 1.0.0-rc3(vue@3.3.10)
@@ -3194,6 +3194,7 @@ packages:
   /color-convert@2.0.1:
     resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
     engines: {node: '>=7.0.0'}
+    requiresBuild: true
     dependencies:
       color-name: 1.1.4
     dev: true
@@ -3204,6 +3205,7 @@ packages:
 
   /color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    requiresBuild: true
     dev: true
 
   /colors@1.2.5:
