@@ -23,15 +23,17 @@
  *
 -->
 <script lang="ts" setup>
-import CTemplate from "./c-template.vue";
+import CConfigMenu from "./c-config-menu.vue";
 </script>
 <template>
-  <aside id="sidebar">
+  <x-navigation-drawer id="sidebar">
     <UIX uixname="sidebar.before" />
-    <CTemplate name="panel" panel-name="Help.TipsPanel.WebHome" />
-    <CTemplate name="panel" panel-name="Panels.Applications" />
-    <CTemplate name="panel" panel-name="Panels.Navigation" />
-    <CTemplate name="panel" panel-name="Sandbox.TestPanel" />
+    <c-config-menu></c-config-menu>
+    <x-search></x-search>
+    <!--    <CTemplate name="panel" panel-name="Help.TipsPanel.WebHome" />-->
+    <!--    <CTemplate name="panel" panel-name="Panels.Applications" />-->
+    <!--    <CTemplate name="panel" panel-name="Panels.Navigation" />-->
+    <!--    <CTemplate name="panel" panel-name="Sandbox.TestPanel" />-->
     <UIX uixname="sidebar.after" />
-  </aside>
+  </x-navigation-drawer>
 </template>

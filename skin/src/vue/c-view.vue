@@ -26,14 +26,13 @@
 import CTemplate from "./c-template.vue";
 </script>
 <template>
-  <div>
+  <x-layout>
     <div id="view" class="wrapper">
       <UIX uixname="view.before" />
+      <CTemplate name="sidebar" />
       <CTemplate name="header" />
       <CTemplate name="main" />
-      <CTemplate name="sidebar" />
-      <CTemplate name="footer" />
       <UIX uixname="view.after" />
     </div>
-  </div>
+  </x-layout>
 </template>

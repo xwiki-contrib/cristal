@@ -24,12 +24,13 @@
  **/
 
 import type { App } from "vue";
+import * as components from "vuetify/components";
 import {
   VAvatar,
-  VContainer,
-  VRow,
   VCol,
+  VContainer,
   VImg,
+  VRow,
   VTextField,
 } from "vuetify/components";
 import type { DesignSystemLoader } from "@cristal/api";
@@ -37,8 +38,6 @@ import type { DesignSystemLoader } from "@cristal/api";
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import { mdi } from "vuetify/iconsets/mdi";
-// import { aliases, fa } from 'vuetify/iconsets/fa'
-import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { injectable } from "inversify";
 import XCard from "../vue/x-card.vue";
@@ -48,6 +47,12 @@ import XBtn from "../vue/x-btn.vue";
 import XDialog from "../vue/x-dialog.vue";
 import XMenu from "../vue/x-menu.vue";
 import XMenuItem from "../vue/x-menu-item.vue";
+import XBreadcrumb from "../vue/x-breadcrumb.vue";
+import XAppBar from "../vue/x-app-bar.vue";
+import XMain from "../vue/x-main.vue";
+import XNavigationDrawer from "../vue/x-navigation-drawer.vue";
+import XSearch from "../vue/x-search.vue";
+import XLayout from "../vue/x-layout.vue";
 
 @injectable()
 export class VuetifyDesignSystemLoader implements DesignSystemLoader {
@@ -94,5 +99,11 @@ export class VuetifyDesignSystemLoader implements DesignSystemLoader {
     app.component("XDialog", XDialog);
     app.component("XMenu", XMenu);
     app.component("XMenuItem", XMenuItem);
+    app.component("XBreadcrumb", XBreadcrumb);
+    app.component("XAppBar", XAppBar);
+    app.component("XMain", XMain);
+    app.component("XNavigationDrawer", XNavigationDrawer);
+    app.component("XSearch", XSearch);
+    app.component("XLayout", XLayout);
   }
 }

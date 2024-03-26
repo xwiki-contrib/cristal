@@ -30,7 +30,7 @@ const logo = xlogo;
 </script>
 
 <template>
-  <header id="header">
+  <x-app-bar id="header" v-if="false">
     <UIX uixname="header.before" />
     <x-container class="pa-0 ma-0" fluid>
       <x-row align="start" no-gutters>
@@ -54,5 +54,5 @@ const logo = xlogo;
       </x-row>
     </x-container>
     <UIX uixname="header.after" />
-  </header>
+  </x-app-bar>
 </template>

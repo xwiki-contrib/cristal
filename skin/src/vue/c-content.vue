@@ -114,6 +114,7 @@ onUpdated(() => {
     </template>
     <template v-else>
       <!-- eslint-disable vue/no-v-html -->
+      <XBreadcrumb></XBreadcrumb>
       <div id="xwikicontent" v-html="pageStatus.currentContent" />
     </template>
     <UIX uixname="content.after" />

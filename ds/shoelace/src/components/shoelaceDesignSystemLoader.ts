@@ -43,6 +43,12 @@ import XMenu from "../vue/x-menu.vue";
 import XMenuItem from "../vue/x-menuitem.vue";
 
 import "@shoelace-style/shoelace/dist/themes/light.css";
+import XBreadcrumb from "../vue/x-breadcrumb.vue";
+import XAppBar from "../vue/x-app-bar.vue";
+import XMain from "../vue/x-main.vue";
+import XNavigationDrawer from "../vue/x-navigation-drawer.vue";
+import XSearch from "../vue/x-search.vue";
+import XLayout from "../vue/x-layout.vue";
 
 @injectable()
 export class ShoelaceDesignSystemLoader implements DesignSystemLoader {
@@ -60,5 +66,11 @@ export class ShoelaceDesignSystemLoader implements DesignSystemLoader {
     app.component("XDialog", XDialog);
     app.component("XMenu", XMenu);
     app.component("XMenuItem", XMenuItem);
+    app.component("XBreadcrumb", XBreadcrumb);
+    app.component("XAppBar", XAppBar);
+    app.component("XMain", XMain);
+    app.component("XNavigationDrawer", XNavigationDrawer);
+    app.component("XSearch", XSearch);
+    app.component("XLayout", XLayout);
   }
 }

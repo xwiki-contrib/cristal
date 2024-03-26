@@ -23,5 +23,8 @@
  *
 -->
 <template>
-  <router-view />
+  <x-main>
+    <router-view />
+  </x-main>
 </template>
+<script setup lang="ts"></script>
