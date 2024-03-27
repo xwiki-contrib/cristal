@@ -442,8 +442,8 @@ importers:
         specifier: workspace:^
         version: link:../../storage
       electron:
-        specifier: 28.0.0
-        version: 28.0.0
+        specifier: 28.2.8
+        version: 28.2.8
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -3846,8 +3846,8 @@ packages:
       - supports-color
     dev: false
 
-  /electron@28.0.0:
-    resolution: {integrity: sha512-eDhnCFBvG0PGFVEpNIEdBvyuGUBsFdlokd+CtuCe2ER3P+17qxaRfWRxMmksCOKgDHb5Wif5UxqOkZSlA4snlw==}
+  /electron@28.2.8:
+    resolution: {integrity: sha512-VgXw2OHqPJkobIC7X9eWh3atptjnELaP+zlbF9Oz00ridlaOWmtLPsp6OaXbLw35URpMr0iYesq8okKp7S0k+g==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
     requiresBuild: true
