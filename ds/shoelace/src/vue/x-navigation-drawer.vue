@@ -6,4 +6,8 @@
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+:global(#sidebar) {
+  background-color: var(--sl-color-gray-100);
+}
+</style>

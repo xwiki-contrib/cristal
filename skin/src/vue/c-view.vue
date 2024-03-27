@@ -32,6 +32,7 @@ import CTemplate from "./c-template.vue";
       <CTemplate name="sidebar" />
       <CTemplate name="header" />
       <CTemplate name="main" />
+      <div class="right-sidebar">teste</div>
       <UIX uixname="view.after" />
     </div>
   </x-layout>

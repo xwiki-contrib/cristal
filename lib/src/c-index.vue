@@ -37,48 +37,61 @@ export default defineComponent({
   <CTemplate name="view" />
 </template>
 <style scoped>
-:global(h1) {
-  color: red;
+:global(html) {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+:global(body) {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+:global(#app) {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+:global(main) {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+:global(#content) {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+:global(#xwikicontent) {
+  height: 100vh;
+  overflow: auto;
+  position: relative;
+}
+:global(.wrapper) {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 5fr;
+  grid-template-areas: "sidebar content";
 }
 
-:global(.template) {
-  border: 1px solid;
-}
-
-:global(header) {
+:global(#header) {
   grid-area: header;
-  background-color: #30bdfe8a;
-  padding: 10px;
 }
 
-:global(article) {
+:global(#content) {
   grid-area: content;
-  background-color: white;
-  padding: 20px;
+  padding: 8px;
 }
 
-:global(aside) {
+:global(#sidebar) {
   grid-area: sidebar;
-  background-color: #a3d0f0;
-  padding: 20px;
+  padding: 8px;
 }
 
 :global(footer) {
-  padding: 10px;
   grid-area: footer;
   background-color: #005ed8;
 }
-
-:global(.wrapper) {
-  display: grid;
-  grid-gap: 2px;
-  grid-template-columns: 1fr 5fr;
-  grid-template-areas:
-    "header  header"
-    "sidebar content"
-    "footer  footer";
-}
-
 @media (max-width: 500px) {
   :global(.wrapper) {
     grid-template-columns: 4fr;

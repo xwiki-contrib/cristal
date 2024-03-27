@@ -74,8 +74,4 @@ export default {
     <UIX uixname="edit.after" />
   </article>
 </template>
-<style>
-.pagemenu {
-  float: right;
-}
-</style>
+<style></style>

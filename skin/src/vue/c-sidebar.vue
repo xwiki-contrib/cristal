@@ -24,11 +24,23 @@
 -->
 <script lang="ts" setup>
 import CConfigMenu from "./c-config-menu.vue";
+import xlogo from "../images/xwiki-logo-mono.svg";
+const logo = xlogo;
 </script>
 <template>
   <x-navigation-drawer id="sidebar">
     <UIX uixname="sidebar.before" />
-    <c-config-menu></c-config-menu>
+    <div class="sidebar-header">
+      <div class="left">
+        <span class="hamburguer">|||</span>
+        <x-img :src="logo" />
+      </div>
+      <div class="right">
+        <span class="bell">bell</span>
+        <span class="avatar">AV</span>
+        <c-config-menu></c-config-menu>
+      </div>
+    </div>
     <x-search></x-search>
     <!--    <CTemplate name="panel" panel-name="Help.TipsPanel.WebHome" />-->
     <!--    <CTemplate name="panel" panel-name="Panels.Applications" />-->
@@ -37,3 +49,12 @@ import CConfigMenu from "./c-config-menu.vue";
     <UIX uixname="sidebar.after" />
   </x-navigation-drawer>
 </template>
+<style scoped>
+:global(.sidebar-header) {
+  display: flex;
+  flex-flow: row;
+}
+:global(.right) {
+  margin-left: auto;
+}
+</style>
