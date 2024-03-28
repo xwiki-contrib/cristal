@@ -7,7 +7,7 @@ import xdevCog from "../images/dev-cog.svg";
 <template>
   <x-dialog width="auto" :logo="logo" title="Configuration">
     <template #activator="{ props }">
-      <x-img :src="xdevCog" v-bind="props" />
+      <x-img :src="xdevCog" width="24px" v-bind="props" />
     </template>
     <template #default>
       <CTemplate name="config" />
