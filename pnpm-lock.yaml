@@ -442,8 +442,8 @@ importers:
         specifier: workspace:^
         version: link:../../storage
       electron:
-        specifier: 28.0.0
-        version: 28.0.0
+        specifier: 29.1.5
+        version: 29.1.5
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -2218,12 +2218,6 @@ packages:
   /@types/ms@0.7.34:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
 
-  /@types/node@18.19.26:
-    resolution: {integrity: sha512-+wiMJsIwLOYCvUqSdKTrfkS8mpTp+MPINe6+Np4TAGFWWRWiBQ5kSq9nZGCSPkzx9mvT+uEukzpX4MOSCydcvw==}
-    dependencies:
-      undici-types: 5.26.5
-    dev: false
-
   /@types/node@20.11.30:
     resolution: {integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==}
     dependencies:
@@ -3842,19 +3836,6 @@ packages:
       lodash.isequal: 4.5.0
       semver: 7.5.4
       tiny-typed-emitter: 2.1.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /electron@28.0.0:
-    resolution: {integrity: sha512-eDhnCFBvG0PGFVEpNIEdBvyuGUBsFdlokd+CtuCe2ER3P+17qxaRfWRxMmksCOKgDHb5Wif5UxqOkZSlA4snlw==}
-    engines: {node: '>= 12.20.55'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      '@electron/get': 2.0.3
-      '@types/node': 18.19.26
-      extract-zip: 2.0.1
     transitivePeerDependencies:
       - supports-color
     dev: false
