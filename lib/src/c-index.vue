@@ -36,56 +36,62 @@ export default defineComponent({
 <template>
   <CTemplate name="view" />
 </template>
+<!-- TODO CRISTAL-165: these styles need to me moved to a generic CSS that loads last in the main template-->
 <style scoped>
-:global(html) {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-:global(body) {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-:global(#app) {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-:global(main) {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-:global(#content) {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
+:global(html),
+:global(body),
+:global(#app),
+:global(main),
+:global(#content),
 :global(#xwikicontent) {
   height: 100vh;
-  overflow: auto;
+  overflow: hidden; 
   position: relative;
+}
+
+/* TODO CRISTAL-165: this rule !important should be removed when reorganizing the css as the comment above instructs. */
+:global(html) {
+  overflow: hidden !important;
+}
+:global(#xwikicontent) {
+  overflow: auto;
 }
 :global(.wrapper) {
   height: 100vh;
   display: grid;
-  grid-template-columns: 250px 5fr;
+  grid-template-columns: 250px 1fr;
   grid-template-areas: "sidebar content";
+}
+
+:global(.wrapper:has(.right-sidebar)) {
+  grid-template-columns: 250px 1fr 250px;
+  grid-template-areas: "sidebar content right-sidebar";
+}
+/* TODO CRISTAL-165: move this to shoelace component scoped styles*/
+:global(.right-sidebar) {
+  background-color: var(--sl-color-gray-100);
+  padding: 8px;
+  overflow: auto;
+}
+:global(#content) {
+  display: flex;
+  flex-flow: column;
+  grid-area: content;  
+}
+:global(#xwikicontent) {
+  overflow: auto;
+  height: 100%;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 :global(#header) {
   grid-area: header;
 }
 
-:global(#content) {
-  grid-area: content;
-  padding: 8px;
-}
 
 :global(#sidebar) {
   grid-area: sidebar;
-  padding: 8px;
 }
 
 :global(footer) {
@@ -93,13 +99,19 @@ export default defineComponent({
   background-color: #005ed8;
 }
 @media (max-width: 500px) {
+  /* TODO CRISTAL-165: all of these !important declarations should be unecessary when the CSS structure is refactored */
   :global(.wrapper) {
-    grid-template-columns: 4fr;
-    grid-template-areas:
-      "header"
-      "content"
-      "sidebar"
-      "footer";
+    grid-template-columns: 24px 1fr !important;
+    grid-template-areas: "collapsed-sidebar content" !important;
+  }
+  :global(.collapsed-sidebar) {
+    display: block !important;
+  }
+  :global(#sidebar) {
+    display: none !important;
+  }
+  :global(.right-sidebar) {
+    display: none;
   }
 }
 </style>

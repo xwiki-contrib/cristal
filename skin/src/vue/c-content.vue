@@ -114,10 +114,22 @@ onUpdated(() => {
     </template>
     <template v-else>
       <!-- eslint-disable vue/no-v-html -->
-      <XBreadcrumb></XBreadcrumb>
+      <div class="breadcrumb">
+        <XBreadcrumb></XBreadcrumb>
+      </div>
       <div id="xwikicontent" v-html="pageStatus.currentContent" />
     </template>
     <UIX uixname="content.after" />
   </article>
 </template>
-<style></style>
+<style scoped>
+.pagemenu {
+  position: absolute;
+  right: 24px;
+  top: 8px;
+  z-index: 1;
+}
+.breadcrumb {
+  padding: 8px;
+}
+</style>
