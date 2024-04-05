@@ -4,8 +4,6 @@ import "@shoelace-style/shoelace";
 import { defineProps } from "vue";
 defineProps<{
   title: string;
-  type: number;
-  width: number;
 }>();
 </script>
 <template>

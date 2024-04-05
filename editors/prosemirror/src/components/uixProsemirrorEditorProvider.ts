@@ -17,24 +17,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  *
- * This file is part of the Cristal Wiki software prototype
+ * This file is part of the Cristal Wiki software prototypenx
  * @copyright  Copyright (c) 2023 XWiki SAS
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  *
  **/
 
-// import { PageData } from "@cristal/api";
-import type { Table } from "dexie";
-import Dexie from "dexie";
+import { DefaultVueTemplateProvider } from "@cristal/skin";
+import type { Component } from "vue";
+import { injectable } from "inversify";
+import ProsemirrorEditor from "../vue/c-edit-prosemirror.vue";
+import { CristalApp } from "@cristal/api";
 
-export default class DexiePageStorage extends Dexie {
-  pages!: Table<object>;
+@injectable()
+export class UixProsemirrorEditorProvider extends DefaultVueTemplateProvider {
+  public static cname = "cristal.editor.prosemirror";
+  public static hint = "";
+  public static priority = 1000;
+  public static singleton = true;
+  public static extensionPoint = "editor";
 
-  constructor(wikiName: string) {
-    super("pages_" + wikiName);
-    this.version(2).stores({
-      pages:
-        "id, name, content, document, css, js, document.name, document.headline, document.creator", // Primary key and indexed props
-    });
+  registered = false;
+
+  getVueComponent(): Component {
+    ProsemirrorEditor.editorname = "prosemirror";
+    return ProsemirrorEditor;
+  }
+  getVueName(): string {
+    return "ProsemirrorEditor";
+  }
+  isGlobal(): boolean {
+    return false;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  isSupported(cristal: CristalApp): boolean {
+    return true;
   }
 }
