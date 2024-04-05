@@ -83,63 +83,9 @@ onUpdated(() => {
 <template>
   <article id="content" ref="root">
     <UIX uixname="content.before" />
-    <div class="pagemenu">
-      <x-menu title="Edit">
-        <template #activator="{ props }">
-          <span v-bind="props"> Edit </span>
-        </template>
-        <template #default>
-          <x-menu-item title="Default Editor">
-            <router-link
-              :to="{
-                name: 'edit',
-                params: { page: currentPage },
-              }"
-              >Default Editor
-            </router-link>
-          </x-menu-item>
-          <x-menu-item title="Text Editor">
-            <router-link
-              :to="{
-                name: 'edittext',
-                params: { page: currentPage },
-              }"
-              >Text Editor
-            </router-link>
-          </x-menu-item>
-          <x-menu-item title="XWiki Editor">
-            <router-link
-              :to="{
-                name: 'editxwiki',
-                params: { page: currentPage },
-              }"
-              >XWiki Editor
-            </router-link>
-          </x-menu-item>
-          <x-menu-item title="Milkdown Editor">
-            <router-link
-              :to="{
-                name: 'editmilkdown',
-                params: { page: currentPage },
-              }"
-              >Milkdown Editor
-            </router-link>
-          </x-menu-item>
-          <x-menu-item title="Prosemirror Editor">
-            <router-link
-              :to="{
-                name: 'editprosemirror',
-                params: { page: currentPage },
-              }"
-              >Prosemirror Editor
-            </router-link>
-          </x-menu-item>
-        </template>
-      </x-menu>
-    </div>
     <!-- Provide a target for the links listener, otherwise the links from other
     elements of the component can be wrongly captured. -->
-    <div ref="content">
+    <div ref="content" class="inner-content">
       <template v-if="pageStatus.withSheet && !serverSideRendering">
         <CTemplate
           :name="pageStatus.sheet"
@@ -149,23 +95,83 @@ onUpdated(() => {
       </template>
       <template v-else>
         <!-- eslint-disable vue/no-v-html -->
-              <div class="breadcrumb">
-        <XBreadcrumb></XBreadcrumb>
-      </div>
-      <div id="xwikicontent" v-html="pageStatus.currentContent" />
+        <div class="content-header">
+          <XBreadcrumb></XBreadcrumb>
+          <div class="pagemenu">
+            <x-menu title="Edit">
+              <template #activator="{ props }">
+                <span v-bind="props"> Edit </span>
+              </template>
+              <template #default>
+                <x-menu-item title="Default Editor">
+                  <router-link
+                    :to="{
+                      name: 'edit',
+                      params: { page: currentPage },
+                    }"
+                    >Default Editor
+                  </router-link>
+                </x-menu-item>
+                <x-menu-item title="Text Editor">
+                  <router-link
+                    :to="{
+                      name: 'edittext',
+                      params: { page: currentPage },
+                    }"
+                    >Text Editor
+                  </router-link>
+                </x-menu-item>
+                <x-menu-item title="XWiki Editor">
+                  <router-link
+                    :to="{
+                      name: 'editxwiki',
+                      params: { page: currentPage },
+                    }"
+                    >XWiki Editor
+                  </router-link>
+                </x-menu-item>
+                <x-menu-item title="Milkdown Editor">
+                  <router-link
+                    :to="{
+                      name: 'editmilkdown',
+                      params: { page: currentPage },
+                    }"
+                    >Milkdown Editor
+                  </router-link>
+                </x-menu-item>
+                <x-menu-item title="Prosemirror Editor">
+                  <router-link
+                    :to="{
+                      name: 'editprosemirror',
+                      params: { page: currentPage },
+                    }"
+                    >Prosemirror Editor
+                  </router-link>
+                </x-menu-item>
+              </template>
+      </x-menu>
+          </div>
+        </div>
+        <div id="xwikicontent" v-html="pageStatus.currentContent" />
       </template>
     </div>
     <UIX uixname="content.after" />
   </article>
 </template>
 <style scoped>
-.pagemenu {
-  position: absolute;
-  right: 24px;
-  top: 8px;
-  z-index: 1;
+.content-header {
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  flex-flow: row;
 }
-.breadcrumb {
-  padding: 8px;
+sl-breadcrumb {
+  margin-right: auto;
+}
+.inner-content {
+  display: flex;
+  flex-flow: column;
+  flex-basis: auto;
+  overflow: auto;
 }
 </style>

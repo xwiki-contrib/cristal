@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import CTemplate from "./c-template.vue";
 import logo from "../images/logo-x.png";
-import xdevCog from "../images/dev-cog.svg";
+import {CIcon} from "@cristal/icons";
 </script>
 
 <template>
   <x-dialog width="auto" :logo="logo" title="Configuration">
     <template #activator="{ props }">
-      <x-img :src="xdevCog" width="24px" v-bind="props" />
+      <c-icon name="gear" v-bind="props"></c-icon>
     </template>
     <template #default>
       <CTemplate name="config" />

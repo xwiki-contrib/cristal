@@ -24,34 +24,33 @@
 -->
 <script lang="ts" setup>
 import CConfigMenu from "./c-config-menu.vue";
+import CSidebarPanel from "./c-sidebar-panel.vue";
 import xlogo from "../images/xwiki-logo-mono.svg";
+import { CIcon } from "@cristal/icons";
 const logo = xlogo;
 </script>
 <template>
-  <x-navigation-drawer id="sidebar">
+  <x-navigation-drawer id="sidebar" class="left-sidebar">
     <UIX uixname="sidebar.before" />
     <div class="sidebar-header">
       <div class="left">
-        
-        <!-- TODO CRISTAL-165: Need icon/icon button component from DS -->
-        <span class="hamburguer">|||</span>
-
+        <c-icon name="list"></c-icon>
         <x-img :src="logo" />
       </div>
       <div class="right">
-        <!-- TODO CRISTAL-165: Need icon/icon button component from DS -->
-        <span class="bell">bell</span>
-        <x-avatar></x-avatar>
+        <c-icon name="bell"></c-icon>
         <c-config-menu></c-config-menu>
+        <x-avatar class="avatar"></x-avatar>
       </div>
     </div>
     <div class="search">
       <x-search></x-search>
     </div>
-    <div class="scrolling">
-      <div style="height: 9999px;">
-        <p>The size here is exagerated to test the overflow mechanics (scrolling)</p>
-      </div>
+    <div class="panel-container">
+      <c-sidebar-panel></c-sidebar-panel>
+      <c-sidebar-panel></c-sidebar-panel>
+      <c-sidebar-panel></c-sidebar-panel>
+
       <!--    <CTemplate name="panel" panel-name="Help.TipsPanel.WebHome" />-->
       <!--    <CTemplate name="panel" panel-name="Panels.Applications" />-->
       <!--    <CTemplate name="panel" panel-name="Panels.Navigation" />-->
@@ -61,13 +60,16 @@ const logo = xlogo;
   </x-navigation-drawer>
 </template>
 <style scoped>
-#sidebar {
+.left-sidebar {
   display: flex;
   flex-flow: column;
   gap: 16px;
   overflow: hidden;
 }
-.scrolling {
+.panel-container {
+  display: flex;
+  flex-flow: column;
+  gap: 8px;
   padding: 8px;
   overflow: auto;
 }
@@ -81,6 +83,9 @@ const logo = xlogo;
   gap: 4px;
   padding: 8px;
 }
+sl-avatar {
+  --size: 2rem;
+}
 .right {
   margin-left: auto;
   display: flex;
@@ -89,7 +94,7 @@ const logo = xlogo;
   gap: 4px;
 }
 .left {
-  margin-left: auto;
+  margin-right: auto;
   display: flex;
   flex-flow: row;
   gap: 4px;
