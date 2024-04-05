@@ -34,11 +34,16 @@ import { ComponentInit as QueueWorkerComponentInit } from "@cristal/sharedworker
 import { ComponentInit as RenderingComponentInit } from "@cristal/rendering";
 import { ComponentInit as EditorWikiTextComponentInit } from "@cristal/editors-wikitext";
 import { ComponentInit as EditorMilkdownComponentInit } from "@cristal/editors-milkdown";
+import { ComponentInit as EditorProsemirrorComponentInit } from "@cristal/editors-prosemirror";
 import { ComponentInit as XWikiRemoteEditorComponentInit } from "@cristal/xwiki-remoteinlineeditor";
 import type { Container } from "inversify";
 
 export class StaticBuild {
-  public static init(container: Container, forceStaticBuild: boolean) {
+  public static init(
+    container: Container,
+    forceStaticBuild: boolean,
+    additionalComponents?: (container: Container) => void,
+  ) {
     if (
       (import.meta.env && import.meta.env.MODE == "development") ||
       forceStaticBuild
@@ -55,6 +60,10 @@ export class StaticBuild {
       new EditorWikiTextComponentInit(container);
       new EditorMilkdownComponentInit(container);
       new XWikiRemoteEditorComponentInit(container);
+      new EditorProsemirrorComponentInit(container);
+    }
+    if (additionalComponents) {
+      additionalComponents(container);
     }
   }
 }

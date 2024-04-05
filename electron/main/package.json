@@ -20,12 +20,15 @@
     "linux": "echo 'no task'"
   },
   "devDependencies": {
-    "@types/node": "20.11.30",
+    "@types/node": "20.12.4",
     "cross-env": "7.0.3",
-    "electron": "28.2.1",
     "rimraf": "5.0.5",
-    "typescript": "5.4.3",
-    "vite": "5.2.6",
-    "vue-tsc": "1.8.27"
+    "typescript": "5.4.4",
+    "vite": "5.2.8",
+    "vue-tsc": "2.0.10"
+  },
+  "dependencies": {
+    "@cristal/electron-storage": "workspace:^",
+    "electron": "29.2.0"
   }
 }

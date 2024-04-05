@@ -20,14 +20,16 @@
     "linux": "echo 'no task'"
   },
   "dependencies": {
+    "@cristal/electron-storage": "workspace:*",
     "@cristal/lib": "workspace:^",
-    "vue": "3.4.21"
+    "vue": "3.4.21",
+    "inversify": "6.0.2"
   },
   "devDependencies": {
-    "@types/node": "20.11.30",
+    "@types/node": "20.12.4",
     "rimraf": "5.0.5",
-    "typescript": "5.4.3",
-    "vite": "5.2.6",
-    "vue-tsc": "1.8.27"
+    "typescript": "5.4.4",
+    "vite": "5.2.8",
+    "vue-tsc": "2.0.10"
   }
 }

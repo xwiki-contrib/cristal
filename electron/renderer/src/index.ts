@@ -24,6 +24,8 @@
  **/
 
 import { CristalAppLoader } from "@cristal/lib";
+import { ComponentInit } from "@cristal/electron-storage";
+import { Container } from "inversify";
 
 CristalAppLoader.init(
   [
@@ -39,4 +41,8 @@ CristalAppLoader.init(
   "./config.json",
   true,
   true,
+  "FileSystem",
+  (container: Container) => {
+    new ComponentInit(container);
+  },
 );
