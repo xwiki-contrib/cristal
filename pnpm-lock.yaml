@@ -109,8 +109,8 @@ importers:
         specifier: 1.11.0
         version: 1.11.0
       '@gouvminint/vue-dsfr':
-        specifier: 5.8.0
-        version: 5.8.0(oh-vue-icons@1.0.0-rc3)(vue-router@4.3.0)(vue@3.4.21)
+        specifier: 5.11.0
+        version: 5.11.0(oh-vue-icons@1.0.0-rc3)(vue-router@4.3.0)(vue@3.4.21)
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -1304,15 +1304,20 @@ packages:
     engines: {node: '>=18.16.1'}
     dev: false
 
-  /@gouvminint/vue-dsfr@5.8.0(oh-vue-icons@1.0.0-rc3)(vue-router@4.3.0)(vue@3.4.21):
-    resolution: {integrity: sha512-op14Tq3+iXLl8XU9dAwvhT/yvZu74nKABOSDsHTlq5KUyqBYOk7v2egGOVtnnM8w3u+UchCdGbys6a7nN3fUgQ==}
+  /@gouvfr/dsfr@1.11.2:
+    resolution: {integrity: sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==}
+    engines: {node: '>=18.16.1'}
+    dev: false
+
+  /@gouvminint/vue-dsfr@5.11.0(oh-vue-icons@1.0.0-rc3)(vue-router@4.3.0)(vue@3.4.21):
+    resolution: {integrity: sha512-D1Vm+tJAtKJlZq6NO2lNogSYKcv7J0fHv0WY1qV5XzynKZS3JtE6BsFYDzhocv15rg9pcImmvw7qLWUUx57EAw==}
     engines: {node: '>=18.x.x', npm: '>=8.x.x'}
     peerDependencies:
       oh-vue-icons: 1.0.0-rc3
-      vue: ^3.3.4
-      vue-router: ^4.2.4
+      vue: ^3.4.21
+      vue-router: ^4.3.0
     dependencies:
-      '@gouvfr/dsfr': 1.11.0
+      '@gouvfr/dsfr': 1.11.2
       focus-trap: 7.5.4
       focus-trap-vue: 4.0.3(focus-trap@7.5.4)(vue@3.4.21)
       oh-vue-icons: 1.0.0-rc3(vue@3.4.21)
