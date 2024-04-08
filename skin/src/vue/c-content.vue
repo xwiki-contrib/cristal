@@ -81,7 +81,7 @@ onUpdated(() => {
 });
 </script>
 <template>
-  <article id="content" ref="root">
+  <article id="content" class="content" ref="root">
     <UIX uixname="content.before" />
     <!-- Provide a target for the links listener, otherwise the links from other
     elements of the component can be wrongly captured. -->
@@ -152,19 +152,49 @@ onUpdated(() => {
       </x-menu>
           </div>
         </div>
-        <div id="xwikicontent" v-html="pageStatus.currentContent" />
+        <div class="content-scroll">
+          <div id="xwikicontent" v-html="pageStatus.currentContent" />
+      </div>
       </template>
     </div>
     <UIX uixname="content.after" />
   </article>
 </template>
 <style scoped>
+.content,
+.content-scroll {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-flow: column;
+  grid-area: content;
+}
+
+.content-scroll {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  overflow: auto;
+  height: 100%;
+  padding: 8px;
+}
+
+.content-scroll > div {
+  width: 100%;
+  max-width: 960px;
+}
+
 .content-header {
   padding: 4px;
   display: flex;
   align-items: center;
   flex-flow: row;
 }
+
 sl-breadcrumb {
   margin-right: auto;
 }

@@ -25,7 +25,8 @@
 <script lang="ts" setup>
 import CConfigMenu from "./c-config-menu.vue";
 import CSidebarPanel from "./c-sidebar-panel.vue";
-import xlogo from "../images/xwiki-logo-mono.svg";
+import CHelp from "./c-help.vue";
+import xlogo from "../images/xwiki-logo-color.svg";
 import { CIcon } from "@cristal/icons";
 const logo = xlogo;
 </script>
@@ -47,9 +48,55 @@ const logo = xlogo;
       <x-search></x-search>
     </div>
     <div class="panel-container">
-      <c-sidebar-panel></c-sidebar-panel>
-      <c-sidebar-panel></c-sidebar-panel>
-      <c-sidebar-panel></c-sidebar-panel>
+      <!-- Navigation example, the sl-tree component should be generalized by a equivalent component in Cristal DS.
+      Item 4 have many items to help test the overflowing characteristics of the sidebar. -->
+      <c-sidebar-panel name="Wiki Name">
+        <sl-tree class="tree-selectable">
+          <sl-tree-item>
+            Item 1
+            <sl-tree-item>
+              Item A
+              <sl-tree-item>Item Z</sl-tree-item>
+              <sl-tree-item>Item Y</sl-tree-item>
+              <sl-tree-item>Item X</sl-tree-item>
+            </sl-tree-item>
+            <sl-tree-item>Item B</sl-tree-item>
+            <sl-tree-item>Item C</sl-tree-item>
+          </sl-tree-item>
+          <sl-tree-item>Item 2</sl-tree-item>
+          <sl-tree-item>Item 3</sl-tree-item>
+          <sl-tree-item>
+            Item 4
+            <sl-tree-item>
+              Item A
+              <sl-tree-item>Item Z</sl-tree-item>
+              <sl-tree-item>Item Y</sl-tree-item>
+              <sl-tree-item>Item X</sl-tree-item>
+              <sl-tree-item>Item Z</sl-tree-item>
+              <sl-tree-item>Item Y</sl-tree-item>
+              <sl-tree-item>Item X</sl-tree-item>
+              <sl-tree-item>Item Z</sl-tree-item>
+              <sl-tree-item>Item Y</sl-tree-item>
+              <sl-tree-item>Item X</sl-tree-item>
+              <sl-tree-item>Item Z</sl-tree-item>
+              <sl-tree-item>Item Y</sl-tree-item>
+              <sl-tree-item>Item X</sl-tree-item>
+              <sl-tree-item>Item Z</sl-tree-item>
+              <sl-tree-item>Item Y</sl-tree-item>
+              <sl-tree-item>Item X</sl-tree-item>
+              <sl-tree-item>Item Z</sl-tree-item>
+              <sl-tree-item>Item Y</sl-tree-item>
+              <sl-tree-item>Item X</sl-tree-item>
+            </sl-tree-item>
+            <sl-tree-item>Item B</sl-tree-item>
+            <sl-tree-item>Item C</sl-tree-item>
+          </sl-tree-item>
+          <sl-tree-item>Item 5</sl-tree-item>
+          <sl-tree-item>Item 6</sl-tree-item>
+        </sl-tree>
+      </c-sidebar-panel>
+      <c-sidebar-panel name="Applications"></c-sidebar-panel>
+
 
       <!--    <CTemplate name="panel" panel-name="Help.TipsPanel.WebHome" />-->
       <!--    <CTemplate name="panel" panel-name="Panels.Applications" />-->
@@ -57,20 +104,25 @@ const logo = xlogo;
       <!--    <CTemplate name="panel" panel-name="Sandbox.TestPanel" />-->
       <UIX uixname="sidebar.after" />
     </div>
+    <c-help></c-help>
   </x-navigation-drawer>
 </template>
 <style scoped>
 .left-sidebar {
+  grid-area: sidebar;
   display: flex;
   flex-flow: column;
   gap: 16px;
   overflow: hidden;
+  border-right: 1px solid var(--cr-color-neutral-200);
+  box-shadow: var(--cr-shadow-large);
 }
 .panel-container {
   display: flex;
   flex-flow: column;
+  height: 100%;
   gap: 8px;
-  padding: 8px;
+  padding: 0 8px;
   overflow: auto;
 }
 .search {
@@ -81,7 +133,7 @@ const logo = xlogo;
   flex-flow: row;
   align-items: center;
   gap: 4px;
-  padding: 8px;
+  padding: 8px 8px 0;
 }
 sl-avatar {
   --size: 2rem;
@@ -91,7 +143,7 @@ sl-avatar {
   display: flex;
   flex-flow: row;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
 }
 .left {
   margin-right: auto;

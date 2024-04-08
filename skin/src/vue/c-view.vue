@@ -24,6 +24,7 @@
 -->
 <script lang="ts" setup>
 import CTemplate from "./c-template.vue";
+import CRightSidebar from "./c-right-sidebar.vue";
 </script>
 <template>
   <x-layout>
@@ -31,20 +32,16 @@ import CTemplate from "./c-template.vue";
       <UIX uixname="view.before" />
       <!-- TODO CRISTAL-165: The collapsed sidebar appears when the user click on the bars icon besides the logo. Click it again on THIS component should return the sidebar visible. 
         This version is also shown when the layout enters in mobile mode, in this mode when the users click the button a temporary sidebar should appear over the content-->
-      <div class="collapsed-sidebar">|||</div>
+      <div class="collapsed-sidebar">
+        <c-icon name="list"></c-icon>
+      </div>
 
       <CTemplate name="sidebar" />
       <CTemplate name="header" />
       <CTemplate name="main" />
-      
-      <!-- TODO CRISTAL-165: Eventually we will need a right sidebar-->
-      <div class="right-sidebar">
-        <div style="height: 9999px;">
-          <p>If this element (.right-sidebar) is removed from the page, the layout should adapt automatically.</p>
-          <p>The size here is exagerated to test the overflow mechanics (scrolling)</p>
 
-        </div>
-      </div>
+      <!-- TODO CRISTAL-165: Eventually we will need a right sidebar-->
+      <c-right-sidebar></c-right-sidebar>
 
       <UIX uixname="view.after" />
     </div>
@@ -53,7 +50,18 @@ import CTemplate from "./c-template.vue";
 <style scoped>
 .collapsed-sidebar {
   display: none;
-  background: var(--sl-color-gray-100);
+  background: var(--cr-color-neutral-100);
   grid-area: collapsed-sidebar;
+}
+.wrapper {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-template-areas: "sidebar content";
+}
+
+.wrapper:has(.right-sidebar) {
+  grid-template-columns: 300px 1fr 250px;
+  grid-template-areas: "sidebar content right-sidebar";
 }
 </style>

@@ -25,6 +25,7 @@
 <script lang="ts">
 import { CTemplate } from "@cristal/skin";
 import { defineComponent } from "vue";
+import "./index.css";
 
 export default defineComponent({
   components: {
@@ -40,63 +41,14 @@ export default defineComponent({
 <style scoped>
 :global(html),
 :global(body),
-:global(#app),
-:global(main),
-:global(#content),
-:global(#xwikicontent) {
+:global(#app) {
   height: 100vh;
-  overflow: hidden; 
+  overflow: hidden;
   position: relative;
 }
 
-/* TODO CRISTAL-165: this rule !important should be removed when reorganizing the css as the comment above instructs. */
 :global(html) {
-  overflow: hidden !important;
-}
-:global(#xwikicontent) {
-  overflow: auto;
-}
-:global(.wrapper) {
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  grid-template-areas: "sidebar content";
-}
-
-:global(.wrapper:has(.right-sidebar)) {
-  grid-template-columns: 250px 1fr 250px;
-  grid-template-areas: "sidebar content right-sidebar";
-}
-/* TODO CRISTAL-165: move this to shoelace component scoped styles*/
-:global(.right-sidebar) {
-  background-color: var(--sl-color-gray-100);
-  padding: 8px;
-  overflow: auto;
-}
-:global(#content) {
-  display: flex;
-  flex-flow: column;
-  grid-area: content;  
-}
-:global(#xwikicontent) {
-  overflow: auto;
-  height: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-:global(#header) {
-  grid-area: header;
-}
-
-
-:global(#sidebar) {
-  grid-area: sidebar;
-}
-
-:global(footer) {
-  grid-area: footer;
-  background-color: #005ed8;
+  overflow: hidden;
 }
 @media (max-width: 500px) {
   /* TODO CRISTAL-165: all of these !important declarations should be unecessary when the CSS structure is refactored */

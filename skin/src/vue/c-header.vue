@@ -30,7 +30,7 @@ const logo = xlogo;
 </script>
 
 <template>
-  <x-app-bar id="header" v-if="false">
+  <x-app-bar id="header" class="header" v-if="false">
     <UIX uixname="header.before" />
     <x-container class="pa-0 ma-0" fluid>
       <x-row align="start" no-gutters>
@@ -56,3 +56,9 @@ const logo = xlogo;
     <UIX uixname="header.after" />
   </x-app-bar>
 </template>
+
+<style scoped>
+.header {
+  grid-area: header;
+}
+</style>
