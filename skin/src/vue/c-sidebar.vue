@@ -97,7 +97,6 @@ const logo = xlogo;
       </c-sidebar-panel>
       <c-sidebar-panel name="Applications"></c-sidebar-panel>
 
-
       <!--    <CTemplate name="panel" panel-name="Help.TipsPanel.WebHome" />-->
       <!--    <CTemplate name="panel" panel-name="Panels.Applications" />-->
       <!--    <CTemplate name="panel" panel-name="Panels.Navigation" />-->

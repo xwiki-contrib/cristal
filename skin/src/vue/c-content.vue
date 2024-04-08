@@ -81,7 +81,7 @@ onUpdated(() => {
 });
 </script>
 <template>
-  <article id="content" class="content" ref="root">
+  <article id="content" ref="root" class="content">
     <UIX uixname="content.before" />
     <!-- Provide a target for the links listener, otherwise the links from other
     elements of the component can be wrongly captured. -->
@@ -149,12 +149,12 @@ onUpdated(() => {
                   </router-link>
                 </x-menu-item>
               </template>
-      </x-menu>
+            </x-menu>
           </div>
         </div>
         <div class="content-scroll">
           <div id="xwikicontent" v-html="pageStatus.currentContent" />
-      </div>
+        </div>
       </template>
     </div>
     <UIX uixname="content.after" />

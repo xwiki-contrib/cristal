@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { CIcon } from "@cristal/icons";
 
-defineProps(['name'])
+defineProps<{
+  name: string;
+}>();
 </script>
 <template>
   <div class="c-sidebar-panel">
