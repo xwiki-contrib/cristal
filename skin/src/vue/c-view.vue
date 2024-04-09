@@ -56,12 +56,12 @@ import CRightSidebar from "./c-right-sidebar.vue";
 .wrapper {
   height: 100vh;
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 250px 1fr;
   grid-template-areas: "sidebar content";
 }
 
 .wrapper:has(.right-sidebar) {
-  grid-template-columns: 300px 1fr 250px;
+  grid-template-columns: 250px 1fr 250px;
   grid-template-areas: "sidebar content right-sidebar";
 }
 </style>

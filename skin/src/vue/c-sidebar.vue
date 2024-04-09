@@ -34,15 +34,11 @@ const logo = xlogo;
   <x-navigation-drawer id="sidebar" class="left-sidebar">
     <UIX uixname="sidebar.before" />
     <div class="sidebar-header">
-      <div class="left">
-        <c-icon name="list"></c-icon>
-        <x-img :src="logo" />
-      </div>
-      <div class="right">
-        <c-icon name="bell"></c-icon>
-        <c-config-menu></c-config-menu>
-        <x-avatar class="avatar"></x-avatar>
-      </div>
+      <c-icon name="list"></c-icon>
+      <x-img class="logo" :src="logo" />
+      <c-icon name="bell"></c-icon>
+      <c-config-menu></c-config-menu>
+      <x-avatar class="avatar"></x-avatar>
     </div>
     <div class="search">
       <x-search></x-search>
@@ -129,25 +125,16 @@ const logo = xlogo;
 }
 .sidebar-header {
   display: flex;
+  flex-wrap: wrap;
   flex-flow: row;
   align-items: center;
-  gap: var(--cr-spacing-2x-small);
-  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small) 0;
+  gap: var(--cr-spacing-x-small);
+  padding: var(--cr-spacing-small) var(--cr-spacing-x-small) 0;
 }
 sl-avatar {
   --size: 2rem;
 }
-.right {
-  margin-left: auto;
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  gap: var(--cr-spacing-small);
-}
-.left {
+.logo {
   margin-right: auto;
-  display: flex;
-  flex-flow: row;
-  gap: var(--cr-spacing-2x-small);
 }
 </style>
