@@ -111,7 +111,7 @@ const logo = xlogo;
   grid-area: sidebar;
   display: flex;
   flex-flow: column;
-  gap: 16px;
+  gap: var(--cr-spacing-medium);
   overflow: hidden;
   border-right: 1px solid var(--cr-color-neutral-200);
   box-shadow: var(--cr-shadow-large);
@@ -120,19 +120,19 @@ const logo = xlogo;
   display: flex;
   flex-flow: column;
   height: 100%;
-  gap: 8px;
-  padding: 0 8px;
+  gap: var(--cr-spacing-x-small);
+  padding: 0 var(--cr-spacing-x-small);
   overflow: auto;
 }
 .search {
-  padding: 0 8px;
+  padding: 0 var(--cr-spacing-x-small);
 }
 .sidebar-header {
   display: flex;
   flex-flow: row;
   align-items: center;
-  gap: 4px;
-  padding: 8px 8px 0;
+  gap: var(--cr-spacing-2x-small);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small) 0;
 }
 sl-avatar {
   --size: 2rem;
@@ -142,12 +142,12 @@ sl-avatar {
   display: flex;
   flex-flow: row;
   align-items: center;
-  gap: 12px;
+  gap: var(--cr-spacing-small);
 }
 .left {
   margin-right: auto;
   display: flex;
   flex-flow: row;
-  gap: 4px;
+  gap: var(--cr-spacing-2x-small);
 }
 </style>

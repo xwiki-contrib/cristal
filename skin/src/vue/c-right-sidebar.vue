@@ -14,8 +14,8 @@
 </template>
 <style scoped>
 .right-sidebar {
-  background: var(--cr-color-neutral-100);
-  padding: 8px;
+  padding: var(--cr-spacing-x-small);
   overflow: auto;
+  border-left: 1px solid var(--cr-color-neutral-200);
 }
 </style>

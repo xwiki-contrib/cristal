@@ -11,6 +11,6 @@ import { CIcon } from "@cristal/icons";
 
 <style scoped>
 .help-button {
-  padding: 0 8px 8px;
+  padding: 0 var(--cr-spacing-x-small) var(--cr-spacing-x-small);
 }
 </style>

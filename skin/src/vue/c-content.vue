@@ -96,7 +96,11 @@ onUpdated(() => {
       <template v-else>
         <!-- eslint-disable vue/no-v-html -->
         <div class="content-header">
-          <XBreadcrumb></XBreadcrumb>
+          <XBreadcrumb class="breadcrumb"></XBreadcrumb>
+          <x-btn circle size="small" variant="primary">
+            <!--TODO: the sl-icon component doesn't seem to be working https://shoelace.style/components/button#circle-buttons-->
+            <sl-icon name="plus" label="Create a new document"></sl-icon
+          ></x-btn>
           <div class="pagemenu">
             <x-menu title="Edit">
               <template #activator="{ props }">
@@ -180,24 +184,22 @@ onUpdated(() => {
   align-items: center;
   overflow: auto;
   height: 100%;
-  padding: 8px;
+  padding: var(--cr-spacing-x-small);
 }
 
 .content-scroll > div {
   width: 100%;
-  max-width: 960px;
+  max-width: 960px; /*TODO: This value needs to be dynamic*/
 }
 
 .content-header {
-  padding: 4px;
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-medium);
   display: flex;
+  gap: var(--cr-spacing-medium);
   align-items: center;
   flex-flow: row;
 }
 
-sl-breadcrumb {
-  margin-right: auto;
-}
 .inner-content {
   display: flex;
   flex-flow: column;
