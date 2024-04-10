@@ -32,9 +32,7 @@ import CRightSidebar from "./c-right-sidebar.vue";
       <UIX uixname="view.before" />
       <!-- TODO CRISTAL-165: The collapsed sidebar appears when the user click on the bars icon besides the logo. Click it again on THIS component should return the sidebar visible. 
         This version is also shown when the layout enters in mobile mode, in this mode when the users click the button a temporary sidebar should appear over the content-->
-      <div class="collapsed-sidebar">
-        <c-icon name="list"></c-icon>
-      </div>
+
 
       <CTemplate name="sidebar" />
       <CTemplate name="header" />
@@ -48,11 +46,7 @@ import CRightSidebar from "./c-right-sidebar.vue";
   </x-layout>
 </template>
 <style scoped>
-.collapsed-sidebar {
-  display: none;
-  background: var(--cr-color-neutral-100);
-  grid-area: collapsed-sidebar;
-}
+
 .wrapper {
   height: 100vh;
   display: grid;

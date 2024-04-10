@@ -31,6 +31,9 @@ import { CIcon } from "@cristal/icons";
 const logo = xlogo;
 </script>
 <template>
+  <div class="collapsed-sidebar">
+    <c-icon name="list"></c-icon>
+  </div>
   <x-navigation-drawer id="sidebar" class="left-sidebar">
     <UIX uixname="sidebar.before" />
     <div class="sidebar-header">
@@ -137,4 +140,11 @@ sl-avatar {
 .logo {
   margin-right: auto;
 }
+
+.collapsed-sidebar {
+  display: none;
+  background: var(--cr-color-neutral-100);
+  grid-area: collapsed-sidebar;
+}
+
 </style>

@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <span :class="`bi-${name} ${size}`"></span>
+  <span :class="`cr-icon bi-${name} ${size}`"></span>
 </template>
 
 <style scoped>

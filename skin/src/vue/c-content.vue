@@ -27,6 +27,7 @@ import CTemplate from "./c-template.vue";
 import { inject, onMounted, onUpdated, ref } from "vue";
 import type { CristalApp, Logger } from "@cristal/api";
 import { ContentTools } from "./contentTools";
+import { CIcon } from "@cristal/icons";
 
 const root = ref(null);
 const content = ref(null);
@@ -157,6 +158,128 @@ onUpdated(() => {
           </div>
         </div>
         <div class="content-scroll">
+          <div class="mock-content">
+            <div class="doc-header">
+              <h1 class="document-title">Document Title</h1>
+              <div class="doc-info-header">
+                <x-avatar class="avatar"></x-avatar>
+                <span class="doc-info-user-info">
+                  User Name edited on 12/12/2024 at 12:00
+                </span>
+                <div class="doc-info-actions">
+                  <div class="info-action like">
+                    <c-icon name="heart"></c-icon>
+                    <span class="counter">99</span>
+                  </div>
+                  <div class="info-action comments">
+                    <c-icon name="chat"></c-icon>
+                    <span class="counter">99</span>
+                  </div>
+                  <div class="info-action attachments">
+                    <c-icon name="paperclip"></c-icon>
+                    <span class="counter">99</span>
+                  </div>
+                </div>
+              </div>
+              <div class="editor-toolbar">
+                <c-icon name="arrow-counterclockwise"></c-icon>
+                <c-icon name="arrow-clockwise"></c-icon>
+                <c-icon name="type-bold"></c-icon>
+                <c-icon name="type-italic"></c-icon>
+                <c-icon name="type-strikethrough"></c-icon>
+                <c-icon name="list-ul"></c-icon>
+                <c-icon name="list-ol"></c-icon>
+                <c-icon name="quote"></c-icon>
+              </div>
+            </div>
+            <div class="document-content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute in
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                irure dolor in reprehenderit in voluptate velit esse cillum
+                dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla
+                pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+                in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
+            <div class="doc-info-footer">
+              <x-avatar class="avatar"></x-avatar>
+              <span class="doc-info-user-info">User name created...</span>
+            </div>
+          </div>
+          <hr />
           <div id="xwikicontent" v-html="pageStatus.currentContent" />
         </div>
       </template>
@@ -165,6 +288,92 @@ onUpdated(() => {
   </article>
 </template>
 <style scoped>
+.mock-content {
+  display: flex;
+  flex-flow: column;
+  gap: var(--cr-spacing-medium);
+}
+.doc-header {
+  display: flex;
+  flex-flow: column;
+  gap: var(--cr-spacing-x-small);
+}
+
+.document-title {
+  margin: 0;
+}
+
+.counter {
+  background-color: var(--cr-color-primary-600);
+  font-weight: var(--cr-font-weight-semibold);
+  font-size: var(--cr-font-size-x-small);
+  line-height: var(--cr-font-size-2x-small);
+  border-radius: 99px;
+  color: #fff;
+  flex-shrink: 1;
+  flex-grow: 0;
+  display: block;
+  padding: var(--cr-spacing-2x-small) var(--cr-spacing-x-small);
+}
+
+.doc-info-actions {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  gap: var(--cr-spacing-2x-small);
+}
+
+.cr-icon {
+  display: block;
+  font-size: var(--cr-font-size-medium);
+  flex-grow: 0;
+  flex-shrink: 1;
+  line-height: var(--cr-font-size-medium);
+}
+
+.info-action {
+  display: flex;
+  background-color: var(--cr-color-neutral-100);
+  border-radius: 99px;
+  padding: var(--cr-spacing-2x-small) var(--cr-spacing-x-small);
+  font-size: var(--cr-font-size-medium);
+  flex-flow: row;
+  gap: var(--cr-spacing-2x-small);
+  align-items: center;
+}
+
+.doc-info-header,
+.doc-info-footer {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cr-spacing-small);
+}
+
+.doc-info-user-info {
+  color: var(--cr-color-neutral-500);
+  font-size: var(--cr-font-size-small);
+  margin-right: auto;
+}
+
+sl-avatar {
+  --size: 24px;
+}
+
+.editor-toolbar {
+  border-radius: var(--cr-input-border-radius-large);
+  background-color: var(--cr-color-neutral-100);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-small);
+  display: flex;
+  gap: var(--cr-spacing-small);
+  flex-wrap: wrap;
+}
+
+.editor-toolbar .cr-icon {
+  font-size: var(--cr-font-size-large);
+}
+
 .content,
 .content-scroll {
   height: 100vh;
@@ -195,6 +404,7 @@ onUpdated(() => {
 .content-header {
   padding: var(--cr-spacing-x-small) var(--cr-spacing-medium);
   display: flex;
+  flex-wrap: wrap;
   gap: var(--cr-spacing-medium);
   align-items: center;
   flex-flow: row;

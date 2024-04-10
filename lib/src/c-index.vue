@@ -45,12 +45,13 @@ export default defineComponent({
   height: 100vh;
   overflow: hidden;
   position: relative;
+  font-family: unset;
 }
 
 :global(html) {
   overflow: hidden;
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   /* TODO CRISTAL-165: all of these !important declarations should be unecessary when the CSS structure is refactored */
   :global(.wrapper) {
     grid-template-columns: 24px 1fr !important;
