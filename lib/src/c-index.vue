@@ -45,7 +45,11 @@ export default defineComponent({
   height: 100vh;
   overflow: hidden;
   position: relative;
-  font-family: unset;
+  font: var(--cr-base-font-size) var(--cr-font-sans);
+  font-weight: var(--cr-font-weight-normal);
+  line-height: var(--cr-line-height-normal);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 :global(html) {
