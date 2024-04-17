@@ -235,33 +235,6 @@ onUpdated(() => {
   --size: 24px;
 }
 
-:global(.content),
-:global(.content-scroll) {
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-
-:global(.content) {
-  display: flex;
-  flex-flow: column;
-  grid-area: content;
-}
-
-:global(.content-scroll) {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  overflow: auto;
-  height: 100%;
-  padding: var(--cr-spacing-x-small);
-}
-
-:global(.content-scroll > div) {
-  width: 100%;
-  max-width: 960px; /*TODO: This value needs to be dynamic*/
-}
-
 .content-header {
   padding: var(--cr-spacing-x-small) var(--cr-spacing-medium);
   display: flex;

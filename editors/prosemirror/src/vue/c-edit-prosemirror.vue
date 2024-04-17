@@ -135,24 +135,35 @@ const submit = async () => {
       <div class="content-scroll">
         <div class="whole-content">
           <div ref="editor" class="document-content editor"></div>
-          <form class="pagemenu" @submit="submit">
-            <router-link :to="viewRouterParams">
-              <x-btn>Cancel</x-btn>
-            </router-link>
-            <x-btn @click="submit">Save</x-btn>
-          </form>
         </div>
       </div>
+      <form class="pagemenu" @submit="submit">
+        <x-btn size="small" variant="primary" @click="submit">Save</x-btn>
+        <router-link :to="viewRouterParams">
+          <x-btn size="small">Cancel</x-btn>
+        </router-link>
+      </form>
     </div>
   </div>
 </template>
 
 <style scoped>
-.editor {
-  max-width: 800px;
-  margin: auto;
+.pagemenu {
+  display: flex;
+  flex-flow: row;
+  gap: var(--cr-spacing-x-small);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);
+  background: var(--cr-color-neutral-100);
+  width: var(--cr-spacing-max-page);
+  margin: var(--cr-spacing-x-small) auto;
+  border-radius: var(--cr-input-border-radius-medium);
 }
-
+:global(.ProseMirror-menubar) {
+  border-radius: var(--cr-input-border-radius-medium);
+  border-bottom: none;
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);
+  background: var(--cr-color-neutral-100);
+}
 /*
 TODO: should be moved to a css specific to the empty line placeholder plugin.
  */
@@ -162,13 +173,4 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   height: 0;
   content: attr(data-empty-text);
 }
-
-/*TODO: remove duplication with c-content*/
-
-.whole-content {
-  display: flex;
-  flex-flow: column;
-  gap: var(--cr-spacing-medium);
-}
-
 </style>

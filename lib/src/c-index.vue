@@ -55,6 +55,34 @@ export default defineComponent({
 :global(html) {
   overflow: hidden;
 }
+
+:global(.content),
+:global(.content-scroll) {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+:global(.content) {
+  display: flex;
+  flex-flow: column;
+  grid-area: content;
+}
+
+:global(.content-scroll) {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  overflow: auto;
+  height: 100%;
+  padding: var(--cr-spacing-x-small);
+}
+
+:global(.content-scroll > div) {
+  width: 100%;
+  width: var(--cr-spacing-max-page) /*TODO: This value needs to be dynamic*/
+}
+
 @media (max-width: 600px) {
   /* TODO CRISTAL-165: all of these !important declarations should be unecessary when the CSS structure is refactored */
   :global(.wrapper) {
