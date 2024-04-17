@@ -80,7 +80,7 @@ export default defineComponent({
 
 :global(.content-scroll > div) {
   width: 100%;
-  width: var(--cr-spacing-max-page) /*TODO: This value needs to be dynamic*/
+  max-width: var(--cr-spacing-max-page-width) /*TODO: This value needs to be dynamic*/
 }
 
 @media (max-width: 600px) {

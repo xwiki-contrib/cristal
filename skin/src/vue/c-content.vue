@@ -123,7 +123,9 @@ onUpdated(() => {
               params: { page: currentPageName },
             }"
           >
-            <c-icon name="pencil-fill"></c-icon>
+            <x-btn size="small" variant="default">
+              <c-icon name="pencil-fill" class="small"></c-icon> Edit Page
+            </x-btn>
           </router-link>
         </div>
       </div>
@@ -169,6 +171,9 @@ onUpdated(() => {
   </article>
 </template>
 <style scoped>
+.edit-icon {
+  font-size: 14px;
+}
 .whole-content {
   display: flex;
   flex-flow: column;
