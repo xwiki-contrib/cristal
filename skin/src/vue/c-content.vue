@@ -235,20 +235,20 @@ onUpdated(() => {
   --size: 24px;
 }
 
-.content,
-.content-scroll {
+:global(.content),
+:global(.content-scroll) {
   height: 100vh;
   overflow: hidden;
   position: relative;
 }
 
-.content {
+:global(.content) {
   display: flex;
   flex-flow: column;
   grid-area: content;
 }
 
-.content-scroll {
+:global(.content-scroll) {
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -257,7 +257,7 @@ onUpdated(() => {
   padding: var(--cr-spacing-x-small);
 }
 
-.content-scroll > div {
+:global(.content-scroll > div) {
   width: 100%;
   max-width: 960px; /*TODO: This value needs to be dynamic*/
 }
