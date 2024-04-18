@@ -36,7 +36,7 @@ import { useRoute } from "vue-router";
 import { type CristalApp, PageData } from "@cristal/api";
 import { marked } from "marked";
 import { ContentTools } from "./contentTools";
-import { CIcon, Size  } from "@cristal/icons";
+import { CIcon, Size } from "@cristal/icons";
 
 const route = useRoute();
 
@@ -45,7 +45,7 @@ const error: Ref<Error | undefined> = ref(undefined);
 const currentPage: Ref<PageData | undefined> = ref(undefined);
 const currentPageName: ComputedRef<string> = computed(() => {
   // TODO: define a proper abstraction.
-  return cristal?.getCurrentPage() || "XWiki.Main";
+  return (route.params.page as string) || "XWiki.Main";
 });
 
 const contentRoot = ref(undefined);
@@ -131,7 +131,6 @@ onUpdated(() => {
               <span class="doc-info-user-info">
                 User Name edited on 12/12/2024 at 12:00
               </span>
-
               <div class="doc-info-actions">
                 <div class="info-action like">
                   <c-icon name="heart" :size="Size.Small"></c-icon>
@@ -159,7 +158,10 @@ onUpdated(() => {
                   </x-btn>
                 </router-link>
                 <x-btn size="small" variant="default">
-                  <c-icon name="three-dots-vertical" :size="Size.Small"></c-icon>
+                  <c-icon
+                    name="three-dots-vertical"
+                    :size="Size.Small"
+                  ></c-icon>
                 </x-btn>
               </div>
             </div>
@@ -188,15 +190,18 @@ onUpdated(() => {
   align-items: center;
   justify-content: center;
 }
+
 .content-loading svg {
   width: 64px;
   height: 64px;
 }
+
 .content-loading h3 {
   padding: 0;
   margin: 0;
   color: var(--cr-color-neutral-500);
 }
+
 .edit-icon {
   font-size: 14px;
 }
@@ -247,9 +252,11 @@ onUpdated(() => {
   align-items: center;
   gap: var(--cr-spacing-2x-small);
 }
+
 .doc-info-actions {
   margin-right: var(--cr-spacing-medium);
 }
+
 .info-action {
   display: flex;
   background-color: var(--cr-color-neutral-100);
@@ -260,6 +267,7 @@ onUpdated(() => {
   gap: var(--cr-spacing-2x-small);
   align-items: center;
 }
+
 .info-action .cr-icon {
   line-height: 1.3rem;
 }
