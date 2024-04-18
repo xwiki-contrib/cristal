@@ -120,7 +120,6 @@ onUpdated(() => {
             label="Create a new document"
           ></c-icon>
         </x-btn>
-
       </div>
       <div class="content-scroll">
         <div class="whole-content">
@@ -131,6 +130,7 @@ onUpdated(() => {
               <span class="doc-info-user-info">
                 User Name edited on 12/12/2024 at 12:00
               </span>
+
               <div class="doc-info-actions">
                 <div class="info-action like">
                   <c-icon name="heart" class="small"></c-icon>
@@ -144,18 +144,22 @@ onUpdated(() => {
                   <c-icon name="paperclip" class="small"></c-icon>
                   <span class="counter">99</span>
                 </div>
-                <div class="pagemenu">
-                  <router-link
-                    :to="{
-                      name: 'edit',
-                      params: { page: currentPageName },
-                    }"
-                  >
-                    <x-btn size="small" variant="default" circle>
-                      <c-icon name="pencil" class="small"></c-icon>
-                    </x-btn>
-                  </router-link>
-                </div>
+              </div>
+              <div class="doc-page-actions">
+                <router-link
+                  :to="{
+                    name: 'edit',
+                    params: { page: currentPageName },
+                  }"
+                >
+                  <x-btn size="small" variant="default">
+                    <c-icon name="pencil" class="small"></c-icon>
+                    Edit
+                  </x-btn>
+                </router-link>
+                <x-btn size="small" variant="default">
+                  <c-icon name="three-dots-vertical" class="small"></c-icon>
+                </x-btn>
               </div>
             </div>
           </div>
@@ -194,6 +198,9 @@ onUpdated(() => {
   display: flex;
   flex-flow: column;
   gap: var(--cr-spacing-x-small);
+  position: sticky;
+  top: calc(var(--cr-spacing-small) * -1);
+  background: white;
 }
 
 .document-title {
@@ -215,14 +222,17 @@ onUpdated(() => {
   padding: var(--cr-spacing-2x-small) var(--cr-spacing-x-small);
 }
 
-.doc-info-actions {
+.doc-info-actions,
+.doc-page-actions {
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
   align-items: center;
   gap: var(--cr-spacing-2x-small);
 }
-
+.doc-info-actions {
+  margin-right: var(--cr-spacing-medium);
+}
 .info-action {
   display: flex;
   background-color: var(--cr-color-neutral-100);
