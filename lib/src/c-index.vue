@@ -38,6 +38,4 @@ export default defineComponent({
   <CTemplate name="view" />
 </template>
 <!-- TODO CRISTAL-165: these styles need to me moved to a generic CSS that loads last in the main template-->
-<style scoped>
-
-</style>
+<style scoped></style>
