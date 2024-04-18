@@ -1,4 +1,3 @@
-
 /**
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -24,141 +23,172 @@
  *
  **/
 html,
- body,
- #app {
-   height: 100dvh;
-   overflow: hidden;
-   position: relative;
-   font: var(--cr-base-font-size) var(--cr-font-sans);
-   font-weight: var(--cr-font-weight-normal);
-   line-height: var(--cr-line-height-normal);
-   -moz-osx-font-smoothing: grayscale;
-   -webkit-font-smoothing: antialiased;
- }
- 
- html {
-   overflow: hidden;
- }
- 
- .content,
- .content-scroll {
-   height: 100dvh;
-   overflow: hidden;
-   position: relative;
- }
- 
- .content {
-   display: flex;
-   flex-flow: column;
-   grid-area: content;
- }
- 
- .content-scroll {
-   display: flex;
-   flex-flow: column;
-   align-items: center;
-   overflow: auto;
-   height: 100%;
-   padding: var(--cr-spacing-x-small);
- }
- 
- .content-scroll > div {
-   width: 100%;
-   max-width: var(--cr-sizes-max-page-width); /*TODO: This value needs to be dynamic*/
- }
- 
- main {
-    height: 100dvh;
-    overflow: hidden;
-    position: fixed;
-    left: var(--cr-sizes-left-sidebar-width);
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    transition: var(--cr-transition-medium) left ease-in-out;
-  }
-  .left-sidebar {
-    width: var(--cr-sizes-left-sidebar-width);
-    background-color: var(--cr-color-neutral-100);
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-flow: column;
-    gap: var(--cr-spacing-medium);
-    overflow: hidden;
-    border-right: 1px solid var(--cr-color-neutral-200);
-    box-shadow: var(--cr-shadow-large);
-    transition: var(--cr-transition-medium) translate ease-in-out;
-    z-index: 3;
-  }
-
-  
-  /*
-  TODO: these rules about opening and closing the sidebar should be better organized and described 
-  */
-
-  
-.close-sidebar {display:none}
-.pin-sidebar {display:none}
-
-.wrapper .sidebar-collapse-controls {display:none}
-.wrapper.sidebar-is-collapsed #sidebar{
-    translate: -100%;
+body,
+#app {
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+  font: var(--cr-base-font-size) var(--cr-font-sans);
+  font-weight: var(--cr-font-weight-normal);
+  line-height: var(--cr-line-height-normal);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
+
+html {
+  overflow: hidden;
+}
+
+.content,
+.content-scroll {
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+.content {
+  display: flex;
+  flex-flow: column;
+  grid-area: content;
+}
+
+.content-scroll {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  overflow: auto;
+  height: 100%;
+  padding: var(--cr-spacing-x-small);
+}
+
+.content-scroll > div {
+  width: 100%;
+  max-width: var(--cr-sizes-max-page-width); /*TODO: This value needs to be dynamic*/
+}
+
+main {
+  height: 100dvh;
+  overflow: hidden;
+  position: fixed;
+  left: var(--cr-sizes-left-sidebar-width);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  transition: var(--cr-transition-medium) left ease-in-out;
+}
+
+.left-sidebar {
+  width: var(--cr-sizes-left-sidebar-width);
+  background-color: var(--cr-color-neutral-100);
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: column;
+  gap: var(--cr-spacing-medium);
+  overflow: hidden;
+  border-right: 1px solid var(--cr-color-neutral-200);
+  box-shadow: var(--cr-shadow-large);
+  transition: var(--cr-transition-medium) translate ease-in-out;
+  z-index: 3;
+}
+
+
+/*
+TODO: these rules about opening and closing the sidebar should be better organized and described
+*/
+
+
+.close-sidebar {
+  display: none
+}
+
+.pin-sidebar {
+  display: none
+}
+
+.wrapper .sidebar-collapse-controls {
+  display: none
+}
+
+.wrapper.sidebar-is-collapsed #sidebar {
+  translate: -100%;
+}
+
 .wrapper.sidebar-is-collapsed main {
-    left: var(--cr-sizes-collapsed-sidebar-width);
+  left: var(--cr-sizes-collapsed-sidebar-width);
 }
 
 .wrapper.sidebar-is-collapsed .sidebar-collapse-controls {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    padding: var(--cr-spacing-2x-small);
-  }
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  padding: var(--cr-spacing-2x-small);
+}
 
-.wrapper.sidebar-is-collapsed .hide-sidebar {display:none;}
-.wrapper.sidebar-is-collapsed .pin-sidebar {display:block}
-.wrapper.sidebar-is-collapsed .close-sidebar {display:block}
+.wrapper.sidebar-is-collapsed .hide-sidebar {
+  display: none;
+}
+
+.wrapper.sidebar-is-collapsed .pin-sidebar {
+  display: block
+}
+
+.wrapper.sidebar-is-collapsed .close-sidebar {
+  display: block
+}
 
 .collapsed-sidebar {
-    background: var(--cr-color-neutral-100);
-    width: var(--cr-sizes-collapsed-sidebar-width);
-    position: fixed;
-    translate: -100%;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-  }
+  background: var(--cr-color-neutral-100);
+  width: var(--cr-sizes-collapsed-sidebar-width);
+  position: fixed;
+  translate: -100%;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
 
 
 .wrapper.sidebar-is-collapsed .collapsed-sidebar {
-    translate:0 ;
+  translate: 0;
 }
 
 .wrapper.sidebar-is-collapsed #sidebar.is-visible {
-    translate: 0
+  translate: 0
 }
 
- @media (max-width: 600px) {
- 
-   .collapsed-sidebar {
-     translate: 0;     
-   }
-   .left-sidebar {
-     translate: -100%;     
-   }
-   .is-visible {
-     translate: 0;
-   }
-   main {
-     left: var(--cr-sizes-collapsed-sidebar-width);
-   }
-   .hide-sidebar {display:none}
-   .close-sidebar {display:block}
-   .wrapper .sidebar-collapse-controls {display:block}
-   .wrapper .sidebar-collapse-controls .pin-sidebar {display:none}
- 
- }
+@media (max-width: 600px) {
+  .collapsed-sidebar {
+    translate: 0;
+  }
+
+  .left-sidebar {
+    translate: -100%;
+  }
+
+  .is-visible {
+    translate: 0;
+  }
+
+  main {
+    left: var(--cr-sizes-collapsed-sidebar-width);
+  }
+
+  .hide-sidebar {
+    display: none
+  }
+
+  .close-sidebar {
+    display: block
+  }
+
+  .wrapper .sidebar-collapse-controls {
+    display: block
+  }
+
+  .wrapper .sidebar-collapse-controls .pin-sidebar {
+    display: none
+  }
+}
