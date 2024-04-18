@@ -1,5 +1,5 @@
 <template>
-  <v-btn>
+  <v-btn variant="tonal">
     <slot />
   </v-btn>
 </template>

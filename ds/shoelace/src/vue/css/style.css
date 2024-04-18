@@ -6,19 +6,16 @@
   }
   
 :root {
-
-
    --cr-sizes-max-page-width: 960px;
    --cr-sizes-left-sidebar-width: 250px;
    --cr-sizes-collapsed-sidebar-width: 32px;
-
-
+   --cr-base-font-size: 16px;
+   
     /*
      * Typography
      */
   
-    /* Fonts */
-    --cr-base-font-size: 16px;
+    /* Fonts */    
     --cr-font-mono: var(--sl-font-mono);
     --cr-font-sans: var(--sl-font-sans);    
     --cr-font-serif: var(--sl-font-serif) ;
