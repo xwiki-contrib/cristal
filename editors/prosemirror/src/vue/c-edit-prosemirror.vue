@@ -123,7 +123,7 @@ const submit = async () => {
 
 <template>
   <div v-if="loading" class="content-loading">
-    <!-- TODO: provide a proposer loading UI. -->    
+    <!-- TODO: provide a proposer loading UI. -->
     <span class="load-spinner"></span>
     <h3>Loading</h3>
   </div>
