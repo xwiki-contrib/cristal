@@ -122,11 +122,13 @@ const submit = async () => {
 </script>
 
 <template>
-  <div v-if="loading">
+  <div v-if="loading" class="content-loading">
     <!-- TODO: provide a proposer loading UI. -->
-    LOADING
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="#B9B9B9" stroke="#B9B9B9" stroke-width="6" r="15" cx="40" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate></circle><circle fill="#B9B9B9" stroke="#B9B9B9" stroke-width="6" r="15" cx="100" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate></circle><circle fill="#B9B9B9" stroke="#B9B9B9" stroke-width="6" r="15" cx="160" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate></circle></svg>
+    <h3>Loading</h3>
   </div>
-  <div v-else-if="error">
+  <div class="editor-error" v-else-if="error">
     <!-- TODO: provide a better error reporting. -->
     {{ error }}
   </div>
@@ -148,6 +150,22 @@ const submit = async () => {
 </template>
 
 <style scoped>
+.content-loading {
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.content-loading svg {
+  width: 64px;
+  height: 64px;
+}
+.content-loading h3 {
+  padding: 0;
+  margin: 0;
+  color: var(--cr-color-neutral-500);
+}
 .pagemenu {
   display: flex;
   flex-flow: row;
@@ -157,6 +175,8 @@ const submit = async () => {
   width: var(--cr-spacing-max-page);
   margin: var(--cr-spacing-x-small) auto;
   border-radius: var(--cr-input-border-radius-medium);
+  max-width: var(--cr-spacing-max-page-width);
+  width: 100%;
 }
 :global(.ProseMirror-menubar) {
   border-radius: var(--cr-input-border-radius-medium);

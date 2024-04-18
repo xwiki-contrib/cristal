@@ -42,7 +42,7 @@ export default defineComponent({
 :global(html),
 :global(body),
 :global(#app) {
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   position: relative;
   font: var(--cr-base-font-size) var(--cr-font-sans);
@@ -58,7 +58,7 @@ export default defineComponent({
 
 :global(.content),
 :global(.content-scroll) {
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   position: relative;
 }
