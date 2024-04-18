@@ -33,12 +33,18 @@ const logo = xlogo;
 </script>
 <template>
   <div class="collapsed-sidebar">
+    <!-- This icon should add the class .is-visible to #sidebar.-->
     <c-icon name="list"></c-icon>
   </div>
+  <!-- To open/close the sidebar on mobile a class .is-visible should be added to the #sidebar element -->
   <c-navigation-drawer id="sidebar" class="left-sidebar">
     <UIX uixname="sidebar.before" />
     <div class="sidebar-header">
-      <c-icon name="list"></c-icon>
+      <c-icon name="list" class="hide-sidebar"></c-icon>
+
+      <!-- This icon should remove the class .is-visible to #sidebar.-->
+      <c-icon name="x-lg" class="close-sidebar"></c-icon>
+
       <x-img class="logo" :src="logo" />
       <c-icon name="bell"></c-icon>
       <c-config-menu></c-config-menu>
@@ -53,19 +59,12 @@ const logo = xlogo;
       <UIX uixname="sidebar.after" />
     </div>
     <c-help></c-help>
+
+    <!-- This handle should update the value of the CSS var --cr-sizes-left-sidebar-width in a <style> tag. This variable could also be saved and retrieved from local storage, if unavailable the default value on style.css from the DS will be used-->
+    <div class="resize-handle"></div>
   </c-navigation-drawer>
 </template>
 <style scoped>
-.left-sidebar {
-  grid-area: sidebar;
-  display: flex;
-  flex-flow: column;
-  gap: var(--cr-spacing-medium);
-  overflow: hidden;
-  border-right: 1px solid var(--cr-color-neutral-200);
-  box-shadow: var(--cr-shadow-large);
-}
-
 .panel-container {
   display: flex;
   flex-flow: column;
@@ -95,13 +94,17 @@ const logo = xlogo;
 .logo {
   margin-right: auto;
 }
-
-.collapsed-sidebar {
-  display: none;
-  background: var(--cr-color-neutral-100);
-  grid-area: collapsed-sidebar;
+.resize-handle {
+  width: 16px;
+  border-right: 2px solid transparent;
+  position: absolute;
+  right: 0;
+  top:0;
+  bottom:0;
+  transition: border-color var(--cr-transition-medium) ease;
 }
-#sidebar {
-  background-color: var(--cr-color-neutral-100);
+.resize-handle:hover {
+  cursor: col-resize;
+  border-right: 2px solid var(--cr-color-neutral-300);
 }
 </style>

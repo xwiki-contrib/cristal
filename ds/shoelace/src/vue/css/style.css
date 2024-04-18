@@ -1,6 +1,11 @@
 :root {
 
 
+   --cr-sizes-max-page-width: 960px;
+   --cr-sizes-left-sidebar-width: 250px;
+   --cr-sizes-collapsed-sidebar-width: 32px;
+
+
     /*
      * Typography
      */
@@ -135,7 +140,7 @@
    * Spacings
    */
 
-   --cr-spacing-max-page-width: 960px;
+   
    --cr-spacing-3x-small: var(--sl-spacing-3x-small);
    --cr-spacing-2x-small: var(--sl-spacing-2x-small);
    --cr-spacing-x-small:  var(--sl-spacing-x-small);

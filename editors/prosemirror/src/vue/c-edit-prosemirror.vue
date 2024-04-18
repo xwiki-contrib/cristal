@@ -175,7 +175,7 @@ const submit = async () => {
   width: var(--cr-spacing-max-page);
   margin: var(--cr-spacing-x-small) auto;
   border-radius: var(--cr-input-border-radius-medium);
-  max-width: var(--cr-spacing-max-page-width);
+  max-width: var(--cr-sizes-max-page-width);
   width: 100%;
 }
 :global(.ProseMirror-menubar) {
