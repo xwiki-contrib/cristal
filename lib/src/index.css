@@ -78,6 +78,7 @@
     right: 0;
     bottom: 0;
     z-index: 2;
+    transition: var(--cr-transition-medium) left ease-in-out;
   }
   .left-sidebar {
     width: var(--cr-sizes-left-sidebar-width);
@@ -95,7 +96,34 @@
     transition: var(--cr-transition-medium) translate ease-in-out;
     z-index: 3;
   }
+
+  
+  /*
+  TODO: these rules about opening and closing the sidebar should be better organized and described 
+  */
+
+  
 .close-sidebar {display:none}
+.pin-sidebar {display:none}
+
+.wrapper .sidebar-collapse-controls {display:none}
+.wrapper.sidebar-is-collapsed #sidebar{
+    translate: -100%;
+}
+.wrapper.sidebar-is-collapsed main {
+    left: var(--cr-sizes-collapsed-sidebar-width);
+}
+
+.wrapper.sidebar-is-collapsed .sidebar-collapse-controls {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    padding: var(--cr-spacing-2x-small);
+  }
+
+.wrapper.sidebar-is-collapsed .hide-sidebar {display:none;}
+.wrapper.sidebar-is-collapsed .pin-sidebar {display:block}
+.wrapper.sidebar-is-collapsed .close-sidebar {display:block}
 
 .collapsed-sidebar {
     background: var(--cr-color-neutral-100);
@@ -106,6 +134,15 @@
     bottom: 0;
     z-index: 1;
   }
+
+
+.wrapper.sidebar-is-collapsed .collapsed-sidebar {
+    translate:0 ;
+}
+
+.wrapper.sidebar-is-collapsed #sidebar.is-visible {
+    translate: 0
+}
 
  @media (max-width: 600px) {
  
@@ -123,5 +160,7 @@
    }
    .hide-sidebar {display:none}
    .close-sidebar {display:block}
+   .wrapper .sidebar-collapse-controls {display:block}
+   .wrapper .sidebar-collapse-controls .pin-sidebar {display:none}
  
  }

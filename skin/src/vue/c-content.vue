@@ -36,7 +36,7 @@ import { useRoute } from "vue-router";
 import { type CristalApp, PageData } from "@cristal/api";
 import { marked } from "marked";
 import { ContentTools } from "./contentTools";
-import { CIcon } from "@cristal/icons";
+import { CIcon, Size  } from "@cristal/icons";
 
 const route = useRoute();
 
@@ -101,7 +101,7 @@ onUpdated(() => {
 <template>
   <div v-if="loading" class="content-loading">
     <!-- TODO: improve loading UI. -->
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle fill="#B9B9B9" stroke="#B9B9B9" stroke-width="6" r="15" cx="40" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate></circle><circle fill="#B9B9B9" stroke="#B9B9B9" stroke-width="6" r="15" cx="100" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate></circle><circle fill="#B9B9B9" stroke="#B9B9B9" stroke-width="6" r="15" cx="160" cy="100"><animate attributeName="opacity" calcMode="spline" dur="2" values="1;0;1;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate></circle></svg>
+    <span class="load-spinner"></span>
     <h3>Loading</h3>
   </div>
   <div v-else-if="error" class="content-error">
@@ -134,15 +134,15 @@ onUpdated(() => {
 
               <div class="doc-info-actions">
                 <div class="info-action like">
-                  <c-icon name="heart" class="small"></c-icon>
+                  <c-icon name="heart" :size="Size.Small"></c-icon>
                   <span class="counter">99</span>
                 </div>
                 <div class="info-action comments">
-                  <c-icon name="chat" class="small"></c-icon>
+                  <c-icon name="chat" :size="Size.Small"></c-icon>
                   <span class="counter">99</span>
                 </div>
                 <div class="info-action attachments">
-                  <c-icon name="paperclip" class="small"></c-icon>
+                  <c-icon name="paperclip" :size="Size.Small"></c-icon>
                   <span class="counter">99</span>
                 </div>
               </div>
@@ -154,12 +154,12 @@ onUpdated(() => {
                   }"
                 >
                   <x-btn size="small" variant="default">
-                    <c-icon name="pencil" class="small"></c-icon>
+                    <c-icon name="pencil" :size="Size.Small"></c-icon>
                     Edit
                   </x-btn>
                 </router-link>
                 <x-btn size="small" variant="default">
-                  <c-icon name="three-dots-vertical" class="small"></c-icon>
+                  <c-icon name="three-dots-vertical" :size="Size.Small"></c-icon>
                 </x-btn>
               </div>
             </div>

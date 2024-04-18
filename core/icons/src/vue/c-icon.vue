@@ -25,7 +25,7 @@ function sizeToClass(size: Size): string | undefined {
 }
 
 const classes = computed(() => {
-  const ret = [`bi-${props.name}`];
+  const ret = [`cr-icon bi-${props.name}`];
   const sizeClass = sizeToClass(props.size);
   if (sizeClass) {
     ret.push(sizeClass);
@@ -37,7 +37,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <span :class="'cr-icon ' + classes"></span>
+  <span :class="classes"></span>
 </template>
 
 <style scoped>

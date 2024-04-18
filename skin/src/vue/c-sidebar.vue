@@ -33,17 +33,22 @@ const logo = xlogo;
 </script>
 <template>
   <div class="collapsed-sidebar">
-    <!-- This icon should add the class .is-visible to #sidebar.-->
+    <!-- When the user click this icon (visible only on MOBILE or with a COLLAPSED sidebar) a function should ADD the class is-visible to the element #sidebar. -->
     <c-icon name="list"></c-icon>
   </div>
-  <!-- To open/close the sidebar on mobile a class .is-visible should be added to the #sidebar element -->
   <c-navigation-drawer id="sidebar" class="left-sidebar">
     <UIX uixname="sidebar.before" />
-    <div class="sidebar-header">
-      <c-icon name="list" class="hide-sidebar"></c-icon>
-
-      <!-- This icon should remove the class .is-visible to #sidebar.-->
+    <div class="sidebar-collapse-controls">
+      <!-- When the user click this icon (visible only on DESKTOP and MOBILE) a function should REMOVE the class is-visible to the element #sidebar..-->
       <c-icon name="x-lg" class="close-sidebar"></c-icon>
+
+      <!-- When the user click this icon (visible only on DESKTOP) a function should REMOVE the class sidebar-is-collapsed of the element .wrapper in c-view.vue..-->
+          <c-icon name="pin" class="pin-sidebar"></c-icon>
+
+    </div>
+    <div class="sidebar-header">
+      <!-- When the user click this icon (visible only on DESKTOP) a function should ADD the class sidebar-is-collapsed to the element .wrapper in c-view.vue.-->
+      <c-icon name="list" class="hide-sidebar"></c-icon>
 
       <x-img class="logo" :src="logo" />
       <c-icon name="bell"></c-icon>
