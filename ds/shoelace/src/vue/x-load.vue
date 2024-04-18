@@ -5,6 +5,4 @@ import "./css/style.css";
 
 <template><span></span></template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
