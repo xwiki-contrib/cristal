@@ -37,7 +37,7 @@ const classes = computed(() => {
 </script>
 
 <template>
-  <span :class="classes"></span>
+  <span :class="'cr-icon ' + classes"></span>
 </template>
 
 <style scoped>

@@ -114,20 +114,13 @@ onUpdated(() => {
       <div class="content-header">
         <XBreadcrumb class="breadcrumb"></XBreadcrumb>
         <x-btn circle size="small" variant="primary">
-          <c-icon name="plus" label="Create a new document"></c-icon>
+          <c-icon
+            class="new-page"
+            name="plus"
+            label="Create a new document"
+          ></c-icon>
         </x-btn>
-        <div class="pagemenu">
-          <router-link
-            :to="{
-              name: 'edit',
-              params: { page: currentPageName },
-            }"
-          >
-            <x-btn size="small" variant="default">
-              <c-icon name="pencil-fill" class="small"></c-icon> Edit Page
-            </x-btn>
-          </router-link>
-        </div>
+
       </div>
       <div class="content-scroll">
         <div class="whole-content">
@@ -140,16 +133,28 @@ onUpdated(() => {
               </span>
               <div class="doc-info-actions">
                 <div class="info-action like">
-                  <c-icon name="heart"></c-icon>
+                  <c-icon name="heart" class="small"></c-icon>
                   <span class="counter">99</span>
                 </div>
                 <div class="info-action comments">
-                  <c-icon name="chat"></c-icon>
+                  <c-icon name="chat" class="small"></c-icon>
                   <span class="counter">99</span>
                 </div>
                 <div class="info-action attachments">
-                  <c-icon name="paperclip"></c-icon>
+                  <c-icon name="paperclip" class="small"></c-icon>
                   <span class="counter">99</span>
+                </div>
+                <div class="pagemenu">
+                  <router-link
+                    :to="{
+                      name: 'edit',
+                      params: { page: currentPageName },
+                    }"
+                  >
+                    <x-btn size="small" variant="default" circle>
+                      <c-icon name="pencil" class="small"></c-icon>
+                    </x-btn>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -174,6 +179,11 @@ onUpdated(() => {
 .edit-icon {
   font-size: 14px;
 }
+
+.new-page {
+  display: block;
+}
+
 .whole-content {
   display: flex;
   flex-flow: column;
@@ -188,6 +198,8 @@ onUpdated(() => {
 
 .document-title {
   margin: 0;
+  font-size: var(--cr-font-size-2x-large);
+  line-height: var(--cr-font-size-2x-large);
 }
 
 .counter {
@@ -205,6 +217,7 @@ onUpdated(() => {
 
 .doc-info-actions {
   display: flex;
+  flex-wrap: wrap;
   flex-flow: row;
   align-items: center;
   gap: var(--cr-spacing-2x-small);
@@ -214,11 +227,14 @@ onUpdated(() => {
   display: flex;
   background-color: var(--cr-color-neutral-100);
   border-radius: 99px;
-  padding: var(--cr-spacing-2x-small) var(--cr-spacing-x-small);
+  padding: var(--cr-spacing-2x-small) var(--cr-spacing-2x-small);
   font-size: var(--cr-font-size-medium);
   flex-flow: row;
   gap: var(--cr-spacing-2x-small);
   align-items: center;
+}
+.info-action .cr-icon {
+  line-height: 1.3rem;
 }
 
 .doc-info-header,
