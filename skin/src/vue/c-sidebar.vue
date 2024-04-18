@@ -43,13 +43,11 @@ const logo = xlogo;
       <c-icon name="x-lg" class="close-sidebar"></c-icon>
 
       <!-- When the user click this icon (visible only on DESKTOP) a function should REMOVE the class sidebar-is-collapsed of the element .wrapper in c-view.vue..-->
-          <c-icon name="pin" class="pin-sidebar"></c-icon>
-
+      <c-icon name="pin" class="pin-sidebar"></c-icon>
     </div>
     <div class="sidebar-header">
       <!-- When the user click this icon (visible only on DESKTOP) a function should ADD the class sidebar-is-collapsed to the element .wrapper in c-view.vue.-->
       <c-icon name="list" class="hide-sidebar"></c-icon>
-
       <x-img class="logo" :src="logo" />
       <c-icon name="bell"></c-icon>
       <c-config-menu></c-config-menu>
@@ -99,15 +97,17 @@ const logo = xlogo;
 .logo {
   margin-right: auto;
 }
+
 .resize-handle {
   width: 16px;
   border-right: 2px solid transparent;
   position: absolute;
   right: 0;
-  top:0;
-  bottom:0;
+  top: 0;
+  bottom: 0;
   transition: border-color var(--cr-transition-medium) ease;
 }
+
 .resize-handle:hover {
   cursor: col-resize;
   border-right: 2px solid var(--cr-color-neutral-300);
