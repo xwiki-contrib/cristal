@@ -77,6 +77,7 @@
     top: 0;
     right: 0;
     bottom: 0;
+    z-index: 2;
   }
   .left-sidebar {
     width: var(--cr-sizes-left-sidebar-width);
@@ -92,6 +93,7 @@
     border-right: 1px solid var(--cr-color-neutral-200);
     box-shadow: var(--cr-shadow-large);
     transition: var(--cr-transition-medium) translate ease-in-out;
+    z-index: 3;
   }
 .close-sidebar {display:none}
 
@@ -108,12 +110,10 @@
  @media (max-width: 600px) {
  
    .collapsed-sidebar {
-     translate: 0;
-     z-index: 1;
+     translate: 0;     
    }
    .left-sidebar {
-     translate: -100%;
-     z-index: 2;
+     translate: -100%;     
    }
    .is-visible {
      translate: 0;
