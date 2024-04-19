@@ -114,7 +114,7 @@ onUpdated(() => {
       <!-- eslint-disable vue/no-v-html -->
       <div class="content-header">
         <XBreadcrumb class="breadcrumb"></XBreadcrumb>
-        <x-btn circle size="small" variant="primary">
+        <x-btn circle size="small" variant="primary" color="primary">
           <c-icon
             class="new-page"
             name="plus"
@@ -123,8 +123,8 @@ onUpdated(() => {
         </x-btn>
       </div>
       <div class="content-scroll">
-        <div class="whole-content">
-          <div class="doc-header">
+        <div class="doc-header">
+          <div class="center-content">
             <h1 class="document-title">{{ title }}</h1>
             <div class="doc-info-header">
               <x-avatar class="avatar"></x-avatar>
@@ -166,15 +166,19 @@ onUpdated(() => {
               </div>
             </div>
           </div>
-          <div
-            id="xwikicontent"
-            ref="contentRoot"
-            class="document-content"
-            v-html="content"
-          ></div>
-          <div class="doc-info-footer">
-            <x-avatar class="avatar"></x-avatar>
-            <span class="doc-info-user-info">User name created...</span>
+        </div>
+        <div class="whole-content">
+          <div class="center-content">
+            <div
+              id="xwikicontent"
+              ref="contentRoot"
+              class="document-content"
+              v-html="content"
+            ></div>
+            <div class="doc-info-footer">
+              <x-avatar class="avatar"></x-avatar>
+              <span class="doc-info-user-info">User name created...</span>
+            </div>
           </div>
         </div>
       </div>
@@ -218,11 +222,14 @@ onUpdated(() => {
 
 .doc-header {
   display: flex;
+  width: 100%;
   flex-flow: column;
   gap: var(--cr-spacing-x-small);
   position: sticky;
   top: calc(var(--cr-spacing-small) * -1);
   background: white;
+  align-items: center;
+  z-index: 1;
 }
 
 .document-title {

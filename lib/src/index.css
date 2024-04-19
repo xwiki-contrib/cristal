@@ -60,10 +60,15 @@ html {
   height: 100%;
   padding: var(--cr-spacing-x-small);
 }
-
+/* 
 .content-scroll > div {
   width: 100%;
-  max-width: var(--cr-sizes-max-page-width); /*TODO: This value needs to be dynamic*/
+  max-width: var(--cr-sizes-max-page-width);
+} */
+
+.center-content{
+  width: 100%;
+  max-width: var(--cr-sizes-max-page-width);
 }
 
 main {
@@ -158,6 +163,15 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 .wrapper.sidebar-is-collapsed #sidebar.is-visible {
   translate: 0
 }
+
+/*
+WIKI STYLES
+TODO: Discuss and move them to a more appropriate place
+*/
+.wikiexternallink {
+  font-style: italic;
+}
+
 
 @media (max-width: 600px) {
   .collapsed-sidebar {
