@@ -1,0 +1,32 @@
+{
+  "name": "@cristal/editors-tiptap",
+  "version": "1.0.0",
+  "types": "dist/index.d.ts",
+  "license": "AGPL-3.0",
+  "main": "index.js",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "prepack": "vue-tsc --project tsconfig.json --noEmit && pnpm build",
+    "build": "pnpm compile",
+    "compile": "vite build",
+    "test": "echo 'no test'",
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
+  },
+  "dependencies": {
+    "@cristal/api": "workspace:*",
+    "@cristal/skin": "workspace:*",
+    "@tiptap/pm": "2.3.0",
+    "@tiptap/starter-kit": "2.3.0",
+    "@tiptap/vue-3": "2.3.0",
+    "inversify": "6.0.2",
+    "vue": "3.4.21"
+  },
+  "devDependencies": {
+    "typescript": "5.4.5",
+    "vite": "5.2.9",
+    "vue-tsc": "2.0.13"
+  }
+}
