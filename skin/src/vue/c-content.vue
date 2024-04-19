@@ -152,12 +152,12 @@ onUpdated(() => {
                     params: { page: currentPageName },
                   }"
                 >
-                  <x-btn size="small" variant="default">
+                  <x-btn size="small">
                     <c-icon name="pencil" :size="Size.Small"></c-icon>
                     Edit
                   </x-btn>
                 </router-link>
-                <x-btn size="small" variant="default">
+                <x-btn size="small">
                   <c-icon
                     name="three-dots-vertical"
                     :size="Size.Small"
