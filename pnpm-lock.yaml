@@ -266,8 +266,8 @@ importers:
         specifier: 7.3.3
         version: 7.3.3
       '@milkdown/theme-nord':
-        specifier: 7.3.3
-        version: 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)
+        specifier: 7.3.6
+        version: 7.3.6(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)
       '@milkdown/transformer':
         specifier: 7.3.3
         version: 7.3.3(@milkdown/prose@7.3.3)
@@ -1375,8 +1375,8 @@ packages:
   '@milkdown/prose@7.3.3':
     resolution: {integrity: sha512-d+Dv2C7cSWBfkG3scLnc+6IA40nKNIJM37NFBQ6mbOW7/6dj1m5vhNGZN+LDKlEEYOhVko+Kr6vwI4FfuY+pUw==}
 
-  '@milkdown/theme-nord@7.3.3':
-    resolution: {integrity: sha512-hXD8Qgb0tREIcNMCpV7VDAzT43dPQXsAwn7J5gvojx76MHI8SRV4y3c04LP+OncR3H2LGgkqB3+eew6vWA32iA==}
+  '@milkdown/theme-nord@7.3.6':
+    resolution: {integrity: sha512-JGQKn2IGD312cmoyBa5aZkM/OBMku4O+OL7QkVcDCx2HEohdx+ym/Fn/2r4f1dDYSrd5JZlNHD/rRVDv7FfjzQ==}
     peerDependencies:
       '@milkdown/core': ^7.2.0
       '@milkdown/ctx': ^7.2.0
@@ -5170,7 +5170,7 @@ snapshots:
       prosemirror-view: 1.32.7
       tslib: 2.6.2
 
-  '@milkdown/theme-nord@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)':
+  '@milkdown/theme-nord@7.3.6(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)':
     dependencies:
       '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
       '@milkdown/ctx': 7.3.3
