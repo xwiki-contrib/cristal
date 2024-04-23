@@ -37,8 +37,11 @@ import { type CristalApp, PageData } from "@cristal/api";
 import { marked } from "marked";
 import { ContentTools } from "./contentTools";
 import { CIcon, Size } from "@cristal/icons";
+import xavatarImg from "../images/no-one.jpg";
 
 const route = useRoute();
+
+const avImg = xavatarImg;
 
 const loading = ref(false);
 const error: Ref<Error | undefined> = ref(undefined);
@@ -127,7 +130,7 @@ onUpdated(() => {
           <div class="center-content">
             <h1 class="document-title">{{ title }}</h1>
             <div class="doc-info-header">
-              <x-avatar class="avatar"></x-avatar>
+              <x-avatar class="avatar" :image="avImg" size="2rem"></x-avatar>
               <span class="doc-info-user-info">
                 User Name edited on 12/12/2024 at 12:00
               </span>
