@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { computed, type ComputedRef, inject, type Ref, ref, watch } from "vue";
+import {
+  computed,
+  type ComputedRef,
+  inject,
+  onUpdated,
+  type Ref,
+  ref,
+  watch,
+} from "vue";
 import { CristalApp, PageData } from "@cristal/api";
 import { useRoute } from "vue-router";
 import { Editor, EditorContent } from "@tiptap/vue-3";
@@ -26,25 +34,6 @@ const content = ref("abcd");
 // const suggestion = Suggestion({
 //   char: "/",
 // });
-const editor = new Editor({
-  extensions: [
-    StarterKit,
-    Placeholder.configure({
-      placeholder: "////// ahahha",
-    }),
-    Text,
-    Document,
-    Slash.configure({
-      suggestion: {
-        items: getSuggestionItems,
-        render: renderItems,
-      },
-    }),
-  ],
-  onUpdate: () => {
-    content.value = editor.getHTML();
-  },
-});
 
 const currentPageName: ComputedRef<string> = computed(() => {
   // TODO: define a proper abstraction.
@@ -100,6 +89,42 @@ const submit = async () => {
     .storage.save(currentPageName.value, "TODO", "html");
   cristal?.getRouter().push(viewRouterParams);
 };
+
+async function loadEditor(page: PageData) {
+  // Push the content to the document.
+  // TODO: move to a components based implementation
+  let schema: Schema = markdownSchema;
+  if (page.syntax == "markdown/1.2") {
+    config.doc = defaultMarkdownParser.parse(page.source!)!;
+  } else {
+    const tmpparse = document.createElement("div");
+    tmpparse.innerHTML = page.html;
+    schema = basicSchema;
+    config.doc = DOMParser.fromSchema(schema).parse(tmpparse);
+  }
+
+  const editor = new Editor({
+    extensions: [
+      StarterKit,
+      Placeholder.configure({
+        placeholder: "////// ahahha",
+      }),
+      Text,
+      Document,
+      Slash.configure({
+        suggestion: {
+          items: getSuggestionItems,
+          render: renderItems,
+        },
+      }),
+    ],
+    onUpdate: () => {
+      content.value = editor.getHTML();
+    },
+  });
+}
+
+onUpdated(() => loadEditor(currentPage.value!));
 </script>
 
 <template>
