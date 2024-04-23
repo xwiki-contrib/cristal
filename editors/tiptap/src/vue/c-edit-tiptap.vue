@@ -4,6 +4,14 @@ import { CristalApp, PageData } from "@cristal/api";
 import { useRoute } from "vue-router";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
+import Placeholder from "@tiptap/extension-placeholder";
+import Text from "@tiptap/extension-text";
+import Document from "@tiptap/extension-document";
+import {
+  Slash,
+  getSuggestionItems,
+  renderItems,
+} from "../components/extensions/slash";
 
 const route = useRoute();
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
@@ -15,8 +23,24 @@ const error: Ref<Error | undefined> = ref(undefined);
 // Make the loading status first.
 const content = ref("abcd");
 
+// const suggestion = Suggestion({
+//   char: "/",
+// });
 const editor = new Editor({
-  extensions: [StarterKit],
+  extensions: [
+    StarterKit,
+    Placeholder.configure({
+      placeholder: "////// ahahha",
+    }),
+    Text,
+    Document,
+    Slash.configure({
+      suggestion: {
+        items: getSuggestionItems,
+        render: renderItems,
+      },
+    }),
+  ],
   onUpdate: () => {
     content.value = editor.getHTML();
   },
