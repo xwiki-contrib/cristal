@@ -215,6 +215,7 @@ onUpdated(() => {
 }
 
 .whole-content {
+  width: 100%;
   display: flex;
   flex-flow: column;
   gap: var(--cr-spacing-medium);
