@@ -1,0 +1,103 @@
+<script setup lang="ts">
+import { onMounted, onUnmounted, ref } from "vue";
+
+import tippy, { GetReferenceClientRect, Instance, Props } from "tippy.js";
+import { SuggestionProps } from "@tiptap/suggestion";
+
+const container = ref();
+
+const props = defineProps<{
+  props: SuggestionProps<unknown>;
+}>();
+
+let popup: Instance<Props>[];
+
+onMounted(() => {
+  popup = tippy("body", {
+    getReferenceClientRect: props.props.clientRect as GetReferenceClientRect,
+    appendTo: () => document.body,
+    content: container.value,
+    showOnCreate: true,
+    interactive: true,
+    trigger: "manual",
+    placement: "bottom-start",
+  });
+});
+
+onUnmounted(() => {
+  popup[0].destroy();
+});
+
+const index = ref(0);
+
+function down() {
+  index.value = (index.value + 1) % props.props.items.length;
+}
+
+function up() {
+  index.value =
+    (index.value + props.props.items.length - 1) % props.props.items.length;
+}
+
+function enter() {
+  // TODO: loop based on the items provided by renderItems and getSuggestionItems
+  // on enter, get the command corresponding to the currently selected item and execute it
+  apply(index.value);
+}
+
+function apply(index: number) {
+  // TODO: get by index and apply action
+  const item = props.props.items[index];
+  if (item) {
+    props.props.command(item);
+  }
+}
+</script>
+
+<template>
+  <div
+    ref="container"
+    class="items"
+    @keydown.down="down"
+    @keydown.up="up"
+    @keydown.enter="enter"
+  >
+    <button
+      v-for="(item, itemIndex) in props.props.items"
+      :key="item.title"
+      :class="['item', index == itemIndex ? 'is-selected' : '']"
+      @click="apply(itemIndex)"
+    >
+      {{ item.title }}
+    </button>
+  </div>
+</template>
+
+<style scoped>
+.items {
+  position: relative;
+  border-radius: 0.25rem;
+  background: white;
+  color: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  font-size: 0.9rem;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0.2rem 0.5rem;
+}
+
+.item.is-selected,
+.item:hover {
+  color: #a975ff;
+  background: rgba(#a975ff, 0.1);
+}
+</style>

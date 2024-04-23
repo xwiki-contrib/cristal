@@ -1,8 +1,8 @@
 import { Extension } from "@tiptap/core";
-import Suggestion from "@tiptap/suggestion";
-import { createApp } from "vue";
-import Selector from "../../vue/Selector.vue";
-import { App } from "@vue/runtime-core";
+import Suggestion, { SuggestionProps } from "@tiptap/suggestion";
+import { App, createApp } from "vue";
+import Selector from "../../vue/c-tiptap-selector.vue";
+import { CommandProps, Editor, Range } from "@tiptap/core";
 
 const Slash = Extension.create({
   name: "slash",
@@ -25,46 +25,93 @@ const Slash = Extension.create({
   },
 });
 
-function getSuggestionItems(query) {
-  console.log("QUERY", query);
-  return [
-    {
-      title: "H1",
-      command: ({ editor, range, props }) => {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setNode("heading", { level: 1 })
-          .run();
-      },
+export interface CommandParams {
+  editor: Editor;
+  range: Range;
+  props: SuggestionProps<unknown>;
+}
+
+export interface Action {
+  title: string;
+  command: (params: CommandParams) => void;
+}
+
+function getH1Action(): Action {
+  return {
+    title: "H1",
+    command: ({ editor, range }) => {
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .setNode("heading", { level: 1 })
+        .run();
     },
-  ];
+  };
+}
+
+function getH2Action(): Action {
+  return {
+    title: "H2",
+    command: ({ editor, range }) => {
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .setNode("heading", { level: 2 })
+        .run();
+    },
+  };
+}
+
+function getAllActions() {
+  return [getH1Action(), getH2Action()];
+}
+
+function getSuggestionItems({ query }) {
+  const actions = getAllActions();
+  return actions.filter((action) =>
+    action.title.toLowerCase().includes(query.toLowerCase()),
+  );
 }
 
 function renderItems() {
-  let component: App;
+  let app: App;
   let elemDiv: HTMLDivElement;
 
   return {
+    onExit() {
+      app?.unmount();
+      document.body.removeChild(elemDiv);
+    },
+    onKeyDown(props) {
+      const key = props.event.key;
+      if (key === "Escape") {
+        app?.unmount();
+        document.body.removeChild(elemDiv);
+        return true;
+      }
+
+      if (key === "ArrowDown" || key === "ArrowUp" || key === "Enter") {
+        return (app._instance?.refs.container as HTMLElement).dispatchEvent(
+          new KeyboardEvent("keydown", { key: key }),
+        );
+      }
+      return false;
+    },
     onStart(props) {
       elemDiv = document.createElement("div");
       document.body.appendChild(elemDiv);
-      component = createApp(Selector, {
-        clientRect: props.clientRect,
+      app = createApp(Selector, {
+        props,
       });
-      component.mount(elemDiv);
+      app.mount(elemDiv);
       // TODO: destroy when finished
     },
     onUpdate(props) {
-      console.log("ON UPDATE", props);
-    },
-    onKeyDown(props) {
-      console.log("ON KEY DOWN", props);
-    },
-    onExit() {
-      component?.unmount();
-      document.body.removeChild(elemDiv);
+      if (app._instance) {
+        app._instance.props.props = props;
+      }
     },
   };
 }

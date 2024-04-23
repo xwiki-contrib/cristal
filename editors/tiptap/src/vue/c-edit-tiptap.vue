@@ -20,6 +20,13 @@ import {
   getSuggestionItems,
   renderItems,
 } from "../components/extensions/slash";
+import { Markdown } from "tiptap-markdown";
+import Heading from "@tiptap/extension-heading";
+import Image from "@tiptap/extension-image";
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableHeader from "@tiptap/extension-table-header";
+import TableCell from "@tiptap/extension-table-cell";
 
 const route = useRoute();
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
@@ -56,72 +63,54 @@ async function fetchPage() {
 
 watch(() => route.params.page, fetchPage, { immediate: true });
 
-// /**
-//  * Make sure to destroy the editor before creating a new one,
-//  * or when this component is unmounted.
-//  */
-// function destroyEditor() {
-//   // if (view) {
-//   //   // view.destroy();
-//   //   // TODO
-//   // }
-//   editor?.destroy();
-// }
-
-// onBeforeUpdate(destroyEditor);
-// onBeforeUnmount(destroyEditor);
-// onMounted(() => {
-//   editor = new Editor({
-//     content: "<p>I’m running Tiptap with Vue.js. 🎉</p>",
-//     extensions: [StarterKit],
-//   });
-// });
-
 const viewRouterParams = {
   name: "view",
   params: { page: currentPageName.value },
 };
 const submit = async () => {
-  // const markdown = defaultMarkdownSerializer.serialize(view.state.doc);
   // TODO: html does not make any sense here.
   await cristal
     ?.getWikiConfig()
-    .storage.save(currentPageName.value, "TODO", "html");
+    .storage.save(
+      currentPageName.value,
+      editor.value?.storage.markdown.getMarkdown(),
+      "html",
+    );
   cristal?.getRouter().push(viewRouterParams);
 };
+
+let editor: Ref<Editor | undefined> = ref(undefined);
 
 async function loadEditor(page: PageData) {
   // Push the content to the document.
   // TODO: move to a components based implementation
-  let schema: Schema = markdownSchema;
-  if (page.syntax == "markdown/1.2") {
-    config.doc = defaultMarkdownParser.parse(page.source!)!;
-  } else {
-    const tmpparse = document.createElement("div");
-    tmpparse.innerHTML = page.html;
-    schema = basicSchema;
-    config.doc = DOMParser.fromSchema(schema).parse(tmpparse);
+  if (!editor.value) {
+    content.value = page.syntax == "markdown/1.2" ? page.source : page.html;
+    editor.value = new Editor({
+      content: content.value,
+      extensions: [
+        StarterKit,
+        Placeholder,
+        Text,
+        Document,
+        Heading,
+        Image,
+        Table,
+        TableRow,
+        TableHeader,
+        TableCell,
+        Slash.configure({
+          suggestion: {
+            items: getSuggestionItems,
+            render: renderItems,
+          },
+        }),
+        Markdown.configure({
+          html: true,
+        }),
+      ],
+    });
   }
-
-  const editor = new Editor({
-    extensions: [
-      StarterKit,
-      Placeholder.configure({
-        placeholder: "////// ahahha",
-      }),
-      Text,
-      Document,
-      Slash.configure({
-        suggestion: {
-          items: getSuggestionItems,
-          render: renderItems,
-        },
-      }),
-    ],
-    onUpdate: () => {
-      content.value = editor.getHTML();
-    },
-  });
 }
 
 onUpdated(() => loadEditor(currentPage.value!));
@@ -141,12 +130,7 @@ onUpdated(() => loadEditor(currentPage.value!));
     <div v-show="!loading && !error" class="content">
       <div class="content-scroll">
         <div class="whole-content">
-          <editor-content
-            :editor="editor"
-            class="document-content editor"
-            v-model="content"
-          />
-          {{ content }}
+          <editor-content :editor="editor" class="document-content editor" />
         </div>
       </div>
       <form class="pagemenu" @submit="submit">
@@ -207,5 +191,14 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   pointer-events: none;
   height: 0;
   content: attr(data-empty-text);
+}
+
+:deep(.is-empty:before) {
+  pointer-events: none;
+  float: left;
+  height: 0;
+  width: 100%;
+  color: var(--cr-color-neutral-500);
+  content: attr(data-placeholder);
 }
 </style>
