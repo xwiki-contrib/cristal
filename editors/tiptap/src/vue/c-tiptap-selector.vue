@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, ComputedRef, onMounted, onUnmounted, ref } from "vue";
 
 import tippy, { GetReferenceClientRect, Instance, Props } from "tippy.js";
 import { SuggestionProps } from "@tiptap/suggestion";
@@ -9,6 +9,10 @@ const container = ref();
 const props = defineProps<{
   props: SuggestionProps<unknown>;
 }>();
+
+const items: ComputedRef<{ title: string }[]> = computed(
+  () => props.props.items as { title: string }[],
+);
 
 let popup: Instance<Props>[];
 
@@ -63,7 +67,7 @@ function apply(index: number) {
     @keydown.enter="enter"
   >
     <button
-      v-for="(item, itemIndex) in props.props.items"
+      v-for="(item, itemIndex) in items"
       :key="item.title"
       :class="['item', index == itemIndex ? 'is-selected' : '']"
       @click="apply(itemIndex)"

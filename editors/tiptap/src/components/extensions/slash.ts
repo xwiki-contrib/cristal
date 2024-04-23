@@ -1,8 +1,8 @@
-import { Extension } from "@tiptap/core";
+import { Editor, Extension, Range } from "@tiptap/core";
 import Suggestion, { SuggestionProps } from "@tiptap/suggestion";
 import { App, createApp } from "vue";
 import Selector from "../../vue/c-tiptap-selector.vue";
-import { CommandProps, Editor, Range } from "@tiptap/core";
+import { Plugin } from "prosemirror-state";
 
 const Slash = Extension.create({
   name: "slash",
@@ -10,13 +10,17 @@ const Slash = Extension.create({
     suggestion: {
       char: "/",
       startOfLine: true,
-      command: ({ editor, range, props }) => {
+      command: ({ editor, range, props }: CommandParams) => {
         props.command({ editor, range, props });
       },
+      items: getSuggestionItems,
+      render: renderItems,
     },
   },
-  addProseMirrorPlugins() {
+  addProseMirrorPlugins(): Plugin[] {
     return [
+      // @ts-expect-error TODO: this seems to be working but we need to understand
+      // why the types are not accepted.
       Suggestion({
         editor: this.editor,
         ...this.options.suggestion,
@@ -68,7 +72,7 @@ function getAllActions() {
   return [getH1Action(), getH2Action()];
 }
 
-function getSuggestionItems({ query }) {
+function getSuggestionItems({ query }: { query: string }): Action[] {
   const actions = getAllActions();
   return actions.filter((action) =>
     action.title.toLowerCase().includes(query.toLowerCase()),
@@ -84,8 +88,8 @@ function renderItems() {
       app?.unmount();
       document.body.removeChild(elemDiv);
     },
-    onKeyDown(props) {
-      const key = props.event.key;
+    onKeyDown({ event }: { event: KeyboardEvent }) {
+      const key = event.key;
       if (key === "Escape") {
         app?.unmount();
         document.body.removeChild(elemDiv);
@@ -99,7 +103,7 @@ function renderItems() {
       }
       return false;
     },
-    onStart(props) {
+    onStart(props: unknown) {
       elemDiv = document.createElement("div");
       document.body.appendChild(elemDiv);
       app = createApp(Selector, {
@@ -108,7 +112,7 @@ function renderItems() {
       app.mount(elemDiv);
       // TODO: destroy when finished
     },
-    onUpdate(props) {
+    onUpdate(props: unknown) {
       if (app._instance) {
         app._instance.props.props = props;
       }

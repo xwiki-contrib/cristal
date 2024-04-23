@@ -15,11 +15,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Text from "@tiptap/extension-text";
 import Document from "@tiptap/extension-document";
-import {
-  Slash,
-  getSuggestionItems,
-  renderItems,
-} from "../components/extensions/slash";
+import { Slash } from "../components/extensions/slash";
 import { Markdown } from "tiptap-markdown";
 import Heading from "@tiptap/extension-heading";
 import Image from "@tiptap/extension-image";
@@ -99,12 +95,7 @@ async function loadEditor(page: PageData) {
         TableRow,
         TableHeader,
         TableCell,
-        Slash.configure({
-          suggestion: {
-            items: getSuggestionItems,
-            render: renderItems,
-          },
-        }),
+        Slash,
         Markdown.configure({
           html: true,
         }),
