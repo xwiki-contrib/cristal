@@ -295,7 +295,6 @@ onUpdated(() => {
 .doc-info-user-info {
   color: var(--cr-color-neutral-500);
   font-size: var(--cr-font-size-small);
-  margin-right: auto;
 }
 
 .avatar {
