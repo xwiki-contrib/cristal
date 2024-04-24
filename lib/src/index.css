@@ -58,7 +58,7 @@ html {
   align-items: flex-start;
   overflow: auto;
   height: 100%;
-  padding: var(--cr-spacing-x-small) var(--cr-spacing-medium);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-large);
 }
 /* 
 .content-scroll > div {
@@ -75,7 +75,7 @@ main {
   height: 100dvh;
   overflow: hidden;
   position: fixed;
-  left: var(--cr-sizes-left-sidebar-width);
+  left: max(var(--cr-sizes-left-sidebar-min-width) , var(--cr-sizes-left-sidebar-width));
   top: 0;
   right: 0;
   bottom: 0;
@@ -85,6 +85,7 @@ main {
 
 .left-sidebar {
   width: var(--cr-sizes-left-sidebar-width);
+  min-width: var(--cr-sizes-left-sidebar-min-width);
   background-color: var(--cr-color-neutral-100);
   position: fixed;
   left: 0;

@@ -232,7 +232,7 @@ onUpdated(() => {
   position: sticky;
   top: calc(var(--cr-spacing-small) * -1);
   background: white;
-  align-items: center;
+  align-items: flex-start;
   z-index: 1;
 }
 
@@ -302,7 +302,7 @@ onUpdated(() => {
 }
 
 .content-header {
-  padding: var(--cr-spacing-x-small) var(--cr-spacing-medium);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-large);
   display: flex;
   flex-wrap: wrap;
   gap: var(--cr-spacing-medium);
