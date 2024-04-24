@@ -25,12 +25,7 @@
 
 import type { App } from "vue";
 import * as components from "vuetify/components";
-import {
-  VCol,
-  VContainer,
-  VRow,
-  VTextField,
-} from "vuetify/components";
+import { VCol, VContainer, VRow, VTextField } from "vuetify/components";
 import type { DesignSystemLoader } from "@cristal/api";
 
 import { createVuetify } from "vuetify";
