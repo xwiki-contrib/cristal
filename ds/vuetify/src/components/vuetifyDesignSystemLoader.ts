@@ -26,10 +26,8 @@
 import type { App } from "vue";
 import * as components from "vuetify/components";
 import {
-  VAvatar,
   VCol,
   VContainer,
-  VImg,
   VRow,
   VTextField,
 } from "vuetify/components";

@@ -52,15 +52,17 @@ export default {
   <div>
     <div class="grid-container">
       <div v-for="wikiConfig in configList" :key="wikiConfig.name">
-          <div>
-          <div class="wiki-name">{{ wikiConfig.name }}
-            <span class="offline" v-if="wikiConfig.offline">Offline</span>
+        <div>
+          <div class="wiki-name">
+            {{ wikiConfig.name }}
+            <span v-if="wikiConfig.offline" class="offline">Offline</span>
           </div>
-          <div class="ds-name" v-if="wikiConfig.designSystem != ''">
-            Design System: <strong>{{ wikiConfig.designSystem }}</strong></div>
+          <div v-if="wikiConfig.designSystem != ''" class="ds-name">
+            Design System: <strong>{{ wikiConfig.designSystem }}</strong>
+          </div>
           <div class="url">{{ wikiConfig.baseURL }}</div>
         </div>
-        <div class="current-ds" v-if="wikiConfig.name == currentConfig">
+        <div v-if="wikiConfig.name == currentConfig" class="current-ds">
           Currently in Use
         </div>
         <x-btn v-else @click="cristal?.switchConfig(wikiConfig.name)">
@@ -111,4 +113,3 @@ p {
   border-bottom: 0;
 }
 </style>
-

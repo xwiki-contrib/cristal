@@ -6,6 +6,6 @@ export default {
   props: {
     image: { type: String, required: true },
     size: { type: String, required: true },
-},
+  },
 };
 </script>
