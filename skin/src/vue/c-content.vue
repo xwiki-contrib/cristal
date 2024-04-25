@@ -222,6 +222,7 @@ onUpdated(() => {
   display: flex;
   flex-flow: column;
   gap: var(--cr-spacing-medium);
+  align-items: center;
 }
 
 .doc-header {
@@ -232,7 +233,7 @@ onUpdated(() => {
   position: sticky;
   top: calc(var(--cr-spacing-small) * -1);
   background: white;
-  align-items: flex-start;
+  align-items: center;
   z-index: 1;
 }
 
@@ -295,6 +296,7 @@ onUpdated(() => {
 .doc-info-user-info {
   color: var(--cr-color-neutral-500);
   font-size: var(--cr-font-size-small);
+  margin-right: auto;
 }
 
 .avatar {
