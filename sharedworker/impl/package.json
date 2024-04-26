@@ -1,6 +1,6 @@
 {
   "name": "@cristal/sharedworker-impl",
-  "version": "1.0.0",
+  "version": "0.6.0",
   "types": "dist/index.d.ts",
   "license": "AGPL-3.0",
   "repository": {
@@ -26,14 +26,14 @@
     "@cristal/storage": "workspace:^",
     "comlink": "4.4.1",
     "inversify": "6.0.2",
-    "vue": "3.4.21",
+    "vue": "3.4.24",
     "vue-i18n": "9.8.0",
     "vue-router": "4.3.0"
   },
   "devDependencies": {
     "rimraf": "5.0.5",
-    "vite": "5.2.8",
+    "vite": "5.2.10",
     "vite-plugin-comlink": "4.0.2",
-    "vue-tsc": "2.0.13"
+    "vue-tsc": "2.0.14"
   }
 }

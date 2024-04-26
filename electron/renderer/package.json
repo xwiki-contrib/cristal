@@ -1,6 +1,6 @@
 {
   "name": "@cristal/electron-renderer",
-  "version": "1.0.0",
+  "version": "0.6.0",
   "license": "AGPL-3.0",
   "repository": {
     "type": "git",
@@ -22,14 +22,14 @@
   "dependencies": {
     "@cristal/electron-storage": "workspace:*",
     "@cristal/lib": "workspace:^",
-    "vue": "3.4.21",
+    "vue": "3.4.24",
     "inversify": "6.0.2"
   },
   "devDependencies": {
     "@types/node": "20.12.7",
     "rimraf": "5.0.5",
     "typescript": "5.4.5",
-    "vite": "5.2.8",
-    "vue-tsc": "2.0.13"
+    "vite": "5.2.10",
+    "vue-tsc": "2.0.14"
   }
 }
