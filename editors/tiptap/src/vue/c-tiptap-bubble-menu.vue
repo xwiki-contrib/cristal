@@ -1,9 +1,24 @@
 <script setup lang="ts">
 import { Editor, BubbleMenu } from "@tiptap/vue-3";
+import getMenuActions, {
+  BubbleMenuAction,
+} from "../components/extensions/bubble-menu";
+import { computed, ComputedRef } from "vue";
 
-defineProps<{
+const props = defineProps<{
   editor: Editor;
 }>();
+
+const actions: ComputedRef<BubbleMenuAction[]> = computed(() =>
+  getMenuActions(props.editor),
+);
+
+function apply(action: BubbleMenuAction) {
+  action.command({
+    editor: props.editor,
+    range: props.editor.state.selection,
+  });
+}
 </script>
 
 <template>
@@ -12,7 +27,14 @@ defineProps<{
     :tippy-options="{ duration: 100 }"
     class="items"
   >
-    MENU
+    <button
+      v-for="action in actions"
+      :key="action.title"
+      @click="apply(action)"
+      class="item"
+    >
+      {{ action.title }}
+    </button>
   </bubble-menu>
 </template>
 
@@ -27,5 +49,12 @@ defineProps<{
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.1),
     0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.item {
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.2rem;
 }
 </style>

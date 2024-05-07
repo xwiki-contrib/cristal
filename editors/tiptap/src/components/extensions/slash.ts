@@ -1,8 +1,9 @@
 import { Editor, Extension, Range } from "@tiptap/core";
-import Suggestion, { SuggestionProps } from "@tiptap/suggestion";
+import Suggestion from "@tiptap/suggestion";
 import { App, createApp } from "vue";
 import Selector from "../../vue/c-tiptap-selector.vue";
 import { Plugin } from "prosemirror-state";
+import { CommandParams } from "./menu-helpers";
 
 const Slash = Extension.create({
   name: "slash",
@@ -29,12 +30,6 @@ const Slash = Extension.create({
     ];
   },
 });
-
-export interface CommandParams {
-  editor: Editor;
-  range: Range;
-  props: SuggestionProps<unknown>;
-}
 
 export interface Action {
   title: string;

@@ -32,11 +32,7 @@ const error: Ref<Error | undefined> = ref(undefined);
 
 // TODO: load this content first, then initialize the editor.
 // Make the loading status first.
-const content = ref("abcd");
-
-// const suggestion = Suggestion({
-//   char: "/",
-// });
+const content = ref("");
 
 const currentPageName: ComputedRef<string> = computed(() => {
   // TODO: define a proper abstraction.
