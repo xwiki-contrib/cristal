@@ -43,7 +43,7 @@ export interface Action {
 }
 
 // TODO: add an icon and an alt description
-interface ActionDescriptor {
+export interface ActionDescriptor {
   title: string;
   active: (state: EditorState) => boolean;
   command: (commandParams: { editor: Editor; range: Range }) => void;
@@ -54,11 +54,13 @@ interface SelectionContext {
   editor: Editor;
 }
 
+// TODO: the isCode condition as well as active condition are note useful here.
+// They should only be displayed for contextual selections.
 function getHeadingAction(
   level: number,
   { editor, isCode }: SelectionContext,
 ): ActionDescriptor | undefined {
-  if (isCode) {
+  if (!isCode) {
     return {
       title: `H${level}`,
       active: isNodeActive(editor.schema.nodes.heading, { level }),
