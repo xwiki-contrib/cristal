@@ -7,22 +7,21 @@ import { CommandParams } from "./menu-helpers";
 
 const Slash = Extension.create({
   name: "slash",
-  // TODO: defaultOptions is deprecated, addOptions must be used instead.
-  defaultOptions: {
-    suggestion: {
-      char: "/",
-      startOfLine: true,
-      command: ({ editor, range, props }: CommandParams) => {
-        props.command({ editor, range, props });
+  addOptions() {
+    return {
+      suggestion: {
+        char: "/",
+        startOfLine: true,
+        command: ({ editor, range, props }: CommandParams) => {
+          props.command({ editor, range, props });
+        },
+        items: getSuggestionItems,
+        render: renderItems,
       },
-      items: getSuggestionItems,
-      render: renderItems,
-    },
+    };
   },
   addProseMirrorPlugins(): Plugin[] {
     return [
-      // @ts-expect-error TODO: this seems to be working but we need to understand
-      // why the types are not accepted.
       Suggestion({
         editor: this.editor,
         ...this.options.suggestion,

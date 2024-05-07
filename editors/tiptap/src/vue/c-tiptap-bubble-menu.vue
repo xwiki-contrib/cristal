@@ -3,7 +3,7 @@ import { Editor, BubbleMenu } from "@tiptap/vue-3";
 import getMenuActions, {
   BubbleMenuAction,
 } from "../components/extensions/bubble-menu";
-import { computed, ComputedRef } from "vue";
+import { computed, ComputedRef, ref } from "vue";
 
 const props = defineProps<{
   editor: Editor;
@@ -19,12 +19,35 @@ function apply(action: BubbleMenuAction) {
     range: props.editor.state.selection,
   });
 }
+
+const hideOnEsc = {
+  name: "hideOnEsc",
+  defaultValue: true,
+  fn({ hide }: { hide: () => void }) {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.keyCode === 27) {
+        hide();
+      }
+    }
+
+    return {
+      onShow() {
+        document.addEventListener("keydown", onKeyDown);
+      },
+      onHide() {
+        document.removeEventListener("keydown", onKeyDown);
+      },
+    };
+  },
+};
 </script>
 
 <template>
   <bubble-menu
     :editor="editor"
-    :tippy-options="{ duration: 100 }"
+    :tippy-options="{
+      plugins: [hideOnEsc],
+    }"
     class="items"
   >
     <button
@@ -32,6 +55,7 @@ function apply(action: BubbleMenuAction) {
       :key="action.title"
       class="item"
       @click="apply(action)"
+      @submit="apply(action)"
     >
       {{ action.title }}
     </button>
