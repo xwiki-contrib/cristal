@@ -2,10 +2,12 @@ import { Editor, Extension, Range } from "@tiptap/core";
 import Suggestion, { SuggestionProps } from "@tiptap/suggestion";
 import { App, createApp } from "vue";
 import Selector from "../../vue/c-tiptap-selector.vue";
-import { Plugin } from "prosemirror-state";
+import { EditorState, Plugin } from "prosemirror-state";
+import { isNodeActive } from "../../tiptap/helpers";
 
 const Slash = Extension.create({
   name: "slash",
+  // TODO: defaultOptions is deprecated, addOptions must be used instead.
   defaultOptions: {
     suggestion: {
       char: "/",
@@ -40,42 +42,73 @@ export interface Action {
   command: (params: CommandParams) => void;
 }
 
-function getH1Action(): Action {
-  return {
-    title: "H1",
-    command: ({ editor, range }) => {
-      editor
-        .chain()
-        .focus()
-        .deleteRange(range)
-        .setNode("heading", { level: 1 })
-        .run();
-    },
-  };
+// TODO: add an icon and an alt description
+interface ActionDescriptor {
+  title: string;
+  active: (state: EditorState) => boolean;
+  command: (commandParams: { editor: Editor; range: Range }) => void;
 }
 
-function getH2Action(): Action {
-  return {
-    title: "H2",
-    command: ({ editor, range }) => {
-      editor
-        .chain()
-        .focus()
-        .deleteRange(range)
-        .setNode("heading", { level: 2 })
-        .run();
-    },
-  };
+interface SelectionContext {
+  isCode: boolean;
+  editor: Editor;
 }
 
-function getAllActions() {
-  return [getH1Action(), getH2Action()];
+function getHeadingAction(
+  level: number,
+  { editor, isCode }: SelectionContext,
+): ActionDescriptor | undefined {
+  if (isCode) {
+    return {
+      title: `H${level}`,
+      active: isNodeActive(editor.schema.nodes.heading, { level }),
+      command: ({ editor, range }) => {
+        editor
+          .chain()
+          .focus()
+          .deleteRange(range)
+          .setNode("heading", { level: level })
+          .run();
+      },
+    };
+  }
 }
 
-function getSuggestionItems({ query }: { query: string }): Action[] {
-  const actions = getAllActions();
+function getBoldAction({
+  editor,
+  isCode,
+}: SelectionContext): ActionDescriptor | undefined {
+  if (!isCode) {
+    return {
+      active: isNodeActive(editor.schema.nodes.strong),
+      command({ editor, range }): void {
+        editor.chain().focus().deleteRange(range).setNode("strong");
+      },
+      title: "Bold",
+    };
+  }
+}
+
+function getAllActions(selectionContext: SelectionContext): ActionDescriptor[] {
+  const getHeadingActions = [1, 2, 3, 4, 5, 6].map((level) =>
+    getHeadingAction(level, selectionContext),
+  );
+  const boldAction = getBoldAction(selectionContext);
+  return [...getHeadingActions, boldAction].filter(
+    (action) => action != undefined,
+  ) as ActionDescriptor[];
+}
+
+function getSuggestionItems({
+  query,
+  editor,
+}: {
+  query: string;
+  editor: Editor;
+}): Action[] {
+  const actions = getAllActions({ editor, isCode: false });
   return actions.filter((action) =>
-    action.title.toLowerCase().includes(query.toLowerCase()),
+    action!.title.toLowerCase().includes(query.toLowerCase()),
   );
 }
 

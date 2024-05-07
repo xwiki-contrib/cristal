@@ -13,16 +13,14 @@ import { useRoute } from "vue-router";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import Text from "@tiptap/extension-text";
-import Document from "@tiptap/extension-document";
 import { Slash } from "../components/extensions/slash";
 import { Markdown } from "tiptap-markdown";
-import Heading from "@tiptap/extension-heading";
 import Image from "@tiptap/extension-image";
 import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
+import CTiptapBubbleMenu from "./c-tiptap-bubble-menu.vue";
 
 const route = useRoute();
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
@@ -87,9 +85,6 @@ async function loadEditor(page: PageData) {
       extensions: [
         StarterKit,
         Placeholder,
-        Text,
-        Document,
-        Heading,
         Image,
         Table,
         TableRow,
@@ -121,6 +116,10 @@ onUpdated(() => loadEditor(currentPage.value!));
     <div v-show="!loading && !error" class="content">
       <div class="content-scroll">
         <div class="whole-content">
+          <c-tiptap-bubble-menu
+            v-if="editor"
+            :editor="editor"
+          ></c-tiptap-bubble-menu>
           <editor-content :editor="editor" class="document-content editor" />
         </div>
       </div>

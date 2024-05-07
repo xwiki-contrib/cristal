@@ -102,6 +102,6 @@ function apply(index: number) {
 .item.is-selected,
 .item:hover {
   color: #a975ff;
-  background: rgba(#a975ff, 0.1);
+  background: rgba(169, 117, 255, 0.1);
 }
 </style>

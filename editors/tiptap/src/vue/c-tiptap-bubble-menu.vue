@@ -1,0 +1,31 @@
+<script setup lang="ts">
+import { Editor, BubbleMenu } from "@tiptap/vue-3";
+
+defineProps<{
+  editor: Editor;
+}>();
+</script>
+
+<template>
+  <bubble-menu
+    :editor="editor"
+    :tippy-options="{ duration: 100 }"
+    class="items"
+  >
+    MENU
+  </bubble-menu>
+</template>
+
+<style scoped>
+.items {
+  position: relative;
+  border-radius: 0.25rem;
+  background: white;
+  color: rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  font-size: 0.9rem;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 10px 20px rgba(0, 0, 0, 0.1);
+}
+</style>
