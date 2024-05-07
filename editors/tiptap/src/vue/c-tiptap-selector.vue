@@ -4,7 +4,6 @@ import { computed, ComputedRef, onMounted, onUnmounted, ref } from "vue";
 import tippy, { GetReferenceClientRect, Instance, Props } from "tippy.js";
 import { SuggestionProps } from "@tiptap/suggestion";
 import { ActionDescriptor } from "../components/extensions/slash";
-import { Editor } from "@tiptap/vue-3";
 
 const container = ref();
 
@@ -12,8 +11,8 @@ const props = defineProps<{
   props: SuggestionProps<unknown>;
 }>();
 
-const items: ComputedRef<{ title: string }[]> = computed(() =>
-  (props.props.items as ActionDescriptor[]).filter((item) => isActive(item)),
+const items: ComputedRef<{ title: string }[]> = computed(
+  () => props.props.items as ActionDescriptor[],
 );
 
 let popup: Instance<Props>[];
@@ -57,11 +56,6 @@ function apply(index: number) {
   if (item) {
     props.props.command(item);
   }
-}
-
-function isActive(item: ActionDescriptor) {
-  const editor = props.props.editor as Editor;
-  return item.active(editor.state);
 }
 </script>
 

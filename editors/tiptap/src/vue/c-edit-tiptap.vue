@@ -21,6 +21,8 @@ import TableRow from "@tiptap/extension-table-row";
 import TableHeader from "@tiptap/extension-table-header";
 import TableCell from "@tiptap/extension-table-cell";
 import CTiptapBubbleMenu from "./c-tiptap-bubble-menu.vue";
+import BulletList from "@tiptap/extension-bullet-list";
+import OrdredList from "@tiptap/extension-ordered-list";
 
 const route = useRoute();
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
@@ -94,6 +96,8 @@ async function loadEditor(page: PageData) {
         Markdown.configure({
           html: true,
         }),
+        BulletList,
+        OrdredList,
       ],
     });
   }

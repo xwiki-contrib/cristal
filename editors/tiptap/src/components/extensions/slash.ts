@@ -2,8 +2,7 @@ import { Editor, Extension, Range } from "@tiptap/core";
 import Suggestion, { SuggestionProps } from "@tiptap/suggestion";
 import { App, createApp } from "vue";
 import Selector from "../../vue/c-tiptap-selector.vue";
-import { EditorState, Plugin } from "prosemirror-state";
-import { isNodeActive } from "../../tiptap/helpers";
+import { Plugin } from "prosemirror-state";
 
 const Slash = Extension.create({
   name: "slash",
@@ -42,73 +41,56 @@ export interface Action {
   command: (params: CommandParams) => void;
 }
 
-// TODO: add an icon and an alt description
+// TODO: add an icon, an alt description and a shortcut
 export interface ActionDescriptor {
   title: string;
-  active: (state: EditorState) => boolean;
   command: (commandParams: { editor: Editor; range: Range }) => void;
-}
-
-interface SelectionContext {
-  isCode: boolean;
-  editor: Editor;
 }
 
 // TODO: the isCode condition as well as active condition are note useful here.
 // They should only be displayed for contextual selections.
-function getHeadingAction(
-  level: number,
-  { editor, isCode }: SelectionContext,
-): ActionDescriptor | undefined {
-  if (!isCode) {
-    return {
-      title: `H${level}`,
-      active: isNodeActive(editor.schema.nodes.heading, { level }),
-      command: ({ editor, range }) => {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setNode("heading", { level: level })
-          .run();
-      },
-    };
-  }
+function getHeadingAction(level: number): ActionDescriptor {
+  return {
+    title: `H${level}`,
+    command({ editor, range }) {
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .setNode("heading", { level: level })
+        .run();
+    },
+  };
 }
 
-function getBoldAction({
-  editor,
-  isCode,
-}: SelectionContext): ActionDescriptor | undefined {
-  if (!isCode) {
-    return {
-      active: isNodeActive(editor.schema.nodes.strong),
-      command({ editor, range }): void {
-        editor.chain().focus().deleteRange(range).setNode("strong");
+function getListActions(): ActionDescriptor[] {
+  return [
+    {
+      title: "Bulleted list",
+      command({ editor, range }) {
+        editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
-      title: "Bold",
-    };
-  }
+    },
+    {
+      title: "Ordered list",
+      command({ editor, range }) {
+        editor.chain().focus().deleteRange(range).toggleOrderedList().run();
+      },
+    },
+  ];
 }
 
-function getAllActions(selectionContext: SelectionContext): ActionDescriptor[] {
+function getAllActions(): ActionDescriptor[] {
   const getHeadingActions = [1, 2, 3, 4, 5, 6].map((level) =>
-    getHeadingAction(level, selectionContext),
+    getHeadingAction(level),
   );
-  const boldAction = getBoldAction(selectionContext);
-  return [...getHeadingActions, boldAction].filter(
-    (action) => action != undefined,
-  ) as ActionDescriptor[];
+
+  // TODO: add image, links and attachments.
+  return [...getHeadingActions, ...getListActions()];
 }
 
-function getSuggestionItems({
-  query,
-  editor,
-}: {
-  query: string;
-  editor: Editor;
-}): Action[] {
-  const actions = getAllActions({ editor, isCode: false });
+function getSuggestionItems({ query }: { query: string }): Action[] {
+  const actions = getAllActions();
   return actions.filter((action) =>
     action!.title.toLowerCase().includes(query.toLowerCase()),
   );
