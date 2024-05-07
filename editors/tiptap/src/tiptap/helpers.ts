@@ -1,10 +1,11 @@
 import { MarkType, NodeType } from "@tiptap/pm/model";
 import { EditorState } from "@tiptap/pm/state";
 import { findParentNode } from "@tiptap/vue-3";
+import { Primitive } from "utility-types";
 
 export function isNodeActive(
   type: NodeType,
-  attrs?: Record<string, any>,
+  attrs?: Record<string, Primitive>,
 ): (state: EditorState) => boolean {
   return (state) => {
     let isActive = false;

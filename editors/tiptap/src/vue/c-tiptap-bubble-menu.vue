@@ -30,8 +30,8 @@ function apply(action: BubbleMenuAction) {
     <button
       v-for="action in actions"
       :key="action.title"
-      @click="apply(action)"
       class="item"
+      @click="apply(action)"
     >
       {{ action.title }}
     </button>

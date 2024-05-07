@@ -313,6 +313,9 @@ importers:
       tiptap-markdown:
         specifier: 0.8.10
         version: 0.8.10(@tiptap/core@2.3.1(@tiptap/pm@2.3.0))
+      utility-types:
+        specifier: 3.11.0
+        version: 3.11.0
       vue:
         specifier: 3.4.26
         version: 3.4.26(typescript@5.4.5)
@@ -4963,6 +4966,10 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  utility-types@3.11.0:
+    resolution: {integrity: sha512-6Z7Ma2aVEWisaL6TvBCy7P8rm2LQoPv6dJ7ecIaIixHcwfbJ0x7mWdbcwlIM5IGQxPZSFYeqRCqlOOeKoJYMkw==}
+    engines: {node: '>= 4'}
 
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
@@ -9828,6 +9835,8 @@ snapshots:
   utf8-byte-length@1.0.4: {}
 
   util-deprecate@1.0.2: {}
+
+  utility-types@3.11.0: {}
 
   utils-merge@1.0.1: {}
 
