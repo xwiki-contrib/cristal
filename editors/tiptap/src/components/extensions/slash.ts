@@ -156,18 +156,31 @@ function getAllActions(): ActionCategoryDescriptor[] {
   ];
 }
 
+/**
+ * Produces an equality operator based on the current query.
+ * The equality operation currently returns true of the query is a sub-string
+ * of the provided value, without taking into account the case.
+ *
+ * @param query the query to apply on the provided value
+ * @return a lamba taking a string and returning a true when the value matches
+ * the query filter, and false otherwise
+ */
+function queryEqualityOperator(query: string) {
+  return (value: string) => {
+    return value.toLowerCase().includes(query.toLowerCase());
+  };
+}
+
 export function filterActionsByQuery(
   query: string,
   actions: ActionCategoryDescriptor[],
 ) {
   function filterByQueryString(action: ActionDescriptor) {
-    const lowerCaseQuery = query.toLowerCase();
+    const equalityOperator = queryEqualityOperator(query);
     return (
-      action.title.toLowerCase().includes(lowerCaseQuery) ||
-      action.hint.toLowerCase().includes(lowerCaseQuery) ||
-      action.aliases?.some((alias) =>
-        alias.toLowerCase().includes(lowerCaseQuery),
-      )
+      equalityOperator(action.title) ||
+      equalityOperator(action.hint) ||
+      action.aliases?.some(equalityOperator)
     );
   }
 
@@ -207,8 +220,7 @@ function getSuggestionItems({
 }: {
   query: string;
 }): ActionCategoryDescriptor[] {
-  const allActions = getAllActions();
-  return filterActionsByQuery(query, allActions);
+  return filterActionsByQuery(query, getAllActions());
 }
 
 function renderItems() {
