@@ -31,20 +31,42 @@ const Slash = Extension.create({
 });
 
 /**
+ * Define the descriptor for action categories.
+ * A category is composed of the action title and a set of actions linked to
+ * that category.
+ * @since 0.8
+ */
+export interface ActionCategoryDescriptor {
+  actions: ActionDescriptor[];
+  title: string;
+}
+
+/**
  * Defines the structure of a slash action descriptor.
  *
  * @since 0.8
  */
 export interface ActionDescriptor {
   title: string;
+  /**
+   * An optional sort field to be used instead of the title when sorting the
+   * actions.
+   */
+  sortField?: string;
   command: (commandParams: { editor: Editor; range: Range }) => void;
   icon: string;
   hint: string;
+  /**
+   * A list of strings that are not expected to be displayed but that are used
+   * when filtering for actions in the UI.
+   */
+  aliases?: string[];
 }
 
 function getHeadingAction(level: number): ActionDescriptor {
   return {
-    title: `H${level}`,
+    title: `Heading ${level}`,
+    aliases: [`h${level}`],
     icon: `type-h${level}`,
     hint: `Toggle Heading level ${level}`,
     command({ editor, range }) {
@@ -64,6 +86,7 @@ function getListActions(): ActionDescriptor[] {
       title: "Bulleted list",
       icon: "list-ul",
       hint: "Toggle bulleted list",
+      sortField: "list-bulleted",
       command({ editor, range }) {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
@@ -72,6 +95,7 @@ function getListActions(): ActionDescriptor[] {
       title: "Ordered list",
       icon: "list-ol",
       hint: "Toggle ordered list",
+      sortField: "list-ordered",
       command({ editor, range }) {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
@@ -112,33 +136,73 @@ function getCodeBlockAction(): ActionDescriptor {
   };
 }
 
-function getAllActions(): ActionDescriptor[] {
+function getAllActions(): ActionCategoryDescriptor[] {
   const getHeadingActions = [1, 2, 3, 4, 5, 6].map((level) =>
     getHeadingAction(level),
   );
 
   // TODO: add image, links and attachments.
   return [
-    ...getHeadingActions,
-    ...getListActions(),
-    getTableAction(),
-    getBlockquoteAction(),
-    getCodeBlockAction(),
+    {
+      title: "Layout",
+      actions: [
+        ...getHeadingActions,
+        ...getListActions(),
+        getTableAction(),
+        getBlockquoteAction(),
+        getCodeBlockAction(),
+      ],
+    },
   ];
 }
 
-function getSuggestionItems({ query }: { query: string }): ActionDescriptor[] {
-  const actions = getAllActions().filter(
-    (action) =>
-      action.title.toLowerCase().includes(query.toLowerCase()) ||
-      action.hint.toLowerCase().includes(query.toLowerCase()),
-  );
-  actions.sort((action0, action1) => {
-    const title0 = action0.title;
-    const title1 = action1.title;
+function getSuggestionItems({
+  query,
+}: {
+  query: string;
+}): ActionCategoryDescriptor[] {
+  function filterByQueryString(action: ActionDescriptor) {
+    const lowerCaseQuery = query.toLowerCase();
+    return (
+      action.title.toLowerCase().includes(lowerCaseQuery) ||
+      action.hint.toLowerCase().includes(lowerCaseQuery) ||
+      action.aliases?.some((alias) =>
+        alias.toLowerCase().includes(lowerCaseQuery),
+      )
+    );
+  }
+
+  function orderByAction(action0: ActionDescriptor, action1: ActionDescriptor) {
+    const title0 = action0.sortField || action0.title;
+    const title1 = action1.sortField || action1.title;
     return title0 === title1 ? 0 : title0 > title1 ? 1 : -1;
+  }
+
+  const categories: ActionCategoryDescriptor[] = getAllActions().flatMap(
+    (category) => {
+      const filteredActions = category.actions.filter(filterByQueryString);
+      filteredActions.sort(orderByAction);
+      if (filteredActions.length > 0) {
+        return [
+          // Clone the category but replace the actions with a filtered list of
+          // actions matching the query.
+          {
+            ...category,
+            actions: filteredActions,
+          },
+        ];
+      } else {
+        // If no actions of the group are matched by the filter, skip the category
+        return [];
+      }
+    },
+  );
+
+  categories.sort((category0, category1) => {
+    return category0.title > category1.title ? 1 : -1;
   });
-  return actions;
+
+  return categories;
 }
 
 function renderItems() {
@@ -171,7 +235,6 @@ function renderItems() {
         props,
       });
       app.mount(elemDiv);
-      // TODO: destroy when finished
     },
     onUpdate(props: unknown) {
       if (app._instance) {

@@ -11,7 +11,10 @@ import {
 
 import tippy, { GetReferenceClientRect, Instance, Props } from "tippy.js";
 import { SuggestionProps } from "@tiptap/suggestion";
-import { ActionDescriptor } from "../components/extensions/slash";
+import {
+  ActionCategoryDescriptor,
+  ActionDescriptor,
+} from "../components/extensions/slash";
 import { CIcon, Size } from "@cristal/icons";
 
 const container = ref();
@@ -20,9 +23,13 @@ const props = defineProps<{
   props: SuggestionProps<unknown>;
 }>();
 
-const items: ComputedRef<ActionDescriptor[]> = computed(
-  () => props.props.items as ActionDescriptor[],
+const items: ComputedRef<ActionCategoryDescriptor[]> = computed(
+  () => props.props.items as ActionCategoryDescriptor[],
 );
+
+const actions: ComputedRef<ActionDescriptor[]> = computed(() => {
+  return items.value.flatMap((category) => category.actions);
+});
 
 let popup: Instance<Props>[];
 
@@ -45,12 +52,12 @@ onUnmounted(() => {
 const index = ref(0);
 
 function down() {
-  index.value = (index.value + 1) % props.props.items.length;
+  index.value = (index.value + 1) % actions.value.length;
 }
 
 function up() {
-  index.value =
-    (index.value + props.props.items.length - 1) % props.props.items.length;
+  const actionsLength = actions.value.length;
+  index.value = (index.value + actionsLength - 1) % actionsLength;
 }
 
 function enter() {
@@ -58,7 +65,7 @@ function enter() {
 }
 
 function apply(index: number) {
-  const item = props.props.items[index];
+  const item = actions.value[index];
   if (item) {
     props.props.command(item);
   }
@@ -81,26 +88,33 @@ watch(index, async () => {
     @keydown.up="up"
     @keydown.enter="enter"
   >
-    <button
-      v-for="(item, itemIndex) in items"
-      :key="item.title"
-      :class="['item', index == itemIndex ? 'is-selected' : '']"
-      @click="apply(itemIndex)"
-    >
-      <c-icon :name="item.icon" :size="Size.Small"></c-icon>&nbsp;
-      <small>{{ item.hint }}</small>
-    </button>
+    <template v-for="category in items" :key="category.title">
+      <span class="category-title">{{ category.title }}</span>
+      <button
+        v-for="(item, itemIndex) in category.actions"
+        :key="item.title"
+        :class="[
+          'item',
+          item.title == actions[index].title ? 'is-selected' : '',
+        ]"
+        @click="apply(itemIndex)"
+      >
+        <c-icon :name="item.icon" :size="Size.Small"></c-icon>&nbsp;
+        {{ item.hint }}
+      </button>
+    </template>
   </div>
 </template>
 
 <style scoped>
+.category-title {
+  font-style: italic;
+}
 .items {
   position: relative;
-  border-radius: 0.25rem;
-  background: white;
-  color: rgba(0, 0, 0, 0.8);
+  border-radius: var(--cr-tooltip-border-radius);
+  background: white; /* TODO: define a global variable for background color */
   overflow: hidden auto;
-  font-size: 0.9rem;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.1),
     0 10px 20px rgba(0, 0, 0, 0.1);
@@ -118,7 +132,7 @@ watch(index, async () => {
 
 .item.is-selected,
 .item:hover {
-  color: #a975ff;
-  background: rgba(169, 117, 255, 0.1);
+  color: var(--cr-color-neutral-500);
+  background: var(--cr-color-neutral-100);
 }
 </style>

@@ -68,11 +68,9 @@ const hideOnEsc = {
 <style scoped>
 .items {
   position: relative;
-  border-radius: 0.25rem;
-  background: white;
-  color: rgba(0, 0, 0, 0.8);
+  border-radius: var(--cr-tooltip-border-radius);
+  background: white; /* TODO: define a global variable for background color */
   overflow: hidden;
-  font-size: 0.9rem;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.1),
     0 10px 20px rgba(0, 0, 0, 0.1);
