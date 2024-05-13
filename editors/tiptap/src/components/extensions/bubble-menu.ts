@@ -34,6 +34,16 @@ function getItalic(editor: Editor): BubbleMenuAction {
   };
 }
 
+function getCode(editor: Editor): BubbleMenuAction {
+  return {
+    title: "Code",
+    command({ editor }) {
+      editor.commands.toggleCode();
+    },
+    isActive: isMarkActive(editor.schema.marks.code),
+  };
+}
+
 function getHeadingAction(level: Level, editor: Editor): BubbleMenuAction {
   return {
     title: `H${level}`,
@@ -49,5 +59,10 @@ export default function getMenuActions(editor: Editor): BubbleMenuAction[] {
   const headings: BubbleMenuAction[] = numbers.map((level) =>
     getHeadingAction(level, editor),
   );
-  return [...headings, getBoldAction(editor), getItalic(editor)];
+  return [
+    ...headings,
+    getBoldAction(editor),
+    getItalic(editor),
+    getCode(editor),
+  ];
 }

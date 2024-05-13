@@ -30,12 +30,12 @@ const Slash = Extension.create({
   },
 });
 
-export interface Action {
-  title: string;
-  command: (params: CommandParams) => void;
-}
-
 // TODO: add an icon, an alt description and a shortcut
+/**
+ * Defines the structure of a slash action descriptor.
+ *
+ * @since 0.8
+ */
 export interface ActionDescriptor {
   title: string;
   command: (commandParams: { editor: Editor; range: Range }) => void;
@@ -74,20 +74,58 @@ function getListActions(): ActionDescriptor[] {
   ];
 }
 
+function getTableAction(): ActionDescriptor {
+  return {
+    title: "Table",
+    command({ editor, range }) {
+      editor.chain().focus().deleteRange(range).insertTable().run();
+    },
+  };
+}
+
+function getBlockquoteAction(): ActionDescriptor {
+  return {
+    title: "Blockquote",
+    command({ editor, range }) {
+      editor.chain().focus().deleteRange(range).toggleBlockquote().run();
+    },
+  };
+}
+
+function getCodeBlockAction(): ActionDescriptor {
+  return {
+    title: "Code",
+    command({ editor, range }) {
+      editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
+    },
+  };
+}
+
 function getAllActions(): ActionDescriptor[] {
   const getHeadingActions = [1, 2, 3, 4, 5, 6].map((level) =>
     getHeadingAction(level),
   );
 
   // TODO: add image, links and attachments.
-  return [...getHeadingActions, ...getListActions()];
+  return [
+    ...getHeadingActions,
+    ...getListActions(),
+    getTableAction(),
+    getBlockquoteAction(),
+    getCodeBlockAction(),
+  ];
 }
 
-function getSuggestionItems({ query }: { query: string }): Action[] {
-  const actions = getAllActions();
-  return actions.filter((action) =>
+function getSuggestionItems({ query }: { query: string }): ActionDescriptor[] {
+  const actions = getAllActions().filter((action) =>
     action!.title.toLowerCase().includes(query.toLowerCase()),
   );
+  actions.sort((action0, action1) => {
+    const title0 = action0.title;
+    const title1 = action1.title;
+    return title0 === title1 ? 0 : title0 > title1 ? 1 : -1;
+  });
+  return actions;
 }
 
 function renderItems() {
@@ -97,7 +135,6 @@ function renderItems() {
   return {
     onExit() {
       app?.unmount();
-      document.body.removeChild(elemDiv);
     },
     onKeyDown({ event }: { event: KeyboardEvent }) {
       const key = event.key;

@@ -89,7 +89,7 @@ watch(index, async () => {
       :class="['item', index == itemIndex ? 'is-selected' : '']"
       @click="apply(itemIndex)"
     >
-      {{ item.title }}
+      <c-icon></c-icon>{{ item.title }}
     </button>
   </div>
 </template>
