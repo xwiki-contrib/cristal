@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { computed, ComputedRef, onMounted, onUnmounted, ref } from "vue";
+import {
+  computed,
+  ComputedRef,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from "vue";
 
 import tippy, { GetReferenceClientRect, Instance, Props } from "tippy.js";
 import { SuggestionProps } from "@tiptap/suggestion";
@@ -57,6 +65,14 @@ function apply(index: number) {
     props.props.command(item);
   }
 }
+
+// Make sure the newly selected item is visible on element focus change.
+watch(index, async () => {
+  // Wait for the container to be re-pained to run the selector on the newly
+  // selected element.
+  await nextTick();
+  container.value.querySelector(".is-selected").scrollIntoView();
+});
 </script>
 
 <template>
@@ -84,11 +100,12 @@ function apply(index: number) {
   border-radius: 0.25rem;
   background: white;
   color: rgba(0, 0, 0, 0.8);
-  overflow: hidden;
+  overflow: hidden auto;
   font-size: 0.9rem;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.1),
     0 10px 20px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
 }
 
 .item {
