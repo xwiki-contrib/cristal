@@ -54,13 +54,10 @@ function up() {
 }
 
 function enter() {
-  // TODO: loop based on the items provided by renderItems and getSuggestionItems
-  // on enter, get the command corresponding to the currently selected item and execute it
   apply(index.value);
 }
 
 function apply(index: number) {
-  // TODO: get by index and apply action
   const item = props.props.items[index];
   if (item) {
     props.props.command(item);

@@ -30,7 +30,6 @@ const Slash = Extension.create({
   },
 });
 
-// TODO: add an alt description and a shortcut
 /**
  * Defines the structure of a slash action descriptor.
  *
