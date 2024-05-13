@@ -258,25 +258,25 @@ importers:
         version: link:../../skin
       '@milkdown/core':
         specifier: 7.3.3
-        version: 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
+        version: 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
       '@milkdown/ctx':
         specifier: 7.3.3
         version: 7.3.3
       '@milkdown/preset-commonmark':
         specifier: 7.3.3
-        version: 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
+        version: 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
       '@milkdown/prose':
-        specifier: 7.3.3
-        version: 7.3.3
+        specifier: 7.3.6
+        version: 7.3.6
       '@milkdown/theme-nord':
         specifier: 7.3.3
-        version: 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)
+        version: 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)
       '@milkdown/transformer':
         specifier: 7.3.3
-        version: 7.3.3(@milkdown/prose@7.3.3)
+        version: 7.3.3(@milkdown/prose@7.3.6)
       '@milkdown/vue':
         specifier: 7.3.3
-        version: 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))(vue@3.4.27(typescript@5.4.5))
+        version: 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))(vue@3.4.27(typescript@5.4.5))
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -1420,6 +1420,9 @@ packages:
   '@milkdown/exception@7.3.3':
     resolution: {integrity: sha512-q6S9P5yux23BPy5/GK81OslQuVWD+PrNljb1asv10TTscZAyZmgCMvECQrR3qrwd/Ja5JN5C2CcYLe1JgzI1Fg==}
 
+  '@milkdown/exception@7.3.6':
+    resolution: {integrity: sha512-oEcQVyp3Lcvw3ySBc2EeCFAN1t/zvY+pdBsBSsIDB2uYueQK2PGSkzhd5WbvHnzv4lV4P19hoyPLwviqvQbVqA==}
+
   '@milkdown/preset-commonmark@7.3.3':
     resolution: {integrity: sha512-Hy1gKgoaH8W0lvruKxu52CJ27iqngqavHsEvqDjHehzpkjoG30/1Fjyn/Jf7IT4oByoG1l9u3ejy6jx6TtYR3A==}
     peerDependencies:
@@ -1428,8 +1431,8 @@ packages:
       '@milkdown/prose': ^7.2.0
       '@milkdown/transformer': ^7.2.0
 
-  '@milkdown/prose@7.3.3':
-    resolution: {integrity: sha512-d+Dv2C7cSWBfkG3scLnc+6IA40nKNIJM37NFBQ6mbOW7/6dj1m5vhNGZN+LDKlEEYOhVko+Kr6vwI4FfuY+pUw==}
+  '@milkdown/prose@7.3.6':
+    resolution: {integrity: sha512-uBPgqghlDLxlfFPPVpPslM0N1h/6RFol2NTug65LK00bqvnNz8AUB712LMORb+KC7SGPcfUSu3z54Wxx2a27fg==}
 
   '@milkdown/theme-nord@7.3.3':
     resolution: {integrity: sha512-hXD8Qgb0tREIcNMCpV7VDAzT43dPQXsAwn7J5gvojx76MHI8SRV4y3c04LP+OncR3H2LGgkqB3+eew6vWA32iA==}
@@ -4312,9 +4315,6 @@ packages:
   prosemirror-menu@1.2.4:
     resolution: {integrity: sha512-S/bXlc0ODQup6aiBbWVsX/eM+xJgCTAfMq/nLqaO5ID/am4wS0tTCIkzwytmao7ypEtjj39i7YbJjAgO20mIqA==}
 
-  prosemirror-model@1.19.4:
-    resolution: {integrity: sha512-RPmVXxUfOhyFdayHawjuZCxiROsm9L4FCUA6pWI+l7n2yCBsWy9VpdE1hpDHUS8Vad661YLY9AzqfjLhAKQ4iQ==}
-
   prosemirror-model@1.20.0:
     resolution: {integrity: sha512-q7AY7vMjKYqDCeoedgUiAgrLabliXxndJuuFmcmc2+YU1SblvnOiG2WEACF2lwAZsMlfLpiAilA3L+TWlDqIsQ==}
 
@@ -4332,9 +4332,6 @@ packages:
 
   prosemirror-transform@1.8.0:
     resolution: {integrity: sha512-BaSBsIMv52F1BVVMvOmp1yzD3u65uC3HTzCBQV1WDPqJRQ2LuHKcyfn0jwqodo8sR9vVzMzZyI+Dal5W9E6a9A==}
-
-  prosemirror-view@1.32.7:
-    resolution: {integrity: sha512-pvxiOoD4shW41X5bYDjRQk3DSG4fMqxh36yPMt7VYgU3dWRmqFzWJM/R6zeo1KtC8nyk717ZbQND3CC9VNeptw==}
 
   prosemirror-view@1.33.4:
     resolution: {integrity: sha512-xQqAhH8/HGleVpKDhQsrd+oqdyeKMxFtdCWDxWMmP+n0k27fBpyUqa8pA+RB5cFY8rqDDc1hll69aRZQa7UaAw==}
@@ -5917,12 +5914,12 @@ snapshots:
 
   '@microsoft/tsdoc@0.14.2': {}
 
-  '@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))':
+  '@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))':
     dependencies:
       '@milkdown/ctx': 7.3.3
       '@milkdown/exception': 7.3.3
-      '@milkdown/prose': 7.3.3
-      '@milkdown/transformer': 7.3.3(@milkdown/prose@7.3.3)
+      '@milkdown/prose': 7.3.6
+      '@milkdown/transformer': 7.3.3(@milkdown/prose@7.3.6)
       remark-parse: 11.0.0
       remark-stringify: 11.0.0
       tslib: 2.6.2
@@ -5939,22 +5936,26 @@ snapshots:
     dependencies:
       tslib: 2.6.2
 
-  '@milkdown/preset-commonmark@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))':
+  '@milkdown/exception@7.3.6':
     dependencies:
-      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
+      tslib: 2.6.2
+
+  '@milkdown/preset-commonmark@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))':
+    dependencies:
+      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
       '@milkdown/ctx': 7.3.3
       '@milkdown/exception': 7.3.3
-      '@milkdown/prose': 7.3.3
-      '@milkdown/transformer': 7.3.3(@milkdown/prose@7.3.3)
-      '@milkdown/utils': 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
+      '@milkdown/prose': 7.3.6
+      '@milkdown/transformer': 7.3.3(@milkdown/prose@7.3.6)
+      '@milkdown/utils': 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
       '@sindresorhus/slugify': 2.2.1
       remark-inline-links: 7.0.0
       tslib: 2.6.2
       unist-util-visit: 5.0.0
 
-  '@milkdown/prose@7.3.3':
+  '@milkdown/prose@7.3.6':
     dependencies:
-      '@milkdown/exception': 7.3.3
+      '@milkdown/exception': 7.3.6
       prosemirror-changeset: 2.2.1
       prosemirror-commands: 1.5.2
       prosemirror-dropcursor: 1.8.1
@@ -5962,26 +5963,26 @@ snapshots:
       prosemirror-history: 1.3.2
       prosemirror-inputrules: 1.4.0
       prosemirror-keymap: 1.2.2
-      prosemirror-model: 1.19.4
+      prosemirror-model: 1.20.0
       prosemirror-schema-list: 1.3.0
       prosemirror-state: 1.4.3
       prosemirror-tables: 1.3.5
       prosemirror-transform: 1.8.0
-      prosemirror-view: 1.32.7
+      prosemirror-view: 1.33.4
       tslib: 2.6.2
 
-  '@milkdown/theme-nord@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)':
+  '@milkdown/theme-nord@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)':
     dependencies:
-      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
+      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
       '@milkdown/ctx': 7.3.3
-      '@milkdown/prose': 7.3.3
+      '@milkdown/prose': 7.3.6
       clsx: 2.1.0
       tslib: 2.6.2
 
-  '@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)':
+  '@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)':
     dependencies:
       '@milkdown/exception': 7.3.3
-      '@milkdown/prose': 7.3.3
+      '@milkdown/prose': 7.3.6
       remark: 15.0.1
       remark-parse: 11.0.0
       remark-stringify: 11.0.0
@@ -5990,21 +5991,21 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@milkdown/utils@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))':
+  '@milkdown/utils@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))':
     dependencies:
-      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
+      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
       '@milkdown/ctx': 7.3.3
       '@milkdown/exception': 7.3.3
-      '@milkdown/prose': 7.3.3
-      '@milkdown/transformer': 7.3.3(@milkdown/prose@7.3.3)
+      '@milkdown/prose': 7.3.6
+      '@milkdown/transformer': 7.3.3(@milkdown/prose@7.3.6)
       nanoid: 5.0.5
       tslib: 2.6.2
 
-  '@milkdown/vue@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))(vue@3.4.27(typescript@5.4.5))':
+  '@milkdown/vue@7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))(vue@3.4.27(typescript@5.4.5))':
     dependencies:
-      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
-      '@milkdown/prose': 7.3.3
-      '@milkdown/utils': 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.3)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.3))
+      '@milkdown/core': 7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
+      '@milkdown/prose': 7.3.6
+      '@milkdown/utils': 7.3.3(@milkdown/core@7.3.3(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6)))(@milkdown/ctx@7.3.3)(@milkdown/prose@7.3.6)(@milkdown/transformer@7.3.3(@milkdown/prose@7.3.6))
       tslib: 2.6.2
       vue: 3.4.27(typescript@5.4.5)
     transitivePeerDependencies:
@@ -9228,10 +9229,6 @@ snapshots:
       prosemirror-history: 1.3.2
       prosemirror-state: 1.4.3
 
-  prosemirror-model@1.19.4:
-    dependencies:
-      orderedmap: 2.1.1
-
   prosemirror-model@1.20.0:
     dependencies:
       orderedmap: 2.1.1
@@ -9263,12 +9260,6 @@ snapshots:
   prosemirror-transform@1.8.0:
     dependencies:
       prosemirror-model: 1.20.0
-
-  prosemirror-view@1.32.7:
-    dependencies:
-      prosemirror-model: 1.20.0
-      prosemirror-state: 1.4.3
-      prosemirror-transform: 1.8.0
 
   prosemirror-view@1.33.4:
     dependencies:
