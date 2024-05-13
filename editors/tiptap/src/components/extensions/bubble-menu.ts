@@ -4,19 +4,24 @@ import { EditorState } from "@tiptap/pm/state";
 import { Range } from "@tiptap/core";
 import { Level } from "@tiptap/extension-heading";
 
-// TODO: define icons, especially here where space is scarce and there is no
-//  option to filter by text.
 // TODO: also add condition, for instance some actions shouldn't be proposed on
 // code.
+/**
+ * Bubble menu action descriptor.
+ *
+ * @sincer 0.8
+ */
 export interface BubbleMenuAction {
   title: string;
   command: (params: { editor: Editor; range: Range }) => void;
   isActive: (state: EditorState) => boolean;
+  icon: string;
 }
 
 function getBoldAction(editor: Editor): BubbleMenuAction {
   return {
     title: "Bold",
+    icon: "type-bold",
     command({ editor }) {
       editor.commands.toggleBold();
     },
@@ -27,6 +32,7 @@ function getBoldAction(editor: Editor): BubbleMenuAction {
 function getItalic(editor: Editor): BubbleMenuAction {
   return {
     title: "Italic",
+    icon: "type-italic",
     command({ editor }) {
       editor.commands.toggleItalic();
     },
@@ -37,6 +43,7 @@ function getItalic(editor: Editor): BubbleMenuAction {
 function getCode(editor: Editor): BubbleMenuAction {
   return {
     title: "Code",
+    icon: "code",
     command({ editor }) {
       editor.commands.toggleCode();
     },
@@ -47,6 +54,7 @@ function getCode(editor: Editor): BubbleMenuAction {
 function getHeadingAction(level: Level, editor: Editor): BubbleMenuAction {
   return {
     title: `H${level}`,
+    icon: `type-h${level}`,
     command({ editor }) {
       editor.chain().toggleHeading({ level }).run();
     },

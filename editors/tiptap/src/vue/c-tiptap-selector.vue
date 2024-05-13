@@ -12,6 +12,7 @@ import {
 import tippy, { GetReferenceClientRect, Instance, Props } from "tippy.js";
 import { SuggestionProps } from "@tiptap/suggestion";
 import { ActionDescriptor } from "../components/extensions/slash";
+import { CIcon, Size } from "@cristal/icons";
 
 const container = ref();
 
@@ -19,7 +20,7 @@ const props = defineProps<{
   props: SuggestionProps<unknown>;
 }>();
 
-const items: ComputedRef<{ title: string }[]> = computed(
+const items: ComputedRef<ActionDescriptor[]> = computed(
   () => props.props.items as ActionDescriptor[],
 );
 
@@ -89,7 +90,8 @@ watch(index, async () => {
       :class="['item', index == itemIndex ? 'is-selected' : '']"
       @click="apply(itemIndex)"
     >
-      <c-icon></c-icon>{{ item.title }}
+      <c-icon :name="item.icon" :size="Size.Small"></c-icon>&nbsp;
+      <small>{{ item.hint }}</small>
     </button>
   </div>
 </template>

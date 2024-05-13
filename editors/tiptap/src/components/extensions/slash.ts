@@ -30,7 +30,7 @@ const Slash = Extension.create({
   },
 });
 
-// TODO: add an icon, an alt description and a shortcut
+// TODO: add an alt description and a shortcut
 /**
  * Defines the structure of a slash action descriptor.
  *
@@ -39,13 +39,15 @@ const Slash = Extension.create({
 export interface ActionDescriptor {
   title: string;
   command: (commandParams: { editor: Editor; range: Range }) => void;
+  icon: string;
+  hint: string;
 }
 
-// TODO: the isCode condition as well as active condition are note useful here.
-// They should only be displayed for contextual selections.
 function getHeadingAction(level: number): ActionDescriptor {
   return {
     title: `H${level}`,
+    icon: `type-h${level}`,
+    hint: `Toggle Heading level ${level}`,
     command({ editor, range }) {
       editor
         .chain()
@@ -61,12 +63,16 @@ function getListActions(): ActionDescriptor[] {
   return [
     {
       title: "Bulleted list",
+      icon: "list-ul",
+      hint: "Toggle bulleted list",
       command({ editor, range }) {
         editor.chain().focus().deleteRange(range).toggleBulletList().run();
       },
     },
     {
       title: "Ordered list",
+      icon: "list-ol",
+      hint: "Toggle ordered list",
       command({ editor, range }) {
         editor.chain().focus().deleteRange(range).toggleOrderedList().run();
       },
@@ -77,6 +83,8 @@ function getListActions(): ActionDescriptor[] {
 function getTableAction(): ActionDescriptor {
   return {
     title: "Table",
+    icon: "table",
+    hint: "Insert a table",
     command({ editor, range }) {
       editor.chain().focus().deleteRange(range).insertTable().run();
     },
@@ -86,6 +94,8 @@ function getTableAction(): ActionDescriptor {
 function getBlockquoteAction(): ActionDescriptor {
   return {
     title: "Blockquote",
+    icon: "quote",
+    hint: "Toggle blockquote",
     command({ editor, range }) {
       editor.chain().focus().deleteRange(range).toggleBlockquote().run();
     },
@@ -95,6 +105,8 @@ function getBlockquoteAction(): ActionDescriptor {
 function getCodeBlockAction(): ActionDescriptor {
   return {
     title: "Code",
+    icon: "code",
+    hint: "Toggle code block",
     command({ editor, range }) {
       editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
     },
@@ -117,8 +129,10 @@ function getAllActions(): ActionDescriptor[] {
 }
 
 function getSuggestionItems({ query }: { query: string }): ActionDescriptor[] {
-  const actions = getAllActions().filter((action) =>
-    action!.title.toLowerCase().includes(query.toLowerCase()),
+  const actions = getAllActions().filter(
+    (action) =>
+      action.title.toLowerCase().includes(query.toLowerCase()) ||
+      action.hint.toLowerCase().includes(query.toLowerCase()),
   );
   actions.sort((action0, action1) => {
     const title0 = action0.title;

@@ -4,6 +4,7 @@ import getMenuActions, {
   BubbleMenuAction,
 } from "../components/extensions/bubble-menu";
 import { computed, ComputedRef } from "vue";
+import { CIcon, Size } from "@cristal/icons";
 
 const props = defineProps<{
   editor: Editor;
@@ -54,10 +55,12 @@ const hideOnEsc = {
       v-for="action in actions"
       :key="action.title"
       class="item"
+      :aria-label="action.title"
+      :title="action.title"
       @click="apply(action)"
       @submit="apply(action)"
     >
-      {{ action.title }}
+      <c-icon :name="action.icon" :size="Size.Small"></c-icon>
     </button>
   </bubble-menu>
 </template>
