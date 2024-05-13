@@ -156,11 +156,10 @@ function getAllActions(): ActionCategoryDescriptor[] {
   ];
 }
 
-function getSuggestionItems({
-  query,
-}: {
-  query: string;
-}): ActionCategoryDescriptor[] {
+export function filterActionsByQuery(
+  query: string,
+  actions: ActionCategoryDescriptor[],
+) {
   function filterByQueryString(action: ActionDescriptor) {
     const lowerCaseQuery = query.toLowerCase();
     return (
@@ -178,31 +177,38 @@ function getSuggestionItems({
     return title0 === title1 ? 0 : title0 > title1 ? 1 : -1;
   }
 
-  const categories: ActionCategoryDescriptor[] = getAllActions().flatMap(
-    (category) => {
-      const filteredActions = category.actions.filter(filterByQueryString);
-      filteredActions.sort(orderByAction);
-      if (filteredActions.length > 0) {
-        return [
-          // Clone the category but replace the actions with a filtered list of
-          // actions matching the query.
-          {
-            ...category,
-            actions: filteredActions,
-          },
-        ];
-      } else {
-        // If no actions of the group are matched by the filter, skip the category
-        return [];
-      }
-    },
-  );
+  const categories: ActionCategoryDescriptor[] = actions.flatMap((category) => {
+    const filteredActions = category.actions.filter(filterByQueryString);
+    filteredActions.sort(orderByAction);
+    if (filteredActions.length > 0) {
+      return [
+        // Clone the category but replace the actions with a filtered list of
+        // actions matching the query.
+        {
+          ...category,
+          actions: filteredActions,
+        },
+      ];
+    } else {
+      // If no actions of the group are matched by the filter, skip the category
+      return [];
+    }
+  });
 
   categories.sort((category0, category1) => {
     return category0.title > category1.title ? 1 : -1;
   });
 
   return categories;
+}
+
+function getSuggestionItems({
+  query,
+}: {
+  query: string;
+}): ActionCategoryDescriptor[] {
+  const allActions = getAllActions();
+  return filterActionsByQuery(query, allActions);
 }
 
 function renderItems() {
