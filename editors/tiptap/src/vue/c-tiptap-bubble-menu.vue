@@ -82,6 +82,7 @@ const hideOnEsc = {
   border: none;
   padding: var(--cr-spacing-x-small);
 }
+
 .item:hover {
   background-color: var(--cr-color-neutral-200);
   cursor: pointer;
