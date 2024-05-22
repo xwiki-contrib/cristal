@@ -1,44 +1,67 @@
-import { defineConfig } from "vite";
-import Inspect from "vite-plugin-inspect";
+import { defineConfig, mergeConfig } from "vite";
 import dts from "vite-plugin-dts";
-
-import { ModuleFormat } from "rollup";
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { basename, dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import vue from "@vitejs/plugin-vue";
 
-export function generateConfig(dir: string) {
+function pathsComputation(path: string) {
+  const dir = dirname(fileURLToPath(path));
+  const packageDirName = basename(dir);
   const pkg = JSON.parse(
     readFileSync(resolve(dir, "package.json"), { encoding: "utf-8" }),
   );
+  return { packageDirName, pkg };
+}
+
+export function generateConfig(path: string) {
+  const { packageDirName, pkg } = pathsComputation(path);
+
+  const libFileName = (format: string) => `index.${format}.js`;
 
   return defineConfig({
     build: {
       lib: {
         entry: "./src/index.ts",
-        name: "menubuttons",
-        // the proper extensions will be added
-        fileName: (format: ModuleFormat) => {
-          if (format == "es") {
-            return "main.bundle.dev.js";
-          } else {
-            return "main.bundle.js";
-          }
-        },
-        formats: ["es", "iife"],
+        name: `cristal_${packageDirName}`,
+        fileName: libFileName,
       },
       rollupOptions: {
         external: Object.keys(pkg.dependencies || {}),
       },
     },
     plugins: [
-      // https://github.com/antfu/vite-plugin-inspect
-      Inspect({
-        // change this to enable inspect for debugging
-        enabled: true,
-      }),
       dts({
         insertTypesEntry: true,
       }),
     ],
   });
+}
+
+export function generateConfigVue(path: string) {
+  return mergeConfig(
+    generateConfig(path),
+    defineConfig({
+      build: {
+        rollupOptions: {
+          // external: Object.keys(pkg.dependencies || {}),
+          output: {
+            globals: {
+              vue: "Vue",
+            },
+          },
+        },
+      },
+      plugins: [
+        vue({
+          template: {
+            compilerOptions: {
+              isCustomElement: (tag) =>
+                tag.startsWith("sl-") || tag.startsWith("solid-"),
+            },
+          },
+        }),
+      ],
+    }),
+  );
 }
