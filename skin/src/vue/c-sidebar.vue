@@ -23,33 +23,122 @@
  *
 -->
 <script lang="ts" setup>
+import { Ref, onMounted, onUnmounted, ref, watch } from "vue";
 import CConfigMenu from "./c-config-menu.vue";
+import CNavigationDrawer from "./c-navigation-drawer.vue";
 import CSidebarPanel from "./c-sidebar-panel.vue";
 import CHelp from "./c-help.vue";
 import xlogo from "../images/xwiki-logo-color.svg";
 import xavatarImg from "../images/no-one.svg";
 import { CIcon } from "@xwiki/cristal-icons";
+import { useMouse } from "../composables/mouse";
+import { ViewportType, useViewportType } from "../composables/viewport";
 
 const logo = xlogo;
 const avImg = xavatarImg;
+const viewportSize: Ref<ViewportType> = useViewportType();
+const { x }: { x: Ref<number> } = useMouse();
+const isSidebarClosed: Ref<boolean> = ref(
+  viewportSize.value == ViewportType.Mobile,
+);
+
+defineEmits(["collapseLeftSidebar"]);
+
+onMounted(() => {
+  // Load and apply left sidebar size from local storage, if available.
+  if (localStorage.leftSidebarWidth) {
+    document.documentElement.style.setProperty(
+      "--cr-sizes-left-sidebar-width",
+      `${localStorage.leftSidebarWidth}px`,
+    );
+  }
+  // Attempt to load closed state from local storage.
+  if (viewportSize.value == ViewportType.Desktop) {
+    isSidebarClosed.value = localStorage.isLeftSidebarClosed === "true";
+  }
+  window.addEventListener("mouseup", stopLeftSidebarResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("mouseup", stopLeftSidebarResize);
+});
+
+watch(viewportSize, (newViewportType: ViewportType) => {
+  // Close left sidebar on smaller viewport,
+  // load previous state from local storage on larger viewport.
+  if (newViewportType == ViewportType.Mobile) {
+    isSidebarClosed.value = true;
+  } else {
+    isSidebarClosed.value = localStorage.isLeftSidebarClosed === "true";
+  }
+});
+
+// Store the interval for left sidebar resize operation.
+let sidebarResizeInterval: number = 0;
+
+function startLeftSidebarResize() {
+  // Check that no other interval exists before scheduling one.
+  if (sidebarResizeInterval == 0) {
+    sidebarResizeInterval = setInterval(() => {
+      let newSidebarWidth = x.value + 8;
+      document.documentElement.style.setProperty(
+        "--cr-sizes-left-sidebar-width",
+        `${newSidebarWidth}px`,
+      );
+      localStorage.leftSidebarWidth = newSidebarWidth;
+    }, 10);
+  }
+}
+
+function stopLeftSidebarResize() {
+  clearInterval(sidebarResizeInterval);
+  sidebarResizeInterval = 0;
+}
+
+function onCloseLeftSidebar(close: boolean) {
+  isSidebarClosed.value = close;
+  // We only want to store the preferences for opening/closing the left sidebar
+  // on desktop.
+  if (viewportSize.value == ViewportType.Desktop) {
+    localStorage.isLeftSidebarClosed = close;
+  }
+}
 </script>
 <template>
   <div class="collapsed-sidebar">
-    <!-- When the user click this icon (visible only on MOBILE or with a COLLAPSED sidebar) a function should ADD the class is-visible to the element #sidebar. -->
-    <c-icon name="list"></c-icon>
+    <c-icon
+      name="list"
+      @click="
+        $emit('collapseLeftSidebar');
+        onCloseLeftSidebar(false);
+      "
+    ></c-icon>
   </div>
-  <c-navigation-drawer id="sidebar" class="left-sidebar">
+  <c-navigation-drawer
+    id="sidebar"
+    class="left-sidebar"
+    :class="{ 'is-visible': !isSidebarClosed }"
+  >
     <UIX uixname="sidebar.before" />
     <div class="sidebar-collapse-controls">
-      <!-- When the user click this icon (visible only on DESKTOP and MOBILE) a function should REMOVE the class is-visible to the element #sidebar..-->
-      <c-icon name="x-lg" class="close-sidebar"></c-icon>
+      <c-icon
+        name="x-lg"
+        class="close-sidebar"
+        @click="onCloseLeftSidebar(true)"
+      ></c-icon>
 
-      <!-- When the user click this icon (visible only on DESKTOP) a function should REMOVE the class sidebar-is-collapsed of the element .wrapper in c-view.vue..-->
-      <c-icon name="pin" class="pin-sidebar"></c-icon>
+      <c-icon
+        name="pin"
+        class="pin-sidebar"
+        @click="$emit('collapseLeftSidebar')"
+      ></c-icon>
     </div>
     <div class="sidebar-header">
-      <!-- When the user click this icon (visible only on DESKTOP) a function should ADD the class sidebar-is-collapsed to the element .wrapper in c-view.vue.-->
-      <c-icon name="list" class="hide-sidebar"></c-icon>
+      <c-icon
+        name="list"
+        class="hide-sidebar"
+        @click="$emit('collapseLeftSidebar')"
+      ></c-icon>
       <x-img class="logo" :src="logo" :width="72" />
       <c-icon name="bell"></c-icon>
       <c-config-menu></c-config-menu>
@@ -65,8 +154,7 @@ const avImg = xavatarImg;
     </div>
     <c-help></c-help>
 
-    <!-- This handle should update the value of the CSS var --cr-sizes-left-sidebar-width in a <style> tag. This variable could also be saved and retrieved from local storage, if unavailable the default value on style.css from the DS will be used-->
-    <div class="resize-handle"></div>
+    <div class="resize-handle" @mousedown="startLeftSidebarResize"></div>
   </c-navigation-drawer>
 </template>
 <style scoped>
@@ -113,5 +201,11 @@ const avImg = xavatarImg;
 .resize-handle:hover {
   cursor: col-resize;
   border-right: 2px solid var(--cr-color-neutral-300);
+}
+
+@media (max-width: 600px) {
+  .resize-handle {
+    display: none;
+  }
 }
 </style>

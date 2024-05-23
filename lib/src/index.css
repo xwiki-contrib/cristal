@@ -101,6 +101,7 @@ main {
 .left-sidebar {
   width: var(--cr-sizes-left-sidebar-width);
   min-width: var(--cr-sizes-left-sidebar-min-width);
+  max-width: 100%;
   background-color: var(--cr-color-neutral-100);
   position: fixed;
   left: 0;
@@ -146,7 +147,8 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  padding: var(--cr-spacing-2x-small);
+  padding: var(--cr-spacing-small) var(--cr-spacing-x-small) 0;
+  z-index: 2;
 }
 
 .wrapper.sidebar-is-collapsed .hide-sidebar {
@@ -164,6 +166,8 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 .collapsed-sidebar {
   background: var(--cr-color-neutral-100);
   width: var(--cr-sizes-collapsed-sidebar-width);
+  padding-top: var(--cr-spacing-x-small);
+  text-align: center;
   position: fixed;
   translate: -100%;
   top: 0;
@@ -188,34 +192,14 @@ TODO: Discuss and move them to a more appropriate place
   font-style: italic;
 }
 
-
 @media (max-width: 600px) {
-  .collapsed-sidebar {
-    translate: 0;
-  }
-
-  .left-sidebar {
-    translate: -100%;
-  }
-
   .is-visible {
     translate: 0;
+    width: 100%;
   }
 
   main {
     left: var(--cr-sizes-collapsed-sidebar-width);
-  }
-
-  .hide-sidebar {
-    display: none
-  }
-
-  .close-sidebar {
-    display: block
-  }
-
-  .wrapper .sidebar-collapse-controls {
-    display: block
   }
 
   .wrapper .sidebar-collapse-controls .pin-sidebar {
