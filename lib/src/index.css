@@ -131,6 +131,13 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: none
 }
 
+.open-sidebar:hover,
+.close-sidebar:hover,
+.pin-sidebar:hover,
+.hide-sidebar:hover {
+  cursor: pointer;
+}
+
 .wrapper .sidebar-collapse-controls {
   display: none
 }
@@ -156,11 +163,11 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 }
 
 .wrapper.sidebar-is-collapsed .pin-sidebar {
-  display: block
+  display: block;
 }
 
 .wrapper.sidebar-is-collapsed .close-sidebar {
-  display: block
+  display: block;
 }
 
 .collapsed-sidebar {
@@ -193,9 +200,12 @@ TODO: Discuss and move them to a more appropriate place
 }
 
 @media (max-width: 600px) {
+  .left-sidebar {
+    width: 80%;
+  }
+
   .is-visible {
     translate: 0;
-    width: 100%;
   }
 
   main {
@@ -203,6 +213,10 @@ TODO: Discuss and move them to a more appropriate place
   }
 
   .wrapper .sidebar-collapse-controls .pin-sidebar {
-    display: none
+    display: none;
+  }
+
+  .resize-handle {
+    display: none;
   }
 }

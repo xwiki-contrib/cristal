@@ -22,29 +22,38 @@
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  *
  **/
-import { Ref, computed, onMounted, onUnmounted, ref } from "vue";
+import { Ref, onMounted, onUnmounted, ref } from "vue";
 
 export enum ViewportType {
   Mobile,
   Desktop,
 }
 
+/**
+ * Returns a reactive state that contains the type of the current viewport.
+ * @return a reactive state with either of these values:
+ *  * ViewportType.Mobile
+ *  * ViewportType.Desktop
+ *
+ * @since 0.8
+ **/
 export function useViewportType(): Ref<ViewportType> {
-  const viewportWidth: Ref<number> = ref(window.innerWidth);
-  const viewportSize: Ref<ViewportType> = computed(() => {
-    if (viewportWidth.value <= 600) {
+  const viewportType: Ref<ViewportType> = ref(getNewViewportType());
+
+  function onResize() {
+    viewportType.value = getNewViewportType();
+  }
+
+  function getNewViewportType(): ViewportType {
+    if (window.innerWidth <= 600) {
       return ViewportType.Mobile;
     } else {
       return ViewportType.Desktop;
     }
-  });
-
-  function onResize() {
-    viewportWidth.value = window.innerWidth;
   }
 
   onMounted(() => window.addEventListener("resize", onResize));
   onUnmounted(() => window.removeEventListener("resize", onResize));
 
-  return viewportSize;
+  return viewportType;
 }

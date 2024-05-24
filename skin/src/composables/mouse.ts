@@ -29,7 +29,16 @@ interface MouseState {
   readonly y: Ref<number>;
 }
 
-export function useMouse(): MouseState {
+/**
+ * Returns a reactive state that contains the current position of either
+ * the mouse cursor or a touch event.
+ * @return a reactive state with:
+ *  * x: x position of mouse cursor or touch event
+ *  * y: y position of mouse cursor or touch event
+ *
+ * @since 0.8
+ **/
+export function useMouseCoordinates(): MouseState {
   const x: Ref<number> = ref(0);
   const y: Ref<number> = ref(0);
 
@@ -38,11 +47,18 @@ export function useMouse(): MouseState {
     y.value = event.pageY;
   }
 
+  function onTouchMove(event: TouchEvent) {
+    x.value = event.touches[0].clientX;
+    y.value = event.touches[0].clientY;
+  }
+
   onMounted(() => {
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchmove", onTouchMove);
   });
   onUnmounted(() => {
     window.removeEventListener("mousemove", onMouseMove);
+    window.removeEventListener("touchmove", onTouchMove);
   });
 
   return { x, y };

@@ -23,7 +23,7 @@
  *
 -->
 <script lang="ts" setup>
-import { Ref, onMounted, onUnmounted, ref, watch } from "vue";
+import { Ref, onMounted, ref, watch } from "vue";
 import CConfigMenu from "./c-config-menu.vue";
 import CNavigationDrawer from "./c-navigation-drawer.vue";
 import CSidebarPanel from "./c-sidebar-panel.vue";
@@ -31,15 +31,16 @@ import CHelp from "./c-help.vue";
 import xlogo from "../images/xwiki-logo-color.svg";
 import xavatarImg from "../images/no-one.svg";
 import { CIcon } from "@xwiki/cristal-icons";
-import { useMouse } from "../composables/mouse";
+import { useMouseCoordinates } from "../composables/mouse";
 import { ViewportType, useViewportType } from "../composables/viewport";
 
 const logo = xlogo;
 const avImg = xavatarImg;
-const viewportSize: Ref<ViewportType> = useViewportType();
-const { x }: { x: Ref<number> } = useMouse();
+const viewportType: Ref<ViewportType> = useViewportType();
+const { x } = useMouseCoordinates();
+// By default, left sidebar is closed on mobile only.
 const isSidebarClosed: Ref<boolean> = ref(
-  viewportSize.value == ViewportType.Mobile,
+  viewportType.value == ViewportType.Mobile,
 );
 
 defineEmits(["collapseLeftSidebar"]);
@@ -47,72 +48,75 @@ defineEmits(["collapseLeftSidebar"]);
 onMounted(() => {
   // Load and apply left sidebar size from local storage, if available.
   if (localStorage.leftSidebarWidth) {
-    document.documentElement.style.setProperty(
-      "--cr-sizes-left-sidebar-width",
-      `${localStorage.leftSidebarWidth}px`,
-    );
+    updateLeftSidebarWidth(localStorage.leftSidebarWidth);
   }
-  // Attempt to load closed state from local storage.
-  if (viewportSize.value == ViewportType.Desktop) {
-    isSidebarClosed.value = localStorage.isLeftSidebarClosed === "true";
+  // If left sidebar is collapsed on desktop, it should also be closed.
+  if (viewportType.value == ViewportType.Desktop) {
+    isSidebarClosed.value = localStorage.isLeftSidebarCollapsed === "true";
   }
-  window.addEventListener("mouseup", stopLeftSidebarResize);
 });
 
-onUnmounted(() => {
-  window.removeEventListener("mouseup", stopLeftSidebarResize);
-});
-
-watch(viewportSize, (newViewportType: ViewportType) => {
-  // Close left sidebar on smaller viewport,
-  // load previous state from local storage on larger viewport.
+watch(viewportType, (newViewportType: ViewportType) => {
+  // Always close left sidebar when switching to a smaller viewport
   if (newViewportType == ViewportType.Mobile) {
     isSidebarClosed.value = true;
-  } else {
-    isSidebarClosed.value = localStorage.isLeftSidebarClosed === "true";
   }
 });
 
 // Store the interval for left sidebar resize operation.
 let sidebarResizeInterval: number = 0;
 
+function updateLeftSidebarWidth(newSidebarWidth: number) {
+  document.documentElement.style.setProperty(
+    "--cr-sizes-left-sidebar-width",
+    `${newSidebarWidth}px`,
+  );
+}
+
 function startLeftSidebarResize() {
   // Check that no other interval exists before scheduling one.
   if (sidebarResizeInterval == 0) {
     sidebarResizeInterval = setInterval(() => {
       let newSidebarWidth = x.value + 8;
-      document.documentElement.style.setProperty(
-        "--cr-sizes-left-sidebar-width",
-        `${newSidebarWidth}px`,
-      );
+      updateLeftSidebarWidth(newSidebarWidth);
       localStorage.leftSidebarWidth = newSidebarWidth;
     }, 10);
   }
+  window.addEventListener("mouseup", endLeftSidebarResize);
+  window.addEventListener("touchend", endLeftSidebarResize);
 }
 
-function stopLeftSidebarResize() {
+function endLeftSidebarResize() {
   clearInterval(sidebarResizeInterval);
   sidebarResizeInterval = 0;
+  window.removeEventListener("mouseup", endLeftSidebarResize);
+  window.removeEventListener("touchend", endLeftSidebarResize);
 }
 
-function onCloseLeftSidebar(close: boolean) {
-  isSidebarClosed.value = close;
-  // We only want to store the preferences for opening/closing the left sidebar
-  // on desktop.
-  if (viewportSize.value == ViewportType.Desktop) {
-    localStorage.isLeftSidebarClosed = close;
+function onOpenLeftSidebar() {
+  isSidebarClosed.value = false;
+  window.addEventListener("click", onClickOutsideLeftSidebar);
+}
+
+function onCloseLeftSidebar() {
+  isSidebarClosed.value = true;
+  window.removeEventListener("click", onClickOutsideLeftSidebar);
+}
+
+function onClickOutsideLeftSidebar() {
+  // We need to get the actual size of the left sidebar at any time
+  // since it may be a relative value in some cases.
+  let currentSidebarWidth: number = parseInt(
+    window.getComputedStyle(document.getElementById("sidebar")!).width,
+  );
+  if (x.value > currentSidebarWidth) {
+    onCloseLeftSidebar();
   }
 }
 </script>
 <template>
-  <div class="collapsed-sidebar">
-    <c-icon
-      name="list"
-      @click="
-        $emit('collapseLeftSidebar');
-        onCloseLeftSidebar(false);
-      "
-    ></c-icon>
+  <div class="collapsed-sidebar" @click="onOpenLeftSidebar">
+    <c-icon name="list" class="open-sidebar"></c-icon>
   </div>
   <c-navigation-drawer
     id="sidebar"
@@ -124,7 +128,7 @@ function onCloseLeftSidebar(close: boolean) {
       <c-icon
         name="x-lg"
         class="close-sidebar"
-        @click="onCloseLeftSidebar(true)"
+        @click="onCloseLeftSidebar()"
       ></c-icon>
 
       <c-icon
@@ -137,7 +141,10 @@ function onCloseLeftSidebar(close: boolean) {
       <c-icon
         name="list"
         class="hide-sidebar"
-        @click="$emit('collapseLeftSidebar')"
+        @click="
+          $emit('collapseLeftSidebar');
+          onCloseLeftSidebar();
+        "
       ></c-icon>
       <x-img class="logo" :src="logo" :width="72" />
       <c-icon name="bell"></c-icon>
@@ -154,7 +161,11 @@ function onCloseLeftSidebar(close: boolean) {
     </div>
     <c-help></c-help>
 
-    <div class="resize-handle" @mousedown="startLeftSidebarResize"></div>
+    <div
+      class="resize-handle"
+      @mousedown="startLeftSidebarResize"
+      @touchstart="startLeftSidebarResize"
+    ></div>
   </c-navigation-drawer>
 </template>
 <style scoped>
@@ -201,11 +212,5 @@ function onCloseLeftSidebar(close: boolean) {
 .resize-handle:hover {
   cursor: col-resize;
   border-right: 2px solid var(--cr-color-neutral-300);
-}
-
-@media (max-width: 600px) {
-  .resize-handle {
-    display: none;
-  }
 }
 </style>

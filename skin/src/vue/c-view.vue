@@ -29,21 +29,21 @@ import CMain from "./c-main.vue";
 import { ViewportType, useViewportType } from "../composables/viewport";
 import "../css/main.css";
 
-const viewportSize: Ref<ViewportType> = useViewportType();
+const viewportType: Ref<ViewportType> = useViewportType();
 // By default, left sidebar is collapsed on mobile only.
 const isLeftSidebarCollapsed: Ref<boolean> = ref(
-  viewportSize.value == ViewportType.Mobile,
+  viewportType.value == ViewportType.Mobile,
 );
 
 onMounted(() => {
   // Attempt to load collapsed state from local storage.
-  if (viewportSize.value == ViewportType.Desktop) {
+  if (viewportType.value == ViewportType.Desktop) {
     isLeftSidebarCollapsed.value =
       localStorage.isLeftSidebarCollapsed === "true";
   }
 });
 
-watch(viewportSize, (newViewportType: ViewportType) => {
+watch(viewportType, (newViewportType: ViewportType) => {
   // Collapse left sidebar on smaller viewport,
   // load previous state from local storage on larger viewport.
   if (newViewportType == ViewportType.Mobile) {
@@ -56,7 +56,7 @@ watch(viewportSize, (newViewportType: ViewportType) => {
 
 function onCollapseLeftSidebar() {
   // Left sidebar should always be collapsed on mobile.
-  if (viewportSize.value == ViewportType.Desktop) {
+  if (viewportType.value == ViewportType.Desktop) {
     isLeftSidebarCollapsed.value = !isLeftSidebarCollapsed.value;
     localStorage.isLeftSidebarCollapsed = isLeftSidebarCollapsed.value;
   }
