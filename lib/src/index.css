@@ -200,6 +200,22 @@ TODO: Discuss and move them to a more appropriate place
 }
 
 @media (max-width: 600px) {
+  .wrapper.sidebar-is-collapsed {
+    &:has(.left-sidebar.is-visible) {
+      &:before {
+        content: ' ';
+        background-color: var(--cr-overlay-background-color);        
+        position: fixed;
+        width: unset;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+      }
+    }
+  }
+  
   .left-sidebar {
     width: 80%;
   }
