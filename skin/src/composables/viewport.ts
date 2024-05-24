@@ -32,8 +32,8 @@ export enum ViewportType {
 /**
  * Returns a reactive state that contains the type of the current viewport.
  * @return a reactive state with either of these values:
- *  * ViewportType.Mobile
- *  * ViewportType.Desktop
+ *  * ViewportType.Mobile (<= 600px)
+ *  * ViewportType.Desktop (> 600px)
  *
  * @since 0.8
  **/
