@@ -75,20 +75,32 @@ export class XWikiPageHierarchyResolver implements PageHierarchyResolver {
       .replace(/%5C%5C/g, "%5C")
       .replace(/\.(?=.*\.)/g, "/spaces/")
       .replace(/\./, "/pages/")}`;
-    const response = await fetch(restApiUrl, {
-      headers: { Accept: "application/json" },
-    });
-    const jsonResponse = await response.json();
-    const hierarchy: Array<PageHierarchyItem> = [];
-    jsonResponse.hierarchy.items.forEach(
-      (hierarchyItem: { label: string; url: string }) => {
-        hierarchy.push({ label: hierarchyItem.label, url: hierarchyItem.url });
-      },
-    );
-    hierarchy[0].label = "Home";
-    if (hierarchy[hierarchy.length - 1].url.endsWith("/")) {
-      hierarchy.pop();
+
+    try {
+      const response = await fetch(restApiUrl, {
+        headers: { Accept: "application/json" },
+      });
+      const jsonResponse = await response.json();
+      const hierarchy: Array<PageHierarchyItem> = [];
+      jsonResponse.hierarchy.items.forEach(
+        (hierarchyItem: { label: string; url: string }) => {
+          hierarchy.push({
+            label: hierarchyItem.label,
+            url: hierarchyItem.url,
+          });
+        },
+      );
+      hierarchy[0].label = "Home";
+      if (hierarchy[hierarchy.length - 1].url.endsWith("/")) {
+        hierarchy.pop();
+      }
+      return hierarchy;
+    } catch (error) {
+      this.logger.error(error);
+      this.logger.debug(
+        `Could not load hierarchy for page ${pageData.name}, falling back to default hierarchy resolver.`,
+      );
+      return this.defaultHierarchyResolver.getPageHierarchy(pageData);
     }
-    return hierarchy;
   }
 }
