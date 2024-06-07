@@ -23,6 +23,7 @@
  *
  **/
 
+import type { PageHierarchyResolver } from "./PageHierarchyResolver";
 import type { Storage } from "./storage";
 
 export interface WikiConfig {
@@ -33,6 +34,7 @@ export interface WikiConfig {
   baseRestURL: string;
   homePage: string;
   storage: Storage;
+  pageHierarchyResolver: PageHierarchyResolver;
   serverRendering: boolean;
   designSystem: string;
   offline: boolean;

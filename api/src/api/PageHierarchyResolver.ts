@@ -1,4 +1,4 @@
-<!--
+/**
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
  *
@@ -22,26 +22,33 @@
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  *
  **/
--->
-<script setup lang="ts">
-import { BreadcrumbProps } from "@xwiki/cristal-dsapi";
 
-defineProps<BreadcrumbProps>();
-</script>
+import type { PageData } from "./PageData";
+import type { WikiConfig } from "./WikiConfig";
 
-<template>
-  <v-breadcrumbs
-    :items="
-      items.map((hItem) => {
-        var bItem: { title: string; href: string } = {
-          title: hItem.label,
-          href: hItem.url,
-        };
-        return bItem;
-      })
-    "
-  >
-  </v-breadcrumbs>
-</template>
+export type PageHierarchyItem = {
+  label: string;
+  url: string;
+};
 
-<style scoped></style>
+/**
+ * A PageHierarchyResolver computes and returns the hierarchy for a given page.
+ *
+ * @since 0.9
+ **/
+export interface PageHierarchyResolver {
+  /**
+   * Sets the current wiki configuration. Should always be called after component initialization.
+   *
+   * @param config the current wiki configuration
+   */
+  setWikiConfig(config: WikiConfig): void;
+
+  /**
+   * Returns the page hierarchy for a given page.
+   *
+   * @param pageData the page for which to compute the hierarchy
+   * @returns the page hierarchy
+   */
+  getPageHierarchy(pageData: PageData): Promise<Array<PageHierarchyItem>>;
+}

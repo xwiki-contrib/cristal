@@ -31,6 +31,10 @@ import type { PageData } from "./api/PageData.js";
 import type { Document } from "./api/document.js";
 import type { Logger } from "./api/logger.js";
 import type { LoggerConfig } from "./api/loggerConfig.js";
+import type {
+  PageHierarchyItem,
+  PageHierarchyResolver,
+} from "./api/PageHierarchyResolver.js";
 import {
   type DesignSystemLoader,
   registerAsyncComponent,
@@ -40,6 +44,7 @@ import { DefaultWikiConfig } from "./components/defaultWikiConfig.js";
 import { JSONLDDocument } from "./components/JSONLDDocument.js";
 import { DefaultLogger } from "./components/defaultLogger.js";
 import { DefaultLoggerConfig } from "./components/defaultLoggerConfig.js";
+import { DefaultPageHierarchyResolver } from "./components/DefaultPageHierarchyResolver.js";
 import type { WrappingStorage } from "./api/wrappingStorage.js";
 import ComponentInit from "./components/componentsInit.js";
 
@@ -54,6 +59,8 @@ export type {
   LoggerConfig,
   Document,
   DesignSystemLoader,
+  PageHierarchyItem,
+  PageHierarchyResolver,
 };
 export {
   ComponentInit,
@@ -61,6 +68,7 @@ export {
   DefaultPageData,
   DefaultLogger,
   DefaultLoggerConfig,
+  DefaultPageHierarchyResolver,
   JSONLDDocument,
   registerAsyncComponent,
 };

@@ -45,9 +45,11 @@ export default class FileSystemStorage extends AbstractStorage {
   }
 
   async getPageContent(page: string, syntax: string): Promise<PageData> {
-    const path = await fileSystemStorage.resolvePath(page, syntax);
+    const decodedPage = decodeURIComponent(page);
+    const path = await fileSystemStorage.resolvePath(decodedPage, syntax);
     const pageData = await fileSystemStorage.readPage(path || "");
     if (pageData) {
+      pageData.id = decodedPage;
       pageData.headline = pageData.name;
       pageData.headlineRaw = pageData.name;
     }
