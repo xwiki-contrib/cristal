@@ -231,7 +231,7 @@ onUpdated(() => {
 
 :global(.document-content table th) {
   font-weight: var(--cr-font-weight-bold);
-  text-align: left;
+  text-align: start;
 }
 
 :global(.document-content table td),
