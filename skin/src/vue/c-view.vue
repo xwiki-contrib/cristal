@@ -88,25 +88,33 @@ function onCollapseLeftSidebar() {
   </div>
 </template>
 <style scoped>
+:global(#xwCristalApp) {
+  container: xwCristal;
+  container-type: size;
+}
 :global(html.xw-cristal),
 :global(.xw-cristal body),
 :global(.xw-cristal #xwCristalApp) {
-  height: 100dvh;
   overflow: hidden;
   position: relative;
+  height: 100%;
   font: var(--cr-base-font-size) var(--cr-font-sans);
   font-weight: var(--cr-font-weight-normal);
   line-height: var(--cr-line-height-normal);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
+:global(.xw-cristal #xwCristalApp),
+:global(.xw-cristal #xwCristalApp > div) {
+  height: 100%;
+}
+
 :global(html) {
   overflow: hidden;
 }
 
 :deep(.content),
 :deep(.content-scroll) {
-  height: 100dvh;
   overflow: hidden;
   position: relative;
 }
@@ -115,6 +123,7 @@ function onCollapseLeftSidebar() {
   display: flex;
   flex-flow: column;
   grid-area: content;
+  height: 100%;
 }
 
 :deep(.content-scroll) {
@@ -152,20 +161,25 @@ function onCollapseLeftSidebar() {
 }
 
 .wrapper {
-  height: 100dvh;
+  display: grid;
+  grid-template-columns:
+    minmax(
+      var(--cr-sizes-left-sidebar-min-width),
+      var(--cr-sizes-left-sidebar-width)
+    )
+    1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100%;
 }
 
 main {
-  height: 100dvh;
   overflow: hidden;
-  position: fixed;
   left: max(
     var(--cr-sizes-left-sidebar-min-width),
     var(--cr-sizes-left-sidebar-width)
   );
-  top: 0;
-  right: 0;
-  bottom: 0;
   z-index: 2;
   transition: var(--cr-transition-medium) left ease-in-out;
 }
@@ -174,11 +188,8 @@ main {
   width: var(--cr-sizes-left-sidebar-width);
   min-width: var(--cr-sizes-left-sidebar-min-width);
   max-width: 100%;
+  position: relative;
   background-color: var(--cr-color-neutral-100);
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
   display: flex;
   flex-flow: column;
   gap: var(--cr-spacing-medium);
@@ -241,14 +252,12 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 }
 
 :deep(.collapsed-sidebar) {
+  display: none;
   background: var(--cr-color-neutral-100);
   width: var(--cr-sizes-collapsed-sidebar-width);
   padding-top: var(--cr-spacing-x-small);
   text-align: center;
-  position: fixed;
   translate: -100%;
-  top: 0;
-  bottom: 0;
   z-index: 1;
 }
 
@@ -268,7 +277,13 @@ TODO: Discuss and move them to a more appropriate place
   font-style: italic;
 }
 
-@media (max-width: 600px) {
+@container xwCristal (max-width: 600px) {
+  :global(*) {
+    outline: 1px solid red !important;
+  }
+  .wrapper {
+    grid-template-columns: 16px 1fr;
+  }
   :deep(.wrapper.sidebar-is-collapsed) {
     &:has(.left-sidebar.is-visible) {
       &:before {
