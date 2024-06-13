@@ -488,7 +488,7 @@ export class DefaultCristalApp implements CristalApp {
       uixComponent.registerComponents(this.app);
     }
 
-    this.app.mount("#app");
+    this.app.mount("#xwCristalApp");
 
     window.addEventListener("popstate", this.handlePopState.bind(this));
 
