@@ -116,7 +116,7 @@ export class DefaultCristalApp implements CristalApp {
   setCurrentPage(newPage: string, mode: string = "view") {
     this.router.push({
       name: mode,
-      params: { page: decodeURI(newPage) },
+      params: { page: decodeURIComponent(newPage) },
     });
   }
 

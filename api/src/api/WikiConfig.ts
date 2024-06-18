@@ -23,7 +23,6 @@
  *
  **/
 
-import type { PageHierarchyResolver } from "./PageHierarchyResolver";
 import type { Storage } from "./storage";
 
 export interface WikiConfig {
@@ -34,7 +33,6 @@ export interface WikiConfig {
   baseRestURL: string;
   homePage: string;
   storage: Storage;
-  pageHierarchyResolver: PageHierarchyResolver;
   serverRendering: boolean;
   designSystem: string;
   offline: boolean;
@@ -62,4 +60,12 @@ export interface WikiConfig {
    * For instance, "README" for Github, or "Main.WebHome" for XWiki.
    */
   defaultPageName(): string;
+
+  /**
+   * Returns the type of the WikiConfig implementation.
+   *
+   * @returns the type of the implementation
+   * @since 0.9
+   */
+  getType(): string;
 }

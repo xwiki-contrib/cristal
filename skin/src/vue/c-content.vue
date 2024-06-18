@@ -33,11 +33,11 @@ import {
   watch,
 } from "vue";
 import { useRoute } from "vue-router";
-import {
-  type CristalApp,
-  PageData,
-  type PageHierarchyItem,
-} from "@xwiki/cristal-api";
+import { type CristalApp, PageData } from "@xwiki/cristal-api";
+import type {
+  PageHierarchyItem,
+  PageHierarchyResolverProvider,
+} from "@xwiki/cristal-hierarchy-api";
 import { marked } from "marked";
 import { ContentTools } from "./contentTools";
 import { CIcon, Size } from "@xwiki/cristal-icons";
@@ -99,8 +99,10 @@ async function fetchPage(page: string) {
     cristal.setContentRef(currentPage);
     currentPage.value = await cristal.getPage(page || currentPageName.value);
     breadcrumbItems.value = await cristal
-      .getWikiConfig()
-      .pageHierarchyResolver.getPageHierarchy(currentPage.value!);
+      .getContainer()
+      .get<PageHierarchyResolverProvider>("PageHierarchyResolverProvider")
+      .get()
+      .getPageHierarchy(currentPage.value!);
   } catch (e) {
     console.error(e);
     error.value = e;

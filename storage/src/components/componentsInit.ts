@@ -26,16 +26,12 @@
 import type { Container } from "inversify";
 import {
   type Logger,
-  type PageHierarchyResolver,
   type Storage,
   type WikiConfig,
   type WrappingStorage,
-  DefaultPageHierarchyResolver,
 } from "@xwiki/cristal-api";
 import { XWikiStorage } from "./xwiki/xwikiStorage";
 import { XWikiWikiConfig } from "./xwiki/XWikiWikiConfig";
-import { XWikiPageHierarchyResolver } from "./xwiki/XWikiPageHierarchyResolver";
-import { GitHubPageHierarchyResolver } from "./github/GitHubPageHierarchyResolver";
 import { GitHubStorage } from "./github/githubStorage";
 import { GitHubWikiConfig } from "./github/GitHubWikiConfig";
 import { WrappingOfflineStorage } from "./wrappingOfflineStorage";
@@ -74,18 +70,6 @@ export default class ComponentInit {
       .bind<Storage>("Storage")
       .to(GitHubStorage)
       .whenTargetNamed("GitHub");
-    container
-      .bind<PageHierarchyResolver>("PageHierarchyResolver")
-      .to(DefaultPageHierarchyResolver)
-      .whenTargetIsDefault();
-    container
-      .bind<PageHierarchyResolver>("PageHierarchyResolver")
-      .to(GitHubPageHierarchyResolver)
-      .whenTargetNamed("GitHub");
-    container
-      .bind<PageHierarchyResolver>("PageHierarchyResolver")
-      .to(XWikiPageHierarchyResolver)
-      .whenTargetNamed("XWiki");
     this.logger?.debug("Init Sample Module components end");
   }
 }

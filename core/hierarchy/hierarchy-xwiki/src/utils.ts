@@ -23,32 +23,25 @@
  *
  **/
 
-import type { PageData } from "./PageData";
-import type { WikiConfig } from "./WikiConfig";
-
-export type PageHierarchyItem = {
-  label: string;
-  url: string;
-};
+import type { WikiConfig } from "@xwiki/cristal-api";
 
 /**
- * A PageHierarchyResolver computes and returns the hierarchy for a given page.
+ * Returns URL to XWiki spaces rest API for a given document.
  *
+ * @param wikiConfig the current wiki configuration
+ * @param documentId the id of the document
+ * @returns the crafted URL
  * @since 0.9
- **/
-export interface PageHierarchyResolver {
-  /**
-   * Sets the current wiki configuration. Should always be called after component initialization.
-   *
-   * @param config the current wiki configuration
-   */
-  setWikiConfig(config: WikiConfig): void;
-
-  /**
-   * Returns the page hierarchy for a given page.
-   *
-   * @param pageData the page for which to compute the hierarchy
-   * @returns the page hierarchy
-   */
-  getPageHierarchy(pageData: PageData): Promise<Array<PageHierarchyItem>>;
+ */
+export function getRestSpacesApiUrl(
+  wikiConfig: WikiConfig,
+  documentId: string,
+): string {
+  return `${wikiConfig.baseURL}/rest/wikis/xwiki/spaces/${encodeURIComponent(
+    documentId,
+  )
+    .replace(/((?:%5C%5C)*)%5C\./g, "$1%2E") // Unescape dots in identifiers
+    .replace(/%5C%5C/g, "%5C") // Unescape backslashes in identifiers
+    .replace(/\.(?=.*\.)/g, "/spaces/") // Transform separators to spaces endpoints
+    .replace(/\./, "/pages/")}`; // Transform last separator to pages endpoint
 }

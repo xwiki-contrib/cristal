@@ -29,7 +29,6 @@ import {
   DefaultWikiConfig,
   type Logger,
   type Storage,
-  type PageHierarchyResolver,
 } from "@xwiki/cristal-api";
 import { inject, injectable, named } from "inversify";
 
@@ -42,16 +41,11 @@ export class GitHubWikiConfig extends DefaultWikiConfig {
     @inject<Logger>("Logger") logger: Logger,
     @inject("Storage") @named("GitHub") storage: Storage,
     @inject("CristalApp") cristal: CristalApp,
-    @inject("PageHierarchyResolver")
-    @named("GitHub")
-    pageHierarchyResolver: PageHierarchyResolver,
   ) {
     super(logger);
     this.storage = storage;
     this.cristal = cristal;
-    this.pageHierarchyResolver = pageHierarchyResolver;
     this.storage.setWikiConfig(this);
-    this.pageHierarchyResolver.setWikiConfig(this);
     if (this.homePage == "") {
       this.homePage = "README.md";
     }
@@ -59,5 +53,9 @@ export class GitHubWikiConfig extends DefaultWikiConfig {
 
   defaultPageName(): string {
     return "README";
+  }
+
+  getType(): string {
+    return "GitHub";
   }
 }

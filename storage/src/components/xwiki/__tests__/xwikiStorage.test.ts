@@ -23,33 +23,35 @@
  *
  **/
 
-import { CristalAppLoader, loadConfig } from "@xwiki/cristal-lib";
-import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-default";
-import { ComponentInit as DefaultPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-default";
-import { ComponentInit as GitHubPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-github";
-import { ComponentInit as XWikiPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-xwiki";
-import { ComponentInit as LinkSuggestComponentInit } from "@xwiki/cristal-link-suggest-xwiki";
+import "reflect-metadata";
+import { DefaultLogger, type WikiConfig } from "@xwiki/cristal-api";
+import { describe, expect, it } from "vitest";
 
-CristalAppLoader.init(
-  [
-    "skin",
-    "dsvuetify",
-    "dsfr",
-    "dsshoelace",
-    "macros",
-    "storage",
-    "extension-menubuttons",
-    "sharedworker",
-  ],
-  loadConfig("/config.json"),
-  true,
-  false,
-  "XWiki",
-  (container) => {
-    new BrowserComponentInit(container);
-    new LinkSuggestComponentInit(container);
-    new DefaultPageHierarchyComponentInit(container);
-    new GitHubPageHierarchyComponentInit(container);
-    new XWikiPageHierarchyComponentInit(container);
-  },
-);
+import { XWikiStorage } from "../xwikiStorage";
+
+describe("getPageFromViewURL", () => {
+  const wikiConfig: WikiConfig = {
+    baseURL: "<baseURL>",
+  } as WikiConfig;
+  const xwikiStorage: XWikiStorage = new XWikiStorage(new DefaultLogger());
+  xwikiStorage.setWikiConfig(wikiConfig);
+  it("regular identifier", () => {
+    expect(
+      xwikiStorage.getPageFromViewURL(
+        "<baseURL>/bin/view/Space1/Space2/WebHome",
+      ),
+    ).toStrictEqual("Space1.Space2.WebHome");
+  });
+  it("identifier with special characters", () => {
+    expect(
+      xwikiStorage.getPageFromViewURL(
+        "<baseURL>/bin/view/Space1%5C.Space%5C2/Web%2FHome",
+      ),
+    ).toStrictEqual("Space1%5C%5C%5C.Space%5C%5C2.Web%2FHome");
+  });
+  it("missing terminal page", () => {
+    expect(
+      xwikiStorage.getPageFromViewURL("<baseURL>/bin/view/Space1/Space2/"),
+    ).toStrictEqual("Space1.Space2.WebHome");
+  });
+});

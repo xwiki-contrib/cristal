@@ -22,42 +22,49 @@
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  *
  **/
-import { inject, injectable } from "inversify";
+
+import { Container, inject, injectable, named } from "inversify";
+import type { CristalApp, PageData, Logger, Storage } from "@xwiki/cristal-api";
 import {
-  type PageData,
-  type Logger,
+  name,
   type PageHierarchyItem,
-  type WikiConfig,
   type PageHierarchyResolver,
-} from "@xwiki/cristal-api";
+} from "@xwiki/cristal-hierarchy-api";
 
 /**
- * Implementation of PageHierarchyResolver for the GitHub backend.
+ * Implementation of PageHierarchyResolver for the FileSystem backend.
  *
  * @since 0.9
  **/
 @injectable()
-export class GitHubPageHierarchyResolver implements PageHierarchyResolver {
-  private wikiConfig: WikiConfig;
+class FileSystemPageHierarchyResolver implements PageHierarchyResolver {
+  private cristalApp: CristalApp;
+  private fileSystemStorage: Storage;
   public logger: Logger;
 
-  constructor(@inject<Logger>("Logger") logger: Logger) {
+  constructor(
+    @inject<Logger>("Logger") logger: Logger,
+    @inject<CristalApp>("CristalApp") cristalApp: CristalApp,
+    @inject<Storage>("Storage") @named("FileSystem") fileSystemStorage: Storage,
+  ) {
     this.logger = logger;
-    this.logger.setModule("storage.components.FileSystemPageHierarchyResolver");
-  }
-
-  setWikiConfig(wikiConfig: WikiConfig): void {
-    this.wikiConfig = wikiConfig;
+    this.logger.setModule(
+      "electron.storage.components.FileSystemPageHierarchyResolver",
+    );
+    this.cristalApp = cristalApp;
+    this.fileSystemStorage = fileSystemStorage;
   }
 
   async getPageHierarchy(
     pageData: PageData,
   ): Promise<Array<PageHierarchyItem>> {
-    const baseURL = `/${this.wikiConfig.name}/#`;
     const hierarchy: Array<PageHierarchyItem> = [
       {
         label: "Home",
-        url: `${baseURL}/${this.wikiConfig.homePage}/view`,
+        url: this.cristalApp.getRouter().resolve({
+          name: "view",
+          params: { page: "index" },
+        }).href,
       },
     ];
     if (pageData != null) {
@@ -67,12 +74,34 @@ export class GitHubPageHierarchyResolver implements PageHierarchyResolver {
         const file = fileHierarchy[i];
         currentFile += `${i == 0 ? "" : "/"}${file}`;
         const currentURI = encodeURIComponent(currentFile);
+        let currentPageData;
+        if (i == fileHierarchy.length - 1) {
+          currentPageData = pageData;
+        } else {
+          currentPageData = await this.fileSystemStorage.getPageContent(
+            currentURI,
+            "html",
+          );
+        }
         hierarchy.push({
-          label: file,
-          url: `${baseURL}/${currentURI}/view`,
+          label: currentPageData?.name ? currentPageData.name : file,
+          url: this.cristalApp.getRouter().resolve({
+            name: "view",
+            params: { page: currentFile },
+          }).href,
         });
       }
     }
     return hierarchy;
+  }
+}
+
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<PageHierarchyResolver>(name)
+      .to(FileSystemPageHierarchyResolver)
+      .inSingletonScope()
+      .whenTargetNamed("FileSystem");
   }
 }

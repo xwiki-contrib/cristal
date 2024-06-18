@@ -23,33 +23,27 @@
  *
  **/
 
-import { CristalAppLoader, loadConfig } from "@xwiki/cristal-lib";
-import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-default";
-import { ComponentInit as DefaultPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-default";
-import { ComponentInit as GitHubPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-github";
-import { ComponentInit as XWikiPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-xwiki";
-import { ComponentInit as LinkSuggestComponentInit } from "@xwiki/cristal-link-suggest-xwiki";
+import type { WikiConfig } from "@xwiki/cristal-api";
+import { describe, expect, it } from "vitest";
 
-CristalAppLoader.init(
-  [
-    "skin",
-    "dsvuetify",
-    "dsfr",
-    "dsshoelace",
-    "macros",
-    "storage",
-    "extension-menubuttons",
-    "sharedworker",
-  ],
-  loadConfig("/config.json"),
-  true,
-  false,
-  "XWiki",
-  (container) => {
-    new BrowserComponentInit(container);
-    new LinkSuggestComponentInit(container);
-    new DefaultPageHierarchyComponentInit(container);
-    new GitHubPageHierarchyComponentInit(container);
-    new XWikiPageHierarchyComponentInit(container);
-  },
-);
+import { getRestSpacesApiUrl } from "../utils";
+
+describe("getRestSpacesApiUrl", () => {
+  const wikiConfig: WikiConfig = {
+    baseURL: "<baseURL>",
+  } as WikiConfig;
+  it("regular identifier", () => {
+    expect(
+      getRestSpacesApiUrl(wikiConfig, "Space1.Space2.WebHome"),
+    ).toStrictEqual(
+      "<baseURL>/rest/wikis/xwiki/spaces/Space1/spaces/Space2/pages/WebHome",
+    );
+  });
+  it("identifier with special characters", () => {
+    expect(
+      getRestSpacesApiUrl(wikiConfig, "Space1\\\\\\.Space\\\\2.Web/Home"),
+    ).toStrictEqual(
+      "<baseURL>/rest/wikis/xwiki/spaces/Space1%5C%2ESpace%5C2/pages/Web%2FHome",
+    );
+  });
+});

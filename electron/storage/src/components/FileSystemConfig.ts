@@ -29,7 +29,6 @@ import {
   DefaultWikiConfig,
   Logger,
   Storage,
-  type PageHierarchyResolver,
 } from "@xwiki/cristal-api";
 
 @injectable()
@@ -40,18 +39,17 @@ export class FileSystemConfig extends DefaultWikiConfig {
     @inject<Logger>("Logger") logger: Logger,
     @inject("Storage") @named("FileSystem") storage: Storage,
     @inject("CristalApp") cristal: CristalApp,
-    @inject("PageHierarchyResolver")
-    @named("FileSystem")
-    pageHierarchyResolver: PageHierarchyResolver,
   ) {
     super(logger);
     this.storage = storage;
     this.cristal = cristal;
-    this.pageHierarchyResolver = pageHierarchyResolver;
     this.storage.setWikiConfig(this);
-    this.pageHierarchyResolver.setWikiConfig(this);
     if (this.homePage === "") {
       this.homePage = "index.md";
     }
+  }
+
+  getType(): string {
+    return "FileSystem";
   }
 }

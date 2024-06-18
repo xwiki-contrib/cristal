@@ -62,9 +62,9 @@ export class XWikiStorage extends AbstractStorage {
       page = uri
         .replace("/bin", "")
         .replace("/view/", "")
-        .replaceAll("%5C", "%5C%5C")
-        .replaceAll(".", "%5C.")
-        .replaceAll("/", ".");
+        .replaceAll("%5C", "%5C%5C") // Escape backslashes in identifiers
+        .replaceAll(".", "%5C.") // Escape dots in identifiers
+        .replaceAll("/", "."); // Convert separators from slashes to dots
       if (page.endsWith(".")) {
         page += "WebHome";
       }

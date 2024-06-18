@@ -24,15 +24,9 @@
  **/
 
 import type { Container } from "inversify";
-import type {
-  Logger,
-  PageHierarchyResolver,
-  Storage,
-  WikiConfig,
-} from "@xwiki/cristal-api";
+import type { Logger, Storage, WikiConfig } from "@xwiki/cristal-api";
 import { FileSystemConfig } from "./components/FileSystemConfig";
 import FileSystemStorage from "./components/fileSystemStorage";
-import { FileSystemPageHierarchyResolver } from "./components/FileSystemPageHierarchyResolver";
 
 export default class ComponentInit {
   logger: Logger;
@@ -49,10 +43,6 @@ export default class ComponentInit {
     container
       .bind<Storage>("Storage")
       .to(FileSystemStorage)
-      .whenTargetNamed("FileSystem");
-    container
-      .bind<PageHierarchyResolver>("PageHierarchyResolver")
-      .to(FileSystemPageHierarchyResolver)
       .whenTargetNamed("FileSystem");
     this.logger?.debug("Init Sample Module components end");
   }

@@ -29,7 +29,6 @@ import type { Storage } from "../api/storage";
 import type { CristalApp } from "../api/cristalApp";
 import type { WrappingStorage } from "../api/wrappingStorage";
 import type { Logger } from "../api/logger";
-import type { PageHierarchyResolver } from "../api/PageHierarchyResolver";
 
 @injectable()
 export class DefaultWikiConfig implements WikiConfig {
@@ -43,7 +42,6 @@ export class DefaultWikiConfig implements WikiConfig {
   public offline: boolean;
   public offlineSetup: boolean;
   public cristal: CristalApp;
-  public pageHierarchyResolver: PageHierarchyResolver;
   public logger: Logger;
 
   constructor(@inject<Logger>("Logger") logger: Logger) {
@@ -121,5 +119,9 @@ export class DefaultWikiConfig implements WikiConfig {
 
   defaultPageName(): string {
     return "index";
+  }
+
+  getType(): string {
+    return "Default";
   }
 }

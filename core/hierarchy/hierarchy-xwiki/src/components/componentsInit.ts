@@ -22,14 +22,15 @@
  * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
  *
  **/
-import { inject, injectable } from "inversify";
+
+import { Container, inject, injectable } from "inversify";
+import type { CristalApp, PageData, Logger } from "@xwiki/cristal-api";
 import {
-  type PageData,
-  type Logger,
+  name,
   type PageHierarchyItem,
-  type WikiConfig,
   type PageHierarchyResolver,
-} from "@xwiki/cristal-api";
+} from "@xwiki/cristal-hierarchy-api";
+import { getRestSpacesApiUrl } from "../utils";
 
 /**
  * Implementation of PageHierarchyResolver for the XWiki backend.
@@ -37,24 +38,21 @@ import {
  * @since 0.9
  **/
 @injectable()
-export class XWikiPageHierarchyResolver implements PageHierarchyResolver {
-  private wikiConfig: WikiConfig;
+class XWikiPageHierarchyResolver implements PageHierarchyResolver {
+  private cristalApp: CristalApp;
+  public defaultHierarchyResolver: PageHierarchyResolver;
   public logger: Logger;
-  public defaultHierarchyResolver;
 
   constructor(
     @inject<Logger>("Logger") logger: Logger,
+    @inject<CristalApp>("CristalApp") cristalApp: CristalApp,
     @inject("PageHierarchyResolver")
     pageHierarchyResolver: PageHierarchyResolver,
   ) {
     this.logger = logger;
     this.logger.setModule("storage.components.XWikiPageHierarchyResolver");
+    this.cristalApp = cristalApp;
     this.defaultHierarchyResolver = pageHierarchyResolver;
-  }
-
-  setWikiConfig(wikiConfig: WikiConfig): void {
-    this.wikiConfig = wikiConfig;
-    this.defaultHierarchyResolver.setWikiConfig(wikiConfig);
   }
 
   async getPageHierarchy(
@@ -68,13 +66,10 @@ export class XWikiPageHierarchyResolver implements PageHierarchyResolver {
       return this.defaultHierarchyResolver.getPageHierarchy(pageData);
     }
     // TODO: support subwikis.
-    const restApiUrl = `${this.wikiConfig.baseURL}/rest/wikis/xwiki/spaces/${encodeURIComponent(
+    const restApiUrl = getRestSpacesApiUrl(
+      this.cristalApp.getWikiConfig(),
       documentId,
-    )
-      .replace(/((?:%5C%5C)*)%5C./g, "$1%2E")
-      .replace(/%5C%5C/g, "%5C")
-      .replace(/\.(?=.*\.)/g, "/spaces/")
-      .replace(/\./, "/pages/")}`;
+    );
 
     try {
       const response = await fetch(restApiUrl, {
@@ -91,6 +86,7 @@ export class XWikiPageHierarchyResolver implements PageHierarchyResolver {
         },
       );
       hierarchy[0].label = "Home";
+      // If the last item is not terminal (i.e., WebHome) we exclude it.
       if (hierarchy[hierarchy.length - 1].url.endsWith("/")) {
         hierarchy.pop();
       }
@@ -102,5 +98,15 @@ export class XWikiPageHierarchyResolver implements PageHierarchyResolver {
       );
       return this.defaultHierarchyResolver.getPageHierarchy(pageData);
     }
+  }
+}
+
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<PageHierarchyResolver>(name)
+      .to(XWikiPageHierarchyResolver)
+      .inSingletonScope()
+      .whenTargetNamed("XWiki");
   }
 }
