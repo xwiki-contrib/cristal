@@ -147,6 +147,8 @@ onUpdated(() => {
     <UIX uixname="content.before" />
     <div class="inner-content">
       <div class="content-header">
+        <!-- This div lets us reference an actual HTML element,
+             to be used in `ContentTools.listenToClicks()`. -->
         <div id="breadcrumbRoot" ref="breadcrumbRoot">
           <XBreadcrumb
             class="breadcrumb"

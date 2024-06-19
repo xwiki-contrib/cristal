@@ -26,7 +26,7 @@
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp, PageData, Logger } from "@xwiki/cristal-api";
 import {
-  name,
+  name as PageHierarchyResolverName,
   type PageHierarchyItem,
   type PageHierarchyResolver,
   type PageHierarchyResolverProvider,
@@ -100,10 +100,13 @@ class DefaultPageHierarchyResolverProvider
   get(): PageHierarchyResolver {
     const container = this.cristalApp.getContainer();
     const wikiConfigType = this.cristalApp.getWikiConfig().getType();
-    if (container.isBoundNamed(name, wikiConfigType)) {
-      return container.getNamed<PageHierarchyResolver>(name, wikiConfigType);
+    if (container.isBoundNamed(PageHierarchyResolverName, wikiConfigType)) {
+      return container.getNamed<PageHierarchyResolver>(
+        PageHierarchyResolverName,
+        wikiConfigType,
+      );
     } else {
-      return container.get<PageHierarchyResolver>(name);
+      return container.get<PageHierarchyResolver>(PageHierarchyResolverName);
     }
   }
 }
@@ -111,12 +114,14 @@ class DefaultPageHierarchyResolverProvider
 export class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<PageHierarchyResolver>(name)
+      .bind<PageHierarchyResolver>(PageHierarchyResolverName)
       .to(DefaultPageHierarchyResolver)
       .inSingletonScope()
       .whenTargetIsDefault();
     container
-      .bind<PageHierarchyResolverProvider>(`${name}Provider`)
+      .bind<PageHierarchyResolverProvider>(
+        `${PageHierarchyResolverName}Provider`,
+      )
       .to(DefaultPageHierarchyResolverProvider)
       .inSingletonScope()
       .whenTargetIsDefault();
