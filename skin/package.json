@@ -28,6 +28,8 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/cristal-extra-tabs-api": "workspace:*",
+    "@xwiki/cristal-extra-tabs-ui": "workspace:*",
     "@xwiki/cristal-hierarchy-api": "workspace:*",
     "@xwiki/cristal-icons": "workspace:*",
     "inversify": "6.0.2",
@@ -36,15 +38,14 @@
     "vue": "3.4.27",
     "vue-i18n": "9.13.1",
     "vue-router": "4.3.2",
-    "vuetify": "3.6.7"
+    "vuetify": "3.6.9"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "5.0.4",
     "rimraf": "5.0.7",
-    "vite": "5.2.12",
     "vite-plugin-inspect": "0.8.4",
     "vite-plugin-vuetify": "2.0.3",
-    "vue-tsc": "2.0.19"
+    "vue-tsc": "2.0.21"
   },
   "publishConfig": {
     "exports": {

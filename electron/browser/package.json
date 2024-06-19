@@ -20,7 +20,8 @@
   },
   "main": "./src/index.ts",
   "scripts": {
-    "build": "tsc --project tsconfig.json --noEmit && vite build && vite build -c vite.preload.config.ts && vite build -c vite.main.config.ts"
+    "build": "tsc --project tsconfig.json --noEmit && vite build && vite build -c vite.preload.config.ts && vite build -c vite.main.config.ts",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
@@ -28,11 +29,10 @@
     "inversify": "6.0.2"
   },
   "peerDependencies": {
-    "electron": "29.4.1"
+    "electron": "31.0.1"
   },
   "devDependencies": {
-    "typescript": "5.4.5",
-    "vite": "5.2.12"
+    "typescript": "5.4.5"
   },
   "publishConfig": {
     "exports": {

@@ -42,6 +42,13 @@ import { marked } from "marked";
 import { ContentTools } from "./contentTools";
 import { CIcon, Size } from "@xwiki/cristal-icons";
 import xavatarImg from "../images/no-one.svg";
+import { ExtraTabs } from "@xwiki/cristal-extra-tabs-ui";
+import { useI18n } from "vue-i18n";
+import messages from "../translations";
+
+const { t } = useI18n({
+  messages,
+});
 
 const route = useRoute();
 
@@ -150,7 +157,7 @@ onUpdated(() => {
           <c-icon
             class="new-page"
             name="plus"
-            label="Create a new document"
+            :label="t('page.actions.create.label')"
           ></c-icon>
         </x-btn>
       </div>
@@ -213,9 +220,12 @@ onUpdated(() => {
               The requested page could not be found. You can edit the page to
               create it.
             </div>
-            <div class="doc-info-footer">
-              <x-avatar class="avatar"></x-avatar>
-              <span class="doc-info-user-info">User name created...</span>
+            <!-- The footer is not displayed in case of unknown page. -->
+            <div v-if="content" class="doc-info-footer">
+              <!-- Suspense is mandatory here as extra-tabs is asynchronous -->
+              <suspense>
+                <extra-tabs></extra-tabs>
+              </suspense>
             </div>
           </div>
         </div>
@@ -232,6 +242,45 @@ onUpdated(() => {
   align-items: center;
   justify-content: center;
 }
+
+/*TABLE STYLES*/
+/*TODO: Check a better way to write these styles without the global tag. Currently impossible to use :deep because the html inside the document content is not assigned an ID */
+
+:global(.document-content table) {
+  max-width: 100%;
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+  color: inherit;
+  margin-bottom: var(--cr-spacing-small);
+}
+
+:global(.document-content table tr) {
+  border-bottom: solid 1px var(--cr-input-border-color);
+}
+
+:global(.document-content table th) {
+  font-weight: var(--cr-font-weight-bold);
+  text-align: start;
+}
+
+:global(.document-content table td),
+:global(.document-content table th) {
+  line-height: var(--cr-line-height-normal);
+  padding: 1rem 1rem;
+}
+
+:global(.document-content table th p:first-child),
+:global(.document-content table td p:first-child) {
+  margin-top: 0;
+}
+
+:global(.document-content table th p:last-child),
+:global(.document-content table td p:last-child) {
+  margin-bottom: 0;
+}
+
+/*---*/
 
 .content-loading svg {
   width: 64px;

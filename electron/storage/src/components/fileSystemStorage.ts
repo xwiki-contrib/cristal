@@ -24,8 +24,13 @@
  **/
 
 import { inject, injectable } from "inversify";
-import { DefaultPageData, Logger, PageData } from "@xwiki/cristal-api";
-import { AbstractStorage } from "@xwiki/cristal-storage";
+import {
+  DefaultPageData,
+  Logger,
+  PageAttachment,
+  PageData,
+} from "@xwiki/cristal-api";
+import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { APITypes } from "../electron/preload/apiTypes";
 
 declare const fileSystemStorage: APITypes;
@@ -44,9 +49,9 @@ export default class FileSystemStorage extends AbstractStorage {
     return "";
   }
 
-  async getPageContent(page: string, syntax: string): Promise<PageData> {
+  async getPageContent(page: string): Promise<PageData> {
     const decodedPage = decodeURIComponent(page);
-    const path = await fileSystemStorage.resolvePath(decodedPage, syntax);
+    const path = await fileSystemStorage.resolvePath(decodedPage);
     const pageData = await fileSystemStorage.readPage(path || "");
     if (pageData) {
       pageData.id = decodedPage;
@@ -54,6 +59,11 @@ export default class FileSystemStorage extends AbstractStorage {
       pageData.headlineRaw = pageData.name;
     }
     return pageData;
+  }
+
+  async getAttachments(page: string): Promise<PageAttachment[] | undefined> {
+    const path = await fileSystemStorage.resolveAttachmentsPath(page);
+    return fileSystemStorage.readAttachments(path);
   }
 
   getPageFromViewURL(): string | null {
@@ -72,8 +82,8 @@ export default class FileSystemStorage extends AbstractStorage {
     return Promise.resolve(true);
   }
 
-  async save(page: string, content: string, title: string, syntax: string) {
-    const path = await fileSystemStorage.resolvePath(page, syntax);
+  async save(page: string, content: string, title: string) {
+    const path = await fileSystemStorage.resolvePath(page);
     await fileSystemStorage.savePage(path, content, title);
   }
 }

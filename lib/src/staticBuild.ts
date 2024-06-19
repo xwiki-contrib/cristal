@@ -27,12 +27,18 @@ import { ComponentInit as SkinComponentInit } from "@xwiki/cristal-skin";
 import { ComponentInit as VueDSComponentInit } from "@xwiki/cristal-dsvuetify";
 import { ComponentInit as DSFRComponentInit } from "@xwiki/cristal-dsfr";
 import { ComponentInit as ShoelaceComponentInit } from "@xwiki/cristal-dsshoelace";
-import { ComponentInit as StorageComponentInit } from "@xwiki/cristal-storage";
+import { ComponentInit as DexieBackendComponentInit } from "@xwiki/cristal-backend-dexie";
+import { ComponentInit as GithubBackendComponentInit } from "@xwiki/cristal-backend-github";
+import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-backend-nextcloud";
+import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
 import { ComponentInit as MacrosComponentInit } from "@xwiki/cristal-macros";
 import { ComponentInit as MenuButtonsComponentInit } from "@xwiki/cristal-extension-menubuttons";
 import { ComponentInit as QueueWorkerComponentInit } from "@xwiki/cristal-sharedworker-impl";
 import { ComponentInit as RenderingComponentInit } from "@xwiki/cristal-rendering";
 import { ComponentInit as EditorTiptapComponentInit } from "@xwiki/cristal-editors-tiptap";
+import { ComponentInit as ExtraTabsComponentInit } from "@xwiki/cristal-extra-tabs-default";
+import { ComponentInit as AttachmentsUIComponentInit } from "@xwiki/cristal-attachments-ui";
+import { ComponentInit as AttachmentsDefaultComponentInit } from "@xwiki/cristal-attachments-default";
 import type { Container } from "inversify";
 
 export class StaticBuild {
@@ -50,11 +56,17 @@ export class StaticBuild {
       new VueDSComponentInit(container);
       new DSFRComponentInit(container);
       new ShoelaceComponentInit(container);
-      new StorageComponentInit(container);
+      new DexieBackendComponentInit(container);
+      new GithubBackendComponentInit(container);
+      new NextcloudBackendComponentInit(container);
+      new XWikiBackendComponentInit(container);
       new MenuButtonsComponentInit(container);
       new QueueWorkerComponentInit(container);
       new RenderingComponentInit(container);
       new EditorTiptapComponentInit(container);
+      new ExtraTabsComponentInit(container);
+      new AttachmentsUIComponentInit(container);
+      new AttachmentsDefaultComponentInit(container);
     }
     if (additionalComponents) {
       additionalComponents(container);
