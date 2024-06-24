@@ -1,0 +1,45 @@
+{
+  "name": "@xwiki/cristal-backend-xwiki",
+  "version": "0.8.0",
+  "license": "LGPL 2.1",
+  "author": "XWiki Org Community <contact@xwiki.org>",
+  "homepage": "https://cristal.xwiki.org/",
+  "repository": {
+    "type": "git",
+    "directory": "/core/backend/backend-xwiki",
+    "url": "https://github.com/xwiki-contrib/cristal/"
+  },
+  "bugs": {
+    "url": "https://jira.xwiki.org/projects/CRISTAL/"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json && vite build",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "test": "vitest --run"
+  },
+  "dependencies": {
+    "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/cristal-backend-api": "workspace:*",
+    "inversify": "6.0.2"
+  },
+  "devDependencies": {
+    "reflect-metadata": "0.2.2",
+    "vitest": "1.6.0"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "import": "./dist/index.es.js",
+        "require": "./dist/index.umd.js",
+        "types": "./dist/index.d.ts"
+      }
+    },
+    "main": "./dist/index.es.js",
+    "types": "./dist/index.d.ts"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "@xwiki/cristal-lib",
   "version": "0.8.0",
-  "license": "AGPL-3.0",
+  "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
@@ -20,7 +20,7 @@
   "scripts": {
     "build": "pnpm compile",
     "clean": "rimraf dist",
-    "compile": "vue-tsc --project tsconfig.json --noEmit && vite build",
+    "compile": "vue-tsc --project tsconfig.json && vite build",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "prepack": "pnpm build",
     "test": "echo 'no test'"
@@ -29,6 +29,12 @@
   "dependencies": {
     "@mdi/font": "7.4.47",
     "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/cristal-attachments-default": "workspace:*",
+    "@xwiki/cristal-attachments-ui": "workspace:*",
+    "@xwiki/cristal-backend-dexie": "workspace:*",
+    "@xwiki/cristal-backend-github": "workspace:*",
+    "@xwiki/cristal-backend-nextcloud": "workspace:*",
+    "@xwiki/cristal-backend-xwiki": "workspace:*",
     "@xwiki/cristal-browser-api": "workspace:*",
     "@xwiki/cristal-dsfr": "workspace:*",
     "@xwiki/cristal-dsshoelace": "workspace:*",
@@ -36,22 +42,21 @@
     "@xwiki/cristal-editors-tiptap": "workspace:*",
     "@xwiki/cristal-extension-manager": "workspace:*",
     "@xwiki/cristal-extension-menubuttons": "workspace:*",
+    "@xwiki/cristal-extra-tabs-default": "workspace:*",
     "@xwiki/cristal-macros": "workspace:*",
     "@xwiki/cristal-rendering": "workspace:*",
     "@xwiki/cristal-sharedworker-impl": "workspace:*",
     "@xwiki/cristal-skin": "workspace:*",
-    "@xwiki/cristal-storage": "workspace:*",
     "inversify": "6.0.2",
+    "pinia": "2.1.7",
     "reflect-metadata": "0.2.2",
     "utility-types": "3.11.0",
-    "vue": "3.4.27",
+    "vue": "3.4.29",
     "vue-i18n": "9.13.1",
-    "vue-router": "4.3.2",
-    "vuetify": "3.6.9"
+    "vue-router": "4.3.2"
   },
   "devDependencies": {
     "rimraf": "5.0.7",
-    "vite": "5.2.13",
     "vue-tsc": "2.0.21"
   },
   "publishConfig": {

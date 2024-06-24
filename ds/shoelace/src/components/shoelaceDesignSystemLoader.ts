@@ -1,9 +1,9 @@
-/**
+/*
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
  *
  * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
+ * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
  *
@@ -12,16 +12,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public
+ * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
- **/
+ */
 
 import type { App } from "vue";
 import type { DesignSystemLoader } from "@xwiki/cristal-api";
@@ -68,5 +63,31 @@ export class ShoelaceDesignSystemLoader implements DesignSystemLoader {
       () => import("../vue/x-breadcrumb.vue"),
     );
     registerAsyncComponent(app, "XSearch", () => import("../vue/x-search.vue"));
+    registerAsyncComponent(app, "XTab", () => import("../vue/x-tab.vue"));
+    registerAsyncComponent(
+      app,
+      "XTabGroup",
+      () => import("../vue/x-tab-group.vue"),
+    );
+    registerAsyncComponent(
+      app,
+      "XTabPanel",
+      () => import("../vue/x-tab-panel.vue"),
+    );
+    registerAsyncComponent(
+      app,
+      "XForm",
+      () => import("../vue/form/x-form.vue"),
+    );
+    registerAsyncComponent(
+      app,
+      "XTextField",
+      () => import("../vue/form/x-text-field.vue"),
+    );
+    registerAsyncComponent(
+      app,
+      "XFileInput",
+      () => import("../vue/form/x-file-input.vue"),
+    );
   }
 }

@@ -1,9 +1,9 @@
-/**
+/*
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
  *
  * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
+ * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
  *
@@ -12,20 +12,20 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public
+ * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
- **/
+ */
 
 import { inject, injectable } from "inversify";
-import { DefaultPageData, Logger, PageData } from "@xwiki/cristal-api";
-import { AbstractStorage } from "@xwiki/cristal-storage";
+import {
+  DefaultPageData,
+  type Logger,
+  PageAttachment,
+  PageData,
+} from "@xwiki/cristal-api";
+import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { APITypes } from "../electron/preload/apiTypes";
 
 declare const fileSystemStorage: APITypes;
@@ -44,14 +44,21 @@ export default class FileSystemStorage extends AbstractStorage {
     return "";
   }
 
-  async getPageContent(page: string, syntax: string): Promise<PageData> {
-    const path = await fileSystemStorage.resolvePath(page, syntax);
+  async getPageContent(page: string): Promise<PageData> {
+    const decodedPage = decodeURIComponent(page);
+    const path = await fileSystemStorage.resolvePath(decodedPage);
     const pageData = await fileSystemStorage.readPage(path || "");
     if (pageData) {
+      pageData.id = decodedPage;
       pageData.headline = pageData.name;
       pageData.headlineRaw = pageData.name;
     }
     return pageData;
+  }
+
+  async getAttachments(page: string): Promise<PageAttachment[] | undefined> {
+    const path = await fileSystemStorage.resolveAttachmentsPath(page);
+    return fileSystemStorage.readAttachments(path);
   }
 
   getPageFromViewURL(): string | null {
@@ -70,8 +77,18 @@ export default class FileSystemStorage extends AbstractStorage {
     return Promise.resolve(true);
   }
 
-  async save(page: string, content: string, title: string, syntax: string) {
-    const path = await fileSystemStorage.resolvePath(page, syntax);
+  async save(page: string, content: string, title: string): Promise<void> {
+    const path = await fileSystemStorage.resolvePath(page);
     await fileSystemStorage.savePage(path, content, title);
+  }
+
+  async saveAttachments(page: string, files: File[]): Promise<unknown> {
+    return Promise.all(files.map((file) => this.saveAttachment(page, file)));
+  }
+
+  private async saveAttachment(page: string, file: File): Promise<unknown> {
+    const path = await fileSystemStorage.resolveAttachmentPath(page, file.name);
+    await fileSystemStorage.saveAttachment(path, file);
+    return;
   }
 }

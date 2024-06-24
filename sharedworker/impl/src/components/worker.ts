@@ -1,9 +1,9 @@
-/**
+/*
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
  *
  * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
+ * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
  *
@@ -12,23 +12,21 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public
+ * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
- **/
+ */
 
 import * as Comlink from "comlink";
 import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
 import type { CristalApp, WrappingStorage } from "@xwiki/cristal-api";
 import { type WikiConfig } from "@xwiki/cristal-api";
 import { CristalLoader } from "@xwiki/cristal-extension-manager";
-import { ComponentInit as StorageComponentInit } from "@xwiki/cristal-storage";
+import { ComponentInit as DexieBackendComponentInit } from "@xwiki/cristal-backend-dexie";
+import { ComponentInit as GithubBackendComponentInit } from "@xwiki/cristal-backend-github";
+import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-backend-nextcloud";
+import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
 import type { Container } from "inversify";
 import { WorkerCristalApp } from "./workerCristalApp";
 import WorkerQueueWorker from "./workerQueueWorker";
@@ -43,9 +41,9 @@ export class Worker implements MyWorker {
   private fct: (a: string) => void;
 
   /*
-     Start worker thread 
+     Start worker thread
     */
-  public async start() {
+  public async start(): Promise<void> {
     console.log("Starting worker thread");
     this.initialize();
     // eslint-disable-next-line no-constant-condition
@@ -59,7 +57,7 @@ export class Worker implements MyWorker {
     this.fct = fct;
   }
 
-  public sleep(ms: number) {
+  public sleep(ms: number): Promise<unknown> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
@@ -184,7 +182,7 @@ export class Worker implements MyWorker {
     }
   }
 
-  public async initialize() {
+  public async initialize(): Promise<void> {
     console.log("Starting initialize");
     const extensionList: Array<string> = ["storage"];
     const response = await fetch("/config.json");
@@ -206,7 +204,12 @@ export class Worker implements MyWorker {
     this.cristal = this.container.get<CristalApp>("CristalApp");
     this.cristal.setContainer(this.container);
     console.log("Container status", this.container);
-    new StorageComponentInit(cristalLoader.container);
+    // TODO: find a way to do this loading differently. Here we need to
+    //  explicitly depend on all required storage and this is not good.
+    new DexieBackendComponentInit(cristalLoader.container);
+    new GithubBackendComponentInit(cristalLoader.container);
+    new NextcloudBackendComponentInit(cristalLoader.container);
+    new XWikiBackendComponentInit(cristalLoader.container);
     console.log("Loading storage components");
     this.initialized = true;
     console.log("Finished initialize");

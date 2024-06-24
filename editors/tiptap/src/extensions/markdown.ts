@@ -1,3 +1,23 @@
+/*
+ * See the LICENSE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
 import MarkdownIt from "markdown-it";
 import { Markdown } from "tiptap-markdown";
 
@@ -70,40 +90,46 @@ export default Markdown.extend({
     this.parent?.();
     this.editor.storage.markdown.parser.md =
       this.editor.storage.markdown.parser.md.use((md: MarkdownIt) => {
-        md.core.ruler.before("inline", "markdown-internal-links", (state) => {
-          state.tokens.forEach((blockToken) => {
-            if (blockToken.type == "inline") {
-              const internalTokens = parseStringForInternalLinks(
-                blockToken.content,
-              );
+        md.core.ruler.before(
+          "inline",
+          "markdown-internal-links",
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (state: any) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            state.tokens.forEach((blockToken: any) => {
+              if (blockToken.type == "inline") {
+                const internalTokens = parseStringForInternalLinks(
+                  blockToken.content,
+                );
 
-              // We replace the content of the current block node only if at least a link has been found.
-              if (hasLink(internalTokens)) {
-                blockToken.content = "";
-                blockToken.children = internalTokens.flatMap((v) => {
-                  if (typeof v == "string") {
-                    const token = new state.Token("text", "span", 0);
-                    token.content = v;
-                    return [token];
-                  } else {
-                    const { text, reference } = v;
+                // We replace the content of the current block node only if at least a link has been found.
+                if (hasLink(internalTokens)) {
+                  blockToken.content = "";
+                  blockToken.children = internalTokens.flatMap((v) => {
+                    if (typeof v == "string") {
+                      const token = new state.Token("text", "span", 0);
+                      token.content = v;
+                      return [token];
+                    } else {
+                      const { text, reference } = v;
 
-                    const openToken = new state.Token("link_open", "a", 1);
-                    openToken.attrSet("href", reference);
-                    openToken.attrPush(["class", "internal-link"]);
-                    const contentToken = new state.Token("text", "", 0);
-                    contentToken.content = text || reference;
-                    const closeToken = new state.Token("link_close", "a", -1);
-                    // This is useful for the serializer, who is going to have access to this value to determine
-                    // how to serialize the link
-                    closeToken.attrPush(["class", "internal-link"]);
-                    return [openToken, contentToken, closeToken];
-                  }
-                });
+                      const openToken = new state.Token("link_open", "a", 1);
+                      openToken.attrSet("href", reference);
+                      openToken.attrPush(["class", "internal-link"]);
+                      const contentToken = new state.Token("text", "", 0);
+                      contentToken.content = text || reference;
+                      const closeToken = new state.Token("link_close", "a", -1);
+                      // This is useful for the serializer, who is going to have access to this value to determine
+                      // how to serialize the link
+                      closeToken.attrPush(["class", "internal-link"]);
+                      return [openToken, contentToken, closeToken];
+                    }
+                  });
+                }
               }
-            }
-          });
-        });
+            });
+          },
+        );
       });
     // TODO: this is not optimal as the parent is also parsing the content but without the additional plugins.
     // But his is also avoiding quite a lot of code duplication so keeping it like this for now.

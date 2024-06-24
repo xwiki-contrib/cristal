@@ -5,7 +5,9 @@
     "types": [
       "vite/client"
     ],
-    "declaration": true
+    "declaration": true,
+    "resolveJsonModule": true,
+    "isolatedDeclarations": false
   },
   "extends": "./../tsconfig.json",
   "include": [

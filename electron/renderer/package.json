@@ -1,7 +1,7 @@
 {
   "name": "@xwiki/cristal-electron-renderer",
   "version": "0.8.0",
-  "license": "AGPL-3.0",
+  "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
@@ -26,14 +26,17 @@
   "dependencies": {
     "@xwiki/cristal-browser-electron": "workspace:*",
     "@xwiki/cristal-electron-storage": "workspace:*",
+    "@xwiki/cristal-hierarchy-api": "workspace:*",
+    "@xwiki/cristal-hierarchy-default": "workspace:*",
+    "@xwiki/cristal-hierarchy-filesystem": "workspace:*",
+    "@xwiki/cristal-hierarchy-github": "workspace:*",
+    "@xwiki/cristal-hierarchy-xwiki": "workspace:*",
     "@xwiki/cristal-lib": "workspace:*",
     "inversify": "6.0.2",
-    "vue": "3.4.27"
+    "vue": "3.4.29"
   },
   "devDependencies": {
-    "@types/node": "20.14.1",
-    "rimraf": "5.0.7",
-    "typescript": "5.4.5",
-    "vite": "5.2.13"
+    "@types/node": "20.14.7",
+    "rimraf": "5.0.7"
   }
 }

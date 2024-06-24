@@ -1,52 +1,34 @@
 <!--
- * See the LICENSE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
+See the LICENSE file distributed with this work for additional
+information regarding copyright ownership.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script lang="ts">
+<script lang="ts" setup>
 import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
 import { inject } from "vue";
 
-let cristal: CristalApp | undefined;
+const configList: Array<WikiConfig> = [];
+const cristal = inject<CristalApp>("cristal")!;
+let configs = cristal.getAvailableConfigurations();
 
-export default {
-  setup() {
-    let configList: Array<WikiConfig> = [];
-    let currentConfig = "";
-    cristal = inject<CristalApp>("cristal");
-    if (cristal != null) {
-      let configs = cristal.getAvailableConfigurations();
-      configs.forEach((wikiConfig: WikiConfig) => {
-        configList.push(wikiConfig);
-      });
-      currentConfig = cristal.getWikiConfig().name;
-    }
-    return {
-      configList: configList,
-      cristal: cristal,
-      currentConfig: currentConfig,
-    };
-  },
-};
+configs.forEach((wikiConfig: WikiConfig) => {
+  configList.push(wikiConfig);
+});
+const currentConfig = cristal.getWikiConfig().name;
 </script>
 <template>
   <div>
@@ -76,6 +58,7 @@ export default {
 .wiki-name {
   font-weight: var(--cr-font-weight-bold);
 }
+
 .url {
   font-weight: var(--cr-font-weight-semi-bold);
   color: var(--cr-color-neutral-500);
@@ -84,22 +67,27 @@ export default {
   line-height: var(--cr-font-size-small);
   width: 100%;
 }
+
 .ds-name {
   font-size: var(--cr-font-size-small);
 }
+
 .current-ds {
   font-size: var(--cr-font-size-small);
   text-align: center;
 }
+
 p {
   padding: 0;
   margin: 0;
 }
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
 }
+
 .grid-container > * {
   display: grid;
   gap: var(--cr-spacing-medium);
@@ -109,6 +97,7 @@ p {
   border-bottom: 1px solid #ddd;
   padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-small);
 }
+
 .grid-container > *:last-child {
   border-bottom: 0;
 }

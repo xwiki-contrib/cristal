@@ -1,9 +1,9 @@
-/**
+/*
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
  *
  * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
+ * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
  *
@@ -12,38 +12,34 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public
+ * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
- **/
+ */
 
 import { dirname, join, relative } from "node:path";
 import { app, ipcMain } from "electron";
 import fs from "node:fs";
-import { PageData } from "@xwiki/cristal-api";
+import { PageAttachment, PageData } from "@xwiki/cristal-api";
 
 const HOME_PATH = ".cristal";
 const HOME_PATH_FULL = join(app.getPath("home"), HOME_PATH);
 
-function resolvePath(wikiName: string, id: string): string {
-  // TODO: currently a mess, the wikiName is actually the page path
-  // and the id is the syntax
-  // We need to move to the syntax being saved as a property of the json,
-  // and the wikiname being the path (or the actual wiki name, but in this case,
-  // we also need to provide the actual page name).
-  // We also need to decide if we define some sort of default page name (e.g., index).
+function resolvePath(page: string, ...lastSegments: string[]) {
   const homedir = app.getPath("home");
-  let paths = wikiName;
-  if (wikiName === "index") {
-    paths = "";
-  }
-  return join(homedir, HOME_PATH, paths, id + ".json");
+  return join(homedir, HOME_PATH, page, ...lastSegments);
+}
+
+function resolvePagePath(page: string): string {
+  return resolvePath(page, "page.json");
+}
+
+function resolveAttachmentsPath(page: string): string {
+  return resolvePath(page, "attachments");
+}
+function resolveAttachmentPath(page: string, filename: string): string {
+  return resolvePath(page, "attachments", filename);
 }
 
 async function isFile(path: string) {
@@ -54,6 +50,15 @@ async function isFile(path: string) {
     console.debug(e);
   }
   return stat?.isFile();
+}
+async function isDirectory(path: string) {
+  let stat = undefined;
+  try {
+    stat = await fs.promises.lstat(path);
+  } catch (e) {
+    console.debug(e);
+  }
+  return stat?.isDirectory();
 }
 
 async function pathExists(path: string) {
@@ -76,6 +81,28 @@ async function readPage(path: string): Promise<PageData | undefined> {
     return undefined;
   }
 }
+
+async function readAttachments(
+  path: string,
+): Promise<PageAttachment[] | undefined> {
+  if (!(await isWithin(HOME_PATH_FULL, path))) {
+    throw new Error(`[${path}] is not in in [${HOME_PATH_FULL}]`);
+  }
+  if (await isDirectory(path)) {
+    const pageContent = await fs.promises.readdir(path);
+    return pageContent.map((path) => {
+      return {
+        id: path,
+        mimetype: "",
+        reference: path,
+        href: path,
+      };
+    });
+  } else {
+    return undefined;
+  }
+}
+
 async function isWithin(root: string, path: string) {
   const rel = relative(root, path);
   return !rel.startsWith("../") && rel !== "..";
@@ -98,8 +125,6 @@ async function savePage(
   if (!(await isWithin(HOME_PATH_FULL, path))) {
     throw new Error(`[${path}] is not in in [${HOME_PATH_FULL}]`);
   }
-  // TODO: currently expects an existing page, need to handle new page creation.
-  // TODO: first read the page, then update the html field, then save and return the updated version
   let jsonContent: {
     source: string;
     name: string;
@@ -129,14 +154,37 @@ async function savePage(
   return readPage(path);
 }
 
-export default function load() {
-  ipcMain.handle("resolvePath", (event, { page, syntax }) => {
-    return resolvePath(page, syntax);
+async function saveAttachment(path: string, filePath: string) {
+  if (!(await isWithin(HOME_PATH_FULL, path))) {
+    throw new Error(`[${path}] is not in in [${HOME_PATH_FULL}]`);
+  }
+  const parentDirectory = dirname(path);
+
+  // Create the parent directories in case they do not exist.
+  await fs.promises.mkdir(parentDirectory, { recursive: true });
+  await fs.promises.copyFile(filePath, path);
+}
+
+export default function load(): void {
+  ipcMain.handle("resolvePath", (event, { page }) => {
+    return resolvePagePath(page);
+  });
+  ipcMain.handle("resolveAttachmentsPath", (event, { page }) => {
+    return resolveAttachmentsPath(page);
   });
   ipcMain.handle("readPage", (event, { path }) => {
     return readPage(path);
   });
+  ipcMain.handle("readAttachments", (event, { path }) => {
+    return readAttachments(path);
+  });
   ipcMain.handle("savePage", (event, { path, content, title }) => {
     return savePage(path, content, title);
+  });
+  ipcMain.handle("resolveAttachmentPath", (event, { page, filename }) => {
+    return resolveAttachmentPath(page, filename);
+  });
+  ipcMain.handle("saveAttachment", (event, { path, filePath }) => {
+    return saveAttachment(path, filePath);
   });
 }

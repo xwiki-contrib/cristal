@@ -1,26 +1,21 @@
 <!--
- * See the LICENSE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
+See the LICENSE file distributed with this work for additional
+information regarding copyright ownership.
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
 import {
@@ -34,10 +29,21 @@ import {
 } from "vue";
 import { useRoute } from "vue-router";
 import { type CristalApp, PageData } from "@xwiki/cristal-api";
+import type {
+  PageHierarchyItem,
+  PageHierarchyResolverProvider,
+} from "@xwiki/cristal-hierarchy-api";
 import { marked } from "marked";
 import { ContentTools } from "./contentTools";
 import { CIcon, Size } from "@xwiki/cristal-icons";
 import xavatarImg from "../images/no-one.svg";
+import { ExtraTabs } from "@xwiki/cristal-extra-tabs-ui";
+import { useI18n } from "vue-i18n";
+import messages from "../translations";
+
+const { t } = useI18n({
+  messages,
+});
 
 const route = useRoute();
 
@@ -52,7 +58,9 @@ const currentPageName: ComputedRef<string> = computed(() => {
     (route.params.page as string) || cristal.getCurrentPage() || "Main.WebHome"
   );
 });
+const breadcrumbItems: Ref<Array<PageHierarchyItem>> = ref([]);
 
+const breadcrumbRoot = ref(undefined);
 const contentRoot = ref(undefined);
 
 const content: ComputedRef<string | undefined> = computed(() => {
@@ -83,12 +91,20 @@ const title = computed(() => {
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 
 async function fetchPage(page: string) {
+  if (page != null) {
+    page = encodeURIComponent(page);
+  }
   loading.value = true;
   try {
     // Provides a reactive variable to be updated if the page content is updated
     // in the background.
     cristal.setContentRef(currentPage);
     currentPage.value = await cristal.getPage(page || currentPageName.value);
+    breadcrumbItems.value = await cristal
+      .getContainer()
+      .get<PageHierarchyResolverProvider>("PageHierarchyResolverProvider")
+      .get()
+      .getPageHierarchy(currentPage.value!);
   } catch (e) {
     console.error(e);
     error.value = e;
@@ -101,6 +117,10 @@ watch(() => route.params.page, fetchPage, { immediate: true });
 
 onUpdated(() => {
   ContentTools.transformImages(cristal, "xwikicontent");
+
+  if (cristal && breadcrumbRoot.value) {
+    ContentTools.listenToClicks(breadcrumbRoot.value, cristal);
+  }
 
   if (cristal && contentRoot.value) {
     ContentTools.listenToClicks(contentRoot.value, cristal);
@@ -122,15 +142,19 @@ onUpdated(() => {
     <UIX uixname="content.before" />
     <div class="inner-content">
       <div class="content-header">
-        <XBreadcrumb
-          class="breadcrumb"
-          :items="['Home', 'First', 'Second', 'Third']"
-        ></XBreadcrumb>
+        <!-- This div lets us reference an actual HTML element,
+             to be used in `ContentTools.listenToClicks()`. -->
+        <div id="breadcrumbRoot" ref="breadcrumbRoot">
+          <XBreadcrumb
+            class="breadcrumb"
+            :items="breadcrumbItems"
+          ></XBreadcrumb>
+        </div>
         <x-btn circle size="small" variant="primary" color="primary">
           <c-icon
             class="new-page"
             name="plus"
-            label="Create a new document"
+            :label="t('page.actions.create.label')"
           ></c-icon>
         </x-btn>
       </div>
@@ -143,6 +167,9 @@ onUpdated(() => {
               <span class="doc-info-user-info">
                 User Name edited on 12/12/2024 at 12:00
               </span>
+              <!-- TODO: add a way to inject those by extension
+               and provide one for the number of attachments.
+              It must be reactive whenever the attachment store is updated -->
               <div class="doc-info-actions">
                 <div class="info-action like">
                   <c-icon name="heart" :size="Size.Small"></c-icon>
@@ -193,9 +220,12 @@ onUpdated(() => {
               The requested page could not be found. You can edit the page to
               create it.
             </div>
-            <div class="doc-info-footer">
-              <x-avatar class="avatar"></x-avatar>
-              <span class="doc-info-user-info">User name created...</span>
+            <!-- The footer is not displayed in case of unknown page. -->
+            <div v-if="content" class="doc-info-footer">
+              <!-- Suspense is mandatory here as extra-tabs is asynchronous -->
+              <suspense>
+                <extra-tabs></extra-tabs>
+              </suspense>
             </div>
           </div>
         </div>

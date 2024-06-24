@@ -1,9 +1,9 @@
-/**
+/*
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
  *
  * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
+ * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
  *
@@ -12,16 +12,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public
+ * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
- **/
+ */
 
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { MacroProvider } from "../api/macroProvider";
@@ -33,7 +28,7 @@ import { createVNode, render } from "vue";
 export class ContentTools {
   static logger: Logger;
 
-  public static init(cristal: CristalApp) {
+  public static init(cristal: CristalApp): void {
     this.logger = cristal?.getLogger("skin.vue.contenttools");
   }
 
@@ -43,13 +38,16 @@ export class ContentTools {
   public static listenToClicks(
     element: HTMLElement,
     cristal: CristalApp | undefined,
-  ) {
+  ): void {
     element.addEventListener(
       `click`,
       // TODO get rid of any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       function handleClick(event: any) {
-        const origin = event.target.closest(`a`);
+        // We cannot use `closest()` because of possible shadow roots.
+        const origin = event
+          .composedPath()
+          .find((e: HTMLElement) => e.nodeName === "A");
 
         if (origin?.href) {
           ContentTools.logger?.debug("You clicked", origin.href);
@@ -95,7 +93,7 @@ export class ContentTools {
   /*
         Method to load CSS sent by XWiki page
     */
-  public static loadCSS(css: string[]) {
+  public static loadCSS(css: string[]): void {
     if (css && css.length > 0) {
       // check new css
       ContentTools.logger?.debug("Current CSS is ", css.length);
@@ -119,7 +117,7 @@ export class ContentTools {
         Method to load JS send by XWiki page
         THis code is not working
     */
-  public static loadJS(js: string[]) {
+  public static loadJS(js: string[]): void {
     if (js && js.length > 0) {
       ContentTools.logger?.debug("Loading JS code for content");
       js.forEach((jsLink) => {
@@ -177,7 +175,7 @@ export class ContentTools {
   public static transformImages(
     cristal: CristalApp | undefined,
     element: string,
-  ) {
+  ): void {
     const xwikiContentEl = document.getElementById(element);
     if (xwikiContentEl) {
       const transform = function (img: HTMLImageElement | HTMLScriptElement) {
@@ -219,7 +217,7 @@ export class ContentTools {
   /*
         Experimental function to transform scripts
     */
-  public static transformScripts() {
+  public static transformScripts(): void {
     const transformScript = function (scriptEl: HTMLScriptElement) {
       const srcItem = scriptEl.attributes.getNamedItem("src");
       if (srcItem) {
@@ -314,7 +312,10 @@ export class ContentTools {
             <!--[CDATA[This is a warning message]]-->
           </pre>
     */
-  public static transformMacros(element: HTMLElement, cristal: CristalApp) {
+  public static transformMacros(
+    element: HTMLElement,
+    cristal: CristalApp,
+  ): void {
     const macroTagList = element.getElementsByTagName("pre");
     for (let i = 0; i < macroTagList.length; i++) {
       const macroTag = macroTagList[i];

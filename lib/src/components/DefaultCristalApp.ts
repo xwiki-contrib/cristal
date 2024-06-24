@@ -1,9 +1,9 @@
-/**
+/*
  * See the LICENSE file distributed with this work for additional
  * information regarding copyright ownership.
  *
  * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as
+ * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
  *
@@ -12,16 +12,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General Public
+ * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- *
- * This file is part of the Cristal Wiki software prototype
- * @copyright  Copyright (c) 2023 XWiki SAS
- * @license    http://opensource.org/licenses/AGPL-3.0 AGPL-3.0
- *
- **/
+ */
 
 import type { Container } from "inversify";
 import { inject, injectable, multiInject } from "inversify";
@@ -48,7 +43,7 @@ import {
   RouteRecordRaw,
 } from "vue-router";
 
-import { BrowserApi } from "@xwiki/cristal-browser-api";
+import { type BrowserApi } from "@xwiki/cristal-browser-api";
 
 import "@mdi/font/css/materialdesignicons.css";
 
@@ -61,6 +56,8 @@ import type {
 } from "@xwiki/cristal-skin";
 import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
 import type { Renderer } from "@xwiki/cristal-rendering";
+import { createPinia } from "pinia";
+import { createI18n } from "vue-i18n";
 
 @injectable()
 export class DefaultCristalApp implements CristalApp {
@@ -113,14 +110,14 @@ export class DefaultCristalApp implements CristalApp {
     return this.page.name || this.wikiConfig.defaultPageName();
   }
 
-  setCurrentPage(newPage: string, mode: string = "view") {
+  setCurrentPage(newPage: string, mode: string = "view"): void {
     this.router.push({
       name: mode,
-      params: { page: newPage },
+      params: { page: decodeURIComponent(newPage) },
     });
   }
 
-  handlePopState(event: PopStateEvent) {
+  handlePopState(event: PopStateEvent): void {
     this.logger?.debug("In handlePopState ", event);
     if (event.state && event.state.page) {
       const pageName = event.state.page;
@@ -142,11 +139,11 @@ export class DefaultCristalApp implements CristalApp {
     }
   }
 
-  setWikiConfig(wikiConfig: WikiConfig) {
+  setWikiConfig(wikiConfig: WikiConfig): void {
     this.wikiConfig = wikiConfig;
   }
 
-  getWikiConfig() {
+  getWikiConfig(): WikiConfig {
     return this.wikiConfig;
   }
 
@@ -168,7 +165,7 @@ export class DefaultCristalApp implements CristalApp {
 
   // TODO remplace any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setAvailableConfigurations(config: Map<string, any>) {
+  setAvailableConfigurations(config: Map<string, any>): void {
     console.log(config);
     // TODO remplace any
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -224,7 +221,7 @@ export class DefaultCristalApp implements CristalApp {
     }
   }
 
-  async preloadConverters() {
+  async preloadConverters(): Promise<void> {
     this.logger.debug("Loading rendering module");
     try {
       const renderer = this.container.get<Renderer>("Renderer");
@@ -241,7 +238,7 @@ export class DefaultCristalApp implements CristalApp {
    * content is allowed. When undefinied, default to true.
    * @since 0.8
    */
-  async loadPage(options?: { requeue: boolean }) {
+  async loadPage(options?: { requeue: boolean }): Promise<void> {
     try {
       this.logger?.debug("Loading page", this.page.name);
       if (this.getWikiConfig().isSupported("jsonld")) {
@@ -324,7 +321,7 @@ export class DefaultCristalApp implements CristalApp {
     }
   }
 
-  async loadPageFromURL(url: string) {
+  async loadPageFromURL(url: string): Promise<void> {
     this.logger?.debug("Trying to load", url);
     const page = this.getWikiConfig().storage.getPageFromViewURL(url);
     if (page != null) {
@@ -392,7 +389,7 @@ export class DefaultCristalApp implements CristalApp {
     return page;
   }
 
-  async run() {
+  async run(): Promise<void> {
     this.logger?.debug("Before vue");
 
     // initializing the page data
@@ -439,7 +436,10 @@ export class DefaultCristalApp implements CristalApp {
       routes,
     });
 
-    this.app = createApp(Index).use(this.router);
+    this.app = createApp(Index)
+      .use(this.router)
+      .use(createPinia())
+      .use(createI18n({ legacy: false, fallbackLocale: "en" }));
     this.app.provide("count", 0);
     this.app.provide("skinManager", this.skinManager);
     this.app.provide("cristal", this);

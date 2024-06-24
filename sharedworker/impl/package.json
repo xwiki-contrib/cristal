@@ -1,7 +1,7 @@
 {
   "name": "@xwiki/cristal-sharedworker-impl",
   "version": "0.8.0",
-  "license": "AGPL-3.0",
+  "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
@@ -20,7 +20,7 @@
   "scripts": {
     "build": "pnpm compile",
     "clean": "rimraf dist",
-    "compile": "vue-tsc --project tsconfig.json --noEmit && vite build",
+    "compile": "vue-tsc --project tsconfig.json && vite build",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "prepack": "pnpm build",
     "test": "echo 'no test'"
@@ -28,18 +28,19 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/cristal-backend-dexie": "workspace:*",
+    "@xwiki/cristal-backend-github": "workspace:*",
+    "@xwiki/cristal-backend-nextcloud": "workspace:*",
+    "@xwiki/cristal-backend-xwiki": "workspace:*",
     "@xwiki/cristal-extension-manager": "workspace:*",
     "@xwiki/cristal-sharedworker-api": "workspace:*",
-    "@xwiki/cristal-storage": "workspace:*",
     "comlink": "4.4.1",
     "inversify": "6.0.2",
-    "vue": "3.4.27",
-    "vue-i18n": "9.13.1",
+    "vue": "3.4.29",
     "vue-router": "4.3.2"
   },
   "devDependencies": {
     "rimraf": "5.0.7",
-    "vite": "5.2.13",
     "vite-plugin-comlink": "4.1.0",
     "vue-tsc": "2.0.21"
   },

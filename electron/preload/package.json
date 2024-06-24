@@ -1,7 +1,7 @@
 {
   "name": "@xwiki/cristal-electron-preload",
   "version": "0.8.0",
-  "license": "AGPL-3.0",
+  "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
@@ -13,9 +13,8 @@
     "url": "https://jira.xwiki.org/projects/CRISTAL/"
   },
   "scripts": {
-    "build": "pnpm compile",
+    "build": "tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
-    "compile": "tsc --project tsconfig.json --noEmit && vite build",
     "electron": "echo 'no task'",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "linux": "echo 'no task'",
@@ -24,12 +23,10 @@
     "test": "echo 'no test'"
   },
   "devDependencies": {
-    "@types/node": "20.14.1",
+    "@types/node": "20.14.7",
     "@xwiki/cristal-browser-electron": "workspace:*",
     "@xwiki/cristal-electron-storage": "workspace:*",
     "rimraf": "5.0.7",
-    "typescript": "5.4.5",
-    "unplugin-auto-expose": "0.2.4",
-    "vite": "5.2.13"
+    "unplugin-auto-expose": "0.2.4"
   }
 }
