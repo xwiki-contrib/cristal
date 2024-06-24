@@ -87,6 +87,7 @@ function onCollapseLeftSidebar() {
   container: xwCristal;
   container-type: size;
 }
+
 :global(html.xw-cristal),
 :global(.xw-cristal body),
 :global(.xw-cristal #xwCristalApp) {
@@ -157,6 +158,7 @@ function onCollapseLeftSidebar() {
 
 .wrapper {
   display: grid;
+  grid-template-areas: grid-sidebar grid-main-content;
   grid-template-columns:
     minmax(
       var(--cr-sizes-left-sidebar-min-width),
@@ -278,10 +280,6 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: block;
 }
 
-:deep(.wrapper.sidebar-is-collapsed #sidebar.is-visible) {
-  translate: 0;
-}
-
 /*
 WIKI STYLES
 TODO: Discuss and move them to a more appropriate place
@@ -291,9 +289,6 @@ TODO: Discuss and move them to a more appropriate place
 }
 
 @container xwCristal (max-width: 600px) {
-  :global(*) {
-    outline: 1px solid red !important;
-  }
   .wrapper {
     grid-template-columns: 16px 1fr;
   }
