@@ -218,12 +218,31 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: none;
 }
 
-:deep(.wrapper.sidebar-is-collapsed #sidebar) {
-  translate: -100%;
+:deep(.wrapper.sidebar-is-collapsed #sidebar:not(.is-visible)) {
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0;
+  left: 0;
 }
 
 :deep(.wrapper.sidebar-is-collapsed main) {
   left: var(--cr-sizes-collapsed-sidebar-width);
+}
+:deep(.wrapper.sidebar-is-collapsed) {
+  grid-template-columns: minmax(48px, 48px) 1fr;
+  &:has(.is-visible) {
+    grid-template-columns:
+      minmax(
+        var(--cr-sizes-left-sidebar-min-width),
+        var(--cr-sizes-left-sidebar-width)
+      )
+      1fr;
+  }
+}
+
+:deep(.wrapper.sidebar-is-collapsed:has(.is-visible) .collapsed-sidebar) {
+  display: none;
 }
 
 :deep(.wrapper.sidebar-is-collapsed .sidebar-collapse-controls) {
@@ -252,12 +271,11 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   width: var(--cr-sizes-collapsed-sidebar-width);
   padding-top: var(--cr-spacing-x-small);
   text-align: center;
-  translate: -100%;
   z-index: 1;
 }
 
 :deep(.wrapper.sidebar-is-collapsed .collapsed-sidebar) {
-  translate: 0;
+  display: block;
 }
 
 :deep(.wrapper.sidebar-is-collapsed #sidebar.is-visible) {
