@@ -158,7 +158,6 @@ function onCollapseLeftSidebar() {
 
 .wrapper {
   display: grid;
-  grid-template-areas: grid-sidebar grid-main-content;
   grid-template-columns:
     minmax(
       var(--cr-sizes-left-sidebar-min-width),
@@ -219,20 +218,18 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 :deep(.wrapper .sidebar-collapse-controls) {
   display: none;
 }
-
+/*Rule for the sidebar when floating over content*/
 :deep(.wrapper.sidebar-is-collapsed #sidebar:not(.is-visible)) {
-  position: absolute;
-  height: 0;
-  width: 0;
-  top: 0;
-  left: 0;
+  display: none;
 }
 
 :deep(.wrapper.sidebar-is-collapsed main) {
   left: var(--cr-sizes-collapsed-sidebar-width);
 }
+
+/*rules for the sidebar when collapsed */
 :deep(.wrapper.sidebar-is-collapsed) {
-  grid-template-columns: minmax(48px, 48px) 1fr;
+  grid-template-columns: var(--cr-sizes-collapsed-sidebar-width) 1fr;
   &:has(.is-visible) {
     grid-template-columns:
       minmax(
@@ -310,10 +307,6 @@ TODO: Discuss and move them to a more appropriate place
 
   .left-sidebar {
     width: 80%;
-  }
-
-  .is-visible {
-    translate: 0;
   }
 
   main {
