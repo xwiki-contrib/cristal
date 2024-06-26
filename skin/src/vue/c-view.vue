@@ -110,6 +110,7 @@ function onCollapseLeftSidebar() {
 }
 
 :deep(.content),
+:deep(#edit),
 :deep(.content-scroll) {
   overflow: hidden;
   position: relative;
@@ -120,6 +121,15 @@ function onCollapseLeftSidebar() {
   flex-flow: column;
   grid-area: content;
   height: 100%;
+}
+:deep(#edit) {
+  display: flex;
+  flex-flow: column;
+  grid-area: content;
+  height: 100%;
+}
+:deep(#edit .inner-content) {
+  overflow: hidden;
 }
 
 :deep(.content-scroll) {
