@@ -915,8 +915,8 @@ importers:
         version: 3.4.31(typescript@5.5.2)
     devDependencies:
       vite-plugin-comlink:
-        specifier: 4.1.0
-        version: 4.1.0(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9))
+        specifier: 5.0.1
+        version: 5.0.1(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9))
       vue-tsc:
         specifier: 2.0.22
         version: 2.0.22(typescript@5.5.2)
@@ -958,8 +958,8 @@ importers:
         version: 4.4.0(vue@3.4.31(typescript@5.5.2))
     devDependencies:
       vite-plugin-comlink:
-        specifier: 4.1.0
-        version: 4.1.0(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9))
+        specifier: 5.0.1
+        version: 5.0.1(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9))
       vue-tsc:
         specifier: 2.0.22
         version: 2.0.22(typescript@5.5.2)
@@ -1069,8 +1069,8 @@ importers:
         specifier: 6.0.2
         version: 6.0.2
       vite-plugin-comlink:
-        specifier: 4.1.0
-        version: 4.1.0(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9))
+        specifier: 5.0.1
+        version: 5.0.1(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9))
       vite-plugin-dts:
         specifier: 3.9.1
         version: 3.9.1(@types/node@20.14.9)(rollup@4.18.0)(typescript@5.5.2)(vite@5.3.2(@types/node@20.14.9))
@@ -4714,8 +4714,8 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
-  vite-plugin-comlink@4.1.0:
-    resolution: {integrity: sha512-wsCLCobd7k8X7oB803XzPAvcypcoQj6cTaw6n1qb11jhegssZSwDhI52vLtitVUjYi/1/IqtKpQZeyUsLvuLdg==}
+  vite-plugin-comlink@5.0.1:
+    resolution: {integrity: sha512-4TGw5+bTg5ROd8N2m9O/y0CoS81g8nyce9EI/eV51i54EJ938lFadXEButhaptJs89l5NY9+TkdjI5jXX4cWOw==}
     peerDependencies:
       comlink: ^4.3.1
       vite: '>=2.9.6'
@@ -9042,7 +9042,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite-plugin-comlink@4.1.0(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9)):
+  vite-plugin-comlink@5.0.1(comlink@4.4.1)(vite@5.3.2(@types/node@20.14.9)):
     dependencies:
       comlink: 4.4.1
       json5: 2.2.3
