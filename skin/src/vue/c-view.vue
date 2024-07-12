@@ -140,11 +140,6 @@ function onCollapseLeftSidebar() {
   height: 100%;
   padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-large);
 }
-/* 
-.content-scroll > div {
-  width: 100%;
-  max-width: var(--cr-sizes-max-page-width);
-} */
 
 :deep(.center-content) {
   width: 100%;
@@ -168,8 +163,7 @@ function onCollapseLeftSidebar() {
 
 .wrapper {
   display: grid;
-  grid-template-columns:
-    minmax(
+  grid-template-columns: minmax(
       var(--cr-sizes-left-sidebar-min-width),
       var(--cr-sizes-left-sidebar-width)
     )
@@ -182,11 +176,6 @@ function onCollapseLeftSidebar() {
 
 main {
   overflow: hidden;
-  left: max(
-    var(--cr-sizes-left-sidebar-min-width),
-    var(--cr-sizes-left-sidebar-width)
-  );
-  z-index: 2;
   transition: var(--cr-transition-medium) left ease-in-out;
 }
 
@@ -294,7 +283,7 @@ TODO: Discuss and move them to a more appropriate place
 
 @container xwCristal (max-width: 600px) {
   .wrapper {
-    grid-template-columns: 16px 1fr;
+    grid-template-columns: var(--cr-sizes-collapsed-sidebar-width) 1fr;
   }
   :deep(.wrapper.sidebar-is-collapsed) {
     &:has(.left-sidebar.is-visible) {
