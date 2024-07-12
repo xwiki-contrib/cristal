@@ -198,7 +198,7 @@ main {
   background-color: var(--cr-color-neutral-100);
   display: flex;
   flex-flow: column;
-  gap: var(--cr-spacing-medium);
+  gap: var(--cr-spacing-small);
   overflow: hidden;
   border-right: 1px solid var(--cr-color-neutral-200);
   box-shadow: var(--cr-shadow-large);
@@ -240,13 +240,10 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 /*rules for the sidebar when collapsed */
 :deep(.wrapper.sidebar-is-collapsed) {
   grid-template-columns: var(--cr-sizes-collapsed-sidebar-width) 1fr;
-  &:has(.is-visible) {
-    grid-template-columns:
-      minmax(
-        var(--cr-sizes-left-sidebar-min-width),
-        var(--cr-sizes-left-sidebar-width)
-      )
-      1fr;
+  .left-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
   }
 }
 
@@ -323,7 +320,8 @@ TODO: Discuss and move them to a more appropriate place
     left: var(--cr-sizes-collapsed-sidebar-width);
   }
 
-  .wrapper .sidebar-collapse-controls .pin-sidebar {
+  :deep(.wrapper .sidebar-collapse-controls .pin-sidebar),
+  :deep(.wrapper.sidebar-is-collapsed .sidebar-collapse-controls .pin-sidebar) {
     display: none;
   }
 
