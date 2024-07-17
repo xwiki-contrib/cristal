@@ -154,30 +154,23 @@ onUpdated(() => loadEditor(currentPage.value!));
     <!-- TODO: provide a better error reporting. -->
     {{ error }}
   </div>
-  <div class="inner-content">
-    <div v-show="!loading && !error" class="content">
-      <div class="content-scroll">
-        <div class="whole-content">
-          <input
-            v-model="title"
-            type="text"
-            :placeholder="titlePlaceholder"
-            class="document-title"
-          />
-          <c-tiptap-bubble-menu
-            v-if="editor"
-            :editor="editor"
-          ></c-tiptap-bubble-menu>
-          <editor-content :editor="editor" class="document-content editor" />
-        </div>
-      </div>
-      <form class="pagemenu" @submit="submit">
-        <x-btn size="small" variant="primary" @click="submit">Save</x-btn>
-        <router-link :to="viewRouterParams">
-          <x-btn size="small">Cancel</x-btn>
-        </router-link>
-      </form>
-    </div>
+
+  <div v-show="!loading && !error" class="content">
+    <input
+      v-model="title"
+      type="text"
+      :placeholder="titlePlaceholder"
+      class="doc-title"
+    />
+    <c-tiptap-bubble-menu v-if="editor" :editor="editor"></c-tiptap-bubble-menu>
+    <editor-content :editor="editor" class="doc-content editor" />
+
+    <form class="pagemenu" @submit="submit">
+      <x-btn size="small" variant="primary" @click="submit">Save</x-btn>
+      <router-link :to="viewRouterParams">
+        <x-btn size="small">Cancel</x-btn>
+      </router-link>
+    </form>
   </div>
 </template>
 
@@ -246,7 +239,7 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   content: attr(data-placeholder);
 }
 
-.document-title {
+.doc-title {
   max-width: var(--cr-sizes-max-page-width);
   width: 100%;
   display: flex;

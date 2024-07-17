@@ -110,13 +110,6 @@ function onCollapseMainSidebar() {
   overflow: hidden;
 }
 
-:deep(.content),
-:deep(#edit),
-:deep(.content-scroll) {
-  overflow: hidden;
-  position: relative;
-}
-
 :deep(.content) {
   display: flex;
   flex-flow: column;
@@ -128,6 +121,7 @@ function onCollapseMainSidebar() {
   flex-flow: column;
   grid-area: content;
   height: 100%;
+  overflow: auto;
 }
 :deep(#edit .inner-content) {
   overflow: hidden;
@@ -155,13 +149,17 @@ function onCollapseMainSidebar() {
   align-items: center;
 }
 
-:deep(.document-content) {
+:deep(.doc-content),
+:deep(.doc-header),
+:deep(.doc-info-extra) {
   max-width: var(--cr-sizes-max-page-width);
   width: 100%;
-  display: flex;
-  flex-flow: column;
+  justify-self: center;
 }
-
+:deep(.doc-header) {
+  position: sticky;
+  top: 0;
+}
 .wrapper {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -169,9 +167,9 @@ function onCollapseMainSidebar() {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   grid-template-areas:
-    "main-sidebar header secondary-sidebar"
+    "main-sidebar wiki-header secondary-sidebar"
     "main-sidebar main-content secondary-sidebar"
-    "main-sidebar bottom-pane secondary-sidebar";
+    "main-sidebar wiki-footer secondary-sidebar";
   height: 100%;
 }
 
