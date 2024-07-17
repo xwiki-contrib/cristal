@@ -25,35 +25,35 @@ import { ViewportType, useViewportType } from "../composables/viewport";
 import "../css/main.css";
 
 const viewportType: Ref<ViewportType> = useViewportType();
-// By default, left sidebar is collapsed on mobile only.
-const isLeftSidebarCollapsed: Ref<boolean> = ref(
+// By default, main sidebar is collapsed on mobile only.
+const isMainSidebarCollapsed: Ref<boolean> = ref(
   viewportType.value == ViewportType.Mobile,
 );
 
 onMounted(() => {
   // Attempt to load collapsed state from local storage.
   if (viewportType.value == ViewportType.Desktop) {
-    isLeftSidebarCollapsed.value =
-      localStorage.isLeftSidebarCollapsed === "true";
+    isMainSidebarCollapsed.value =
+      localStorage.isMainSidebarCollapsed === "true";
   }
 });
 
 watch(viewportType, (newViewportType: ViewportType) => {
-  // Collapse left sidebar on smaller viewport,
+  // Collapse main sidebar on smaller viewport,
   // load previous state from local storage on larger viewport.
   if (newViewportType == ViewportType.Mobile) {
-    isLeftSidebarCollapsed.value = true;
+    isMainSidebarCollapsed.value = true;
   } else {
-    isLeftSidebarCollapsed.value =
-      localStorage.isLeftSidebarCollapsed === "true";
+    isMainSidebarCollapsed.value =
+      localStorage.isMainSidebarCollapsed === "true";
   }
 });
 
-function onCollapseLeftSidebar() {
-  // Left sidebar should always be collapsed on mobile.
+function onCollapseMainSidebar() {
+  // main sidebar should always be collapsed on mobile.
   if (viewportType.value == ViewportType.Desktop) {
-    isLeftSidebarCollapsed.value = !isLeftSidebarCollapsed.value;
-    localStorage.isLeftSidebarCollapsed = isLeftSidebarCollapsed.value;
+    isMainSidebarCollapsed.value = !isMainSidebarCollapsed.value;
+    localStorage.isMainSidebarCollapsed = isMainSidebarCollapsed.value;
   }
 }
 </script>
@@ -65,18 +65,19 @@ function onCollapseLeftSidebar() {
     <div
       id="view"
       class="wrapper"
-      :class="{ 'sidebar-is-collapsed': isLeftSidebarCollapsed }"
+      :class="{ 'sidebar-is-collapsed': isMainSidebarCollapsed }"
     >
       <UIX uixname="view.before" />
       <CTemplate
         name="sidebar"
-        @collapse-left-sidebar="onCollapseLeftSidebar"
+        @collapse-main-sidebar="onCollapseMainSidebar"
       />
       <CTemplate name="header" />
+
       <c-main></c-main>
 
       <!-- TODO CRISTAL-165: Eventually we will need a right sidebar-->
-      <!-- <c-right-sidebar></c-right-sidebar> -->
+      <!-- <c-secondary-sidebar></c-secondary-sidebar> -->
 
       <UIX uixname="view.after" />
     </div>
@@ -163,25 +164,26 @@ function onCollapseLeftSidebar() {
 
 .wrapper {
   display: grid;
-  grid-template-columns: minmax(
-      var(--cr-sizes-left-sidebar-min-width),
-      var(--cr-sizes-left-sidebar-width)
-    )
-    1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  grid-template-areas:
+    "main-sidebar header secondary-sidebar"
+    "main-sidebar main-content secondary-sidebar"
+    "main-sidebar bottom-pane secondary-sidebar";
   height: 100%;
 }
 
 main {
+  grid-area: main-content;
   overflow: hidden;
-  transition: var(--cr-transition-medium) left ease-in-out;
 }
 
-:deep(.left-sidebar) {
-  width: var(--cr-sizes-left-sidebar-width);
-  min-width: var(--cr-sizes-left-sidebar-min-width);
+:deep(.main-sidebar) {
+  grid-area: main-sidebar;
+  width: var(--cr-sizes-main-sidebar-width);
+  min-width: var(--cr-sizes-main-sidebar-min-width);
   max-width: 100%;
   position: relative;
   background-color: var(--cr-color-neutral-100);
@@ -223,20 +225,20 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 }
 
 :deep(.wrapper.sidebar-is-collapsed main) {
-  left: var(--cr-sizes-collapsed-sidebar-width);
+  left: var(--cr-sizes-collapsed-main-sidebar-width);
 }
 
 /*rules for the sidebar when collapsed */
 :deep(.wrapper.sidebar-is-collapsed) {
-  grid-template-columns: var(--cr-sizes-collapsed-sidebar-width) 1fr;
-  .left-sidebar {
+  grid-template-columns: var(--cr-sizes-collapsed-main-sidebar-width) 1fr;
+  .main-sidebar {
     position: absolute;
     top: 0;
     bottom: 0;
   }
 }
 
-:deep(.wrapper.sidebar-is-collapsed:has(.is-visible) .collapsed-sidebar) {
+:deep(.wrapper.sidebar-is-collapsed:has(.is-visible) .collapsed-main-sidebar) {
   display: none;
 }
 
@@ -260,16 +262,17 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: block;
 }
 
-:deep(.collapsed-sidebar) {
+:deep(.collapsed-main-sidebar) {
   display: none;
   background: var(--cr-color-neutral-100);
-  width: var(--cr-sizes-collapsed-sidebar-width);
+  width: var(--cr-sizes-collapsed-main-sidebar-width);
   padding-top: var(--cr-spacing-x-small);
   text-align: center;
   z-index: 1;
+  grid-area: main-sidebar;
 }
 
-:deep(.wrapper.sidebar-is-collapsed .collapsed-sidebar) {
+:deep(.wrapper.sidebar-is-collapsed .collapsed-main-sidebar) {
   display: block;
 }
 
@@ -282,11 +285,8 @@ TODO: Discuss and move them to a more appropriate place
 }
 
 @container xwCristal (max-width: 600px) {
-  .wrapper {
-    grid-template-columns: var(--cr-sizes-collapsed-sidebar-width) 1fr;
-  }
   :deep(.wrapper.sidebar-is-collapsed) {
-    &:has(.left-sidebar.is-visible) {
+    &:has(.main-sidebar.is-visible) {
       &:before {
         content: " ";
         background-color: var(--cr-overlay-background-color);
@@ -301,12 +301,12 @@ TODO: Discuss and move them to a more appropriate place
     }
   }
 
-  .left-sidebar {
+  .main-sidebar {
     width: 80%;
   }
 
   main {
-    left: var(--cr-sizes-collapsed-sidebar-width);
+    left: var(--cr-sizes-collapsed-main-sidebar-width);
   }
 
   :deep(.wrapper .sidebar-collapse-controls .pin-sidebar),
