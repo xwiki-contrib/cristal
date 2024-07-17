@@ -311,7 +311,6 @@ onUpdated(() => {
   z-index: 1;
 }
 
-
 .doc-title {
   grid-area: title;
   margin: 0;

@@ -123,31 +123,6 @@ function onCollapseMainSidebar() {
   height: 100%;
   overflow: auto;
 }
-:deep(#edit .inner-content) {
-  overflow: hidden;
-}
-
-:deep(.content-scroll) {
-  display: flex;
-  flex-flow: column;
-  align-items: center;
-  overflow: auto;
-  height: 100%;
-  padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-large);
-}
-
-:deep(.center-content) {
-  width: 100%;
-  max-width: var(--cr-sizes-max-page-width);
-}
-
-:deep(.whole-content) {
-  width: 100%;
-  display: flex;
-  flex-flow: column;
-  gap: var(--cr-spacing-medium);
-  align-items: center;
-}
 
 :deep(.doc-content),
 :deep(.doc-header),
