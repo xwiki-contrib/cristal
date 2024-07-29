@@ -373,7 +373,7 @@ onUpdated(() => {
   overflow: auto;
 }
 
-.doc-info-extra{
+.doc-info-extra {
   &.floating {
     position: sticky;
     bottom: 0;
@@ -381,5 +381,4 @@ onUpdated(() => {
     box-shadow: var(--cr-shadow-small);
   }
 }
-
 </style>

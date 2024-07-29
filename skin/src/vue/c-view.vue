@@ -110,12 +110,6 @@ function onCollapseMainSidebar() {
   overflow: hidden;
 }
 
-:deep(.content) {
-  display: flex;
-  flex-flow: column;
-  grid-area: content;
-  height: 100%;
-}
 :deep(#edit) {
   display: flex;
   flex-flow: column;

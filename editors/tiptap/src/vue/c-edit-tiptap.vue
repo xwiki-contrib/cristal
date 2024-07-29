@@ -177,6 +177,11 @@ onUpdated(() => loadEditor(currentPage.value!));
 </template>
 
 <style scoped>
+.content {
+  display: grid;
+  grid-template-rows: 56px auto auto 1fr;
+  overflow: auto;
+}
 .content-loading {
   display: flex;
   flex-flow: column;
@@ -251,5 +256,7 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   line-height: var(--cr-font-size-2x-large);
   outline: none;
   border: none;
+  align-self: center;
+  justify-self: center;
 }
 </style>
