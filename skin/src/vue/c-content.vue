@@ -391,4 +391,14 @@ onUpdated(() => {
   flex-basis: auto;
   overflow: auto;
 }
+
+.doc-info-extra{
+  &.floating {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    box-shadow: var(--cr-shadow-small);
+  }
+}
+
 </style>

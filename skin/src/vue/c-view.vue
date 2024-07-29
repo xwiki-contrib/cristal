@@ -237,9 +237,8 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 
 :deep(.collapsed-main-sidebar) {
   display: none;
-  background: var(--cr-color-neutral-100);
   width: var(--cr-sizes-collapsed-main-sidebar-width);
-  padding-top: var(--cr-spacing-x-small);
+  padding: var(--cr-spacing-small) 0;
   text-align: center;
   z-index: 1;
   grid-area: main-sidebar;
