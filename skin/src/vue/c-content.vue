@@ -40,6 +40,7 @@ import xavatarImg from "../images/no-one.svg";
 import { ExtraTabs } from "@xwiki/cristal-extra-tabs-ui";
 import { useI18n } from "vue-i18n";
 import messages from "../translations";
+import { InfoActions } from "@xwiki/cristal-info-actions-ui";
 
 const { t } = useI18n({
   messages,
@@ -107,13 +108,15 @@ async function fetchPage(page: string) {
       .getPageHierarchy(currentPage.value!);
   } catch (e) {
     console.error(e);
-    error.value = e;
+    if (e instanceof Error) {
+      error.value = e;
+    }
   } finally {
     loading.value = false;
   }
 }
 
-watch(() => route.params.page, fetchPage, { immediate: true });
+watch(() => route.params.page as string, fetchPage, { immediate: true });
 
 onUpdated(() => {
   ContentTools.transformImages(cristal, "xwikicontent");
@@ -167,18 +170,9 @@ onUpdated(() => {
                and provide one for the number of attachments.
               It must be reactive whenever the attachment store is updated -->
         <div class="doc-info-actions">
-          <div class="info-action like">
-            <c-icon name="heart" :size="Size.Small"></c-icon>
-            <span class="counter">99</span>
-          </div>
-          <div class="info-action comments">
-            <c-icon name="chat" :size="Size.Small"></c-icon>
-            <span class="counter">99</span>
-          </div>
-          <div class="info-action attachments">
-            <c-icon name="paperclip" :size="Size.Small"></c-icon>
-            <span class="counter">99</span>
-          </div>
+          <suspense>
+            <info-actions></info-actions>
+          </suspense>
           <div class="doc-page-actions">
             <router-link
               :to="{
@@ -316,19 +310,6 @@ onUpdated(() => {
   margin: 0;
   font-size: var(--cr-font-size-2x-large);
   line-height: var(--cr-font-size-2x-large);
-}
-
-.counter {
-  background-color: var(--cr-color-primary-600);
-  font-weight: var(--cr-font-weight-semibold);
-  font-size: var(--cr-font-size-x-small);
-  line-height: var(--cr-font-size-2x-small);
-  border-radius: 99px;
-  color: #fff;
-  flex-shrink: 1;
-  flex-grow: 0;
-  display: block;
-  padding: var(--cr-spacing-2x-small) var(--cr-spacing-x-small);
 }
 
 .doc-info {

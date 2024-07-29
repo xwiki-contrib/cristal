@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-icons",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Provide UI components to display icons.",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
@@ -26,15 +26,13 @@
   },
   "dependencies": {
     "bootstrap-icons": "1.11.3",
-    "vue": "3.4.29"
+    "vue": "3.4.31"
   },
   "devDependencies": {
     "@vue/test-utils": "2.4.6",
     "@xwiki/cristal-dev-config": "workspace:*",
     "eslint": "8.57.0",
-    "rimraf": "5.0.7",
-    "vitest": "1.6.0",
-    "vue-tsc": "2.0.21"
+    "vue-tsc": "2.0.22"
   },
   "keywords": [
     "icons"

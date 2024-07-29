@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-rendering-wikimodel",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -26,13 +26,8 @@
     "test": "echo 'no test'"
   },
   "types": "dist/index.d.ts",
-  "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "vue": "3.4.29"
-  },
   "devDependencies": {
-    "rimraf": "5.0.7",
-    "vue-tsc": "2.0.21"
+    "vue-tsc": "2.0.22"
   },
   "publishConfig": {
     "exports": {

@@ -35,6 +35,7 @@ interface Attachment {
  */
 interface AttachmentsService {
   list(): Ref<Attachment[]>;
+  count(): Ref<number>;
   isLoading(): Ref<boolean>;
 
   /**
@@ -46,7 +47,7 @@ interface AttachmentsService {
   /**
    * Load the initial state of the attachments.
    */
-  refresh(page: string): void;
+  refresh(page: string): Promise<void>;
 
   /**
    * Upload the provided list of files to a given page

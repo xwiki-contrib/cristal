@@ -18,18 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import {
-  type Logger,
-  PageAttachment,
-  PageData,
-  Storage,
-  WikiConfig,
-} from "@xwiki/cristal-api";
+import { type Logger, PageData, Storage, WikiConfig } from "@xwiki/cristal-api";
 import { injectable, unmanaged } from "inversify";
+import { AttachmentsData } from "@xwiki/cristal-api";
 
 @injectable()
 export abstract class AbstractStorage implements Storage {
   protected logger: Logger;
+  // @ts-expect-error wikiConfig is temporarily undefined during class
+  // initialization
   protected wikiConfig: WikiConfig;
 
   constructor(@unmanaged() logger: Logger, module: string) {
@@ -63,7 +60,7 @@ export abstract class AbstractStorage implements Storage {
    * TODO: this API is missing pagination.
    * @since 0.9
    */
-  abstract getAttachments(page: string): Promise<PageAttachment[] | undefined>;
+  abstract getAttachments(page: string): Promise<AttachmentsData | undefined>;
 
   abstract getPageFromViewURL(url: string): string | null;
 

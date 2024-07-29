@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-hierarchy-api",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -21,8 +21,7 @@
     "build": "tsc --project tsconfig.json && vite build"
   },
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "inversify": "6.0.2"
+    "@xwiki/cristal-api": "workspace:*"
   },
   "publishConfig": {
     "exports": {

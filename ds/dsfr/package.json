@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-dsfr",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -30,17 +30,12 @@
     "@gouvminint/vue-dsfr": "5.11.0",
     "@xwiki/cristal-api": "workspace:*",
     "inversify": "6.0.2",
-    "oh-vue-icons": "1.0.0-rc3",
-    "vue": "3.4.29",
-    "vue-router": "4.3.2"
+    "vue": "3.4.31"
   },
   "devDependencies": {
     "@vue/test-utils": "2.4.6",
     "@xwiki/cristal-dev-config": "workspace:*",
-    "happy-dom": "14.12.0",
-    "rimraf": "5.0.7",
-    "vitest": "1.6.0",
-    "vue-tsc": "2.0.21"
+    "vue-tsc": "2.0.22"
   },
   "publishConfig": {
     "exports": {

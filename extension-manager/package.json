@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-extension-manager",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -29,9 +29,6 @@
     "@xwiki/cristal-api": "workspace:*",
     "inversify": "6.0.2",
     "reflect-metadata": "0.2.2"
-  },
-  "devDependencies": {
-    "rimraf": "5.0.7"
   },
   "publishConfig": {
     "exports": {

@@ -30,8 +30,9 @@ import { type CristalApp } from "@xwiki/cristal-api";
 type Id = "attachments";
 type State = {
   attachments: Attachment[];
+  count: number;
   isLoading: boolean;
-  isUploading: false;
+  isUploading: boolean;
   unknownPage: boolean;
   error: string | undefined;
 };
@@ -45,7 +46,16 @@ type StateRefs = WrappedRefs<State>;
 type Getters = Record<string, never>;
 type Actions = {
   setLoading(): void;
-  updateAttachments(attachments: Attachment[] | undefined): void;
+  /**
+   * Update the attachments of the store
+   * @param attachments the list of attachments to store
+   * @param count an optional count, used for the count status if available,
+   *  otherwise the size of the attachment list is used
+   */
+  updateAttachments(
+    attachments: Attachment[] | undefined,
+    count?: number,
+  ): void;
   setError(error: string): void;
   startUploading(): void;
   stopUploading(): void;
@@ -53,46 +63,50 @@ type Actions = {
 type AttachmentsStoreDefinition = StoreDefinition<Id, State, Getters, Actions>;
 type AttachmentsStore = Store<Id, State, Getters, Actions>;
 
-const attachmentsStore: AttachmentsStoreDefinition = defineStore(
-  "attachments",
-  {
-    state() {
-      return {
-        attachments: [],
-        isLoading: true,
-        isUploading: false,
-        error: undefined,
-        unknownPage: false,
-      };
+const attachmentsStore: AttachmentsStoreDefinition = defineStore<
+  Id,
+  State,
+  Getters,
+  Actions
+>("attachments", {
+  state() {
+    return {
+      attachments: [],
+      count: 0,
+      isLoading: true,
+      isUploading: false,
+      error: undefined,
+      unknownPage: false,
+    };
+  },
+  actions: {
+    setLoading() {
+      this.isLoading = true;
     },
-    actions: {
-      setLoading() {
-        this.isLoading = true;
-      },
-      updateAttachments(attachments) {
-        this.isLoading = false;
-        this.error = undefined;
-        if (attachments) {
-          this.unknownPage = false;
-          this.attachments = attachments;
-        } else {
-          this.unknownPage = true;
-          this.attachments = [];
-        }
-      },
-      setError(error: string) {
-        this.isLoading = false;
-        this.error = error;
-      },
-      startUploading() {
-        this.isUploading = true;
-      },
-      stopUploading() {
-        this.isUploading = false;
-      },
+    updateAttachments(attachments, count?: number) {
+      this.isLoading = false;
+      this.error = undefined;
+      if (attachments) {
+        this.unknownPage = false;
+        this.attachments = attachments;
+        this.count = count || attachments.length;
+      } else {
+        this.unknownPage = true;
+        this.attachments = [];
+      }
+    },
+    setError(error: string) {
+      this.isLoading = false;
+      this.error = error;
+    },
+    startUploading() {
+      this.isUploading = true;
+    },
+    stopUploading() {
+      this.isUploading = false;
     },
   },
-);
+});
 
 /**
  * @since 0.9
@@ -114,6 +128,10 @@ export class DefaultAttachmentsService implements AttachmentsService {
     return this.refs.attachments;
   }
 
+  count(): StateRefs["count"] {
+    return this.refs.count;
+  }
+
   isLoading(): StateRefs["isLoading"] {
     return this.refs.isLoading;
   }
@@ -129,14 +147,20 @@ export class DefaultAttachmentsService implements AttachmentsService {
   async refresh(page: string): Promise<void> {
     this.store.setLoading();
     try {
-      const attachments = await this.getStorage().getAttachments(page);
-      this.store.updateAttachments(
-        attachments?.map(({ id, reference, mimetype, href }) => {
-          return { id, name: reference, mimetype, href };
-        }),
-      );
+      const attachmentData = await this.getStorage().getAttachments(page);
+      if (attachmentData) {
+        const { attachments, count } = attachmentData;
+        this.store.updateAttachments(
+          attachments.map(({ id, reference, mimetype, href }) => {
+            return { id, name: reference, mimetype, href };
+          }),
+          count,
+        );
+      }
     } catch (e) {
-      this.store.setError(e.message);
+      if (e instanceof Error) {
+        this.store.setError(e.message);
+      }
     }
   }
 

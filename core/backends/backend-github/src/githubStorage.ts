@@ -20,19 +20,15 @@
 
 import { inject, injectable } from "inversify";
 import {
+  AttachmentsData,
   DefaultPageData,
   type Logger,
-  PageAttachment,
   PageData,
-  WikiConfig,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 
 @injectable()
 export class GitHubStorage extends AbstractStorage {
-  public wikiConfig: WikiConfig;
-  public logger: Logger;
-
   constructor(@inject<Logger>("Logger") logger: Logger) {
     super(logger, "storage.components.githubStorage");
   }
@@ -105,7 +101,7 @@ export class GitHubStorage extends AbstractStorage {
   /**
    * @since 0.9
    */
-  getAttachments(): Promise<PageAttachment[] | undefined> {
+  getAttachments(): Promise<AttachmentsData | undefined> {
     // TODO: to be implemented.
     throw new Error("unsupported");
   }

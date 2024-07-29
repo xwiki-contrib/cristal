@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-electron-renderer",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -33,10 +33,9 @@
     "@xwiki/cristal-hierarchy-xwiki": "workspace:*",
     "@xwiki/cristal-lib": "workspace:*",
     "inversify": "6.0.2",
-    "vue": "3.4.29"
+    "vue": "3.4.31"
   },
   "devDependencies": {
-    "@types/node": "20.14.7",
-    "rimraf": "5.0.7"
+    "@types/node": "20.14.9"
   }
 }

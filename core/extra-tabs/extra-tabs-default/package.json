@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-extra-tabs-default",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -22,10 +22,12 @@
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
   },
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-extra-tabs-api": "workspace:*",
     "inversify": "6.0.2",
     "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "4.17.5"
   },
   "publishConfig": {
     "exports": {
@@ -37,8 +39,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "devDependencies": {
-    "@types/lodash": "4.17.5"
   }
 }

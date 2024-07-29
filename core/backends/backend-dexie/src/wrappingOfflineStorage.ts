@@ -20,9 +20,9 @@
 
 import { inject, injectable } from "inversify";
 import type {
+  AttachmentsData,
   Document,
   Logger,
-  PageAttachment,
   PageData,
   Storage,
   WikiConfig,
@@ -34,6 +34,8 @@ import { type OfflineStorage } from "@xwiki/cristal-backend-api";
 @injectable()
 export class WrappingOfflineStorage implements WrappingStorage {
   public logger: Logger;
+  // @ts-expect-error storage can be temporarily undefined during class
+  // initialization
   public storage: Storage;
   public offlineStorage: OfflineStorage;
   public queueWorker: QueueWorker;
@@ -115,7 +117,7 @@ export class WrappingOfflineStorage implements WrappingStorage {
     }
   }
 
-  public getAttachments(page: string): Promise<PageAttachment[] | undefined> {
+  public getAttachments(page: string): Promise<AttachmentsData | undefined> {
     // TODO: add support for offline storage of attachments.
     return this.storage.getAttachments(page);
   }

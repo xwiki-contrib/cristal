@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@xwiki/cristal-web",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -33,26 +33,24 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-browser-default": "workspace:*",
-    "@xwiki/cristal-hierarchy-api": "workspace:*",
     "@xwiki/cristal-hierarchy-default": "workspace:*",
     "@xwiki/cristal-hierarchy-github": "workspace:*",
     "@xwiki/cristal-hierarchy-xwiki": "workspace:*",
     "@xwiki/cristal-lib": "workspace:*",
     "@xwiki/cristal-link-suggest-xwiki": "workspace:*",
     "express": "4.19.2",
-    "vue": "3.4.29",
-    "vue-router": "4.3.2"
+    "vue": "3.4.31",
+    "vue-router": "4.4.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.44.1",
-    "@types/node": "20.14.7",
-    "@vitejs/plugin-vue": "5.0.4",
+    "@playwright/test": "1.45.0",
+    "@types/node": "20.14.9",
+    "@vitejs/plugin-vue": "5.0.5",
     "inversify": "6.0.2",
-    "rimraf": "5.0.7",
     "vite-plugin-comlink": "4.1.0",
     "vite-plugin-dts": "3.9.1",
     "vite-plugin-inspect": "0.8.4",
     "vite-plugin-vuetify": "2.0.3",
-    "vue-tsc": "2.0.21"
+    "vue-tsc": "2.0.22"
   }
 }

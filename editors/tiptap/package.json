@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-editors-tiptap",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -28,22 +28,14 @@
   "types": "dist/index.d.ts",
   "dependencies": {
     "@tiptap/core": "2.4.0",
-    "@tiptap/extension-blockquote": "2.4.0",
-    "@tiptap/extension-bullet-list": "2.4.0",
-    "@tiptap/extension-code": "2.4.0",
-    "@tiptap/extension-code-block": "2.4.0",
-    "@tiptap/extension-document": "2.4.0",
     "@tiptap/extension-heading": "2.4.0",
     "@tiptap/extension-image": "2.4.0",
     "@tiptap/extension-link": "2.4.0",
-    "@tiptap/extension-list-item": "2.4.0",
-    "@tiptap/extension-ordered-list": "2.4.0",
     "@tiptap/extension-placeholder": "2.4.0",
     "@tiptap/extension-table": "2.4.0",
     "@tiptap/extension-table-cell": "2.4.0",
     "@tiptap/extension-table-header": "2.4.0",
     "@tiptap/extension-table-row": "2.4.0",
-    "@tiptap/extension-text": "2.4.0",
     "@tiptap/pm": "2.4.0",
     "@tiptap/starter-kit": "2.4.0",
     "@tiptap/suggestion": "2.4.0",
@@ -59,15 +51,13 @@
     "tippy.js": "6.3.7",
     "tiptap-markdown": "0.8.10",
     "utility-types": "3.11.0",
-    "vue": "3.4.29",
-    "vue-router": "4.3.2"
+    "vue": "3.4.31",
+    "vue-router": "4.4.0"
   },
   "devDependencies": {
     "@types/lodash": "4.17.5",
     "@types/markdown-it": "14.1.1",
-    "rimraf": "5.0.7",
-    "vitest": "1.6.0",
-    "vue-tsc": "2.0.21"
+    "vue-tsc": "2.0.22"
   },
   "publishConfig": {
     "exports": {
