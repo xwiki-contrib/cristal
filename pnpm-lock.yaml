@@ -18,8 +18,8 @@ importers:
         specifier: 7.10.0
         version: 7.10.0(eslint@8.57.0)(typescript@5.5.2)
       '@vitejs/plugin-vue':
-        specifier: 5.0.5
-        version: 5.0.5(vite@5.3.2(@types/node@20.14.9))(vue@3.4.31(typescript@5.5.2))
+        specifier: 5.1.2
+        version: 5.1.2(vite@5.3.2(@types/node@20.14.9))(vue@3.4.31(typescript@5.5.2))
       '@vitest/coverage-v8':
         specifier: 1.6.0
         version: 1.6.0(vitest@1.6.0(@types/node@20.14.9)(happy-dom@14.12.0))
@@ -1066,8 +1066,8 @@ importers:
         specifier: 20.14.9
         version: 20.14.9
       '@vitejs/plugin-vue':
-        specifier: 5.0.5
-        version: 5.0.5(vite@5.3.2(@types/node@20.14.9))(vue@3.4.31(typescript@5.5.2))
+        specifier: 5.1.2
+        version: 5.1.2(vite@5.3.2(@types/node@20.14.9))(vue@3.4.31(typescript@5.5.2))
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -2161,8 +2161,8 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@vitejs/plugin-vue@5.0.5':
-    resolution: {integrity: sha512-LOjm7XeIimLBZyzinBQ6OSm3UBCNVCpLkxGC0oWmm2YPzVZoxMsdvNVimLTBzpAnR9hl/yn1SHGuRfe6/Td9rQ==}
+  '@vitejs/plugin-vue@5.1.2':
+    resolution: {integrity: sha512-nY9IwH12qeiJqumTCLJLE7IiNx7HZ39cbHaysEUd+Myvbz9KAqd2yq+U01Kab1R/H1BmiyM2ShTYlNH32Fzo3A==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
@@ -6220,7 +6220,7 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue@5.0.5(vite@5.3.2(@types/node@20.14.9))(vue@3.4.31(typescript@5.5.2))':
+  '@vitejs/plugin-vue@5.1.2(vite@5.3.2(@types/node@20.14.9))(vue@3.4.31(typescript@5.5.2))':
     dependencies:
       vite: 5.3.2(@types/node@20.14.9)
       vue: 3.4.31(typescript@5.5.2)
