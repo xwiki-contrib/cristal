@@ -431,8 +431,8 @@ importers:
         specifier: 1.11.2
         version: 1.11.2
       '@gouvminint/vue-dsfr':
-        specifier: 5.11.0
-        version: 5.11.0(oh-vue-icons@1.0.0-rc3(vue@3.4.31(typescript@5.5.2)))(vue-router@4.4.0(vue@3.4.31(typescript@5.5.2)))(vue@3.4.31(typescript@5.5.2))
+        specifier: 5.19.0
+        version: 5.19.0(oh-vue-icons@1.0.0-rc3(vue@3.4.31(typescript@5.5.2)))(vue-router@4.4.0(vue@3.4.31(typescript@5.5.2)))(vue@3.4.31(typescript@5.5.2))
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../api
@@ -1454,13 +1454,13 @@ packages:
     resolution: {integrity: sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==}
     engines: {node: '>=18.16.1'}
 
-  '@gouvminint/vue-dsfr@5.11.0':
-    resolution: {integrity: sha512-D1Vm+tJAtKJlZq6NO2lNogSYKcv7J0fHv0WY1qV5XzynKZS3JtE6BsFYDzhocv15rg9pcImmvw7qLWUUx57EAw==}
-    engines: {node: '>=18.x.x', npm: '>=8.x.x'}
+  '@gouvminint/vue-dsfr@5.19.0':
+    resolution: {integrity: sha512-qWmEY6oA5+Jv92qLextLNmHZBjQlJtOaLJmvSAjt/H55Pxd029Au4lbVEPYq/J7k/CqlFanNVDIEmR6z0V6AsQ==}
+    engines: {node: '>=20.x.x', npm: '>=10.x.x'}
     peerDependencies:
       oh-vue-icons: 1.0.0-rc3
-      vue: ^3.4.21
-      vue-router: ^4.3.0
+      vue: ^3.4.27
+      vue-router: ^4.3.2
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -5475,7 +5475,7 @@ snapshots:
 
   '@gouvfr/dsfr@1.11.2': {}
 
-  '@gouvminint/vue-dsfr@5.11.0(oh-vue-icons@1.0.0-rc3(vue@3.4.31(typescript@5.5.2)))(vue-router@4.4.0(vue@3.4.31(typescript@5.5.2)))(vue@3.4.31(typescript@5.5.2))':
+  '@gouvminint/vue-dsfr@5.19.0(oh-vue-icons@1.0.0-rc3(vue@3.4.31(typescript@5.5.2)))(vue-router@4.4.0(vue@3.4.31(typescript@5.5.2)))(vue@3.4.31(typescript@5.5.2))':
     dependencies:
       '@gouvfr/dsfr': 1.11.2
       focus-trap: 7.5.4
