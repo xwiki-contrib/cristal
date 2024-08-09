@@ -24,6 +24,7 @@ import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-el
 import { ComponentInit as DefaultPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-default";
 import { ComponentInit as FileSystemPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-filesystem";
 import { ComponentInit as GitHubPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-github";
+import { ComponentInit as NextcloudPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-nextcloud";
 import { ComponentInit as XWikiPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-xwiki";
 import { Container } from "inversify";
 
@@ -48,6 +49,7 @@ CristalAppLoader.init(
     new DefaultPageHierarchyComponentInit(container);
     new FileSystemPageHierarchyComponentInit(container);
     new GitHubPageHierarchyComponentInit(container);
+    new NextcloudPageHierarchyComponentInit(container);
     new XWikiPageHierarchyComponentInit(container);
   },
 );
