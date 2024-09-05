@@ -23,25 +23,28 @@ import "@shoelace-style/shoelace/dist/components/tree/tree";
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
 import type {
   NavigationTreeNode,
-  NavigationTreeResolver,
+  NavigationTreeSource,
 } from "@xwiki/cristal-navigation-tree-api";
 
 const rootNodes: Ref<Array<NavigationTreeNode>> = ref([]);
 const props = defineProps<{
-  treeResolver: NavigationTreeResolver;
+  treeResolver: NavigationTreeSource;
 }>();
 
 onBeforeMount(async () => {
-  rootNodes.value.push(...(await props.treeResolver.getNavigationTree("")));
+  rootNodes.value.push(...(await props.treeResolver.getChildNodes("")));
 });
 
 function lazyLoadChildren(id: string) {
   return async (event: Event) => {
     const lazyItem = event.target! as Element;
-    const childNodes = await props.treeResolver.getNavigationTree(id);
+    const childNodes = await props.treeResolver.getChildNodes(id);
     for (const child of childNodes) {
       const treeItem = document.createElement("sl-tree-item");
-      treeItem.innerHTML = `<a href="${child.url}">${child.label}</a>`;
+      treeItem.innerHTML = `<a href="${child.url}">${child.label
+        .replace(/&/g, "&amp;")
+        .replace(/>/g, "&gt;")
+        .replace(/</g, "&lt;")}</a>`;
       if (child.has_children) {
         treeItem.setAttribute("lazy", "true");
         treeItem.addEventListener("sl-lazy-load", lazyLoadChildren(child.id), {
@@ -69,7 +72,7 @@ function lazyLoadChildren(id: string) {
   <sl-tree>
     <sl-tree-item
       v-for="item in rootNodes"
-      :key="item.label"
+      :key="item.id"
       :lazy="item.has_children"
       @sl-lazy-load.once="lazyLoadChildren(item.id)($event)"
     >

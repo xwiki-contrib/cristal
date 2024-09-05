@@ -21,7 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import { Ref, onBeforeMount, ref } from "vue";
 import { VTreeview } from "vuetify/labs/VTreeview";
 
-import type { NavigationTreeResolver } from "@xwiki/cristal-navigation-tree-api";
+import type { NavigationTreeSource } from "@xwiki/cristal-navigation-tree-api";
 
 type TreeItem = {
   id: string;
@@ -32,11 +32,11 @@ type TreeItem = {
 
 const rootNodes: Ref<Array<TreeItem>> = ref([]);
 const props = defineProps<{
-  treeResolver: NavigationTreeResolver;
+  treeResolver: NavigationTreeSource;
 }>();
 
 onBeforeMount(async () => {
-  for (const node of await props.treeResolver.getNavigationTree("")) {
+  for (const node of await props.treeResolver.getChildNodes("")) {
     rootNodes.value.push({
       id: node.id,
       title: node.label,
@@ -48,7 +48,7 @@ onBeforeMount(async () => {
 
 async function lazyLoadChildren(item: unknown) {
   const treeItem = item as TreeItem;
-  const childNodes = await props.treeResolver.getNavigationTree(treeItem.id);
+  const childNodes = await props.treeResolver.getChildNodes(treeItem.id);
   for (const child of childNodes) {
     treeItem.children?.push({
       id: child.id,

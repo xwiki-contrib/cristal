@@ -20,7 +20,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <script lang="ts" setup>
 import { Ref, inject, onMounted, ref, watch } from "vue";
 import { type CristalApp } from "@xwiki/cristal-api";
-import type { NavigationTreeResolverProvider } from "@xwiki/cristal-navigation-tree-api";
+import type { NavigationTreeSourceProvider } from "@xwiki/cristal-navigation-tree-api";
 import CConfigMenu from "./c-config-menu.vue";
 import CNavigationDrawer from "./c-navigation-drawer.vue";
 import CSidebarPanel from "./c-sidebar-panel.vue";
@@ -158,9 +158,7 @@ function onClickOutsideLeftSidebar() {
           :tree-resolver="
             cristal
               .getContainer()
-              .get<NavigationTreeResolverProvider>(
-                'NavigationTreeResolverProvider',
-              )
+              .get<NavigationTreeSourceProvider>('NavigationTreeSourceProvider')
               .get()
           "
         ></XNavigationTree>

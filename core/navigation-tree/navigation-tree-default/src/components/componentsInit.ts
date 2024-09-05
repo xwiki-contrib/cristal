@@ -21,60 +21,41 @@
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import {
-  name as NavigationTreeResolverName,
+  name as NavigationTreeSourceName,
   type NavigationTreeNode,
-  type NavigationTreeResolver,
-  type NavigationTreeResolverProvider,
+  type NavigationTreeSource,
+  type NavigationTreeSourceProvider,
 } from "@xwiki/cristal-navigation-tree-api";
 
 /**
- * Default implementation for NavigationTreeResolver.
+ * Default implementation for NavigationTreeSource.
  *
  * @since 0.10
  **/
 @injectable()
-class DefaultNavigationTreeResolver implements NavigationTreeResolver {
-  private cristalApp: CristalApp;
+class DefaultNavigationTreeSource implements NavigationTreeSource {
   public logger: Logger;
 
-  constructor(
-    @inject<Logger>("Logger") logger: Logger,
-    @inject<CristalApp>("CristalApp") cristalApp: CristalApp,
-  ) {
+  constructor(@inject<Logger>("Logger") logger: Logger) {
     this.logger = logger;
     this.logger.setModule(
-      "navigation-tree-default.components.DefaultNavigationTreeResolver",
+      "navigation-tree-default.components.DefaultNavigationTreeSource",
     );
-    this.cristalApp = cristalApp;
   }
 
-  async getNavigationTree(id?: string): Promise<Array<NavigationTreeNode>> {
-    id = id ? id : "";
-    const pageData = await this.cristalApp.getPage(id);
-    return [
-      {
-        id: id,
-        label: pageData ? pageData.name : "Home",
-        url: this.cristalApp.getRouter().resolve({
-          name: "view",
-          params: {
-            page: this.cristalApp.getWikiConfig().homePage,
-          },
-        }).href,
-        has_children: false,
-      },
-    ];
+  async getChildNodes(): Promise<Array<NavigationTreeNode>> {
+    return [];
   }
 }
 
 /**
- * Default implementation for NavigationTreeResolverProvider.
+ * Default implementation for NavigationTreeSourceProvider.
  *
  * @since 0.10
  **/
 @injectable()
-class DefaultNavigationTreeResolverProvider
-  implements NavigationTreeResolverProvider
+class DefaultNavigationTreeSourceProvider
+  implements NavigationTreeSourceProvider
 {
   private cristalApp: CristalApp;
   public logger: Logger;
@@ -85,21 +66,21 @@ class DefaultNavigationTreeResolverProvider
   ) {
     this.logger = logger;
     this.logger.setModule(
-      "core.navigation-tree.navigation-tree-default.DefaultNavigationTreeResolver",
+      "core.navigation-tree.navigation-tree-default.DefaultNavigationTreeSource",
     );
     this.cristalApp = cristalApp;
   }
 
-  get(): NavigationTreeResolver {
+  get(): NavigationTreeSource {
     const container = this.cristalApp.getContainer();
     const wikiConfigType = this.cristalApp.getWikiConfig().getType();
-    if (container.isBoundNamed(NavigationTreeResolverName, wikiConfigType)) {
-      return container.getNamed<NavigationTreeResolver>(
-        NavigationTreeResolverName,
+    if (container.isBoundNamed(NavigationTreeSourceName, wikiConfigType)) {
+      return container.getNamed<NavigationTreeSource>(
+        NavigationTreeSourceName,
         wikiConfigType,
       );
     } else {
-      return container.get<NavigationTreeResolver>(NavigationTreeResolverName);
+      return container.get<NavigationTreeSource>(NavigationTreeSourceName);
     }
   }
 }
@@ -107,15 +88,13 @@ class DefaultNavigationTreeResolverProvider
 export class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<NavigationTreeResolver>(NavigationTreeResolverName)
-      .to(DefaultNavigationTreeResolver)
+      .bind<NavigationTreeSource>(NavigationTreeSourceName)
+      .to(DefaultNavigationTreeSource)
       .inSingletonScope()
       .whenTargetIsDefault();
     container
-      .bind<NavigationTreeResolverProvider>(
-        `${NavigationTreeResolverName}Provider`,
-      )
-      .to(DefaultNavigationTreeResolverProvider)
+      .bind<NavigationTreeSourceProvider>(`${NavigationTreeSourceName}Provider`)
+      .to(DefaultNavigationTreeSourceProvider)
       .inSingletonScope()
       .whenTargetIsDefault();
   }

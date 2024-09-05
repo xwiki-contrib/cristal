@@ -30,46 +30,46 @@ type NavigationTreeNode = {
 };
 
 /**
- * A NavigationTreeResolver computes and returns a wiki's navigation tree.
+ * A NavigationTreeSource computes and returns a wiki's navigation tree.
  *
  * @since 0.10
  **/
-interface NavigationTreeResolver {
+interface NavigationTreeSource {
   /**
-   * Returns the descendants for a given page id in the navigation tree.
+   * Returns the direct child nodes for a given page id in the navigation tree.
    * If the page id is omitted, returns the root nodes instead.
    *
    * @param id the page id
    * @returns the descendants in the navigation tree
    */
-  getNavigationTree(id?: string): Promise<Array<NavigationTreeNode>>;
+  getChildNodes(id?: string): Promise<Array<NavigationTreeNode>>;
 }
 
 /**
- * A NavigationTreeResolverProvider returns the instance of NavigationTreeResolver
+ * A NavigationTreeSourceProvider returns the instance of NavigationTreeSource
  * matching the current wiki configuration.
  *
  * @since 0.10
  **/
-interface NavigationTreeResolverProvider {
+interface NavigationTreeSourceProvider {
   /**
-   * Returns the instance of NavigationTreeResolver matching the current wiki
+   * Returns the instance of NavigationTreeSource matching the current wiki
    * configuration.
    *
-   * @returns the instance of NavigationTreeResolver
+   * @returns the instance of NavigationTreeSource
    */
-  get(): NavigationTreeResolver;
+  get(): NavigationTreeSource;
 }
 
 /**
- * The component id of NavigationTreeResolver.
+ * The component id of NavigationTreeSource.
  * @since 0.10
  */
-const name = "NavigationTreeResolver";
+const name = "NavigationTreeSource";
 
 export {
   type NavigationTreeNode,
-  type NavigationTreeResolver,
-  type NavigationTreeResolverProvider,
+  type NavigationTreeSource,
+  type NavigationTreeSourceProvider,
   name,
 };

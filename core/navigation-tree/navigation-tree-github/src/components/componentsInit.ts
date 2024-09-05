@@ -21,18 +21,18 @@
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import {
-  name as NavigationTreeResolverName,
+  name as NavigationTreeSourceName,
   type NavigationTreeNode,
-  type NavigationTreeResolver,
+  type NavigationTreeSource,
 } from "@xwiki/cristal-navigation-tree-api";
 
 /**
- * Implementation of NavigationTreeResolver for the GitHub backend.
+ * Implementation of NavigationTreeSource for the GitHub backend.
  *
  * @since 0.10
  **/
 @injectable()
-class GitHubNavigationTreeResolver implements NavigationTreeResolver {
+class GitHubNavigationTreeSource implements NavigationTreeSource {
   private cristalApp: CristalApp;
   public logger: Logger;
 
@@ -42,12 +42,12 @@ class GitHubNavigationTreeResolver implements NavigationTreeResolver {
   ) {
     this.logger = logger;
     this.logger.setModule(
-      "navigation-tree-github.components.GitHubNavigationTreeResolver",
+      "navigation-tree-github.components.GitHubNavigationTreeSource",
     );
     this.cristalApp = cristalApp;
   }
 
-  async getNavigationTree(id?: string): Promise<Array<NavigationTreeNode>> {
+  async getChildNodes(id?: string): Promise<Array<NavigationTreeNode>> {
     const currentId = id ? id : "";
     const navigationTree: Array<NavigationTreeNode> = [];
 
@@ -90,8 +90,8 @@ class GitHubNavigationTreeResolver implements NavigationTreeResolver {
 export class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<NavigationTreeResolver>(NavigationTreeResolverName)
-      .to(GitHubNavigationTreeResolver)
+      .bind<NavigationTreeSource>(NavigationTreeSourceName)
+      .to(GitHubNavigationTreeSource)
       .inSingletonScope()
       .whenTargetNamed("GitHub");
   }
