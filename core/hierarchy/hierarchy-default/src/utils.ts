@@ -41,12 +41,11 @@ export async function getPageHierarchyFromPath(
   for (let i = 0; i < fileHierarchy.length; i++) {
     const file = fileHierarchy[i];
     currentFile += `${i == 0 ? "" : "/"}${file}`;
-    const currentURI = encodeURIComponent(currentFile);
     let currentPageData: PageData | undefined;
     if (i == fileHierarchy.length - 1) {
       currentPageData = pageData;
     } else {
-      currentPageData = await cristalApp.getPage(currentURI);
+      currentPageData = await cristalApp.getPage(currentFile);
     }
     hierarchy.push({
       label: currentPageData?.name ? currentPageData.name : file,

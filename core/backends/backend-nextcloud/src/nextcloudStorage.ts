@@ -56,11 +56,10 @@ export class NextcloudStorage extends AbstractStorage {
   async getPageContent(page: string): Promise<PageData | undefined> {
     const baseRestURL = this.getWikiConfig().baseRestURL;
     const headers = this.getBaseHeaders();
-    const decodedPage = decodeURIComponent(page);
 
     try {
       const response = await fetch(
-        `${baseRestURL}/.cristal/${encodeURI(decodedPage)}/page.json`,
+        `${baseRestURL}/.cristal/${page}/page.json`,
         {
           method: "GET",
           headers,
@@ -72,7 +71,7 @@ export class NextcloudStorage extends AbstractStorage {
 
         return {
           ...json,
-          id: decodedPage,
+          id: page,
           headline: json.name,
           headlineRaw: json.name,
         };
