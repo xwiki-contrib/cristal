@@ -233,6 +233,7 @@ onUpdated(() => {
   display: grid;
   grid-template-rows: 56px auto auto 1fr;
   overflow: auto;
+  height: 100%;
 }
 :global(.doc-content table) {
   max-width: 100%;
