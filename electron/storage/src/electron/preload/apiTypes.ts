@@ -34,4 +34,6 @@ export interface APITypes {
   savePage(path: string, content: string, title: string): Promise<PageData>;
 
   saveAttachment(path: string, file: File): Promise<PageData>;
+
+  listChildren(page: string): Promise<Array<string>>;
 }
