@@ -220,10 +220,10 @@ onUpdated(() => loadEditor(currentPage.value!));
       v-model="title"
       type="text"
       :placeholder="titlePlaceholder"
-      class="document-title"
+      class="doc-title"
     />
     <c-tiptap-bubble-menu v-if="editor" :editor="editor"></c-tiptap-bubble-menu>
-    <editor-content :editor="editor" class="document-content editor" />
+    <editor-content :editor="editor" class="doc-content editor" />
     <form class="pagemenu" @submit="submit">
       <div class="pagemenu-status">
         <c-connection-status

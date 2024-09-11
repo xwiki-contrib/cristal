@@ -46,8 +46,8 @@ defineEmits(["collapseMainSidebar"]);
 
 onMounted(() => {
   // Load and apply main sidebar size from local storage, if available.
-  if (localStorage.MainSidebarWidth) {
-    updateMainSidebarWidth(localStorage.MainSidebarWidth);
+  if (localStorage.mainSidebarWidth) {
+    updateMainSidebarWidth(localStorage.mainSidebarWidth);
   }
   // If main sidebar is collapsed on desktop, it should also be closed.
   if (viewportType.value == ViewportType.Desktop) {
@@ -77,7 +77,7 @@ function startMainSidebarResize() {
     mainSidebarResizeInterval = setInterval(() => {
       let newSidebarWidth = x.value + 8;
       updateMainSidebarWidth(newSidebarWidth);
-      localStorage.MainSidebarWidth = newSidebarWidth;
+      localStorage.mainSidebarWidth = newSidebarWidth;
     }, 10);
   }
   window.addEventListener("mouseup", endMainSidebarResize);

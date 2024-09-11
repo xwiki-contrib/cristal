@@ -84,14 +84,9 @@ function onCollapseMainSidebar() {
   </div>
 </template>
 <style scoped>
-:global(#xwCristalApp) {
+:global(.xw-cristal) {
   container: xwCristal;
   container-type: size;
-}
-
-:global(html.xw-cristal),
-:global(.xw-cristal body),
-:global(.xw-cristal #xwCristalApp) {
   overflow: hidden;
   position: relative;
   height: 100%;
@@ -101,13 +96,9 @@ function onCollapseMainSidebar() {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
-:global(.xw-cristal #xwCristalApp),
-:global(.xw-cristal #xwCristalApp > div) {
+:global(.xw-cristal),
+:global(.xw-cristal > div) {
   height: 100%;
-}
-
-:global(html) {
-  overflow: hidden;
 }
 
 :deep(#edit) {
