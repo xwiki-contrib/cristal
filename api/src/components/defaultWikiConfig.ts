@@ -137,4 +137,12 @@ export class DefaultWikiConfig implements WikiConfig {
   getType(): string {
     return "Default";
   }
+
+  getPageResourceSeparator(): string {
+    return "/";
+  }
+
+  getNewPageDefaultName(): string {
+    return "newpage";
+  }
 }

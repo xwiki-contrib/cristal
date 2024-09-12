@@ -18,6 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import type { PageData } from "@xwiki/cristal-api";
+
 /**
  * Description of a navigation tree node.
  * @since 0.10
@@ -25,6 +27,7 @@
 type NavigationTreeNode = {
   id: string;
   label: string;
+  location: string;
   url: string;
   has_children: boolean;
 };
@@ -43,6 +46,14 @@ interface NavigationTreeSource {
    * @returns the descendants in the navigation tree
    */
   getChildNodes(id?: string): Promise<Array<NavigationTreeNode>>;
+
+  /**
+   * Returns the ids of the parents nodes for a given page.
+   *
+   * @param page the data of the page
+   * @returns the parents nodes ids
+   **/
+  getParentNodesId(page?: PageData): Array<string>;
 }
 
 /**

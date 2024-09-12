@@ -56,4 +56,12 @@ export class XWikiWikiConfig extends DefaultWikiConfig {
   override getType(): string {
     return "XWiki";
   }
+
+  override getPageResourceSeparator(): string {
+    return ".";
+  }
+
+  override getNewPageDefaultName(): string {
+    return "NewPage.WebHome";
+  }
 }
