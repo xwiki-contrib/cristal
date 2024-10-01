@@ -38,7 +38,6 @@ const open = defineModel<boolean>();
   <sl-dialog
     :open="open"
     :label="title"
-    :style="`--width: ${width}; --body-spacing: 0 1.25rem 1.25rem`"
     class="dialog-overview"
     @sl-show="open = true"
     @sl-hide="open = false"
@@ -46,3 +45,10 @@ const open = defineModel<boolean>();
     <slot name="default" />
   </sl-dialog>
 </template>
+
+<style scoped>
+sl-dialog {
+  --width: v-bind(width);
+  --body-spacing: 0 1.25rem 1.25rem;
+}
+</style>

@@ -30,6 +30,7 @@ import type { PageData } from "@xwiki/cristal-api";
 export function getParentNodesIdFromPath(page?: PageData): Array<string> {
   const result: Array<string> = [];
   if (page) {
+    // TODO: Use a page resolver instead when CRISTAL-234 is fixed.
     const parents = page.id.split("/");
     let currentParent = "";
     let i;

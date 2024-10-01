@@ -57,10 +57,6 @@ export class XWikiWikiConfig extends DefaultWikiConfig {
     return "XWiki";
   }
 
-  override getPageResourceSeparator(): string {
-    return ".";
-  }
-
   override getNewPageDefaultName(): string {
     return "NewPage.WebHome";
   }

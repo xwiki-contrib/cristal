@@ -62,6 +62,7 @@ onMounted(() => {
 watch(
   () => route.params.page,
   async () => {
+    // TODO: define a proper abstraction.
     const pageName = (route.params.page as string) || cristal.getCurrentPage();
     currentPage.value = await cristal.getPage(pageName);
   },

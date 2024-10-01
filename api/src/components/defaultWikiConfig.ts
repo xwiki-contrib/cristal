@@ -138,10 +138,6 @@ export class DefaultWikiConfig implements WikiConfig {
     return "Default";
   }
 
-  getPageResourceSeparator(): string {
-    return "/";
-  }
-
   getNewPageDefaultName(): string {
     return "newpage";
   }

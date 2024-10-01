@@ -46,9 +46,13 @@ function updateCurrentPage() {
 
 function createPage() {
   var newPage = "";
+
+  // TODO: Use a page resolver instead when CRISTAL-234 is fixed.
+  const pageResourceSeparator =
+    cristal.getWikiConfig().getType() == "XWiki" ? "." : "/";
+
   if (location.value) {
-    newPage +=
-      location.value + cristal.getWikiConfig().getPageResourceSeparator();
+    newPage += location.value + pageResourceSeparator;
   }
   newPage += name.value;
 

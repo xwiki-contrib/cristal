@@ -117,6 +117,7 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
         );
         return [];
       }
+      // TODO: Use a page resolver instead when CRISTAL-234 is fixed.
       const parents = documentId
         .replace(/\.WebHome$/, "")
         .split(/(?<![^\\](?:\\\\)*\\)\./);

@@ -65,15 +65,6 @@ export interface WikiConfig {
   getType(): string;
 
   /**
-   * Returns the page resource separator for the current configuration.
-   * For instance, "." for XWiki, or "/" for Github and FileSystem.
-   *
-   * @returns the page resource separator
-   * @since 0.10
-   */
-  getPageResourceSeparator(): string;
-
-  /**
    * Returns the default name for a newly created page.
    *
    * @returns the default name
