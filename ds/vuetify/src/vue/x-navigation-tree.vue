@@ -43,13 +43,13 @@ const activatedNodes: Ref<Array<string>> = ref(new Array<string>());
 const expandedNodes: Ref<Array<string>> = ref(new Array<string>());
 
 const props = defineProps<{
-  treeResolver: NavigationTreeSource;
+  treeSource: NavigationTreeSource;
   clickAction?: OnClickAction;
   currentPage?: PageData;
 }>();
 
 onBeforeMount(async () => {
-  for (const node of await props.treeResolver.getChildNodes("")) {
+  for (const node of await props.treeSource.getChildNodes("")) {
     rootNodes.value.push({
       id: node.id,
       title: node.label,
@@ -73,7 +73,7 @@ watch(
 );
 
 async function expandTree() {
-  const newExpandedNodes = props.treeResolver.getParentNodesId(
+  const newExpandedNodes = props.treeSource.getParentNodesId(
     props.currentPage,
   );
   let i;
@@ -115,7 +115,7 @@ async function expandTree() {
 
 async function lazyLoadChildren(item: unknown) {
   const treeItem = item as TreeItem;
-  const childNodes = await props.treeResolver.getChildNodes(treeItem.id);
+  const childNodes = await props.treeSource.getChildNodes(treeItem.id);
   for (const child of childNodes) {
     treeItem.children?.push({
       id: child.id,

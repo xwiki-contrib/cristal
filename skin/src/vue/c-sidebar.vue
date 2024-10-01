@@ -171,7 +171,7 @@ function onClickOutsideLeftSidebar() {
           :current-page="currentPage!"
         ></c-page-creation-menu>
         <XNavigationTree
-          :tree-resolver="
+          :tree-source="
             cristal
               .getContainer()
               .get<NavigationTreeSourceProvider>('NavigationTreeSourceProvider')

@@ -44,13 +44,13 @@ var expandedNodes: Array<string> = new Array<string>();
 var expandNodes: boolean = false;
 
 const props = defineProps<{
-  treeResolver: NavigationTreeSource;
+  treeSource: NavigationTreeSource;
   clickAction?: OnClickAction;
   currentPage?: PageData;
 }>();
 
 onBeforeMount(async () => {
-  rootNodes.value.push(...(await props.treeResolver.getChildNodes("")));
+  rootNodes.value.push(...(await props.treeSource.getChildNodes("")));
 });
 
 onMounted(() => mutationObserver.observe(tree.value!, { childList: true }));
@@ -59,7 +59,7 @@ watch(
   () => {
     if (props.currentPage) {
       expandNodes = true;
-      expandedNodes = props.treeResolver.getParentNodesId(props.currentPage);
+      expandedNodes = props.treeSource.getParentNodesId(props.currentPage);
       expandTree();
     }
   },
@@ -113,7 +113,7 @@ function onSelectionChange(event: unknown) {
 function lazyLoadChildren(id: string) {
   return async (event: Event) => {
     const lazyItem = event.target! as Element;
-    const childNodes = await props.treeResolver.getChildNodes(id);
+    const childNodes = await props.treeSource.getChildNodes(id);
     for (const child of childNodes) {
       const treeItem = document.createElement("sl-tree-item");
       const label = child.label

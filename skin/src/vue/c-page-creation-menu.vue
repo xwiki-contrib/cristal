@@ -88,7 +88,7 @@ function createPage() {
         </x-form>
         <div id="new-page-navigation-tree">
           <XNavigationTree
-            :tree-resolver="
+            :tree-source="
               cristal
                 .getContainer()
                 .get<NavigationTreeSourceProvider>(
