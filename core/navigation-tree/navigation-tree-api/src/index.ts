@@ -25,8 +25,10 @@ import type { PageData } from "@xwiki/cristal-api";
  * @since 0.10
  */
 type NavigationTreeNode = {
+  /** the id of a node, used by the NavigationTreeSource to access children */
   id: string;
   label: string;
+  /** the location of the corresponding page on Cristal */
   location: string;
   url: string;
   has_children: boolean;
