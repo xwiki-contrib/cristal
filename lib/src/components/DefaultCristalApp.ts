@@ -140,6 +140,7 @@ export class DefaultCristalApp implements CristalApp {
       }
     } else {
       this.logger?.debug("Could not find state or state in page", event);
+      // TODO: Remove decodeURIComponent once CRISTAL-233 is fixed.
       const page = decodeURIComponent(this.getPageFromHash(location.hash)!);
       if (page != null) {
         this.page.name = page;
