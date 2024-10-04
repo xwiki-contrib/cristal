@@ -616,8 +616,8 @@ importers:
   editors/tiptap:
     dependencies:
       '@hocuspocus/provider':
-        specifier: 2.13.5
-        version: 2.13.5(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)
+        specifier: 2.13.6
+        version: 2.13.6(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)
       '@tiptap/core':
         specifier: 2.5.9
         version: 2.5.9(@tiptap/pm@2.5.9)
@@ -1676,8 +1676,11 @@ packages:
   '@hocuspocus/common@2.13.5':
     resolution: {integrity: sha512-8D9FzhZFlt0WsgXw5yT2zwSxi6z9d4V2vUz6co2vo3Cj+Y2bvGZsdDiTvU/MerGcCLME5k/w6PwLPojLYH/4pg==}
 
-  '@hocuspocus/provider@2.13.5':
-    resolution: {integrity: sha512-G3S0OiFSYkmbOwnbhV7FyJs4OBqB/+1YT9c44Ujux1RKowGm5H8+0p3FUHfXwd/3v9V0jE+E1FnFKoGonJSQwA==}
+  '@hocuspocus/common@2.13.6':
+    resolution: {integrity: sha512-jeEawHoaBckfbjMRPqjANjtQkeHgCBsk3XN7CEs/1jvUm60d86FT4y5fp3MWTEE18qkZacbZldn32za+72RBdg==}
+
+  '@hocuspocus/provider@2.13.6':
+    resolution: {integrity: sha512-84tBdGU8275SXQirRQ5FbBGwsQ6iLNuIbmV2SV6/f361phBoAVUSobJ+CYAzdIJPlfIYSL2BwGJSRbbDhqJdJw==}
     peerDependencies:
       y-protocols: ^1.0.6
       yjs: ^13.6.8
@@ -6153,9 +6156,13 @@ snapshots:
     dependencies:
       lib0: 0.2.98
 
-  '@hocuspocus/provider@2.13.5(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)':
+  '@hocuspocus/common@2.13.6':
     dependencies:
-      '@hocuspocus/common': 2.13.5
+      lib0: 0.2.98
+
+  '@hocuspocus/provider@2.13.6(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)':
+    dependencies:
+      '@hocuspocus/common': 2.13.6
       '@lifeomic/attempt': 3.1.0
       lib0: 0.2.98
       ws: 8.18.0
