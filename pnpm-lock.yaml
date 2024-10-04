@@ -1175,8 +1175,8 @@ importers:
   web:
     dependencies:
       '@hocuspocus/server':
-        specifier: 2.13.5
-        version: 2.13.5(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)
+        specifier: 2.13.6
+        version: 2.13.6(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)
       '@xwiki/cristal-browser-default':
         specifier: workspace:*
         version: link:../core/browser/browser-default
@@ -1676,14 +1676,17 @@ packages:
   '@hocuspocus/common@2.13.5':
     resolution: {integrity: sha512-8D9FzhZFlt0WsgXw5yT2zwSxi6z9d4V2vUz6co2vo3Cj+Y2bvGZsdDiTvU/MerGcCLME5k/w6PwLPojLYH/4pg==}
 
+  '@hocuspocus/common@2.13.6':
+    resolution: {integrity: sha512-jeEawHoaBckfbjMRPqjANjtQkeHgCBsk3XN7CEs/1jvUm60d86FT4y5fp3MWTEE18qkZacbZldn32za+72RBdg==}
+
   '@hocuspocus/provider@2.13.5':
     resolution: {integrity: sha512-G3S0OiFSYkmbOwnbhV7FyJs4OBqB/+1YT9c44Ujux1RKowGm5H8+0p3FUHfXwd/3v9V0jE+E1FnFKoGonJSQwA==}
     peerDependencies:
       y-protocols: ^1.0.6
       yjs: ^13.6.8
 
-  '@hocuspocus/server@2.13.5':
-    resolution: {integrity: sha512-gDYax5ruaj30mMtFjq5+o5USXQD31hDOxBVU8eTAzezS6hpVllaP7HmM8iRda+UmQoeybHxzqsWAf74JCmYDug==}
+  '@hocuspocus/server@2.13.6':
+    resolution: {integrity: sha512-VqiHkkQlfa2A5mFTe+rdePLt3kHJrk9ZzqDqWJfqQDlYHdyAXpW53cddsXYYDWQ/tZjYj3zQgZAT+78AHrnb/A==}
     peerDependencies:
       y-protocols: ^1.0.6
       yjs: ^13.6.8
@@ -6153,6 +6156,10 @@ snapshots:
     dependencies:
       lib0: 0.2.98
 
+  '@hocuspocus/common@2.13.6':
+    dependencies:
+      lib0: 0.2.98
+
   '@hocuspocus/provider@2.13.5(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)':
     dependencies:
       '@hocuspocus/common': 2.13.5
@@ -6165,9 +6172,9 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@hocuspocus/server@2.13.5(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)':
+  '@hocuspocus/server@2.13.6(y-protocols@1.0.6(yjs@13.6.18))(yjs@13.6.18)':
     dependencies:
-      '@hocuspocus/common': 2.13.5
+      '@hocuspocus/common': 2.13.6
       async-lock: 1.4.1
       kleur: 4.1.5
       lib0: 0.2.98
