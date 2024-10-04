@@ -738,8 +738,8 @@ importers:
         specifier: 7.0.3
         version: 7.0.3
       electron:
-        specifier: 31.6.0
-        version: 31.6.0
+        specifier: 32.1.2
+        version: 32.1.2
       electron-builder:
         specifier: 25.1.7
         version: 25.1.7(electron-builder-squirrel-windows@24.13.3)
@@ -753,8 +753,8 @@ importers:
         specifier: workspace:*
         version: link:../../core/browser/browser-api
       electron:
-        specifier: 31.6.0
-        version: 31.6.0
+        specifier: 32.1.2
+        version: 32.1.2
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -768,8 +768,8 @@ importers:
         specifier: workspace:*
         version: link:../storage
       electron:
-        specifier: 31.6.0
-        version: 31.6.0
+        specifier: 32.1.2
+        version: 32.1.2
     devDependencies:
       '@types/node':
         specifier: 20.16.10
@@ -854,8 +854,8 @@ importers:
         specifier: workspace:*
         version: link:../../core/backends/backend-api
       electron:
-        specifier: 31.6.0
-        version: 31.6.0
+        specifier: 32.1.2
+        version: 32.1.2
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -3187,8 +3187,8 @@ packages:
   electron-updater@6.1.8:
     resolution: {integrity: sha512-hhOTfaFAd6wRHAfUaBhnAOYc+ymSGCWJLtFkw4xJqOvtpHmIdNHnXDV9m1MHC+A6q08Abx4Ykgyz/R5DGKNAMQ==}
 
-  electron@31.6.0:
-    resolution: {integrity: sha512-J64VtIF8DI/zsGgoYd3p5LbxAWjt59tk2cBSHJNzVhzgiVgDyPFkBwsqmN4gUvyv+6l6+WoYpYmYdapr2o4bPw==}
+  electron@32.1.2:
+    resolution: {integrity: sha512-CXe6doFzhmh1U7daOvUzmF6Cj8hssdYWMeEPRnRO6rB9/bbwMlWctcQ7P8NJXhLQ88/vYUJQrJvlJPh8qM0BRQ==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -7671,7 +7671,7 @@ snapshots:
 
   config-file-ts@0.2.6:
     dependencies:
-      glob: 10.3.10
+      glob: 10.4.5
       typescript: 5.6.2
 
   config-file-ts@0.2.8-rc1:
@@ -7950,7 +7950,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@31.6.0:
+  electron@32.1.2:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 20.16.10
