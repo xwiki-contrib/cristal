@@ -23,8 +23,8 @@ importers:
         specifier: 7.18.0
         version: 7.18.0(eslint@8.57.0)(typescript@5.6.2)
       '@vitejs/plugin-vue':
-        specifier: 5.0.5
-        version: 5.0.5(vite@5.3.6(@types/node@22.7.4))(vue@3.5.10(typescript@5.6.2))
+        specifier: 5.1.4
+        version: 5.1.4(vite@5.3.6(@types/node@22.7.4))(vue@3.5.10(typescript@5.6.2))
       '@vitest/coverage-v8':
         specifier: 1.6.0
         version: 1.6.0(vitest@1.6.0(@types/node@22.7.4)(happy-dom@14.12.0))
@@ -1230,8 +1230,8 @@ importers:
         specifier: 22.7.4
         version: 22.7.4
       '@vitejs/plugin-vue':
-        specifier: 5.0.5
-        version: 5.0.5(vite@5.3.6(@types/node@22.7.4))(vue@3.5.10(typescript@5.6.2))
+        specifier: 5.1.4
+        version: 5.1.4(vite@5.3.6(@types/node@22.7.4))(vue@3.5.10(typescript@5.6.2))
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -2425,8 +2425,8 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@vitejs/plugin-vue@5.0.5':
-    resolution: {integrity: sha512-LOjm7XeIimLBZyzinBQ6OSm3UBCNVCpLkxGC0oWmm2YPzVZoxMsdvNVimLTBzpAnR9hl/yn1SHGuRfe6/Td9rQ==}
+  '@vitejs/plugin-vue@5.1.4':
+    resolution: {integrity: sha512-N2XSI2n3sQqp5w7Y/AN/L2XDjBIRGqXko+eDp42sydYSBeJuSm5a1sLf8zakmo8u7tA8NmBgoDLA1HeOESjp9A==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
       vite: ^5.0.0
@@ -3320,6 +3320,7 @@ packages:
   eslint@8.57.0:
     resolution: {integrity: sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
 
   espree@9.6.1:
@@ -6957,7 +6958,7 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-vue@5.0.5(vite@5.3.6(@types/node@22.7.4))(vue@3.5.10(typescript@5.6.2))':
+  '@vitejs/plugin-vue@5.1.4(vite@5.3.6(@types/node@22.7.4))(vue@3.5.10(typescript@5.6.2))':
     dependencies:
       vite: 5.3.6(@types/node@22.7.4)
       vue: 3.5.10(typescript@5.6.2)
