@@ -157,6 +157,21 @@ importers:
         specifier: 2.1.6
         version: 2.1.6(typescript@5.6.2)
 
+  core/authentication/authentication-api: {}
+
+  core/authentication/authentication-ui:
+    dependencies:
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../authentication-api
+      vue:
+        specifier: 3.5.10
+        version: 3.5.10(typescript@5.6.2)
+    devDependencies:
+      vue-tsc:
+        specifier: 2.1.6
+        version: 2.1.6(typescript@5.6.2)
+
   core/backends/backend-api:
     dependencies:
       '@xwiki/cristal-api':
