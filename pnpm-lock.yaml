@@ -185,7 +185,7 @@ importers:
         version: link:../authentication-api
       axios:
         specifier: 1.7.7
-        version: 1.7.7
+        version: 1.7.7(debug@4.3.7)
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -6065,7 +6065,7 @@ snapshots:
 
   '@electron/notarize@2.2.1':
     dependencies:
-      debug: 4.3.4(supports-color@5.5.0)
+      debug: 4.3.7
       fs-extra: 9.1.0
       promise-retry: 2.0.1
     transitivePeerDependencies:
@@ -6082,7 +6082,7 @@ snapshots:
   '@electron/osx-sign@1.0.5':
     dependencies:
       compare-version: 0.1.2
-      debug: 4.3.4(supports-color@5.5.0)
+      debug: 4.3.7
       fs-extra: 10.1.0
       isbinaryfile: 4.0.10
       minimist: 1.2.8
@@ -6125,7 +6125,7 @@ snapshots:
     dependencies:
       '@electron/asar': 3.2.8
       '@malept/cross-spawn-promise': 1.1.1
-      debug: 4.3.4(supports-color@5.5.0)
+      debug: 4.3.7
       dir-compare: 3.3.0
       fs-extra: 9.1.0
       minimatch: 3.1.2
@@ -7424,7 +7424,7 @@ snapshots:
       builder-util: 24.13.1
       builder-util-runtime: 9.2.4
       chromium-pickle-js: 0.2.0
-      debug: 4.3.4(supports-color@5.5.0)
+      debug: 4.3.7
       dmg-builder: 25.1.7(electron-builder-squirrel-windows@24.13.3)
       ejs: 3.1.9
       electron-builder-squirrel-windows: 24.13.3(dmg-builder@25.1.7)
@@ -7649,7 +7649,7 @@ snapshots:
 
   builder-util-runtime@9.2.4:
     dependencies:
-      debug: 4.3.4(supports-color@5.5.0)
+      debug: 4.3.7
       sax: 1.3.0
     transitivePeerDependencies:
       - supports-color
@@ -7670,7 +7670,7 @@ snapshots:
       builder-util-runtime: 9.2.4
       chalk: 4.1.2
       cross-spawn: 7.0.3
-      debug: 4.3.4(supports-color@5.5.0)
+      debug: 4.3.7
       fs-extra: 10.1.0
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
