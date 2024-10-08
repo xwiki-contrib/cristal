@@ -23,7 +23,7 @@ import messages from "../translations";
 import { useI18n } from "vue-i18n";
 import { inject } from "vue";
 import { CristalApp } from "@xwiki/cristal-api";
-import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 const { t } = useI18n({
   messages,
@@ -31,21 +31,10 @@ const { t } = useI18n({
 
 const cristal = inject<CristalApp>("cristal")!;
 
-function resolveAuthenticationManager(): AuthenticationManager | undefined {
-  try {
-    const type = cristal.getWikiConfig().getType();
-    return (
-      cristal
-        .getContainer()
-        // Resolve the authentication manager for the current configuration type
-        .getNamed<AuthenticationManager>("AuthenticationManager", type)!
-    );
-  } catch (e) {
-    cristal.getLogger("LoginMenu").error(e);
-  }
-}
-
-const authenticationManager = resolveAuthenticationManager();
+const authenticationManager = cristal
+  .getContainer()
+  .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+  .get();
 
 function login() {
   authenticationManager?.start();

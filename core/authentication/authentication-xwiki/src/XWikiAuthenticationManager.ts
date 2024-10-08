@@ -17,11 +17,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import axios from "axios";
 import Cookies, { type CookieAttributes } from "js-cookie";
+import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 
 /**
  * @since 0.11

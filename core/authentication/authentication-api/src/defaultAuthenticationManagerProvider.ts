@@ -17,32 +17,39 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 import { inject, injectable } from "inversify";
-import type { UIExtension } from "@xwiki/cristal-uiextension-api";
-import type { Component } from "vue";
-import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import { AuthenticationManagerProvider } from "./authenticationManagerProvider";
+import { AuthenticationManager } from "./authenticationManager";
+import { type CristalApp } from "@xwiki/cristal-api";
 
 /**
  * @since 0.11
  */
 @injectable()
-export class LoginMenuUIExtension implements UIExtension {
-  id = "sidebar.actions.loginMenu";
-  uixpName = "sidebar.actions";
-  order = 2000;
-  parameters = {};
-
+class DefaultAuthenticationManagerProvider
+  implements AuthenticationManagerProvider
+{
   constructor(
-    @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
-    private authenticationManager: AuthenticationManagerProvider,
+    @inject<CristalApp>("CristalApp") private cristalApp: CristalApp,
   ) {}
 
-  async component(): Promise<Component> {
-    return (await import("./vue/LoginMenu.vue")).default;
-  }
-
-  enabled(): boolean {
-    // TODO: check if user currently logged in.
-    return !this.authenticationManager.get()?.isAuthenticated();
+  get(type?: string): AuthenticationManager | undefined {
+    const resolvedType = type || this.cristalApp.getWikiConfig().getType();
+    try {
+      return this.cristalApp
+        .getContainer()
+        .getNamed("AuthenticationManager", resolvedType);
+    } catch (e) {
+      this.cristalApp
+        .getLogger("authentication.api")
+        .warn(
+          `Couldn't resolve AuthenticationManager for type=[${resolvedType}]`,
+          e,
+        );
+      return undefined;
+    }
   }
 }
+
+export { DefaultAuthenticationManagerProvider };
