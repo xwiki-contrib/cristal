@@ -21,7 +21,7 @@ import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import axios from "axios";
-import Cookies from "js-cookie";
+import Cookies, { type CookieAttributes } from "js-cookie";
 
 /**
  * @since 0.11
@@ -91,17 +91,13 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     };
     const { data: tokenData } = await axios.post(tokenUrl, data, config);
     const { access_token: accessToken, token_type: tokenType } = tokenData;
-    // TODO: activate secure flags in production.
-    Cookies.set(this.accessTokenCookieKey, accessToken, {
-      // secure: true,
-      // sameSite: "strict",
-      // httpOnly: true,
-    });
-    Cookies.set(this.tokenTypeCookieKey, tokenType, {
-      // secure: true,
-      // sameSite: "strict",
-      // httpOnly: true,
-    });
+    // FIXME: the current way we store tokens is vulnerable to XSS
+    const cookiesOptions: CookieAttributes = {
+      secure: true,
+      sameSite: "strict",
+    };
+    Cookies.set(this.accessTokenCookieKey, accessToken, cookiesOptions);
+    Cookies.set(this.tokenTypeCookieKey, tokenType, cookiesOptions);
     // Redirect to the page where the user was before starting the log-in.
     window.location.href = window.localStorage.getItem(
       this.localStorageOriginKey,
