@@ -159,8 +159,6 @@ function onClickOutsideMainSidebar() {
       <suspense>
         <u-i-extensions uix-name="sidebar.actions"></u-i-extensions>
       </suspense>
-      <!-- TODO: inject from a new authentication module -->
-      <x-btn type="submit" size="small" variant="primary">Log-in</x-btn>
     </div>
     <div class="search">
       <x-search></x-search>
