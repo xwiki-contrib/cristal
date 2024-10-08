@@ -23,7 +23,7 @@ import { DefaultCristalApp } from "./DefaultCristalApp";
 import { type CristalApp } from "@xwiki/cristal-api";
 import { Container } from "inversify";
 import { Primitive } from "utility-types";
-import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 /**
  *
@@ -37,15 +37,15 @@ export function loadConfig(input: string) {
   };
 }
 
-async function interceptCallback(container: Container): Promise<void> {
+async function handleCallback(container: Container): Promise<void> {
   if (window.location.pathname.startsWith("/callback")) {
     const type = window.localStorage.getItem("currentConfigType")!;
     const authenticationManager = container
       // Resolve the authentication manager for the current configuration type
-      .getNamed<AuthenticationManager>("AuthenticationManager", type);
-    await authenticationManager.callback();
-    // 1 - resolve AuthenticationManager
-    // 2 - call callback
+      .get<AuthenticationManagerProvider>("AuthenticationManagerProvider");
+    // We need to pass the type explicitly as we can't resolve it from the URL
+    // at this point.
+    await authenticationManager.get(type)?.callback();
   }
 }
 
@@ -67,7 +67,7 @@ export class CristalAppLoader extends CristalLoader {
     const configMap = new Map<string, T>(Object.entries(config));
     this.cristal.setAvailableConfigurations(configMap);
 
-    await interceptCallback(this.cristal.getContainer());
+    await handleCallback(this.cristal.getContainer());
 
     if (isElectron) {
       const localConfigName = window.localStorage.getItem("currentApp");

@@ -157,7 +157,14 @@ importers:
         specifier: 2.1.6
         version: 2.1.6(typescript@5.6.2)
 
-  core/authentication/authentication-api: {}
+  core/authentication/authentication-api:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      inversify:
+        specifier: 6.0.2
+        version: 6.0.2
 
   core/authentication/authentication-ui:
     dependencies:
@@ -228,6 +235,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api

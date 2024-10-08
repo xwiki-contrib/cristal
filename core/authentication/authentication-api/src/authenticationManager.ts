@@ -17,32 +17,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { inject, injectable } from "inversify";
-import type { UIExtension } from "@xwiki/cristal-uiextension-api";
-import type { Component } from "vue";
-import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 /**
  * @since 0.11
  */
-@injectable()
-export class LoginMenuUIExtension implements UIExtension {
-  id = "sidebar.actions.loginMenu";
-  uixpName = "sidebar.actions";
-  order = 2000;
-  parameters = {};
+interface AuthenticationManager {
+  /**
+   *  Starts the authentication process.
+   */
+  start(): void;
 
-  constructor(
-    @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
-    private authenticationManager: AuthenticationManagerProvider,
-  ) {}
+  /**
+   * Handle the callback.
+   */
+  callback(): Promise<void>;
 
-  async component(): Promise<Component> {
-    return (await import("./vue/LoginMenu.vue")).default;
-  }
+  /**
+   * Returns the currently registered authorization header
+   */
+  getAuthorizationHeader(): string | undefined;
 
-  enabled(): boolean {
-    // TODO: check if user currently logged in.
-    return !this.authenticationManager.get()?.isAuthenticated();
-  }
+  /**
+   * @return true of the current user is authenticated
+   */
+  isAuthenticated(): boolean;
 }
+
+export { type AuthenticationManager };
