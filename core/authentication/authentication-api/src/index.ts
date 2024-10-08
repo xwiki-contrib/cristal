@@ -18,29 +18,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-/**
- * @since 0.11
- */
-interface AuthenticationManager {
-  /**
-   *  Starts the authentication process.
-   */
-  start(): void;
+import { type AuthenticationManagerProvider } from "./authenticationManagerProvider";
+import { Container } from "inversify";
+import { DefaultAuthenticationManagerProvider } from "./defaultAuthenticationManagerProvider";
+import { type AuthenticationManager } from "./authenticationManager";
 
-  /**
-   * Handle the callback.
-   */
-  callback(): Promise<void>;
-
-  /**
-   * Returns the currently registered authorization header
-   */
-  getAuthorizationHeader(): string | undefined;
-
-  /**
-   * @return true of the current user is authenticated
-   */
-  isAuthenticated(): boolean;
+class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+      .to(DefaultAuthenticationManagerProvider)
+      .inSingletonScope();
+  }
 }
 
-export { type AuthenticationManager };
+export { ComponentInit, AuthenticationManager, AuthenticationManagerProvider };

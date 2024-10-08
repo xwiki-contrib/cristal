@@ -32,5 +32,9 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
+  },
+  "dependencies": {
+    "@xwiki/cristal-api": "workspace:*",
+    "inversify": "6.0.2"
   }
 }

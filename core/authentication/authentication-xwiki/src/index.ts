@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import type { Container } from "inversify";
-import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import { XWikiAuthenticationManager } from "./XWikiAuthenticationManager";
+import { type AuthenticationManager } from "@xwiki/cristal-authentication-api";
 
 export class ComponentInit {
   constructor(container: Container) {
