@@ -17,22 +17,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { type UIExtension } from "@xwiki/cristal-uiextension-api";
-import { injectable } from "inversify";
-import { type Component } from "vue";
+import { inject, injectable } from "inversify";
+import type { UIExtension } from "@xwiki/cristal-uiextension-api";
+import type { Component } from "vue";
+import type { CristalApp } from "@xwiki/cristal-api/dist";
+import { AuthenticationManager } from "@xwiki/cristal-authentication-api/dist";
 
+/**
+ * @since 0.11
+ */
 @injectable()
-export class ConfigMenuUIExtension implements UIExtension {
-  id = "sidebar.actions.configMenu";
+export class LoginMenuUIExtension implements UIExtension {
+  id = "sidebar.actions.loginMenu";
   uixpName = "sidebar.actions";
-  order = 1000;
+  order = 2000;
   parameters = {};
 
+  constructor(
+    @inject<CristalApp>("CristalApp") private cristalApp: CristalApp,
+  ) {}
+
   async component(): Promise<Component> {
-    return (await import("../../vue/c-config-menu.vue")).default;
+    return (await import("./vue/LoginMenu.vue")).default;
   }
 
   enabled(): boolean {
-    return true;
+    // TODO: check if user currently logged in.
+    const type = this.cristalApp.getWikiConfig().getType();
+    const authenticationManager: AuthenticationManager = this.cristalApp
+      .getContainer()
+      // Resolve the authentication manager for the current configuration type
+      .getNamed<AuthenticationManager>("AuthenticationManager", type);
+    return !authenticationManager.isAuthenticated();
   }
 }
