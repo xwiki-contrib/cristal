@@ -19,35 +19,49 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 
 <script lang="ts" setup>
-import { type Component, inject } from "vue";
+import messages from "../translations";
+import { useI18n } from "vue-i18n";
+import { inject } from "vue";
 import { CristalApp } from "@xwiki/cristal-api";
-import { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
-//
-const { uixName } = defineProps<{
-  uixName: string;
-}>();
+import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+
+const { t } = useI18n({
+  messages,
+});
 
 const cristal = inject<CristalApp>("cristal")!;
 
-const uixManager: UIExtensionsManager = cristal
-  .getContainer()
-  .get<UIExtensionsManager>("UIExtensionsManager")!;
+function resolveAuthenticationManager(): AuthenticationManager | undefined {
+  try {
+    const type = cristal.getWikiConfig().getType();
+    return (
+      cristal
+        .getContainer()
+        // Resolve the authentication manager for the current configuration type
+        .getNamed<AuthenticationManager>("AuthenticationManager", type)!
+    );
+  } catch (e) {
+    cristal.getLogger("LoginMenu").error(e);
+  }
+}
 
-const uiExtensions: { id: string; component: Component }[] = [];
-for (let uiExtension of await uixManager.list(uixName)) {
-  uiExtensions.push({
-    id: uiExtension.id,
-    component: await uiExtension.component(),
-  });
+const authenticationManager = resolveAuthenticationManager();
+
+function login() {
+  authenticationManager?.start();
 }
 </script>
 
 <template>
-  <component
-    :is="uix.component"
-    v-for="uix in uiExtensions"
-    :key="uix.id"
-  ></component>
+  <x-btn
+    v-if="authenticationManager"
+    size="small"
+    type="submit"
+    variant="primary"
+    @click="login"
+  >
+    {{ t("login") }}
+  </x-btn>
 </template>
 
 <style scoped></style>

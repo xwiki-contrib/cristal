@@ -17,25 +17,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import {
-  UIExtension,
-  UIExtensionsManager,
-} from "@xwiki/cristal-uiextension-api";
-import { injectable, multiInject } from "inversify";
-import { filter, sortBy } from "lodash";
 
-@injectable()
-export class DefaultUIExtensionsManager implements UIExtensionsManager {
-  constructor(
-    @multiInject("UIExtension") private uiExtensions: UIExtension[],
-  ) {}
+/**
+ * @since 0.11
+ */
+interface AuthenticationManager {
+  /**
+   *  Starts the authentication process.
+   */
+  start(): void;
 
-  async list(name: string): Promise<UIExtension[]> {
-    const filtered = filter(
-      this.uiExtensions,
-      (uix) => uix.uixpName === name && uix.enabled(),
-    );
+  /**
+   * Handle the callback.
+   */
+  callback(): Promise<void>;
 
-    return sortBy(filtered, [(uix) => uix.order]);
-  }
+  /**
+   * Returns the currently registered authorization header
+   */
+  getAuthorizationHeader(): string | undefined;
+
+  /**
+   * @return true of the current user is authenticated
+   */
+  isAuthenticated(): boolean;
 }
+
+export { type AuthenticationManager };

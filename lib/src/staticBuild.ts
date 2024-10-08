@@ -36,6 +36,8 @@ import { ComponentInit as InfoActionsComponentInit } from "@xwiki/cristal-info-a
 import { ComponentInit as AttachmentsUIComponentInit } from "@xwiki/cristal-attachments-ui";
 import { ComponentInit as AttachmentsDefaultComponentInit } from "@xwiki/cristal-attachments-default";
 import { ComponentInit as UIExtensionDefaultComponentInit } from "@xwiki/cristal-uiextension-default";
+import { ComponentInit as AuthenticationUIComponentInit } from "@xwiki/cristal-authentication-ui";
+import { ComponentInit as AuthenticationXWikiComponentInit } from "@xwiki/cristal-authentication-xwiki";
 import type { Container } from "inversify";
 
 export class StaticBuild {
@@ -66,6 +68,8 @@ export class StaticBuild {
       new AttachmentsUIComponentInit(container);
       new AttachmentsDefaultComponentInit(container);
       new UIExtensionDefaultComponentInit(container);
+      new AuthenticationUIComponentInit(container);
+      new AuthenticationXWikiComponentInit(container);
     }
     if (additionalComponents) {
       additionalComponents(container);

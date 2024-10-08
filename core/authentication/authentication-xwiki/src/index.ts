@@ -17,25 +17,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import {
-  UIExtension,
-  UIExtensionsManager,
-} from "@xwiki/cristal-uiextension-api";
-import { injectable, multiInject } from "inversify";
-import { filter, sortBy } from "lodash";
+import type { Container } from "inversify";
+import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+import { XWikiAuthenticationManager } from "./XWikiAuthenticationManager";
 
-@injectable()
-export class DefaultUIExtensionsManager implements UIExtensionsManager {
-  constructor(
-    @multiInject("UIExtension") private uiExtensions: UIExtension[],
-  ) {}
-
-  async list(name: string): Promise<UIExtension[]> {
-    const filtered = filter(
-      this.uiExtensions,
-      (uix) => uix.uixpName === name && uix.enabled(),
-    );
-
-    return sortBy(filtered, [(uix) => uix.order]);
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<AuthenticationManager>("AuthenticationManager")
+      .to(XWikiAuthenticationManager)
+      .inSingletonScope()
+      .whenTargetNamed("XWiki");
   }
 }
