@@ -18,16 +18,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
 import axios from "axios";
 import Cookies, { type CookieAttributes } from "js-cookie";
-import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
-import { type UserDetails } from "@xwiki/cristal-authentication-api";
+import {
+  AuthenticationManager,
+  type UserDetails,
+} from "@xwiki/cristal-authentication-api";
 
 /**
  * @since 0.11
  */
-
 @injectable()
 export class XWikiAuthenticationManager implements AuthenticationManager {
   constructor(
@@ -40,20 +41,13 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
 
   private readonly localStorageTokenUrlKey = "authentication.token_url";
 
-  private readonly tokenTypeCookieKey = "tokenType";
+  private readonly tokenTypeCookieKeyPrefix = "tokenType";
 
-  private readonly accessTokenCookieKey = "accessToken";
-
-  /**
-   * TODO: bind the token to a given XWIki backend. For now all the xwiki connections
-   * thinks they are logging in as long a the authentication to any instance is done.
-   * This is also going to be useful for logging out.
-   */
+  private readonly accessTokenCookieKeyPrefix = "accessToken";
 
   start(): void {
     const config = this.cristalApp.getWikiConfig();
-    const baseUrl = config.baseURL;
-    const authorizationUrl = new URL(`${baseUrl}/oidc/authorization`);
+    const authorizationUrl = new URL(`${config.baseURL}/oidc/authorization`);
     authorizationUrl.searchParams.set("response_type", "code");
     // TODO: this client ID should be configurable somewhere.
     authorizationUrl.searchParams.set("client_id", "Cristal");
@@ -71,6 +65,7 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
 
     // TODO: to be moved as part of a more generic API
     window.localStorage.setItem("currentConfigType", config.getType());
+    window.localStorage.setItem("currentConfigName", config.name);
 
     authorizationUrl.searchParams.set("redirect_uri", redirectUri);
     // TODO: generalize to have electron support
@@ -98,13 +93,23 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     };
     const { data: tokenData } = await axios.post(tokenUrl, data, config);
     const { access_token: accessToken, token_type: tokenType } = tokenData;
-    // FIXME: the current way we store tokens is vulnerable to XSS
     const cookiesOptions: CookieAttributes = {
       secure: true,
       sameSite: "strict",
     };
-    Cookies.set(this.accessTokenCookieKey, accessToken, cookiesOptions);
-    Cookies.set(this.tokenTypeCookieKey, tokenType, cookiesOptions);
+
+    const configName = window.localStorage.getItem("currentConfigName")!;
+
+    Cookies.set(
+      this.getAccessTokenCookieKey(configName),
+      accessToken,
+      cookiesOptions,
+    );
+    Cookies.set(
+      this.getTokenTypeCookieKey(configName),
+      tokenType,
+      cookiesOptions,
+    );
     // Redirect to the page where the user was before starting the log-in.
     window.location.href = window.localStorage.getItem(
       this.localStorageOriginKey,
@@ -127,11 +132,6 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
   }
 
   async logout(): Promise<void> {
-    // Must be a POST
-    // * id_token_hint=
-    // * post_logout_redirect_uri=current page
-    // * state=af0ifjsldkj
-
     const config = this.cristalApp.getWikiConfig();
     const logoutUrl = `${config.baseURL}/oidc/userinfo`;
     const data = {
@@ -141,13 +141,13 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     };
 
     await axios.post(logoutUrl, {}, data);
-    Cookies.remove(this.tokenTypeCookieKey);
-    Cookies.remove(this.accessTokenCookieKey);
+    Cookies.remove(this.getTokenTypeCookieKey());
+    Cookies.remove(this.getAccessTokenCookieKey());
   }
 
   getAuthorizationHeader(): string | undefined {
     if (this.isAuthenticated()) {
-      return `${this.getTokenType()} ${Cookies.get(this.accessTokenCookieKey)}`;
+      return `${this.getTokenType()} ${Cookies.get(this.getAccessTokenCookieKey())}`;
     }
   }
 
@@ -158,10 +158,28 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
   }
 
   private getTokenType() {
-    return Cookies.get(this.tokenTypeCookieKey);
+    return Cookies.get(this.getTokenTypeCookieKey());
   }
 
   private getAccessToken() {
-    return Cookies.get(this.accessTokenCookieKey);
+    return Cookies.get(this.getAccessTokenCookieKey());
+  }
+
+  private getAccessTokenCookieKey(configName?: string) {
+    const config = this.resolveConfig(configName);
+    return `${this.accessTokenCookieKeyPrefix}-${config?.baseURL}`;
+  }
+
+  private getTokenTypeCookieKey(configName?: string) {
+    const baseURL = this.resolveConfig(configName).baseURL;
+    return `${this.tokenTypeCookieKeyPrefix}-${baseURL}`;
+  }
+
+  private resolveConfig(configName?: string): WikiConfig {
+    if (configName !== undefined) {
+      return this.cristalApp.getAvailableConfigurations().get(configName)!;
+    } else {
+      return this.cristalApp.getWikiConfig();
+    }
   }
 }

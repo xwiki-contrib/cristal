@@ -24,6 +24,8 @@ import { AuthenticationManager } from "./authenticationManager";
 import { type CristalApp } from "@xwiki/cristal-api";
 
 /**
+ * Default implementation of the authentication manager. Resolve the class
+ * by looking for a component with the provided name in inversify.
  * @since 0.11
  */
 @injectable()
