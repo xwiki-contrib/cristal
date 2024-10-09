@@ -22,6 +22,7 @@ import type { CristalApp } from "@xwiki/cristal-api";
 import axios from "axios";
 import Cookies, { type CookieAttributes } from "js-cookie";
 import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+import { type UserDetails } from "@xwiki/cristal-authentication-api";
 
 /**
  * @since 0.11
@@ -42,6 +43,12 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
   private readonly tokenTypeCookieKey = "tokenType";
 
   private readonly accessTokenCookieKey = "accessToken";
+
+  /**
+   * TODO: bind the token to a given XWIki backend. For now all the xwiki connections
+   * thinks they are logging in as long a the authentication to any instance is done.
+   * This is also going to be useful for logging out.
+   */
 
   start(): void {
     const config = this.cristalApp.getWikiConfig();
@@ -102,6 +109,21 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     window.location.href = window.localStorage.getItem(
       this.localStorageOriginKey,
     )!;
+  }
+
+  async getUserDetails(): Promise<UserDetails> {
+    const config = this.cristalApp.getWikiConfig();
+    const userinfoUrl = `${config.baseURL}/oidc/userinfo`;
+    const data = {
+      headers: {
+        Authorization: this.getAuthorizationHeader(),
+      },
+    };
+    const {
+      data: { profile, name },
+    } = await axios.get(userinfoUrl, data);
+
+    return { profile, name };
   }
 
   getAuthorizationHeader(): string | undefined {
