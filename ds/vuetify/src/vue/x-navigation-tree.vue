@@ -18,6 +18,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+/**
+ * Navigation Tree implemented using Vuetify's VTreeView component.
+ * In order to use the initial component as a proper Navigation Tree for
+ * Cristal, a few changes were made:
+ *   - The only node activated matches the current page, or the clicked link if
+ *     the component has a custom clickAction. We want to use actual links so
+ *     that the user can click them normally (to e.g., open them in a new tab).
+ *     So the default behavior of activating a node by clicking anywhere on the
+ *     item was disabled. Default hover effects, such as darkening or changing
+ *     the cursor on items, were also disabled.
+ */
 import { Ref, onBeforeMount, ref, watch } from "vue";
 import { VTreeview } from "vuetify/labs/VTreeview";
 import { type PageData } from "@xwiki/cristal-api";

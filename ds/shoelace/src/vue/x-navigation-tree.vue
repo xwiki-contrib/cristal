@@ -18,6 +18,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+/**
+ * Navigation Tree implemented using Shoelace's Tree component.
+ * In order to use the initial component as a proper Navigation Tree for
+ * Cristal, a few changes were made:
+ *   - The list of rendered nodes is kept and updated using a mutation
+ *     observer. This lets us access them to expand and/or select them to match
+ *     the page currently opened.
+ *   - The only node selected matches the current page, or the clicked link if
+ *     the component has a custom clickAction. We want to use actual links so
+ *     that the user can click them normally (to e.g., open them in a new tab).
+ *     So the default behavior of selecting a node by clicking anywhere on the
+ *     item was disabled. Default hover effects, such as changing the cursor
+ *     on items, were also disabled.
+ */
 import { type Ref, onBeforeMount, onMounted, ref, watch } from "vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
