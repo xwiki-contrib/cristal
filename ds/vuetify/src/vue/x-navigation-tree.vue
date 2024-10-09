@@ -28,9 +28,8 @@ import type {
 
 type TreeItem = {
   id: string;
-  href: undefined;
   title: string;
-  url: string;
+  href: string;
   children?: Array<TreeItem>;
   _location: string;
 };
@@ -53,9 +52,8 @@ onBeforeMount(async () => {
   for (const node of await props.treeSource.getChildNodes("")) {
     rootNodes.value.push({
       id: node.id,
-      href: undefined, // This needs to be explicit to disable mouse pointer.
       title: node.label,
-      url: node.url,
+      href: node.url,
       children: node.has_children ? [] : undefined,
       _location: node.location,
     });
@@ -104,7 +102,7 @@ async function expandTree() {
             id: node.id,
             label: node.title,
             location: node._location,
-            url: node.url,
+            url: node.href,
             has_children: node.children !== undefined,
           });
         }
@@ -119,9 +117,8 @@ async function lazyLoadChildren(item: unknown) {
   for (const child of childNodes) {
     treeItem.children?.push({
       id: child.id,
-      href: undefined,
       title: child.label,
-      url: child.url,
+      href: child.url,
       children: child.has_children ? [] : undefined,
       _location: child.location,
     });
@@ -151,7 +148,6 @@ function clearSelection() {
     :load-children="lazyLoadChildren"
     activatable
     active-strategy="independent"
-    density="compact"
     item-value="id"
     open-strategy="multiple"
     @update:activated="clearSelection"
@@ -159,26 +155,31 @@ function clearSelection() {
     <template #title="{ item }: { item: any }">
       <a
         v-if="props.clickAction"
-        :href="item.url"
+        :href="item.href"
         @click.prevent="
           activatedNodes = [item.id];
           clickAction!({
             id: item.id,
             label: item.title,
             location: item._location,
-            url: item.url,
+            url: item.href,
             has_children: item.children !== undefined,
           });
         "
         >{{ item.title }}</a
       >
-      <a v-else :href="item.url">{{ item.title }}</a>
+      <a v-else :href="item.href">{{ item.title }}</a>
     </template>
   </v-treeview>
 </template>
 
 <style scoped>
+/* Disable hover on items. */
 :deep(.v-list-item__overlay) {
   --v-hover-opacity: 0;
+}
+/* Disable hand cursor on items. */
+:deep(.v-list-item--link) {
+  cursor: default;
 }
 </style>

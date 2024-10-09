@@ -187,6 +187,7 @@ function lazyLoadChildren(id: string) {
 </template>
 
 <style scoped>
+/* Disable hand cursor on items. */
 :deep(sl-tree-item)::part(base) {
   cursor: default;
 }
