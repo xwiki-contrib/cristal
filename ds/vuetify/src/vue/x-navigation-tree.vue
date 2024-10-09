@@ -162,4 +162,11 @@ async function lazyLoadChildren(item: unknown) {
   </v-treeview>
 </template>
 
-<style scoped></style>
+<style scoped>
+.v-list {
+  background: none;
+}
+:deep(a) {
+  text-decoration: none;
+  color: var(--cr-base-text-color);
+}</style>

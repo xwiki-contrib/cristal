@@ -173,4 +173,9 @@ function lazyLoadChildren(id: string) {
   </sl-tree>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep(a) {
+  text-decoration: none;
+  color: var(--cr-base-text-color);
+}
+</style>

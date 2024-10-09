@@ -297,7 +297,6 @@ onUpdated(() => {
     "title"
     "info-user";
   gap: var(--cr-spacing-x-small);
-  padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-large);
   top: 0;
   background: white;
   z-index: 1;

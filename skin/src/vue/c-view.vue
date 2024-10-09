@@ -84,6 +84,9 @@ function onCollapseMainSidebar() {
   </div>
 </template>
 <style scoped>
+:global(*) {
+  box-sizing: border-box;
+}
 :global(.xw-cristal) {
   container: xwCristal;
   container-type: size;
@@ -144,7 +147,7 @@ main {
   min-width: var(--cr-sizes-main-sidebar-min-width);
   max-width: 100%;
   position: relative;
-  background-color: var(--cr-color-neutral-100);
+  background-color: var(--cr-color-neutral-50);
   display: flex;
   flex-flow: column;
   gap: var(--cr-spacing-small);
