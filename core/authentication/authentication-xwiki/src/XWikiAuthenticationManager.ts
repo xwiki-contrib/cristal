@@ -126,6 +126,25 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     return { profile, name };
   }
 
+  async logout(): Promise<void> {
+    // Must be a POST
+    // * id_token_hint=
+    // * post_logout_redirect_uri=current page
+    // * state=af0ifjsldkj
+
+    const config = this.cristalApp.getWikiConfig();
+    const logoutUrl = `${config.baseURL}/oidc/userinfo`;
+    const data = {
+      headers: {
+        Authorization: this.getAuthorizationHeader(),
+      },
+    };
+
+    await axios.post(logoutUrl, {}, data);
+    Cookies.remove(this.tokenTypeCookieKey);
+    Cookies.remove(this.accessTokenCookieKey);
+  }
+
   getAuthorizationHeader(): string | undefined {
     if (this.isAuthenticated()) {
       return `${this.getTokenType()} ${Cookies.get(this.accessTokenCookieKey)}`;
