@@ -18,6 +18,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+/**
+ * Navigation Tree implemented using Shoelace's Tree component.
+ * In order to use the initial component as a proper Navigation Tree for
+ * Cristal, a few changes were made:
+ *   - The list of rendered nodes is kept and updated using a mutation
+ *     observer. This lets us access them to expand and/or select them to match
+ *     the page currently opened.
+ *   - The only node selected matches the current page, or the clicked link if
+ *     the component has a custom clickAction. We want to use actual links so
+ *     that the user can click them normally (to e.g., open them in a new tab).
+ *     So the default behavior of selecting a node by clicking anywhere on the
+ *     item was disabled. Default hover effects, such as changing the cursor
+ *     on items, were also disabled.
+ */
 import { type Ref, onBeforeMount, onMounted, ref, watch } from "vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
@@ -76,11 +90,7 @@ function expandTree() {
       }
     }
     if (treeItems.value.has(expandedNodes[i])) {
-      if (selectedTreeItem) {
-        selectedTreeItem.selected = false;
-      }
-      treeItems.value.get(expandedNodes[i])!.selected = true;
-      selectedTreeItem = treeItems.value.get(expandedNodes[i]);
+      updateSelection(expandedNodes[i]);
       // If we have a custom click action, we want to use it on dynamic
       // selection.
       if (props.clickAction) {
@@ -89,6 +99,14 @@ function expandTree() {
       expandNodes = false;
     }
   }
+}
+
+function updateSelection(id: string) {
+  if (selectedTreeItem) {
+    selectedTreeItem.selected = false;
+  }
+  selectedTreeItem = treeItems.value.get(id);
+  selectedTreeItem!.selected = true;
 }
 
 function onMutation(mutationList: Array<MutationRecord>) {
@@ -106,8 +124,13 @@ function onMutation(mutationList: Array<MutationRecord>) {
 }
 
 function onSelectionChange(event: unknown) {
-  selectedTreeItem = (event as { detail: { selection: SlTreeItem[] } }).detail
-    .selection[0];
+  // We don't want users to manually select a node, so we undo any change.
+  (
+    event as { detail: { selection: SlTreeItem[] } }
+  ).detail.selection[0].selected = false;
+  if (selectedTreeItem) {
+    selectedTreeItem!.selected = true;
+  }
 }
 
 function lazyLoadChildren(id: string) {
@@ -125,6 +148,7 @@ function lazyLoadChildren(id: string) {
         treeItem
           .getElementsByTagName("a")[0]
           .addEventListener("click", (event) => {
+            updateSelection(child.id);
             props.clickAction!(child);
             event.preventDefault();
           });
@@ -165,7 +189,10 @@ function lazyLoadChildren(id: string) {
       <a
         v-if="props.clickAction"
         :href="item.url"
-        @click.prevent="clickAction!(item)"
+        @click.prevent="
+          updateSelection(item.id);
+          clickAction!(item);
+        "
         >{{ item.label }}</a
       >
       <a v-else :href="item.url">{{ item.label }}</a>
@@ -173,4 +200,9 @@ function lazyLoadChildren(id: string) {
   </sl-tree>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* Disable hand cursor on items. */
+:deep(sl-tree-item)::part(base) {
+  cursor: default;
+}
+</style>
