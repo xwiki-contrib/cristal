@@ -76,11 +76,7 @@ function expandTree() {
       }
     }
     if (treeItems.value.has(expandedNodes[i])) {
-      if (selectedTreeItem) {
-        selectedTreeItem.selected = false;
-      }
-      treeItems.value.get(expandedNodes[i])!.selected = true;
-      selectedTreeItem = treeItems.value.get(expandedNodes[i]);
+      updateSelection(expandedNodes[i]);
       // If we have a custom click action, we want to use it on dynamic
       // selection.
       if (props.clickAction) {
@@ -89,6 +85,14 @@ function expandTree() {
       expandNodes = false;
     }
   }
+}
+
+function updateSelection(id: string) {
+  if (selectedTreeItem) {
+    selectedTreeItem.selected = false;
+  }
+  selectedTreeItem = treeItems.value.get(id);
+  selectedTreeItem!.selected = true;
 }
 
 function onMutation(mutationList: Array<MutationRecord>) {
@@ -106,8 +110,13 @@ function onMutation(mutationList: Array<MutationRecord>) {
 }
 
 function onSelectionChange(event: unknown) {
-  selectedTreeItem = (event as { detail: { selection: SlTreeItem[] } }).detail
-    .selection[0];
+  // We don't want users to manually select a node, so we undo any change.
+  (
+    event as { detail: { selection: SlTreeItem[] } }
+  ).detail.selection[0].selected = false;
+  if (selectedTreeItem) {
+    selectedTreeItem!.selected = true;
+  }
 }
 
 function lazyLoadChildren(id: string) {
@@ -125,6 +134,7 @@ function lazyLoadChildren(id: string) {
         treeItem
           .getElementsByTagName("a")[0]
           .addEventListener("click", (event) => {
+            updateSelection(child.id);
             props.clickAction!(child);
             event.preventDefault();
           });
@@ -165,7 +175,10 @@ function lazyLoadChildren(id: string) {
       <a
         v-if="props.clickAction"
         :href="item.url"
-        @click.prevent="clickAction!(item)"
+        @click.prevent="
+          updateSelection(item.id);
+          clickAction!(item);
+        "
         >{{ item.label }}</a
       >
       <a v-else :href="item.url">{{ item.label }}</a>
@@ -173,4 +186,8 @@ function lazyLoadChildren(id: string) {
   </sl-tree>
 </template>
 
-<style scoped></style>
+<style scoped>
+:deep(sl-tree-item)::part(base) {
+  cursor: default;
+}
+</style>
