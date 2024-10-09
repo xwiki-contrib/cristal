@@ -47,6 +47,8 @@ interface AuthenticationManager {
   isAuthenticated(): boolean;
 
   getUserDetails(): Promise<UserDetails>;
+
+  logout(): Promise<void>;
 }
 
 export { type AuthenticationManager };

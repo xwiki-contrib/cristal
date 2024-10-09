@@ -11,15 +11,20 @@ const authenticationManager = cristal
   .get()!;
 
 const { profile, name } = await authenticationManager.getUserDetails();
+
+function logout() {
+  authenticationManager.logout().then(() => window.location.reload());
+}
 </script>
 
 <template>
   <!-- TODO: localize this string. -->
 
   You are logged in as <a :href="profile">{{ name }}</a>
-
+  <br />
+  <br />
   <!-- TODO: -->
-  <x-btn variant="danger">Logout</x-btn>
+  <x-btn variant="danger" @click.prevent="logout">Logout</x-btn>
 </template>
 
 <style scoped></style>
