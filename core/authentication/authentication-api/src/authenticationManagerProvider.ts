@@ -21,9 +21,17 @@
 import { AuthenticationManager } from "./authenticationManager";
 
 /**
+ * Help to resolve the right Authentication Manager based on the backend
+ * type.
+ *
  * @since 0.11
  */
 interface AuthenticationManagerProvider {
+  /**
+   *
+   * @param type the identifier of the backend type
+   * @return the AuthenticationManager registered for the backend type, or undefined if none was fond
+   */
   get(type?: string): AuthenticationManager | undefined;
 }
 

@@ -42,7 +42,6 @@ export class LoggedInMenuUIExtension implements UIExtension {
   }
 
   enabled(): boolean {
-    // TODO: check if user currently logged in.
     return this.authenticationManager.get()?.isAuthenticated() || false;
   }
 }

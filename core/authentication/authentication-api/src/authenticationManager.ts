@@ -46,8 +46,14 @@ interface AuthenticationManager {
    */
   isAuthenticated(): boolean;
 
+  /**
+   * Returns the user details for the current user.
+   */
   getUserDetails(): Promise<UserDetails>;
 
+  /**
+   * Logs out the current user.
+   */
   logout(): Promise<void>;
 }
 
