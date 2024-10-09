@@ -21,12 +21,17 @@
 import { Container } from "inversify";
 import { UIExtension } from "@xwiki/cristal-uiextension-api";
 import { LoginMenuUIExtension } from "./LoginMenuUIExtension";
+import { LoggedInMenuUIExtension } from "./LoggedInMenuUIExtension";
 
 export class ComponentInit {
   constructor(container: Container) {
     container
       .bind<UIExtension>("UIExtension")
       .to(LoginMenuUIExtension)
+      .inSingletonScope();
+    container
+      .bind<UIExtension>("UIExtension")
+      .to(LoggedInMenuUIExtension)
       .inSingletonScope();
   }
 }

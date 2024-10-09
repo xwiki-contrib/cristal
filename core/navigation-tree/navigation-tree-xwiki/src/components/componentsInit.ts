@@ -25,6 +25,7 @@ import {
   type NavigationTreeNode,
   type NavigationTreeSource,
 } from "@xwiki/cristal-navigation-tree-api";
+import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 /**
  * Implementation of NavigationTreeSource for the XWiki backend.
@@ -39,6 +40,8 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
   constructor(
     @inject<Logger>("Logger") logger: Logger,
     @inject<CristalApp>("CristalApp") cristalApp: CristalApp,
+    @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+    private authenticationManagerProvider: AuthenticationManagerProvider,
   ) {
     this.logger = logger;
     this.logger.setModule(
@@ -66,7 +69,13 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
         .getWikiConfig()
         .baseURL.replace(/\/[^/]*$/, "");
       const response = await fetch(navigationTreeRequestUrl, {
-        headers: { Accept: "application/json" },
+        headers: {
+          Accept: "application/json",
+          Authorization:
+            this.authenticationManagerProvider
+              .get()
+              ?.getAuthorizationHeader() || "",
+        },
       });
       const jsonResponse = await response.json();
       jsonResponse.forEach(
