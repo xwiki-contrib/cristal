@@ -28,6 +28,7 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 /**
  * The type of individual attachments.
@@ -60,7 +61,11 @@ type AttachmentsRest = {
 
 @injectable()
 export class XWikiStorage extends AbstractStorage {
-  constructor(@inject<Logger>("Logger") logger: Logger) {
+  constructor(
+    @inject<Logger>("Logger") logger: Logger,
+    @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+    private authenticationManagerProvider: AuthenticationManagerProvider,
+  ) {
     super(logger, "storage.components.xwikiStorage");
   }
 
@@ -280,7 +285,9 @@ export class XWikiStorage extends AbstractStorage {
   private getCredentials() {
     return {
       // TODO: externalize credentials
-      Authorization: `Basic ${btoa("Admin:admin")}`,
+      Authorization:
+        this.authenticationManagerProvider.get()?.getAuthorizationHeader() ||
+        "",
     };
   }
 

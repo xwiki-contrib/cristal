@@ -18,7 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { type UserDetails } from "./userDetails";
+
 /**
+ * Interface to implement for a given backend to allow users to authenticate.
+ *
  * @since 0.11
  */
 interface AuthenticationManager {
@@ -41,6 +45,8 @@ interface AuthenticationManager {
    * @return true of the current user is authenticated
    */
   isAuthenticated(): boolean;
+
+  getUserDetails(): Promise<UserDetails>;
 }
 
 export { type AuthenticationManager };
