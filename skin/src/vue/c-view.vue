@@ -113,7 +113,7 @@ function onCollapseMainSidebar() {
 }
 
 :deep(.doc-content),
-:deep(.doc-header),
+:deep(.doc-header-inner),
 :deep(.doc-info-extra) {
   max-width: var(--cr-sizes-max-page-width);
   width: 100%;

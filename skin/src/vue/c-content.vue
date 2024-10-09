@@ -157,34 +157,36 @@ onUpdated(() => {
     </div>
 
     <div class="doc-header">
-      <h1 class="doc-title">{{ title }}</h1>
-      <div class="doc-info">
-        <span class="doc-info-user-info">
-          <x-avatar class="avatar" :image="avImg" size="2rem"></x-avatar>
-          User Name edited on 12/12/2024 at 12:00
-        </span>
-        <!-- TODO: add a way to inject those by extension
+      <div class="doc-header-inner">
+        <h1 class="doc-title">{{ title }}</h1>
+        <div class="doc-info">
+          <span class="doc-info-user-info">
+            <x-avatar class="avatar" :image="avImg" size="2rem"></x-avatar>
+            User Name edited on 12/12/2024 at 12:00
+          </span>
+          <!-- TODO: add a way to inject those by extension
                and provide one for the number of attachments.
               It must be reactive whenever the attachment store is updated -->
-        <div class="doc-info-actions">
-          <suspense>
-            <info-actions></info-actions>
-          </suspense>
-          <div class="doc-page-actions">
-            <router-link
-              :to="{
-                name: 'edit',
-                params: { page: currentPageName },
-              }"
-            >
+          <div class="doc-info-actions">
+            <suspense>
+              <info-actions></info-actions>
+            </suspense>
+            <div class="doc-page-actions">
+              <router-link
+                :to="{
+                  name: 'edit',
+                  params: { page: currentPageName },
+                }"
+              >
+                <x-btn size="small">
+                  <c-icon name="pencil" :size="Size.Small"></c-icon>
+                  Edit
+                </x-btn>
+              </router-link>
               <x-btn size="small">
-                <c-icon name="pencil" :size="Size.Small"></c-icon>
-                Edit
+                <c-icon name="three-dots-vertical" :size="Size.Small"></c-icon>
               </x-btn>
-            </router-link>
-            <x-btn size="small">
-              <c-icon name="three-dots-vertical" :size="Size.Small"></c-icon>
-            </x-btn>
+            </div>
           </div>
         </div>
       </div>
@@ -198,8 +200,8 @@ onUpdated(() => {
       class="doc-content"
       v-html="content"
     ></div>
-    <div v-else class="unknown-page">
-      The requested page could not be found. You can edit the page to create it.
+    <div v-else class="doc-content unknown-page">
+      <p>The requested page could not be found. You can edit the page to create it.</p>
     </div>
     <!-- The footer is not displayed in case of unknown page. -->
     <div v-if="content" class="doc-info-extra">
