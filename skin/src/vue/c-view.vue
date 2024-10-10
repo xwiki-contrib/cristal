@@ -117,15 +117,23 @@ function onCollapseMainSidebar() {
 }
 .wrapper {
   display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  grid-column-gap: var(--cr-spacing-2x-large);
+  grid-row-gap: 0px;
+  grid-template-areas:
+    "main-sidebar wiki-header"
+    "main-sidebar main-content"
+    "main-sidebar wiki-footer";
+  height: 100%;
+}
+.wrapper:has(.secondary-sidebar) {
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 1fr auto;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
   grid-template-areas:
     "main-sidebar wiki-header secondary-sidebar"
     "main-sidebar main-content secondary-sidebar"
     "main-sidebar wiki-footer secondary-sidebar";
-  height: 100%;
 }
 
 main {

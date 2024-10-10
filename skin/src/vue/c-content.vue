@@ -246,7 +246,7 @@ onUpdated(() => {
 }
 :global(.doc-content),
 :global(.doc-header-inner) {
-  padding: 0 var(--cr-spacing-2x-large);
+  padding: 0;
 }
 :global(.doc-content table) {
   max-width: 100%;
@@ -371,7 +371,7 @@ onUpdated(() => {
 }
 
 .page-header {
-  padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-large);
+  padding: var(--cr-spacing-x-small) 0;
   display: flex;
   flex-wrap: wrap;
   gap: var(--cr-spacing-medium);
