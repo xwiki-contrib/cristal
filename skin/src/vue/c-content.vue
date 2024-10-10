@@ -362,7 +362,7 @@ onUpdated(() => {
 }
 
 .page-header {
-  padding: var(--cr-spacing-x-small) 0;
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-large);
   display: flex;
   flex-wrap: wrap;
   gap: var(--cr-spacing-medium);
