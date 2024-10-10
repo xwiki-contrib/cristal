@@ -241,7 +241,9 @@ onUpdated(() => {
 :global(.content:has(.edit-wrapper)) {
   grid-template-rows: 1fr;
 }
-
+:global(.content > .edit-wrapper) {
+  grid-template-rows: auto 1fr;
+}
 :global(.doc-content),
 :global(.doc-header-inner) {
   padding: 0 var(--cr-spacing-2x-large);
