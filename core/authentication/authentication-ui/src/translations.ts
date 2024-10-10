@@ -20,7 +20,7 @@
 
 import en from "../langs/translation-en.json";
 
-const translations: Record<string, Record<string, string>> = {
+const translations = {
   en,
 };
 export default translations;
