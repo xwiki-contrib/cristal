@@ -104,14 +104,6 @@ function onCollapseMainSidebar() {
   height: 100%;
 }
 
-:deep(#edit) {
-  display: flex;
-  flex-flow: column;
-  grid-area: content;
-  height: 100%;
-  overflow: auto;
-}
-
 :deep(.doc-content),
 :deep(.doc-header-inner),
 :deep(.doc-info-extra) {

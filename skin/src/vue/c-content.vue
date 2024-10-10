@@ -201,7 +201,10 @@ onUpdated(() => {
       v-html="content"
     ></div>
     <div v-else class="doc-content unknown-page">
-      <p>The requested page could not be found. You can edit the page to create it.</p>
+      <p>
+        The requested page could not be found. You can edit the page to create
+        it.
+      </p>
     </div>
     <!-- The footer is not displayed in case of unknown page. -->
     <div v-if="content" class="doc-info-extra">
@@ -228,11 +231,15 @@ onUpdated(() => {
 
 /*TABLE STYLES*/
 /*TODO: Check a better way to write these styles without the global tag. Currently impossible to use :deep because the html inside the document content is not assigned an ID */
-.content {
+:global(.content),
+:global(.content > .edit-wrapper) {
   display: grid;
   grid-template-rows: 56px auto auto 1fr;
   overflow: auto;
   height: 100%;
+}
+:global(.content:has(.edit-wrapper)) {
+  grid-template-rows: 1fr;
 }
 
 :global(.doc-content),
@@ -294,7 +301,7 @@ onUpdated(() => {
   display: block;
 }
 
-.doc-header {
+:global(.doc-header) {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: 1fr;
