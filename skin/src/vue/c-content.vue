@@ -215,7 +215,7 @@ onUpdated(() => {
 </template>
 <style scoped>
 .content {
-  padding: 0 var(--cr-spacing-2x-large);
+  padding: 0;
 }
 
 .content-loading {
@@ -233,6 +233,11 @@ onUpdated(() => {
   grid-template-rows: 56px auto auto 1fr;
   overflow: auto;
   height: 100%;
+}
+
+:global(.doc-content),
+:global(.doc-header-inner) {
+  padding: 0 var(--cr-spacing-2x-large);
 }
 :global(.doc-content table) {
   max-width: 100%;

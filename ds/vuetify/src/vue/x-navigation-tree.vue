@@ -135,6 +135,7 @@ async function lazyLoadChildren(item: unknown) {
     ref="tree"
     v-model:activated="activatedNodes"
     v-model:opened="expandedNodes"
+    density="compact"
     :items="rootNodes"
     :load-children="lazyLoadChildren"
     activatable
