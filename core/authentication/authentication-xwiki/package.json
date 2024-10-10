@@ -1,12 +1,12 @@
 {
-  "name": "@xwiki/cristal-backend-xwiki",
+  "name": "@xwiki/cristal-authentication-xwiki",
   "version": "0.10.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
     "type": "git",
-    "directory": "/core/backend/backend-xwiki",
+    "directory": "/core/authentication/authentication-xwiki",
     "url": "https://github.com/xwiki-contrib/cristal/"
   },
   "bugs": {
@@ -18,18 +18,16 @@
   },
   "main": "./src/index.ts",
   "scripts": {
+    "clean": "rimraf dist",
     "build": "tsc --project tsconfig.json && vite build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
-    "test": "vitest --run"
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-authentication-api": "workspace:*",
-    "@xwiki/cristal-backend-api": "workspace:*",
-    "inversify": "6.0.2"
-  },
-  "devDependencies": {
-    "reflect-metadata": "0.2.2"
+    "axios": "1.7.7",
+    "inversify": "6.0.2",
+    "js-cookie": "3.0.5"
   },
   "publishConfig": {
     "exports": {
@@ -41,5 +39,8 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "3.0.6"
   }
 }

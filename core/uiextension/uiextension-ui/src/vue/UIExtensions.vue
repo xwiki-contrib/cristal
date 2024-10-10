@@ -17,39 +17,37 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script lang="ts" setup>
-import "@shoelace-style/shoelace/dist/components/dialog/dialog";
 
-defineProps<{
-  title: string;
-  width: string | number | undefined;
+<script lang="ts" setup>
+import { type Component, inject } from "vue";
+import { CristalApp } from "@xwiki/cristal-api";
+import { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
+//
+const { uixName } = defineProps<{
+  uixName: string;
 }>();
 
-function click() {
-  open.value = true;
-}
+const cristal = inject<CristalApp>("cristal")!;
 
-const open = defineModel<boolean>();
+const uixManager: UIExtensionsManager = cristal
+  .getContainer()
+  .get<UIExtensionsManager>("UIExtensionsManager")!;
+
+const uiExtensions: { id: string; component: Component }[] = [];
+for (let uiExtension of await uixManager.list(uixName)) {
+  uiExtensions.push({
+    id: uiExtension.id,
+    component: await uiExtension.component(),
+  });
+}
 </script>
+
 <template>
-  <span @click="click">
-    <slot name="activator" />
-  </span>
-  <sl-dialog
-    v-if="open"
-    :open="open"
-    :label="title"
-    class="dialog-overview"
-    @sl-show="open = true"
-    @sl-hide="open = false"
-  >
-    <slot name="default" />
-  </sl-dialog>
+  <component
+    :is="uix.component"
+    v-for="uix in uiExtensions"
+    :key="uix.id"
+  ></component>
 </template>
 
-<style scoped>
-sl-dialog {
-  --width: v-bind(width);
-  --body-spacing: 0 1.25rem 1.25rem;
-}
-</style>
+<style scoped></style>

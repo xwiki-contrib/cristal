@@ -17,39 +17,40 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
+
 <script lang="ts" setup>
-import "@shoelace-style/shoelace/dist/components/dialog/dialog";
+import messages from "../translations";
+import { useI18n } from "vue-i18n";
+import { inject } from "vue";
+import { CristalApp } from "@xwiki/cristal-api";
+import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
-defineProps<{
-  title: string;
-  width: string | number | undefined;
-}>();
+const { t } = useI18n({
+  messages,
+});
 
-function click() {
-  open.value = true;
+const cristal = inject<CristalApp>("cristal")!;
+
+const authenticationManager = cristal
+  .getContainer()
+  .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+  .get();
+
+function login() {
+  authenticationManager?.start();
 }
-
-const open = defineModel<boolean>();
 </script>
+
 <template>
-  <span @click="click">
-    <slot name="activator" />
-  </span>
-  <sl-dialog
-    v-if="open"
-    :open="open"
-    :label="title"
-    class="dialog-overview"
-    @sl-show="open = true"
-    @sl-hide="open = false"
+  <x-btn
+    v-if="authenticationManager"
+    size="small"
+    type="submit"
+    variant="primary"
+    @click="login"
   >
-    <slot name="default" />
-  </sl-dialog>
+    {{ t("login") }}
+  </x-btn>
 </template>
 
-<style scoped>
-sl-dialog {
-  --width: v-bind(width);
-  --body-spacing: 0 1.25rem 1.25rem;
-}
-</style>
+<style scoped></style>
