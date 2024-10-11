@@ -18,5 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-/// <reference types="vite-plugin-comlink/client" />
-// eslint-disable-line
+import { mergeConfig } from "vitest/config";
+import defaultConfig from "@xwiki/cristal-dev-config/vitest-vue.config";
+import localConfig from "./vite.config";
+
+export default mergeConfig(defaultConfig, localConfig);
