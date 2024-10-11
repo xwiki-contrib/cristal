@@ -168,16 +168,53 @@ importers:
 
   core/authentication/authentication-ui:
     dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../authentication-api
+      '@xwiki/cristal-icons':
+        specifier: workspace:*
+        version: link:../../icons
+      '@xwiki/cristal-uiextension-api':
+        specifier: workspace:*
+        version: link:../../uiextension/uiextension-api
+      inversify:
+        specifier: 6.0.2
+        version: 6.0.2
       vue:
         specifier: 3.5.10
         version: 3.5.10(typescript@5.6.2)
+      vue-i18n:
+        specifier: 10.0.3
+        version: 10.0.3(vue@3.5.10(typescript@5.6.2))
     devDependencies:
       vue-tsc:
         specifier: 2.1.6
         version: 2.1.6(typescript@5.6.2)
+
+  core/authentication/authentication-xwiki:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../authentication-api
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
+      inversify:
+        specifier: 6.0.2
+        version: 6.0.2
+      js-cookie:
+        specifier: 3.0.5
+        version: 3.0.5
+    devDependencies:
+      '@types/js-cookie':
+        specifier: 3.0.6
+        version: 3.0.6
 
   core/backends/backend-api:
     dependencies:
@@ -379,6 +416,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
       '@xwiki/cristal-hierarchy-api':
         specifier: workspace:*
         version: link:../hierarchy-api
@@ -547,12 +587,53 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../navigation-tree-api
       inversify:
         specifier: 6.0.2
         version: 6.0.2
+
+  core/uiextension/uiextension-api:
+    dependencies:
+      vue:
+        specifier: 3.5.10
+        version: 3.5.10(typescript@5.6.2)
+
+  core/uiextension/uiextension-default:
+    dependencies:
+      '@xwiki/cristal-uiextension-api':
+        specifier: workspace:*
+        version: link:../uiextension-api
+      inversify:
+        specifier: 6.0.2
+        version: 6.0.2
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@types/lodash':
+        specifier: 4.17.10
+        version: 4.17.10
+
+  core/uiextension/uiextension-ui:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: 0.10.0
+        version: 0.10.0(typescript@5.6.2)
+      '@xwiki/cristal-uiextension-api':
+        specifier: workspace:*
+        version: link:../uiextension-api
+      vue:
+        specifier: 3.5.10
+        version: 3.5.10(typescript@5.6.2)
+    devDependencies:
+      vue-tsc:
+        specifier: 2.1.6
+        version: 2.1.6(typescript@5.6.2)
 
   dev/config: {}
 
@@ -962,6 +1043,15 @@ importers:
       '@xwiki/cristal-attachments-ui':
         specifier: workspace:*
         version: link:../core/attachments/attachments-ui
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../core/authentication/authentication-api
+      '@xwiki/cristal-authentication-ui':
+        specifier: workspace:*
+        version: link:../core/authentication/authentication-ui
+      '@xwiki/cristal-authentication-xwiki':
+        specifier: workspace:*
+        version: link:../core/authentication/authentication-xwiki
       '@xwiki/cristal-backend-dexie':
         specifier: workspace:*
         version: link:../core/backends/backend-dexie
@@ -1013,6 +1103,9 @@ importers:
       '@xwiki/cristal-skin':
         specifier: workspace:*
         version: link:../skin
+      '@xwiki/cristal-uiextension-default':
+        specifier: workspace:*
+        version: link:../core/uiextension/uiextension-default
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -1202,6 +1295,12 @@ importers:
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../core/navigation-tree/navigation-tree-api
+      '@xwiki/cristal-uiextension-api':
+        specifier: workspace:*
+        version: link:../core/uiextension/uiextension-api
+      '@xwiki/cristal-uiextension-ui':
+        specifier: workspace:*
+        version: link:../core/uiextension/uiextension-ui
       inversify:
         specifier: 6.0.2
         version: 6.0.2
@@ -1412,11 +1511,6 @@ packages:
 
   '@babel/parser@7.24.4':
     resolution: {integrity: sha512-zTvEBcghmeBma9QIGunWevvBAp4/Qu9Bdq+2k0Ot4fVMD6v3dsC9WOcRSKk7tRRyBM/53yKMJko9xOatGQAwSg==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
-  '@babel/parser@7.24.7':
-    resolution: {integrity: sha512-9uUYRm6OqQrCqQdG1iCBwBPZgN8ciDBro2nIOFaiRz1/BCxaI7CNvQbDHvsArAC7Tw9Hda/B3U+6ui9u4HWXPw==}
     engines: {node: '>=6.0.0'}
     hasBin: true
 
@@ -2671,6 +2765,9 @@ packages:
   '@types/http-errors@2.0.4':
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
 
+  '@types/js-cookie@3.0.6':
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
+
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -2887,8 +2984,14 @@ packages:
   '@vue/compiler-dom@3.5.10':
     resolution: {integrity: sha512-DyxHC6qPcktwYGKOIy3XqnHRrrXyWR2u91AjP+nLkADko380srsC2DC3s7Y1Rk6YfOlxOlvEQKa9XXmLI+W4ZA==}
 
+  '@vue/compiler-sfc@3.4.31':
+    resolution: {integrity: sha512-einJxqEw8IIJxzmnxmJBuK2usI+lJonl53foq+9etB2HAzlPjAS/wa7r0uUpXw5ByX3/0uswVSrjNb17vJm1kQ==}
+
   '@vue/compiler-sfc@3.5.10':
     resolution: {integrity: sha512-to8E1BgpakV7224ZCm8gz1ZRSyjNCAWEplwFMWKlzCdP9DkMKhRRwt0WkCjY7jkzi/Vz3xgbpeig5Pnbly4Tow==}
+
+  '@vue/compiler-ssr@3.4.31':
+    resolution: {integrity: sha512-RtefmITAje3fJ8FSg1gwgDhdKhZVntIVbwupdyZDSifZTRMiWxWehAOTCc8/KZDnBOcYQ4/9VWxsTbd3wT0hAA==}
 
   '@vue/compiler-ssr@3.5.10':
     resolution: {integrity: sha512-hxP4Y3KImqdtyUKXDRSxKSRkSm1H9fCvhojEYrnaoWhE4w/y8vwWhnosJoPPe2AXm5sU7CSbYYAgkt2ZPhDz+A==}
@@ -2915,14 +3018,28 @@ packages:
       typescript:
         optional: true
 
+  '@vue/reactivity@3.4.31':
+    resolution: {integrity: sha512-VGkTani8SOoVkZNds1PfJ/T1SlAIOf8E58PGAhIOUDYPC4GAmFA2u/E14TDAFcf3vVDKunc4QqCe/SHr8xC65Q==}
+
   '@vue/reactivity@3.5.10':
     resolution: {integrity: sha512-kW08v06F6xPSHhid9DJ9YjOGmwNDOsJJQk0ax21wKaUYzzuJGEuoKNU2Ujux8FLMrP7CFJJKsHhXN9l2WOVi2g==}
+
+  '@vue/runtime-core@3.4.31':
+    resolution: {integrity: sha512-LDkztxeUPazxG/p8c5JDDKPfkCDBkkiNLVNf7XZIUnJ+66GVGkP+TIh34+8LtPisZ+HMWl2zqhIw0xN5MwU1cw==}
 
   '@vue/runtime-core@3.5.10':
     resolution: {integrity: sha512-9Q86I5Qq3swSkFfzrZ+iqEy7Vla325M7S7xc1NwKnRm/qoi1Dauz0rT6mTMmscqx4qz0EDJ1wjB+A36k7rl8mA==}
 
+  '@vue/runtime-dom@3.4.31':
+    resolution: {integrity: sha512-2Auws3mB7+lHhTFCg8E9ZWopA6Q6L455EcU7bzcQ4x6Dn4cCPuqj6S2oBZgN2a8vJRS/LSYYxwFFq2Hlx3Fsaw==}
+
   '@vue/runtime-dom@3.5.10':
     resolution: {integrity: sha512-t3x7ht5qF8ZRi1H4fZqFzyY2j+GTMTDxRheT+i8M9Ph0oepUxoadmbwlFwMoW7RYCpNQLpP2Yx3feKs+fyBdpA==}
+
+  '@vue/server-renderer@3.4.31':
+    resolution: {integrity: sha512-D5BLbdvrlR9PE3by9GaUp1gQXlCNadIZytMIb8H2h3FMWJd4oUfkUTEH2wAr3qxoRz25uxbTcbqd3WKlm9EHQA==}
+    peerDependencies:
+      vue: 3.4.31
 
   '@vue/server-renderer@3.5.10':
     resolution: {integrity: sha512-IVE97tt2kGKwHNq9yVO0xdh1IvYfZCShvDSy46JIh5OQxP1/EXSpoDqetVmyIzL7CYOWnnmMkVqd7YK2QSWkdw==}
@@ -2947,6 +3064,9 @@ packages:
   '@xmldom/xmldom@0.8.10':
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
     engines: {node: '>=10.0.0'}
+
+  '@xwiki/cristal-api@0.10.0':
+    resolution: {integrity: sha512-SJoHZnDZZ7qJ4jsb8ur3segwyAcSUwpSJiYDKZ+jtoZuNDE5tRTHVqseJVrO5t33eqsJ0tDpqLNOLObXoHc1nQ==}
 
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
@@ -4323,6 +4443,10 @@ packages:
     resolution: {integrity: sha512-rPogWqAfoYh1Ryqqh2agUpVfbxAhbjuN1SmU86dskQUKouRiggUTCO4+2ym9UPXllc2WAp0J+T5qxn7Um3lCdw==}
     engines: {node: '>=14'}
     hasBin: true
+
+  js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -5903,6 +6027,14 @@ packages:
     peerDependencies:
       typescript: '>=5.0.0'
 
+  vue@3.4.31:
+    resolution: {integrity: sha512-njqRrOy7W3YLAlVqSKpBebtZpDVg21FPoaq1I7f/+qqBThK9ChAIjkRWgeP6Eat+8C+iia4P3OYqpATP21BCoQ==}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   vue@3.5.10:
     resolution: {integrity: sha512-Vy2kmJwHPlouC/tSnIgXVg03SG+9wSqT1xu1Vehc+ChsXsRd7jLkKgMltVEFOzUdBr3uFwBCG+41LJtfAcBRng==}
     peerDependencies:
@@ -6126,10 +6258,6 @@ snapshots:
       '@babel/types': 7.24.0
 
   '@babel/parser@7.24.4':
-    dependencies:
-      '@babel/types': 7.24.0
-
-  '@babel/parser@7.24.7':
     dependencies:
       '@babel/types': 7.24.0
 
@@ -7370,6 +7498,8 @@ snapshots:
 
   '@types/http-errors@2.0.4': {}
 
+  '@types/js-cookie@3.0.6': {}
+
   '@types/json-schema@7.0.15': {}
 
   '@types/keyv@3.1.4':
@@ -7635,7 +7765,7 @@ snapshots:
 
   '@vue/compiler-core@3.4.31':
     dependencies:
-      '@babel/parser': 7.24.7
+      '@babel/parser': 7.25.7
       '@vue/shared': 3.4.31
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -7659,6 +7789,18 @@ snapshots:
       '@vue/compiler-core': 3.5.10
       '@vue/shared': 3.5.10
 
+  '@vue/compiler-sfc@3.4.31':
+    dependencies:
+      '@babel/parser': 7.25.7
+      '@vue/compiler-core': 3.4.31
+      '@vue/compiler-dom': 3.4.31
+      '@vue/compiler-ssr': 3.4.31
+      '@vue/shared': 3.4.31
+      estree-walker: 2.0.2
+      magic-string: 0.30.11
+      postcss: 8.4.47
+      source-map-js: 1.2.1
+
   '@vue/compiler-sfc@3.5.10':
     dependencies:
       '@babel/parser': 7.25.7
@@ -7670,6 +7812,11 @@ snapshots:
       magic-string: 0.30.11
       postcss: 8.4.47
       source-map-js: 1.2.1
+
+  '@vue/compiler-ssr@3.4.31':
+    dependencies:
+      '@vue/compiler-dom': 3.4.31
+      '@vue/shared': 3.4.31
 
   '@vue/compiler-ssr@3.5.10':
     dependencies:
@@ -7687,8 +7834,8 @@ snapshots:
     dependencies:
       '@volar/language-core': 1.11.1
       '@volar/source-map': 1.11.1
-      '@vue/compiler-dom': 3.4.31
-      '@vue/shared': 3.4.31
+      '@vue/compiler-dom': 3.5.10
+      '@vue/shared': 3.5.10
       computeds: 0.0.1
       minimatch: 9.0.4
       muggle-string: 0.3.1
@@ -7710,14 +7857,30 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.2
 
+  '@vue/reactivity@3.4.31':
+    dependencies:
+      '@vue/shared': 3.4.31
+
   '@vue/reactivity@3.5.10':
     dependencies:
       '@vue/shared': 3.5.10
+
+  '@vue/runtime-core@3.4.31':
+    dependencies:
+      '@vue/reactivity': 3.4.31
+      '@vue/shared': 3.4.31
 
   '@vue/runtime-core@3.5.10':
     dependencies:
       '@vue/reactivity': 3.5.10
       '@vue/shared': 3.5.10
+
+  '@vue/runtime-dom@3.4.31':
+    dependencies:
+      '@vue/reactivity': 3.4.31
+      '@vue/runtime-core': 3.4.31
+      '@vue/shared': 3.4.31
+      csstype: 3.1.3
 
   '@vue/runtime-dom@3.5.10':
     dependencies:
@@ -7725,6 +7888,12 @@ snapshots:
       '@vue/runtime-core': 3.5.10
       '@vue/shared': 3.5.10
       csstype: 3.1.3
+
+  '@vue/server-renderer@3.4.31(vue@3.4.31(typescript@5.6.2))':
+    dependencies:
+      '@vue/compiler-ssr': 3.4.31
+      '@vue/shared': 3.4.31
+      vue: 3.4.31(typescript@5.6.2)
 
   '@vue/server-renderer@3.5.10(vue@3.5.10(typescript@5.6.2))':
     dependencies:
@@ -7748,6 +7917,14 @@ snapshots:
       vuetify: 3.7.2(typescript@5.6.2)(vite-plugin-vuetify@2.0.4)(vue@3.5.10(typescript@5.6.2))
 
   '@xmldom/xmldom@0.8.10': {}
+
+  '@xwiki/cristal-api@0.10.0(typescript@5.6.2)':
+    dependencies:
+      inversify: 6.0.2
+      vue: 3.4.31(typescript@5.6.2)
+      vue-router: 4.4.0(vue@3.4.31(typescript@5.6.2))
+    transitivePeerDependencies:
+      - typescript
 
   '@yarnpkg/lockfile@1.1.0': {}
 
@@ -9421,6 +9598,8 @@ snapshots:
       glob: 10.4.5
       nopt: 7.2.0
 
+  js-cookie@3.0.5: {}
+
   js-tokens@4.0.0: {}
 
   js-tokens@8.0.3: {}
@@ -11064,6 +11243,11 @@ snapshots:
       '@vue/devtools-api': 6.5.1
       vue: 3.5.10(typescript@5.6.2)
 
+  vue-router@4.4.0(vue@3.4.31(typescript@5.6.2)):
+    dependencies:
+      '@vue/devtools-api': 6.5.1
+      vue: 3.4.31(typescript@5.6.2)
+
   vue-router@4.4.0(vue@3.5.10(typescript@5.6.2)):
     dependencies:
       '@vue/devtools-api': 6.5.1
@@ -11078,14 +11262,24 @@ snapshots:
     dependencies:
       '@volar/typescript': 1.11.1
       '@vue/language-core': 1.8.27(typescript@5.6.2)
-      semver: 7.6.0
+      semver: 7.6.3
       typescript: 5.6.2
 
   vue-tsc@2.1.6(typescript@5.6.2):
     dependencies:
       '@volar/typescript': 2.4.5
       '@vue/language-core': 2.1.6(typescript@5.6.2)
-      semver: 7.6.0
+      semver: 7.6.3
+      typescript: 5.6.2
+
+  vue@3.4.31(typescript@5.6.2):
+    dependencies:
+      '@vue/compiler-dom': 3.4.31
+      '@vue/compiler-sfc': 3.4.31
+      '@vue/runtime-dom': 3.4.31
+      '@vue/server-renderer': 3.4.31(vue@3.4.31(typescript@5.6.2))
+      '@vue/shared': 3.4.31
+    optionalDependencies:
       typescript: 5.6.2
 
   vue@3.5.10(typescript@5.6.2):

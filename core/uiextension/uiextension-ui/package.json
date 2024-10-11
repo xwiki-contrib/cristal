@@ -27,6 +27,9 @@
     "@xwiki/cristal-uiextension-api": "workspace:*",
     "vue": "3.5.10"
   },
+  "devDependencies": {
+    "vue-tsc": "2.1.6"
+  },
   "publishConfig": {
     "exports": {
       ".": {
@@ -37,8 +40,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "devDependencies": {
-    "vue-tsc": "2.1.6"
   }
 }
