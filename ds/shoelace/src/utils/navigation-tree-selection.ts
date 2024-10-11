@@ -17,6 +17,10 @@ export class NavigationTreeSelection {
     this.selectedTreeItem!.selected = true;
   }
 
+  public getSelection(): SlTreeItem | undefined {
+    return this.selectedTreeItem;
+  }
+
   public onSelectionChange(event: unknown) {
     // We don't want users to manually select a node, so we undo any change.
     (
