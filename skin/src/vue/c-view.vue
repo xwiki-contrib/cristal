@@ -151,6 +151,7 @@ main {
   display: flex;
   flex-flow: column;
   gap: var(--cr-spacing-small);
+  padding: var(--cr-spacing-small);
   overflow: hidden;
   border-right: 1px solid var(--cr-color-neutral-200);
   box-shadow: var(--cr-shadow-large);

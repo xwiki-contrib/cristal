@@ -234,8 +234,10 @@ onUpdated(() => {
 :global(.content),
 :global(.content > .edit-wrapper) {
   display: grid;
-  grid-template-rows: 56px auto auto 1fr;
+  grid-template-rows: auto auto auto 1fr;
+  gap: var(--cr-spacing-small);
   overflow: auto;
+  scrollbar-gutter: stable;
   height: 100%;
 }
 :global(.content:has(.edit-wrapper)) {
@@ -351,7 +353,6 @@ onUpdated(() => {
 }
 
 .doc-info-actions {
-  margin-right: var(--cr-spacing-medium);
   justify-self: end;
 }
 
@@ -371,7 +372,7 @@ onUpdated(() => {
 }
 
 .page-header {
-  padding: var(--cr-spacing-x-small) 0;
+  padding: var(--cr-spacing-small) 0;
   display: flex;
   flex-wrap: wrap;
   gap: var(--cr-spacing-medium);
