@@ -189,7 +189,7 @@ function clearSelection() {
 :deep(.v-list-item__overlay) {
   --v-hover-opacity: 0;
 }
-/* Disable hand cursor on items. */
+/* Disable hand cursor on items, since we disable the default click action. */
 :deep(.v-list-item--link) {
   cursor: default;
 }

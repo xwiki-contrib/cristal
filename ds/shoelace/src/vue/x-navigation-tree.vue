@@ -42,6 +42,7 @@ import type {
   NavigationTreeNode,
   NavigationTreeSource,
 } from "@xwiki/cristal-navigation-tree-api";
+import { NavigationTreeSelection } from "../utils/navigation-tree-selection";
 
 type OnClickAction = (node: NavigationTreeNode) => void;
 
@@ -52,7 +53,9 @@ const tree: Ref<SlTree | undefined> = ref(undefined);
 const treeItems: Ref<Map<string, SlTreeItem>> = ref(
   new Map<string, SlTreeItem>(),
 );
-var selectedTreeItem: SlTreeItem | undefined = undefined;
+const selection: NavigationTreeSelection = new NavigationTreeSelection(
+  treeItems,
+);
 
 var expandedNodes: Array<string> = new Array<string>();
 var expandNodes: boolean = false;
@@ -90,23 +93,18 @@ function expandTree() {
       }
     }
     if (treeItems.value.has(expandedNodes[i])) {
-      updateSelection(expandedNodes[i]);
+      selection.updateSelection(expandedNodes[i]);
       // If we have a custom click action, we want to use it on dynamic
       // selection.
       if (props.clickAction) {
-        selectedTreeItem?.getElementsByTagName("a")[0].click();
+        treeItems.value
+          .get(expandedNodes[i])!
+          .getElementsByTagName("a")[0]
+          .click();
       }
       expandNodes = false;
     }
   }
-}
-
-function updateSelection(id: string) {
-  if (selectedTreeItem) {
-    selectedTreeItem.selected = false;
-  }
-  selectedTreeItem = treeItems.value.get(id);
-  selectedTreeItem!.selected = true;
 }
 
 function onMutation(mutationList: Array<MutationRecord>) {
@@ -120,16 +118,6 @@ function onMutation(mutationList: Array<MutationRecord>) {
         });
       });
     }
-  }
-}
-
-function onSelectionChange(event: unknown) {
-  // We don't want users to manually select a node, so we undo any change.
-  (
-    event as { detail: { selection: SlTreeItem[] } }
-  ).detail.selection[0].selected = false;
-  if (selectedTreeItem) {
-    selectedTreeItem!.selected = true;
   }
 }
 
@@ -148,8 +136,7 @@ function lazyLoadChildren(id: string) {
         treeItem
           .getElementsByTagName("a")[0]
           .addEventListener("click", (event) => {
-            updateSelection(child.id);
-            props.clickAction!(child);
+            onClick(child);
             event.preventDefault();
           });
       }
@@ -175,10 +162,18 @@ function lazyLoadChildren(id: string) {
     lazyItem.removeAttribute("lazy");
   };
 }
+
+function onClick(node: NavigationTreeNode) {
+  selection.updateSelection(node.id);
+  props.clickAction!(node);
+}
 </script>
 
 <template>
-  <sl-tree ref="tree" @sl-selection-change="onSelectionChange($event)">
+  <sl-tree
+    ref="tree"
+    @sl-selection-change="selection.onSelectionChange($event)"
+  >
     <sl-tree-item
       v-for="item in rootNodes"
       :key="item.id"
@@ -189,10 +184,7 @@ function lazyLoadChildren(id: string) {
       <a
         v-if="props.clickAction"
         :href="item.url"
-        @click.prevent="
-          updateSelection(item.id);
-          clickAction!(item);
-        "
+        @click.prevent="onClick(item)"
         >{{ item.label }}</a
       >
       <a v-else :href="item.url">{{ item.label }}</a>
@@ -201,7 +193,7 @@ function lazyLoadChildren(id: string) {
 </template>
 
 <style scoped>
-/* Disable hand cursor on items. */
+/* Disable hand cursor on items, since we disable the default click action. */
 :deep(sl-tree-item)::part(base) {
   cursor: default;
 }
