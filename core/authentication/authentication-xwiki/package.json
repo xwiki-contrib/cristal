@@ -29,6 +29,9 @@
     "inversify": "6.0.2",
     "js-cookie": "3.0.5"
   },
+  "devDependencies": {
+    "@types/js-cookie": "3.0.6"
+  },
   "publishConfig": {
     "exports": {
       ".": {
@@ -39,8 +42,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "devDependencies": {
-    "@types/js-cookie": "3.0.6"
   }
 }
