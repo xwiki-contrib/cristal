@@ -74,9 +74,9 @@ class XWikiPageHierarchyResolver implements PageHierarchyResolver {
         headers: {
           Accept: "application/json",
           Authorization:
-            this.authenticationManagerProvider
+            (await this.authenticationManagerProvider
               .get()
-              ?.getAuthorizationHeader() || "",
+              ?.getAuthorizationHeader()) || "",
         },
       });
       const jsonResponse = await response.json();

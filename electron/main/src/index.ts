@@ -26,6 +26,7 @@ import { platform } from "node:process";
 import load from "@xwiki/cristal-electron-storage/main";
 // @ts-expect-error shouldn't happen but we need to generate the types for the whole project once.
 import loadBrowser from "@xwiki/cristal-browser-electron/main";
+import { load as loadAuthentication } from "@xwiki/cristal-electron-authentication-xwiki-main";
 
 /**
  * Prevent electron from running multiple instances.
@@ -58,7 +59,10 @@ app
   .whenReady()
   .then(() => {
     load();
-    restoreOrCreateWindow().then((w) => loadBrowser(w));
+    restoreOrCreateWindow().then((w) => {
+      loadBrowser(w);
+      loadAuthentication();
+    });
     /**
      * @see https://www.electronjs.org/docs/latest/api/app#event-activate-macos Event: 'activate'.
      */

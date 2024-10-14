@@ -41,7 +41,7 @@ export class LoggedInMenuUIExtension implements UIExtension {
     return (await import("./vue/LoggedInMenu.vue")).default;
   }
 
-  enabled(): boolean {
+  async enabled(): Promise<boolean> {
     return this.authenticationManager.get()?.isAuthenticated() || false;
   }
 }

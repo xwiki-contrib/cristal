@@ -20,7 +20,10 @@
 import { inject, injectable } from "inversify";
 import type { UIExtension } from "@xwiki/cristal-uiextension-api";
 import type { Component } from "vue";
-import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import {
+  type AuthenticationManagerProvider,
+  type AuthenticationManager,
+} from "@xwiki/cristal-authentication-api";
 
 /**
  * @since 0.11
@@ -41,7 +44,12 @@ export class LoginMenuUIExtension implements UIExtension {
     return (await import("./vue/LoginMenu.vue")).default;
   }
 
-  enabled(): boolean {
-    return !this.authenticationManager.get()?.isAuthenticated();
+  async enabled(): Promise<boolean> {
+    console.log("ENABLED?");
+    const authenticationManager: AuthenticationManager =
+      this.authenticationManager.get();
+    const authenticated: boolean =
+      await authenticationManager?.isAuthenticated();
+    return !authenticated;
   }
 }

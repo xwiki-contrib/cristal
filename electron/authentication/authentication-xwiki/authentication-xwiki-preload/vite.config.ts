@@ -18,43 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { type UserDetails } from "./userDetails";
+import { generateConfig } from "../../../../vite.config";
 
-/**
- * Interface to implement for a given backend to allow users to authenticate.
- *
- * @since 0.11
- */
-interface AuthenticationManager {
-  /**
-   *  Starts the authentication process.
-   */
-  start(): void;
-
-  /**
-   * Handle the callback.
-   */
-  callback(): Promise<void>;
-
-  /**
-   * Returns the currently registered authorization header
-   */
-  getAuthorizationHeader(): Promise<string | undefined>;
-
-  /**
-   * @return true of the current user is authenticated
-   */
-  isAuthenticated(): Promise<boolean>;
-
-  /**
-   * Returns the user details for the current user.
-   */
-  getUserDetails(): Promise<UserDetails>;
-
-  /**
-   * Logs out the current user.
-   */
-  logout(): Promise<void>;
-}
-
-export { type AuthenticationManager };
+export default generateConfig(import.meta.url);

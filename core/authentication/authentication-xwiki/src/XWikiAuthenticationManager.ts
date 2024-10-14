@@ -121,7 +121,7 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     const userinfoUrl = `${config.baseURL}/oidc/userinfo`;
     const data = {
       headers: {
-        Authorization: this.getAuthorizationHeader(),
+        Authorization: await this.getAuthorizationHeader(),
       },
     };
     const {
@@ -136,7 +136,7 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     const logoutUrl = `${config.baseURL}/oidc/userinfo`;
     const data = {
       headers: {
-        Authorization: this.getAuthorizationHeader(),
+        Authorization: await this.getAuthorizationHeader(),
       },
     };
 
@@ -145,13 +145,14 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     Cookies.remove(this.getAccessTokenCookieKey());
   }
 
-  getAuthorizationHeader(): string | undefined {
-    if (this.isAuthenticated()) {
+  async getAuthorizationHeader(): Promise<string | undefined> {
+    const isAuthenticated = await this.isAuthenticated();
+    if (isAuthenticated) {
       return `${this.getTokenType()} ${Cookies.get(this.getAccessTokenCookieKey())}`;
     }
   }
 
-  isAuthenticated(): boolean {
+  async isAuthenticated(): Promise<boolean> {
     return (
       this.getTokenType() !== undefined && this.getAccessToken() !== undefined
     );
