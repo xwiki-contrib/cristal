@@ -31,7 +31,7 @@ const callbackUrl = "http://callback/";
 
 // TODO: get from the config
 
-const OIDC_URL = "http://localhost:8080/";
+const OIDC_URL = "http://localhost:15680/";
 
 // TODO: maybe generate randomly, or ask for the user to pick one at start?
 const clientId = "abcd";
@@ -53,12 +53,15 @@ async function getTokenFromCallbackCode(code: string) {
 }
 
 function initAuth(win: BrowserWindow) {
+  console.log("INIT AUTH");
   win.webContents.session.webRequest.onBeforeRequest(
     {
       urls: [`${callbackUrl}*`],
     },
     async ({ url }, callback) => {
+      console.log(">>>>> CALLBACK", url);
       if (url.startsWith(OIDC_URL)) {
+        // Allow for the redirects from the oidc server to be performed without being blocked.
         callback({ cancel: false });
       } else {
         const parsedURL = new URL(url);
@@ -78,13 +81,14 @@ async function createWindow(url: string) {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    webPreferences: {
+      nodeIntegration: false,
+    },
   });
 
-  if (url) {
-    await win.loadURL(url);
-  } else {
-    await win.loadFile("index.html");
-  }
+  win.webContents.openDevTools();
+
+  await win.loadURL(url);
 
   return win;
 }
@@ -98,10 +102,15 @@ export function load(): void {
     authorizationUrl.searchParams.set("response_type", "code");
     authorizationUrl.searchParams.set("client_id", clientId);
     authorizationUrl.searchParams.set("redirect_uri", callbackUrl);
-    authWin = await createWindow(authorizationUrl.toString());
-    initAuth(authWin);
+    // Save the window asking for login (i.e., the main window), before creating
+    // a new windows for the oidc web page. Then, hide the main window for the
+    // duration of the authentication process.
     mainWin = BrowserWindow.getFocusedWindow()!;
-    mainWin.hide();
+    authWin = await createWindow(authorizationUrl.toString());
+
+    initAuth(authWin);
+    // mainWin.hide();
+    mainWin.close();
   });
 
   ipcMain.handle("authentication:xwiki:isLoggedIn", () => {
