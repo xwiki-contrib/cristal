@@ -68,15 +68,17 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
       const baseXWikiURL = this.cristalApp
         .getWikiConfig()
         .baseURL.replace(/\/[^/]*$/, "");
-      const response = await fetch(navigationTreeRequestUrl, {
-        headers: {
-          Accept: "application/json",
-          Authorization:
-            (await this.authenticationManagerProvider
-              .get()
-              ?.getAuthorizationHeader()) || "",
-        },
-      });
+      const authorization = await this.authenticationManagerProvider
+        .get()
+        ?.getAuthorizationHeader();
+      const headers: { Accept: string; Authorization?: string } = {
+        Accept: "application/json",
+      };
+
+      if (authorization) {
+        headers.Authorization = authorization;
+      }
+      const response = await fetch(navigationTreeRequestUrl, { headers });
       const jsonResponse = await response.json();
       jsonResponse.forEach(
         (treeNode: {
