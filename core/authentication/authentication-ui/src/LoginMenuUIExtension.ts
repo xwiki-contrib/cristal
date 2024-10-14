@@ -45,9 +45,8 @@ export class LoginMenuUIExtension implements UIExtension {
   }
 
   async enabled(): Promise<boolean> {
-    console.log("ENABLED?");
     const authenticationManager: AuthenticationManager =
-      this.authenticationManager.get();
+      this.authenticationManager.get()!;
     const authenticated: boolean =
       await authenticationManager?.isAuthenticated();
     return !authenticated;
