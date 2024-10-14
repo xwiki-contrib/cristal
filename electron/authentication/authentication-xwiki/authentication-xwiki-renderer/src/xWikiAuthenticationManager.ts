@@ -9,7 +9,7 @@ import { type CristalApp } from "@xwiki/cristal-api";
 // eslint-disable-next-line @typescript-eslint/prefer-namespace-keyword, @typescript-eslint/no-namespace
 declare module window {
   interface authenticationXWiki {
-    login: () => void;
+    login: (oidcUrl: string) => void;
 
     isLoggedIn(): Promise<boolean>;
 
@@ -33,7 +33,7 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
   ) {}
 
   start(): void {
-    window.authenticationXWiki.login();
+    window.authenticationXWiki.login(this.cristalApp.getWikiConfig().baseURL);
   }
 
   callback(): Promise<void> {

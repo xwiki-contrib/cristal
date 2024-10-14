@@ -32,15 +32,11 @@ import { UserDetails } from "@xwiki/cristal-authentication-api";
 
 const callbackUrl = "http://callback/";
 
-// TODO: get from the config
-
-const OIDC_URL = "http://localhost:15680/";
-
 // TODO: maybe generate randomly, or ask for the user to pick one at start?
 const clientId = "abcd";
 
-async function getTokenFromCallbackCode(code: string) {
-  const tokenUrl = `${OIDC_URL}xwiki/oidc/token`;
+async function getTokenFromCallbackCode(code: string, oidcUrl: string) {
+  const tokenUrl = `${oidcUrl}/oidc/token`;
   const data = {
     grant_type: "authorization_code",
     code,
@@ -55,19 +51,24 @@ async function getTokenFromCallbackCode(code: string) {
   });
 }
 
-function initAuth(win: BrowserWindow, reload: (win: BrowserWindow) => void) {
+function initAuth(
+  win: BrowserWindow,
+  reload: (win: BrowserWindow) => void,
+  oidcUrl: string,
+) {
   win.webContents.session.webRequest.onBeforeRequest(
     {
       urls: [`${callbackUrl}*`],
     },
     async ({ url }, callback) => {
-      if (url.startsWith(OIDC_URL)) {
+      if (url.startsWith(oidcUrl)) {
         // Allow for the redirects from the oidc server to be performed without being blocked.
         callback({ cancel: false });
       } else {
         const parsedURL = new URL(url);
         const response = await getTokenFromCallbackCode(
           parsedURL.searchParams.get("code")!,
+          oidcUrl,
         );
         setTokenType(response.data.token_type);
         setAccessToken(response.data.access_token);
@@ -104,20 +105,23 @@ export function load(
   browserWindow: BrowserWindow,
   reload: (win: BrowserWindow) => void,
 ): void {
-  ipcMain.handle("authentication:xwiki:login", async () => {
-    const authorizationUrl = new URL(`${OIDC_URL}xwiki/oidc/authorization`);
-    authorizationUrl.searchParams.set("response_type", "code");
-    authorizationUrl.searchParams.set("client_id", clientId);
-    authorizationUrl.searchParams.set("redirect_uri", callbackUrl);
-    // Save the window asking for login (i.e., the main window), before creating
-    // a new windows for the oidc web page. Then, hide the main window for the
-    // duration of the authentication process.
-    mainWin = browserWindow;
-    authWin = await createWindow(authorizationUrl.toString());
+  ipcMain.handle(
+    "authentication:xwiki:login",
+    async (event, { oidcUrl }: { oidcUrl: string }) => {
+      const authorizationUrl = new URL(`${oidcUrl}/oidc/authorization`);
+      authorizationUrl.searchParams.set("response_type", "code");
+      authorizationUrl.searchParams.set("client_id", clientId);
+      authorizationUrl.searchParams.set("redirect_uri", callbackUrl);
+      // Save the window asking for login (i.e., the main window), before creating
+      // a new windows for the oidc web page. Then, hide the main window for the
+      // duration of the authentication process.
+      mainWin = browserWindow;
+      authWin = await createWindow(authorizationUrl.toString());
 
-    initAuth(authWin, reload);
-    mainWin.hide();
-  });
+      initAuth(authWin, reload, oidcUrl);
+      mainWin.hide();
+    },
+  );
 
   ipcMain.handle("authentication:xwiki:isLoggedIn", () => {
     const tokenType = getTokenType();
