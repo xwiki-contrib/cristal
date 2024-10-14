@@ -85,16 +85,9 @@ function createPage() {
             name="name"
             required
           ></x-text-field>
-          <x-text-field
-            v-model="location"
-            label="Location"
-            name="location"
-            required
-          ></x-text-field>
-        </x-form>
-        <div>
-          <p>Tree</p>
-          <div id="new-page-navigation-tree">
+          <div>
+          <label>Parent Location</label>
+          <div id="new-page-navigation-tree" class="location-box">
             <XNavigationTree
               :tree-source="
                 cristal
@@ -107,8 +100,17 @@ function createPage() {
               :click-action="treeNodeClickAction"
               :current-page="currentPage"
             ></XNavigationTree>
+            <x-text-field
+            v-model="location"
+            label="Location"
+            name="location"
+            required
+          ></x-text-field>
           </div>
         </div>
+
+        </x-form>
+
       </div>
       <x-btn slot="footer" @click="createPage">Create</x-btn>
     </template>
@@ -124,6 +126,12 @@ function createPage() {
 }
 #new-page-navigation-tree {
   overflow: auto;
+}
+.location-box {
+  border: 1px solid #ddd;
+  border-radius: var(--cr-border-radius-medium);
+  padding: var(--cr-spacing-small);
+
 }
 
 .grid {

@@ -198,7 +198,6 @@ function onClickOutsideMainSidebar() {
   flex-flow: column;
   height: 100%;
   gap: var(--cr-spacing-x-small);
-  padding: 0 var(--cr-spacing-x-small);
   overflow-y: auto;
   scrollbar-gutter: stable;
   overflow-x: hidden;

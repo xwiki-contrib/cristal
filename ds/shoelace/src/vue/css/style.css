@@ -152,6 +152,18 @@
   --cr-color-neutral-900: var(--sl-color-gray-900);
   --cr-color-neutral-950: var(--sl-color-gray-950);
 
+    /*
+   * Border radii
+   */
+
+   --cr-border-radius-small: 0.1875rem; /* 3px */
+   --cr-border-radius-medium: 0.25rem; /* 4px */
+   --cr-border-radius-large: 0.5rem; /* 8px */
+   --cr-border-radius-x-large: 1rem; /* 16px */
+ 
+   --cr-border-radius-circle: 50%;
+   --cr-border-radius-pill: 9999px;
+
   /*
    * Elevations
    */
