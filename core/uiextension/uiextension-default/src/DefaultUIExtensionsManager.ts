@@ -22,7 +22,7 @@ import {
   UIExtensionsManager,
 } from "@xwiki/cristal-uiextension-api";
 import { injectable, multiInject } from "inversify";
-import { filter, sortBy } from "lodash";
+import { sortBy } from "lodash";
 
 @injectable()
 export class DefaultUIExtensionsManager implements UIExtensionsManager {
@@ -31,10 +31,15 @@ export class DefaultUIExtensionsManager implements UIExtensionsManager {
   ) {}
 
   async list(name: string): Promise<UIExtension[]> {
-    const filtered = filter(
-      this.uiExtensions,
-      (uix) => uix.uixpName === name && uix.enabled(),
-    );
+    const filtered: UIExtension[] = [];
+    for (const uix of this.uiExtensions) {
+      if (uix.uixpName === name) {
+        const enabled = await uix.enabled();
+        if (enabled) {
+          filtered.push(uix);
+        }
+      }
+    }
 
     return sortBy(filtered, [(uix) => uix.order]);
   }

@@ -173,7 +173,7 @@ export class XWikiStorage extends AbstractStorage {
 
   async getAttachments(page: string): Promise<AttachmentsData | undefined> {
     const response = await fetch(this.buildAttachmentsURL(page), {
-      headers: { Accept: "application/json", ...this.getCredentials() },
+      headers: { Accept: "application/json", ...(await this.getCredentials()) },
     });
     const json: AttachmentsRest = await response.json();
     const attachments = json.attachments.map(
@@ -258,7 +258,7 @@ export class XWikiStorage extends AbstractStorage {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        ...this.getCredentials(),
+        ...(await this.getCredentials()),
       },
       // TODO: the syntax provided by the save is ignored and the content is always saved as markdown.
       body: JSON.stringify({ content, title, syntax: "markdown/1.2" }),
@@ -277,17 +277,17 @@ export class XWikiStorage extends AbstractStorage {
     await fetch(this.buildAttachmentsURL(page) + "/" + file.name, {
       method: "PUT",
       body: data,
-      headers: { ...this.getCredentials(), "Content-Type": file.type },
+      headers: { ...(await this.getCredentials()), "Content-Type": file.type },
     });
     return;
   }
 
-  private getCredentials() {
+  private async getCredentials(): Promise<{ Authorization: string }> {
     return {
-      // TODO: externalize credentials
       Authorization:
-        this.authenticationManagerProvider.get()?.getAuthorizationHeader() ||
-        "",
+        (await this.authenticationManagerProvider
+          .get()
+          ?.getAuthorizationHeader()) || "",
     };
   }
 

@@ -28,7 +28,7 @@ interface UIExtension {
   order: number;
   parameters: { [key: string]: unknown };
 
-  enabled(): boolean;
+  enabled(): Promise<boolean>;
 
   component(): Promise<Component>;
 }

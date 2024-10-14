@@ -32,7 +32,7 @@ export class ConfigMenuUIExtension implements UIExtension {
     return (await import("../../vue/c-config-menu.vue")).default;
   }
 
-  enabled(): boolean {
+  async enabled(): Promise<boolean> {
     return true;
   }
 }
