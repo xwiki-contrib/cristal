@@ -40,4 +40,5 @@ const items = computed(() => {
 <style scoped>
 .v-breadcrumbs {
   padding: 0;
-}</style>
+}
+</style>

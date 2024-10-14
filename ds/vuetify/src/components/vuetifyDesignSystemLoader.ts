@@ -62,7 +62,7 @@ export class VuetifyDesignSystemLoader implements DesignSystemLoader {
           light: {
             dark: false,
             colors: {
-              background: '#FFFFFF',
+              background: "#FFFFFF",
               primary: colors.blue.darken4,
               secondary: colors.blueGrey.darken4,
             },

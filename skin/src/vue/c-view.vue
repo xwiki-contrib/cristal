@@ -218,7 +218,6 @@ TODO: these rules about opening and closing the sidebar should be better organiz
     padding: 0;
     margin: 0;
   }
-
 }
 
 :deep(.wrapper.sidebar-is-collapsed .hide-sidebar) {

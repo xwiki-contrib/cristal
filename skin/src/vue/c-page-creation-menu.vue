@@ -86,31 +86,29 @@ function createPage() {
             required
           ></x-text-field>
           <div>
-          <label>Parent Location</label>
-          <div id="new-page-navigation-tree" class="location-box">
-            <XNavigationTree
-              :tree-source="
-                cristal
-                  .getContainer()
-                  .get<NavigationTreeSourceProvider>(
-                    'NavigationTreeSourceProvider',
-                  )
-                  .get()
-              "
-              :click-action="treeNodeClickAction"
-              :current-page="currentPage"
-            ></XNavigationTree>
-            <x-text-field
-            v-model="location"
-            label="Location"
-            name="location"
-            required
-          ></x-text-field>
+            <label>Parent Location</label>
+            <div id="new-page-navigation-tree" class="location-box">
+              <XNavigationTree
+                :tree-source="
+                  cristal
+                    .getContainer()
+                    .get<NavigationTreeSourceProvider>(
+                      'NavigationTreeSourceProvider',
+                    )
+                    .get()
+                "
+                :click-action="treeNodeClickAction"
+                :current-page="currentPage"
+              ></XNavigationTree>
+              <x-text-field
+                v-model="location"
+                label="Location"
+                name="location"
+                required
+              ></x-text-field>
+            </div>
           </div>
-        </div>
-
         </x-form>
-
       </div>
       <x-btn slot="footer" @click="createPage">Create</x-btn>
     </template>
@@ -131,7 +129,6 @@ function createPage() {
   border: 1px solid #ddd;
   border-radius: var(--cr-border-radius-medium);
   padding: var(--cr-spacing-small);
-
 }
 
 .grid {
