@@ -171,6 +171,9 @@ importers:
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../authentication-api
+      '@xwiki/cristal-browser-api':
+        specifier: workspace:*
+        version: link:../../browser/browser-api
       '@xwiki/cristal-icons':
         specifier: workspace:*
         version: link:../../icons
@@ -871,6 +874,9 @@ importers:
 
   electron/authentication/authentication-xwiki/authentication-xwiki-main:
     dependencies:
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../../../core/authentication/authentication-api
       axios:
         specifier: 1.7.7
         version: 1.7.7
@@ -883,12 +889,18 @@ importers:
 
   electron/authentication/authentication-xwiki/authentication-xwiki-preload:
     dependencies:
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../../../core/authentication/authentication-api
       electron:
         specifier: 31.6.0
         version: 31.6.0
 
   electron/authentication/authentication-xwiki/authentication-xwiki-renderer:
     dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../../api
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../../../../core/authentication/authentication-api

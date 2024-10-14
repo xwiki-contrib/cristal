@@ -2,7 +2,8 @@ import {
   type AuthenticationManager,
   UserDetails,
 } from "@xwiki/cristal-authentication-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import { type CristalApp } from "@xwiki/cristal-api";
 
 // TODO: find out how to move the type declaration to a separate location.
 // eslint-disable-next-line @typescript-eslint/prefer-namespace-keyword, @typescript-eslint/no-namespace
@@ -12,9 +13,14 @@ declare module window {
 
     isLoggedIn(): Promise<boolean>;
 
-    getUserDetails(): UserDetails;
+    getUserDetails(baseURL: string): Promise<UserDetails>;
 
-    getAuthorizationValue(): { tokenType: string; accessToken: string };
+    getAuthorizationValue(): Promise<{
+      tokenType: string;
+      accessToken: string;
+    }>;
+
+    logout(): Promise<void>;
   }
 
   export const authenticationXWiki: authenticationXWiki;
@@ -22,6 +28,10 @@ declare module window {
 
 @injectable()
 export class XWikiAuthenticationManager implements AuthenticationManager {
+  constructor(
+    @inject<CristalApp>("CristalApp") private cristalApp: CristalApp,
+  ) {}
+
   start(): void {
     window.authenticationXWiki.login();
   }
@@ -34,7 +44,7 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     const authenticated = await this.isAuthenticated();
     if (authenticated) {
       const { tokenType, accessToken } =
-        window.authenticationXWiki.getAuthorizationValue();
+        await window.authenticationXWiki.getAuthorizationValue();
       return `${tokenType} ${accessToken}`;
     }
   }
@@ -44,10 +54,12 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
   }
 
   async getUserDetails(): Promise<UserDetails> {
-    return window.authenticationXWiki.getUserDetails();
+    return window.authenticationXWiki.getUserDetails(
+      this.cristalApp.getWikiConfig().baseURL,
+    );
   }
 
-  logout(): Promise<void> {
-    throw new Error("Method not implemented.");
+  async logout(): Promise<void> {
+    await window.authenticationXWiki.logout();
   }
 }

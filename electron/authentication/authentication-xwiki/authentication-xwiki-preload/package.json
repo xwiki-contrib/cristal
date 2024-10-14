@@ -23,6 +23,7 @@
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
   },
   "dependencies": {
+    "@xwiki/cristal-authentication-api": "workspace:*"
   },
   "peerDependencies": {
     "electron": "31.6.0"

@@ -19,6 +19,7 @@
  */
 
 import { contextBridge, ipcRenderer } from "electron";
+import { UserDetails } from "@xwiki/cristal-authentication-api";
 
 contextBridge.exposeInMainWorld("authenticationXWiki", {
   login: async () => {
@@ -26,5 +27,17 @@ contextBridge.exposeInMainWorld("authenticationXWiki", {
   },
   isLoggedIn(): Promise<boolean> {
     return ipcRenderer.invoke("authentication:xwiki:isLoggedIn");
+  },
+
+  getUserDetails(baseURL: string): Promise<UserDetails> {
+    return ipcRenderer.invoke("authentication:xwiki:userDetails", { baseURL });
+  },
+
+  getAuthorizationValue(): Promise<{ tokenType: string; accessToken: string }> {
+    return ipcRenderer.invoke("authentication:xwiki:authorizationValue");
+  },
+
+  async logout(): Promise<void> {
+    await ipcRenderer.invoke("authentication:xwiki:logout");
   },
 });
