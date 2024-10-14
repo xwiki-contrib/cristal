@@ -208,8 +208,17 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  padding: var(--cr-spacing-small) var(--cr-spacing-x-small) 0;
   z-index: 2;
+
+  & span {
+    font-size: 1rem;
+    height: 1rem;
+    line-height: 1rem;
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
 }
 
 :deep(.wrapper.sidebar-is-collapsed .hide-sidebar) {
