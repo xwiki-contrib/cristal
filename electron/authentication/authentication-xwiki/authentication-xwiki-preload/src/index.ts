@@ -22,8 +22,8 @@ import { contextBridge, ipcRenderer } from "electron";
 import { UserDetails } from "@xwiki/cristal-authentication-api";
 
 contextBridge.exposeInMainWorld("authenticationXWiki", {
-  login: async () => {
-    await ipcRenderer.invoke("authentication:xwiki:login");
+  login: async (oidcUrl: string) => {
+    await ipcRenderer.invoke("authentication:xwiki:login", { oidcUrl });
   },
   isLoggedIn(): Promise<boolean> {
     return ipcRenderer.invoke("authentication:xwiki:isLoggedIn");
