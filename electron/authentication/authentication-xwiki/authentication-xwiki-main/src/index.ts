@@ -25,7 +25,10 @@ import {
   getTokenType,
   setAccessToken,
   setTokenType,
+  deleteAccessToken,
+  deleteTokenType,
 } from "./storage.js";
+import { UserDetails } from "@xwiki/cristal-authentication-api";
 
 const callbackUrl = "http://callback/";
 
@@ -52,14 +55,12 @@ async function getTokenFromCallbackCode(code: string) {
   });
 }
 
-function initAuth(win: BrowserWindow) {
-  console.log("INIT AUTH");
+function initAuth(win: BrowserWindow, reload: (win: BrowserWindow) => void) {
   win.webContents.session.webRequest.onBeforeRequest(
     {
       urls: [`${callbackUrl}*`],
     },
     async ({ url }, callback) => {
-      console.log(">>>>> CALLBACK", url);
       if (url.startsWith(OIDC_URL)) {
         // Allow for the redirects from the oidc server to be performed without being blocked.
         callback({ cancel: false });
@@ -71,7 +72,8 @@ function initAuth(win: BrowserWindow) {
         setTokenType(response.data.token_type);
         setAccessToken(response.data.access_token);
         mainWin.show();
-        win.close();
+        reload(mainWin);
+        win?.close();
       }
     },
   );
@@ -86,17 +88,22 @@ async function createWindow(url: string) {
     },
   });
 
-  win.webContents.openDevTools();
-
   await win.loadURL(url);
 
   return win;
 }
 
 let authWin: BrowserWindow;
-let mainWin: BrowserWindow; // TODO: find out how to give access to the main window!
+let mainWin: BrowserWindow;
 
-export function load(): void {
+function getAuthorizationValue() {
+  return `${getTokenType()} ${getAccessToken()}`;
+}
+
+export function load(
+  browserWindow: BrowserWindow,
+  reload: (win: BrowserWindow) => void,
+): void {
   ipcMain.handle("authentication:xwiki:login", async () => {
     const authorizationUrl = new URL(`${OIDC_URL}xwiki/oidc/authorization`);
     authorizationUrl.searchParams.set("response_type", "code");
@@ -105,17 +112,40 @@ export function load(): void {
     // Save the window asking for login (i.e., the main window), before creating
     // a new windows for the oidc web page. Then, hide the main window for the
     // duration of the authentication process.
-    mainWin = BrowserWindow.getFocusedWindow()!;
+    mainWin = browserWindow;
     authWin = await createWindow(authorizationUrl.toString());
 
-    initAuth(authWin);
-    // mainWin.hide();
-    mainWin.close();
+    initAuth(authWin, reload);
+    mainWin.hide();
   });
 
   ipcMain.handle("authentication:xwiki:isLoggedIn", () => {
     const tokenType = getTokenType();
     const accessTokenKey = getAccessToken();
     return tokenType && accessTokenKey;
+  });
+
+  ipcMain.handle(
+    "authentication:xwiki:userDetails",
+    async (event, { baseURL }: { baseURL: string }): Promise<UserDetails> => {
+      const userinfoUrl = `${baseURL}/oidc/userinfo`;
+      const data = {
+        headers: {
+          Authorization: getAuthorizationValue(),
+        },
+      };
+      const {
+        data: { profile, name },
+      } = await axios.get(userinfoUrl, data);
+
+      return { profile, name };
+    },
+  );
+  ipcMain.handle("authentication:xwiki:authorizationValue", () => {
+    return getAuthorizationValue();
+  });
+  ipcMain.handle("authentication:xwiki:logout", () => {
+    deleteAccessToken();
+    deleteTokenType();
   });
 }

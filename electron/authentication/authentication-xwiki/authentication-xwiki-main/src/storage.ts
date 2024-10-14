@@ -25,7 +25,13 @@ const tokenTypeKey = "tokenType";
 const accessTokenKey = "accessToken";
 
 const schema = {
-  // TODO
+  tokenType: {
+    type: "string",
+  },
+
+  accessToken: {
+    type: "string",
+  },
 };
 
 const storeInstance: Store = new Store({

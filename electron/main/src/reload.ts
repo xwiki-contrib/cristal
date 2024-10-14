@@ -18,17 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { WikiConfig } from "@xwiki/cristal-api";
+import { app, BrowserWindow } from "electron";
+import { resolve } from "node:path";
 
-/**
- * Provide the operations to interact with the browser. We need this abstraction
- * because interacting with the browser is not equivalent when Cristal is
- * running directly on a browser, or in an Electron app managing a browser.
- * @since 0.8
- */
-export interface BrowserApi {
-  switchLocation(wikiConfig: WikiConfig): void;
-  reload(): void;
+function loadFile(win: BrowserWindow) {
+  return win.loadFile(resolve(app.getAppPath(), "./renderer/dist/index.html"));
 }
 
-export const name = "BrowserApi";
+export { loadFile };

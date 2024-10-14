@@ -22,6 +22,7 @@ import { inject } from "vue";
 import { CristalApp } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import { useI18n, I18nT } from "vue-i18n";
+import { name as browserApiName, BrowserApi } from "@xwiki/cristal-browser-api";
 import messages from "../translations";
 
 const { t } = useI18n({
@@ -35,10 +36,12 @@ const authenticationManager = cristal
   .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
   .get()!;
 
+const browserApi = cristal.getContainer().get<BrowserApi>(browserApiName);
+
 const { profile, name } = await authenticationManager.getUserDetails();
 
 function logout() {
-  authenticationManager.logout().then(() => window.location.reload());
+  authenticationManager.logout().then(() => browserApi.reload());
 }
 </script>
 
