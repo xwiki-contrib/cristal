@@ -282,13 +282,15 @@ export class XWikiStorage extends AbstractStorage {
     return;
   }
 
-  private async getCredentials(): Promise<{ Authorization: string }> {
-    return {
-      Authorization:
-        (await this.authenticationManagerProvider
-          .get()
-          ?.getAuthorizationHeader()) || "",
-    };
+  private async getCredentials(): Promise<{ Authorization?: string }> {
+    const authorizationHeader = await this.authenticationManagerProvider
+      .get()
+      ?.getAuthorizationHeader();
+    const headers: { Authorization?: string } = {};
+    if (authorizationHeader) {
+      headers["Authorization"] = authorizationHeader;
+    }
+    return headers;
   }
 
   private buildSavePageURL(page: string, segments: string[]) {

@@ -20,16 +20,40 @@
 import { Component } from "vue";
 
 /**
+ * Define the information held by a UI Extension (UIX).
+ *
  * @since 0.11
  */
 interface UIExtension {
+  /**
+   * The unique id of an UI Extension
+   */
   id: string;
+
+  /**
+   * The id of the extension point where this UIX should be injected.
+   */
   uixpName: string;
+
+  /**
+   * The order of the UIX. The lowest values are expected to be presented
+   * first.
+   */
   order: number;
+
+  /**
+   * A free set of parameters.
+   */
   parameters: { [key: string]: unknown };
 
+  /**
+   * Compute if the UIX should be displayed.
+   */
   enabled(): Promise<boolean>;
 
+  /**
+   * The UI component of the UIX.
+   */
   component(): Promise<Component>;
 }
 

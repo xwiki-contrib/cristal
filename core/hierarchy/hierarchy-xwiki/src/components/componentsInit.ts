@@ -70,15 +70,17 @@ class XWikiPageHierarchyResolver implements PageHierarchyResolver {
     );
 
     try {
-      const response = await fetch(restApiUrl, {
-        headers: {
-          Accept: "application/json",
-          Authorization:
-            (await this.authenticationManagerProvider
-              .get()
-              ?.getAuthorizationHeader()) || "",
-        },
-      });
+      const authorization = await this.authenticationManagerProvider
+        .get()
+        ?.getAuthorizationHeader();
+      const headers: { Accept: string; Authorization?: string } = {
+        Accept: "application/json",
+      };
+
+      if (authorization) {
+        headers.Authorization = authorization;
+      }
+      const response = await fetch(restApiUrl, { headers });
       const jsonResponse = await response.json();
       const hierarchy: Array<PageHierarchyItem> = [];
       jsonResponse.hierarchy.items.forEach(
