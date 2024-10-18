@@ -282,6 +282,20 @@ export class XWikiStorage extends AbstractStorage {
     return;
   }
 
+  async delete(page: string): Promise<unknown> {
+    const url = this.buildSavePageURL(page, ["rest", "wikis", "xwiki"]);
+
+    await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        ...(await this.getCredentials()),
+      },
+    });
+
+    return;
+  }
+
   private async getCredentials(): Promise<{ Authorization?: string }> {
     const authorizationHeader = await this.authenticationManagerProvider
       .get()

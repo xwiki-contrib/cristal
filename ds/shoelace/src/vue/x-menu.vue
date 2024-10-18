@@ -19,24 +19,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script lang="ts" setup>
 import "@shoelace-style/shoelace";
-
-defineProps<{
-  title: string;
-}>();
 </script>
 <template>
-  <sl-dropdown>
-    <!-- The slot attribute is from shoelace, so not invalid. -->
-    <sl-button slot="trigger" caret> Edit </sl-button>
-    <sl-menu>
-      <slot name="default" />
-    </sl-menu>
-  </sl-dropdown>
-
-  <sl-dropdown>
-    <sl-button>
+  <sl-dropdown stay-open-on-select>
+    <span slot="trigger">
       <slot name="activator" />
-    </sl-button>
+    </span>
     <sl-menu>
       <slot name="default" />
     </sl-menu>

@@ -94,4 +94,14 @@ export interface Storage {
    * @since 0.9
    */
   saveAttachments(page: string, files: File[]): Promise<unknown>;
+
+  /**
+   * Delete a page.
+   *
+   * @param page the page to delete
+   * @return a promise on the delete is done
+   *
+   * @since 0.11
+   */
+  delete(page: string): Promise<unknown>;
 }

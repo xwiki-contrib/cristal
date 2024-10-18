@@ -88,6 +88,11 @@ export default class FileSystemStorage extends AbstractStorage {
     return Promise.all(files.map((file) => this.saveAttachment(page, file)));
   }
 
+  async delete(page: string): Promise<void> {
+    const path = await fileSystemStorage.resolvePath(page);
+    await fileSystemStorage.deletePage(path);
+  }
+
   private async saveAttachment(page: string, file: File): Promise<unknown> {
     const path = await fileSystemStorage.resolveAttachmentPath(page, file.name);
     await fileSystemStorage.saveAttachment(path, file);

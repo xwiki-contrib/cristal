@@ -17,20 +17,18 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script lang="ts" setup>
+<script setup lang="ts">
 import "@shoelace-style/shoelace/dist/components/alert/alert";
-import { computed, type PropType } from "vue";
+import { computed } from "vue";
 
 type Types = "" | "success" | "warning" | "error" | "info";
 
-const { type } = defineProps({
-  title: { type: String, required: true },
-  type: {
-    type: String as PropType<Types>,
-    required: true,
-  },
-  description: { type: String, required: true },
-});
+const { type } = defineProps<{
+  title: string;
+  type: Types;
+  description: string;
+  actions?: [{ name: string; callback: () => void }];
+}>();
 
 const variant = computed(() => {
   let variant: string;
@@ -56,10 +54,28 @@ const variant = computed(() => {
   }
   return variant;
 });
+
+const open = defineModel<boolean>();
+open.value = true;
 </script>
 
 <template>
-  <sl-alert open :title="title" :variant="variant">
+  <sl-alert
+    closable
+    :title="title"
+    :variant="variant"
+    :open="open"
+    @sl-show="open = true"
+    @sl-hide="open = false"
+  >
     {{ description }}
+    <x-btn
+      v-for="action of actions"
+      :key="action.name"
+      size="small"
+      variant="text"
+      @click="action.callback"
+      >{{ action.name }}</x-btn
+    >
   </sl-alert>
 </template>

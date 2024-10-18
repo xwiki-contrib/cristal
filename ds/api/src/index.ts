@@ -61,7 +61,8 @@ type BtnProps = {
     | "success"
     | "neutral"
     | "warning"
-    | "danger";
+    | "danger"
+    | "text";
 };
 
 type TextFieldModel = File | File[] | null | undefined;

@@ -17,13 +17,9 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script lang="ts" setup>
-defineProps<{
-  title: string;
-}>();
-</script>
+<script lang="ts" setup></script>
 <template>
-  <v-menu open-on-hover>
+  <v-menu :close-on-content-click="false">
     <template #activator="{ props }">
       <span v-bind="props">
         <slot name="activator" />
