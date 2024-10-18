@@ -15,39 +15,43 @@
   "scripts": {
     "build": "nx run-many -t build --nxBail=true",
     "clean": "nx run-many -t clean",
-    "dev": "nx build @xwiki/cristal-web && nx dev @xwiki/cristal-web",
+    "dev:cristal-web": "nx dev @xwiki/cristal-web",
+    "dev:cristal-realtime": "nx dev @xwiki/cristal-realtime",
+    "dev": "nx build @xwiki/cristal-web && run-p dev:cristal-web dev:cristal-realtime",
     "lint": "nx run-many -t lint",
     "quickstart": "nx run @xwiki/cristal-web:quickstart",
     "start": "nx run @xwiki/cristal-web:start",
-    "start:electron": "nx build @xwiki/cristal-electron-main && nx build @xwiki/cristal-electron-renderer && nx build @xwiki/cristal-electron-storage && nx run @xwiki/cristal-electron:start",
+    "start:electron:ui": "nx build @xwiki/cristal-electron-main && nx build @xwiki/cristal-electron-renderer && nx build @xwiki/cristal-electron-storage && nx run @xwiki/cristal-electron:start",
+    "start:electron": "run-p start:electron:ui dev:cristal-realtime",
     "test": "nx run-many -t test"
   },
   "devDependencies": {
-    "@changesets/cli": "2.27.8",
+    "@changesets/cli": "2.27.9",
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.12.0",
     "@typescript-eslint/eslint-plugin": "8.8.1",
     "@typescript-eslint/parser": "8.8.1",
     "@vitejs/plugin-vue": "5.1.4",
-    "@vitest/coverage-v8": "1.6.0",
+    "@vitest/coverage-v8": "2.1.2",
     "eslint": "9.12.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-vue": "9.29.0",
-    "nx": "19.8.4",
-    "prettier": "3.3.2",
+    "npm-run-all2": "6.2.3",
+    "nx": "20.0.0",
+    "prettier": "3.3.3",
     "rimraf": "6.0.1",
     "typescript": "5.6.2",
-    "vite": "5.3.6",
-    "vite-plugin-css-injected-by-js": "3.5.1",
-    "vite-plugin-dts": "3.9.1",
+    "vite": "5.4.9",
+    "vite-plugin-css-injected-by-js": "3.5.2",
+    "vite-plugin-dts": "4.2.4",
     "vitest": "2.1.2",
     "vue-eslint-parser": "9.4.3"
   },
   "engines": {
     "node": "20.18.0"
   },
-  "packageManager": "pnpm@9.12.0",
+  "packageManager": "pnpm@9.12.1",
   "pnpm": {
     "patchedDependencies": {
       "avvvatars-vue": "patches/avvvatars-vue.patch"

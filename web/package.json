@@ -20,7 +20,7 @@
     "build": "pnpm compile",
     "clean": "rimraf dist",
     "compile": "vue-tsc --project tsconfig.json && vite build",
-    "dev": "vite & NODE_ENV=development node src/server.js",
+    "dev": "vite dev",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
     "prepack": "pnpm build",
     "prepare": "mkdir -p ./dist/apps && ln -fs ../../../extension-manager/dist/ dist/apps/extension-manager && ln -fs ../../../extension-menubuttons/dist/ dist/apps/extension-menubuttons && ln -fs ../../../skin/dist/ dist/apps/skin && ln -fs ../../../dsvuetify/dist/ dist/apps/dsvuetify && ln -fs ../../../storage/dist/ dist/apps/storage && ln -fs ../../../wikimodel/dist dist/apps/wikimodel && ln -fs ../../../dsfr/dist dist/apps/dsfr && ln -fs ../../../dsshoelace/dist dist/apps/dsshoelace",
@@ -31,7 +31,7 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@hocuspocus/server": "2.13.5",
+    "@xwiki/cristal-authentication-xwiki": "workspace:*",
     "@xwiki/cristal-browser-default": "workspace:*",
     "@xwiki/cristal-hierarchy-default": "workspace:*",
     "@xwiki/cristal-hierarchy-github": "workspace:*",
@@ -43,22 +43,21 @@
     "@xwiki/cristal-navigation-tree-github": "workspace:*",
     "@xwiki/cristal-navigation-tree-nextcloud": "workspace:*",
     "@xwiki/cristal-navigation-tree-xwiki": "workspace:*",
-    "express": "4.20.0",
-    "express-ws": "5.0.2",
-    "vue": "3.5.10",
-    "vue-router": "4.4.0"
+    "express": "4.21.1",
+    "vue": "3.5.12",
+    "vue-router": "4.4.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.12.0",
     "@playwright/test": "1.47.2",
-    "@types/node": "22.7.4",
+    "@types/node": "22.7.5",
     "@vitejs/plugin-vue": "5.1.4",
     "globals": "15.11.0",
     "inversify": "6.0.2",
-    "vite-plugin-comlink": "4.1.0",
-    "vite-plugin-dts": "3.9.1",
-    "vite-plugin-inspect": "0.8.4",
+    "vite-plugin-comlink": "5.0.1",
+    "vite-plugin-dts": "4.2.4",
+    "vite-plugin-inspect": "0.8.7",
     "vite-plugin-vuetify": "2.0.4",
     "vue-tsc": "2.1.6"
   }

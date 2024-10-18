@@ -23,11 +23,12 @@
   },
   "dependencies": {
     "@xwiki/cristal-browser-electron": "workspace:*",
+    "@xwiki/cristal-electron-authentication-xwiki-main": "workspace:*",
     "@xwiki/cristal-electron-storage": "workspace:*",
-    "electron": "31.6.0"
+    "electron": "32.2.0"
   },
   "devDependencies": {
-    "@types/node": "22.7.4",
+    "@types/node": "22.7.5",
     "cross-env": "7.0.3"
   }
 }

@@ -34,11 +34,17 @@ type Permission = Parameters<
  *
  * In development mode you need allow open `VITE_DEV_SERVER_URL`.
  */
-const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<Permission>>(
+const ALLOWED_ORIGINS_AND_PERMISSIONS: Map<string, Set<Permission>> = new Map<
+  string,
+  Set<Permission>
+>(
   import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL
     ? [[new URL(import.meta.env.VITE_DEV_SERVER_URL).origin, new Set()]]
     : [],
 );
+// TODO: CRISTAL-253 replace this hardcoded mapping with list of values drawn
+// from the configuration.
+ALLOWED_ORIGINS_AND_PERMISSIONS.set("http://localhost:15680", new Set());
 
 /**
  * A list of origins that you allow open IN BROWSER.
