@@ -65,7 +65,7 @@ interface AlertsService {
    * @param message the content of the alert
    * @param actions possible actions to include in the alert
    */
-  success(error: string, actions?: Action[]): void;
+  error(message: string, actions?: Action[]): void;
 
   /**
    * Dismiss an alert.

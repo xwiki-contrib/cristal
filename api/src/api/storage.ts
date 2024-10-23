@@ -75,7 +75,7 @@ export interface Storage {
    * @param content the content of the page
    * @param title the page title
    * @param syntax the syntax of the page
-   * @return a promise on the save is done
+   * @return a promise when the save is done
    *
    * @since 0.8
    */
@@ -99,9 +99,9 @@ export interface Storage {
    * Delete a page.
    *
    * @param page the page to delete
-   * @return a promise on the delete is done
+   * @return true if the delete was successful, false with the reason otherwise
    *
    * @since 0.11
    */
-  delete(page: string): Promise<unknown>;
+  delete(page: string): Promise<[boolean, string?]>;
 }

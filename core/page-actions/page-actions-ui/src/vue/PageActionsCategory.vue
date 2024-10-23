@@ -51,9 +51,13 @@ onMounted(async () => {
 </script>
 <template>
   <x-menu-label>{{ category.title }}</x-menu-label>
-  <x-menu-item v-for="a of actions" :key="a.action.id" :value="a.action.id">
+  <x-menu-item
+    v-for="action of actions"
+    :key="action.action.id"
+    :value="action.action.id"
+  >
     <component
-      :is="a.component"
+      :is="action.component"
       :current-page="currentPage"
       :current-page-name="currentPageName"
     ></component>

@@ -50,19 +50,30 @@ async function deletePage() {
     .get()
     .getPageHierarchy(props.currentPage!);
 
-  await cristal.getWikiConfig().storage.delete(props.currentPageName);
+  const success = await cristal
+    .getWikiConfig()
+    .storage.delete(props.currentPageName);
   deleteDialogOpen.value = false;
 
-  if (hierarchy.length > 1) {
-    cristal.setCurrentPage(hierarchy[hierarchy.length - 2].pageId, "view");
+  if (success[0]) {
+    if (hierarchy.length > 1) {
+      cristal.setCurrentPage(hierarchy[hierarchy.length - 2].pageId, "view");
+    } else {
+      cristal.setCurrentPage(cristal.getWikiConfig().homePage, "view");
+    }
+    alertsService.success(
+      t("page.action.action.delete.page.success", {
+        page: props.currentPageName,
+      }),
+    );
   } else {
-    cristal.setCurrentPage(cristal.getWikiConfig().homePage, "view");
+    alertsService.error(
+      t("page.action.action.delete.page.error", {
+        page: props.currentPageName,
+        reason: success[1],
+      }),
+    );
   }
-  alertsService.success(
-    t("page.action.action.delete.page.success", {
-      page: props.currentPageName,
-    }),
-  );
 }
 </script>
 

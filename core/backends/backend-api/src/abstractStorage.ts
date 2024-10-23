@@ -96,5 +96,5 @@ export abstract class AbstractStorage implements Storage {
    */
   abstract saveAttachments(page: string, files: File[]): Promise<unknown>;
 
-  abstract delete(page: string): Promise<unknown>;
+  abstract delete(page: string): Promise<[boolean, string?]>;
 }
