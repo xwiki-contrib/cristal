@@ -123,7 +123,7 @@ export class GitHubStorage extends AbstractStorage {
     throw new Error("unsupported");
   }
 
-  async delete(): Promise<[boolean, string?]> {
+  async delete(): Promise<{ success: boolean; error?: string }> {
     // TODO: to be implemented
     throw new Error("Delete not supported");
   }

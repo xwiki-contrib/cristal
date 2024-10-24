@@ -39,8 +39,8 @@ const alerts: Ref<Alert[]> = alertsService.list();
       :description="alert.message"
       :actions="alert.actions"
       @update:model-value="
-        ($event: boolean) => {
-          if (!$event) {
+        (open: boolean) => {
+          if (!open) {
             alertsService.dismiss(alert.id);
           }
         }
@@ -52,7 +52,7 @@ const alerts: Ref<Alert[]> = alertsService.list();
 <style scoped>
 .wrapper {
   width: 400px;
-  z-index: 2;
+  z-index: var(--cr-z-index-toast);
   position: fixed;
   top: var(--cr-spacing-x-large);
   right: var(--cr-spacing-2x-large);
@@ -60,6 +60,7 @@ const alerts: Ref<Alert[]> = alertsService.list();
   gap: var(--cr-spacing-x-small);
 }
 
+/* We want to display alerts on the bottom on small viewports. */
 @container xwCristal (max-width: 600px) {
   .wrapper {
     width: 90%;

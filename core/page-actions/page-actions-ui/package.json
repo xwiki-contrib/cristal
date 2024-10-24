@@ -22,11 +22,11 @@
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
   },
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-page-actions-api": "workspace:*",
     "@xwiki/cristal-alerts-api": "workspace:*",
+    "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-hierarchy-api": "workspace:*",
     "@xwiki/cristal-icons": "workspace:*",
+    "@xwiki/cristal-page-actions-api": "workspace:*",
     "inversify": "6.0.2",
     "vue": "3.5.12",
     "vue-i18n": "10.0.4"

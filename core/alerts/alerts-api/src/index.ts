@@ -34,9 +34,15 @@ interface Alert {
 }
 
 /**
+ * Service to create and manage alert messages in Cristal.
+ *
  * @since 0.11
  */
 interface AlertsService {
+  /**
+   * List created and not dismissed alerts.
+   * @return the current alerts
+   */
   list(): Ref<Alert[]>;
 
   /**

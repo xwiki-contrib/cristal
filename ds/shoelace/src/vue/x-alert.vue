@@ -19,40 +19,35 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import "@shoelace-style/shoelace/dist/components/alert/alert";
+import "@shoelace-style/shoelace/dist/components/icon/icon";
+import type { AlertProps } from "@xwiki/cristal-dsapi";
+import { CIcon } from "@xwiki/cristal-icons";
 import { computed } from "vue";
 
-type Types = "" | "success" | "warning" | "error" | "info";
-
-const { type } = defineProps<{
-  title: string;
-  type: Types;
-  description: string;
-  actions?: [{ name: string; callback: () => void }];
-}>();
+const { type } = defineProps<AlertProps>();
 
 const variant = computed(() => {
   let variant: string;
+  let icon: string;
   switch (type) {
-    case "":
-      variant = "primary";
-      break;
     case "success":
       variant = "success";
+      icon = "check2-circle";
       break;
     case "warning":
       variant = "warning";
+      icon = "exclamation-triangle";
       break;
     case "error":
       variant = "danger";
+      icon = "exclamation-octagon";
       break;
     case "info":
       variant = "primary";
-      break;
-    default:
-      variant = "primary";
+      icon = "info-circle";
       break;
   }
-  return variant;
+  return { variant, icon };
 });
 
 const open = defineModel<boolean>();
@@ -62,12 +57,14 @@ open.value = true;
 <template>
   <sl-alert
     closable
-    :title="title"
-    :variant="variant"
+    :variant="variant.variant"
     :open="open"
     @sl-show="open = true"
     @sl-hide="open = false"
   >
+    <c-icon slot="icon" :name="variant.icon"></c-icon>
+    <strong v-if="title">{{ title }}</strong>
+    <br v-if="title" />
     {{ description }}
     <x-btn
       v-for="action of actions"

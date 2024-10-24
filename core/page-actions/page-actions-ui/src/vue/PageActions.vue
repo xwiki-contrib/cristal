@@ -18,7 +18,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import { type Ref, inject, ref } from "vue";
+import { inject } from "vue";
 import type { CristalApp, PageData } from "@xwiki/cristal-api";
 import type {
   PageActionCategory,
@@ -36,9 +36,7 @@ const cristal: CristalApp = inject<CristalApp>("cristal")!;
 const actionCategoryService: PageActionCategoryService = cristal
   .getContainer()
   .get<PageActionCategoryService>("PageActionCategoryService")!;
-const actionCategories: Ref<PageActionCategory[]> = ref(
-  actionCategoryService.list(),
-);
+const actionCategories: PageActionCategory[] = actionCategoryService.list();
 </script>
 <template>
   <x-menu>

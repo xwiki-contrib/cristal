@@ -19,7 +19,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script lang="ts" setup></script>
 <template>
-  <v-menu :close-on-content-click="false">
+  <!-- v-menu needs to be attached inside Cristal DOM to fix its z-index.
+       We also reset the default z-index to set it in the style section. -->
+  <v-menu
+    :close-on-content-click="false"
+    attach="#xwCristalApp"
+    z-index="initial"
+  >
     <template #activator="{ props }">
       <span v-bind="props">
         <slot name="activator" />
@@ -30,3 +36,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     </v-list>
   </v-menu>
 </template>
+<style scoped>
+.v-overlay {
+  z-index: var(--cr-z-index-dropdown);
+}
+</style>

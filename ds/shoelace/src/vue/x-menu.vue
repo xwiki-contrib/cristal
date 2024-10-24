@@ -30,3 +30,8 @@ import "@shoelace-style/shoelace";
     </sl-menu>
   </sl-dropdown>
 </template>
+<style scoped>
+sl-dropdown {
+  z-index: var(--cr-z-index-dropdown);
+}
+</style>

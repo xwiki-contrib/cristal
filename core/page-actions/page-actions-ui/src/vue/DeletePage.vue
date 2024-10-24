@@ -50,12 +50,12 @@ async function deletePage() {
     .get()
     .getPageHierarchy(props.currentPage!);
 
-  const success = await cristal
+  const result = await cristal
     .getWikiConfig()
     .storage.delete(props.currentPageName);
   deleteDialogOpen.value = false;
 
-  if (success[0]) {
+  if (result.success) {
     if (hierarchy.length > 1) {
       cristal.setCurrentPage(hierarchy[hierarchy.length - 2].pageId, "view");
     } else {
@@ -70,7 +70,7 @@ async function deletePage() {
     alertsService.error(
       t("page.action.action.delete.page.error", {
         page: props.currentPageName,
-        reason: success[1],
+        reason: result.error!,
       }),
     );
   }

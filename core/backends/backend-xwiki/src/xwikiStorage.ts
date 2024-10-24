@@ -282,10 +282,10 @@ export class XWikiStorage extends AbstractStorage {
     return;
   }
 
-  async delete(page: string): Promise<[boolean, string?]> {
+  async delete(page: string): Promise<{ success: boolean; error?: string }> {
     const url = this.buildSavePageURL(page, ["rest", "wikis", "xwiki"]);
 
-    const success: [boolean, string?] = await fetch(url, {
+    const success = await fetch(url, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -293,9 +293,9 @@ export class XWikiStorage extends AbstractStorage {
       },
     }).then(async (response) => {
       if (response.ok) {
-        return [true];
+        return { success: true };
       } else {
-        return [false, await response.text()];
+        return { success: false, error: await response.text() };
       }
     });
 

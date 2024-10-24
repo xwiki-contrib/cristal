@@ -18,14 +18,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import type { VAlert } from "vuetify/lib/components/VAlert/index.mjs";
+import type { AlertProps } from "@xwiki/cristal-dsapi";
 
-defineProps<{
-  title: string;
-  type: VAlert["type"];
-  description: string;
-  actions?: [{ name: string; callback: () => void }];
-}>();
+defineProps<AlertProps>();
 </script>
 <template>
   <v-alert closable :title="title" :type="type" :text="description">

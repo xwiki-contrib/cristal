@@ -103,5 +103,5 @@ export interface Storage {
    *
    * @since 0.11
    */
-  delete(page: string): Promise<[boolean, string?]>;
+  delete(page: string): Promise<{ success: boolean; error?: string }>;
 }
