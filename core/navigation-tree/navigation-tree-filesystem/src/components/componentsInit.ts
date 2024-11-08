@@ -60,7 +60,7 @@ class FileSystemNavigationTreeSource implements NavigationTreeSource {
       // Remove attachments folders
       if (child !== "attachments") {
         const id = `${currentId}${currentId ? "/" : ""}${child}`;
-        const currentPageData = await this.cristalApp.getPage(id);
+        const currentPageData = await this.cristalApp.getPage(id, undefined);
         navigationTree.push({
           id: id,
           label:

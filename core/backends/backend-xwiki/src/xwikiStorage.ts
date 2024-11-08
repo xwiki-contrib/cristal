@@ -29,6 +29,7 @@ import {
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
 
 /**
  * The type of individual attachments.
@@ -73,16 +74,23 @@ export class XWikiStorage extends AbstractStorage {
     return true;
   }
 
-  getPageRestURL(page: string, syntax: string): string {
+  getPageRestURL(
+    page: string,
+    syntax: string,
+    revision: string | undefined,
+  ): string {
     this.logger?.debug("XWiki Loading page", page);
-    return (
+    let url =
       this.wikiConfig.baseURL +
       this.wikiConfig.baseRestURL +
       "&page=" +
       encodeURIComponent(page) +
       "&format=" +
-      syntax
-    );
+      syntax;
+    if (revision) {
+      url += "&revision=" + revision;
+    }
+    return url;
   }
 
   getPageFromViewURL(url: string): string | null {
@@ -119,12 +127,16 @@ export class XWikiStorage extends AbstractStorage {
     return imageURL;
   }
 
-  async getPageContent(page: string, syntax: string): Promise<PageData> {
+  async getPageContent(
+    page: string,
+    syntax: string,
+    revision: string | undefined,
+  ): Promise<PageData> {
     this.logger?.debug("XWiki Loading page", page);
     if (page == "") {
       page = "Main.WebHome";
     }
-    const url = this.getPageRestURL(page, syntax);
+    const url = this.getPageRestURL(page, syntax, revision);
     this.logger?.debug("XWiki Loading url", url);
     const response = await fetch(url, { cache: "no-store" });
     const json = await response.json();
@@ -326,10 +338,6 @@ export class XWikiStorage extends AbstractStorage {
   }
 
   private buildAttachmentsURL(page: string) {
-    const strings = page.split(".");
-    const lastIndex = strings.length - 1;
-    const spaces = strings.splice(0, lastIndex).join("/spaces/");
-    const pageName = strings[lastIndex] || "WebHome";
-    return `${this.wikiConfig.baseURL}/rest/wikis/xwiki/spaces/${spaces}/pages/${pageName}/attachments`;
+    return `${getRestSpacesApiUrl(this.wikiConfig, page)}/attachments`;
   }
 }

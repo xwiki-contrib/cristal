@@ -45,6 +45,7 @@ import { ComponentInit as DocumentComponentInit } from "@xwiki/cristal-document-
 import { ComponentInit as AlertsDefaultComponentInit } from "@xwiki/cristal-alerts-default";
 import { ComponentInit as ActionsPagesComponentInit } from "@xwiki/cristal-page-actions-default";
 import { ComponentInit as ActionsPagesUIComponentInit } from "@xwiki/cristal-page-actions-ui";
+import { ComponentInit as HistoryUIComponentInit } from "@xwiki/cristal-history-ui";
 import type { Container } from "inversify";
 
 export class StaticBuild {
@@ -84,6 +85,7 @@ export class StaticBuild {
       new AlertsDefaultComponentInit(container);
       new ActionsPagesComponentInit(container);
       new ActionsPagesUIComponentInit(container);
+      new HistoryUIComponentInit(container);
     }
     if (additionalComponents) {
       additionalComponents(container);

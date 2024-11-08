@@ -35,6 +35,7 @@ const alerts: Ref<Alert[]> = alertsService.list();
     <XAlert
       v-for="alert of alerts"
       :key="alert.id"
+      closable
       :type="alert.type"
       :description="alert.message"
       :actions="alert.actions"

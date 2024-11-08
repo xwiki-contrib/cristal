@@ -18,26 +18,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { getRestSpacesApiUrl } from "../utils";
-import { describe, expect, it } from "vitest";
-import type { WikiConfig } from "@xwiki/cristal-api";
+import { XWikiPageRevisionManager } from "./components/componentsInit";
+import { Container } from "inversify";
+import {
+  name as PageRevisionManagerName,
+  type PageRevisionManager,
+} from "@xwiki/cristal-history-api";
 
-describe("getRestSpacesApiUrl", () => {
-  const wikiConfig: WikiConfig = {
-    baseURL: "<baseURL>",
-  } as WikiConfig;
-  it("regular identifier", () => {
-    expect(
-      getRestSpacesApiUrl(wikiConfig, "Space1.Space2.WebHome"),
-    ).toStrictEqual(
-      "<baseURL>/rest/wikis/xwiki/spaces/Space1/spaces/Space2/pages/WebHome",
-    );
-  });
-  it("identifier with special characters", () => {
-    expect(
-      getRestSpacesApiUrl(wikiConfig, "Space1\\\\\\.Space\\\\2.Web/Home"),
-    ).toStrictEqual(
-      "<baseURL>/rest/wikis/xwiki/spaces/Space1%5C%2ESpace%5C2/pages/Web%2FHome",
-    );
-  });
-});
+class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<PageRevisionManager>(PageRevisionManagerName)
+      .to(XWikiPageRevisionManager)
+      .inSingletonScope()
+      .whenTargetNamed("XWiki");
+  }
+}
+
+export { ComponentInit };

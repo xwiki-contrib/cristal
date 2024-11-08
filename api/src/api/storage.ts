@@ -27,7 +27,11 @@ export interface Storage {
 
   getWikiConfig(): WikiConfig;
 
-  getPageRestURL(page: string, syntax: string): string;
+  getPageRestURL(
+    page: string,
+    syntax: string,
+    revision: string | undefined,
+  ): string;
 
   getPageFromViewURL(url: string): string | null;
 
@@ -46,6 +50,7 @@ export interface Storage {
   getPageContent(
     page: string,
     syntax: string,
+    revision: string | undefined,
     requeue?: boolean,
   ): Promise<PageData | undefined>;
 

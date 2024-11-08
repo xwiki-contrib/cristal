@@ -45,7 +45,7 @@ export async function getPageHierarchyFromPath(
     if (i == fileHierarchy.length - 1) {
       currentPageData = pageData;
     } else {
-      currentPageData = await cristalApp.getPage(currentFile);
+      currentPageData = await cristalApp.getPage(currentFile, undefined);
     }
     hierarchy.push({
       label: currentPageData?.name ? currentPageData.name : file,

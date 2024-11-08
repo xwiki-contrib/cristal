@@ -29,6 +29,9 @@ import { ComponentInit as GitHubNavigationTreeComponentInit } from "@xwiki/crist
 import { ComponentInit as NextcloudNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-nextcloud";
 import { ComponentInit as XWikiNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-xwiki";
 import { ComponentInit as AuthenticationXWikiComponentInit } from "@xwiki/cristal-authentication-xwiki";
+import { ComponentInit as DefaultPageHistoryComponentInit } from "@xwiki/cristal-history-default";
+import { ComponentInit as GitHubPageHistoryComponentInit } from "@xwiki/cristal-history-github";
+import { ComponentInit as XWikiPageHistoryComponentInit } from "@xwiki/cristal-history-xwiki";
 import { Container } from "inversify";
 
 CristalAppLoader.init(
@@ -57,5 +60,8 @@ CristalAppLoader.init(
     new NextcloudNavigationTreeComponentInit(container);
     new XWikiNavigationTreeComponentInit(container);
     new AuthenticationXWikiComponentInit(container);
+    new DefaultPageHistoryComponentInit(container);
+    new GitHubPageHistoryComponentInit(container);
+    new XWikiPageHistoryComponentInit(container);
   },
 );

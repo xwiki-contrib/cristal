@@ -18,25 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { WikiConfig } from "@xwiki/cristal-api";
+import { generateConfigVue } from "../../../vite.config";
 
-/**
- * Returns URL to XWiki spaces rest API for a given document.
- *
- * @param wikiConfig - the current wiki configuration
- * @param documentId - the id of the document
- * @returns the crafted URL
- * @since 0.9
- */
-export function getRestSpacesApiUrl(
-  wikiConfig: WikiConfig,
-  documentId: string,
-): string {
-  return `${wikiConfig.baseURL}/rest/wikis/xwiki/spaces/${encodeURIComponent(
-    documentId,
-  )
-    .replace(/((?:%5C%5C)*)%5C\./g, "$1%2E") // Unescape dots in identifiers
-    .replace(/%5C%5C/g, "%5C") // Unescape backslashes in identifiers
-    .replace(/\.(?=.*\.)/g, "/spaces/") // Transform separators to spaces endpoints
-    .replace(/\./, "/pages/")}`; // Transform last separator to pages endpoint
-}
+export default generateConfigVue(import.meta.url);
