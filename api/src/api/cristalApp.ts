@@ -68,7 +68,7 @@ export interface CristalApp {
    */
   getCurrentSyntax(): string;
 
-  setCurrentPage(page: string, mode: string): void;
+  setCurrentPage(page: string, mode?: string): void;
 
   /**
    * @deprecated use the document-api instead

@@ -20,18 +20,27 @@
 
 import { ClickListener } from "./clickListener";
 import { inject, injectable } from "inversify";
-import { type RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
+import {
+  type RemoteURLParserProvider,
+  type RemoteURLSerializerProvider,
+} from "@xwiki/cristal-model-remote-url-api";
 import { EntityType } from "@xwiki/cristal-model-api";
+import { type CristalApp } from "@xwiki/cristal-api";
 
 @injectable()
 class DefaultClickListener implements ClickListener {
   constructor(
     @inject("RemoteURLParserProvider")
     private readonly remoteURLParserProvider: RemoteURLParserProvider,
+    @inject("RemoteURLSerializerProvider")
+    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
+    @inject("CristalApp") private readonly cristal: CristalApp,
   ) {}
 
   handle(element: HTMLElement): void {
     const remoteURLParser = this.remoteURLParserProvider.get();
+    const remoteURLSerializer = this.remoteURLSerializerProvider.get()!;
+    const cristal = this.cristal;
     element.addEventListener(
       "click",
       function handleClick(event) {
@@ -40,9 +49,12 @@ class DefaultClickListener implements ClickListener {
           const url = (event.target as HTMLLinkElement)?.href;
           try {
             const entityReference = remoteURLParser.parse(url);
-
             if (entityReference.type == EntityType.DOCUMENT) {
               event.preventDefault();
+              cristal.setCurrentPage(
+                // TODO: implement a serializer for XWiki references.
+                remoteURLSerializer.serialize(entityReference),
+              );
             } else if (entityReference.type == EntityType.ATTACHMENT) {
               // TODO: see how to handle the attachment modal opening.
             }

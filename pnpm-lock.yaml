@@ -649,6 +649,9 @@ importers:
 
   core/model/model-click-listener:
     dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../model-api
