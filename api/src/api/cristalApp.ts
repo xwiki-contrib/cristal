@@ -76,6 +76,10 @@ export interface CristalApp {
    */
   setContentRef(ref: Ref): void;
 
+  /**
+   *
+   * @deprecated
+   */
   loadPageFromURL(url: string): Promise<void>;
 
   loadPage(options?: { requeue: boolean }): Promise<void>;

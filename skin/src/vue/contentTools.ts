@@ -22,6 +22,7 @@ import { createVNode, render } from "vue";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { MacroProvider } from "../api/macroProvider";
 import type { App, Component, VNode } from "vue";
+import { ClickListener } from "@xwiki/cristal-model-click-listener";
 
 // import { DefaultMacroData } from "../components/defaultMacroData";
 
@@ -32,10 +33,23 @@ export class ContentTools {
     this.logger = cristal?.getLogger("skin.vue.contenttools");
   }
 
-  /*
-        Method to intercept clicks in the HTML content and load the page using Cristal Wiki
-    */
-  public static listenToClicks(
+  /**
+   * Method to intercept clicks in the HTML content and load the page using Cristal Wiki
+   */ public static listenToClicks(
+    element: HTMLElement,
+    cristal: CristalApp | undefined,
+  ): void {
+    const clickListener = cristal
+      ?.getContainer()
+      .get<ClickListener>("ClickListener");
+    clickListener?.handle(element);
+  }
+
+  /**
+   * Method to intercept clicks in the HTML content and load the page using Cristal Wiki
+   * @deprecated
+   */
+  public static listenToClicksOld(
     element: HTMLElement,
     cristal: CristalApp | undefined,
   ): void {
