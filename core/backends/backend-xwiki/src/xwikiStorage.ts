@@ -18,18 +18,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { inject, injectable } from "inversify";
 import {
   AttachmentsData,
   DefaultPageData,
   Document,
   JSONLDDocument,
-  type Logger,
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
-import { type AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
+import { inject, injectable } from "inversify";
+import type { Logger } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 /**
  * The type of individual attachments.
