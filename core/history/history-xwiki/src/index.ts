@@ -19,11 +19,9 @@
  */
 
 import { XWikiPageRevisionManager } from "./components/componentsInit";
-import { Container } from "inversify";
-import {
-  name as PageRevisionManagerName,
-  type PageRevisionManager,
-} from "@xwiki/cristal-history-api";
+import { name as PageRevisionManagerName } from "@xwiki/cristal-history-api";
+import type { PageRevisionManager } from "@xwiki/cristal-history-api";
+import type { Container } from "inversify";
 
 class ComponentInit {
   constructor(container: Container) {

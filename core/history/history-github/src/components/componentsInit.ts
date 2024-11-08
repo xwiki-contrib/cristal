@@ -19,11 +19,11 @@
  */
 
 import { inject, injectable } from "inversify";
-import {
-  type PageRevision,
-  type PageRevisionManager,
+import type { CristalApp, Logger, PageData } from "@xwiki/cristal-api";
+import type {
+  PageRevision,
+  PageRevisionManager,
 } from "@xwiki/cristal-history-api";
-import type { CristalApp, PageData, Logger } from "@xwiki/cristal-api";
 
 /**
  * Implementation of PageRevisionManager for the GitHub backend.

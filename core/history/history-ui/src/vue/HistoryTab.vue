@@ -19,18 +19,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import messages from "../translations";
-import { type Ref, inject, onMounted, ref } from "vue";
-import { type CristalApp, PageData } from "@xwiki/cristal-api";
-import {
-  type PageRevision,
-  type PageRevisionManagerProvider,
-} from "@xwiki/cristal-history-api";
-import {
-  type DocumentService,
-  name as documentServiceName,
-} from "@xwiki/cristal-document-api";
-
+import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { inject, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import type { CristalApp, PageData } from "@xwiki/cristal-api";
+import type { DocumentService } from "@xwiki/cristal-document-api";
+import type {
+  PageRevision,
+  PageRevisionManagerProvider,
+} from "@xwiki/cristal-history-api";
+import type { Ref } from "vue";
 
 const { t } = useI18n({
   messages,

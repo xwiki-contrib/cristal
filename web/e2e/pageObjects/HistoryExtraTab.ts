@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Locator, Page } from "@playwright/test";
 import { DesignSystem } from "../DesignSystem";
+import type { Locator, Page } from "@playwright/test";
 
 /**
  * The page object interface for a revision.
@@ -28,22 +28,22 @@ export interface RevisionElement {
   /**
    * @returns the version of the revision
    */
-  getVersion(): Promise<String>;
+  getVersion(): Promise<string>;
 
   /**
    * @returns the date of the revision
    */
-  getDate(): Promise<String>;
+  getDate(): Promise<string>;
 
   /**
    * @returns the user that made the revision
    */
-  getUser(): Promise<String>;
+  getUser(): Promise<string>;
 
   /**
    * @returns the comment for the revision
    */
-  getComment(): Promise<String>;
+  getComment(): Promise<string>;
 
   /**
    * @returns the link to the revision
@@ -64,21 +64,29 @@ export class HistoryExtraTabPageObject {
     // We first open the tab.
     switch (this.designSystem) {
       case DesignSystem.VUETIFY:
-        await this.page.locator("#content .doc-info-extra .v-tabs button[value='history']").click();
+        await this.page
+          .locator("#content .doc-info-extra .v-tabs button[value='history']")
+          .click();
         break;
       case DesignSystem.SHOELACE:
-        await this.page.locator("#content .doc-info-extra sl-tab-group sl-tab[panel='history']").click();
+        await this.page
+          .locator(
+            "#content .doc-info-extra sl-tab-group sl-tab[panel='history']",
+          )
+          .click();
         break;
     }
-    
+
     // Then we wait for the history to be loaded.
-    const revisions: Locator = this.page.locator("#content .doc-info-extra table tr");
+    const revisions: Locator = this.page.locator(
+      "#content .doc-info-extra table tr",
+    );
     await revisions.nth(0).waitFor({
       state: "visible",
-    })
+    });
 
     // Finally we return the revisions.
-    return (await revisions.all()).map(revision => {
+    return (await revisions.all()).map((revision) => {
       return {
         async getVersion() {
           return revision.locator("td").nth(0).textContent();
@@ -100,6 +108,4 @@ export class HistoryExtraTabPageObject {
       } as RevisionElement;
     });
   }
-
-
 }

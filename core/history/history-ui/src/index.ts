@@ -19,8 +19,8 @@
  */
 
 import { HistoryExtraTab } from "./HistoryExtraTab";
-import { Container } from "inversify";
-import { ExtraTab } from "@xwiki/cristal-extra-tabs-api";
+import type { ExtraTab } from "@xwiki/cristal-extra-tabs-api";
+import type { Container } from "inversify";
 
 export class ComponentInit {
   constructor(container: Container) {

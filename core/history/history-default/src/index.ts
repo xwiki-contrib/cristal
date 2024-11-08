@@ -22,11 +22,11 @@ import {
   DefaultPageRevisionManager,
   DefaultPageRevisionManagerProvider,
 } from "./components/componentsInit";
+import { name as PageRevisionManagerName } from "@xwiki/cristal-history-api";
 import { Container } from "inversify";
-import {
-  name as PageRevisionManagerName,
-  type PageRevisionManager,
-  type PageRevisionManagerProvider,
+import type {
+  PageRevisionManager,
+  PageRevisionManagerProvider,
 } from "@xwiki/cristal-history-api";
 
 export class ComponentInit {

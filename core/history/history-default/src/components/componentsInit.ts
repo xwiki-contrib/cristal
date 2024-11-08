@@ -18,14 +18,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { name as PageRevisionManagerName } from "@xwiki/cristal-history-api";
 import { inject, injectable } from "inversify";
-import {
-  name as PageRevisionManagerName,
-  type PageRevision,
-  type PageRevisionManager,
-  type PageRevisionManagerProvider,
-} from "@xwiki/cristal-history-api";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type {
+  PageRevision,
+  PageRevisionManager,
+  PageRevisionManagerProvider,
+} from "@xwiki/cristal-history-api";
 
 /**
  * Default implementation for PageRevisionManager.

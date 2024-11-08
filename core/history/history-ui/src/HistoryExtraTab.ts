@@ -20,8 +20,8 @@
 
 import messages from "./translations";
 import HistoryTab from "./vue/HistoryTab.vue";
-import { injectable } from "inversify";
 import { AbstractExtraTab } from "@xwiki/cristal-extra-tabs-api";
+import { injectable } from "inversify";
 import { Component } from "vue";
 
 @injectable()
