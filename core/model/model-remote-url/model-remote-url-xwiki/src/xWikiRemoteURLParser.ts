@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { RemoteURLParser } from "@xwiki/cristal-remote-url-api";
+import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
 import { inject, injectable } from "inversify";
 import {
   AttachmentReference,
@@ -45,6 +45,7 @@ class XWikiRemoteURLParser implements RemoteURLParser {
     const endPath = url.pathname.replace(baseURL.pathname, "");
     let segments = endPath.split("/");
     if (segments[0] === "") segments = segments.slice(1);
+    if (segments[segments.length - 1] === "") segments.pop();
     const [bin, action] = segments;
     // TODO: the current approach is easy but does not work if some url rewriting is done in front of XWiki.
     if (bin == "bin" && action == "view") {

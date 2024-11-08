@@ -20,7 +20,7 @@
 
 import { ClickListener } from "./clickListener";
 import { inject, injectable } from "inversify";
-import { type RemoteURLParserProvider } from "@xwiki/cristal-remote-url-api";
+import { type RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
 import { EntityType } from "@xwiki/cristal-model-api";
 
 @injectable()

@@ -652,7 +652,7 @@ importers:
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../model-api
-      '@xwiki/cristal-remote-url-api':
+      '@xwiki/cristal-model-remote-url-api':
         specifier: workspace:*
         version: link:../model-remote-url/model-remote-url-api
       inversify:
@@ -694,7 +694,7 @@ importers:
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model-api
-      '@xwiki/cristal-remote-url-api':
+      '@xwiki/cristal-model-remote-url-api':
         specifier: workspace:*
         version: link:../model-remote-url-api
       inversify:
@@ -1414,6 +1414,12 @@ importers:
       '@xwiki/cristal-model-click-listener':
         specifier: workspace:*
         version: link:../core/model/model-click-listener
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../core/model/model-remote-url/model-remote-url-api
+      '@xwiki/cristal-model-remote-url-xwiki':
+        specifier: workspace:*
+        version: link:../core/model/model-remote-url/model-remote-url-xwiki
       '@xwiki/cristal-page-actions-default':
         specifier: workspace:*
         version: link:../core/page-actions/page-actions-default

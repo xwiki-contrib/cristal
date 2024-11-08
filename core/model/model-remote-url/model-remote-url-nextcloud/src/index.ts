@@ -17,16 +17,3 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { XWikiRemoteURLParser } from "./xWikiRemoteURLParser";
-import { Container } from "inversify";
-import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
-
-export class ComponentInit {
-  constructor(container: Container) {
-    container
-      .bind<RemoteURLParser>("RemoteURLParser")
-      .to(XWikiRemoteURLParser)
-      .inSingletonScope()
-      .whenTargetNamed("XWiki");
-  }
-}

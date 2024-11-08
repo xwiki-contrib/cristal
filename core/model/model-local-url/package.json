@@ -27,6 +27,9 @@
     "@xwiki/cristal-model-api": "workspace:*",
     "inversify": "6.0.3"
   },
+  "devDependencies": {
+    "vitest": "2.1.4"
+  },
   "publishConfig": {
     "exports": {
       ".": {
@@ -37,8 +40,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "devDependencies": {
-    "vitest": "2.1.4"
   }
 }
