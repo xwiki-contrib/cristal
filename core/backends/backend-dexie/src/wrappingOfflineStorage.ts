@@ -72,7 +72,7 @@ export class WrappingOfflineStorage implements WrappingStorage {
   }
 
   public getPageRestURL(page: string, syntax: string): string {
-    return this.storage.getPageRestURL(page, syntax, undefined);
+    return this.storage.getPageRestURL(page, syntax);
   }
 
   public getPageFromViewURL(url: string): string | null {
