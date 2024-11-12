@@ -556,7 +556,7 @@ export class DefaultCristalApp implements CristalApp {
 
   async getPage(
     page: string,
-    options?: { requeue: boolean; revision?: string },
+    options?: { requeue?: boolean; revision?: string },
   ): Promise<PageData | undefined> {
     const isJsonLD = this.getWikiConfig().isSupported("jsonld");
     const syntax = isJsonLD ? "jsonld" : "html";

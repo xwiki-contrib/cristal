@@ -91,7 +91,7 @@ export interface CristalApp {
    */
   getPage(
     page: string,
-    options?: { requeue: boolean; revision?: string },
+    options?: { requeue?: boolean; revision?: string },
   ): Promise<PageData | undefined>;
 
   getLogger(module: string): Logger;
