@@ -20,6 +20,7 @@
 
 import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
 import { inject, injectable } from "inversify";
+import type { AlertsService } from "@xwiki/cristal-alerts-api";
 import type { CristalApp, Logger, PageData } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type {
@@ -37,10 +38,10 @@ class XWikiPageRevisionManager implements PageRevisionManager {
   constructor(
     @inject<Logger>("Logger") private logger: Logger,
     @inject<CristalApp>("CristalApp") private cristalApp: CristalApp,
-    @inject("PageRevisionManager")
-    private defaultRevisionManager: PageRevisionManager,
     @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
     private authenticationManagerProvider: AuthenticationManagerProvider,
+    @inject<AlertsService>("AlertsService")
+    private alertsService: AlertsService,
   ) {
     this.logger.setModule("history.xwiki.XWikiPageRevisionManager");
   }
@@ -52,11 +53,12 @@ class XWikiPageRevisionManager implements PageRevisionManager {
   ): Promise<Array<PageRevision>> {
     const documentId = pageData.document.getIdentifier();
     if (documentId == null) {
-      this.logger.debug(
-        `No identifier found for page ${pageData.name}, falling back to default history manager.`,
+      this.alertsService.error(
+        `Could not load page history for ${pageData.name}.`,
       );
-      return this.defaultRevisionManager.getRevisions(pageData);
+      return [];
     }
+
     const restApiSearchParams = new URLSearchParams();
     if (limit) {
       restApiSearchParams.append("number", limit.toString());
@@ -81,46 +83,45 @@ class XWikiPageRevisionManager implements PageRevisionManager {
       }
       const response = await fetch(restApiUrl, { headers });
       const jsonResponse = await response.json();
-      const revisions: Array<PageRevision> =
-        await Promise.all(
-          jsonResponse.historySummaries.map(
-            async (revision: {
-              version: string;
-              modified: string;
-              modifier: string;
-              comment: string;
-            }) => {
-              return {
-                version: revision.version,
-                date: new Date(revision.modified),
-                user: {
-                  profile: this.cristalApp.getRouter().resolve({
-                    name: "view",
-                    params: {
-                      page: revision.modifier,
-                    }
-                  }).href,
-                  name: await this.getUserName(revision.modifier),
-                },
-                comment: revision.comment,
-                url: this.cristalApp.getRouter().resolve({
+      const revisions: Array<PageRevision> = await Promise.all(
+        jsonResponse.historySummaries.map(
+          async (revision: {
+            version: string;
+            modified: string;
+            modifier: string;
+            comment: string;
+          }) => {
+            return {
+              version: revision.version,
+              date: new Date(revision.modified),
+              user: {
+                profile: this.cristalApp.getRouter().resolve({
                   name: "view",
                   params: {
-                    page: documentId,
-                    revision: revision.version,
+                    page: revision.modifier,
                   },
                 }).href,
-              }
-            },
-        )
+                name: await this.getUserName(revision.modifier),
+              },
+              comment: revision.comment,
+              url: this.cristalApp.getRouter().resolve({
+                name: "view",
+                params: {
+                  page: documentId,
+                  revision: revision.version,
+                },
+              }).href,
+            };
+          },
+        ),
       );
       return revisions;
     } catch (error) {
       this.logger.error(error);
-      this.logger.debug(
-        `Could not load history for page ${pageData.name}, falling back to default history manager.`,
+      this.alertsService.error(
+        `Could not load page history for ${pageData.name}.`,
       );
-      return this.defaultRevisionManager.getRevisions(pageData);
+      return [];
     }
   }
 
@@ -156,14 +157,12 @@ class XWikiPageRevisionManager implements PageRevisionManager {
               }
               break;
           }
-        }
+        },
       );
       return user;
     } catch (error) {
       this.logger.error(error);
-      this.logger.debug(
-        `Could not load user details for page ${userId}.`,
-      );
+      this.logger.debug(`Could not load user details for page ${userId}.`);
       return userId;
     }
   }

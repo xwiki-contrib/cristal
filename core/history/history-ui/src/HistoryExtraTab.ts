@@ -21,14 +21,18 @@
 import messages from "./translations";
 import HistoryTab from "./vue/HistoryTab.vue";
 import { AbstractExtraTab } from "@xwiki/cristal-extra-tabs-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { Component } from "vue";
+import type { PageRevisionManagerProvider } from "@xwiki/cristal-history-api";
 
 @injectable()
 export class HistoryExtraTab extends AbstractExtraTab {
   title: string;
 
-  constructor() {
+  constructor(
+    @inject("PageRevisionManagerProvider")
+    private pageRevisionManagerProvider: PageRevisionManagerProvider,
+  ) {
     super(messages);
     this.title = this.t("history.extraTabs.title");
   }
@@ -38,5 +42,9 @@ export class HistoryExtraTab extends AbstractExtraTab {
 
   async panel(): Promise<Component> {
     return HistoryTab;
+  }
+
+  override async enabled(): Promise<boolean> {
+    return this.pageRevisionManagerProvider.has();
   }
 }

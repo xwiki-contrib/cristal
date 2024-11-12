@@ -112,5 +112,6 @@ table .history-revision {
   background-color: var(--cr-color-neutral-300);
   border-radius: var(--cr-border-radius-pill);
   padding: var(--cr-spacing-2x-small);
+  font-size: var(--cr-font-size-x-small);
 }
 </style>

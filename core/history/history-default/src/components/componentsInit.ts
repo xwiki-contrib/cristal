@@ -22,23 +22,9 @@ import { name as PageRevisionManagerName } from "@xwiki/cristal-history-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type {
-  PageRevision,
   PageRevisionManager,
   PageRevisionManagerProvider,
 } from "@xwiki/cristal-history-api";
-
-/**
- * Default implementation for PageRevisionManager.
- * This is a fallback that only returns an empty history.
- *
- * @since 0.12
- **/
-@injectable()
-class DefaultPageRevisionManager implements PageRevisionManager {
-  async getRevisions(): Promise<Array<PageRevision>> {
-    return [];
-  }
-}
 
 /**
  * Default implementation for PageRevisionManagerProvider.
@@ -55,18 +41,20 @@ class DefaultPageRevisionManagerProvider
     this.cristalApp = cristalApp;
   }
 
+  has(): boolean {
+    const container = this.cristalApp.getContainer();
+    const wikiConfigType = this.cristalApp.getWikiConfig().getType();
+    return container.isBoundNamed(PageRevisionManagerName, wikiConfigType);
+  }
+
   get(): PageRevisionManager {
     const container = this.cristalApp.getContainer();
     const wikiConfigType = this.cristalApp.getWikiConfig().getType();
-    if (container.isBoundNamed(PageRevisionManagerName, wikiConfigType)) {
-      return container.getNamed<PageRevisionManager>(
-        PageRevisionManagerName,
-        wikiConfigType,
-      );
-    } else {
-      return container.get<PageRevisionManager>(PageRevisionManagerName);
-    }
+    return container.getNamed<PageRevisionManager>(
+      PageRevisionManagerName,
+      wikiConfigType,
+    );
   }
 }
 
-export { DefaultPageRevisionManager, DefaultPageRevisionManagerProvider };
+export { DefaultPageRevisionManagerProvider };

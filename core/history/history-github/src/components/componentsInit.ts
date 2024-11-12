@@ -19,6 +19,7 @@
  */
 
 import { inject, injectable } from "inversify";
+import type { AlertsService } from "@xwiki/cristal-alerts-api";
 import type { CristalApp, Logger, PageData } from "@xwiki/cristal-api";
 import type {
   PageRevision,
@@ -35,6 +36,8 @@ class GitHubPageRevisionManager implements PageRevisionManager {
   constructor(
     @inject<CristalApp>("CristalApp") private cristalApp: CristalApp,
     @inject<Logger>("Logger") private logger: Logger,
+    @inject<AlertsService>("AlertsService")
+    private alertsService: AlertsService,
   ) {
     this.logger.setModule("history-github.GitHubPageRevisionManager");
   }
@@ -79,7 +82,9 @@ class GitHubPageRevisionManager implements PageRevisionManager {
                   shortMessage: string;
                   authors: Array<{ displayName: string; path: string }>;
                 } = jsonCommitResponse.payload.commitGroups[0].commits[0];
-                const authorProfile: URL = new URL(this.cristalApp.getWikiConfig().baseURL);
+                const authorProfile: URL = new URL(
+                  this.cristalApp.getWikiConfig().baseURL,
+                );
                 authorProfile.pathname = commitData.authors[0].path;
                 return {
                   version: version,
@@ -103,7 +108,9 @@ class GitHubPageRevisionManager implements PageRevisionManager {
         );
       } catch (error) {
         this.logger.error(error);
-        this.logger.debug("Could not load history.");
+        this.alertsService.error(
+          `Could not load page history for ${pageData.name}.`,
+        );
       }
     }
     return revisions;

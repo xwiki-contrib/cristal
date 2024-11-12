@@ -18,24 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import {
-  DefaultPageRevisionManager,
-  DefaultPageRevisionManagerProvider,
-} from "./components/componentsInit";
+import { DefaultPageRevisionManagerProvider } from "./components/componentsInit";
 import { name as PageRevisionManagerName } from "@xwiki/cristal-history-api";
-import type {
-  PageRevisionManager,
-  PageRevisionManagerProvider,
-} from "@xwiki/cristal-history-api";
+import type { PageRevisionManagerProvider } from "@xwiki/cristal-history-api";
 import type { Container } from "inversify";
 
 export class ComponentInit {
   constructor(container: Container) {
-    container
-      .bind<PageRevisionManager>(PageRevisionManagerName)
-      .to(DefaultPageRevisionManager)
-      .inSingletonScope()
-      .whenTargetIsDefault();
     container
       .bind<PageRevisionManagerProvider>(`${PageRevisionManagerName}Provider`)
       .to(DefaultPageRevisionManagerProvider)

@@ -558,6 +558,9 @@ importers:
 
   core/history/history-github:
     dependencies:
+      '@xwiki/cristal-alerts-api':
+        specifier: workspace:*
+        version: link:../../alerts/alerts-api
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
@@ -604,6 +607,9 @@ importers:
 
   core/history/history-xwiki:
     dependencies:
+      '@xwiki/cristal-alerts-api':
+        specifier: workspace:*
+        version: link:../../alerts/alerts-api
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api

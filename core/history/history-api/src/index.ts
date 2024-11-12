@@ -62,6 +62,14 @@ interface PageRevisionManager {
  **/
 interface PageRevisionManagerProvider {
   /**
+   * Checks whether an instance of PageRevisionManager matching the current
+   * wiki configuration exists.
+   *
+   * @returns whether or not an instance exists
+   */
+  has(): boolean;
+
+  /**
    * Returns the instance of PageRevisionManager matching the current wiki
    * configuration.
    *
