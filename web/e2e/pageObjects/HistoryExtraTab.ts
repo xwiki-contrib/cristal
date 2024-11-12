@@ -92,7 +92,7 @@ export class HistoryExtraTabPageObject {
           return revision.locator("td").nth(0).textContent();
         },
         async getDate() {
-          return revision.locator("td").nth(1).locator("a").textContent();
+          return revision.locator("td").nth(1).locator("a").nth(0).textContent();
         },
         async getUser() {
           const text = await revision.locator("td").nth(1).innerText();
@@ -103,7 +103,7 @@ export class HistoryExtraTabPageObject {
           return text.replace(/^.*\n/, "");
         },
         async getLink() {
-          return revision.locator("td").nth(1).locator("a");
+          return revision.locator("td").nth(1).locator("a").nth(0);
         },
       } as RevisionElement;
     });
