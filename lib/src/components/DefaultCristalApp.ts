@@ -17,44 +17,42 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
+// reflect-metadata is placed at the top because it needs to be imported
+// before any use of an inversify annotation.
+import "reflect-metadata";
 import Index from "../c-index.vue";
-import {
-  type CristalApp,
-  type LoggerConfig,
-  type PageData,
-  type WikiConfig,
-  DefaultLogger,
-  DefaultPageData,
-  type Logger,
-  type SkinManager,
-} from "@xwiki/cristal-api";
-import { createApp } from "vue";
+import { DefaultLogger, DefaultPageData } from "@xwiki/cristal-api";
+import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import { inject, injectable, multiInject } from "inversify";
 import { createPinia } from "pinia";
+import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
 import {
-  type DocumentService,
-  name as documentServiceName,
-} from "@xwiki/cristal-document-api";
-import { type BrowserApi } from "@xwiki/cristal-browser-api";
-import {
+  RouteRecordRaw,
+  Router,
   createRouter,
   createWebHashHistory,
-  Router,
-  RouteRecordRaw,
 } from "vue-router";
-import type { Container } from "inversify";
-import "reflect-metadata";
-import type { App, Component, Ref } from "vue";
+import type {
+  CristalApp,
+  Logger,
+  LoggerConfig,
+  PageData,
+  SkinManager,
+  WikiConfig,
+} from "@xwiki/cristal-api";
+import type { BrowserApi } from "@xwiki/cristal-browser-api";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 import "@mdi/font/css/materialdesignicons.css";
 import type { ExtensionManager } from "@xwiki/cristal-extension-manager";
+import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
+import type { Renderer } from "@xwiki/cristal-rendering";
 import type {
   UIXTemplateProvider,
   VueTemplateProvider,
 } from "@xwiki/cristal-skin";
-import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
-import type { Renderer } from "@xwiki/cristal-rendering";
+import type { Container } from "inversify";
+import type { App, Component, Ref } from "vue";
 
 @injectable()
 export class DefaultCristalApp implements CristalApp {
@@ -321,7 +319,7 @@ export class DefaultCristalApp implements CristalApp {
 
   /**
    *
-   * @deprecated
+   * @deprecated since XXX, replace with YYY
    */
   async loadPageFromURL(url: string): Promise<void> {
     this.logger?.debug("Trying to load", url);

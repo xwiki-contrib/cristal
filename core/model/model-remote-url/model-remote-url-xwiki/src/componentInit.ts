@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { XWikiRemoteURLParser } from "./xWikiRemoteURLParser";
-import { Container } from "inversify";
 import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
+import { Container } from "inversify";
 
 export class ComponentInit {
   constructor(container: Container) {

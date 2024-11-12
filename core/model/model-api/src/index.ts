@@ -91,10 +91,10 @@ class AttachmentReference implements EntityReference {
 }
 
 export {
-  type EntityReference,
-  WikiReference,
-  SpaceReference,
-  DocumentReference,
   AttachmentReference,
+  DocumentReference,
+  type EntityReference,
   EntityType,
+  SpaceReference,
+  WikiReference,
 };

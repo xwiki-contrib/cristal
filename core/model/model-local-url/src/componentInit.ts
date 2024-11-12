@@ -17,10 +17,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { LocalURLSerializer } from "./localURLSerializer";
+import { DefaultLocalURLParser } from "./defaultLocalURLParser";
 import { DefaultLocalURLSerializer } from "./defaultLocalURLSerializer";
 import { LocalURLParser } from "./localURLParser";
-import { DefaultLocalURLParser } from "./defaultLocalURLParser";
+import { LocalURLSerializer } from "./localURLSerializer";
 import { Container } from "inversify";
 
 class ComponentInit {

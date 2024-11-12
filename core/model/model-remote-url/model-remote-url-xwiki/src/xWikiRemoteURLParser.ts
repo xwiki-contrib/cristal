@@ -17,15 +17,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
-import { inject, injectable } from "inversify";
 import {
   AttachmentReference,
   DocumentReference,
-  type EntityReference,
   SpaceReference,
 } from "@xwiki/cristal-model-api";
-import { type CristalApp } from "@xwiki/cristal-api";
+import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
+import { inject, injectable } from "inversify";
+import type { CristalApp } from "@xwiki/cristal-api";
+import type { EntityReference } from "@xwiki/cristal-model-api";
 
 @injectable()
 class XWikiRemoteURLParser implements RemoteURLParser {

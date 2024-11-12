@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { DefaultRemoteURLParserProvider } from "./defaultRemoteURLParserProvider";
-import { RemoteURLParserProvider } from "./remoteURLParserProvider";
 import { DefaultRemoteURLSerializerProvider } from "./defaultRemoteURLSerializerProvider";
+import { RemoteURLParserProvider } from "./remoteURLParserProvider";
 import { RemoteURLSerializerProvider } from "./remoteURLSerializerProvider";
 import type { Container } from "inversify";
 

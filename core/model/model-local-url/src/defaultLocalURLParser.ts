@@ -21,7 +21,7 @@ import { LocalURLParser } from "./localURLParser";
 import type { EntityReference } from "@xwiki/cristal-model-api";
 
 export class DefaultLocalURLParser implements LocalURLParser {
-  parse(reference: string): EntityReference {
+  parse(): EntityReference {
     throw new Error("Method not implemented.");
   }
 }

@@ -18,12 +18,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { DefaultLocalURLSerializer } from "../defaultLocalURLSerializer";
-import { describe, it, expect } from "vitest";
 import {
   DocumentReference,
   SpaceReference,
   WikiReference,
 } from "@xwiki/cristal-model-api";
+import { describe, expect, it } from "vitest";
 
 describe("defaultLocalURLSerializer", () => {
   const serializer = new DefaultLocalURLSerializer();

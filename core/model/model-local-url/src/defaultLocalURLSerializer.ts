@@ -21,11 +21,11 @@ import { LocalURLSerializer } from "./localURLSerializer";
 import {
   AttachmentReference,
   DocumentReference,
-  type EntityReference,
   EntityType,
   SpaceReference,
   WikiReference,
 } from "@xwiki/cristal-model-api";
+import type { EntityReference } from "@xwiki/cristal-model-api";
 
 export class DefaultLocalURLSerializer implements LocalURLSerializer {
   serialize(reference?: EntityReference): string | undefined {
