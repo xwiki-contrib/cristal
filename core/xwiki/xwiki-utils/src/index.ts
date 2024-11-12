@@ -26,14 +26,20 @@ import type { WikiConfig } from "@xwiki/cristal-api";
  * @param wikiConfig - the current wiki configuration
  * @param documentId - the id of the document
  * @returns the crafted URL
- * @since 0.12
+ * @since 0.9
  */
 export function getRestSpacesApiUrl(
   wikiConfig: WikiConfig,
   documentId: string,
 ): string {
-  return `${wikiConfig.baseURL}/rest/wikis/xwiki/spaces/${encodeURIComponent(
-    documentId,
+  const splittedDocumentId = documentId.split(":");
+  const wiki = splittedDocumentId.length > 1 ? splittedDocumentId[0] : "xwiki";
+  const doc =
+    splittedDocumentId.length > 1
+      ? splittedDocumentId[1]
+      : splittedDocumentId[0];
+  return `${wikiConfig.baseURL}/rest/wikis/${wiki}/spaces/${encodeURIComponent(
+    doc,
   )
     .replace(/((?:%5C%5C)*)%5C\./g, "$1%2E") // Unescape dots in identifiers
     .replace(/%5C%5C/g, "%5C") // Unescape backslashes in identifiers

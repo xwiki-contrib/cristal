@@ -58,7 +58,7 @@ export abstract class AbstractStorage implements Storage {
   abstract getPageContent(
     page: string,
     syntax: string,
-    revision: string | undefined,
+    revision?: string,
   ): Promise<PageData | undefined>;
 
   /**
@@ -73,7 +73,7 @@ export abstract class AbstractStorage implements Storage {
   abstract getPageRestURL(
     page: string,
     syntax: string,
-    revision: string | undefined,
+    revision?: string,
   ): string;
 
   abstract getPanelContent(

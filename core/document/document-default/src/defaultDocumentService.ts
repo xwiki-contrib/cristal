@@ -36,7 +36,7 @@ type Actions = {
   update(
     documentReference: string,
     requeue: boolean,
-    revision: string | undefined,
+    revision?: string,
   ): Promise<void>;
 };
 type DocumentStoreDefinition = StoreDefinition<Id, State, Getters, Actions>;
@@ -63,13 +63,14 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
       async update(
         documentReference: string,
         requeue: boolean,
-        revision: string | undefined,
+        revision?: string,
       ) {
         this.lastDocumentReference = documentReference;
         this.setLoading();
         try {
-          const doc = await cristal.getPage(documentReference, revision, {
+          const doc = await cristal.getPage(documentReference, {
             requeue,
+            revision,
           });
           // Only store the result if the current document reference is equal to
           // the most recently requested one.
@@ -121,10 +122,7 @@ export class DefaultDocumentService implements DocumentService {
     return this.refs.error;
   }
 
-  setCurrentDocument(
-    documentReference: string,
-    revision: string | undefined,
-  ): void {
+  setCurrentDocument(documentReference: string, revision?: string): void {
     // this.store.setLoading();
     this.store.update(documentReference, true, revision);
   }

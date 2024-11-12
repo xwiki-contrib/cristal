@@ -74,23 +74,18 @@ export class XWikiStorage extends AbstractStorage {
     return true;
   }
 
-  getPageRestURL(
-    page: string,
-    syntax: string,
-    revision: string | undefined,
-  ): string {
+  getPageRestURL(page: string, syntax: string, revision?: string): string {
     this.logger?.debug("XWiki Loading page", page);
-    let url =
-      this.wikiConfig.baseURL +
-      this.wikiConfig.baseRestURL +
-      "&page=" +
-      encodeURIComponent(page) +
-      "&format=" +
-      syntax;
+    const url = new URL(this.wikiConfig.baseURL + this.wikiConfig.baseRestURL);
+    const searchParams = new URLSearchParams([
+      ["page", page],
+      ["format", syntax],
+    ]);
     if (revision) {
-      url += "&revision=" + revision;
+      searchParams.append("revision", revision);
     }
-    return url;
+    url.search = searchParams.toString();
+    return url.toString();
   }
 
   getPageFromViewURL(url: string): string | null {
@@ -130,7 +125,7 @@ export class XWikiStorage extends AbstractStorage {
   async getPageContent(
     page: string,
     syntax: string,
-    revision: string | undefined,
+    revision?: string,
   ): Promise<PageData> {
     this.logger?.debug("XWiki Loading page", page);
     if (page == "") {

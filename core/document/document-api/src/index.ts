@@ -53,10 +53,7 @@ interface DocumentService {
    * @param documentReference - the current document reference
    * @param revision - the revision of the document, undefined for latest
    */
-  setCurrentDocument(
-    documentReference: string,
-    revision: string | undefined,
-  ): void;
+  setCurrentDocument(documentReference: string, revision?: string): void;
 
   /**
    * Force reloading the content of the document without changing the current document reference

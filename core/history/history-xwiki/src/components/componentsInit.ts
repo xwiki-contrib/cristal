@@ -45,13 +45,24 @@ class XWikiPageRevisionManager implements PageRevisionManager {
     this.logger.setModule("history.xwiki.XWikiPageRevisionManager");
   }
 
-  async getRevisions(pageData: PageData): Promise<Array<PageRevision>> {
+  async getRevisions(
+    pageData: PageData,
+    limit?: number,
+    offset?: number,
+  ): Promise<Array<PageRevision>> {
     const documentId = pageData.document.getIdentifier();
     if (documentId == null) {
       this.logger.debug(
         `No identifier found for page ${pageData.name}, falling back to default history manager.`,
       );
       return this.defaultRevisionManager.getRevisions(pageData);
+    }
+    const restApiSearchParams = new URLSearchParams();
+    if (limit) {
+      restApiSearchParams.append("number", limit.toString());
+    }
+    if (offset) {
+      restApiSearchParams.append("start", offset.toString());
     }
     const restApiUrl =
       getRestSpacesApiUrl(this.cristalApp.getWikiConfig(), documentId) +
@@ -70,28 +81,38 @@ class XWikiPageRevisionManager implements PageRevisionManager {
       }
       const response = await fetch(restApiUrl, { headers });
       const jsonResponse = await response.json();
-      const revisions: Array<PageRevision> = [];
-      jsonResponse.historySummaries.forEach(
-        (revision: {
-          version: string;
-          modified: string;
-          modifier: string;
-          comment: string;
-        }) => {
-          revisions.push({
-            version: revision.version,
-            date: new Date(revision.modified),
-            user: revision.modifier,
-            comment: revision.comment,
-            url: this.cristalApp.getRouter().resolve({
-              name: "view",
-              params: {
-                page: documentId,
-                revision: revision.version,
-              },
-            }).href,
-          });
-        },
+      const revisions: Array<PageRevision> =
+        await Promise.all(
+          jsonResponse.historySummaries.map(
+            async (revision: {
+              version: string;
+              modified: string;
+              modifier: string;
+              comment: string;
+            }) => {
+              return {
+                version: revision.version,
+                date: new Date(revision.modified),
+                user: {
+                  profile: this.cristalApp.getRouter().resolve({
+                    name: "view",
+                    params: {
+                      page: revision.modifier,
+                    }
+                  }).href,
+                  name: await this.getUserName(revision.modifier),
+                },
+                comment: revision.comment,
+                url: this.cristalApp.getRouter().resolve({
+                  name: "view",
+                  params: {
+                    page: documentId,
+                    revision: revision.version,
+                  },
+                }).href,
+              }
+            },
+        )
       );
       return revisions;
     } catch (error) {
@@ -100,6 +121,50 @@ class XWikiPageRevisionManager implements PageRevisionManager {
         `Could not load history for page ${pageData.name}, falling back to default history manager.`,
       );
       return this.defaultRevisionManager.getRevisions(pageData);
+    }
+  }
+
+  private async getUserName(userId: string): Promise<string> {
+    const restApiUrl =
+      getRestSpacesApiUrl(this.cristalApp.getWikiConfig(), userId) +
+      "/objects/XWiki.XWikiUsers/0";
+
+    try {
+      const authorization = await this.authenticationManagerProvider
+        .get()
+        ?.getAuthorizationHeader();
+      const headers: { Accept: string; Authorization?: string } = {
+        Accept: "application/json",
+      };
+
+      if (authorization) {
+        headers.Authorization = authorization;
+      }
+      const response = await fetch(restApiUrl, { headers });
+      const jsonResponse = await response.json();
+      let user = jsonResponse.pageName;
+      jsonResponse.property.forEach(
+        (property: { name: string; value: string }) => {
+          // Properties are sorted alphabetically.
+          switch (property.name) {
+            case "first_name":
+              user = property.value;
+              break;
+            case "last_name":
+              if (property.value) {
+                user += ` ${property.value}`;
+              }
+              break;
+          }
+        }
+      );
+      return user;
+    } catch (error) {
+      this.logger.error(error);
+      this.logger.debug(
+        `Could not load user details for page ${userId}.`,
+      );
+      return userId;
     }
   }
 }

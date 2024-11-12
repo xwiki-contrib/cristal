@@ -61,13 +61,21 @@ onMounted(async () => {
         <span class="history-revision">{{ revision.version }}</span>
       </td>
       <td>
-        <a :href="revision.url">{{
-          revision.date.toLocaleString(undefined, {
-            dateStyle: "short",
-            timeStyle: "short",
-          })
-        }}</a>
-        {{ t("history.extraTabs.entry.separator") }} {{ revision.user }}
+        <i18n-t keypath="history.extraTabs.entry" tag="span">
+          <template #date>
+            <a :href="revision.url">{{
+              revision.date.toLocaleString(undefined, {
+                dateStyle: "short",
+                timeStyle: "short",
+              })
+            }}</a>
+          </template>
+          <template #user>
+            <a :href="revision.user.profile">{{
+              revision.user.name
+            }}</a>
+          </template>
+        </i18n-t>
         <br />
         {{ revision.comment }}
       </td>

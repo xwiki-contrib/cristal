@@ -19,6 +19,7 @@
  */
 
 import type { PageData } from "@xwiki/cristal-api";
+import type { UserDetails } from "@xwiki/cristal-authentication-api";
 
 /**
  * Description of a revision for a given page.
@@ -27,7 +28,7 @@ import type { PageData } from "@xwiki/cristal-api";
 type PageRevision = {
   version: string;
   date: Date;
-  user: string; // TODO: replace by an actual User instance.
+  user: UserDetails;
   comment: string;
   url: string;
 };
@@ -42,9 +43,15 @@ interface PageRevisionManager {
    * Returns the revisions for a given page.
    *
    * @param pageData - the page for which to get the revisions
+   * @param limit - the number of revisions to fetch
+   * @param offset - the number of revisions to skip
    * @returns the page revisions
    */
-  getRevisions(pageData: PageData): Promise<Array<PageRevision>>;
+  getRevisions(
+    pageData: PageData,
+    limit?: number,
+    offset?: number,
+  ): Promise<Array<PageRevision>>;
 }
 
 /**

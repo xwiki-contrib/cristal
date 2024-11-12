@@ -33,11 +33,7 @@ export class GitHubStorage extends AbstractStorage {
     return true;
   }
 
-  getPageRestURL(
-    page: string,
-    _syntax: string,
-    revision: string | undefined,
-  ): string {
+  getPageRestURL(page: string, _syntax: string, revision?: string): string {
     this.logger?.debug("GitHub Loading page", page);
     let baseRestURL = this.wikiConfig.baseRestURL;
     if (revision) {
@@ -78,7 +74,7 @@ export class GitHubStorage extends AbstractStorage {
   async getPageContent(
     page: string,
     syntax: string,
-    revision: string | undefined,
+    revision?: string,
   ): Promise<PageData> {
     this.logger?.debug("GitHub Loading page", page);
     const url = this.getPageRestURL(page, syntax, revision);

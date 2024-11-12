@@ -27,11 +27,7 @@ export interface Storage {
 
   getWikiConfig(): WikiConfig;
 
-  getPageRestURL(
-    page: string,
-    syntax: string,
-    revision: string | undefined,
-  ): string;
+  getPageRestURL(page: string, syntax: string, revision?: string): string;
 
   getPageFromViewURL(url: string): string | null;
 
@@ -41,6 +37,7 @@ export interface Storage {
    *
    * @param page - the id of the request page
    * @param syntax - the syntax of the request page
+   * @param revision - the revision requested, undefined will default to latest
    * @param requeue - optional param informing whether an asynchronous update of
    *  the page content is allowed (default is true)
    * @returns a promise wrapping a page data, or undefined in case of page not
@@ -50,7 +47,7 @@ export interface Storage {
   getPageContent(
     page: string,
     syntax: string,
-    revision: string | undefined,
+    revision?: string,
     requeue?: boolean,
   ): Promise<PageData | undefined>;
 

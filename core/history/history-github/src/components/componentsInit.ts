@@ -77,12 +77,17 @@ class GitHubPageRevisionManager implements PageRevisionManager {
                 const commitData: {
                   committedDate: string;
                   shortMessage: string;
-                  authors: Array<{ displayName: string }>;
+                  authors: Array<{ displayName: string; path: string }>;
                 } = jsonCommitResponse.payload.commitGroups[0].commits[0];
+                const authorProfile: URL = new URL(this.cristalApp.getWikiConfig().baseURL);
+                authorProfile.pathname = commitData.authors[0].path;
                 return {
                   version: version,
                   date: new Date(commitData.committedDate),
-                  user: commitData.authors[0].displayName,
+                  user: {
+                    profile: authorProfile.toString(),
+                    name: commitData.authors[0].displayName,
+                  },
                   comment: commitData.shortMessage,
                   url: this.cristalApp.getRouter().resolve({
                     name: "view",

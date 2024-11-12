@@ -86,7 +86,7 @@ export class WrappingOfflineStorage implements WrappingStorage {
   public async getPageContent(
     page: string,
     syntax: string,
-    _revision: string | undefined,
+    _revision?: string,
     requeue?: boolean,
   ): Promise<PageData | undefined> {
     this.logger.debug("Trying to get data for page ", page);
@@ -114,7 +114,7 @@ export class WrappingOfflineStorage implements WrappingStorage {
       }
     } else {
       this.logger.debug("No offline local storage available");
-      return this.storage.getPageContent(page, syntax, undefined);
+      return this.storage.getPageContent(page, syntax);
     }
   }
 
@@ -127,7 +127,7 @@ export class WrappingOfflineStorage implements WrappingStorage {
     page: string,
     syntax: string,
   ): Promise<PageData> {
-    const pageData = await this.storage.getPageContent(page, syntax, undefined);
+    const pageData = await this.storage.getPageContent(page, syntax);
     if (pageData) {
       pageData.id = page + "_" + syntax;
       this.logger.debug("Saving page to offline storage", page);
@@ -151,7 +151,7 @@ export class WrappingOfflineStorage implements WrappingStorage {
       this.getWikiConfig().name,
       page + "_" + syntax,
     );
-    const pageData = await this.storage.getPageContent(page, syntax, undefined);
+    const pageData = await this.storage.getPageContent(page, syntax);
     if (currentPageData && pageData) {
       pageData.id = page + "_" + syntax;
       this.logger.debug("Saving page to offline storage", page);

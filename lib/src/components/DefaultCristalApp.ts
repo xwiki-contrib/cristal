@@ -122,7 +122,7 @@ export class DefaultCristalApp implements CristalApp {
     });
   }
 
-  handlePopState(name: string, revision: string | undefined): void {
+  handlePopState(name: string, revision?: string): void {
     this.logger?.debug("In handlePopState ", name);
     this.page.name = name || this.getWikiConfig().defaultPageName();
     this.page.version = revision;
@@ -556,15 +556,14 @@ export class DefaultCristalApp implements CristalApp {
 
   async getPage(
     page: string,
-    revision: string | undefined,
-    options?: { requeue: boolean },
+    options?: { requeue: boolean; revision?: string },
   ): Promise<PageData | undefined> {
     const isJsonLD = this.getWikiConfig().isSupported("jsonld");
     const syntax = isJsonLD ? "jsonld" : "html";
     const pageData = await this.getWikiConfig().storage.getPageContent(
       page,
       syntax,
-      revision,
+      options?.revision,
       options?.requeue,
     );
     if (isJsonLD && pageData) {

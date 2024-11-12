@@ -19,8 +19,10 @@
  */
 
 import en from "../langs/translation-en.json";
+import fr from "../langs/translation-fr.json";
 
 const translations: Record<string, Record<string, string>> = {
   en,
+  fr,
 };
 export default translations;

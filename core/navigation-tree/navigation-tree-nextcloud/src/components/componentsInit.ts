@@ -58,7 +58,7 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
 
     const subdirectories = await this.getSubDirectories(currentId);
     for (const d of subdirectories) {
-      const currentPageData = await this.cristalApp.getPage(d, undefined);
+      const currentPageData = await this.cristalApp.getPage(d);
       navigationTree.push({
         id: d,
         label:
