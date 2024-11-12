@@ -34,7 +34,7 @@ export class ContentTools {
   /**
    * Method to intercept clicks in the HTML content and load the page using Cristal Wiki.
    */
-  public static listenToClicksNew(
+  public static listenToClicks(
     element: HTMLElement,
     cristal: CristalApp | undefined,
   ): void {
@@ -47,7 +47,7 @@ export class ContentTools {
   /*
         Method to intercept clicks in the HTML content and load the page using Cristal Wiki
     */
-  public static listenToClicks(
+  public static listenToClicksOld(
     element: HTMLElement,
     cristal: CristalApp | undefined,
   ): void {

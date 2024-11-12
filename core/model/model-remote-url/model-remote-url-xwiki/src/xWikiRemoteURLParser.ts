@@ -44,8 +44,12 @@ class XWikiRemoteURLParser implements RemoteURLParser {
 
     const endPath = url.pathname.replace(baseURL.pathname, "");
     let segments = endPath.split("/");
-    if (segments[0] === "") segments = segments.slice(1);
-    if (segments[segments.length - 1] === "") segments.pop();
+    if (segments[0] === "") {
+      segments = segments.slice(1);
+    }
+    if (segments[segments.length - 1] === "") {
+      segments[segments.length - 1] = "WebHome";
+    }
     const [bin, action] = segments;
     // TODO: the current approach is easy but does not work if some url rewriting is done in front of XWiki.
     if (bin == "bin" && action == "view") {

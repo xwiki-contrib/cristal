@@ -52,8 +52,7 @@ class DefaultClickListener implements ClickListener {
             if (entityReference.type == EntityType.DOCUMENT) {
               event.preventDefault();
               cristal.setCurrentPage(
-                // TODO: implement a serializer for XWiki references.
-                remoteURLSerializer.serialize(entityReference),
+                remoteURLSerializer.serialize(entityReference) || "",
               );
             } else if (entityReference.type == EntityType.ATTACHMENT) {
               // TODO: see how to handle the attachment modal opening.

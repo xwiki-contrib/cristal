@@ -18,7 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { XWikiRemoteURLParser } from "./xWikiRemoteURLParser";
-import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
+import { XWikiRemoteURLSerializer } from "./xWikiRemoteURLSerializer";
+import {
+  RemoteURLParser,
+  RemoteURLSerializer,
+} from "@xwiki/cristal-model-remote-url-api";
 import { Container } from "inversify";
 
 export class ComponentInit {
@@ -26,6 +30,11 @@ export class ComponentInit {
     container
       .bind<RemoteURLParser>("RemoteURLParser")
       .to(XWikiRemoteURLParser)
+      .inSingletonScope()
+      .whenTargetNamed("XWiki");
+    container
+      .bind<RemoteURLSerializer>("RemoteURLSerializer")
+      .to(XWikiRemoteURLSerializer)
       .inSingletonScope()
       .whenTargetNamed("XWiki");
   }
