@@ -159,6 +159,9 @@ importers:
 
   core/attachments/attachments-api:
     dependencies:
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -171,6 +174,9 @@ importers:
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../attachments-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       inversify:
         specifier: 6.0.3
         version: 6.0.3
@@ -652,6 +658,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-attachments-api':
+        specifier: workspace:*
+        version: link:../../attachments/attachments-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../model-api

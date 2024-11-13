@@ -18,11 +18,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import AttachmentsTable from "./AttachmentsTable.vue";
 import AttachmentUploadForm from "./AttachmentUploadForm.vue";
-import { inject, Ref, ref, watch } from "vue";
+import AttachmentsTable from "./AttachmentsTable.vue";
 import { CristalApp } from "@xwiki/cristal-api";
 import { AttachmentsService } from "@xwiki/cristal-attachments-api";
+import { Ref, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const cristal = inject<CristalApp>("cristal")!;

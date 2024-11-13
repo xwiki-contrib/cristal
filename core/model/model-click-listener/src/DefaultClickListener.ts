@@ -19,9 +19,10 @@
  */
 
 import { ClickListener } from "./clickListener";
-import { EntityType } from "@xwiki/cristal-model-api";
+import { AttachmentReference, EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type { AttachmentPreview } from "@xwiki/cristal-attachments-api";
 import type {
   RemoteURLParserProvider,
   RemoteURLSerializerProvider,
@@ -35,12 +36,15 @@ class DefaultClickListener implements ClickListener {
     @inject("RemoteURLSerializerProvider")
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
     @inject("CristalApp") private readonly cristal: CristalApp,
+    @inject("AttachmentPreview")
+    private readonly attachmentPreview: AttachmentPreview,
   ) {}
 
   handle(element: HTMLElement): void {
     const remoteURLParser = this.remoteURLParserProvider.get();
     const remoteURLSerializer = this.remoteURLSerializerProvider.get()!;
     const cristal = this.cristal;
+    const attachmentPreview = this.attachmentPreview;
     element.addEventListener(
       "click",
       function handleClick(event) {
@@ -55,7 +59,7 @@ class DefaultClickListener implements ClickListener {
                 remoteURLSerializer.serialize(entityReference) || "",
               );
             } else if (entityReference.type == EntityType.ATTACHMENT) {
-              // TODO: see how to handle the attachment modal opening.
+              attachmentPreview.preview(entityReference as AttachmentReference);
             }
           } catch (e) {
             console.log(`Failed to parse [${url}] `, e);
