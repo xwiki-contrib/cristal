@@ -1169,7 +1169,7 @@ importers:
         version: 33.0.2
       electron-builder:
         specifier: 25.1.8
-        version: 25.1.8(electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8))
+        version: 25.1.8(electron-builder-squirrel-windows@24.13.3)
 
   electron/authentication/authentication-xwiki/authentication-xwiki-main:
     dependencies:
@@ -1274,39 +1274,15 @@ importers:
       '@xwiki/cristal-electron-storage':
         specifier: workspace:*
         version: link:../storage
-      '@xwiki/cristal-hierarchy-default':
-        specifier: workspace:*
-        version: link:../../core/hierarchy/hierarchy-default
       '@xwiki/cristal-hierarchy-filesystem':
         specifier: workspace:*
         version: link:../../core/hierarchy/hierarchy-filesystem
-      '@xwiki/cristal-hierarchy-github':
-        specifier: workspace:*
-        version: link:../../core/hierarchy/hierarchy-github
-      '@xwiki/cristal-hierarchy-nextcloud':
-        specifier: workspace:*
-        version: link:../../core/hierarchy/hierarchy-nextcloud
-      '@xwiki/cristal-hierarchy-xwiki':
-        specifier: workspace:*
-        version: link:../../core/hierarchy/hierarchy-xwiki
       '@xwiki/cristal-lib':
         specifier: workspace:*
         version: link:../../lib
-      '@xwiki/cristal-navigation-tree-default':
-        specifier: workspace:*
-        version: link:../../core/navigation-tree/navigation-tree-default
       '@xwiki/cristal-navigation-tree-filesystem':
         specifier: workspace:*
         version: link:../../core/navigation-tree/navigation-tree-filesystem
-      '@xwiki/cristal-navigation-tree-github':
-        specifier: workspace:*
-        version: link:../../core/navigation-tree/navigation-tree-github
-      '@xwiki/cristal-navigation-tree-nextcloud':
-        specifier: workspace:*
-        version: link:../../core/navigation-tree/navigation-tree-nextcloud
-      '@xwiki/cristal-navigation-tree-xwiki':
-        specifier: workspace:*
-        version: link:../../core/navigation-tree/navigation-tree-xwiki
       inversify:
         specifier: 6.0.3
         version: 6.0.3
@@ -1442,9 +1418,30 @@ importers:
       '@xwiki/cristal-extra-tabs-default':
         specifier: workspace:*
         version: link:../core/extra-tabs/extra-tabs-default
+      '@xwiki/cristal-hierarchy-default':
+        specifier: workspace:*
+        version: link:../core/hierarchy/hierarchy-default
+      '@xwiki/cristal-hierarchy-github':
+        specifier: workspace:*
+        version: link:../core/hierarchy/hierarchy-github
+      '@xwiki/cristal-hierarchy-nextcloud':
+        specifier: workspace:*
+        version: link:../core/hierarchy/hierarchy-nextcloud
+      '@xwiki/cristal-hierarchy-xwiki':
+        specifier: workspace:*
+        version: link:../core/hierarchy/hierarchy-xwiki
+      '@xwiki/cristal-history-default':
+        specifier: workspace:*
+        version: link:../core/history/history-default
+      '@xwiki/cristal-history-github':
+        specifier: workspace:*
+        version: link:../core/history/history-github
       '@xwiki/cristal-history-ui':
         specifier: workspace:*
         version: link:../core/history/history-ui
+      '@xwiki/cristal-history-xwiki':
+        specifier: workspace:*
+        version: link:../core/history/history-xwiki
       '@xwiki/cristal-info-actions-default':
         specifier: workspace:*
         version: link:../core/info-actions/info-actions-default
@@ -1460,6 +1457,18 @@ importers:
       '@xwiki/cristal-macros':
         specifier: workspace:*
         version: link:../macros
+      '@xwiki/cristal-navigation-tree-default':
+        specifier: workspace:*
+        version: link:../core/navigation-tree/navigation-tree-default
+      '@xwiki/cristal-navigation-tree-github':
+        specifier: workspace:*
+        version: link:../core/navigation-tree/navigation-tree-github
+      '@xwiki/cristal-navigation-tree-nextcloud':
+        specifier: workspace:*
+        version: link:../core/navigation-tree/navigation-tree-nextcloud
+      '@xwiki/cristal-navigation-tree-xwiki':
+        specifier: workspace:*
+        version: link:../core/navigation-tree/navigation-tree-xwiki
       '@xwiki/cristal-page-actions-default':
         specifier: workspace:*
         version: link:../core/page-actions/page-actions-default
@@ -1741,27 +1750,6 @@ importers:
       '@xwiki/cristal-browser-default':
         specifier: workspace:*
         version: link:../core/browser/browser-default
-      '@xwiki/cristal-hierarchy-default':
-        specifier: workspace:*
-        version: link:../core/hierarchy/hierarchy-default
-      '@xwiki/cristal-hierarchy-github':
-        specifier: workspace:*
-        version: link:../core/hierarchy/hierarchy-github
-      '@xwiki/cristal-hierarchy-nextcloud':
-        specifier: workspace:*
-        version: link:../core/hierarchy/hierarchy-nextcloud
-      '@xwiki/cristal-hierarchy-xwiki':
-        specifier: workspace:*
-        version: link:../core/hierarchy/hierarchy-xwiki
-      '@xwiki/cristal-history-default':
-        specifier: workspace:*
-        version: link:../core/history/history-default
-      '@xwiki/cristal-history-github':
-        specifier: workspace:*
-        version: link:../core/history/history-github
-      '@xwiki/cristal-history-xwiki':
-        specifier: workspace:*
-        version: link:../core/history/history-xwiki
       '@xwiki/cristal-lib':
         specifier: workspace:*
         version: link:../lib
@@ -8595,7 +8583,7 @@ snapshots:
       js-beautify: 1.14.11
       vue-component-type-helpers: 2.0.7
 
-  '@vuetify/loader-shared@2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.3(typescript@5.6.3)(vite-plugin-vuetify@2.0.4)(vue@3.5.12(typescript@5.6.3)))':
+  '@vuetify/loader-shared@2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.3)':
     dependencies:
       upath: 2.0.1
       vue: 3.5.12(typescript@5.6.3)
@@ -8733,7 +8721,7 @@ snapshots:
 
   app-builder-bin@5.0.0-alpha.10: {}
 
-  app-builder-lib@24.13.3(dmg-builder@25.1.8(electron-builder-squirrel-windows@24.13.3))(electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8)):
+  app-builder-lib@24.13.3(dmg-builder@25.1.8)(electron-builder-squirrel-windows@24.13.3):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/notarize': 2.2.1
@@ -8767,7 +8755,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  app-builder-lib@25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@24.13.3))(electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8)):
+  app-builder-lib@25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@24.13.3):
     dependencies:
       '@develar/schema-utils': 2.6.5
       '@electron/notarize': 2.5.0
@@ -9432,7 +9420,7 @@ snapshots:
 
   dmg-builder@25.1.8(electron-builder-squirrel-windows@24.13.3):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@24.13.3))(electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@24.13.3)
       builder-util: 25.1.7
       builder-util-runtime: 9.2.10
       fs-extra: 10.1.0
@@ -9494,7 +9482,7 @@ snapshots:
 
   electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8):
     dependencies:
-      app-builder-lib: 24.13.3(dmg-builder@25.1.8(electron-builder-squirrel-windows@24.13.3))(electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8))
+      app-builder-lib: 24.13.3(dmg-builder@25.1.8)(electron-builder-squirrel-windows@24.13.3)
       archiver: 5.3.2
       builder-util: 24.13.1
       fs-extra: 10.1.0
@@ -9502,9 +9490,9 @@ snapshots:
       - dmg-builder
       - supports-color
 
-  electron-builder@25.1.8(electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8)):
+  electron-builder@25.1.8(electron-builder-squirrel-windows@24.13.3):
     dependencies:
-      app-builder-lib: 25.1.8(dmg-builder@25.1.8(electron-builder-squirrel-windows@24.13.3))(electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8))
+      app-builder-lib: 25.1.8(dmg-builder@25.1.8)(electron-builder-squirrel-windows@24.13.3)
       builder-util: 25.1.7
       builder-util-runtime: 9.2.10
       chalk: 4.1.2
@@ -9791,7 +9779,7 @@ snapshots:
       debug: 4.3.7
       enhanced-resolve: 5.17.1
       eslint: 9.12.0
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-plugin-import@2.31.0)(eslint@9.12.0))(eslint@9.12.0)
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@9.12.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.8.1
       is-bun-module: 1.2.1
@@ -9804,7 +9792,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-plugin-import@2.31.0)(eslint@9.12.0))(eslint@9.12.0):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@9.12.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -9826,7 +9814,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.12.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-plugin-import@2.31.0)(eslint@9.12.0))(eslint@9.12.0)
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.8.1(eslint@9.12.0)(typescript@5.6.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@9.12.0)
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
@@ -12307,7 +12295,7 @@ snapshots:
 
   vite-plugin-vuetify@2.0.4(vite@5.4.10(@types/node@22.8.7))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.3):
     dependencies:
-      '@vuetify/loader-shared': 2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.3(typescript@5.6.3)(vite-plugin-vuetify@2.0.4)(vue@3.5.12(typescript@5.6.3)))
+      '@vuetify/loader-shared': 2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.3)
       debug: 4.3.4(supports-color@5.5.0)
       upath: 2.0.1
       vite: 5.4.10(@types/node@22.8.7)
