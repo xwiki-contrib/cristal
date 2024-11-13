@@ -76,7 +76,10 @@ onMounted(async () => {
             }}</a>
           </template>
           <template #user>
-            <a :href="revision.user.profile">{{ revision.user.name }}</a>
+            <a v-if="revision.user.profile" :href="revision.user.profile">{{
+              revision.user.name
+            }}</a>
+            <span v-else>{{ revision.user.name }}</span>
           </template>
         </i18n-t>
         <br />

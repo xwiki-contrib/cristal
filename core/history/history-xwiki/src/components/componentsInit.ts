@@ -22,7 +22,10 @@ import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
 import { inject, injectable } from "inversify";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
 import type { CristalApp, Logger, PageData } from "@xwiki/cristal-api";
-import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type {
+  AuthenticationManagerProvider,
+  UserDetails,
+} from "@xwiki/cristal-authentication-api";
 import type {
   PageRevision,
   PageRevisionManager,
@@ -70,6 +73,15 @@ class XWikiPageRevisionManager implements PageRevisionManager {
       getRestSpacesApiUrl(this.cristalApp.getWikiConfig(), documentId) +
       "/history";
 
+    const usersCache: Map<string, Promise<UserDetails>> = new Map([
+      [
+        "XWiki.superadmin",
+        new Promise<UserDetails>((resolve) => {
+          resolve({ name: "superadmin", profile: "" });
+        }),
+      ],
+    ]);
+
     try {
       const authorization = await this.authenticationManagerProvider
         .get()
@@ -91,18 +103,16 @@ class XWikiPageRevisionManager implements PageRevisionManager {
             modifier: string;
             comment: string;
           }) => {
+            if (!usersCache.has(revision.modifier)) {
+              usersCache.set(
+                revision.modifier,
+                this.getUserName(revision.modifier),
+              );
+            }
             return {
               version: revision.version,
               date: new Date(revision.modified),
-              user: {
-                profile: this.cristalApp.getRouter().resolve({
-                  name: "view",
-                  params: {
-                    page: revision.modifier,
-                  },
-                }).href,
-                name: await this.getUserName(revision.modifier),
-              },
+              user: await usersCache.get(revision.modifier),
               comment: revision.comment,
               url: this.cristalApp.getRouter().resolve({
                 name: "view",
@@ -125,7 +135,7 @@ class XWikiPageRevisionManager implements PageRevisionManager {
     }
   }
 
-  private async getUserName(userId: string): Promise<string> {
+  private async getUserName(userId: string): Promise<UserDetails> {
     const restApiUrl =
       getRestSpacesApiUrl(this.cristalApp.getWikiConfig(), userId) +
       "/objects/XWiki.XWikiUsers/0";
@@ -159,11 +169,19 @@ class XWikiPageRevisionManager implements PageRevisionManager {
           }
         },
       );
-      return user;
+      return {
+        name: user,
+        profile: this.cristalApp.getRouter().resolve({
+          name: "view",
+          params: {
+            page: userId,
+          },
+        }).href,
+      };
     } catch (error) {
       this.logger.error(error);
       this.logger.debug(`Could not load user details for page ${userId}.`);
-      return userId;
+      return { name: userId, profile: "" };
     }
   }
 }
