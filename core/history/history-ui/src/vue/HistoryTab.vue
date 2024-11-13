@@ -40,6 +40,7 @@ const documentService = cristal
 const currentPage: Ref<PageData | undefined> =
   documentService.getCurrentDocument();
 const revisions: Ref<Array<PageRevision>> = ref([]);
+const isLoading: Ref<boolean> = ref(true);
 
 onMounted(async () => {
   if (currentPage.value) {
@@ -49,13 +50,17 @@ onMounted(async () => {
       .get()
       .getRevisions(currentPage.value);
   }
+  isLoading.value = false;
 });
 </script>
 
 <template>
-  <p>{{ t("history.extraTabs.header", { nRevisions: revisions.length }) }}</p>
+  <p v-if="isLoading">{{ t("history.extraTabs.loading") }}</p>
+  <p v-else>
+    {{ t("history.extraTabs.header", { nRevisions: revisions.length }) }}
+  </p>
   <br />
-  <table>
+  <table v-if="!isLoading">
     <tr v-for="revision of revisions" :key="revision.version">
       <td class="history-revision-cell">
         <span class="history-revision">{{ revision.version }}</span>
@@ -71,9 +76,7 @@ onMounted(async () => {
             }}</a>
           </template>
           <template #user>
-            <a :href="revision.user.profile">{{
-              revision.user.name
-            }}</a>
+            <a :href="revision.user.profile">{{ revision.user.name }}</a>
           </template>
         </i18n-t>
         <br />

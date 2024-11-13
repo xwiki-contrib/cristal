@@ -36,12 +36,12 @@ import type {
 @injectable()
 class XWikiPageRevisionManager implements PageRevisionManager {
   constructor(
-    @inject<Logger>("Logger") private logger: Logger,
-    @inject<CristalApp>("CristalApp") private cristalApp: CristalApp,
+    @inject<Logger>("Logger") private readonly logger: Logger,
+    @inject<CristalApp>("CristalApp") private readonly cristalApp: CristalApp,
     @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
-    private authenticationManagerProvider: AuthenticationManagerProvider,
+    private readonly authenticationManagerProvider: AuthenticationManagerProvider,
     @inject<AlertsService>("AlertsService")
-    private alertsService: AlertsService,
+    private readonly alertsService: AlertsService,
   ) {
     this.logger.setModule("history.xwiki.XWikiPageRevisionManager");
   }

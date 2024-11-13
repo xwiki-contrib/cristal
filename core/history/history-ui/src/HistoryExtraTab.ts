@@ -31,7 +31,7 @@ export class HistoryExtraTab extends AbstractExtraTab {
 
   constructor(
     @inject("PageRevisionManagerProvider")
-    private pageRevisionManagerProvider: PageRevisionManagerProvider,
+    private readonly pageRevisionManagerProvider: PageRevisionManagerProvider,
   ) {
     super(messages);
     this.title = this.t("history.extraTabs.title");

@@ -35,11 +35,9 @@ import type {
 class DefaultPageRevisionManagerProvider
   implements PageRevisionManagerProvider
 {
-  private cristalApp: CristalApp;
-
-  constructor(@inject<CristalApp>("CristalApp") cristalApp: CristalApp) {
-    this.cristalApp = cristalApp;
-  }
+  constructor(
+    @inject<CristalApp>("CristalApp") private readonly cristalApp: CristalApp,
+  ) {}
 
   has(): boolean {
     const container = this.cristalApp.getContainer();
