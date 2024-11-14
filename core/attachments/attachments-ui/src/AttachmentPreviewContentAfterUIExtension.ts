@@ -17,28 +17,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-import { AttachmentExtraTab } from "./AttachmentExtraTab";
-import { AttachmentPreviewContentAfterUIExtension } from "./AttachmentPreviewContentAfterUIExtension";
-import { AttachmentsInfoAction } from "./AttachmentsInfoAction";
-import { ExtraTab } from "@xwiki/cristal-extra-tabs-api";
-import { InfoAction } from "@xwiki/cristal-info-actions-api";
 import { UIExtension } from "@xwiki/cristal-uiextension-api";
-import { Container } from "inversify";
+import { injectable } from "inversify";
+import { Component } from "vue";
 
-export class ComponentInit {
-  constructor(container: Container) {
-    container
-      .bind<ExtraTab>("ExtraTab")
-      .to(AttachmentExtraTab)
-      .inSingletonScope();
-    container
-      .bind<InfoAction>("InfoAction")
-      .to(AttachmentsInfoAction)
-      .inSingletonScope();
-    container
-      .bind<UIExtension>("UIExtension")
-      .to(AttachmentPreviewContentAfterUIExtension)
-      .inSingletonScope();
+/**
+ * @since 0.12
+ */
+@injectable()
+class AttachmentPreviewContentAfterUIExtension implements UIExtension {
+  id = "attachment.preview.content.after";
+  order = 1000;
+  parameters = {};
+  uixpName = "content.after";
+
+  async component(): Promise<Component> {
+    return (await import("./vue/AttachmentPreview.vue")).default;
+  }
+
+  async enabled(): Promise<boolean> {
+    // TODO: find a way to identify if the backend supports attachments.
+    return true;
   }
 }
+
+export { AttachmentPreviewContentAfterUIExtension };

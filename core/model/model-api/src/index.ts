@@ -80,7 +80,7 @@ class DocumentReference implements EntityReference {
  * @since 0.12
  */
 class AttachmentReference implements EntityReference {
-  type: EntityType = EntityType.SPACE;
+  type: EntityType = EntityType.ATTACHMENT;
   name: string;
   document: DocumentReference;
 

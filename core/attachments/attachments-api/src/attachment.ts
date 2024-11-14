@@ -6,6 +6,9 @@ interface Attachment {
   name: string;
   mimetype: string;
   href: string;
+  date: Date;
+  size: number;
+  author: string; // TODO: replace with a user reference
 }
 
 export { type Attachment };

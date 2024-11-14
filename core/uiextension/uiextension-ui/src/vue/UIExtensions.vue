@@ -23,7 +23,7 @@ import { CristalApp } from "@xwiki/cristal-api";
 import { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
 import { inject } from "vue";
 import type { Component } from "vue";
-//
+
 const { uixName } = defineProps<{
   uixName: string;
 }>();
@@ -41,6 +41,8 @@ for (let uiExtension of await uixManager.list(uixName)) {
     component: await uiExtension.component(),
   });
 }
+
+console.log("uiExtensions", uiExtensions);
 </script>
 
 <template>

@@ -152,7 +152,18 @@ export class DefaultAttachmentsService implements AttachmentsService {
         const { attachments, count } = attachmentData;
         this.store.updateAttachments(
           attachments?.map(({ id, reference, mimetype, href }) => {
-            return { id, name: reference, mimetype, href };
+            return {
+              id,
+              name: reference,
+              mimetype,
+              href,
+              // TODO
+              date: new Date(),
+              // TODO
+              size: 42,
+              // TODO
+              author: "XWiki.TODO",
+            };
           }),
           count,
         );

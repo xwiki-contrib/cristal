@@ -28,6 +28,9 @@ import type {
   RemoteURLSerializerProvider,
 } from "@xwiki/cristal-model-remote-url-api";
 
+/**
+ * @since 0.12
+ */
 @injectable()
 class DefaultClickListener implements ClickListener {
   constructor(
@@ -59,6 +62,7 @@ class DefaultClickListener implements ClickListener {
                 remoteURLSerializer.serialize(entityReference) || "",
               );
             } else if (entityReference.type == EntityType.ATTACHMENT) {
+              event.preventDefault();
               attachmentPreview.preview(entityReference as AttachmentReference);
             }
           } catch (e) {
