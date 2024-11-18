@@ -172,6 +172,7 @@ function onClickOutsideMainSidebar() {
               .get<NavigationTreeSourceProvider>('NavigationTreeSourceProvider')
               .get()
           "
+          :document-service="documentService"
           :current-page="currentPage"
         ></XNavigationTree>
       </c-sidebar-panel>

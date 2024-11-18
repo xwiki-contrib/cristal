@@ -32,6 +32,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import { Ref, onBeforeMount, ref, watch } from "vue";
 import { VTreeview } from "vuetify/labs/VTreeview";
 import type { PageData } from "@xwiki/cristal-api";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
@@ -55,6 +56,7 @@ const expandedNodes: Ref<Array<string>> = ref(new Array<string>());
 
 const props = defineProps<{
   treeSource: NavigationTreeSource;
+  documentService: DocumentService;
   clickAction?: OnClickAction;
   currentPage?: PageData;
 }>();
@@ -72,6 +74,15 @@ onBeforeMount(async () => {
   if (props.currentPage !== undefined) {
     await expandTree();
   }
+
+  props.documentService.registerDocumentChangeListener(
+    "delete",
+    onDocumentDelete,
+  );
+  props.documentService.registerDocumentChangeListener(
+    "update",
+    onDocumentUpdate,
+  );
 });
 
 watch(
@@ -146,6 +157,74 @@ function clearSelection() {
   // active.
   if (activatedNodes.value.length > 1) {
     activatedNodes.value.pop();
+  }
+}
+
+async function onDocumentDelete(page: PageData) {
+  const parents = props.treeSource.getParentNodesId(page);
+  let currentItems: TreeItem[] | undefined = rootNodes.value;
+  while (currentItems) {
+    for (const i of currentItems.keys()) {
+      if (currentItems[i].id == parents[0]) {
+        if (parents.length == 1) {
+          currentItems.splice(i, 1);
+          return;
+        } else {
+          currentItems = currentItems[i].children;
+          parents.shift();
+          break;
+        }
+      }
+    }
+  }
+}
+
+async function onDocumentUpdate(page: PageData) {
+  const parents = props.treeSource.getParentNodesId(page);
+  let currentParent: string | undefined = undefined;
+  let currentItems: TreeItem[] | undefined = rootNodes.value;
+
+  while (currentItems) {
+    for (const i of currentItems.keys()) {
+      if (currentItems[i].id == parents[0]) {
+        if (parents.length == 1) {
+          // Page update
+          const newItems = await props.treeSource.getChildNodes(
+            currentParent ? currentParent : "",
+          );
+          for (const newItem of newItems) {
+            if (newItem.id == currentItems[i].id) {
+              currentItems[i].title = newItem.label;
+              return;
+            }
+          }
+        } else {
+          currentParent = currentItems[i].id;
+          currentItems = currentItems[i].children;
+          parents.shift();
+          break;
+        }
+      }
+    }
+
+    // New page
+    const newItems = await props.treeSource.getChildNodes(
+      currentParent ? currentParent : "",
+    );
+    newItemsLoop: for (const newItem of newItems) {
+      for (const i of currentItems!.keys()) {
+        if (newItem.id == currentItems![i].id) {
+          continue newItemsLoop;
+        }
+      }
+      currentItems!.push({
+        id: newItem.id,
+        title: newItem.label,
+        href: newItem.url,
+        children: newItem.has_children ? [] : undefined,
+        _location: newItem.location,
+      });
+    }
   }
 }
 </script>

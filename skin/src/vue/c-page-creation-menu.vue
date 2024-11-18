@@ -21,6 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import { CIcon } from "@xwiki/cristal-icons";
 import { defineProps, inject, ref } from "vue";
 import type { CristalApp, PageData } from "@xwiki/cristal-api";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSourceProvider,
@@ -97,6 +98,9 @@ function createPage() {
                       'NavigationTreeSourceProvider',
                     )
                     .get()
+                "
+                :document-service="
+                  cristal.getContainer().get<DocumentService>('DocumentService')
                 "
                 :click-action="treeNodeClickAction"
                 :current-page="currentPage"
