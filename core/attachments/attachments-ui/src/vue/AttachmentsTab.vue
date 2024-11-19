@@ -41,7 +41,12 @@ const uploadError: Ref<string | undefined> = ref();
 const route = useRoute();
 watch(
   () => route.params.page,
-  () => attachmentsService.refresh(route.params.page as string),
+  () =>
+    attachmentsService.refresh(
+      (route.params.page as string) ||
+        cristal.getCurrentPage() ||
+        "Main.WebHome",
+    ),
   { immediate: true },
 );
 
@@ -49,7 +54,12 @@ const attachmentUpload = ref();
 
 async function upload(files: File[]) {
   try {
-    await attachmentsService.upload(route.params.page as string, files);
+    await attachmentsService.upload(
+      (route.params.page as string) ||
+        cristal.getCurrentPage() ||
+        ("Main.WebHome" as string),
+      files,
+    );
     attachmentUpload.value?.reset();
   } catch (e) {
     if (e instanceof Error) {

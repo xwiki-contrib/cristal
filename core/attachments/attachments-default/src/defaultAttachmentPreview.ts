@@ -1,13 +1,16 @@
-import { AttachmentPreview } from "@xwiki/cristal-attachments-api";
+import { Attachment, AttachmentPreview } from "@xwiki/cristal-attachments-api";
 import { AttachmentReference } from "@xwiki/cristal-model-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { Store, StoreDefinition, defineStore, storeToRefs } from "pinia";
 import { Ref } from "vue";
+import type { CristalApp } from "@xwiki/cristal-api";
+import type { ModelReferenceSerializerProvider } from "@xwiki/cristal-model-reference-api";
 
 type Id = "attachment-preview";
 type State = {
   loading: boolean;
-  attachment: AttachmentReference | undefined;
+  attachment: Attachment | undefined;
+  error: string | undefined;
 };
 /**
  * Take a given type "Type" and wraps each of its fields in a readonly Ref.
@@ -18,8 +21,10 @@ type WrappedRefs<Type> = {
 type StateRefs = WrappedRefs<State>;
 type Getters = Record<string, never>;
 type Actions = {
-  openAttachment(attachment: AttachmentReference): void;
   startLoading(): void;
+  stopLoading(): void;
+  setAttachment(attachment: Attachment): void;
+  setError(message: string): void;
 };
 type AttachmentPreviewStoreDefinition = StoreDefinition<
   Id,
@@ -39,20 +44,23 @@ const attachmentPreviewStore: AttachmentPreviewStoreDefinition = defineStore<
     return {
       loading: false,
       attachment: undefined,
+      error: undefined,
     };
   },
   actions: {
     startLoading() {
       this.loading = true;
     },
-    openAttachment(attachment: AttachmentReference) {
-      this.startLoading();
-      try {
-        this.attachment = attachment;
-        // TODO: add complementary details from the backend.
-      } finally {
-        this.loading = false;
-      }
+    setAttachment(attachment: Attachment): void {
+      this.attachment = attachment;
+      this.loading = false;
+    },
+    setError(message: string): void {
+      this.error = message;
+      this.loading = false;
+    },
+    stopLoading(): void {
+      this.loading = false;
     },
   },
 });
@@ -61,13 +69,44 @@ const attachmentPreviewStore: AttachmentPreviewStoreDefinition = defineStore<
 class DefaultAttachmentPreview implements AttachmentPreview {
   private readonly refs: StateRefs;
   private readonly store: AttachmentPreviewStore;
-  constructor() {
+  constructor(
+    @inject<CristalApp>("CristalApp") private readonly cristalApp: CristalApp,
+    @inject("ModelReferenceSerializerProvider")
+    private readonly modelReferenceSerializerProvider: ModelReferenceSerializerProvider,
+  ) {
     this.store = attachmentPreviewStore();
     this.refs = storeToRefs(this.store);
   }
 
-  preview(attachment: AttachmentReference): void {
-    this.store.openAttachment(attachment);
+  async preview(attachmentReference: AttachmentReference): Promise<void> {
+    this.store.startLoading();
+    try {
+      const serializer = this.modelReferenceSerializerProvider.get();
+      if (serializer) {
+        const attachment = await this.cristalApp
+          .getWikiConfig()
+          .storage.getAttachment(
+            serializer.serialize(attachmentReference.document)!,
+            attachmentReference.name,
+          );
+        if (attachment) {
+          this.store.setAttachment({
+            author: attachment.author,
+            name: attachmentReference.name,
+            href: attachment.href,
+            date: attachment.date,
+            size: attachment.size,
+            mimetype: attachment.mimetype,
+            id: attachment.id,
+          });
+        }
+      } else {
+        // TODO: log serializer not found
+      }
+      // TODO: add complementary details from the backend.
+    } finally {
+      this.store.stopLoading();
+    }
   }
 
   attachment(): StateRefs["attachment"] {
@@ -76,6 +115,10 @@ class DefaultAttachmentPreview implements AttachmentPreview {
 
   loading(): StateRefs["loading"] {
     return this.refs.loading;
+  }
+
+  error(): StateRefs["error"] {
+    return this.refs.error;
   }
 }
 

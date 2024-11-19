@@ -18,53 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { LocalURLSerializer } from "./localURLSerializer";
-import {
-  AttachmentReference,
-  DocumentReference,
-  EntityType,
-  SpaceReference,
-  WikiReference,
-} from "@xwiki/cristal-model-api";
-import type { EntityReference } from "@xwiki/cristal-model-api";
 
 export class DefaultLocalURLSerializer implements LocalURLSerializer {
-  serialize(reference?: EntityReference): string | undefined {
-    if (!reference) {
-      return undefined;
-    }
-    const type = reference.type;
-    const { SPACE, ATTACHMENT, DOCUMENT, WIKI } = EntityType;
-    switch (type) {
-      case WIKI:
-        return (reference as WikiReference).name;
-      case SPACE: {
-        const spaceReference = reference as SpaceReference;
-        const wiki = this.serialize(spaceReference.wiki);
-        const spaces = spaceReference.names.join(".");
-        if (wiki === undefined) {
-          return spaces;
-        } else {
-          return `${wiki}:${spaces}`;
-        }
-      }
-      case DOCUMENT: {
-        const documentReference = reference as DocumentReference;
-        const spaces = this.serialize(documentReference.space);
-        const name = documentReference.name;
-        if (spaces === undefined) {
-          return name;
-        } else {
-          return `${spaces}.${name}`;
-        }
-      }
-      case ATTACHMENT: {
-        const attachmentReference = reference as AttachmentReference;
-        const document = this.serialize(attachmentReference.document);
-        const name = attachmentReference.name;
-        return `${document}@${name}`;
-      }
-      default:
-        throw new Error(`Unknown reference type [${type}]`);
-    }
+  serialize(): string | undefined {
+    throw new Error("no implemented");
   }
 }

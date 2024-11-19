@@ -17,7 +17,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { DefaultLocalURLSerializer } from "../defaultLocalURLSerializer";
+import "reflect-metadata";
+import { XWikiModelReferenceSerializer } from "../xWikiModelReferenceSerializer";
 import {
   DocumentReference,
   SpaceReference,
@@ -26,7 +27,7 @@ import {
 import { describe, expect, it } from "vitest";
 
 describe("defaultLocalURLSerializer", () => {
-  const serializer = new DefaultLocalURLSerializer();
+  const serializer = new XWikiModelReferenceSerializer();
   it("serialize a wiki", () => {
     expect(serializer.serialize(new WikiReference("wiki"))).to.eq("wiki");
   });

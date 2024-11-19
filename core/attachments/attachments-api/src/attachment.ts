@@ -8,7 +8,8 @@ interface Attachment {
   href: string;
   date: Date;
   size: number;
-  author: string; // TODO: replace with a user reference
+  // The author is optional in the case of single user backend
+  author: string | undefined; // TODO: replace with a user reference
 }
 
 export { type Attachment };

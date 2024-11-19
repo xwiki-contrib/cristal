@@ -177,6 +177,12 @@ importers:
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model/model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../model/model-reference/model-reference-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../model/model-remote-url/model-remote-url-api
       inversify:
         specifier: 6.0.3
         version: 6.0.3
@@ -201,9 +207,15 @@ importers:
       '@xwiki/cristal-extra-tabs-api':
         specifier: workspace:*
         version: link:../../extra-tabs/extra-tabs-api
+      '@xwiki/cristal-file-preview-ui':
+        specifier: workspace:*
+        version: link:../../file-preview/file-preview-ui
       '@xwiki/cristal-info-actions-api':
         specifier: workspace:*
         version: link:../../info-actions/info-actions-api
+      '@xwiki/cristal-model-click-listener':
+        specifier: workspace:*
+        version: link:../../model/model-click-listener
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../../uiextension/uiextension-api
@@ -464,6 +476,19 @@ importers:
       '@xwiki/cristal-extra-tabs-api':
         specifier: workspace:*
         version: link:../extra-tabs-api
+      vue:
+        specifier: 3.5.12
+        version: 3.5.12(typescript@5.6.3)
+    devDependencies:
+      vue-tsc:
+        specifier: 2.1.10
+        version: 2.1.10(typescript@5.6.3)
+
+  core/file-preview/file-preview-ui:
+    dependencies:
+      '@xwiki/cristal-attachments-api':
+        specifier: workspace:*
+        version: link:../../attachments/attachments-api
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -766,6 +791,9 @@ importers:
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../model-reference/model-reference-api
       '@xwiki/cristal-model-remote-url-api':
         specifier: workspace:*
         version: link:../model-remote-url/model-remote-url-api
@@ -782,6 +810,39 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
     devDependencies:
+      vitest:
+        specifier: 2.1.4
+        version: 2.1.4(@types/node@22.8.7)(happy-dom@14.12.0)
+
+  core/model/model-reference/model-reference-api:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../../api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model-api
+      inversify:
+        specifier: 6.0.3
+        version: 6.0.3
+
+  core/model/model-reference/model-reference-nextcloud: {}
+
+  core/model/model-reference/model-reference-xwiki:
+    dependencies:
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../model-reference-api
+      inversify:
+        specifier: 6.0.3
+        version: 6.0.3
+    devDependencies:
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
       vitest:
         specifier: 2.1.4
         version: 2.1.4(@types/node@22.8.7)(happy-dom@14.12.0)
@@ -1540,6 +1601,12 @@ importers:
       '@xwiki/cristal-model-click-listener':
         specifier: workspace:*
         version: link:../core/model/model-click-listener
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../core/model/model-reference/model-reference-api
+      '@xwiki/cristal-model-reference-xwiki':
+        specifier: workspace:*
+        version: link:../core/model/model-reference/model-reference-xwiki
       '@xwiki/cristal-model-remote-url-api':
         specifier: workspace:*
         version: link:../core/model/model-remote-url/model-remote-url-api
@@ -8579,7 +8646,7 @@ snapshots:
       '@vue/compiler-ssr': 3.5.12
       '@vue/shared': 3.5.12
       estree-walker: 2.0.2
-      magic-string: 0.30.11
+      magic-string: 0.30.12
       postcss: 8.4.47
       source-map-js: 1.2.1
 

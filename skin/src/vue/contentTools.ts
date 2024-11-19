@@ -41,7 +41,7 @@ export class ContentTools {
     const clickListener = cristal
       ?.getContainer()
       .get<ClickListener>("ClickListener");
-    clickListener?.handle(element);
+    clickListener?.handleHTMLElement(element);
   }
 
   /**

@@ -21,7 +21,8 @@
  * @since 0.12
  */
 interface ClickListener {
-  handle(element: HTMLElement): void;
+  handleHTMLElement(element: HTMLElement): void;
+  handleURL(url: string): void;
 }
 
 export { type ClickListener };

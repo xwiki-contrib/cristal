@@ -48,6 +48,8 @@ import { ComponentInit as NextcloudLinkSuggestComponentInit } from "@xwiki/crist
 import { ComponentInit as XWikiLinkSuggestComponentInit } from "@xwiki/cristal-link-suggest-xwiki";
 import { ComponentInit as MacrosComponentInit } from "@xwiki/cristal-macros";
 import { ComponentInit as ClickListenerComponentInit } from "@xwiki/cristal-model-click-listener";
+import { ComponentInit as ModelReferenceAPIComponentInit } from "@xwiki/cristal-model-reference-api";
+import { ComponentInit as ModelReferenceXWikiComponentInit } from "@xwiki/cristal-model-reference-xwiki";
 import { ComponentInit as ModelRemoteURLAPIComponentInit } from "@xwiki/cristal-model-remote-url-api";
 import { ComponentInit as ModelRemoteURLXWikiComponentInit } from "@xwiki/cristal-model-remote-url-xwiki";
 import { ComponentInit as DefaultNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-default";
@@ -60,6 +62,7 @@ import { ComponentInit as RenderingComponentInit } from "@xwiki/cristal-renderin
 import { ComponentInit as QueueWorkerComponentInit } from "@xwiki/cristal-sharedworker-impl";
 import { ComponentInit as SkinComponentInit } from "@xwiki/cristal-skin";
 import { ComponentInit as UIExtensionDefaultComponentInit } from "@xwiki/cristal-uiextension-default";
+
 import type { Container } from "inversify";
 
 export class StaticBuild {
@@ -114,6 +117,8 @@ export class StaticBuild {
       new GitHubPageHistoryComponentInit(container);
       new XWikiPageHistoryComponentInit(container);
       new HistoryUIComponentInit(container);
+      new ModelReferenceAPIComponentInit(container);
+      new ModelReferenceXWikiComponentInit(container);
     }
     if (additionalComponents) {
       additionalComponents(container);

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Attachment, AttachmentPreview } from "@xwiki/cristal-attachments-api";
+import { FilePreview } from "@xwiki/cristal-file-preview-ui";
 import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
+import filesize from "filesize.js";
 import { Ref, inject, ref, watch } from "vue";
 import type { CristalApp } from "@xwiki/cristal-api";
-import filesize from "filesize.js";
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 
@@ -29,15 +30,23 @@ watch(
   },
 );
 
-const attachment: Ref<Attachment> = ref({
-  id: "TODO",
-  name: "mondrian.jpg",
-  href: "http://test.com",
-  mimetype: "application/json",
-  author: "Administrator",
-  date: new Date(),
-  size: 954100000,
-});
+function close() {
+  openedDialog.value = false;
+}
+
+function download() {
+  // TODO: resolve url and oen to download
+  // TODO: make sure this is also working with electron somehow
+  const value = attachment.value;
+  if (value) {
+    window.location.href = value.href;
+  }
+}
+
+const attachment: Ref<Attachment | undefined> = attachmentPreview.attachment();
+
+const loading = attachmentPreview.loading();
+const error = attachmentPreview.error();
 
 dayjs.extend(LocalizedFormat);
 </script>
@@ -49,35 +58,38 @@ dayjs.extend(LocalizedFormat);
       <!-- No activator, the modal is opened when the user clicks on an attachment link. -->
     </template>
     <template #default>
-      <div class="dialog_content">
+      <div v-if="loading">Loading...</div>
+      <!-- TODO add an error div -->
+      <div v-else-if="attachment" class="dialog_content">
         <!-- TODO: abstract to allow preview based on the type -->
         <div class="attachment_view">
-          <!-- TODO: add an alt value for accessibility. -->
-          <img
-            src="https://www.guggenheim.org/wp-content/uploads/1916/01/49.1229_ph_web-1.jpg"
-          />
+          <div class="attachment_view_inner">
+            <file-preview :attachment="attachment" />
+          </div>
         </div>
         <div class="metadata">
           <!-- TODO make a component with key:value -->
           <div class="label_description">
             <div>
               <span class="label">Name</span>
-              <span class="description"> {{ attachment.name }}</span>
+              <span class="description">{{ attachment.name }}</span>
             </div>
           </div>
-          <div class="label_description">
+          <div v-if="attachment.author" class="label_description">
             <div>
               <span class="label">Posted by</span>
-              <span class="description"> {{ attachment.author }}</span>
+              <!-- TODO: extra an user module -->
+              <span class="description">{{ attachment.author }}</span>
             </div>
           </div>
-          <!-- TODO: move to a dedicated core extension "date" -->
+
           <div class="label_description">
             <div>
               <span class="label">Date</span>
               <span class="description">
-                {{ dayjs(attachment.date).format("llll") }}</span
-              >
+                <!-- TODO: move to a dedicated core extension "date" -->
+                {{ dayjs(attachment.date).format("llll") }}
+              </span>
             </div>
           </div>
           <div class="label_description">
@@ -86,15 +98,15 @@ dayjs.extend(LocalizedFormat);
               <div>
                 <span class="label">Size</span>
                 <span class="description">
-                  {{ filesize(attachment.size) }}</span
-                >
+                  {{ filesize(attachment.size) }}
+                </span>
               </div>
             </div>
           </div>
           <div class="label_description">
             <div>
-              <span class="label">Type </span>
-              <span class="description"> {{ attachment.mimetype }}</span>
+              <span class="label">Type</span>
+              <span class="description">{{ attachment.mimetype }}</span>
             </div>
             <div class="label_description"></div>
           </div>
@@ -103,13 +115,18 @@ dayjs.extend(LocalizedFormat);
           <!-- TODO: top-right close button. -->
           <!-- TODO: bottom right close button. -->
           <div class="main_action">
-            <x-btn>Another button</x-btn>
-            <x-btn>Download</x-btn>
+            <x-btn @click="download()">Download</x-btn>
           </div>
           <div class="close_container">
-            <x-btn class="close" variant="primary">Close</x-btn>
+            <x-btn class="close" variant="primary" @click="close()">
+              Close
+            </x-btn>
           </div>
         </div>
+      </div>
+      <div v-else>
+        <div v-if="error">{{ error }}</div>
+        <div v-else>Unknown error message</div>
       </div>
     </template>
   </x-dialog>
@@ -118,7 +135,6 @@ dayjs.extend(LocalizedFormat);
 <style scoped>
 .dialog_content {
   display: grid;
-  max-height: 80vh;
   grid-auto-flow: column;
   grid-template-columns: 1fr auto;
   grid-template-rows: 1fr auto;
@@ -150,6 +166,10 @@ dayjs.extend(LocalizedFormat);
 .attachment_view {
   grid-area: attachment_view;
   overflow: scroll;
+}
+.attachment_view img {
+  max-height: 70vh;
+  display: block;
 }
 .label_description {
   display: flex;

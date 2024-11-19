@@ -17,57 +17,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import {
-  AttachmentReference,
-  DocumentReference,
-  EntityType,
-  SpaceReference,
-  WikiReference,
-} from "@xwiki/cristal-model-api";
 import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import { injectable } from "inversify";
-import type { EntityReference } from "@xwiki/cristal-model-api";
 
 @injectable()
 class XWikiRemoteURLSerializer implements RemoteURLSerializer {
-  serialize(reference?: EntityReference): string | undefined {
-    if (!reference) {
-      return undefined;
-    }
-    const type = reference.type;
-    const { SPACE, ATTACHMENT, DOCUMENT, WIKI } = EntityType;
-    switch (type) {
-      case WIKI:
-        return (reference as WikiReference).name;
-      case SPACE: {
-        const spaceReference = reference as SpaceReference;
-        const wiki = this.serialize(spaceReference.wiki);
-        const spaces = spaceReference.names.join(".");
-        if (wiki === undefined) {
-          return spaces;
-        } else {
-          return `${wiki}:${spaces}`;
-        }
-      }
-      case DOCUMENT: {
-        const documentReference = reference as DocumentReference;
-        const spaces = this.serialize(documentReference.space);
-        const name = documentReference.name;
-        if (spaces === undefined || spaces === "") {
-          return name;
-        } else {
-          return `${spaces}.${name}`;
-        }
-      }
-      case ATTACHMENT: {
-        const attachmentReference = reference as AttachmentReference;
-        const document = this.serialize(attachmentReference.document);
-        const name = attachmentReference.name;
-        return `${document}@${name}`;
-      }
-      default:
-        throw new Error(`Unknown reference type [${type}]`);
-    }
+  serialize(): string | undefined {
+    throw new Error("to be implemented ");
   }
 }
 

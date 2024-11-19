@@ -93,14 +93,24 @@ async function readAttachments(
     return pageContent.map((path) => {
       return {
         id: path,
-        mimetype: "",
+        mimetype: "", // TODO: implement mimetype
         reference: path,
         href: path,
+        date: new Date(), // TODO: load file date
+        size: 42, // TODO: implement file size
+        author: undefined,
       };
     });
   } else {
     return undefined;
   }
+}
+
+async function readAttachment(
+  path: string,
+): Promise<PageAttachment | undefined> {
+  // TODO ...
+  throw new Error("Not implemented");
 }
 
 async function isWithin(root: string, path: string) {
@@ -210,6 +220,9 @@ export default function load(): void {
   });
   ipcMain.handle("readAttachments", (event, { path }) => {
     return readAttachments(path);
+  });
+  ipcMain.handle("readAttachment", (event, { path }) => {
+    return readAttachment(path);
   });
   ipcMain.handle("savePage", (event, { path, content, title }) => {
     return savePage(path, content, title);

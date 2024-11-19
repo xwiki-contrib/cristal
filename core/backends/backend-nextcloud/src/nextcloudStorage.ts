@@ -118,6 +118,10 @@ export class NextcloudStorage extends AbstractStorage {
             reference,
             id,
             href,
+            size: 0, // TODO: implement file size
+            date: new Date(), // TODO: implement file date
+            // For now nextcloud does not allow for shared Cristal storage, so all files are owned by the current user
+            author: undefined,
           });
         }
       }
@@ -126,6 +130,11 @@ export class NextcloudStorage extends AbstractStorage {
     } else {
       return undefined;
     }
+  }
+
+  getAttachment(): Promise<PageAttachment | undefined> {
+    // TODO: to be implemented
+    throw new Error("Not implemented");
   }
 
   private getAttachmentsBasePath(page: string) {

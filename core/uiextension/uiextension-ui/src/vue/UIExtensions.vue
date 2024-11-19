@@ -41,8 +41,6 @@ for (let uiExtension of await uixManager.list(uixName)) {
     component: await uiExtension.component(),
   });
 }
-
-console.log("uiExtensions", uiExtensions);
 </script>
 
 <template>

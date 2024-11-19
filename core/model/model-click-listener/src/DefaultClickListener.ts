@@ -23,10 +23,8 @@ import { AttachmentReference, EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { AttachmentPreview } from "@xwiki/cristal-attachments-api";
-import type {
-  RemoteURLParserProvider,
-  RemoteURLSerializerProvider,
-} from "@xwiki/cristal-model-remote-url-api";
+import type { ModelReferenceSerializerProvider } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
 
 /**
  * @since 0.12
@@ -36,42 +34,44 @@ class DefaultClickListener implements ClickListener {
   constructor(
     @inject("RemoteURLParserProvider")
     private readonly remoteURLParserProvider: RemoteURLParserProvider,
-    @inject("RemoteURLSerializerProvider")
-    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
+    @inject("ModelReferenceSerializerProvider")
+    private readonly modelReferenceSerializerProvider: ModelReferenceSerializerProvider,
     @inject("CristalApp") private readonly cristal: CristalApp,
     @inject("AttachmentPreview")
     private readonly attachmentPreview: AttachmentPreview,
   ) {}
 
-  handle(element: HTMLElement): void {
-    const remoteURLParser = this.remoteURLParserProvider.get();
-    const remoteURLSerializer = this.remoteURLSerializerProvider.get()!;
-    const cristal = this.cristal;
-    const attachmentPreview = this.attachmentPreview;
+  handleHTMLElement(element: HTMLElement): void {
+    const handleURL = this.handleURL;
     element.addEventListener(
       "click",
-      function handleClick(event) {
+      function handleClick(event: MouseEvent) {
         // If no parser is found, we let the click event go through.
-        if (remoteURLParser) {
-          const url = (event.target as HTMLLinkElement)?.href;
-          try {
-            const entityReference = remoteURLParser.parse(url);
-            if (entityReference.type == EntityType.DOCUMENT) {
-              event.preventDefault();
-              cristal.setCurrentPage(
-                remoteURLSerializer.serialize(entityReference) || "",
-              );
-            } else if (entityReference.type == EntityType.ATTACHMENT) {
-              event.preventDefault();
-              attachmentPreview.preview(entityReference as AttachmentReference);
-            }
-          } catch (e) {
-            console.log(`Failed to parse [${url}] `, e);
-          }
-        }
+
+        const url = (event.target as HTMLLinkElement)?.href;
+        event.preventDefault();
+        handleURL(url);
       },
       true,
     );
+  }
+
+  handleURL(url: string): void {
+    const remoteURLParser = this.remoteURLParserProvider.get()!;
+    const modelReferenceSerializer =
+      this.modelReferenceSerializerProvider.get()!;
+    try {
+      const entityReference = remoteURLParser.parse(url);
+      if (entityReference.type == EntityType.DOCUMENT) {
+        this.cristal.setCurrentPage(
+          modelReferenceSerializer.serialize(entityReference) || "",
+        );
+      } else if (entityReference.type == EntityType.ATTACHMENT) {
+        this.attachmentPreview.preview(entityReference as AttachmentReference);
+      }
+    } catch (e) {
+      console.log(`Failed to parse [${url}] `, e);
+    }
   }
 }
 
