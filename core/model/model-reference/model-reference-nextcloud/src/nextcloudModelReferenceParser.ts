@@ -18,6 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./componentInit";
+import { EntityReference } from "@xwiki/cristal-model-api";
+import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import { injectable } from "inversify";
 
-export { ComponentInit };
+@injectable()
+export class NextcloudModelReferenceParser implements ModelReferenceParser {
+  parser(): EntityReference {
+    throw new Error("Method not implemented.");
+  }
+}

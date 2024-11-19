@@ -17,7 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { NextcloudRemoteURLParser } from "./nextcloudRemoteURLParser";
+import { NextcloudRemoteURLSerializer } from "./nextcloudRemoteURLSerializer";
+import {
+  RemoteURLParser,
+  RemoteURLSerializer,
+} from "@xwiki/cristal-model-remote-url-api";
+import { Container } from "inversify";
 
-import { ComponentInit } from "./componentInit";
-
-export { ComponentInit };
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<RemoteURLParser>("RemoteURLParser")
+      .to(NextcloudRemoteURLParser)
+      .inSingletonScope()
+      .whenTargetNamed("Nextcloud");
+    container
+      .bind<RemoteURLSerializer>("RemoteURLSerializer")
+      .to(NextcloudRemoteURLSerializer)
+      .inSingletonScope()
+      .whenTargetNamed("Nextcloud");
+  }
+}

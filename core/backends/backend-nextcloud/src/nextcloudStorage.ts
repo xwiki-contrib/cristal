@@ -29,8 +29,8 @@ import { inject, injectable } from "inversify";
 import type { Logger } from "@xwiki/cristal-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
-const USERNAME = "test";
-const PASSWORD = "test";
+const USERNAME = "admin";
+const PASSWORD = "admin";
 
 /**
  * Access Nextcloud storage through http.
@@ -106,23 +106,8 @@ export class NextcloudStorage extends AbstractStorage {
       for (let i = 0; i < responses.length; i++) {
         const dresponse = responses[i];
         if (dresponse.getElementsByTagName("d:getcontenttype").length > 0) {
-          const id = dresponse.getElementsByTagName("d:href")[0].textContent!;
-          const mimetype =
-            dresponse.getElementsByTagName("d:getcontenttype")[0].textContent!;
-          const segments = id.split("/");
-          const href = `${this.getWikiConfig().baseRestURL}/${USERNAME}/${segments.slice(5).join("/")}`;
-          const reference = segments[segments.length - 1];
-
-          attachments.push({
-            mimetype,
-            reference,
-            id,
-            href,
-            size: 0, // TODO: implement file size
-            date: new Date(), // TODO: implement file date
-            // For now nextcloud does not allow for shared Cristal storage, so all files are owned by the current user
-            author: undefined,
-          });
+          const attachment = this.parseAttachment(dresponse);
+          attachments.push(attachment);
         }
       }
 
@@ -132,13 +117,38 @@ export class NextcloudStorage extends AbstractStorage {
     }
   }
 
-  getAttachment(): Promise<PageAttachment | undefined> {
-    // TODO: to be implemented
-    throw new Error("Not implemented");
+  async getAttachment(
+    page: string,
+    name: string,
+  ): Promise<PageAttachment | undefined> {
+    const propfindResponse = await fetch(
+      this.getAttachmentBasePath(name, page),
+      {
+        method: "PROPFIND",
+        headers: {
+          ...this.getBaseHeaders(),
+          Depth: "1",
+          Accept: "application/json",
+        },
+      },
+    );
+
+    if (propfindResponse.status >= 200 && propfindResponse.status < 300) {
+      const text = await propfindResponse.text();
+      const data = new window.DOMParser().parseFromString(text, "text/xml");
+      const response = data.getElementsByTagName("d:response")[0];
+      return this.parseAttachment(response);
+    } else {
+      return undefined;
+    }
   }
 
   private getAttachmentsBasePath(page: string) {
     return `${this.getWikiConfig().baseRestURL}/${USERNAME}/.cristal/${page}/${this.ATTACHMENTS}`;
+  }
+
+  private getAttachmentBasePath(name: string, page: string) {
+    return `${this.getAttachmentsBasePath(page)}/${name}`;
   }
 
   async save(page: string, content: string, title: string): Promise<unknown> {
@@ -247,6 +257,33 @@ export class NextcloudStorage extends AbstractStorage {
     // TODO: the authentication is currently hardcoded.
     return {
       Authorization: `Basic ${btoa(`${USERNAME}:${PASSWORD}`)}`,
+    };
+  }
+
+  private parseAttachment(element: Element): PageAttachment {
+    const id = element.getElementsByTagName("d:href")[0].textContent!;
+    const mimetype =
+      element.getElementsByTagName("d:getcontenttype")[0].textContent!;
+    // TODO: check if best way to parse number
+    const size = parseInt(
+      element.getElementsByTagName("d:getcontentlength")[0].textContent!,
+    );
+    const date = Date.parse(
+      element.getElementsByTagName("d:getlastmodified")[0].textContent!,
+    );
+    const segments = id.split("/");
+    const href = `${this.getWikiConfig().baseRestURL}/${USERNAME}/${segments.slice(5).join("/")}`;
+    const reference = segments[segments.length - 1];
+
+    return {
+      mimetype,
+      reference,
+      id,
+      href,
+      size,
+      date: new Date(date),
+      // For now nextcloud does not allow for shared Cristal storage, so all files are owned by the current user
+      author: undefined,
     };
   }
 }

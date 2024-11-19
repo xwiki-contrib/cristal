@@ -17,7 +17,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
+import { injectable } from "inversify";
 
-import { ComponentInit } from "./componentInit";
+@injectable()
+class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
+  serialize(): string | undefined {
+    throw new Error("to be implemented ");
+  }
+}
 
-export { ComponentInit };
+export { NextcloudRemoteURLSerializer };

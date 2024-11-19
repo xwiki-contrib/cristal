@@ -49,8 +49,10 @@ import { ComponentInit as XWikiLinkSuggestComponentInit } from "@xwiki/cristal-l
 import { ComponentInit as MacrosComponentInit } from "@xwiki/cristal-macros";
 import { ComponentInit as ClickListenerComponentInit } from "@xwiki/cristal-model-click-listener";
 import { ComponentInit as ModelReferenceAPIComponentInit } from "@xwiki/cristal-model-reference-api";
+import { ComponentInit as ModelReferenceNextcloudComponentInit } from "@xwiki/cristal-model-reference-nextcloud";
 import { ComponentInit as ModelReferenceXWikiComponentInit } from "@xwiki/cristal-model-reference-xwiki";
 import { ComponentInit as ModelRemoteURLAPIComponentInit } from "@xwiki/cristal-model-remote-url-api";
+import { ComponentInit as ModelRemoteURLNextcloudComponentInit } from "@xwiki/cristal-model-remote-url-nextcloud";
 import { ComponentInit as ModelRemoteURLXWikiComponentInit } from "@xwiki/cristal-model-remote-url-xwiki";
 import { ComponentInit as DefaultNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-default";
 import { ComponentInit as GitHubNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-github";
@@ -118,6 +120,8 @@ export class StaticBuild {
       new HistoryUIComponentInit(container);
       new ModelReferenceAPIComponentInit(container);
       new ModelReferenceXWikiComponentInit(container);
+      new ModelReferenceNextcloudComponentInit(container);
+      new ModelRemoteURLNextcloudComponentInit(container);
     }
     if (additionalComponents) {
       additionalComponents(container);

@@ -17,7 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { NextcloudModelReferenceParser } from "./nextcloudModelReferenceParser";
+import { NextcloudModelReferenceSerializer } from "./nextcloudModelReferenceSerializer";
+import {
+  ModelReferenceParser,
+  ModelReferenceSerializer,
+} from "@xwiki/cristal-model-reference-api";
+import { Container } from "inversify";
 
-import { ComponentInit } from "./componentInit";
-
-export { ComponentInit };
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<ModelReferenceParser>("ModelReferenceParser")
+      .to(NextcloudModelReferenceParser)
+      .inSingletonScope()
+      .whenTargetNamed("Nextcloud");
+    container
+      .bind<ModelReferenceSerializer>("ModelReferenceSerializer")
+      .to(NextcloudModelReferenceSerializer)
+      .inSingletonScope()
+      .whenTargetNamed("Nextcloud");
+  }
+}

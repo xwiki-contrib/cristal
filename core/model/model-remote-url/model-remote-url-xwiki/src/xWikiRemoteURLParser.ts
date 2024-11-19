@@ -35,10 +35,11 @@ class XWikiRemoteURLParser implements RemoteURLParser {
 
   parse(urlStr: string): EntityReference {
     const baseURLstr = this.cristalApp.getWikiConfig().baseURL;
-    if (!urlStr.startsWith(baseURLstr))
+    if (!urlStr.startsWith(baseURLstr)) {
       throw new Error(
         `[${urlStr}] does not start with base url [${baseURLstr}]`,
       );
+    }
     const baseURL = new URL(baseURLstr);
     const url = new URL(urlStr);
 

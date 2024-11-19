@@ -14,6 +14,7 @@ type AttachmentsMap = {
 const attachmentsMap: AttachmentsMap = {
   image: { component: ImageFilePreview, regex: /image\/.*/ },
   application: { component: ApplicationFilePreview, regex: /application\/pdf/ },
+  // TODO: video
 };
 
 function resolve(mimetype: string): Component {

@@ -42,13 +42,14 @@ class DefaultClickListener implements ClickListener {
   ) {}
 
   handleHTMLElement(element: HTMLElement): void {
-    const handleURL = this.handleURL;
+    const handleURL = this.handleURL.bind(this);
     element.addEventListener(
       "click",
       function handleClick(event: MouseEvent) {
         // If no parser is found, we let the click event go through.
 
-        const url = (event.target as HTMLLinkElement)?.href;
+        const url =
+          (event.target as HTMLLinkElement)?.getAttribute("href") || "";
         event.preventDefault();
         handleURL(url);
       },
@@ -62,12 +63,18 @@ class DefaultClickListener implements ClickListener {
       this.modelReferenceSerializerProvider.get()!;
     try {
       const entityReference = remoteURLParser.parse(url);
-      if (entityReference.type == EntityType.DOCUMENT) {
-        this.cristal.setCurrentPage(
-          modelReferenceSerializer.serialize(entityReference) || "",
-        );
-      } else if (entityReference.type == EntityType.ATTACHMENT) {
-        this.attachmentPreview.preview(entityReference as AttachmentReference);
+      if (entityReference) {
+        if (entityReference.type == EntityType.DOCUMENT) {
+          this.cristal.setCurrentPage(
+            modelReferenceSerializer.serialize(entityReference) || "",
+          );
+        } else if (entityReference.type == EntityType.ATTACHMENT) {
+          this.attachmentPreview.preview(
+            entityReference as AttachmentReference,
+          );
+        }
+      } else {
+        console.debug(`[${url}] is not a valid xwiki entity link`);
       }
     } catch (e) {
       console.log(`Failed to parse [${url}] `, e);

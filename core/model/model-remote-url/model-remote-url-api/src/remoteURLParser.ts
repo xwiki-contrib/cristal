@@ -24,7 +24,7 @@ import { EntityReference } from "@xwiki/cristal-model-api";
  * @throws {@link Error} in case of issue when parsing the url
  */
 interface RemoteURLParser {
-  parse(url: string): EntityReference;
+  parse(url: string): EntityReference | undefined;
 }
 
 export { type RemoteURLParser };
