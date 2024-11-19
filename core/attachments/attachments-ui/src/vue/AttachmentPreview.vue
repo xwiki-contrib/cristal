@@ -6,6 +6,7 @@ import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import filesize from "filesize.js";
 import { Ref, inject, ref, watch } from "vue";
 import type { CristalApp } from "@xwiki/cristal-api";
+import { User } from "@xwiki/cristal-user-ui";
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 
@@ -79,7 +80,9 @@ dayjs.extend(LocalizedFormat);
             <div>
               <span class="label">Posted by</span>
               <!-- TODO: extra an user module -->
-              <span class="description">{{ attachment.author }}</span>
+              <span class="description">
+                <user :user="attachment.author" />
+              </span>
             </div>
           </div>
 
@@ -150,34 +153,42 @@ dayjs.extend(LocalizedFormat);
   flex-flow: column;
   gap: 8px;
 }
+
 .actions {
   grid-area: actions;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--cr-spacing-medium);
+
   .main_action {
     display: flex;
     gap: var(--cr-spacing-medium);
   }
+
   .close_container {
     justify-self: end;
   }
 }
+
 .attachment_view {
   grid-area: attachment_view;
   overflow: scroll;
 }
+
 .attachment_view img {
   max-height: 70vh;
   display: block;
 }
+
 .label_description {
   display: flex;
   flex-flow: column;
   gap: 4px;
+
   .label {
     display: block;
   }
+
   .description {
     font-weight: var(--cr-font-weight-bold);
   }

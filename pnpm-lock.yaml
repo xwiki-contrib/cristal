@@ -219,6 +219,9 @@ importers:
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../../uiextension/uiextension-api
+      '@xwiki/cristal-user-ui':
+        specifier: workspace:*
+        version: link:../../user/user-ui
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -1046,6 +1049,16 @@ importers:
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../uiextension-api
+      vue:
+        specifier: 3.5.12
+        version: 3.5.12(typescript@5.6.3)
+    devDependencies:
+      vue-tsc:
+        specifier: 2.1.10
+        version: 2.1.10(typescript@5.6.3)
+
+  core/user/user-ui:
+    dependencies:
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
