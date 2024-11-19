@@ -21,6 +21,9 @@
 import type { PageData } from "@xwiki/cristal-api";
 import type { Ref } from "vue";
 
+/**
+ * @since 0.12
+ */
 type DocumentChange = "update" | "delete";
 
 /**

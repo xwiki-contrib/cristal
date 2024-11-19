@@ -103,15 +103,14 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
 export class DefaultDocumentService implements DocumentService {
   private readonly refs: StateRefs;
   private readonly store: DocumentStore;
-  private documentChangeListeners: Map<
+  private readonly documentChangeListeners: Map<
     DocumentChange,
     Array<(page: PageData) => Promise<void>>
-  >;
+  > = new Map();
 
   constructor(@inject("CristalApp") private cristal: CristalApp) {
     this.store = createStore(this.cristal)();
     this.refs = storeToRefs(this.store);
-    this.documentChangeListeners = new Map();
   }
 
   getCurrentDocument(): Ref<PageData | undefined> {

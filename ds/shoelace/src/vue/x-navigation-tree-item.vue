@@ -24,15 +24,23 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * root level to any leaf by recursion.
  */
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
-import { ref, useTemplateRef } from "vue";
+import { inject, ref, useTemplateRef } from "vue";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
+import type { CristalApp } from "@xwiki/cristal-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
+  NavigationTreeSourceProvider,
 } from "@xwiki/cristal-navigation-tree-api";
 import type { Ref } from "vue";
 
 type OnClickAction = (node: NavigationTreeNode) => void;
+
+const cristal: CristalApp = inject<CristalApp>("cristal")!;
+const treeSource: NavigationTreeSource = cristal
+  .getContainer()
+  .get<NavigationTreeSourceProvider>("NavigationTreeSourceProvider")
+  .get();
 
 const nodes: Ref<Array<NavigationTreeNode>> = ref([]);
 const current = useTemplateRef<SlTreeItem>("current");
@@ -40,7 +48,6 @@ const current = useTemplateRef<SlTreeItem>("current");
 const items = useTemplateRef<any[]>("items");
 
 const props = defineProps<{
-  treeSource: NavigationTreeSource;
   node: NavigationTreeNode;
   clickAction?: OnClickAction;
 }>();
@@ -66,14 +73,14 @@ async function lazyLoadChildren() {
   if (!current.value?.lazy) {
     return;
   }
-  nodes.value.push(...(await props.treeSource.getChildNodes(props.node.id)));
+  nodes.value.push(...(await treeSource.getChildNodes(props.node.id)));
 
   // If the node doesn't have any children, we still need to add one item
   // temporarily to disable the loading state.
   if (nodes.value.length == 0) {
     const treeItem = document.createElement("sl-tree-item");
     current.value!.append(treeItem);
-    current.value!.remove();
+    treeItem.remove();
   }
 
   current.value?.removeAttribute("lazy");
@@ -87,9 +94,11 @@ async function expandTree(nodesToExpand: string[]) {
       }
       current.value!.expanded = true;
       nodesToExpand.shift();
-      await Promise.all(
-        items.value!.map(async (it) => it.expandTree(nodesToExpand)),
-      );
+      if (items.value) {
+        await Promise.all(
+          items.value!.map(async (it) => it.expandTree(nodesToExpand)),
+        );
+      }
     } else {
       emit("selectionChange", current.value!);
       // If we have a custom click action, we want to use it on dynamic
@@ -124,7 +133,7 @@ async function onDocumentUpdate(parents: string[]) {
     if (nodes.value[i].id == parents[0]) {
       if (parents.length == 1) {
         // Page update
-        const newItems = await props.treeSource.getChildNodes(props.node.id);
+        const newItems = await treeSource.getChildNodes(props.node.id);
         for (const newItem of newItems) {
           if (newItem.id == nodes.value[i].id) {
             nodes.value[i].label = newItem.label;
@@ -133,14 +142,14 @@ async function onDocumentUpdate(parents: string[]) {
         }
       } else {
         parents.shift();
-        items.value![i].onDocumentUpdate(parents);
+        await items.value![i].onDocumentUpdate(parents);
         break;
       }
     }
   }
 
   // New page
-  const newItems = await props.treeSource.getChildNodes(props.node.id);
+  const newItems = await treeSource.getChildNodes(props.node.id);
   newItemsLoop: for (const newItem of newItems) {
     for (const i of nodes.value.keys()) {
       if (newItem.id == nodes.value[i].id) {
@@ -171,7 +180,6 @@ async function onDocumentUpdate(parents: string[]) {
       :key="item.id"
       ref="items"
       slot="children"
-      :tree-source="props.treeSource"
       :node="item"
       :click-action="clickAction"
       @selection-change="onSelectionChange"

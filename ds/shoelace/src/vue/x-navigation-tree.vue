@@ -33,18 +33,28 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *     on items, were also disabled.
  */
 import XNavigationTreeItem from "./x-navigation-tree-item.vue";
-import { onBeforeMount, ref, useTemplateRef, watch } from "vue";
+import { inject, onBeforeMount, ref, useTemplateRef, watch } from "vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
-import type { PageData } from "@xwiki/cristal-api";
+import type { CristalApp, PageData } from "@xwiki/cristal-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
+  NavigationTreeSourceProvider,
 } from "@xwiki/cristal-navigation-tree-api";
 import type { Ref } from "vue";
 
 type OnClickAction = (node: NavigationTreeNode) => void;
+
+const cristal: CristalApp = inject<CristalApp>("cristal")!;
+const documentService: DocumentService = cristal
+  .getContainer()
+  .get<DocumentService>("DocumentService");
+const treeSource: NavigationTreeSource = cristal
+  .getContainer()
+  .get<NavigationTreeSourceProvider>("NavigationTreeSourceProvider")
+  .get();
 
 const rootNodes: Ref<Array<NavigationTreeNode>> = ref([]);
 const items = useTemplateRef<Array<typeof XNavigationTreeItem>>("items");
@@ -52,23 +62,15 @@ const items = useTemplateRef<Array<typeof XNavigationTreeItem>>("items");
 var selectedTreeItem: SlTreeItem | undefined;
 
 const props = defineProps<{
-  treeSource: NavigationTreeSource;
-  documentService: DocumentService;
   clickAction?: OnClickAction;
   currentPage?: PageData;
 }>();
 
 onBeforeMount(async () => {
-  rootNodes.value.push(...(await props.treeSource.getChildNodes("")));
+  rootNodes.value.push(...(await treeSource.getChildNodes("")));
 
-  props.documentService.registerDocumentChangeListener(
-    "delete",
-    onDocumentDelete,
-  );
-  props.documentService.registerDocumentChangeListener(
-    "update",
-    onDocumentUpdate,
-  );
+  documentService.registerDocumentChangeListener("delete", onDocumentDelete);
+  documentService.registerDocumentChangeListener("update", onDocumentUpdate);
 });
 
 watch(() => props.currentPage, expandTree);
@@ -76,7 +78,7 @@ watch(items, expandTree);
 
 async function expandTree() {
   if (props.currentPage) {
-    const nodesToExpand = props.treeSource.getParentNodesId(props.currentPage);
+    const nodesToExpand = treeSource.getParentNodesId(props.currentPage);
     await Promise.all(
       items.value!.map(async (it) => it.expandTree(nodesToExpand)),
     );
@@ -102,7 +104,7 @@ function onSelectionChange(selection: SlTreeItem) {
 }
 
 async function onDocumentDelete(page: PageData) {
-  const parents = props.treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page);
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {
       if (parents.length == 1) {
@@ -117,13 +119,13 @@ async function onDocumentDelete(page: PageData) {
 }
 
 async function onDocumentUpdate(page: PageData) {
-  const parents = props.treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page);
 
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {
       if (parents.length == 1) {
         // Page update
-        const newItems = await props.treeSource.getChildNodes("");
+        const newItems = await treeSource.getChildNodes("");
         for (const newItem of newItems) {
           if (newItem.id == rootNodes.value[i].id) {
             rootNodes.value[i].label = newItem.label;
@@ -141,7 +143,7 @@ async function onDocumentUpdate(page: PageData) {
   }
 
   // New page
-  const newItems = await props.treeSource.getChildNodes("");
+  const newItems = await treeSource.getChildNodes("");
   newItemsLoop: for (const newItem of newItems) {
     for (const i of rootNodes.value.keys()) {
       if (newItem.id == rootNodes.value[i].id) {
@@ -159,7 +161,6 @@ async function onDocumentUpdate(page: PageData) {
       v-for="item in rootNodes"
       :key="item.id"
       ref="items"
-      :tree-source="props.treeSource"
       :node="item"
       :click-action="clickAction"
       @selection-change="onSelectionChange"

@@ -29,14 +29,16 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *     item was disabled. Default hover effects, such as darkening or changing
  *     the cursor on items, were also disabled.
  */
-import { Ref, onBeforeMount, ref, watch } from "vue";
+import { inject, onBeforeMount, ref, watch } from "vue";
 import { VTreeview } from "vuetify/labs/VTreeview";
-import type { PageData } from "@xwiki/cristal-api";
+import type { CristalApp, PageData } from "@xwiki/cristal-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
+  NavigationTreeSourceProvider,
 } from "@xwiki/cristal-navigation-tree-api";
+import type { Ref } from "vue";
 
 type TreeItem = {
   id: string;
@@ -48,6 +50,15 @@ type TreeItem = {
 
 type OnClickAction = (node: NavigationTreeNode) => void;
 
+const cristal: CristalApp = inject<CristalApp>("cristal")!;
+const documentService: DocumentService = cristal
+  .getContainer()
+  .get<DocumentService>("DocumentService");
+const treeSource: NavigationTreeSource = cristal
+  .getContainer()
+  .get<NavigationTreeSourceProvider>("NavigationTreeSourceProvider")
+  .get();
+
 const rootNodes: Ref<Array<TreeItem>> = ref([]);
 const tree: Ref<VTreeview | undefined> = ref(undefined);
 
@@ -55,14 +66,12 @@ const activatedNodes: Ref<Array<string>> = ref(new Array<string>());
 const expandedNodes: Ref<Array<string>> = ref(new Array<string>());
 
 const props = defineProps<{
-  treeSource: NavigationTreeSource;
-  documentService: DocumentService;
   clickAction?: OnClickAction;
   currentPage?: PageData;
 }>();
 
 onBeforeMount(async () => {
-  for (const node of await props.treeSource.getChildNodes("")) {
+  for (const node of await treeSource.getChildNodes("")) {
     rootNodes.value.push({
       id: node.id,
       title: node.label,
@@ -75,14 +84,8 @@ onBeforeMount(async () => {
     await expandTree();
   }
 
-  props.documentService.registerDocumentChangeListener(
-    "delete",
-    onDocumentDelete,
-  );
-  props.documentService.registerDocumentChangeListener(
-    "update",
-    onDocumentUpdate,
-  );
+  documentService.registerDocumentChangeListener("delete", onDocumentDelete);
+  documentService.registerDocumentChangeListener("update", onDocumentUpdate);
 });
 
 watch(
@@ -95,7 +98,7 @@ watch(
 );
 
 async function expandTree() {
-  const newExpandedNodes = props.treeSource.getParentNodesId(props.currentPage);
+  const newExpandedNodes = treeSource.getParentNodesId(props.currentPage);
   let i;
   let currentNodes = rootNodes.value;
   for (i = 0; i < newExpandedNodes.length - 1; i++) {
@@ -135,7 +138,7 @@ async function expandTree() {
 
 async function lazyLoadChildren(item: unknown) {
   const treeItem = item as TreeItem;
-  const childNodes = await props.treeSource.getChildNodes(treeItem.id);
+  const childNodes = await treeSource.getChildNodes(treeItem.id);
   for (const child of childNodes) {
     treeItem.children?.push({
       id: child.id,
@@ -161,7 +164,7 @@ function clearSelection() {
 }
 
 async function onDocumentDelete(page: PageData) {
-  const parents = props.treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page);
   let currentItems: TreeItem[] | undefined = rootNodes.value;
   while (currentItems) {
     for (const i of currentItems.keys()) {
@@ -180,7 +183,7 @@ async function onDocumentDelete(page: PageData) {
 }
 
 async function onDocumentUpdate(page: PageData) {
-  const parents = props.treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page);
   let currentParent: string | undefined = undefined;
   let currentItems: TreeItem[] | undefined = rootNodes.value;
 
@@ -189,7 +192,7 @@ async function onDocumentUpdate(page: PageData) {
       if (currentItems[i].id == parents[0]) {
         if (parents.length == 1) {
           // Page update
-          const newItems = await props.treeSource.getChildNodes(
+          const newItems = await treeSource.getChildNodes(
             currentParent ? currentParent : "",
           );
           for (const newItem of newItems) {
@@ -208,7 +211,7 @@ async function onDocumentUpdate(page: PageData) {
     }
 
     // New page
-    const newItems = await props.treeSource.getChildNodes(
+    const newItems = await treeSource.getChildNodes(
       currentParent ? currentParent : "",
     );
     newItemsLoop: for (const newItem of newItems) {
