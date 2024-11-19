@@ -62,7 +62,6 @@ import { ComponentInit as RenderingComponentInit } from "@xwiki/cristal-renderin
 import { ComponentInit as QueueWorkerComponentInit } from "@xwiki/cristal-sharedworker-impl";
 import { ComponentInit as SkinComponentInit } from "@xwiki/cristal-skin";
 import { ComponentInit as UIExtensionDefaultComponentInit } from "@xwiki/cristal-uiextension-default";
-
 import type { Container } from "inversify";
 
 export class StaticBuild {

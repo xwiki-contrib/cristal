@@ -77,8 +77,7 @@ export interface CristalApp {
   setContentRef(ref: Ref): void;
 
   /**
-   *
-   * @deprecated since XXX, use YYY instead
+   * @deprecated since 0.12, use ClickListener instead
    */
   loadPageFromURL(url: string): Promise<void>;
 

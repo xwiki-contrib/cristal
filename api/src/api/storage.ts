@@ -19,9 +19,9 @@
  */
 
 import { AttachmentsData } from "./attachmentsData";
+import { PageAttachment } from "./pageAttachment";
 import type { PageData } from "./PageData";
 import type { WikiConfig } from "./WikiConfig";
-import { PageAttachment } from "./pageAttachment";
 
 export interface Storage {
   setWikiConfig(config: WikiConfig): void;

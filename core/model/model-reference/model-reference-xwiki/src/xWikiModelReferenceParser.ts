@@ -24,7 +24,7 @@ import { injectable } from "inversify";
 
 @injectable()
 export class XWikiModelReferenceParser implements ModelReferenceParser {
-  parser(reference: string): EntityReference {
+  parser(): EntityReference {
     throw new Error("Method not implemented.");
   }
 }

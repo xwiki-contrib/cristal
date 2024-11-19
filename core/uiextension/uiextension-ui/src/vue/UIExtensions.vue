@@ -23,7 +23,7 @@ import { CristalApp } from "@xwiki/cristal-api";
 import { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
 import { inject } from "vue";
 import type { Component } from "vue";
-
+//
 const { uixName } = defineProps<{
   uixName: string;
 }>();

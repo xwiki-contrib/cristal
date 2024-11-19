@@ -101,9 +101,8 @@ class DefaultAttachmentPreview implements AttachmentPreview {
           });
         }
       } else {
-        // TODO: log serializer not found
+        console.error("Failed to find a model reference serializer component.");
       }
-      // TODO: add complementary details from the backend.
     } finally {
       this.store.stopLoading();
     }

@@ -3,8 +3,8 @@ import messages from "../translations";
 import { Attachment } from "@xwiki/cristal-attachments-api";
 import { inject } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp } from "@xwiki/cristal-api/dist";
-import type { ClickListener } from "@xwiki/cristal-model-click-listener/dist";
+import type { CristalApp } from "@xwiki/cristal-api";
+import type { ClickListener } from "@xwiki/cristal-model-click-listener";
 
 const { t } = useI18n({
   messages,
@@ -17,10 +17,10 @@ defineProps<{
 }>();
 
 const cristal = inject<CristalApp>("cristal")!;
+const listener = cristal.getContainer().get<ClickListener>("ClickListener");
 
 function attachmentPreview(url: string, event: Event) {
   event.preventDefault();
-  const listener = cristal.getContainer().get<ClickListener>("ClickListener");
   listener.handleURL(url);
 }
 </script>

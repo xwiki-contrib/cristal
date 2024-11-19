@@ -21,7 +21,18 @@
  * @since 0.12
  */
 interface ClickListener {
+  /**
+   * List for link click inside an html element. Handling found links with {@link handleURL}.
+   *
+   * @param element an html element
+   */
   handleHTMLElement(element: HTMLElement): void;
+
+  /**
+   * Handle link click on the provided url.
+   *
+   * @param url a url
+   */
   handleURL(url: string): void;
 }
 

@@ -321,8 +321,7 @@ export class DefaultCristalApp implements CristalApp {
   }
 
   /**
-   *
-   * @deprecated since XXX, replace with YYY
+   * @deprecated since 0.12
    */
   async loadPageFromURL(url: string): Promise<void> {
     this.logger?.debug("Trying to load", url);
