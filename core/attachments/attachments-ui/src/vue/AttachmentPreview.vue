@@ -160,9 +160,10 @@ const error = attachmentPreview.error();
 
 <style scoped>
 .dialog_content {
-  display: grid;
+  display: grid;  
+  height: 80vh;
   grid-auto-flow: column;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 6fr 1fr;
   grid-template-rows: 1fr auto;
   gap: 16px 16px;
   grid-template-areas:
@@ -194,8 +195,13 @@ const error = attachmentPreview.error();
 }
 
 .attachment_view {
+  background-color: var(--cr-color-neutral-100);
+  border-radius: var(--cr-border-radius-large);
   grid-area: attachment_view;
-  overflow: scroll;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .attachment_view img {
@@ -210,10 +216,46 @@ const error = attachmentPreview.error();
 
   .label {
     display: block;
+    font-size: var(--cr-font-size-x-small);
   }
 
   .description {
     font-weight: var(--cr-font-weight-bold);
+    font-size: var(--cr-font-size-small);
   }
 }
+@container xwCristal (max-width: 600px) {
+  .dialog_content {
+    display: grid;  
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        "attachment_view"
+        "metadata"
+        "actions";
+        .attachment_view img {
+          width: 100%;
+        }
+      }
+  }
+
+  /*TODO: Try to remove these Vuetify only styles*/
+
+  :global(.v-overlay) {
+    container: vuetifyCristal;
+    container-type: size;
+  }
+  @container vuetifyCristal (max-width: 600px) {
+    .dialog_content {      
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas:
+          "attachment_view"
+          "metadata"
+          "actions";
+          .attachment_view img {
+            width: 100%;
+          }
+        }
+  }
 </style>
