@@ -22,6 +22,11 @@ import dayjs from "dayjs";
 import LocalizedFormat from "dayjs/plugin/localizedFormat";
 import { injectable } from "inversify";
 
+/**
+ * Use dayjs to format dates to a localized form.
+ *
+ * @since 0.12
+ */
 @injectable()
 class DefaultDateService implements DateService {
   constructor() {

@@ -14,6 +14,8 @@ const { t } = useI18n({
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 
+const isFileSytem = cristal.getWikiConfig().getType() == "FileSystem";
+
 const attachmentPreview = cristal
   .getContainer()
   .get<AttachmentPreview>("AttachmentPreview")!;
@@ -64,7 +66,11 @@ const error = attachmentPreview.error();
         <!-- TODO: abstract to allow preview based on the type -->
         <div class="attachment_view">
           <div class="attachment_view_inner">
-            <file-preview :attachment="attachment" />
+            <file-preview v-if="!isFileSytem" :attachment="attachment" />
+            <span v-else>
+              The filesystem backend does not support attachment preview
+              currently.
+            </span>
           </div>
         </div>
         <div class="metadata">
@@ -123,7 +129,15 @@ const error = attachmentPreview.error();
           <!-- TODO: top-right close button. -->
           <!-- TODO: bottom right close button. -->
           <div class="main_action">
-            <x-btn @click="download()">
+            <x-btn
+              :disabled="isFileSytem"
+              :title="
+                isFileSytem
+                  ? 'file system backend does not support download currently'
+                  : ''
+              "
+              @click="download()"
+            >
               {{ t("attachment.preview.download.button") }}
             </x-btn>
           </div>

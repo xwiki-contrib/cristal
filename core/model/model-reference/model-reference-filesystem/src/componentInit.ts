@@ -17,23 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-/**
- * @since 0.12
- */
-interface ClickListener {
-  /**
-   * List for link click inside an html element. Handling found links with {@link handleURL}.
-   *
-   * @param element - an html element
-   */
-  handleHTMLElement(element: HTMLElement): void;
+import { FileSystemModelReferenceParser } from "./filesystemModelReferenceParser";
+import { FileSystemModelReferenceSerializer } from "./filesystemModelReferenceSerializer";
+import {
+  ModelReferenceParser,
+  ModelReferenceSerializer,
+} from "@xwiki/cristal-model-reference-api";
+import { Container } from "inversify";
 
-  /**
-   * Handle link click on the provided url.
-   *
-   * @param url - a url
-   */
-  handleURL(url: string): void;
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<ModelReferenceParser>("ModelReferenceParser")
+      .to(FileSystemModelReferenceParser)
+      .inSingletonScope()
+      .whenTargetNamed("FileSystem");
+    container
+      .bind<ModelReferenceSerializer>("ModelReferenceSerializer")
+      .to(FileSystemModelReferenceSerializer)
+      .inSingletonScope()
+      .whenTargetNamed("FileSystem");
+  }
 }
-
-export { type ClickListener };

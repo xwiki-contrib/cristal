@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { Logger } from "@xwiki/cristal-api";
 import {
   AttachmentsData,
   DefaultPageData,
@@ -27,10 +26,11 @@ import {
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { inject, injectable } from "inversify";
+import type { Logger } from "@xwiki/cristal-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
-const USERNAME = "admin";
-const PASSWORD = "admin";
+const USERNAME = "test";
+const PASSWORD = "test";
 
 /**
  * Access Nextcloud storage through http.

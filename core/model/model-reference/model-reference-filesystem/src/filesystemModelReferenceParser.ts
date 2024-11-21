@@ -17,23 +17,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-/**
- * @since 0.12
- */
-interface ClickListener {
-  /**
-   * List for link click inside an html element. Handling found links with {@link handleURL}.
-   *
-   * @param element - an html element
-   */
-  handleHTMLElement(element: HTMLElement): void;
 
-  /**
-   * Handle link click on the provided url.
-   *
-   * @param url - a url
-   */
-  handleURL(url: string): void;
+import { EntityReference } from "@xwiki/cristal-model-api";
+import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import { injectable } from "inversify";
+
+@injectable()
+export class FileSystemModelReferenceParser implements ModelReferenceParser {
+  parser(): EntityReference {
+    throw new Error("Method not implemented.");
+  }
 }
-
-export { type ClickListener };

@@ -104,9 +104,6 @@ export class StaticBuild {
       new AlertsDefaultComponentInit(container);
       new ActionsPagesComponentInit(container);
       new ActionsPagesUIComponentInit(container);
-      new ClickListenerComponentInit(container);
-      new ModelRemoteURLAPIComponentInit(container);
-      new ModelRemoteURLXWikiComponentInit(container);
       new DefaultPageHierarchyComponentInit(container);
       new GitHubPageHierarchyComponentInit(container);
       new NextcloudPageHierarchyComponentInit(container);
@@ -119,10 +116,13 @@ export class StaticBuild {
       new GitHubPageHistoryComponentInit(container);
       new XWikiPageHistoryComponentInit(container);
       new HistoryUIComponentInit(container);
-      new ModelReferenceAPIComponentInit(container);
-      new ModelReferenceXWikiComponentInit(container);
-      new ModelReferenceNextcloudComponentInit(container);
+      new ClickListenerComponentInit(container);
+      new ModelRemoteURLAPIComponentInit(container);
       new ModelRemoteURLNextcloudComponentInit(container);
+      new ModelRemoteURLXWikiComponentInit(container);
+      new ModelReferenceAPIComponentInit(container);
+      new ModelReferenceNextcloudComponentInit(container);
+      new ModelReferenceXWikiComponentInit(container);
       new DateAPIComponentInit(container);
     }
     if (additionalComponents) {
