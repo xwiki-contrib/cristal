@@ -54,17 +54,18 @@ class DefaultClickListener implements ClickListener {
           event.preventDefault();
           handleURL(url);
         } else if ((event.target as HTMLElement).tagName === "A") {
-          const url =
-            (event.target as HTMLLinkElement)?.getAttribute("href") || "";
+          const link = event.target as HTMLLinkElement;
+          const url = link.getAttribute("href") || "";
+          const href = link.href;
           event.preventDefault();
-          handleURL(url);
+          handleURL(url, href);
         }
       },
       true,
     );
   }
 
-  handleURL(url: string): void {
+  handleURL(url: string, href?: string): void {
     const remoteURLParser = this.remoteURLParserProvider.get()!;
     const modelReferenceSerializer =
       this.modelReferenceSerializerProvider.get()!;
@@ -84,7 +85,35 @@ class DefaultClickListener implements ClickListener {
         console.debug(`[${url}] is not a valid xwiki entity link`);
       }
     } catch (e) {
-      console.log(`Failed to parse [${url}] `, e);
+      console.log(
+        `Failed to parse [${url}], falling back to legacy link handling.`,
+        e,
+      );
+      // We keep the legacy support for now in case of bug in the link parser.
+      if (href) {
+        this.legacyHandleURL(href);
+      }
+    }
+  }
+
+  private legacyHandleURL(href: string) {
+    // We cannot use `closest()` because of possible shadow roots.
+    if (href) {
+      // Case 1: the link is relative and/or points to the current host.
+      if (href.startsWith(location.origin)) {
+        const page = href.replace(location.origin + location.pathname, "");
+        if (!page.startsWith("#")) {
+          this.cristal.setCurrentPage(page, "view");
+          this.cristal.loadPage().then();
+        } else {
+          window.location.href = page;
+          return;
+        }
+      } else {
+        // Case 2: the link points to an external server, in this case we try to resolve it to a known page.
+        // Otherwise, the link is considered as external.
+        this.cristal.loadPageFromURL(href).then();
+      }
     }
   }
 }
