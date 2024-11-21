@@ -47,11 +47,18 @@ class DefaultClickListener implements ClickListener {
       "click",
       function handleClick(event: MouseEvent) {
         // If no parser is found, we let the click event go through.
-
-        const url =
-          (event.target as HTMLLinkElement)?.getAttribute("href") || "";
-        event.preventDefault();
-        handleURL(url);
+        // TODO: generalize to be able to inject click handlers for various element kinds.
+        if ((event.target as HTMLElement).tagName === "IMG") {
+          const url =
+            (event.target as HTMLImageElement)?.getAttribute("src") || "";
+          event.preventDefault();
+          handleURL(url);
+        } else if ((event.target as HTMLElement).tagName === "A") {
+          const url =
+            (event.target as HTMLLinkElement)?.getAttribute("href") || "";
+          event.preventDefault();
+          handleURL(url);
+        }
       },
       true,
     );

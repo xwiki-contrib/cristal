@@ -2,6 +2,7 @@
 import NoPreview from "./NoPreview.vue";
 import ApplicationFilePreview from "./preview/ApplicationFilePreview.vue";
 import ImageFilePreview from "./preview/ImageFilePreview.vue";
+import VideoFilePreview from "./preview/VideoFilePreview.vue";
 import { Attachment } from "@xwiki/cristal-attachments-api";
 import type { Component } from "vue";
 
@@ -14,7 +15,7 @@ type AttachmentsMap = {
 const attachmentsMap: AttachmentsMap = {
   image: { component: ImageFilePreview, regex: /image\/.*/ },
   application: { component: ApplicationFilePreview, regex: /application\/pdf/ },
-  // TODO: video
+  video: { component: VideoFilePreview, regex: /video\/.*/ },
 };
 
 function resolve(mimetype: string): Component {

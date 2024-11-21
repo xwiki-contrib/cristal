@@ -43,7 +43,9 @@ class XWikiRemoteURLParser implements RemoteURLParser {
     const baseURL = new URL(baseURLstr);
     const url = new URL(urlStr);
 
-    const endPath = url.pathname.replace(baseURL.pathname, "");
+    const endPath = decodeURIComponent(
+      url.pathname.replace(baseURL.pathname, ""),
+    );
     let segments = endPath.split("/");
     if (segments[0] === "") {
       segments = segments.slice(1);

@@ -32,7 +32,7 @@ class NextcloudRemoteURLParser implements RemoteURLParser {
     if (urlStr.includes("://")) {
       return undefined;
     }
-    let segments = urlStr.split("/");
+    let segments = decodeURIComponent(urlStr).split("/");
     if (segments[0] === "" || segments[0] === ".") {
       segments = segments.slice(1);
     }
