@@ -153,6 +153,11 @@ export class DefaultAttachmentsService implements AttachmentsService {
         this.store.updateAttachments(
           attachments?.map(
             ({ id, reference, mimetype, href, date, size, author }) => {
+              let userDetails = undefined;
+              if (author) {
+                // TODO: resolve author details
+                userDetails = { name: author };
+              }
               return {
                 id,
                 name: reference,
@@ -160,7 +165,7 @@ export class DefaultAttachmentsService implements AttachmentsService {
                 href,
                 date,
                 size,
-                author,
+                author: userDetails,
               };
             },
           ),

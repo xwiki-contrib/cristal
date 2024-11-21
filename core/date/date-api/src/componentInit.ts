@@ -17,13 +17,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { DateService } from "./dateService";
+import { DefaultDateService } from "./defaultDateService";
+import { Container } from "inversify";
 
-/**
- * Holds the user details, for now the profile link and the name of the user.
- *
- * @since 0.11
- */
-export interface UserDetails {
-  profile?: string;
-  name: string;
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<DateService>("DateService")
+      .to(DefaultDateService)
+      .inSingletonScope()
+      .whenTargetIsDefault();
+  }
 }

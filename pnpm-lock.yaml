@@ -159,6 +159,9 @@ importers:
 
   core/attachments/attachments-api:
     dependencies:
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model/model-api
@@ -174,6 +177,9 @@ importers:
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../attachments-api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model/model-api
@@ -201,6 +207,9 @@ importers:
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../attachments-api
+      '@xwiki/cristal-date-ui':
+        specifier: workspace:*
+        version: link:../../date/date-ui
       '@xwiki/cristal-dsapi':
         specifier: workspace:*
         version: link:../../../ds/api
@@ -222,12 +231,6 @@ importers:
       '@xwiki/cristal-user-ui':
         specifier: workspace:*
         version: link:../../user/user-ui
-      dayjs:
-        specifier: 1.11.13
-        version: 1.11.13
-      filesize.js:
-        specifier: 2.0.0
-        version: 2.0.0
       inversify:
         specifier: 6.0.3
         version: 6.0.3
@@ -274,9 +277,6 @@ importers:
       inversify:
         specifier: 6.0.3
         version: 6.0.3
-      reflect-metadata:
-        specifier: 0.2.2
-        version: 0.2.2
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -293,6 +293,9 @@ importers:
       '@xwiki/cristal-dev-test-utils':
         specifier: workspace:*
         version: link:../../../dev/test-utils
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
       vitest:
         specifier: 2.1.4
         version: 2.1.4(@types/node@22.8.7)(happy-dom@14.12.0)
@@ -416,6 +419,31 @@ importers:
         specifier: 6.0.3
         version: 6.0.3
 
+  core/date/date-api:
+    dependencies:
+      dayjs:
+        specifier: 1.11.13
+        version: 1.11.13
+      inversify:
+        specifier: 6.0.3
+        version: 6.0.3
+
+  core/date/date-ui:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-date-api':
+        specifier: workspace:*
+        version: link:../date-api
+      vue:
+        specifier: 3.5.12
+        version: 3.5.12(typescript@5.6.3)
+    devDependencies:
+      vue-tsc:
+        specifier: 2.1.10
+        version: 2.1.10(typescript@5.6.3)
+
   core/document/document-api:
     dependencies:
       '@xwiki/cristal-api':
@@ -492,9 +520,15 @@ importers:
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../../attachments/attachments-api
+      filesize.js:
+        specifier: 2.0.0
+        version: 2.0.0
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
+      vue-i18n:
+        specifier: 10.0.4
+        version: 10.0.4(vue@3.5.12(typescript@5.6.3))
     devDependencies:
       vue-tsc:
         specifier: 2.1.10
@@ -631,6 +665,9 @@ importers:
       '@xwiki/cristal-history-api':
         specifier: workspace:*
         version: link:../history-api
+      '@xwiki/cristal-user-ui':
+        specifier: workspace:*
+        version: link:../../user/user-ui
       inversify:
         specifier: 6.0.3
         version: 6.0.3
@@ -1079,6 +1116,9 @@ importers:
 
   core/user/user-ui:
     dependencies:
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
       vue:
         specifier: 3.5.12
         version: 3.5.12(typescript@5.6.3)
@@ -1565,6 +1605,9 @@ importers:
       '@xwiki/cristal-browser-api':
         specifier: workspace:*
         version: link:../core/browser/browser-api
+      '@xwiki/cristal-date-api':
+        specifier: workspace:*
+        version: link:../core/date/date-api
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../core/document/document-api

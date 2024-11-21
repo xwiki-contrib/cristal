@@ -17,13 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { ComponentInit } from "./componentInit";
+import { DateService } from "./dateService";
 
-/**
- * Holds the user details, for now the profile link and the name of the user.
- *
- * @since 0.11
- */
-export interface UserDetails {
-  profile?: string;
-  name: string;
-}
+export { ComponentInit, type DateService };

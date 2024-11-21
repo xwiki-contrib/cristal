@@ -18,5 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import FilePreview from "./vue/FilePreview.vue";
+import FileSize from "./vue/FileSize.vue";
 
-export { FilePreview };
+export { FilePreview, FileSize };

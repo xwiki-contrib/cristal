@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import NoPreview from "./NoPreview.vue";
-import ApplicationFilePreview from "./preview/ApplicationFilePreview.vue";
 import ImageFilePreview from "./preview/ImageFilePreview.vue";
 import VideoFilePreview from "./preview/VideoFilePreview.vue";
 import { Attachment } from "@xwiki/cristal-attachments-api";
@@ -11,10 +10,10 @@ type AttachmentsMap = {
   [key: string]: { component: Component; regex: RegExp };
 };
 // TODO: to be moved to a component base approach.
-// Missing components examples: video
 const attachmentsMap: AttachmentsMap = {
   image: { component: ImageFilePreview, regex: /image\/.*/ },
-  application: { component: ApplicationFilePreview, regex: /application\/pdf/ },
+  // TODO: pdf preview is currently disabled as it does not work on Chrome and Electron.
+  // application: { component: ApplicationFilePreview, regex: /application\/pdf/ },
   video: { component: VideoFilePreview, regex: /video\/.*/ },
 };
 

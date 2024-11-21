@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import type { Logger } from "@xwiki/cristal-api";
 import {
   AttachmentsData,
   DefaultPageData,
@@ -26,7 +27,6 @@ import {
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { inject, injectable } from "inversify";
-import type { Logger } from "@xwiki/cristal-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
 const USERNAME = "admin";
@@ -106,8 +106,7 @@ export class NextcloudStorage extends AbstractStorage {
       for (let i = 0; i < responses.length; i++) {
         const dresponse = responses[i];
         if (dresponse.getElementsByTagName("d:getcontenttype").length > 0) {
-          const attachment = this.parseAttachment(dresponse);
-          attachments.push(attachment);
+          attachments.push(this.parseAttachment(dresponse));
         }
       }
 
@@ -264,7 +263,6 @@ export class NextcloudStorage extends AbstractStorage {
     const id = element.getElementsByTagName("d:href")[0].textContent!;
     const mimetype =
       element.getElementsByTagName("d:getcontenttype")[0].textContent!;
-    // TODO: check if best way to parse number
     const size = parseInt(
       element.getElementsByTagName("d:getcontentlength")[0].textContent!,
     );

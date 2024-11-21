@@ -45,7 +45,6 @@ class NextcloudRemoteURLParser implements RemoteURLParser {
       segments.length >= 3 &&
       segments[segments.length - 2] == "attachments"
     ) {
-      // TODO attachment
       return new AttachmentReference(
         segments[segments.length - 1],
         new DocumentReference(

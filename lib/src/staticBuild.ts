@@ -27,6 +27,7 @@ import { ComponentInit as DexieBackendComponentInit } from "@xwiki/cristal-backe
 import { ComponentInit as GithubBackendComponentInit } from "@xwiki/cristal-backend-github";
 import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-backend-nextcloud";
 import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
+import { ComponentInit as DateAPIComponentInit } from "@xwiki/cristal-date-api";
 import { ComponentInit as DocumentComponentInit } from "@xwiki/cristal-document-default";
 import { ComponentInit as DSFRComponentInit } from "@xwiki/cristal-dsfr";
 import { ComponentInit as ShoelaceComponentInit } from "@xwiki/cristal-dsshoelace";
@@ -122,6 +123,7 @@ export class StaticBuild {
       new ModelReferenceXWikiComponentInit(container);
       new ModelReferenceNextcloudComponentInit(container);
       new ModelRemoteURLNextcloudComponentInit(container);
+      new DateAPIComponentInit(container);
     }
     if (additionalComponents) {
       additionalComponents(container);

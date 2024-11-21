@@ -1,4 +1,5 @@
 import { Attachment, AttachmentPreview } from "@xwiki/cristal-attachments-api";
+import { UserDetails } from "@xwiki/cristal-authentication-api";
 import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import { Store, StoreDefinition, defineStore, storeToRefs } from "pinia";
@@ -50,6 +51,10 @@ const attachmentPreviewStore: AttachmentPreviewStoreDefinition = defineStore<
   actions: {
     startLoading() {
       this.loading = true;
+      // The attachment and error are also reset so that the state of a preview attachment is not key when an error
+      // occurs during the load of a new attachment.
+      this.attachment = undefined;
+      this.error = undefined;
     },
     setAttachment(attachment: Attachment): void {
       this.attachment = attachment;
@@ -90,8 +95,13 @@ class DefaultAttachmentPreview implements AttachmentPreview {
             attachmentReference.name,
           );
         if (attachment) {
+          let author: UserDetails | undefined = undefined;
+          if (attachment.author) {
+            // TODO: resolve author details
+            author = { name: attachment.author };
+          }
           this.store.setAttachment({
-            author: attachment.author,
+            author,
             name: attachmentReference.name,
             href: attachment.href,
             date: attachment.date,
