@@ -26,6 +26,9 @@
     "@xwiki/cristal-date-api": "workspace:*",
     "vue": "3.5.12"
   },
+  "devDependencies": {
+    "vue-tsc": "2.1.10"
+  },
   "publishConfig": {
     "exports": {
       ".": {
@@ -36,8 +39,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "devDependencies": {
-    "vue-tsc": "2.1.10"
   }
 }
