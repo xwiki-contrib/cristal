@@ -127,7 +127,6 @@ const error = attachmentPreview.error();
         </div>
         <div class="actions">
           <!-- TODO: top-right close button. -->
-          <!-- TODO: bottom right close button. -->
           <div class="main_action">
             <x-btn
               :disabled="isFileSytem"
@@ -160,7 +159,7 @@ const error = attachmentPreview.error();
 
 <style scoped>
 .dialog_content {
-  display: grid;  
+  display: grid;
   height: 80vh;
   grid-auto-flow: column;
   grid-template-columns: 6fr 1fr;
@@ -224,38 +223,42 @@ const error = attachmentPreview.error();
     font-size: var(--cr-font-size-small);
   }
 }
+
 @container xwCristal (max-width: 600px) {
   .dialog_content {
-    display: grid;  
+    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     grid-template-areas:
-        "attachment_view"
-        "metadata"
-        "actions";
-        .attachment_view img {
-          width: 100%;
-        }
-      }
-  }
+      "attachment_view"
+      "metadata"
+      "actions";
 
-  /*TODO: Try to remove these Vuetify only styles*/
+    .attachment_view img {
+      width: 100%;
+    }
+  }
+}
 
-  :global(.v-overlay) {
-    container: vuetifyCristal;
-    container-type: size;
+/*TODO: Try to remove these Vuetify only styles*/
+
+:global(.v-overlay) {
+  container: vuetifyCristal;
+  container-type: size;
+}
+
+@container vuetifyCristal (max-width: 600px) {
+  .dialog_content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      "attachment_view"
+      "metadata"
+      "actions";
+
+    .attachment_view img {
+      width: 100%;
+    }
   }
-  @container vuetifyCristal (max-width: 600px) {
-    .dialog_content {      
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr;
-      grid-template-areas:
-          "attachment_view"
-          "metadata"
-          "actions";
-          .attachment_view img {
-            width: 100%;
-          }
-        }
-  }
+}
 </style>
