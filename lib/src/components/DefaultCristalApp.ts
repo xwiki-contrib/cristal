@@ -17,6 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 // reflect-metadata is placed at the top because it needs to be imported
 // before any use of an inversify annotation.
 import "reflect-metadata";
@@ -320,6 +321,9 @@ export class DefaultCristalApp implements CristalApp {
     }
   }
 
+  /**
+   * @deprecated since 0.12
+   */
   async loadPageFromURL(url: string): Promise<void> {
     this.logger?.debug("Trying to load", url);
     const page = this.getWikiConfig().storage.getPageFromViewURL(url);

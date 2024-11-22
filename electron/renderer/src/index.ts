@@ -17,12 +17,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 import "reflect-metadata";
 import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-electron";
 import { ComponentInit as XWikiAuthenticationComponentInit } from "@xwiki/cristal-electron-authentication-xwiki-renderer";
 import { ComponentInit as ElectronStorageComponentInit } from "@xwiki/cristal-electron-storage";
 import { ComponentInit as FileSystemPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-filesystem";
 import { CristalAppLoader, loadConfig } from "@xwiki/cristal-lib";
+import { ComponentInit as ModelReferenceFilesystemComponentInit } from "@xwiki/cristal-model-reference-filesystem";
+import { ComponentInit as ModelRemoteURLFilesystemComponentInit } from "@xwiki/cristal-model-remote-url-filesystem";
 import { ComponentInit as FileSystemNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-filesystem";
 import { Container } from "inversify";
 
@@ -47,5 +50,7 @@ CristalAppLoader.init(
     new FileSystemPageHierarchyComponentInit(container);
     new FileSystemNavigationTreeComponentInit(container);
     new XWikiAuthenticationComponentInit(container);
+    new ModelReferenceFilesystemComponentInit(container);
+    new ModelRemoteURLFilesystemComponentInit(container);
   },
 );
