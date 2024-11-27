@@ -245,11 +245,30 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: block;
 }
 
+/*LINKS*/
+
+:deep(.content a) {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: var(--cr-font-weight-semibold);
+  text-decoration-color: var(--cr-color-neutral-300);
+  color: var(--cr-base-link-color);
+
+  &:visited {
+    text-decoration-color: var(--cr-color-neutral-300);
+    color: var(--cr-base-visited-link-color);
+  }
+  &:hover {
+    text-decoration-color: var(--cr-color-neutral-500);
+  }
+}
+
 /*TABLE*/
 :deep(table) {
   border-collapse: collapse;
   width: 100%;
   font-size: var(--cr-font-size-small);
+  line-height: var(--cr-line-height-dense);
   & th, td {
     text-align: start;
   }
