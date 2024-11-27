@@ -93,10 +93,10 @@ const save = async (authors: User[]) => {
       title.value,
       "html",
     );
-  documentService.notifyDocumentChange(
-    "update",
-    documentService.getCurrentDocument().value!,
-  );
+  if (!currentPage.value) {
+    documentService.setCurrentDocument(currentPageName.value);
+  }
+  documentService.notifyDocumentChange("update", currentPage.value!);
 };
 const submit = async () => {
   await editor.value?.storage.cristalCollaborationKit.autoSaver.save();
@@ -145,7 +145,7 @@ async function loadEditor(page: PageData | undefined) {
     content.value =
       page?.syntax == "markdown/1.2" ? page?.source : page?.html || "";
     title.value = page?.headlineRaw || "";
-    titlePlaceholder.value = page?.name || "";
+    titlePlaceholder.value = page?.name || currentPageName.value;
 
     const linkSuggestServiceProvider = cristal
       .getContainer()
@@ -196,7 +196,13 @@ async function loadEditor(page: PageData | undefined) {
   }
 }
 
-watch(currentPage, (page) => loadEditor(page), { immediate: true });
+watch(
+  loading,
+  (newLoading) => {
+    if (!newLoading) loadEditor(currentPage.value);
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

@@ -968,6 +968,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
 
   core/navigation-tree/navigation-tree-default:
     dependencies:
@@ -989,6 +992,9 @@ importers:
       '@xwiki/cristal-electron-storage':
         specifier: workspace:*
         version: link:../../../electron/storage
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../navigation-tree-api
@@ -1004,6 +1010,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../navigation-tree-api
@@ -1019,6 +1028,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../navigation-tree-api
@@ -1037,6 +1049,15 @@ importers:
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../../authentication/authentication-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../model/model-reference/model-reference-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../model/model-remote-url/model-remote-url-api
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../navigation-tree-api
@@ -1261,6 +1282,9 @@ importers:
       '@xwiki/cristal-dsapi':
         specifier: workspace:*
         version: link:../api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../core/model/model-api
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../../core/navigation-tree/navigation-tree-api
@@ -1349,6 +1373,9 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../core/model/model-reference/model-reference-api
       '@xwiki/cristal-skin':
         specifier: workspace:*
         version: link:../../skin
@@ -1974,9 +2001,15 @@ importers:
       '@xwiki/cristal-info-actions-ui':
         specifier: workspace:*
         version: link:../core/info-actions/info-actions-ui
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../core/model/model-api
       '@xwiki/cristal-model-click-listener':
         specifier: workspace:*
         version: link:../core/model/model-click-listener
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../core/model/model-reference/model-reference-api
       '@xwiki/cristal-navigation-tree-api':
         specifier: workspace:*
         version: link:../core/navigation-tree/navigation-tree-api
