@@ -245,6 +245,41 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: block;
 }
 
+/*TABLE*/
+:deep(table) {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: var(--cr-font-size-small);
+  & th, td {
+    text-align: start;
+  }
+  & th {
+    background-color: var(--cr-color-neutral-100);
+    padding: var(--cr-spacing-x-small) ;
+    font-weight: var(--cr-font-weight-semibold);
+    
+
+    &:first-child {
+      border-top-left-radius: var(--cr-border-radius-large);
+    }
+    &:last-child {
+      border-top-right-radius: var(--cr-border-radius-large);
+    }
+  }
+  & td {
+    padding: var(--cr-spacing-small) var(--cr-spacing-x-small);
+  }
+  tbody {
+    & tr {
+      border-bottom: 1px solid var(--cr-color-neutral-200);
+
+      &:last-child {
+        border-bottom: 0
+      }
+    }
+  }
+}
+
 /*
 WIKI STYLES
 TODO: Discuss and move them to a more appropriate place
