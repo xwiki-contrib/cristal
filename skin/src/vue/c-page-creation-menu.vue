@@ -55,7 +55,7 @@ function updateCurrentPage() {
 }
 
 function createPage() {
-  let newDocumentReference = new DocumentReference(
+  const newDocumentReference = new DocumentReference(
     name.value,
     locationReference!,
   );

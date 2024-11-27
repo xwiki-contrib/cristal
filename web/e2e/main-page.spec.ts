@@ -23,6 +23,7 @@ import { DesignSystem } from "./DesignSystem";
 import { BreadcrumbPageObject } from "./pageObjects/Breadcrumb";
 import { HistoryExtraTabPageObject } from "./pageObjects/HistoryExtraTab";
 import { NavigationTreePageObject } from "./pageObjects/NavigationTree";
+import { SidebarPageObject } from "./pageObjects/Sidebar";
 
 test.afterEach(async ({ page }, testInfo) => {
   if (testInfo.status !== testInfo.expectedStatus) {
@@ -109,14 +110,10 @@ configs.forEach(
       );
     });
 
-    test(`[${name}] has navigation tree`, async ({ page, isMobile }) => {
+    test(`[${name}] has navigation tree`, async ({ page }) => {
       await page.goto(localDefaultPage);
 
-      if (isMobile) {
-        const openSidebar = page.locator(".open-sidebar");
-        await openSidebar.nth(0).click();
-      }
-
+      await new SidebarPageObject(page).openSidebar();
       const navigationTreeNodes = await new NavigationTreePageObject(
         page,
         designSystem,
@@ -177,14 +174,10 @@ configs.forEach(
       await expect(page.locator("#xwikicontent")).toContainText("Revision 2.1");
     });
 
-    test(`[${name}] has working editor on new page`, async ({ page, isMobile }) => {
+    test(`[${name}] has working editor on new page`, async ({ page }) => {
       await page.goto(localDefaultPage);
 
-      if (isMobile) {
-        const openSidebar = page.locator(".open-sidebar");
-        await openSidebar.nth(0).click();
-      }
-
+      await new SidebarPageObject(page).openSidebar();
       await page.locator("#sidebar #new-page-button").nth(0).click();
 
       const newPageDialogButton = page.getByRole('button', { name: 'Create' }).nth(0);

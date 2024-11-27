@@ -93,6 +93,8 @@ const save = async (authors: User[]) => {
       title.value,
       "html",
     );
+  // If this save operation just created the document, the current document
+  // will be undefined. So we update it.
   if (!currentPage.value) {
     documentService.setCurrentDocument(currentPageName.value);
   }
