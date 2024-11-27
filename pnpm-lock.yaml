@@ -36,10 +36,10 @@ importers:
         version: 8.16.0(eslint@9.15.0)(typescript@5.6.3)
       '@vitejs/plugin-vue':
         specifier: 5.1.4
-        version: 5.1.4(vite@5.4.10(@types/node@22.10.0))(vue@3.5.12(typescript@5.6.3))
+        version: 5.1.4(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))(vue@3.5.12(typescript@5.6.3))
       '@vitest/coverage-v8':
         specifier: 2.1.6
-        version: 2.1.6(vitest@2.1.6(@types/node@22.10.0)(happy-dom@14.12.0))
+        version: 2.1.6(vitest@2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2))
       concurrently:
         specifier: 9.1.0
         version: 9.1.0
@@ -77,17 +77,17 @@ importers:
         specifier: 5.6.3
         version: 5.6.3
       vite:
-        specifier: 5.4.10
-        version: 5.4.10(@types/node@22.10.0)
+        specifier: 6.0.1
+        version: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
       vite-plugin-css-injected-by-js:
         specifier: 3.5.2
-        version: 3.5.2(vite@5.4.10(@types/node@22.10.0))
+        version: 3.5.2(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))
       vite-plugin-dts:
         specifier: 4.3.0
-        version: 4.3.0(@types/node@22.10.0)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.10.0))
+        version: 4.3.0(@types/node@22.10.0)(rollup@4.24.0)(typescript@5.6.3)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))
       vitest:
         specifier: 2.1.6
-        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)
+        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2)
       vue-eslint-parser:
         specifier: 9.4.3
         version: 9.4.3(eslint@9.15.0)
@@ -301,7 +301,7 @@ importers:
         version: 0.2.2
       vitest:
         specifier: 2.1.6
-        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)
+        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2)
       vue-tsc:
         specifier: 2.1.10
         version: 2.1.10(typescript@5.6.3)
@@ -855,7 +855,7 @@ importers:
     devDependencies:
       vitest:
         specifier: 2.1.6
-        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)
+        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2)
 
   core/model/model-reference/model-reference-api:
     dependencies:
@@ -910,7 +910,7 @@ importers:
         version: 0.2.2
       vitest:
         specifier: 2.1.6
-        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)
+        version: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2)
 
   core/model/model-remote-url/model-remote-url-api:
     dependencies:
@@ -1579,7 +1579,7 @@ importers:
         version: 22.10.0
       vite-plugin-node:
         specifier: 4.0.0
-        version: 4.0.0(vite@5.4.10(@types/node@22.10.0))
+        version: 4.0.0(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))
 
   extension-manager:
     dependencies:
@@ -1888,7 +1888,7 @@ importers:
     devDependencies:
       vite-plugin-comlink:
         specifier: 5.1.0
-        version: 5.1.0(comlink@4.4.2)(vite@5.4.10(@types/node@22.10.0))
+        version: 5.1.0(comlink@4.4.2)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))
       vue-tsc:
         specifier: 2.1.10
         version: 2.1.10(typescript@5.6.3)
@@ -1940,7 +1940,7 @@ importers:
     devDependencies:
       vite-plugin-comlink:
         specifier: 5.1.0
-        version: 5.1.0(comlink@4.4.2)(vite@5.4.10(@types/node@22.10.0))
+        version: 5.1.0(comlink@4.4.2)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))
       vue-tsc:
         specifier: 2.1.10
         version: 2.1.10(typescript@5.6.3)
@@ -2081,7 +2081,7 @@ importers:
         version: 22.10.0
       '@vitejs/plugin-vue':
         specifier: 5.1.4
-        version: 5.1.4(vite@5.4.10(@types/node@22.10.0))(vue@3.5.12(typescript@5.6.3))
+        version: 5.1.4(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))(vue@3.5.12(typescript@5.6.3))
       globals:
         specifier: 15.12.0
         version: 15.12.0
@@ -2090,13 +2090,13 @@ importers:
         version: 6.1.4(reflect-metadata@0.2.2)
       vite-plugin-dts:
         specifier: 4.3.0
-        version: 4.3.0(@types/node@22.10.0)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.10.0))
+        version: 4.3.0(@types/node@22.10.0)(rollup@4.24.0)(typescript@5.6.3)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))
       vite-plugin-inspect:
         specifier: 0.8.7
-        version: 0.8.7(rollup@4.24.0)(vite@5.4.10(@types/node@22.10.0))
+        version: 0.8.7(rollup@4.24.0)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))
       vite-plugin-vuetify:
         specifier: 2.0.4
-        version: 2.0.4(vite@5.4.10(@types/node@22.10.0))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)
+        version: 2.0.4(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)
       vue-tsc:
         specifier: 2.1.10
         version: 2.1.10(typescript@5.6.3)
@@ -6047,6 +6047,9 @@ packages:
   picocolors@1.1.0:
     resolution: {integrity: sha512-TQ92mBOW0l3LeMeyLV6mzy/kWr8lkd/hp3mTg7wYK7zJhuBStmGMBG0BdeDZS/dZx1IukaX6Bk11zcln25o1Aw==}
 
+  picocolors@1.1.1:
+    resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
+
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
@@ -6094,6 +6097,10 @@ packages:
 
   postcss@8.4.47:
     resolution: {integrity: sha512-56rxCq7G/XfB4EkXq9Egn5GCqugWvDFjafDOThIdMBsI15iqPqR5r15TfSr1YPYeEI19YeaXMCbY6u88Y76GLQ==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.4.49:
+    resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -6962,6 +6969,46 @@ packages:
       sugarss:
         optional: true
       terser:
+        optional: true
+
+  vite@6.0.1:
+    resolution: {integrity: sha512-Ldn6gorLGr4mCdFnmeAOLweJxZ34HjKnDm4HGo6P66IEqTxQb36VEdFJQENKxWjupNfoIjvRUnswjn1hpYEpjQ==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
+      jiti: '>=1.21.0'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.16.0
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      jiti:
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
         optional: true
 
   vitest@2.1.6:
@@ -8713,12 +8760,12 @@ snapshots:
       '@typescript-eslint/types': 8.16.0
       eslint-visitor-keys: 4.2.0
 
-  '@vitejs/plugin-vue@5.1.4(vite@5.4.10(@types/node@22.10.0))(vue@3.5.12(typescript@5.6.3))':
+  '@vitejs/plugin-vue@5.1.4(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))(vue@3.5.12(typescript@5.6.3))':
     dependencies:
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
       vue: 3.5.12(typescript@5.6.3)
 
-  '@vitest/coverage-v8@2.1.6(vitest@2.1.6(@types/node@22.10.0)(happy-dom@14.12.0))':
+  '@vitest/coverage-v8@2.1.6(vitest@2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -8732,7 +8779,7 @@ snapshots:
       std-env: 3.8.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)
+      vitest: 2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -11614,6 +11661,8 @@ snapshots:
 
   picocolors@1.1.0: {}
 
+  picocolors@1.1.1: {}
+
   picomatch@2.3.1: {}
 
   pify@4.0.1: {}
@@ -11657,6 +11706,12 @@ snapshots:
     dependencies:
       nanoid: 3.3.7
       picocolors: 1.1.0
+      source-map-js: 1.2.1
+
+  postcss@8.4.49:
+    dependencies:
+      nanoid: 3.3.7
+      picocolors: 1.1.1
       source-map-js: 1.2.1
 
   prelude-ls@1.2.1: {}
@@ -12540,15 +12595,16 @@ snapshots:
       extsprintf: 1.4.1
     optional: true
 
-  vite-node@2.1.6(@types/node@22.10.0):
+  vite-node@2.1.6(@types/node@22.10.0)(tsx@4.19.2):
     dependencies:
       cac: 6.7.14
       debug: 4.3.7
       es-module-lexer: 1.5.4
       pathe: 1.1.2
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
     transitivePeerDependencies:
       - '@types/node'
+      - jiti
       - less
       - lightningcss
       - sass
@@ -12557,20 +12613,22 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+      - tsx
+      - yaml
 
-  vite-plugin-comlink@5.1.0(comlink@4.4.2)(vite@5.4.10(@types/node@22.10.0)):
+  vite-plugin-comlink@5.1.0(comlink@4.4.2)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2)):
     dependencies:
       comlink: 4.4.2
       json5: 2.2.3
       magic-string: 0.30.12
       source-map: 0.7.4
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
 
-  vite-plugin-css-injected-by-js@3.5.2(vite@5.4.10(@types/node@22.10.0)):
+  vite-plugin-css-injected-by-js@3.5.2(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2)):
     dependencies:
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
 
-  vite-plugin-dts@4.3.0(@types/node@22.10.0)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.10(@types/node@22.10.0)):
+  vite-plugin-dts@4.3.0(@types/node@22.10.0)(rollup@4.24.0)(typescript@5.6.3)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2)):
     dependencies:
       '@microsoft/api-extractor': 7.47.11(@types/node@22.10.0)
       '@rollup/pluginutils': 5.1.0(rollup@4.24.0)
@@ -12583,13 +12641,13 @@ snapshots:
       magic-string: 0.30.12
       typescript: 5.6.3
     optionalDependencies:
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
       - supports-color
 
-  vite-plugin-inspect@0.8.7(rollup@4.24.0)(vite@5.4.10(@types/node@22.10.0)):
+  vite-plugin-inspect@0.8.7(rollup@4.24.0)(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2)):
     dependencies:
       '@antfu/utils': 0.7.10
       '@rollup/pluginutils': 5.1.0(rollup@4.24.0)
@@ -12600,26 +12658,26 @@ snapshots:
       perfect-debounce: 1.0.0
       picocolors: 1.1.0
       sirv: 2.0.4
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
     transitivePeerDependencies:
       - rollup
       - supports-color
 
-  vite-plugin-node@4.0.0(vite@5.4.10(@types/node@22.10.0)):
+  vite-plugin-node@4.0.0(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       chalk: 4.1.2
       debug: 4.3.7
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-vuetify@2.0.4(vite@5.4.10(@types/node@22.10.0))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4):
+  vite-plugin-vuetify@2.0.4(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4):
     dependencies:
       '@vuetify/loader-shared': 2.0.3(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)
       debug: 4.3.4(supports-color@5.5.0)
       upath: 2.0.1
-      vite: 5.4.10(@types/node@22.10.0)
+      vite: 6.0.1(@types/node@22.10.0)(tsx@4.19.2)
       vue: 3.5.12(typescript@5.6.3)
       vuetify: 3.7.4(typescript@5.6.3)(vite-plugin-vuetify@2.0.4)(vue@3.5.12(typescript@5.6.3))
     transitivePeerDependencies:
@@ -12634,7 +12692,17 @@ snapshots:
       '@types/node': 22.10.0
       fsevents: 2.3.3
 
-  vitest@2.1.6(@types/node@22.10.0)(happy-dom@14.12.0):
+  vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2):
+    dependencies:
+      esbuild: 0.24.0
+      postcss: 8.4.49
+      rollup: 4.24.0
+    optionalDependencies:
+      '@types/node': 22.10.0
+      fsevents: 2.3.3
+      tsx: 4.19.2
+
+  vitest@2.1.6(@types/node@22.10.0)(happy-dom@14.12.0)(tsx@4.19.2):
     dependencies:
       '@vitest/expect': 2.1.6
       '@vitest/mocker': 2.1.6(vite@5.4.10(@types/node@22.10.0))
@@ -12654,12 +12722,13 @@ snapshots:
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
       vite: 5.4.10(@types/node@22.10.0)
-      vite-node: 2.1.6(@types/node@22.10.0)
+      vite-node: 2.1.6(@types/node@22.10.0)(tsx@4.19.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.10.0
       happy-dom: 14.12.0
     transitivePeerDependencies:
+      - jiti
       - less
       - lightningcss
       - msw
@@ -12669,6 +12738,8 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+      - tsx
+      - yaml
 
   vscode-uri@3.0.8: {}
 
@@ -12729,7 +12800,7 @@ snapshots:
       vue: 3.5.12(typescript@5.6.3)
     optionalDependencies:
       typescript: 5.6.3
-      vite-plugin-vuetify: 2.0.4(vite@5.4.10(@types/node@22.10.0))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)
+      vite-plugin-vuetify: 2.0.4(vite@6.0.1(@types/node@22.10.0)(tsx@4.19.2))(vue@3.5.12(typescript@5.6.3))(vuetify@3.7.4)
 
   w3c-keyname@2.2.8: {}
 
