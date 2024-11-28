@@ -266,17 +266,17 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 /*TABLE*/
 :deep(table) {
   border-collapse: collapse;
-  width: 100%;
+  overflow-x:auto;
   font-size: var(--cr-font-size-small);
   line-height: var(--cr-line-height-dense);
-  & th, td {
+  & th,
+  td {
     text-align: start;
   }
   & th {
     background-color: var(--cr-color-neutral-100);
-    padding: var(--cr-spacing-x-small) ;
+    padding: var(--cr-spacing-x-small);
     font-weight: var(--cr-font-weight-semibold);
-    
 
     &:first-child {
       border-top-left-radius: var(--cr-border-radius-large);
@@ -293,7 +293,10 @@ TODO: these rules about opening and closing the sidebar should be better organiz
       border-bottom: 1px solid var(--cr-color-neutral-200);
 
       &:last-child {
-        border-bottom: 0
+        border-bottom: 0;
+      }
+      & .mobile-column-name {
+        display: none
       }
     }
   }
@@ -339,6 +342,29 @@ TODO: Discuss and move them to a more appropriate place
 
   .resize-handle {
     display: none;
+  }
+  :deep(table.mobile-transform){
+    & thead{
+      & th {
+        display: none;
+      }
+    }
+    & tbody {
+      display: grid;
+      gap: 8px;
+      & tr {
+        display: grid;
+        border: 1px solid var(--cr-color-neutral-200);
+        border-radius: var(--cr-border-radius-medium);
+        & td {
+          & span.mobile-column-name {
+            display: block;
+            font-weight: var(--cr-font-weight-bold);
+          }
+        }
+      }
+    }
+    
   }
 }
 </style>
