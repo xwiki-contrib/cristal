@@ -250,9 +250,13 @@ onUpdated(() => {
 </template>
 <style scoped>
 .content {
-  padding: 0;
+  padding: 0 var(--cr-spacing-2x-large);
 }
-
+@container xwCristal (max-width: 600px) {
+  .content {
+    padding-left: 0 var(--cr-spacing-x-small);
+  }
+}
 .content-loading {
   display: flex;
   flex-flow: column;
