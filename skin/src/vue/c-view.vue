@@ -266,7 +266,7 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 /*TABLE*/
 :deep(table) {
   border-collapse: collapse;
-  overflow-x:auto;
+  overflow-x: auto;
   font-size: var(--cr-font-size-small);
   line-height: var(--cr-line-height-dense);
   & th,
@@ -296,7 +296,7 @@ TODO: these rules about opening and closing the sidebar should be better organiz
         border-bottom: 0;
       }
       & .mobile-column-name {
-        display: none
+        display: none;
       }
     }
   }
@@ -343,8 +343,8 @@ TODO: Discuss and move them to a more appropriate place
   .resize-handle {
     display: none;
   }
-  :deep(table.mobile-transform){
-    & thead{
+  :deep(table.mobile-transform) {
+    & thead {
       & th {
         display: none;
       }
@@ -364,7 +364,6 @@ TODO: Discuss and move them to a more appropriate place
         }
       }
     }
-    
   }
 }
 </style>
