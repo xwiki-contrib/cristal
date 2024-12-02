@@ -1297,6 +1297,25 @@ importers:
         specifier: 2.1.10
         version: 2.1.10(typescript@5.6.3)
 
+  core/tiptap-extensions/tiptap-extension-image:
+    dependencies:
+      '@xwiki/cristal-attachments-api':
+        specifier: workspace:*
+        version: link:../../attachments/attachments-api
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+    devDependencies:
+      '@tiptap/core':
+        specifier: 2.10.3
+        version: 2.10.3(@tiptap/pm@2.10.3)
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.6.3)
+      vue-tsc:
+        specifier: 2.1.10
+        version: 2.1.10(typescript@5.6.3)
+
   core/uiextension/uiextension-api:
     dependencies:
       vue:
@@ -1565,6 +1584,9 @@ importers:
       '@xwiki/cristal-skin':
         specifier: workspace:*
         version: link:../../skin
+      '@xwiki/cristal-tiptap-extension-image':
+        specifier: workspace:*
+        version: link:../../core/tiptap-extensions/tiptap-extension-image
       avvvatars-vue:
         specifier: 1.1.0
         version: 1.1.0(patch_hash=usix32k57inq7lu5l5hlwk33gm)(vue@3.5.13(typescript@5.6.3))
@@ -3814,14 +3836,8 @@ packages:
   '@volar/typescript@2.4.8':
     resolution: {integrity: sha512-6xkIYJ5xxghVBhVywMoPMidDDAFT1OoQeXwa27HSgJ6AiIKRe61RXLoik+14Z7r0JvnblXVsjsRLmCr42SGzqg==}
 
-  '@vue/compiler-core@3.5.12':
-    resolution: {integrity: sha512-ISyBTRMmMYagUxhcpyEH0hpXRd/KqDU4ymofPgl2XAkY9ZhQ+h0ovEZJIiPop13UmR/54oA2cgMDjgroRelaEw==}
-
   '@vue/compiler-core@3.5.13':
     resolution: {integrity: sha512-oOdAkwqUfW1WqpwSYJce06wvt6HljgY3fGeM9NcVA1HaYOij3mZG9Rkysn0OHuyUAGMbEbARIpsG+LPVlBJ5/Q==}
-
-  '@vue/compiler-dom@3.5.12':
-    resolution: {integrity: sha512-9G6PbJ03uwxLHKQ3P42cMTi85lDRvGLB2rSGOiQqtXELat6uI4n8cNz9yjfVHRPIu+MsK6TE418Giruvgptckg==}
 
   '@vue/compiler-dom@3.5.13':
     resolution: {integrity: sha512-ZOJ46sMOKUjO3e94wPdCzQ6P1Lx/vhp2RSvfaab88Ajexs0AHeV0uasYhi99WPaogmBlRHNRuly8xV75cNTMDA==}
@@ -3867,9 +3883,6 @@ packages:
     resolution: {integrity: sha512-wAi4IRJV/2SAW3htkTlB+dHeRmpTiVIK1OGLWV1yeStVSebSQQOwGwIq0D3ZIoBj2C2qpgz5+vX9iEBkTdk5YA==}
     peerDependencies:
       vue: 3.5.13
-
-  '@vue/shared@3.5.12':
-    resolution: {integrity: sha512-L2RPSAwUFbgZH20etwrXyVyCBu9OxRSi8T/38QsvnkJyvq2LufW2lDCOzm7t/U9C1mkhJGWYfCuFBCmIuNivrg==}
 
   '@vue/shared@3.5.13':
     resolution: {integrity: sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==}
@@ -8861,14 +8874,6 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.0.8
 
-  '@vue/compiler-core@3.5.12':
-    dependencies:
-      '@babel/parser': 7.25.7
-      '@vue/shared': 3.5.12
-      entities: 4.5.0
-      estree-walker: 2.0.2
-      source-map-js: 1.2.1
-
   '@vue/compiler-core@3.5.13':
     dependencies:
       '@babel/parser': 7.25.7
@@ -8876,11 +8881,6 @@ snapshots:
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.1
-
-  '@vue/compiler-dom@3.5.12':
-    dependencies:
-      '@vue/compiler-core': 3.5.12
-      '@vue/shared': 3.5.12
 
   '@vue/compiler-dom@3.5.13':
     dependencies:
@@ -8914,9 +8914,9 @@ snapshots:
   '@vue/language-core@2.1.10(typescript@5.6.3)':
     dependencies:
       '@volar/language-core': 2.4.8
-      '@vue/compiler-dom': 3.5.12
+      '@vue/compiler-dom': 3.5.13
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.12
+      '@vue/shared': 3.5.13
       alien-signals: 0.2.0
       minimatch: 9.0.4
       muggle-string: 0.4.1
@@ -8927,9 +8927,9 @@ snapshots:
   '@vue/language-core@2.1.6(typescript@5.6.3)':
     dependencies:
       '@volar/language-core': 2.4.8
-      '@vue/compiler-dom': 3.5.12
+      '@vue/compiler-dom': 3.5.13
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.12
+      '@vue/shared': 3.5.13
       computeds: 0.0.1
       minimatch: 9.0.4
       muggle-string: 0.4.1
@@ -8958,8 +8958,6 @@ snapshots:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
       vue: 3.5.13(typescript@5.6.3)
-
-  '@vue/shared@3.5.12': {}
 
   '@vue/shared@3.5.13': {}
 

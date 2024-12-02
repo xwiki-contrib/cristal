@@ -27,7 +27,7 @@ defineProps<{
 </script>
 
 <template>
-  <v-dialog :width="width">
+  <v-dialog :width="width" style="z-index: 9999">
     <template #activator="{ props }">
       <span v-bind="props">
         <slot name="activator" />

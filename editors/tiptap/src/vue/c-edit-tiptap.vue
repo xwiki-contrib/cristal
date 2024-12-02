@@ -36,8 +36,9 @@ import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { ImageSelection } from "@xwiki/cristal-tiptap-extension-image";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
-import { computed, inject, ref, watch } from "vue";
+import { computed, inject, ref, useTemplateRef, watch } from "vue";
 import { useRoute } from "vue-router";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
@@ -62,6 +63,8 @@ const currentPage: Ref<PageData | undefined> =
 const content = ref("");
 const title = ref("");
 const titlePlaceholder = ref("");
+
+const imageSelectionRef = useTemplateRef("imageSelection");
 
 const currentPageName: ComputedRef<string> = computed(() => {
   // TODO: define a proper abstraction.
@@ -175,7 +178,13 @@ async function loadEditor(page: PageData | undefined) {
         TableRow,
         TableHeader,
         TableCell,
-        Slash,
+        Slash.configure({
+          imageSelection: {
+            show() {
+              imageSelectionRef.value.show();
+            },
+          },
+        }),
         // TODO: I did it that way for simplicity but this should really be
         // moved to an actual inversify component.
         loadLinkSuggest(
@@ -250,6 +259,7 @@ watch(
       </div>
     </form>
   </div>
+  <image-selection ref="imageSelection" />
 </template>
 
 <style scoped>
