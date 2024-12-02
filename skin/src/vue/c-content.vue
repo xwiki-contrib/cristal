@@ -166,45 +166,44 @@ onUpdated(() => {
       <div class="doc-header-inner">
         <h1 class="doc-title">{{ title }}</h1>
         <div class="info-wrapper">
-          
           <span class="doc-author">
             <x-avatar class="avatar" :image="avImg" size="2rem"></x-avatar>
             User Name edited on 12/12/2024 at 12:00
           </span>
-            <!-- TODO: add a way to inject those by extension
+          <!-- TODO: add a way to inject those by extension
                  and provide one for the number of attachments.
                 It must be reactive whenever the attachment store is updated -->
-            <div class="doc-info-actions">
-              <suspense>
-                <info-actions></info-actions>
-              </suspense>
-          
-              <div class="doc-page-actions">
-                <router-link
-                  :to="
-                    currentPageRevision
-                      ? ''
-                      : {
-                          name: 'edit',
-                          params: { page: currentPageName },
-                        }
-                  "
-                >
-                  <x-btn
-                    size="small"
-                    :disabled="currentPageRevision !== undefined"
-                  >
-                    <c-icon name="pencil" :size="Size.Small"></c-icon>
-                    Edit
-                  </x-btn>
-                </router-link>
-                <page-actions
-                  :current-page="currentPage"
-                  :current-page-name="currentPageName"
+          <div class="doc-info-actions">
+            <suspense>
+              <info-actions></info-actions>
+            </suspense>
+
+            <div class="doc-page-actions">
+              <router-link
+                :to="
+                  currentPageRevision
+                    ? ''
+                    : {
+                        name: 'edit',
+                        params: { page: currentPageName },
+                      }
+                "
+              >
+                <x-btn
+                  size="small"
                   :disabled="currentPageRevision !== undefined"
-                ></page-actions>
+                >
+                  <c-icon name="pencil" :size="Size.Small"></c-icon>
+                  Edit
+                </x-btn>
+              </router-link>
+              <page-actions
+                :current-page="currentPage"
+                :current-page-name="currentPageName"
+                :disabled="currentPageRevision !== undefined"
+              ></page-actions>
             </div>
-        </div>
+          </div>
         </div>
         <div class="doc-header-alerts">
           <!-- Indicate that the page displayed is not the current version. -->
@@ -343,26 +342,26 @@ onUpdated(() => {
   display: block;
 }
 
-.doc-header{
+.doc-header {
   top: 0;
   background: white;
   z-index: 1;
-  
+
   & .doc-header-inner {
-    display: grid; 
-    grid-template-columns: 1fr; 
-    grid-template-rows: auto auto auto; 
-    gap: var(--cr-spacing-x-small); 
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: var(--cr-spacing-x-small);
     grid-auto-flow: row;
-    grid-template-areas: 
+    grid-template-areas:
       "doc-title"
       "info-wrapper"
-      "alerts"; 
-      
+      "alerts";
+
     & .doc-title {
       grid-area: doc-title;
       margin: 0;
-      font-size: var(--cr-font-size-2x-large); 
+      font-size: var(--cr-font-size-2x-large);
       line-height: var(--cr-font-size-2x-large);
       padding-block-start: var(--cr-spacing-small);
     }
@@ -377,40 +376,39 @@ onUpdated(() => {
         margin-inline-end: auto;
         font-size: var(--cr-font-size-small);
         color: var(--cr-color-neutral-600);
-        
-        
+
         & .avatar {
           --size: 24px;
         }
       }
 
       & .doc-info {
-          grid-area: info-user;
-          display: flex;
-          flex-flow: row;
-          flex-wrap: wrap;
-          align-items: center;
-          gap: var(--cr-spacing-small);
-          color: var(--cr-color-neutral-500);
-          font-size: var(--cr-font-size-small);
-          justify-content: space-between;
+        grid-area: info-user;
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--cr-spacing-small);
+        color: var(--cr-color-neutral-500);
+        font-size: var(--cr-font-size-small);
+        justify-content: space-between;
       }
       & .doc-info-actions {
+        display: flex;
+        flex-wrap: wrap;
+        flex-flow: row;
+        align-items: center;
+        gap: var(--cr-spacing-2x-small);
+        justify-self: end;
+
+        & .doc-page-actions {
           display: flex;
           flex-wrap: wrap;
           flex-flow: row;
           align-items: center;
           gap: var(--cr-spacing-2x-small);
-          justify-self: end;
-
-          & .doc-page-actions {
-            display: flex;
-            flex-wrap: wrap;
-            flex-flow: row;
-            align-items: center;
-            gap: var(--cr-spacing-2x-small);
-          }
-      } 
+        }
+      }
     }
   }
   .doc-header-alerts:not(:empty) {

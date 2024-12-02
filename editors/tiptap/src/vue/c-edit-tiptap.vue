@@ -328,7 +328,7 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   color: var(--cr-color-neutral-500);
   content: attr(data-placeholder);
 }
-.doc-header{
+.doc-header {
   top: 0;
   background: white;
   z-index: 1;
