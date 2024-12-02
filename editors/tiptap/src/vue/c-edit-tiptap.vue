@@ -251,12 +251,6 @@ watch(
 </template>
 
 <style scoped>
-.content {
-  display: grid;
-  grid-template-rows: 56px auto auto 1fr;
-  overflow: hidden;
-  justify-content: center;
-}
 .content-loading {
   display: flex;
   flex-flow: column;
@@ -334,7 +328,11 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   color: var(--cr-color-neutral-500);
   content: attr(data-placeholder);
 }
-
+.doc-header{
+  top: 0;
+  background: white;
+  z-index: 1;
+}
 .doc-title {
   max-width: var(--cr-sizes-max-page-width);
   width: 100%;
