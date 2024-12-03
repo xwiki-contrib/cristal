@@ -36,9 +36,8 @@ defineProps<{
   </div>
 </template>
 <style scoped>
-
 .c-sidebar-panel {
-  display:flex;
+  display: flex;
   flex-flow: column;
   gap: var(--cr-spacing-x-small);
 }
