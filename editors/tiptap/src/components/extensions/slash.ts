@@ -28,13 +28,10 @@ import Suggestion from "@tiptap/suggestion";
 import { createPinia } from "pinia";
 import { App, createApp } from "vue";
 
-let imageSelection: undefined | { show(): void } = undefined;
-
 const Slash = Extension.create({
   name: "slash",
   addOptions() {
     return {
-      imageSelection: undefined,
       suggestion: {
         char: "/",
         startOfLine: true,
@@ -47,7 +44,6 @@ const Slash = Extension.create({
     };
   },
   addProseMirrorPlugins(): Plugin[] {
-    imageSelection = this.options.imageSelection;
     return [
       Suggestion({
         editor: this.editor,
@@ -169,16 +165,18 @@ function getImageAction(): ActionDescriptor {
     icon: "image",
     hint: "Image",
     command({ editor, range }) {
-      imageSelection?.show();
-      // editor
-      //   .chain()
-      //   .focus()
-      //   .deleteRange(range)
-      //   .setImage({
-      //     title: "My Image",
-      //     src: "https://png.pngtree.com/png-clipart/20230502/ourlarge/pngtree-isolated-duck-on-white-background-png-image_7078371.png",
-      //   })
-      //   .run();
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .insertContent({
+          type: "image",
+          attrs: {
+            src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzbpBTsq_MTGOmTMYjVl401IIQaq_fFGG5Gg&s",
+          },
+        })
+        // .setImage()
+        .run();
     },
   };
 }

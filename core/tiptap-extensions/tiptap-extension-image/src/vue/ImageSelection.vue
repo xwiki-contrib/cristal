@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Attachment } from "@xwiki/cristal-attachments-api";
-import { inject, ref } from "vue";
+import { ref } from "vue";
 
 const openedDialog = ref(false);
 
@@ -17,7 +17,7 @@ defineExpose({
   hide,
 });
 
-const cristal: CristalApp = inject<CristalApp>("cristal")!;
+// const cristal: CristalApp = inject<CristalApp>("cristal")!;
 
 const searchResults: Array<Attachment> = [
   {

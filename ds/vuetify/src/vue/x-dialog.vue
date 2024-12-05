@@ -27,6 +27,8 @@ defineProps<{
 </script>
 
 <template>
+  <!-- TODO: hack to avoid being below the quick actions.
+   Maybe something to change on quick action side. -->
   <v-dialog :width="width" style="z-index: 9999">
     <template #activator="{ props }">
       <span v-bind="props">

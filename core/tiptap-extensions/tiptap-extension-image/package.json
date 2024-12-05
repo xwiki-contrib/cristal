@@ -21,6 +21,11 @@
     "build": "vue-tsc --project tsconfig.json && vite build",
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
   },
+  "dependencies": {
+    "@tiptap/extension-image": "2.10.3",
+    "@tiptap/pm": "2.10.3",
+    "@xwiki/cristal-attachments-api": "workspace:*"
+  },
   "peerDependencies": {
     "@tiptap/core": "2.10.3",
     "reflect-metadata": "0.2.2",
@@ -41,8 +46,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "dependencies": {
-    "@xwiki/cristal-attachments-api": "workspace:*"
   }
 }

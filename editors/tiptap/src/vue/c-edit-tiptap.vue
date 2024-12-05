@@ -26,7 +26,6 @@ import { Slash } from "../components/extensions/slash";
 import { CollaborationKit, User } from "../extensions/collaboration";
 import Link from "../extensions/link";
 import Markdown from "../extensions/markdown";
-import Image from "@tiptap/extension-image";
 import Placeholder from "@tiptap/extension-placeholder";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
@@ -36,9 +35,9 @@ import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import { ImageSelection } from "@xwiki/cristal-tiptap-extension-image";
+import { TiptapImage as Image } from "@xwiki/cristal-tiptap-extension-image";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
-import { computed, inject, ref, useTemplateRef, watch } from "vue";
+import { computed, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
@@ -64,8 +63,6 @@ const currentPage: Ref<PageData | undefined> =
 const content = ref("");
 const title = ref("");
 const titlePlaceholder = ref("");
-
-const imageSelectionRef = useTemplateRef("imageSelection");
 
 const currentPageName: ComputedRef<string> = computed(() => {
   // TODO: define a proper abstraction.
@@ -94,9 +91,10 @@ const save = async (authors: User[]) => {
     .getContainer()
     .get<StorageProvider>("StorageProvider")
     .get();
+  const markdown = editor.value?.storage.markdown;
   await storage.save(
     currentPageName.value,
-    editor.value?.storage.markdown.getMarkdown(),
+    markdown?.getMarkdown(),
     title.value,
     "html",
   );
@@ -181,13 +179,7 @@ async function loadEditor(page: PageData | undefined) {
         TableRow,
         TableHeader,
         TableCell,
-        Slash.configure({
-          imageSelection: {
-            show() {
-              imageSelectionRef.value.show();
-            },
-          },
-        }),
+        Slash,
         // TODO: I did it that way for simplicity but this should really be
         // moved to an actual inversify component.
         loadLinkSuggest(
@@ -262,7 +254,6 @@ watch(
       </div>
     </form>
   </div>
-  <image-selection ref="imageSelection" />
 </template>
 
 <style scoped>
