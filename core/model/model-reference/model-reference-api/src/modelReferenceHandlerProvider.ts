@@ -18,25 +18,23 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { NextcloudModelReferenceParser } from "./nextcloudModelReferenceParser";
-import { NextcloudModelReferenceSerializer } from "./nextcloudModelReferenceSerializer";
-import type {
-  ModelReferenceParser,
-  ModelReferenceSerializer,
-} from "@xwiki/cristal-model-reference-api";
-import type { Container } from "inversify";
+import { ModelReferenceHandler } from "./modelReferenceHandler";
 
-export class ComponentInit {
-  constructor(container: Container) {
-    container
-      .bind<ModelReferenceParser>("ModelReferenceParser")
-      .to(NextcloudModelReferenceParser)
-      .inSingletonScope()
-      .whenTargetNamed("Nextcloud");
-    container
-      .bind<ModelReferenceSerializer>("ModelReferenceSerializer")
-      .to(NextcloudModelReferenceSerializer)
-      .inSingletonScope()
-      .whenTargetNamed("Nextcloud");
-  }
+/**
+ * A ModelReferenceHandlerProvider returns the expected instance of
+ * ModelReferenceHandler.
+ *
+ * @since 0.13
+ */
+interface ModelReferenceHandlerProvider {
+  /**
+   * Returns the instance of ModelReferenceHandler matching the requested wiki
+   * configuration type, or the current one if empty.
+   *
+   * @param type - the wiki configuration type
+   * @returns the instance of ModelReferenceHandler
+   */
+  get(type?: string): ModelReferenceHandler | undefined;
 }
+
+export { type ModelReferenceHandlerProvider };

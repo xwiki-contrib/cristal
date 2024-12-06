@@ -18,25 +18,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { NextcloudModelReferenceParser } from "./nextcloudModelReferenceParser";
-import { NextcloudModelReferenceSerializer } from "./nextcloudModelReferenceSerializer";
 import type {
-  ModelReferenceParser,
-  ModelReferenceSerializer,
-} from "@xwiki/cristal-model-reference-api";
-import type { Container } from "inversify";
+  DocumentReference,
+  SpaceReference,
+} from "@xwiki/cristal-model-api";
 
-export class ComponentInit {
-  constructor(container: Container) {
-    container
-      .bind<ModelReferenceParser>("ModelReferenceParser")
-      .to(NextcloudModelReferenceParser)
-      .inSingletonScope()
-      .whenTargetNamed("Nextcloud");
-    container
-      .bind<ModelReferenceSerializer>("ModelReferenceSerializer")
-      .to(NextcloudModelReferenceSerializer)
-      .inSingletonScope()
-      .whenTargetNamed("Nextcloud");
-  }
+/**
+ * A ModelReferenceHandler can do backend-specific operations involving
+ * EntityReferences.
+ *
+ * @since 0.13
+ */
+interface ModelReferenceHandler {
+  /**
+   * Returns a DocumentReference with a specific name and a parent
+   * SpaceReference.
+   *
+   * @param name - the name of the document reference
+   * @param space - the parent space of the document reference
+   * @returns the document reference
+   */
+  createDocumentReference(
+    name: string,
+    space: SpaceReference,
+  ): DocumentReference;
 }
+
+export type { ModelReferenceHandler };
