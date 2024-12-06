@@ -170,12 +170,8 @@ function getImageAction(): ActionDescriptor {
         .focus()
         .deleteRange(range)
         .insertContent({
-          type: "image",
-          attrs: {
-            src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzbpBTsq_MTGOmTMYjVl401IIQaq_fFGG5Gg&s",
-          },
+          type: "imageInsert",
         })
-        // .setImage()
         .run();
     },
   };

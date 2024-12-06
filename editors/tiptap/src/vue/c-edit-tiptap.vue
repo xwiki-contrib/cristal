@@ -35,7 +35,10 @@ import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import { TiptapImage as Image } from "@xwiki/cristal-tiptap-extension-image";
+import {
+  ImageInsert,
+  TiptapImage as Image,
+} from "@xwiki/cristal-tiptap-extension-image";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
 import { computed, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -174,6 +177,7 @@ async function loadEditor(page: PageData | undefined) {
         Placeholder.configure({
           placeholder: "Type '/' to show the available actions",
         }),
+        ImageInsert,
         Image,
         Table,
         TableRow,

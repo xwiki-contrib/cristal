@@ -18,34 +18,71 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { mergeAttributes } from "@tiptap/core";
+import ImageInsertView from "./vue/ImageInsertView.vue";
+import ImageView from "./vue/ImageView.vue";
+import { Node as TiptapNode, mergeAttributes } from "@tiptap/core";
 import Image from "@tiptap/extension-image";
 import { defaultMarkdownSerializer } from "@tiptap/pm/markdown";
+import { VueNodeViewRenderer } from "@tiptap/vue-3";
 import type { MarkdownSerializerState } from "@tiptap/pm/markdown";
 import type { Node } from "@tiptap/pm/model";
 
 const TiptapImage = Image.extend({
   renderHTML({ HTMLAttributes }) {
-    console.log("render hml", this.options.HTMLAttributes, HTMLAttributes);
+    // console.log("render hml", this.options.HTMLAttributes, HTMLAttributes);
     const merged = mergeAttributes(this.options.HTMLAttributes, HTMLAttributes);
     if (merged.src) {
       return ["img", merged];
     } else {
       // TODO: replace with a component to select or upload an image
-      return ["div", { class: "divtest" }];
+      return ["div", { class: "missingimage" }];
     }
+  },
+  addNodeView() {
+    return VueNodeViewRenderer(ImageView);
   },
   addStorage() {
     return {
       markdown: {
         serialize: (state: MarkdownSerializerState, node: Node) => {
-          if (node.attrs.src)
-            defaultMarkdownSerializer.nodes.image(state, node, this.parent, 0);
-          else console.log("xxxxskip");
+          if (node.attrs.src) {
+            defaultMarkdownSerializer.nodes.image(
+              state,
+              node,
+              // TOOD: very unsafe...
+              this.parent as unknown as Node,
+              0,
+            );
+          } else {
+            console.log("xxxxskip");
+          }
         },
       },
     };
   },
 });
 
-export { TiptapImage };
+const ImageInsert = TiptapNode.create({
+  name: "imageInsert",
+  group: "block",
+  parseHTML() {
+    return [{ tag: "image-insert-components" }];
+  },
+  renderHTML({ HTMLAttributes }) {
+    return ["image-insert-components", mergeAttributes(HTMLAttributes)];
+  },
+  addNodeView() {
+    return VueNodeViewRenderer(ImageInsertView);
+  },
+  addStorage() {
+    return {
+      markdown: {
+        serialize: () => {
+          // Not persisted as it represents a missing image.
+        },
+      },
+    };
+  },
+});
+
+export { ImageInsert, TiptapImage };
