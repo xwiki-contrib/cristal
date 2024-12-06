@@ -206,7 +206,9 @@ async function loadEditor(page: PageData | undefined) {
 watch(
   loading,
   (newLoading) => {
-    if (!newLoading) loadEditor(currentPage.value);
+    if (!newLoading) {
+      loadEditor(currentPage.value);
+    }
   },
   { immediate: true },
 );
@@ -256,6 +258,13 @@ watch(
 </template>
 
 <style scoped>
+.content {
+  display: grid;
+  grid-template-rows: 56px auto auto 1fr;
+  overflow: hidden;
+  justify-content: center;
+}
+
 .content-loading {
   display: flex;
   flex-flow: column;
@@ -350,6 +359,11 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   border: none;
   align-self: center;
   justify-self: center;
+}
+
+:deep(.editor table td),
+:deep(.editor table th) {
+  border: 1px solid var(--cr-color-neutral-300);
 }
 
 /*

@@ -216,8 +216,8 @@ onUpdated(() => {
             }}
             <router-link
               :to="{ name: 'view', params: { page: currentPageName } }"
-              >{{ t("history.alert.link.label") }}</router-link
-            >
+              >{{ t("history.alert.link.label") }}
+            </router-link>
           </x-alert>
         </div>
       </div>
@@ -277,48 +277,18 @@ onUpdated(() => {
   scrollbar-gutter: stable;
   height: 100%;
 }
+
 :global(.content:has(.edit-wrapper)) {
   grid-template-rows: 1fr;
 }
+
 :global(.content > .edit-wrapper) {
   grid-template-rows: auto 1fr;
 }
+
 :global(.doc-content),
 :global(.doc-header-inner) {
   padding: 0;
-}
-:global(.doc-content table) {
-  max-width: 100%;
-  width: 100%;
-  border: none;
-  border-collapse: collapse;
-  color: inherit;
-  margin-bottom: var(--cr-spacing-small);
-}
-
-:global(.doc-content table tr) {
-  border-bottom: solid 1px var(--cr-input-border-color);
-}
-
-:global(.doc-content table th) {
-  font-weight: var(--cr-font-weight-bold);
-  text-align: start;
-}
-
-:global(.doc-content table td),
-:global(.doc-content table th) {
-  line-height: var(--cr-line-height-normal);
-  padding: 1rem 1rem;
-}
-
-:global(.doc-content table th p:first-child),
-:global(.doc-content table td p:first-child) {
-  margin-top: 0;
-}
-
-:global(.doc-content table th p:last-child),
-:global(.doc-content table td p:last-child) {
-  margin-bottom: 0;
 }
 
 /*---*/
