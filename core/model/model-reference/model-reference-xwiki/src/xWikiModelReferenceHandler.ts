@@ -18,25 +18,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { NextcloudModelReferenceParser } from "./nextcloudModelReferenceParser";
-import { NextcloudModelReferenceSerializer } from "./nextcloudModelReferenceSerializer";
-import type {
-  ModelReferenceParser,
-  ModelReferenceSerializer,
-} from "@xwiki/cristal-model-reference-api";
-import type { Container } from "inversify";
+import { DocumentReference } from "@xwiki/cristal-model-api";
+import { injectable } from "inversify";
+import type { SpaceReference } from "@xwiki/cristal-model-api";
+import type { ModelReferenceHandler } from "@xwiki/cristal-model-reference-api";
 
-export class ComponentInit {
-  constructor(container: Container) {
-    container
-      .bind<ModelReferenceParser>("ModelReferenceParser")
-      .to(NextcloudModelReferenceParser)
-      .inSingletonScope()
-      .whenTargetNamed("Nextcloud");
-    container
-      .bind<ModelReferenceSerializer>("ModelReferenceSerializer")
-      .to(NextcloudModelReferenceSerializer)
-      .inSingletonScope()
-      .whenTargetNamed("Nextcloud");
+@injectable()
+export class XWikiModelReferenceHandler implements ModelReferenceHandler {
+  createDocumentReference(
+    name: string,
+    space: SpaceReference,
+  ): DocumentReference {
+    space.names.push(name);
+    return new DocumentReference("WebHome", space);
   }
 }
