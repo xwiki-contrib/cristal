@@ -1317,9 +1317,18 @@ importers:
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../../attachments/attachments-api
+      draggable-resizable-vue3:
+        specifier: 1.0.94-beta
+        version: 1.0.94-beta
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
+      vue-tippy:
+        specifier: 6.5.0
+        version: 6.5.0(vue@3.5.13(typescript@5.6.3))
+      vue3-draggable-resizable:
+        specifier: 1.6.5
+        version: 1.6.5
     devDependencies:
       '@tiptap/core':
         specifier: 2.10.3
@@ -4807,6 +4816,9 @@ packages:
     resolution: {integrity: sha512-I9OvvrHp4pIARv4+x9iuewrWycX6CcZtoAu1XrzPxc5UygMJXJZYmBsynku8IkrJwgypE5DGNjDPmPRhDCptUg==}
     engines: {node: '>=10'}
 
+  draggable-resizable-vue3@1.0.94-beta:
+    resolution: {integrity: sha512-5faM6lkLIrh9lgiviOeA+kOYatU6MjGHiA93P4B/eFTGYu9EkLDniN0QudhxTm60aLAFLBO3QlZOskeYKTH9dg==}
+
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
@@ -7380,11 +7392,19 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
+  vue-tippy@6.5.0:
+    resolution: {integrity: sha512-U44UDETTLuZWZGosagslEwgimWQdt1JVSxfWStVPnVdeqo2jo9X5zW3SB04k7JaTFosdgrDhFsUDrd6n42Nh7Q==}
+    peerDependencies:
+      vue: ^3.2.0
+
   vue-tsc@2.1.10:
     resolution: {integrity: sha512-RBNSfaaRHcN5uqVqJSZh++Gy/YUzryuv9u1aFWhsammDJXNtUiJMNoJ747lZcQ68wUQFx6E73y4FY3D8E7FGMA==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.0.0'
+
+  vue3-draggable-resizable@1.6.5:
+    resolution: {integrity: sha512-31142E31fGNnq3HKqvmFLSsqIbhck7TyGuQWhUKrDw6DOcGAuRx4ddRjaxvT6fe7dgeKH53qAh+i0ZlWtPLl2g==}
 
   vue@3.5.13:
     resolution: {integrity: sha512-wmeiSMxkZCSc+PM2w2VRsOYAZC8GdipNFRTsLSfodVqI9mbejKeXEGr8SckuLnrQPGe3oJN5c3K0vpoU9q/wCQ==}
@@ -10133,6 +10153,8 @@ snapshots:
   dotenv@16.4.7: {}
 
   dotenv@9.0.2: {}
+
+  draggable-resizable-vue3@1.0.94-beta: {}
 
   eastasianwidth@0.2.0: {}
 
@@ -13040,12 +13062,19 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.13(typescript@5.6.3)
 
+  vue-tippy@6.5.0(vue@3.5.13(typescript@5.6.3)):
+    dependencies:
+      tippy.js: 6.3.7
+      vue: 3.5.13(typescript@5.6.3)
+
   vue-tsc@2.1.10(typescript@5.6.3):
     dependencies:
       '@volar/typescript': 2.4.8
       '@vue/language-core': 2.1.10(typescript@5.6.3)
       semver: 7.6.3
       typescript: 5.6.3
+
+  vue3-draggable-resizable@1.6.5: {}
 
   vue@3.5.13(typescript@5.6.3):
     dependencies:

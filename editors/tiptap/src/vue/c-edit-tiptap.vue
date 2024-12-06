@@ -36,7 +36,7 @@ import { Editor, EditorContent } from "@tiptap/vue-3";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import {
-  ImageInsert,
+  ImageInsertNode,
   TiptapImage as Image,
 } from "@xwiki/cristal-tiptap-extension-image";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
@@ -94,10 +94,9 @@ const save = async (authors: User[]) => {
     .getContainer()
     .get<StorageProvider>("StorageProvider")
     .get();
-  const markdown = editor.value?.storage.markdown;
   await storage.save(
     currentPageName.value,
-    markdown?.getMarkdown(),
+    editor.value?.storage.markdown.getMarkdown(),
     title.value,
     "html",
   );
@@ -177,7 +176,7 @@ async function loadEditor(page: PageData | undefined) {
         Placeholder.configure({
           placeholder: "Type '/' to show the available actions",
         }),
-        ImageInsert,
+        ImageInsertNode,
         Image,
         Table,
         TableRow,

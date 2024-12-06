@@ -169,8 +169,15 @@ function getImageAction(): ActionDescriptor {
         .chain()
         .focus()
         .deleteRange(range)
+        // .insertContent({
+        //   type: "imageInsert",
+        // })
         .insertContent({
-          type: "imageInsert",
+          type: "image",
+          attrs: {
+            // src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzbpBTsq_MTGOmTMYjVl401IIQaq_fFGG5Gg&s",
+            src: "https://upload.wikimedia.org/wikipedia/commons/5/5a/San_Lazzaro_degli_Armeni%2C_Venice_aerial_photo_2013.jpg",
+          },
         })
         .run();
     },
