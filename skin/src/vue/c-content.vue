@@ -316,6 +316,11 @@ onUpdated(() => {
   margin-bottom: 0;
 }
 
+:global(.doc-content img) {
+  max-width: 100%;
+  color: #abcdef;
+}
+
 /*---*/
 
 .content-loading svg {

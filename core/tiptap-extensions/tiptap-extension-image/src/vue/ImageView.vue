@@ -42,21 +42,22 @@ async function computeImageSize(src: string): Promise<ImageDimensions> {
 
 const loading: Ref<boolean> = ref(true);
 const imageLoadingError: Ref<string | undefined> = ref(undefined);
-const imageDimensions: Ref<ImageDimensions | undefined> = ref(undefined);
+const originalImageDimensions: Ref<ImageDimensions | undefined> =
+  ref(undefined);
+const hasChanged = ref(false);
 
 computeImageSize(node.attrs.src)
   .then((dimensions) => {
-    imageDimensions.value = recompute(dimensions);
+    originalImageDimensions.value = recompute(dimensions);
   })
   .catch(() => {})
   .finally(() => (loading.value = false));
 
 const w = computed({
   get() {
-    return node.attrs.width || 200;
+    return node.attrs.width ?? originalImageDimensions.value?.width;
   },
   set(value) {
-    console.log("width", value);
     updateAttributes({
       width: value,
     });
@@ -64,10 +65,9 @@ const w = computed({
 });
 const h = computed({
   get() {
-    return node.attrs.height;
+    return node.attrs.height ?? originalImageDimensions.value?.height;
   },
   set(value) {
-    console.log("h", value);
     updateAttributes({
       height: value,
     });
@@ -80,14 +80,25 @@ function setActive() {
   isActive.value = true;
 }
 
-function recompute({ width, height }: ImageDimensions) {
-  // const maxWidth = 960;
+const computedStyle = computed(() => {
+  if (!hasChanged.value) {
+    return {
+      width: `${originalImageDimensions.value?.width}px`,
+      height: `${originalImageDimensions.value?.height}px`,
+    };
+  } else {
+    return {};
+  }
+});
 
-  // if (width > maxWidth) {
-  //   const ratio = width / maxWidth;
-  //   width = maxWidth;
-  //   height = height / ratio;
-  // }
+function recompute({ width, height }: ImageDimensions) {
+  const maxWidth = 960;
+
+  if (width > maxWidth) {
+    const ratio = width / maxWidth;
+    width = maxWidth;
+    height = height / ratio;
+  }
   return { width, height };
 }
 
@@ -95,6 +106,7 @@ function onResize({ w: wp, h: hp }: { w: number; h: number }) {
   const { width, height } = recompute({ width: wp, height: hp });
   w.value = width;
   h.value = height;
+  hasChanged.value = true;
 }
 </script>
 <template>
@@ -103,15 +115,17 @@ function onResize({ w: wp, h: hp }: { w: number; h: number }) {
     <div v-else-if="imageLoadingError !== undefined">
       {{ imageLoadingError }}
     </div>
-    <div v-else class="image-container parent">
+    <div v-else class="image-container" :style="computedStyle">
+      <!-- Resizing is currently deactivated as no backend supportit -->
       <vue3-draggable-resizable
         v-model:active="isActive"
         :parent="true"
         :draggable="false"
+        :resizable="false"
         :h="h"
+        :w="w"
         :handles="['br']"
         :lock-aspect-ratio="true"
-        :w="w"
         @resize-end="onResize"
       >
         <img :src="src" :alt="alt" class="img" />
@@ -124,15 +138,11 @@ function onResize({ w: wp, h: hp }: { w: number; h: number }) {
 .img {
   width: 100%;
   height: 100%;
-  max-width: 100%;
 }
 
-/*.image-container {
-  max-width: 100%;
-}*/
-
-.parent {
-  max-width: 100%;
-  max-height: 100%;
+.image-container,
+.image-container > div {
+  position: relative;
+  display: block;
 }
 </style>

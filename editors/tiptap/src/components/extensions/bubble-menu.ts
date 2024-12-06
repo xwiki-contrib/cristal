@@ -120,6 +120,8 @@ export default function getMenuActions(editor: Editor): BubbleMenuAction[] {
   const headings: BubbleMenuAction[] = numbers.map((level) =>
     getHeadingAction(level, editor),
   );
+  // TODO: make the bubble menu contextual
+  // not the same values when focused on an image
   const action = [
     ...headings,
     getBoldAction(editor),

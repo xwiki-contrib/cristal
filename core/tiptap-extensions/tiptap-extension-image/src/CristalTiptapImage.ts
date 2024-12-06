@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import ImageView from "./vue/ImageView.vue";
-import { mergeAttributes } from "@tiptap/core";
 import Image from "@tiptap/extension-image";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
 
@@ -27,15 +26,12 @@ import { VueNodeViewRenderer } from "@tiptap/vue-3";
  * part of the persisted DOM) using Vue.
  */
 const TiptapImage = Image.extend({
-  renderHTML({ HTMLAttributes }) {
-    // console.log("render hml", this.options.HTMLAttributes, HTMLAttributes);
-    const merged = mergeAttributes(this.options.HTMLAttributes, HTMLAttributes);
-    if (merged.src) {
-      return ["img", merged];
-    } else {
-      // TODO: replace with a component to select or upload an image
-      return ["div", { class: "missingimage" }];
-    }
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      width: undefined,
+      height: undefined,
+    };
   },
   addNodeView() {
     return VueNodeViewRenderer(ImageView);
