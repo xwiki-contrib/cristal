@@ -1512,9 +1512,21 @@ importers:
       '@tiptap/vue-3':
         specifier: 2.10.3
         version: 2.10.3(@tiptap/core@2.10.3(@tiptap/pm@2.10.3))(@tiptap/pm@2.10.3)(vue@3.5.13(typescript@5.6.3))
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../../attachments/attachments-api
+      '@xwiki/cristal-link-suggest-api':
+        specifier: workspace:*
+        version: link:../../link-suggest/link-suggest-api
+      '@xwiki/cristal-tiptap-link-suggest-ui':
+        specifier: workspace:*
+        version: link:../tiptap-link-suggest-ui
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -1528,6 +1540,31 @@ importers:
       '@tiptap/core':
         specifier: 2.10.3
         version: 2.10.3(@tiptap/pm@2.10.3)
+      '@types/lodash':
+        specifier: 4.17.13
+        version: 4.17.13
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.6.3)
+      vue-tsc:
+        specifier: 2.1.10
+        version: 2.1.10(typescript@5.6.3)
+
+  core/tiptap-extensions/tiptap-link-suggest-ui:
+    dependencies:
+      '@tiptap/core':
+        specifier: 2.10.3
+        version: 2.10.3(@tiptap/pm@2.10.3)
+      '@xwiki/cristal-icons':
+        specifier: workspace:*
+        version: link:../../icons
+      '@xwiki/cristal-link-suggest-api':
+        specifier: workspace:*
+        version: link:../../link-suggest/link-suggest-api
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+    devDependencies:
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.6.3)
@@ -1842,6 +1879,9 @@ importers:
       '@xwiki/cristal-tiptap-extension-image':
         specifier: workspace:*
         version: link:../../core/tiptap-extensions/tiptap-extension-image
+      '@xwiki/cristal-tiptap-link-suggest-ui':
+        specifier: workspace:*
+        version: link:../../core/tiptap-extensions/tiptap-link-suggest-ui
       avvvatars-vue:
         specifier: 1.1.0
         version: 1.1.0(patch_hash=usix32k57inq7lu5l5hlwk33gm)(vue@3.5.13(typescript@5.6.3))

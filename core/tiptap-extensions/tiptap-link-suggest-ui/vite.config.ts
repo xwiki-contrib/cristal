@@ -18,19 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Link, LinkType } from "./index";
+import { generateConfigVue } from "../../../vite.config";
 
-/**
- * Provide the operation to get links suggestions.
- * @since 0.8
- */
-interface LinkSuggestService {
-  /**
-   * Returns a list of page links from a text query.
-   * @param query - a textual search value (e.g., PageName)
-   * @param linkType - when provided, only results matching the provided type are returned
-   */
-  getLinks(query: string, linkType?: LinkType): Promise<Link[]>;
-}
-
-export { type LinkSuggestService };
+export default generateConfigVue(import.meta.url);

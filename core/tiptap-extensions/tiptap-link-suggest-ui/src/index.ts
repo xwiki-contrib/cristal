@@ -17,20 +17,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import LinkSuggestItem from "./vue/LinkSuggestItem.vue";
 
-import { Link, LinkType } from "./index";
-
-/**
- * Provide the operation to get links suggestions.
- * @since 0.8
- */
-interface LinkSuggestService {
-  /**
-   * Returns a list of page links from a text query.
-   * @param query - a textual search value (e.g., PageName)
-   * @param linkType - when provided, only results matching the provided type are returned
-   */
-  getLinks(query: string, linkType?: LinkType): Promise<Link[]>;
-}
-
-export { type LinkSuggestService };
+export { LinkSuggestItem };

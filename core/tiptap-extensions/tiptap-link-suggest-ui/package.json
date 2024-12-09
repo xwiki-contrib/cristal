@@ -1,5 +1,5 @@
 {
-  "name": "@xwiki/cristal-tiptap-extension-image",
+  "name": "@xwiki/cristal-tiptap-link-suggest-ui",
   "version": "0.12.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
@@ -22,16 +22,8 @@
     "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
   },
   "dependencies": {
-    "@tiptap/extension-image": "2.10.3",
-    "@tiptap/pm": "2.10.3",
-    "@tiptap/vue-3": "2.10.3",
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-attachments-api": "workspace:*",
-    "@xwiki/cristal-link-suggest-api": "workspace:*",
-    "@xwiki/cristal-tiptap-link-suggest-ui": "workspace:*",
-    "lodash": "4.17.21",
-    "vue-tippy": "6.5.0",
-    "vue3-draggable-resizable": "1.6.5"
+    "@xwiki/cristal-icons": "workspace:*",
+    "@xwiki/cristal-link-suggest-api": "workspace:*"
   },
   "peerDependencies": {
     "@tiptap/core": "2.10.3",
@@ -39,8 +31,6 @@
     "vue": "3.5.13"
   },
   "devDependencies": {
-    "@tiptap/core": "2.10.3",
-    "@types/lodash": "4.17.13",
     "vue": "3.5.13",
     "vue-tsc": "2.1.10"
   },

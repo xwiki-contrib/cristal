@@ -293,6 +293,11 @@ onUpdated(() => {
   padding: 0;
 }
 
+:global(.doc-content img) {
+  max-width: 100%;
+  height: auto;
+}
+
 /*---*/
 
 .content-loading svg {

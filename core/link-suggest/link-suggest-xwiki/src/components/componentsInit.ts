@@ -37,7 +37,7 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     this.cristalApp = cristalApp;
   }
 
-  async getLinks(query: string): Promise<Link[]> {
+  async getLinks(query: string, type?: LinkType): Promise<Link[]> {
     // TODO: currently only proposing links available to guest
     const baseURL = this.cristalApp.getWikiConfig().baseURL;
     const getParams = new URLSearchParams({
@@ -54,35 +54,44 @@ class XWikiLinkSuggestService implements LinkSuggestService {
 
     const json = await response.json();
 
-    return json.map(
-      ({
-        id,
-        url,
-        reference,
-        label,
-        hint,
-        type,
-      }: {
-        id: string;
-        url: string;
-        reference: string;
-        label: string;
-        hint: string;
-        type: string;
-      }) => {
-        const xwikiURL =
-          this.cristalApp.getWikiConfig().baseURL + url.replace(/^\/xwiki/, "");
-        const link: Link = {
+    return json
+      .map(
+        ({
           id,
-          url: xwikiURL,
+          url,
           reference,
           label,
           hint,
-          type: type == "doc" ? LinkType.PAGE : LinkType.ATTACHMENT,
-        };
-        return link;
-      },
-    );
+          type,
+        }: {
+          id: string;
+          url: string;
+          reference: string;
+          label: string;
+          hint: string;
+          type: string;
+        }) => {
+          const xwikiURL =
+            this.cristalApp.getWikiConfig().baseURL +
+            url.replace(/^\/xwiki/, "");
+          const link: Link = {
+            id,
+            url: xwikiURL,
+            reference,
+            label,
+            hint,
+            type: type == "doc" ? LinkType.PAGE : LinkType.ATTACHMENT,
+          };
+          return link;
+        },
+      )
+      .filter((link: Link) => {
+        if (type == undefined) {
+          return true;
+        } else {
+          return link.type == type;
+        }
+      });
   }
 }
 
