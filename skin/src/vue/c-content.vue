@@ -165,18 +165,19 @@ onUpdated(() => {
     <div class="doc-header">
       <div class="doc-header-inner">
         <h1 class="doc-title">{{ title }}</h1>
-        <div class="doc-info">
-          <span class="doc-info-user-info">
+        <div class="info-wrapper">
+          <span class="doc-author">
             <x-avatar class="avatar" :image="avImg" size="2rem"></x-avatar>
             User Name edited on 12/12/2024 at 12:00
           </span>
           <!-- TODO: add a way to inject those by extension
-               and provide one for the number of attachments.
-              It must be reactive whenever the attachment store is updated -->
+                 and provide one for the number of attachments.
+                It must be reactive whenever the attachment store is updated -->
           <div class="doc-info-actions">
             <suspense>
               <info-actions></info-actions>
             </suspense>
+
             <div class="doc-page-actions">
               <router-link
                 :to="
@@ -215,8 +216,8 @@ onUpdated(() => {
             }}
             <router-link
               :to="{ name: 'view', params: { page: currentPageName } }"
-              >{{ t("history.alert.link.label") }}</router-link
-            >
+              >{{ t("history.alert.link.label") }}
+            </router-link>
           </x-alert>
         </div>
       </div>
@@ -249,8 +250,10 @@ onUpdated(() => {
   </article>
 </template>
 <style scoped>
-.content {
-  padding: 0;
+@container xwCristal (max-width: 600px) {
+  .content {
+    padding-left: 0 var(--cr-spacing-x-small);
+  }
 }
 
 .content-loading {
@@ -263,57 +266,31 @@ onUpdated(() => {
 
 /*TABLE STYLES*/
 /*TODO: Check a better way to write these styles without the global tag. Currently impossible to use :deep because the html inside the document content is not assigned an ID */
+:global(.content) {
+  padding: 0 var(--cr-spacing-2x-large);
+  overflow: auto;
+}
+
 :global(.content),
 :global(.content > .edit-wrapper) {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
   gap: var(--cr-spacing-small);
-  overflow: auto;
   scrollbar-gutter: stable;
   height: 100%;
 }
+
 :global(.content:has(.edit-wrapper)) {
   grid-template-rows: 1fr;
 }
+
 :global(.content > .edit-wrapper) {
   grid-template-rows: auto 1fr;
 }
+
 :global(.doc-content),
 :global(.doc-header-inner) {
   padding: 0;
-}
-:global(.doc-content table) {
-  max-width: 100%;
-  width: 100%;
-  border: none;
-  border-collapse: collapse;
-  color: inherit;
-  margin-bottom: var(--cr-spacing-small);
-}
-
-:global(.doc-content table tr) {
-  border-bottom: solid 1px var(--cr-input-border-color);
-}
-
-:global(.doc-content table th) {
-  font-weight: var(--cr-font-weight-bold);
-  text-align: start;
-}
-
-:global(.doc-content table td),
-:global(.doc-content table th) {
-  line-height: var(--cr-line-height-normal);
-  padding: 1rem 1rem;
-}
-
-:global(.doc-content table th p:first-child),
-:global(.doc-content table td p:first-child) {
-  margin-top: 0;
-}
-
-:global(.doc-content table th p:last-child),
-:global(.doc-content table td p:last-child) {
-  margin-bottom: 0;
 }
 
 :global(.doc-content img) {
@@ -342,74 +319,81 @@ onUpdated(() => {
   display: block;
 }
 
-:global(.doc-header) {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
-  gap: 0px 0px;
-  grid-template-areas:
-    "title"
-    "info-user";
-  gap: var(--cr-spacing-x-small);
+.doc-header {
   top: 0;
   background: white;
   z-index: 1;
-}
 
-.doc-header-alerts:not(:empty) {
-  margin-top: var(--cr-spacing-x-small);
-}
+  & .doc-header-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: var(--cr-spacing-x-small);
+    grid-auto-flow: row;
+    grid-template-areas:
+      "doc-title"
+      "info-wrapper"
+      "alerts";
 
-.doc-title {
-  grid-area: title;
-  margin: 0;
-  font-size: var(--cr-font-size-2x-large);
-  line-height: var(--cr-font-size-2x-large);
-}
+    & .doc-title {
+      grid-area: doc-title;
+      margin: 0;
+      font-size: var(--cr-font-size-2x-large);
+      line-height: var(--cr-font-size-2x-large);
+      padding-block-start: var(--cr-spacing-small);
+    }
 
-.doc-info {
-  grid-area: info-user;
-  display: flex;
-  flex-flow: row;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--cr-spacing-small);
-  color: var(--cr-color-neutral-500);
-  font-size: var(--cr-font-size-small);
-  justify-content: space-between;
-}
+    & .info-wrapper {
+      grid-area: info-wrapper;
+      display: flex;
+      flex-flow: wrap;
+      gap: var(--cr-spacing-small);
 
-.avatar {
-  --size: 24px;
-}
+      & .doc-author {
+        grid-area: doc-author;
+        margin-inline-end: auto;
+        font-size: var(--cr-font-size-small);
+        color: var(--cr-color-neutral-600);
 
-.doc-info-actions,
-.doc-page-actions {
-  display: flex;
-  flex-wrap: wrap;
-  flex-flow: row;
-  align-items: center;
-  gap: var(--cr-spacing-2x-small);
-}
+        & .avatar {
+          --size: 24px;
+        }
+      }
 
-.doc-info-actions {
-  justify-self: end;
-}
+      & .doc-info {
+        grid-area: info-user;
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--cr-spacing-small);
+        color: var(--cr-color-neutral-500);
+        font-size: var(--cr-font-size-small);
+        justify-content: space-between;
+      }
 
-.info-action {
-  display: flex;
-  background-color: var(--cr-color-neutral-100);
-  border-radius: 99px;
-  padding: var(--cr-spacing-2x-small) var(--cr-spacing-2x-small);
-  font-size: var(--cr-font-size-medium);
-  flex-flow: row;
-  gap: var(--cr-spacing-2x-small);
-  align-items: center;
-}
+      & .doc-info-actions {
+        display: flex;
+        flex-wrap: wrap;
+        flex-flow: row;
+        align-items: center;
+        gap: var(--cr-spacing-2x-small);
+        justify-self: end;
 
-.info-action .cr-icon {
-  line-height: 1.3rem;
+        & .doc-page-actions {
+          display: flex;
+          flex-wrap: wrap;
+          flex-flow: row;
+          align-items: center;
+          gap: var(--cr-spacing-2x-small);
+        }
+      }
+    }
+  }
+
+  .doc-header-alerts:not(:empty) {
+    margin-top: var(--cr-spacing-x-small);
+  }
 }
 
 .page-header {

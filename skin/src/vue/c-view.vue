@@ -87,6 +87,7 @@ function onCollapseMainSidebar() {
 :global(*) {
   box-sizing: border-box;
 }
+
 :global(.xw-cristal) {
   container: xwCristal;
   container-type: size;
@@ -99,6 +100,7 @@ function onCollapseMainSidebar() {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
+
 :global(.xw-cristal),
 :global(.xw-cristal > div) {
   height: 100%;
@@ -111,22 +113,25 @@ function onCollapseMainSidebar() {
   width: 100%;
   justify-self: center;
 }
+
 :deep(.doc-header) {
   position: sticky;
   top: 0;
 }
+
 .wrapper {
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
-  grid-column-gap: var(--cr-spacing-2x-large);
-  grid-row-gap: 0px;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
   grid-template-areas:
     "main-sidebar wiki-header"
     "main-sidebar main-content"
     "main-sidebar wiki-footer";
   height: 100%;
 }
+
 .wrapper:has(.secondary-sidebar) {
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 1fr auto;
@@ -181,6 +186,7 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 :deep(.wrapper .sidebar-collapse-controls) {
   display: none;
 }
+
 /*Rule for the sidebar when floating over content*/
 :deep(.wrapper.sidebar-is-collapsed #sidebar:not(.is-visible)) {
   display: none;
@@ -193,6 +199,7 @@ TODO: these rules about opening and closing the sidebar should be better organiz
 /*rules for the sidebar when collapsed */
 :deep(.wrapper.sidebar-is-collapsed) {
   grid-template-columns: var(--cr-sizes-collapsed-main-sidebar-width) 1fr;
+
   .main-sidebar {
     position: absolute;
     top: 0;
@@ -245,6 +252,70 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: block;
 }
 
+/*LINKS*/
+
+:deep(.content a) {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-weight: var(--cr-font-weight-semibold);
+  text-decoration-color: var(--cr-color-neutral-300);
+  color: var(--cr-base-link-color);
+
+  &:visited {
+    text-decoration-color: var(--cr-color-neutral-300);
+    color: var(--cr-base-visited-link-color);
+  }
+
+  &:hover {
+    text-decoration-color: var(--cr-color-neutral-500);
+  }
+}
+
+/*TABLE*/
+:deep(table) {
+  border-collapse: collapse;
+  overflow-x: auto;
+  font-size: var(--cr-font-size-small);
+  line-height: var(--cr-line-height-dense);
+
+  & th,
+  td {
+    text-align: start;
+  }
+
+  & th {
+    background-color: var(--cr-color-neutral-100);
+    padding: var(--cr-spacing-x-small);
+    font-weight: var(--cr-font-weight-semibold);
+
+    &:first-child {
+      border-top-left-radius: var(--cr-border-radius-large);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--cr-border-radius-large);
+    }
+  }
+
+  & td {
+    padding: var(--cr-spacing-small) var(--cr-spacing-x-small);
+  }
+
+  tbody {
+    & tr {
+      border-bottom: 1px solid var(--cr-color-neutral-200);
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      & .mobile-column-name {
+        display: none;
+      }
+    }
+  }
+}
+
 /*
 WIKI STYLES
 TODO: Discuss and move them to a more appropriate place
@@ -285,6 +356,32 @@ TODO: Discuss and move them to a more appropriate place
 
   .resize-handle {
     display: none;
+  }
+
+  :deep(table.mobile-transform) {
+    & thead {
+      & th {
+        display: none;
+      }
+    }
+
+    & tbody {
+      display: grid;
+      gap: 8px;
+
+      & tr {
+        display: grid;
+        border: 1px solid var(--cr-color-neutral-200);
+        border-radius: var(--cr-border-radius-medium);
+
+        & td {
+          & span.mobile-column-name {
+            display: block;
+            font-weight: var(--cr-font-weight-bold);
+          }
+        }
+      }
+    }
   }
 }
 </style>

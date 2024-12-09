@@ -210,7 +210,9 @@ async function loadEditor(page: PageData | undefined) {
 watch(
   loading,
   (newLoading) => {
-    if (!newLoading) loadEditor(currentPage.value);
+    if (!newLoading) {
+      loadEditor(currentPage.value);
+    }
   },
   { immediate: true },
 );
@@ -266,6 +268,7 @@ watch(
   overflow: hidden;
   justify-content: center;
 }
+
 .content-loading {
   display: flex;
   flex-flow: column;
@@ -344,6 +347,12 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   content: attr(data-placeholder);
 }
 
+.doc-header {
+  top: 0;
+  background: var(--cr-color-header-bg);
+  z-index: 1;
+}
+
 .doc-title {
   max-width: var(--cr-sizes-max-page-width);
   width: 100%;
@@ -356,6 +365,11 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   border: none;
   align-self: center;
   justify-self: center;
+}
+
+:deep(.editor table td),
+:deep(.editor table th) {
+  border: 1px solid var(--cr-color-neutral-300);
 }
 
 /*

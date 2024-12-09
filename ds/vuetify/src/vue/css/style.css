@@ -32,7 +32,8 @@
   --cr-sizes-collapsed-main-sidebar-width: 32px; /*The width of the bar that gets shown containing the menu button to reopen the standard main main sidebar*/
   --cr-base-font-size: 16px;
   --cr-base-text-color: var(--cr-color-gray-950);
-
+  --cr-base-link-color: var(--cr-base-text-color);
+  --cr-base-visited-link-color: var(--cr-base-text-color);
 
   /*
    * Typography
@@ -82,9 +83,9 @@
   --cr-focus-ring: var(--cr-focus-ring-style) var(--cr-focus-ring-width) var(--cr-focus-ring-color);
   --cr-focus-ring-offset: 1px;
 
-/*
- * Color Primitives
- */
+  /*
+   * Color Primitives
+   */
 
   /* Gray */
   --cr-color-gray-50: hsl(0 0% 97.5%);
@@ -534,6 +535,12 @@
   --cr-panel-background-color: var(--cr-color-neutral-0);
   --cr-panel-border-color: var(--cr-color-neutral-200);
   --cr-panel-border-width: 1px;
+
+  /* 
+  * Header
+  */
+
+  --cr-panel-background-color: var(--cr-color-neutral-0);
 
   /*
    * Tooltips
