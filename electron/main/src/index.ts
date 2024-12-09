@@ -26,8 +26,20 @@ import loadBrowser from "@xwiki/cristal-browser-electron/main";
 import { load as loadAuthentication } from "@xwiki/cristal-electron-authentication-xwiki-main";
 // @ts-expect-error shouldn't happen, but we need to generate the types for the whole project once.
 import load from "@xwiki/cristal-electron-storage/main";
-import { BrowserWindow, app } from "electron";
+import { BrowserWindow, app, protocol } from "electron";
 import { platform } from "node:process";
+
+// protocol.registerSchemesAsPrivileged([
+//   {
+//     scheme: "cristalfs",
+//     privileges: {
+//       standard: true,
+//       secure: true,
+//       bypassCSP: true,
+//       stream: true,
+//     },
+//   },
+// ]);
 
 /**
  * Prevent electron from running multiple instances.

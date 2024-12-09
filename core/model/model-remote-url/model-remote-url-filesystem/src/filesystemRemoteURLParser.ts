@@ -30,9 +30,16 @@ import { injectable } from "inversify";
 @injectable()
 class FileSystemRemoteURLParser implements RemoteURLParser {
   parse(urlStr: string): EntityReference | undefined {
-    if (urlStr.includes("://")) {
+    const fileSystemProtocol = "cristalfs://";
+    const startWithFilesystemProtocol = urlStr.startsWith(fileSystemProtocol);
+    if (!startWithFilesystemProtocol && urlStr.includes("://")) {
       return undefined;
     }
+
+    if (startWithFilesystemProtocol) {
+      urlStr = urlStr.split("://", 2)[1];
+    }
+
     let segments = decodeURIComponent(urlStr).split("/");
     if (segments[0] === "" || segments[0] === ".") {
       segments = segments.slice(1);

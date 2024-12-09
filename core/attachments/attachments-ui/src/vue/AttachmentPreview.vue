@@ -86,11 +86,7 @@ const error = attachmentPreview.error();
         <!-- TODO: abstract to allow preview based on the type -->
         <div class="attachment_view">
           <div class="attachment_view_inner">
-            <file-preview v-if="!isFileSytem" :attachment="attachment" />
-            <span v-else>
-              The filesystem backend does not support attachment preview
-              currently.
-            </span>
+            <file-preview :attachment="attachment" />
           </div>
         </div>
         <div class="metadata">
