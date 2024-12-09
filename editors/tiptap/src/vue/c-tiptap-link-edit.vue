@@ -19,19 +19,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import CTiptapLinkSuggest from "./c-tiptap-link-suggest.vue";
-import { BubbleMenuAction } from "../components/extensions/bubble-menu";
 import {
-  LinkSuggestionActionDescriptor,
   initSuggestionsService,
+  LinkSuggestionActionDescriptor,
 } from "../components/extensions/link-suggest";
 import linkSuggestStore, {
   LinkSuggestStore,
 } from "../stores/link-suggest-store";
-import { Range } from "@tiptap/vue-3";
+import { SelectionRange } from "@tiptap/pm/state";
 import { CIcon, Size } from "@xwiki/cristal-icons";
 import { ContentTools } from "@xwiki/cristal-skin";
 import { debounce } from "lodash";
-import { Ref, inject, onMounted, onUpdated, ref, toRefs, watch } from "vue";
+import { inject, onMounted, onUpdated, Ref, ref, toRefs, watch } from "vue";
+import type { BubbleMenuAction } from "../components/extensions/bubble-menu/BubbleMenuAction";
 import type { Editor } from "@tiptap/core";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type {
@@ -52,7 +52,7 @@ const props = withDefaults(
     // The current editor
     editor: Editor;
     // The current range selection
-    range: Range;
+    range: SelectionRange;
     // The current url
     url?: string;
     // When true, indicated that the selection is ambiguous and does not allow

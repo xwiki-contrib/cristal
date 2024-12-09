@@ -293,11 +293,6 @@ onUpdated(() => {
   padding: 0;
 }
 
-:global(.doc-content img) {
-  max-width: 100%;
-  color: #abcdef;
-}
-
 /*---*/
 
 .content-loading svg {
@@ -334,6 +329,7 @@ onUpdated(() => {
       "doc-title"
       "info-wrapper"
       "alerts";
+    margin: 0 auto;
 
     & .doc-title {
       grid-area: doc-title;
