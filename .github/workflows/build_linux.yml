@@ -1,0 +1,27 @@
+name: Electron Build for Linux
+
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  electron:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4.1.0
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install
+      - run: pnpm run build
+      - run: pnpm run --filter @xwiki/cristal-electron linux
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: electron_linux_deb
+          path: electron/dist/@xwiki/cristal-electron_*_amd64.deb
+      - run: ls electron/dist
+      - run: ls electron/dist/@xwiki
+      - uses: actions/upload-artifact@v4
+        with:
+          name: electron_linux_targz
+          path: electron/dist/@xwiki/cristal-electron-*.tar.gz

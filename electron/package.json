@@ -16,13 +16,13 @@
   "main": "./main/dist/index.cjs",
   "scripts": {
     "clean": "rimraf dist",
-    "electron": "cross-env MODE=production electron-builder build --config .electron-builder.config.js --dir --config.asar=false",
+    "electron": "cross-env MODE=production electron-builder build --config .electron-builder.config.js --dir --config.asar=true",
     "linux": "electron-builder --linux deb tar.gz --config .electron-builder.config.js --dir --config.asar=true",
-    "mac": "electron-builder --mac dmg --config .electron-builder.config.js --dir --config.asar=false",
-    "prepackage": "cross-env MODE=production electron-builder -mwl --config .electron-builder.config.js --dir --config.asar=false",
+    "mac": "electron-builder --mac dmg --config .electron-builder.config.js --dir --config.asar=true",
+    "prepackage": "cross-env MODE=production electron-builder -mwl --config .electron-builder.config.js --dir --config.asar=true",
     "package": "pnpm prepackage && mkdir -p dist/@cristal && pnpm linux",
     "start": "electron .",
-    "win": "electron-builder --win nsis --config .electron-builder.config.js --dir --config.asar=false"
+    "win": "electron-builder --win nsis --config .electron-builder.config.js --dir --config.asar=true"
   },
   "dependencies": {
     "@xwiki/cristal-electron-storage": "workspace:*",
@@ -31,9 +31,7 @@
   },
   "devDependencies": {
     "cross-env": "7.0.3",
-    "electron": "33.2.1",
-    "electron-builder": "25.1.8",
-    "typescript": "5.6.3",
-    "vite": "6.0.3"
+    "electron": "33.2.0",
+    "electron-builder": "25.1.8"
   }
 }
