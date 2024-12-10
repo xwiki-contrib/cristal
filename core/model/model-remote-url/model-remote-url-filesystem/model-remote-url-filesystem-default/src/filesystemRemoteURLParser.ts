@@ -25,13 +25,13 @@ import {
   SpaceReference,
 } from "@xwiki/cristal-model-api";
 import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
+import { protocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import { injectable } from "inversify";
 
 @injectable()
 class FileSystemRemoteURLParser implements RemoteURLParser {
   parse(urlStr: string): EntityReference | undefined {
-    const fileSystemProtocol = "cristalfs://";
-    const startWithFilesystemProtocol = urlStr.startsWith(fileSystemProtocol);
+    const startWithFilesystemProtocol = urlStr.startsWith(`${protocol}://`);
     if (!startWithFilesystemProtocol && urlStr.includes("://")) {
       return undefined;
     }

@@ -33,8 +33,6 @@ const { t } = useI18n({
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 
-const isFileSytem = cristal.getWikiConfig().getType() == "FileSystem";
-
 const attachmentPreview = cristal
   .getContainer()
   .get<AttachmentPreview>("AttachmentPreview")!;
@@ -144,15 +142,7 @@ const error = attachmentPreview.error();
         <div class="actions">
           <!-- TODO: top-right close button. -->
           <div class="main_action">
-            <x-btn
-              :disabled="isFileSytem"
-              :title="
-                isFileSytem
-                  ? 'file system backend does not support download currently'
-                  : ''
-              "
-              @click="download()"
-            >
+            <x-btn @click="download()">
               {{ t("attachment.preview.download.button") }}
             </x-btn>
           </div>

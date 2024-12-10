@@ -19,6 +19,7 @@
  */
 
 import { PageAttachment, PageData } from "@xwiki/cristal-api";
+import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import { app, ipcMain, net, protocol, shell } from "electron";
 import mime from "mime";
 import fs from "node:fs";
@@ -115,7 +116,7 @@ async function readAttachment(
       id: basename(path),
       mimetype,
       reference: basename(path),
-      href: `cristalfs://${relative(HOME_PATH_FULL, path)}`,
+      href: `${cristalFSProtocol}://${relative(HOME_PATH_FULL, path)}`,
       date: stats.mtime,
       size: stats.size,
       author: undefined,
@@ -222,23 +223,11 @@ async function deletePage(path: string): Promise<void> {
   await shell.trashItem(path.replace(/\/page.json$/, ""));
 }
 
-// protocol.registerSchemesAsPrivileged([
-//   {
-//     scheme: "cristalfs",
-//     privileges: {
-//       standard: true,
-//       secure: true,
-//       bypassCSP: true,
-//       stream: true,
-//     },
-//   },
-// ]);
-
 export default function load(): void {
-  protocol.handle("cristalfs", async (request) => {
+  protocol.handle(cristalFSProtocol, async (request) => {
     const path = join(
       HOME_PATH_FULL,
-      request.url.substring("cristalfs://".length),
+      request.url.substring(`${cristalFSProtocol}://`.length),
     );
     if (!(await isWithin(HOME_PATH_FULL, path))) {
       throw new Error(`[${path}] is not in in [${HOME_PATH_FULL}]`);
