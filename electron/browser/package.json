@@ -22,20 +22,21 @@
   "scripts": {
     "build": "tsc --project tsconfig.json && vite build && vite build -c vite.preload.config.ts && vite build -c vite.main.config.ts",
     "clean": "rimraf dist",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-browser-api": "workspace:*",
-    "inversify": "6.1.4"
+    "inversify": "6.2.0"
   },
   "peerDependencies": {
-    "electron": "33.2.0",
+    "electron": "33.2.1",
     "reflect-metadata": "0.2.2"
   },
   "devDependencies": {
     "reflect-metadata": "0.2.2",
-    "typescript": "5.6.3"
+    "typescript": "5.6.3",
+    "vite": "6.0.3"
   },
   "publishConfig": {
     "exports": {

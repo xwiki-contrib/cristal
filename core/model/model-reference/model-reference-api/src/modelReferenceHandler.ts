@@ -18,6 +18,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { generateConfig } from "../../../../vite.config";
+import type {
+  DocumentReference,
+  SpaceReference,
+} from "@xwiki/cristal-model-api";
 
-export default generateConfig(import.meta.url);
+/**
+ * A ModelReferenceHandler can do backend-specific operations involving
+ * {@link @xwiki/cristal-model-api#EntityReference | EntityReferences}.
+ *
+ * @since 0.13
+ */
+interface ModelReferenceHandler {
+  /**
+   * Returns a {@link DocumentReference} with a specific name and a parent
+   * {@link SpaceReference}.
+   *
+   * @param name - the name of the document reference
+   * @param space - the parent space of the document reference
+   * @returns the document reference
+   */
+  createDocumentReference(
+    name: string,
+    space: SpaceReference,
+  ): DocumentReference;
+}
+
+export type { ModelReferenceHandler };

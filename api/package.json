@@ -21,12 +21,12 @@
     "build": "pnpm compile",
     "clean": "rimraf dist",
     "compile": "vue-tsc --project tsconfig.json && vite build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
     "prepack": "pnpm build",
     "test": "vitest --run"
   },
   "dependencies": {
-    "inversify": "6.1.4",
+    "inversify": "6.2.0",
     "vue": "3.5.13",
     "vue-router": "4.5.0"
   },
@@ -34,6 +34,7 @@
     "@xwiki/cristal-dev-config": "workspace:*",
     "reflect-metadata": "0.2.2",
     "typescript": "5.6.3",
+    "vite": "6.0.3",
     "vue-tsc": "2.1.10"
   },
   "publishConfig": {

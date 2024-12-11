@@ -21,16 +21,16 @@
     "build": "pnpm compile",
     "clean": "rimraf dist",
     "compile": "vue-tsc --project tsconfig.json && vite build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
     "prepack": "pnpm build"
   },
   "types": "dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-rendering-wikimodel": "workspace:*",
-    "dompurify": "3.2.1",
-    "inversify": "6.1.4",
-    "marked": "15.0.2",
+    "dompurify": "3.2.3",
+    "inversify": "6.2.0",
+    "marked": "15.0.3",
     "marked-base-url": "1.1.6"
   },
   "peerDependencies": {
@@ -40,6 +40,7 @@
     "@types/dompurify": "3.2.0",
     "reflect-metadata": "0.2.2",
     "typescript": "5.6.3",
+    "vite": "6.0.3",
     "vue-tsc": "2.1.10"
   },
   "publishConfig": {

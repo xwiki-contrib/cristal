@@ -19,17 +19,18 @@
   "scripts": {
     "clean": "rimraf dist",
     "dev": "nodemon src/index.ts",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0 --fix"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "types": "dist/index.d.ts",
   "dependencies": {
     "dotenv": "16.4.7",
-    "express": "4.21.1"
+    "express": "4.21.2"
   },
   "devDependencies": {
     "@types/express": "5.0.0",
     "nodemon": "3.1.7",
     "ts-node": "10.9.2",
-    "typescript": "5.6.3"
+    "typescript": "5.6.3",
+    "vite": "6.0.3"
   }
 }
