@@ -20,11 +20,11 @@
   "scripts": {
     "build": "tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-uiextension-api": "workspace:*",
-    "inversify": "6.1.4",
+    "inversify": "6.2.0",
     "lodash": "4.17.21"
   },
   "peerDependencies": {
@@ -32,7 +32,9 @@
   },
   "devDependencies": {
     "@types/lodash": "4.17.13",
-    "reflect-metadata": "0.2.2"
+    "reflect-metadata": "0.2.2",
+    "typescript": "5.6.3",
+    "vite": "6.0.3"
   },
   "publishConfig": {
     "exports": {

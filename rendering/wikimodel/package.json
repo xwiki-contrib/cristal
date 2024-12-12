@@ -21,11 +21,13 @@
     "build": "pnpm compile",
     "clean": "rimraf dist",
     "compile": "vue-tsc --project tsconfig.json && vite build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
     "prepack": "pnpm build"
   },
   "types": "dist/index.d.ts",
   "devDependencies": {
+    "typescript": "5.6.3",
+    "vite": "6.0.3",
     "vue-tsc": "2.1.10"
   },
   "publishConfig": {

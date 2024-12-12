@@ -17,17 +17,19 @@
     "build": "tsc --project tsconfig.json &&  esbuild ./src/index.ts --bundle --outfile=dist/index.js --platform=node",
     "clean": "rimraf dist",
     "dev": "tsx src/index.ts",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@hocuspocus/server": "2.14.0",
-    "express": "4.21.1",
+    "express": "4.21.2",
     "express-ws": "5.0.2"
   },
   "devDependencies": {
     "@types/express": "5.0.0",
     "@types/express-ws": "3.0.5",
     "esbuild": "0.24.0",
-    "tsx": "4.19.2"
+    "tsx": "4.19.2",
+    "typescript": "5.6.3",
+    "vite": "6.0.3"
   }
 }

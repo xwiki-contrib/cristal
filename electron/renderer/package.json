@@ -16,11 +16,7 @@
     "build": "pnpm compile",
     "clean": "rimraf dist",
     "compile": "vite build",
-    "electron": "echo 'no task'",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0",
-    "linux": "echo 'no task'",
-    "prepack": "pnpm build",
-    "package": "echo 'no task'"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-browser-electron": "workspace:*",
@@ -29,13 +25,15 @@
     "@xwiki/cristal-hierarchy-filesystem": "workspace:*",
     "@xwiki/cristal-lib": "workspace:*",
     "@xwiki/cristal-model-reference-filesystem": "workspace:*",
-    "@xwiki/cristal-model-remote-url-filesystem": "workspace:*",
+    "@xwiki/cristal-model-remote-url-filesystem-default": "workspace:*",
     "@xwiki/cristal-navigation-tree-filesystem": "workspace:*",
-    "inversify": "6.1.4",
+    "inversify": "6.2.0",
     "reflect-metadata": "0.2.2",
     "vue": "3.5.13"
   },
   "devDependencies": {
-    "@types/node": "22.10.0"
+    "@types/node": "22.10.1",
+    "typescript": "5.6.3",
+    "vite": "6.0.3"
   }
 }

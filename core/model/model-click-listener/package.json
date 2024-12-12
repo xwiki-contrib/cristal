@@ -20,7 +20,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
@@ -28,13 +28,15 @@
     "@xwiki/cristal-model-api": "workspace:*",
     "@xwiki/cristal-model-reference-api": "workspace:*",
     "@xwiki/cristal-model-remote-url-api": "workspace:*",
-    "inversify": "6.1.4"
+    "inversify": "6.2.0"
   },
   "peerDependencies": {
     "reflect-metadata": "0.2.2"
   },
   "devDependencies": {
-    "reflect-metadata": "0.2.2"
+    "reflect-metadata": "0.2.2",
+    "typescript": "5.6.3",
+    "vite": "6.0.3"
   },
   "publishConfig": {
     "exports": {

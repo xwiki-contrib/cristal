@@ -19,7 +19,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "build": "vue-tsc --project tsconfig.json && vite build",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-alerts-api": "workspace:*",
@@ -29,15 +29,17 @@
     "@xwiki/cristal-hierarchy-api": "workspace:*",
     "@xwiki/cristal-icons": "workspace:*",
     "@xwiki/cristal-page-actions-api": "workspace:*",
-    "inversify": "6.1.4",
+    "inversify": "6.2.0",
     "vue": "3.5.13",
-    "vue-i18n": "10.0.4"
+    "vue-i18n": "10.0.5"
   },
   "peerDependencies": {
     "reflect-metadata": "0.2.2"
   },
   "devDependencies": {
     "reflect-metadata": "0.2.2",
+    "typescript": "5.6.3",
+    "vite": "6.0.3",
     "vue-tsc": "2.1.10"
   },
   "publishConfig": {

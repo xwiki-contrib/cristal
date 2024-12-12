@@ -26,13 +26,13 @@
     "test": "vitest --run"
   },
   "dependencies": {
-    "@shoelace-style/shoelace": "2.18.0",
+    "@shoelace-style/shoelace": "2.19.0",
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-document-api": "workspace:*",
     "@xwiki/cristal-dsapi": "workspace:*",
     "@xwiki/cristal-icons": "workspace:*",
     "@xwiki/cristal-navigation-tree-api": "workspace:*",
-    "inversify": "6.1.4",
+    "inversify": "6.2.0",
     "vue": "3.5.13"
   },
   "peerDependencies": {
@@ -42,6 +42,8 @@
     "@vue/test-utils": "2.4.6",
     "@xwiki/cristal-dev-config": "workspace:*",
     "reflect-metadata": "0.2.2",
+    "typescript": "5.6.3",
+    "vite": "6.0.3",
     "vue-tsc": "2.1.10"
   },
   "publishConfig": {

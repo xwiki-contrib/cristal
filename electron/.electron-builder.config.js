@@ -26,12 +26,16 @@
 
 /**
  * @type {() => import("electron-builder").Configuration}
- * @see https://www.electron.build/configuration/configuration
+ * @see https://www.electron.build/configuration
  */
 module.exports = async function () {
   const { getVersion } = await import("./version/getVersion.mjs");
 
   return {
+    asar: true,
+    appId: "org.xwiki.cristal",
+    productName: 'cristal',
+    artifactName: '${productName}-${version}.${ext}',
     directories: {
       output: "dist",
       buildResources: "buildResources",

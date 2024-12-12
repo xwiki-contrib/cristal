@@ -20,7 +20,7 @@
   "scripts": {
     "build": "vue-tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" --max-warnings=0"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
@@ -29,9 +29,9 @@
     "@xwiki/cristal-extra-tabs-api": "workspace:*",
     "@xwiki/cristal-history-api": "workspace:*",
     "@xwiki/cristal-user-ui": "workspace:*",
-    "inversify": "6.1.4",
+    "inversify": "6.2.0",
     "vue": "3.5.13",
-    "vue-i18n": "10.0.4",
+    "vue-i18n": "10.0.5",
     "vue-router": "4.5.0"
   },
   "peerDependencies": {
@@ -39,6 +39,8 @@
   },
   "devDependencies": {
     "reflect-metadata": "0.2.2",
+    "typescript": "5.6.3",
+    "vite": "6.0.3",
     "vue-tsc": "2.1.10"
   },
   "publishConfig": {
