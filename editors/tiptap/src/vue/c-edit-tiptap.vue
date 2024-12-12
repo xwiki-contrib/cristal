@@ -221,6 +221,8 @@ watch(
     :error="error"
     :current-page="currentPage"
     :page-exist="true"
+    before-u-i-x-p-id="edit.before"
+    after-u-i-x-p-id="edit.after"
   >
     <template #title>
       <input

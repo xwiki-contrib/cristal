@@ -103,6 +103,8 @@ onUpdated(() => {
     :error="error"
     :current-page="currentPage"
     :page-exist="pageExist"
+    before-u-i-x-p-id="content.before"
+    after-u-i-x-p-id="content.after"
   >
     <template #title>
       <h1 class="doc-title">{{ title }}</h1>

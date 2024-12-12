@@ -26,6 +26,8 @@ const { currentPage } = defineProps<{
   error: Error | undefined;
   currentPage: PageData | undefined;
   pageExist: boolean;
+  beforeUIXPId: string;
+  afterUIXPId: string;
 }>();
 
 const breadcrumbItems: Ref<Array<PageHierarchyItem>> = ref([]);
@@ -60,7 +62,7 @@ watch(
     {{ error }}
   </div>
   <article v-else id="content" ref="root" class="content">
-    <UIX uixname="content.before" />
+    <UIX :uixname="beforeUIXPId" />
 
     <alerts-toasts></alerts-toasts>
 
@@ -111,7 +113,7 @@ watch(
       </suspense>
     </div>
     <suspense>
-      <u-i-extensions uix-name="content.after"></u-i-extensions>
+      <u-i-extensions :uix-name="afterUIXPId"></u-i-extensions>
     </suspense>
   </article>
 </template>
