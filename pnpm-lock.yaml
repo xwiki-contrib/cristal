@@ -1734,6 +1734,15 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../link-suggest/link-suggest-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../model/model-reference/model-reference-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../model/model-remote-url/model-remote-url-api
       '@xwiki/cristal-tiptap-link-suggest-ui':
         specifier: workspace:*
         version: link:../tiptap-link-suggest-ui
@@ -1743,6 +1752,9 @@ importers:
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
+      vue-router:
+        specifier: 4.5.0
+        version: 4.5.0(vue@3.5.13(typescript@5.6.3))
       vue-tippy:
         specifier: 6.5.0
         version: 6.5.0(vue@3.5.13(typescript@5.6.3))

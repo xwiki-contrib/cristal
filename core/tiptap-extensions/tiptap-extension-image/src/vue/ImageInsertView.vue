@@ -1,29 +1,60 @@
 <script setup lang="ts">
-import type { NodeViewProps } from "@tiptap/vue-3";
 import { NodeViewWrapper } from "@tiptap/vue-3";
 import { CristalApp } from "@xwiki/cristal-api";
+import { AttachmentsService } from "@xwiki/cristal-attachments-api";
 import {
   Link,
   LinkSuggestServiceProvider,
   LinkType,
 } from "@xwiki/cristal-link-suggest-api";
-import { debounce } from "lodash";
-import { inject, Ref, ref, useTemplateRef, watch } from "vue";
-import "@tiptap/extension-image";
-import { useTippy } from "vue-tippy";
+import {
+  AttachmentReference,
+  DocumentReference,
+} from "@xwiki/cristal-model-api";
+import { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import { LinkSuggestItem } from "@xwiki/cristal-tiptap-link-suggest-ui";
+import { debounce } from "lodash";
+import { Ref, inject, ref, useTemplateRef, watch } from "vue";
+import { useRoute } from "vue-router";
+import { useTippy } from "vue-tippy";
+import type { NodeViewProps } from "@tiptap/vue-3";
+import "@tiptap/extension-image";
+
+const cristal = inject<CristalApp>("cristal")!;
+const attachmentsService = cristal
+  .getContainer()
+  .get<AttachmentsService>("AttachmentsService");
+const modelReferenceParser = cristal
+  .getContainer()
+  .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
+  .get();
+const remoteURLSerializer = cristal
+  .getContainer()
+  .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
+  .get();
+
+const route = useRoute();
+
+const loading = attachmentsService.isLoading();
 
 const imageNameQueryInput = useTemplateRef<HTMLInputElement>(
   "imageNameQueryInput",
 );
 
+const fileUpload = useTemplateRef<HTMLInputElement>("fileUpload");
 const contentRef = useTemplateRef<HTMLDivElement>("content");
+
 const { editor, getPos } = defineProps<NodeViewProps>();
 
 useTippy(contentRef.value!, {
   showOnCreate: true,
+  // hideOnClick: true,
+  // interactive: true,
+  onClickOutside() {
+    console.log("CLICK OUTSIDE");
+  },
 });
-
 function insertImage(src: string) {
   // Replace the current placeholder with the selected image
   editor
@@ -37,9 +68,7 @@ function insertImage(src: string) {
     })
     .run();
 }
-
 const imageNameQuery = defineModel<string>("imageNameQuery");
-const cristal = inject<CristalApp>("cristal")!;
 
 const links: Ref<Link[]> = ref([]);
 const linksSearchError: Ref<string | undefined> = ref(undefined);
@@ -49,17 +78,22 @@ const linkSuggestServiceProvider = cristal
   .getContainer()
   .get<LinkSuggestServiceProvider>("LinkSuggestServiceProvider");
 const linkSuggestService = linkSuggestServiceProvider.get()!;
+
+async function searchAttachments<T>(query: string) {
+  links.value = await linkSuggestService.getLinks(query, LinkType.ATTACHMENT);
+}
+
 watch(
   imageNameQuery,
   debounce(async () => {
     if (imageNameQuery.value && imageNameQuery.value.length > 2) {
-      links.value = await linkSuggestService.getLinks(
-        imageNameQuery.value,
-        LinkType.ATTACHMENT,
-      );
+      const query = imageNameQuery.value;
+      await searchAttachments(query);
     }
   }, 500),
 );
+// Start a first empty search on the first load, to not let the content empty.
+searchAttachments("");
 
 function insertTextAsLink() {
   if (imageNameQuery.value) {
@@ -70,6 +104,29 @@ function insertTextAsLink() {
 function convertLink(link: Link) {
   return { type: link.type, title: link.label, segments: [] };
 }
+
+function triggerUpload() {
+  fileUpload.value?.click();
+}
+
+async function fileSelected() {
+  const files = fileUpload.value?.files;
+  if (files && files.length > 0) {
+    const fileItem = files.item(0)!;
+    const currentPageName =
+      (route.params.page as string) ||
+      cristal.getCurrentPage() ||
+      "Main.WebHome";
+    await attachmentsService.upload(currentPageName, [fileItem]);
+
+    const parser = modelReferenceParser?.parser(currentPageName);
+
+    const src = remoteURLSerializer?.serialize(
+      new AttachmentReference(fileItem.name, parser as DocumentReference),
+    );
+    if (src) insertImage(src);
+  }
+}
 </script>
 
 <template>
@@ -77,9 +134,17 @@ function convertLink(link: Link) {
     <div class="image-insert-view">Upload or select and attachment.</div>
 
     <div ref="content" class="image-insert-view-content">
-      <ul>
+      <div v-if="loading">Loading...</div>
+      <ul v-else>
         <li class="item">
-          <x-btn>Upload</x-btn>
+          <x-btn @click="triggerUpload">Upload</x-btn>
+          <input
+            v-show="false"
+            ref="fileUpload"
+            type="file"
+            accept="image/*"
+            @change="fileSelected"
+          />
         </li>
         <li class="item">
           <input
@@ -87,7 +152,7 @@ function convertLink(link: Link) {
             v-model="imageNameQuery"
             type="text"
             placeholder="Image name or image URL"
-            @enter="insertTextAsLink"
+            @keydown.enter="insertTextAsLink"
           />
         </li>
         <li v-if="linksSearchLoading" class="item">Loading...</li>
@@ -105,10 +170,10 @@ function convertLink(link: Link) {
         <template v-else>
           <!-- factorize with c-tiptap-link-suggest -->
           <li
-            :class="['item', 'selectable-item', selected ? 'is-selected' : '']"
-            @keydown.enter="insertImage(link.url)"
             v-for="link in links"
             :key="link.id"
+            :class="['item', 'selectable-item', selected ? 'is-selected' : '']"
+            @keydown.enter="insertImage(link.url)"
             @click="insertImage(link.url)"
           >
             <link-suggest-item :link="convertLink(link)"></link-suggest-item>

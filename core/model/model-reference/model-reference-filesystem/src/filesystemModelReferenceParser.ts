@@ -18,13 +18,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { EntityReference } from "@xwiki/cristal-model-api";
+import {
+  DocumentReference,
+  EntityReference,
+  SpaceReference,
+} from "@xwiki/cristal-model-api";
 import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 import { injectable } from "inversify";
 
 @injectable()
 export class FileSystemModelReferenceParser implements ModelReferenceParser {
-  parser(): EntityReference {
-    throw new Error("Method not implemented.");
+  parser(reference: string): EntityReference {
+    const segments = reference.split("/");
+    return new DocumentReference(
+      segments[segments.length - 1],
+      new SpaceReference(undefined, ...segments.slice(0, segments.length - 1)),
+    );
   }
 }

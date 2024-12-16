@@ -24,6 +24,7 @@ import { injectable } from "inversify";
 @injectable()
 class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
   serialize(): string | undefined {
+    // TODO important
     throw new Error("to be implemented ");
   }
 }
