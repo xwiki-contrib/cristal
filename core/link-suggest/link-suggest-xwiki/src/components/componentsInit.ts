@@ -63,19 +63,23 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     //   "method": "GET",
     //   "mode": "cors"
     // });
-    const getParams = new URLSearchParams({
-      sheet: "CKEditor.LinkSuggestions",
-      // TODO: replace with XWiki.SuggestSolrService in order to be able to natively filter by type and by mimetype
-      // See the image picker for examples
-      outputSyntax: "plain",
-      language: "en", // TODO: add support for multiple languages
+    const fqs = ["type:ATTACHMENT", "locale:*", "mimetype:((image/*))"];
+    const params: Record<string, string> = {
+      query: fqs.map((it) => `fq=${it}`).join(" "),
+      nb: "20",
+      media: "json",
       input: query,
-    }).toString();
-    const response = await fetch(`${baseURL}/bin/get/Main/?${getParams}`, {
-      headers: {
-        Accept: "application/json",
+    };
+
+    const getParams = new URLSearchParams(params).toString();
+    const response = await fetch(
+      `${baseURL}/bin/get/XWiki/SuggestSolrService?${getParams}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
       },
-    });
+    );
 
     const json = await response.json();
 
