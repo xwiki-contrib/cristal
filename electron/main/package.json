@@ -15,11 +15,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
-    "electron": "echo 'no task'",
-    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
-    "linux": "echo 'no task'",
-    "prepack": "pnpm build",
-    "package": "echo 'no task'"
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
     "@xwiki/cristal-browser-electron": "workspace:*",
@@ -28,8 +24,7 @@
     "electron": "33.2.1"
   },
   "devDependencies": {
-    "@types/node": "22.10.1",
-    "cross-env": "7.0.3",
+    "@types/node": "22.10.2",
     "typescript": "5.6.3",
     "vite": "6.0.3"
   }
