@@ -37,11 +37,36 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     this.cristalApp = cristalApp;
   }
 
-  async getLinks(query: string, type?: LinkType): Promise<Link[]> {
+  async getLinks(
+    query: string,
+    type?: LinkType,
+    regex?: RegExp,
+  ): Promise<Link[]> {
     // TODO: currently only proposing links available to guest
     const baseURL = this.cristalApp.getWikiConfig().baseURL;
+    // await fetch("https://www.xwiki.org/xwiki/bin/get/XWiki/SuggestSolrService?query=fq%3Dtype%3AATTACHMENT%0Afq%3Dlocale%3A*%0Afq%3Dwiki%3Axwiki%0Afq%3Dspace%3A%22Documentation%22%0Afq%3Dname%3A%22WebHome%22%0Afq%3Dmimetype%3A((image%2F*))&nb=20&media=json&input=pdf", {
+    //   "credentials": "include",
+    //   "headers": {
+    //     "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0",
+    //     "Accept": "application/json, text/javascript, */*; q=0.01",
+    //     "Accept-Language": "en-US,en;q=0.5",
+    //     "XWiki-Form-Token": "DNaHExkv7Kn3Xfi6IzK5jw",
+    //     "X-Requested-With": "XMLHttpRequest",
+    //     "Sec-GPC": "1",
+    //     "Sec-Fetch-Dest": "empty",
+    //     "Sec-Fetch-Mode": "cors",
+    //     "Sec-Fetch-Site": "same-origin",
+    //     "Pragma": "no-cache",
+    //     "Cache-Control": "no-cache"
+    //   },
+    //   "referrer": "https://www.xwiki.org/xwiki/bin/view/Documentation/",
+    //   "method": "GET",
+    //   "mode": "cors"
+    // });
     const getParams = new URLSearchParams({
       sheet: "CKEditor.LinkSuggestions",
+      // TODO: replace with XWiki.SuggestSolrService in order to be able to natively filter by type and by mimetype
+      // See the image picker for examples
       outputSyntax: "plain",
       language: "en", // TODO: add support for multiple languages
       input: query,
@@ -89,7 +114,14 @@ class XWikiLinkSuggestService implements LinkSuggestService {
         if (type == undefined) {
           return true;
         } else {
-          return link.type == type;
+          const expectedType = link.type == type;
+          if (!expectedType) return false;
+          if (regex) {
+            // TODO...
+            return expectedType;
+          } else {
+            return true;
+          }
         }
       });
   }

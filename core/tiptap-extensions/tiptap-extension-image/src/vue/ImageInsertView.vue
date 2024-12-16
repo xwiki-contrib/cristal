@@ -17,7 +17,7 @@ import { LinkSuggestItem } from "@xwiki/cristal-tiptap-link-suggest-ui";
 import { debounce } from "lodash";
 import { Ref, inject, ref, useTemplateRef, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useTippy } from "vue-tippy";
+import { Tippy } from "vue-tippy";
 import type { NodeViewProps } from "@tiptap/vue-3";
 import "@tiptap/extension-image";
 
@@ -43,18 +43,10 @@ const imageNameQueryInput = useTemplateRef<HTMLInputElement>(
 );
 
 const fileUpload = useTemplateRef<HTMLInputElement>("fileUpload");
-const contentRef = useTemplateRef<HTMLDivElement>("content");
+const newImage = useTemplateRef<HTMLElement>("newImage");
 
 const { editor, getPos } = defineProps<NodeViewProps>();
 
-useTippy(contentRef.value!, {
-  showOnCreate: true,
-  // hideOnClick: true,
-  // interactive: true,
-  onClickOutside() {
-    console.log("CLICK OUTSIDE");
-  },
-});
 function insertImage(src: string) {
   // Replace the current placeholder with the selected image
   editor
@@ -68,6 +60,7 @@ function insertImage(src: string) {
     })
     .run();
 }
+
 const imageNameQuery = defineModel<string>("imageNameQuery");
 
 const links: Ref<Link[]> = ref([]);
@@ -79,8 +72,12 @@ const linkSuggestServiceProvider = cristal
   .get<LinkSuggestServiceProvider>("LinkSuggestServiceProvider");
 const linkSuggestService = linkSuggestServiceProvider.get()!;
 
-async function searchAttachments<T>(query: string) {
-  links.value = await linkSuggestService.getLinks(query, LinkType.ATTACHMENT);
+async function searchAttachments(query: string) {
+  links.value = await linkSuggestService.getLinks(
+    query,
+    LinkType.ATTACHMENT,
+    /^image\/.*$/,
+  );
 }
 
 watch(
@@ -124,63 +121,85 @@ async function fileSelected() {
     const src = remoteURLSerializer?.serialize(
       new AttachmentReference(fileItem.name, parser as DocumentReference),
     );
-    if (src) insertImage(src);
+    if (src) {
+      insertImage(src);
+    }
   }
 }
 </script>
 
 <template>
   <node-view-wrapper>
-    <div class="image-insert-view">Upload or select and attachment.</div>
+    <tippy
+      :interactive="true"
+      :show-on-create="true"
+      :allow-h-t-m-l="true"
+      :hide-on-click="false"
+      :delay="500"
+    >
+      <template #default>
+        <div ref="newImage" class="image-insert-view">
+          Upload or select and attachment.
+        </div>
+      </template>
 
-    <div ref="content" class="image-insert-view-content">
-      <div v-if="loading">Loading...</div>
-      <ul v-else>
-        <li class="item">
-          <x-btn @click="triggerUpload">Upload</x-btn>
-          <input
-            v-show="false"
-            ref="fileUpload"
-            type="file"
-            accept="image/*"
-            @change="fileSelected"
-          />
-        </li>
-        <li class="item">
-          <input
-            ref="imageNameQueryInput"
-            v-model="imageNameQuery"
-            type="text"
-            placeholder="Image name or image URL"
-            @keydown.enter="insertTextAsLink"
-          />
-        </li>
-        <li v-if="linksSearchLoading" class="item">Loading...</li>
-        <li v-else-if="linksSearchError" class="item">
-          {{ linksSearchError }}
-        </li>
-        <li
-          v-else-if="
-            links.length == 0 && imageNameQuery && imageNameQuery.length > 2
-          "
-          class="item"
-        >
-          No results
-        </li>
-        <template v-else>
-          <!-- factorize with c-tiptap-link-suggest -->
-          <li
-            v-for="link in links"
-            :key="link.id"
-            :class="['item', 'selectable-item', selected ? 'is-selected' : '']"
-            @keydown.enter="insertImage(link.url)"
-            @click="insertImage(link.url)"
-          >
-            <link-suggest-item :link="convertLink(link)"></link-suggest-item>
-          </li>
-        </template>
-      </ul>
-    </div>
+      <template #content>
+        <div class="image-insert-view-content no-drag-handle">
+          <div v-if="loading">Loading...</div>
+          <ul v-else>
+            <li class="item">
+              <x-btn @click="triggerUpload">Upload</x-btn>
+              <input
+                v-show="false"
+                ref="fileUpload"
+                type="file"
+                accept="image/*"
+                @change="fileSelected"
+              />
+            </li>
+            <li class="item">
+              <input
+                ref="imageNameQueryInput"
+                v-model="imageNameQuery"
+                type="text"
+                placeholder="Image name or image URL"
+                @keydown.enter="insertTextAsLink"
+              />
+            </li>
+            <li v-if="linksSearchLoading" class="item">Loading...</li>
+            <li v-else-if="linksSearchError" class="item">
+              {{ linksSearchError }}
+            </li>
+            <li
+              v-else-if="
+                links.length == 0 && imageNameQuery && imageNameQuery.length > 2
+              "
+              class="item"
+            >
+              No results
+            </li>
+            <template v-else>
+              <!-- factorize with c-tiptap-link-suggest -->
+              <li
+                v-for="link in links"
+                :key="link.id"
+                :class="[
+                  'item',
+                  'selectable-item',
+                  selected ? 'is-selected' : '',
+                ]"
+                @keydown.enter="insertImage(link.url)"
+                @click="insertImage(link.url)"
+              >
+                <link-suggest-item
+                  :link="convertLink(link)"
+                ></link-suggest-item>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </template>
+    </tippy>
   </node-view-wrapper>
 </template>
 

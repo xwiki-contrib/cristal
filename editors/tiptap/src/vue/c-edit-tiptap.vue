@@ -36,11 +36,11 @@ import { Editor, EditorContent } from "@tiptap/vue-3";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import { CArticle } from "@xwiki/cristal-skin";
-import { debounce } from "lodash";
 import {
   ImageInsertNode,
   TiptapImage as Image,
 } from "@xwiki/cristal-tiptap-extension-image";
+import { debounce } from "lodash";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
 import { computed, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -410,6 +410,11 @@ TODO: should be moved to a css specific to the empty line placeholder plugin.
   height: 1.5rem;
   z-index: 50;
   cursor: grab;
+}
+
+/* Allow to disable drag handle for a sub-part of the dom. */
+.edit :deep(.no-drag-handle .drag-handle) {
+  display: none;
 }
 
 .editor :deep(.drag-handle:active) {
