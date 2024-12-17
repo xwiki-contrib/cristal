@@ -71,6 +71,41 @@ export class NextcloudStorage extends AbstractStorage {
       );
 
       if (response.status >= 200 && response.status < 300) {
+        let lastAuthor: string | undefined;
+        let lastModificationDate: Date | undefined;
+        const propResponse = await fetch(
+          `${this.getWikiConfig().baseRestURL}/${USERNAME}/.cristal/${page}/page.json`,
+          {
+            body: `<?xml version="1.0" encoding="UTF-8"?>
+              <d:propfind xmlns:d="DAV:">
+                <d:prop xmlns:oc="http://owncloud.org/ns">
+                  <d:getlastmodified />
+                  <oc:owner-display-name />
+                </d:prop>
+              </d:propfind>`,
+            method: "PROPFIND",
+            headers: {
+              ...this.getBaseHeaders(),
+              Accept: "application/json",
+            },
+          },
+        );
+        if (propResponse.status >= 200 && propResponse.status < 300) {
+          const propText = await propResponse.text();
+          const propData = new window.DOMParser().parseFromString(
+            propText,
+            "text/xml",
+          );
+
+          const modifiedProp =
+            propData.getElementsByTagName("d:getlastmodified")[0]?.innerHTML;
+          if (modifiedProp) {
+            lastModificationDate = new Date(Date.parse(modifiedProp));
+          }
+          lastAuthor = propData.getElementsByTagName("oc:owner-display-name")[0]
+            ?.innerHTML;
+        }
+
         const json = await response.json();
 
         return {
@@ -78,6 +113,8 @@ export class NextcloudStorage extends AbstractStorage {
           id: page,
           headline: json.name,
           headlineRaw: json.name,
+          lastAuthor: lastAuthor,
+          lastModificationDate: lastModificationDate,
         };
       } else {
         return undefined;
