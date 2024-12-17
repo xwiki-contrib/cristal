@@ -86,7 +86,7 @@ async function readPage(path: string): Promise<PageData | undefined> {
       parse.name = basename(dirname(path));
     }
     parse.lastModificationDate = new Date(pageStats.mtimeMs);
-    parse.lastAuthor = os.userInfo().username;
+    parse.lastAuthor = { name: os.userInfo().username };
     return parse;
   } else {
     return undefined;

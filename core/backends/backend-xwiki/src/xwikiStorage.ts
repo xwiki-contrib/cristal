@@ -185,7 +185,7 @@ export class XWikiStorage extends AbstractStorage {
     pageContentData.lastModificationDate = new Date(
       Date.parse(json.dateModified),
     );
-    pageContentData.lastAuthor = json.editor;
+    pageContentData.lastAuthor = { name: json.editor };
     return pageContentData;
   }
 

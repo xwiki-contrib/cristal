@@ -27,6 +27,7 @@ import {
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { inject, injectable } from "inversify";
 import type { Logger } from "@xwiki/cristal-api";
+import type { UserDetails } from "@xwiki/cristal-authentication-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
 const USERNAME = "test";
@@ -71,7 +72,7 @@ export class NextcloudStorage extends AbstractStorage {
       );
 
       if (response.status >= 200 && response.status < 300) {
-        let lastAuthor: string | undefined;
+        let lastAuthor: UserDetails | undefined;
         let lastModificationDate: Date | undefined;
         const propResponse = await fetch(
           `${this.getWikiConfig().baseRestURL}/${USERNAME}/.cristal/${page}/page.json`,
@@ -102,8 +103,10 @@ export class NextcloudStorage extends AbstractStorage {
           if (modifiedProp) {
             lastModificationDate = new Date(Date.parse(modifiedProp));
           }
-          lastAuthor = propData.getElementsByTagName("oc:owner-display-name")[0]
-            ?.innerHTML;
+          lastAuthor = {
+            name: propData.getElementsByTagName("oc:owner-display-name")[0]
+              ?.innerHTML,
+          };
         }
 
         const json = await response.json();
