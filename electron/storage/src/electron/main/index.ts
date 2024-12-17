@@ -85,9 +85,11 @@ async function readPage(path: string): Promise<PageData | undefined> {
       // Fallback to the current directory name if the name is not explicitly defined.
       parse.name = basename(dirname(path));
     }
-    parse.lastModificationDate = new Date(pageStats.mtimeMs);
-    parse.lastAuthor = { name: os.userInfo().username };
-    return parse;
+    return {
+      ...parse,
+      lastAuthor: { name: os.userInfo().username },
+      lastModificationDate: new Date(pageStats.mtimeMs),
+    };
   } else {
     return undefined;
   }

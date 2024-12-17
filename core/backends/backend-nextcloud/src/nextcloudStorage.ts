@@ -72,7 +72,7 @@ export class NextcloudStorage extends AbstractStorage {
       );
 
       if (response.status >= 200 && response.status < 300) {
-        const [lastModificationDate, lastAuthor] =
+        const { lastModificationDate, lastAuthor } =
           await this.getLastEditDetails(page);
 
         const json = await response.json();
@@ -95,7 +95,7 @@ export class NextcloudStorage extends AbstractStorage {
 
   private async getLastEditDetails(
     page: string,
-  ): Promise<[Date | undefined, UserDetails | undefined]> {
+  ): Promise<{ lastModificationDate?: Date; lastAuthor?: UserDetails }> {
     let lastModificationDate: Date | undefined;
     let lastAuthor: UserDetails | undefined;
     const response = await fetch(
@@ -116,8 +116,10 @@ export class NextcloudStorage extends AbstractStorage {
       },
     );
     if (response.status >= 200 && response.status < 300) {
-      const text = await response.text();
-      const data = new window.DOMParser().parseFromString(text, "text/xml");
+      const data = new window.DOMParser().parseFromString(
+        await response.text(),
+        "text/xml",
+      );
 
       const modified =
         data.getElementsByTagName("d:getlastmodified")[0]?.innerHTML;
@@ -129,7 +131,7 @@ export class NextcloudStorage extends AbstractStorage {
       };
     }
 
-    return [lastModificationDate, lastAuthor];
+    return { lastModificationDate, lastAuthor };
   }
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
