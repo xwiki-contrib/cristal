@@ -180,6 +180,8 @@ async function isWithin(root: string, path: string) {
  * @param title - the title of the page
  * @since 0.8
  */
+// TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
+// eslint-disable-next-line max-statements
 async function savePage(
   path: string,
   content: string,
@@ -304,6 +306,8 @@ async function searchAttachments(
   return promise.filter((it) => it !== undefined);
 }
 
+// TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
+// eslint-disable-next-line max-statements
 export default function load(): void {
   protocol.handle(cristalFSProtocol, async (request) => {
     const path = join(
