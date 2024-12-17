@@ -75,7 +75,9 @@ watch(
         <div class="info-wrapper">
           <span class="doc-author">
             <i18n-t
-              v-if="currentPage?.lastAuthor"
+              v-if="
+                currentPage?.lastAuthor && currentPage?.lastModificationDate
+              "
               keypath="page.edited.details.user"
               tag="span"
             >
