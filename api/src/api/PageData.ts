@@ -32,6 +32,16 @@ export interface PageData {
   css: Array<string>;
   js: Array<string>;
   version: string | undefined;
+  /**
+   * Date of the last modification of this page.
+   * @since 0.13
+   */
+  lastModificationDate: Date | undefined;
+  /**
+   * Name of the last user to edit this page.
+   * @since 0.13
+   */
+  lastAuthor: string | undefined;
 
   // TODO: remove any
   toObject(): any; // eslint-disable-line

@@ -23,6 +23,7 @@ import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-f
 import { app, ipcMain, net, protocol, shell } from "electron";
 import mime from "mime";
 import fs from "node:fs";
+import os from "node:os";
 import { basename, dirname, join, relative } from "node:path";
 
 const HOME_PATH = ".cristal";
@@ -78,11 +79,14 @@ async function readPage(path: string): Promise<PageData | undefined> {
   }
   if (await isFile(path)) {
     const pageContent = await fs.promises.readFile(path);
+    const pageStats = await fs.promises.stat(path);
     const parse = JSON.parse(pageContent.toString("utf8"));
     if (!parse.name) {
       // Fallback to the current directory name if the name is not explicitly defined.
       parse.name = basename(dirname(path));
     }
+    parse.lastModificationDate = new Date(pageStats.mtimeMs);
+    parse.lastAuthor = os.userInfo().username;
     return parse;
   } else {
     return undefined;

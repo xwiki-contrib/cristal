@@ -35,6 +35,8 @@ export class DefaultPageData implements PageData {
   version: string;
   headline: string = "";
   headlineRaw: string = "";
+  lastModificationDate: Date | undefined;
+  lastAuthor: string | undefined;
 
   public constructor(
     id: string = "",

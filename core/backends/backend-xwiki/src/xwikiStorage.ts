@@ -182,6 +182,10 @@ export class XWikiStorage extends AbstractStorage {
     pageContentData.headlineRaw = json.headlineRaw;
     pageContentData.headline = json.headline;
     pageContentData.name = json.name;
+    pageContentData.lastModificationDate = new Date(
+      Date.parse(json.dateModified),
+    );
+    pageContentData.lastAuthor = json.editor;
     return pageContentData;
   }
 

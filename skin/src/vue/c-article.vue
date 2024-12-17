@@ -72,7 +72,24 @@ watch(
         <slot name="title"></slot>
         <div class="info-wrapper">
           <span class="doc-author">
-            <!-- Add last edition information (CRISTAL-371). -->
+            {{
+              currentPage?.lastModificationDate
+                ? t(
+                    "page.edited.details",
+                    {
+                      date: currentPage?.lastModificationDate.toLocaleString(
+                        undefined,
+                        {
+                          dateStyle: "short",
+                          timeStyle: "short",
+                        },
+                      ),
+                      user: currentPage?.lastAuthor,
+                    },
+                    currentPage?.lastAuthor ? 2 : 1,
+                  )
+                : ""
+            }}
           </span>
           <!-- TODO: add a way to inject those by extension
                  and provide one for the number of attachments.
@@ -179,6 +196,7 @@ watch(
         margin-inline-end: auto;
         font-size: var(--cr-font-size-small);
         color: var(--cr-color-neutral-600);
+        align-self: center;
 
         & .avatar {
           --size: 24px;
