@@ -112,7 +112,9 @@ class XWikiLinkSuggestService implements LinkSuggestService {
           return true;
         } else {
           const expectedType = link.type == type;
-          if (!expectedType) return false;
+          if (!expectedType) {
+            return false;
+          }
           if (mimetype) {
             // TODO...
             return expectedType;

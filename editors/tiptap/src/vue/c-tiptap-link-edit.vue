@@ -20,8 +20,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <script setup lang="ts">
 import CTiptapLinkSuggest from "./c-tiptap-link-suggest.vue";
 import {
-  initSuggestionsService,
   LinkSuggestionActionDescriptor,
+  initSuggestionsService,
 } from "../components/extensions/link-suggest";
 import linkSuggestStore, {
   LinkSuggestStore,
@@ -30,7 +30,7 @@ import { SelectionRange } from "@tiptap/pm/state";
 import { CIcon, Size } from "@xwiki/cristal-icons";
 import { ContentTools } from "@xwiki/cristal-skin";
 import { debounce } from "lodash";
-import { inject, onMounted, onUpdated, Ref, ref, toRefs, watch } from "vue";
+import { Ref, inject, onMounted, onUpdated, ref, toRefs, watch } from "vue";
 import type { BubbleMenuAction } from "../components/extensions/bubble-menu/BubbleMenuAction";
 import type { Editor } from "@tiptap/core";
 import type { CristalApp } from "@xwiki/cristal-api";
