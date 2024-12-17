@@ -18,7 +18,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
-import CHelp from "./c-help.vue";
 import CNavigationDrawer from "./c-navigation-drawer.vue";
 import CPageCreationMenu from "./c-page-creation-menu.vue";
 import CSidebarPanel from "./c-sidebar-panel.vue";
@@ -158,7 +157,7 @@ function onClickOutsideMainSidebar() {
     </div>
     <div class="panel-container">
       <!-- TODO: Use wiki name as panel name (CRISTAL-374). -->
-      <c-sidebar-panel :name="cristal.getWikiConfig().name">
+      <c-sidebar-panel name="">
         <c-page-creation-menu
           :current-page="currentPage!"
         ></c-page-creation-menu>
@@ -166,7 +165,6 @@ function onClickOutsideMainSidebar() {
       </c-sidebar-panel>
       <UIX uixname="sidebar.after" />
     </div>
-    <c-help></c-help>
 
     <div
       class="resize-handle"
