@@ -72,42 +72,8 @@ export class NextcloudStorage extends AbstractStorage {
       );
 
       if (response.status >= 200 && response.status < 300) {
-        let lastAuthor: UserDetails | undefined;
-        let lastModificationDate: Date | undefined;
-        const propResponse = await fetch(
-          `${this.getWikiConfig().baseRestURL}/${USERNAME}/.cristal/${page}/page.json`,
-          {
-            body: `<?xml version="1.0" encoding="UTF-8"?>
-              <d:propfind xmlns:d="DAV:">
-                <d:prop xmlns:oc="http://owncloud.org/ns">
-                  <d:getlastmodified />
-                  <oc:owner-display-name />
-                </d:prop>
-              </d:propfind>`,
-            method: "PROPFIND",
-            headers: {
-              ...this.getBaseHeaders(),
-              Accept: "application/json",
-            },
-          },
-        );
-        if (propResponse.status >= 200 && propResponse.status < 300) {
-          const propText = await propResponse.text();
-          const propData = new window.DOMParser().parseFromString(
-            propText,
-            "text/xml",
-          );
-
-          const modifiedProp =
-            propData.getElementsByTagName("d:getlastmodified")[0]?.innerHTML;
-          if (modifiedProp) {
-            lastModificationDate = new Date(Date.parse(modifiedProp));
-          }
-          lastAuthor = {
-            name: propData.getElementsByTagName("oc:owner-display-name")[0]
-              ?.innerHTML,
-          };
-        }
+        const [lastModificationDate, lastAuthor] =
+          await this.getLastEditDetails(page);
 
         const json = await response.json();
 
@@ -125,6 +91,45 @@ export class NextcloudStorage extends AbstractStorage {
     } catch {
       return undefined;
     }
+  }
+
+  private async getLastEditDetails(
+    page: string,
+  ): Promise<[Date | undefined, UserDetails | undefined]> {
+    let lastModificationDate: Date | undefined;
+    let lastAuthor: UserDetails | undefined;
+    const response = await fetch(
+      `${this.getWikiConfig().baseRestURL}/${USERNAME}/.cristal/${page}/page.json`,
+      {
+        body: `<?xml version="1.0" encoding="UTF-8"?>
+          <d:propfind xmlns:d="DAV:">
+            <d:prop xmlns:oc="http://owncloud.org/ns">
+              <d:getlastmodified />
+              <oc:owner-display-name />
+            </d:prop>
+          </d:propfind>`,
+        method: "PROPFIND",
+        headers: {
+          ...this.getBaseHeaders(),
+          Accept: "application/json",
+        },
+      },
+    );
+    if (response.status >= 200 && response.status < 300) {
+      const text = await response.text();
+      const data = new window.DOMParser().parseFromString(text, "text/xml");
+
+      const modified =
+        data.getElementsByTagName("d:getlastmodified")[0]?.innerHTML;
+      if (modified) {
+        lastModificationDate = new Date(Date.parse(modified));
+      }
+      lastAuthor = {
+        name: data.getElementsByTagName("oc:owner-display-name")[0]?.innerHTML,
+      };
+    }
+
+    return [lastModificationDate, lastAuthor];
   }
 
   async getAttachments(page: string): Promise<AttachmentsData | undefined> {
