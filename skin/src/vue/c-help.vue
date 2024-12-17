@@ -18,27 +18,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import messages from "../translations";
 import { CIcon } from "@xwiki/cristal-icons";
-import { useI18n } from "vue-i18n";
-
-const { t } = useI18n({
-  messages,
-});
-
-function onClick() {
-  // TODO: Add an actual Help section (CRISTAL-373).
-  window.open(
-    "https://cristal.xwiki.org/xwiki/bin/view/Documentation/UserGuide/",
-    "_blank",
-  );
-}
 </script>
 <template>
   <div class="help-button">
-    <x-btn pill size="small" @click="onClick">
+    <x-btn pill size="small">
       <c-icon name="question-circle"></c-icon>
-      {{ t("help.label") }}
+      XWiki Help
     </x-btn>
   </div>
 </template>
