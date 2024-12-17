@@ -97,7 +97,7 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
           const displayName =
             responseNode.querySelector("displayname")!.textContent!;
           const reference = dHref.replace(/^.+\/\.cristal/, "");
-          const url = `.${reference}`;
+          const url = `${this.cristalApp.getWikiConfig().baseURL}${dHref}`;
 
           if (isFolder) {
             // handle folder

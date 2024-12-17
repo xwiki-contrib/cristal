@@ -25,14 +25,24 @@ import {
   SpaceReference,
 } from "@xwiki/cristal-model-api";
 import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import type { CristalApp } from "@xwiki/cristal-api";
+
+// TODO: To be replaced by an actual authentication with CRISTAL-267
+const USERNAME = "admin";
 
 @injectable()
 class NextcloudRemoteURLParser implements RemoteURLParser {
+  constructor(
+    @inject<CristalApp>("CristalApp") private readonly cristalApp: CristalApp,
+  ) {}
+
   parse(urlStr: string): EntityReference | undefined {
-    if (urlStr.includes("://")) {
+    const baseRestURL = this.getWikiConfig().baseRestURL;
+    if (urlStr.includes("://") && !urlStr.startsWith(baseRestURL)) {
       return undefined;
     }
+    urlStr = urlStr.replace(`${baseRestURL}/${USERNAME}/.cristal/`, "");
     let segments = decodeURIComponent(urlStr).split("/");
     if (segments[0] === "" || segments[0] === ".") {
       segments = segments.slice(1);
@@ -65,6 +75,10 @@ class NextcloudRemoteURLParser implements RemoteURLParser {
         ),
       );
     }
+  }
+
+  private getWikiConfig() {
+    return this.cristalApp.getWikiConfig();
   }
 }
 

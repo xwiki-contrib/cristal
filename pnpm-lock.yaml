@@ -1423,6 +1423,9 @@ importers:
 
   core/model/model-remote-url/model-remote-url-nextcloud:
     dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../../api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model-api
@@ -2318,6 +2321,34 @@ importers:
         specifier: 6.0.3
         version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
 
+  electron/link-suggest/link-suggest-filesystem:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-link-suggest-api':
+        specifier: workspace:*
+        version: link:../../../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../../core/model/model-reference/model-reference-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../../core/model/model-remote-url/model-remote-url-api
+      inversify:
+        specifier: 6.2.0
+        version: 6.2.0(reflect-metadata@0.2.2)
+    devDependencies:
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+      vite:
+        specifier: 6.0.3
+        version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
+
   electron/main:
     dependencies:
       '@xwiki/cristal-browser-electron':
@@ -2385,6 +2416,9 @@ importers:
       '@xwiki/cristal-lib':
         specifier: workspace:*
         version: link:../../lib
+      '@xwiki/cristal-link-suggest-filesystem':
+        specifier: workspace:*
+        version: link:../link-suggest/link-suggest-filesystem
       '@xwiki/cristal-model-reference-filesystem':
         specifier: workspace:*
         version: link:../../core/model/model-reference/model-reference-filesystem
@@ -2422,6 +2456,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../../core/backends/backend-api
+      '@xwiki/cristal-link-suggest-api':
+        specifier: workspace:*
+        version: link:../../core/link-suggest/link-suggest-api
       '@xwiki/cristal-model-remote-url-filesystem-api':
         specifier: workspace:*
         version: link:../../core/model/model-remote-url/model-remote-url-filesystem/model-remote-url-filesystem-api
@@ -3775,10 +3812,6 @@ packages:
 
   '@eslint/eslintrc@3.2.0':
     resolution: {integrity: sha512-grOjVNN8P3hjJn/eIETF1wwd12DdnwFDoyceUJLYYdkpbwq3nLi+4fqrTAONx7XDALqlL220wC/RHSC/QTI/0w==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@eslint/js@9.16.0':
-    resolution: {integrity: sha512-tw2HxzQkrbeuvyj1tG2Yqq+0H9wGoI2IMk4EOsQeX+vmd75FtJAzf+gTA69WF+baUKRYQ3x2kbLE08js5OsTVg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/js@9.17.0':
@@ -9011,8 +9044,6 @@ snapshots:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-
-  '@eslint/js@9.16.0': {}
 
   '@eslint/js@9.17.0': {}
 

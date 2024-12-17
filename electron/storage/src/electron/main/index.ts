@@ -19,10 +19,12 @@
  */
 
 import { PageAttachment, PageData } from "@xwiki/cristal-api";
+import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import { app, ipcMain, net, protocol, shell } from "electron";
 import mime from "mime";
 import fs from "node:fs";
+import { readdir } from "node:fs/promises";
 import { basename, dirname, join, relative } from "node:path";
 
 const HOME_PATH = ".cristal";
@@ -40,6 +42,7 @@ function resolvePagePath(page: string): string {
 function resolveAttachmentsPath(page: string): string {
   return resolvePath(page, "attachments");
 }
+
 function resolveAttachmentPath(page: string, filename: string): string {
   return resolvePath(page, "attachments", filename);
 }
@@ -53,6 +56,38 @@ async function isFile(path: string) {
   }
   return stat?.isFile();
 }
+
+function hasMimetype(path: string, mimetype: string) {
+  const mimetypeFile = mime.getType(path);
+  if (!mimetypeFile) {
+    return false;
+  }
+
+  const [p1, p2] = mimetypeFile.split("/");
+  const [q1, q2] = mimetype.split("/");
+  return (q1 == "*" || q1 == p1) && (q2 == "*" || q2 == p2);
+}
+
+async function isAttachment(path: string, mimetype?: string) {
+  if (!(await isFile(path))) {
+    return false;
+  }
+
+  const isInAttachmentsDirectory = basename(dirname(path)) == "attachments";
+  if (isInAttachmentsDirectory && mimetype) {
+    return hasMimetype(path, mimetype);
+  }
+  return isInAttachmentsDirectory;
+}
+
+async function isPage(path: string) {
+  if (!(await isFile(path))) {
+    return false;
+  }
+
+  return basename(path) == "page.json";
+}
+
 async function isDirectory(path: string) {
   let stat = undefined;
   try {
@@ -120,7 +155,7 @@ async function readAttachment(
     return {
       id: basename(path),
       mimetype,
-      reference: basename(path),
+      reference: relative(HOME_PATH_FULL, path),
       href: `${cristalFSProtocol}://${relative(HOME_PATH_FULL, path)}`,
       date: stats.mtime,
       size: stats.size,
@@ -228,6 +263,47 @@ async function deletePage(path: string): Promise<void> {
   await shell.trashItem(path.replace(/\/page.json$/, ""));
 }
 
+async function asyncFilter<T>(arr: T[], predicate: (i: T) => Promise<boolean>) {
+  // First compute the async result for each element
+  const results = await Promise.all(arr.map(predicate));
+
+  // The filter out on the async results, retrieving the async results by index
+  return arr.filter((_v, index) => results[index]);
+}
+
+async function searchAttachments(
+  query: string,
+  type?: LinkType,
+  mimetype?: string,
+): Promise<PageAttachment[]> {
+  console.log(query, type, mimetype);
+
+  const attachments = (await readdir(HOME_PATH_FULL, { recursive: true })).map(
+    (it) => join(HOME_PATH_FULL, it),
+  );
+  const asyncRes = await asyncFilter(attachments, async (path: string) => {
+    if (type == LinkType.ATTACHMENT) {
+      return isAttachment(path, mimetype);
+    } else if (type == LinkType.PAGE) {
+      return isPage(path);
+    } else {
+      return true;
+    }
+  });
+
+  console.log(asyncRes);
+
+  const promise = await Promise.all(
+    asyncRes
+      .filter((it) => basename(it).includes(query))
+      .map((it) => readAttachment(it)),
+  );
+
+  console.log(promise);
+
+  return promise.filter((it) => it !== undefined);
+}
+
 export default function load(): void {
   protocol.handle(cristalFSProtocol, async (request) => {
     const path = join(
@@ -269,5 +345,8 @@ export default function load(): void {
   });
   ipcMain.handle("deletePage", (event, { path }) => {
     return deletePage(path);
+  });
+  ipcMain.handle("searchAttachments", (event, { query, type, mimetype }) => {
+    return searchAttachments(query, type, mimetype);
   });
 }

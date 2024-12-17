@@ -18,8 +18,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { EntityReference } from "@xwiki/cristal-model-api";
+import {
+  AttachmentReference,
+  DocumentReference,
+  EntityReference,
+  EntityType,
+} from "@xwiki/cristal-model-api";
 import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
+import { protocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import { injectable } from "inversify";
 
 @injectable()
@@ -28,8 +34,23 @@ class FileSystemRemoteURLSerializer implements RemoteURLSerializer {
     if (!reference) {
       return undefined;
     }
-    // TODO important
-    throw new Error("to be implemented ");
+    switch (reference.type) {
+      case EntityType.WIKI:
+        throw new Error("Not implemented");
+      case EntityType.SPACE:
+        throw new Error("Not implemented");
+      case EntityType.DOCUMENT: {
+        const documentReference = reference as DocumentReference;
+        const spaces = documentReference.space?.names.join("/");
+        return `${protocol}://${spaces}/${documentReference.name}`;
+      }
+      case EntityType.ATTACHMENT: {
+        const attachmentReference = reference as AttachmentReference;
+        const documentReference = attachmentReference.document;
+        const spaces = documentReference.space?.names.map(encodeURI).join("/");
+        return `${protocol}://${spaces}/${documentReference.name}/attachments/${attachmentReference.name}`;
+      }
+    }
   }
 }
 

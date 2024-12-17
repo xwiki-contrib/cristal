@@ -53,7 +53,6 @@ function insertImage(src: string) {
     .chain()
     .setNodeSelection(getPos())
     .command(({ commands }) => {
-      console.log(editor.state.doc);
       const nodes = editor.state.schema.nodes;
       const type = nodes.paragraph;
       commands.insertContent({
@@ -82,11 +81,13 @@ const linkSuggestServiceProvider = cristal
 const linkSuggestService = linkSuggestServiceProvider.get()!;
 
 async function searchAttachments(query: string) {
-  links.value = await linkSuggestService.getLinks(
-    query,
-    LinkType.ATTACHMENT,
-    "image/*",
-  );
+  if (linkSuggestService) {
+    links.value = await linkSuggestService.getLinks(
+      query,
+      LinkType.ATTACHMENT,
+      "image/*",
+    );
+  }
 }
 
 watch(
@@ -99,7 +100,7 @@ watch(
   }, 500),
 );
 // Start a first empty search on the first load, to not let the content empty.
-searchAttachments("*");
+searchAttachments("");
 
 function insertTextAsLink() {
   if (imageNameQuery.value) {
@@ -192,7 +193,7 @@ async function fileSelected() {
               {{ linksSearchError }}
             </li>
             <li v-else-if="links.length == 0 && imageNameQuery" class="item">
-              No results
+              {{ links }}
             </li>
             <template v-else>
               <!-- factorize with c-tiptap-link-suggest -->
@@ -221,7 +222,7 @@ async function fileSelected() {
 
 <style scoped>
 .image-insert-view {
-  background-color: var(--cr-color-neutral-100);
+  background-color: white;
   border-radius: var(--cr-border-radius-large);
   border: solid var(--sl-input-border-width) var(--sl-input-border-color);
   padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);

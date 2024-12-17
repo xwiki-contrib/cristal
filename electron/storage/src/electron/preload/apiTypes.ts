@@ -19,6 +19,7 @@
  */
 
 import { PageAttachment, PageData } from "@xwiki/cristal-api";
+import { LinkType } from "@xwiki/cristal-link-suggest-api";
 
 export interface APITypes {
   resolvePath(page: string): Promise<string>;
@@ -40,4 +41,17 @@ export interface APITypes {
   listChildren(page: string): Promise<Array<string>>;
 
   deletePage(path: string): Promise<void>;
+
+  /**
+   *
+   * @param query
+   * @param type
+   * @param mimetype
+   * @since 0.13
+   */
+  searchAttachments(
+    query: string,
+    type?: LinkType,
+    mimetype?: string,
+  ): Promise<PageAttachment[]>;
 }

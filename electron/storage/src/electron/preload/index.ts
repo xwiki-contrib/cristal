@@ -20,6 +20,7 @@
 
 import { APITypes } from "./apiTypes";
 import { PageAttachment, PageData } from "@xwiki/cristal-api";
+import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { contextBridge, ipcRenderer, webUtils } from "electron";
 
 const api: APITypes = {
@@ -58,6 +59,13 @@ const api: APITypes = {
   },
   deletePage(path: string): Promise<void> {
     return ipcRenderer.invoke("deletePage", { path });
+  },
+  searchAttachments(
+    query: string,
+    type?: LinkType,
+    mimetype?: string,
+  ): Promise<PageAttachment[]> {
+    return ipcRenderer.invoke("searchAttachments", { query, type, mimetype });
   },
 };
 contextBridge.exposeInMainWorld("fileSystemStorage", api);

@@ -19,6 +19,7 @@
  */
 
 import {
+  AttachmentReference,
   DocumentReference,
   EntityReference,
   SpaceReference,
@@ -29,10 +30,29 @@ import { injectable } from "inversify";
 @injectable()
 export class NextcloudModelReferenceParser implements ModelReferenceParser {
   parse(reference: string): EntityReference {
-    const segments = reference.split("/");
-    return new DocumentReference(
-      segments[segments.length - 1],
-      new SpaceReference(undefined, ...segments.slice(0, segments.length - 1)),
-    );
+    let segments = reference.split("/");
+    if (segments[0] == "") {
+      segments = segments.slice(1);
+    }
+    if (segments[segments.length - 2] == "attachments") {
+      return new AttachmentReference(
+        segments[segments.length - 1],
+        new DocumentReference(
+          segments[segments.length - 3],
+          new SpaceReference(
+            undefined,
+            ...segments.slice(0, segments.length - 3),
+          ),
+        ),
+      );
+    } else {
+      return new DocumentReference(
+        segments[segments.length - 1],
+        new SpaceReference(
+          undefined,
+          ...segments.slice(0, segments.length - 1),
+        ),
+      );
+    }
   }
 }
