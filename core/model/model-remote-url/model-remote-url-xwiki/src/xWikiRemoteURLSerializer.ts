@@ -26,7 +26,7 @@ import {
 } from "@xwiki/cristal-model-api";
 import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api/dist";
+import type { CristalApp } from "@xwiki/cristal-api";
 
 @injectable()
 class XWikiRemoteURLSerializer implements RemoteURLSerializer {

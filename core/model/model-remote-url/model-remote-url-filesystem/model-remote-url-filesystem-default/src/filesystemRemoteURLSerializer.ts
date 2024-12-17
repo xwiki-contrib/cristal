@@ -18,12 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { EntityReference } from "@xwiki/cristal-model-api";
 import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import { injectable } from "inversify";
 
 @injectable()
 class FileSystemRemoteURLSerializer implements RemoteURLSerializer {
-  serialize(): string | undefined {
+  serialize(reference?: EntityReference): string | undefined {
+    if (!reference) {
+      return undefined;
+    }
     // TODO important
     throw new Error("to be implemented ");
   }
