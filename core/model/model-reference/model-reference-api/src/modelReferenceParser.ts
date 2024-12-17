@@ -24,6 +24,6 @@ import { EntityReference } from "@xwiki/cristal-model-api";
  * @since 0.12
  */
 interface ModelReferenceParser {
-  parser(reference: string): EntityReference;
+  parse(reference: string): EntityReference;
 }
 export type { ModelReferenceParser };

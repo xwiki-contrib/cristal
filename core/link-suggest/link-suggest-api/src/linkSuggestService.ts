@@ -29,13 +29,13 @@ interface LinkSuggestService {
    * Returns a list of page links from a text query.
    * @param query - a textual search value (e.g., PageName)
    * @param linkType - when provided, only results matching the provided type are returned
-   * @param mimetypeRegex - when provided, only results matching the provided mimetype are returned. Only used when
-   *     linkType is {@link LinkType.ATTACHMENT}
+   * @param mimetype - when provided, only results matching the provided mimetype are returned. Only used when
+   *     linkType is {@link LinkType.ATTACHMENT} (e.g., "image/*" or "application/pdf")
    */
   getLinks(
     query: string,
     linkType?: LinkType,
-    mimetypeRegex?: RegExp,
+    mimetype?: string,
   ): Promise<Link[]>;
 }
 

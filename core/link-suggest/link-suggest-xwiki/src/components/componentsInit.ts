@@ -22,6 +22,8 @@ import { Link, LinkType, name } from "@xwiki/cristal-link-suggest-api";
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
+import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 
 /**
  * Default implementation of the link suggestion service, for XWiki.
@@ -31,85 +33,76 @@ import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
  */
 @injectable()
 class XWikiLinkSuggestService implements LinkSuggestService {
-  private cristalApp: CristalApp;
-
-  constructor(@inject<CristalApp>("CristalApp") cristalApp: CristalApp) {
-    this.cristalApp = cristalApp;
-  }
+  constructor(
+    @inject<CristalApp>("CristalApp") private readonly cristalApp: CristalApp,
+    @inject<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
+    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
+    @inject<ModelReferenceParserProvider>("ModelReferenceParserProvider")
+    private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
+  ) {}
 
   async getLinks(
     query: string,
     type?: LinkType,
-    regex?: RegExp,
+    mimetype?: string,
   ): Promise<Link[]> {
     // TODO: currently only proposing links available to guest
     const baseURL = this.cristalApp.getWikiConfig().baseURL;
-    // await fetch("https://www.xwiki.org/xwiki/bin/get/XWiki/SuggestSolrService?query=fq%3Dtype%3AATTACHMENT%0Afq%3Dlocale%3A*%0Afq%3Dwiki%3Axwiki%0Afq%3Dspace%3A%22Documentation%22%0Afq%3Dname%3A%22WebHome%22%0Afq%3Dmimetype%3A((image%2F*))&nb=20&media=json&input=pdf", {
-    //   "credentials": "include",
-    //   "headers": {
-    //     "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0",
-    //     "Accept": "application/json, text/javascript, */*; q=0.01",
-    //     "Accept-Language": "en-US,en;q=0.5",
-    //     "XWiki-Form-Token": "DNaHExkv7Kn3Xfi6IzK5jw",
-    //     "X-Requested-With": "XMLHttpRequest",
-    //     "Sec-GPC": "1",
-    //     "Sec-Fetch-Dest": "empty",
-    //     "Sec-Fetch-Mode": "cors",
-    //     "Sec-Fetch-Site": "same-origin",
-    //     "Pragma": "no-cache",
-    //     "Cache-Control": "no-cache"
-    //   },
-    //   "referrer": "https://www.xwiki.org/xwiki/bin/view/Documentation/",
-    //   "method": "GET",
-    //   "mode": "cors"
-    // });
-    const fqs = ["type:ATTACHMENT", "locale:*", "mimetype:((image/*))"];
+    const fqs = ["locale:*", "wiki:xwiki"];
+
+    if (type) {
+      if (type == LinkType.ATTACHMENT) {
+        fqs.push("type:ATTACHMENT");
+      } else {
+        fqs.push("type:PAGE");
+      }
+    }
+
+    if (mimetype) {
+      fqs.push(`mimetype:((${mimetype}))`);
+    }
     const params: Record<string, string> = {
-      query: fqs.map((it) => `fq=${it}`).join(" "),
+      query: fqs.map((it) => `fq=${it}`).join("\n"),
       nb: "20",
       media: "json",
-      input: query,
+      input: `*${query}*`,
     };
 
     const getParams = new URLSearchParams(params).toString();
     const response = await fetch(
       `${baseURL}/bin/get/XWiki/SuggestSolrService?${getParams}`,
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      },
     );
 
     const json = await response.json();
 
     return json
+      .filter(({ filename }: { filename?: string[] }) => {
+        return filename;
+      })
       .map(
         ({
           id,
-          url,
-          reference,
-          label,
-          hint,
+          filename,
           type,
         }: {
           id: string;
-          url: string;
-          reference: string;
-          label: string;
-          hint: string;
+          filename: string[];
           type: string;
         }) => {
+          console.log(params);
           const xwikiURL =
-            this.cristalApp.getWikiConfig().baseURL +
-            url.replace(/^\/xwiki/, "");
+            this.remoteURLSerializerProvider
+              .get()
+              ?.serialize(this.modelReferenceParserProvider.get()?.parse(id)) ??
+            "";
+
           const link: Link = {
+            type: type == "ATTACHMENT" ? LinkType.ATTACHMENT : LinkType.PAGE,
             id,
             url: xwikiURL,
-            reference,
-            label,
-            hint,
-            type: type == "doc" ? LinkType.PAGE : LinkType.ATTACHMENT,
+            reference: id,
+            label: filename[0],
+            hint: filename[0],
           };
           return link;
         },
@@ -120,7 +113,7 @@ class XWikiLinkSuggestService implements LinkSuggestService {
         } else {
           const expectedType = link.type == type;
           if (!expectedType) return false;
-          if (regex) {
+          if (mimetype) {
             // TODO...
             return expectedType;
           } else {

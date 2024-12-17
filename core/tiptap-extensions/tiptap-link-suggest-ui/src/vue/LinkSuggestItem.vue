@@ -6,6 +6,7 @@ defineProps<{
     type: LinkType;
     title: string;
     segments: string[];
+    imageURL?: string;
   };
 }>();
 </script>
@@ -16,6 +17,7 @@ defineProps<{
     :size="Size.Small"
     :name="link.type == LinkType.PAGE ? 'file-earmark' : 'paperclip'"
   />
+  <img v-if="link.imageURL" :src="link.imageURL" alt="" />
   {{ link.title }}
   <XBreadcrumb
     :items="
@@ -26,4 +28,10 @@ defineProps<{
   ></XBreadcrumb>
 </template>
 
-<style scoped></style>
+<style scoped>
+img {
+  float: left;
+  max-width: 4em;
+  max-height: 4em;
+}
+</style>

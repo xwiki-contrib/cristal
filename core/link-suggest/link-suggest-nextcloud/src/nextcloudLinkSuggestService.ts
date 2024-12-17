@@ -25,8 +25,8 @@ import type { CristalApp } from "@xwiki/cristal-api";
 import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
-const USERNAME = "test";
-const PASSWORD = "test";
+const USERNAME = "admin";
+const PASSWORD = "admin";
 
 /**
  * @since 0.11

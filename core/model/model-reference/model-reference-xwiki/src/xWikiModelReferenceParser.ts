@@ -19,6 +19,7 @@
  */
 
 import {
+  AttachmentReference,
   DocumentReference,
   EntityReference,
   SpaceReference,
@@ -28,8 +29,20 @@ import { injectable } from "inversify";
 
 @injectable()
 export class XWikiModelReferenceParser implements ModelReferenceParser {
-  parser(reference: string): EntityReference {
-    const segments = reference.split(".");
+  parse(reference: string): EntityReference {
+    const splits = reference.split(":");
+    const noWiki = splits[splits.length - 1];
+    if (noWiki.includes("@")) {
+      const strings = noWiki.split("@");
+      const doc = this.parseDocumentReference(strings[0]);
+      return new AttachmentReference(strings[1], doc);
+    } else {
+      return this.parseDocumentReference(noWiki);
+    }
+  }
+
+  private parseDocumentReference(noWiki: string) {
+    const segments = noWiki.split(".");
     return new DocumentReference(
       segments[segments.length - 1],
       new SpaceReference(undefined, ...segments.slice(0, segments.length - 1)),

@@ -53,8 +53,17 @@ function insertImage(src: string) {
     .chain()
     .setNodeSelection(getPos())
     .command(({ commands }) => {
-      commands.setImage({
-        src,
+      console.log(editor.state.doc);
+      const nodes = editor.state.schema.nodes;
+      const type = nodes.paragraph;
+      commands.insertContent({
+        type: type.name,
+        content: [
+          {
+            type: nodes.image.name,
+            attrs: { src },
+          },
+        ],
       });
       return true;
     })
@@ -76,21 +85,21 @@ async function searchAttachments(query: string) {
   links.value = await linkSuggestService.getLinks(
     query,
     LinkType.ATTACHMENT,
-    /^image\/.*$/,
+    "image/*",
   );
 }
 
 watch(
   imageNameQuery,
   debounce(async () => {
-    if (imageNameQuery.value && imageNameQuery.value.length > 2) {
+    if (imageNameQuery.value && imageNameQuery.value.length) {
       const query = imageNameQuery.value;
       await searchAttachments(query);
     }
   }, 500),
 );
 // Start a first empty search on the first load, to not let the content empty.
-searchAttachments("");
+searchAttachments("*");
 
 function insertTextAsLink() {
   if (imageNameQuery.value) {
@@ -99,7 +108,19 @@ function insertTextAsLink() {
 }
 
 function convertLink(link: Link) {
-  return { type: link.type, title: link.label, segments: [] };
+  const attachmentReference = modelReferenceParser?.parse(
+    link.reference,
+  ) as AttachmentReference;
+  const documentReference = attachmentReference.document;
+  const segments = documentReference.space?.names.slice(0) ?? [];
+  segments.push(documentReference.name);
+  segments.push(attachmentReference.name);
+  return {
+    type: link.type,
+    title: link.label,
+    segments,
+    imageURL: remoteURLSerializer?.serialize(attachmentReference),
+  };
 }
 
 function triggerUpload() {
@@ -116,7 +137,7 @@ async function fileSelected() {
       "Main.WebHome";
     await attachmentsService.upload(currentPageName, [fileItem]);
 
-    const parser = modelReferenceParser?.parser(currentPageName);
+    const parser = modelReferenceParser?.parse(currentPageName);
 
     const src = remoteURLSerializer?.serialize(
       new AttachmentReference(fileItem.name, parser as DocumentReference),
@@ -170,12 +191,7 @@ async function fileSelected() {
             <li v-else-if="linksSearchError" class="item">
               {{ linksSearchError }}
             </li>
-            <li
-              v-else-if="
-                links.length == 0 && imageNameQuery && imageNameQuery.length > 2
-              "
-              class="item"
-            >
+            <li v-else-if="links.length == 0 && imageNameQuery" class="item">
               No results
             </li>
             <template v-else>

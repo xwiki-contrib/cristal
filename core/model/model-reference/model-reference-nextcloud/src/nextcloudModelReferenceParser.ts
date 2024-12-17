@@ -28,7 +28,7 @@ import { injectable } from "inversify";
 
 @injectable()
 export class NextcloudModelReferenceParser implements ModelReferenceParser {
-  parser(reference: string): EntityReference {
+  parse(reference: string): EntityReference {
     const segments = reference.split("/");
     return new DocumentReference(
       segments[segments.length - 1],

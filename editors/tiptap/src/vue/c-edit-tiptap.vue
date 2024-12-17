@@ -179,7 +179,7 @@ async function loadEditor(page: PageData | undefined) {
           placeholder: "Type '/' to show the available actions",
         }),
         ImageInsertNode,
-        Image,
+        Image.configure({ inline: true }),
         Table,
         TableRow,
         TableHeader,

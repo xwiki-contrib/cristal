@@ -167,6 +167,11 @@ onUpdated(() => {
   padding: 0;
 }
 
+:global(.doc-content img) {
+  max-width: 100%;
+  height: auto;
+}
+
 .doc-title {
   grid-area: doc-title;
   margin: 0;
