@@ -273,13 +273,11 @@ async function asyncFilter<T>(arr: T[], predicate: (i: T) => Promise<boolean>) {
   return arr.filter((_v, index) => results[index]);
 }
 
-async function searchAttachments(
+async function search(
   query: string,
   type?: LinkType,
   mimetype?: string,
-): Promise<PageAttachment[]> {
-  console.log(query, type, mimetype);
-
+): Promise<(PageAttachment | PageData)[]> {
   const attachments = (await readdir(HOME_PATH_FULL, { recursive: true })).map(
     (it) => join(HOME_PATH_FULL, it),
   );
@@ -293,15 +291,17 @@ async function searchAttachments(
     }
   });
 
-  console.log(asyncRes);
-
   const promise = await Promise.all(
     asyncRes
       .filter((it) => basename(it).includes(query))
-      .map((it) => readAttachment(it)),
+      .map(async (it) => {
+        if (await isPage(it)) {
+          return readPage(it);
+        } else {
+          return readAttachment(it);
+        }
+      }),
   );
-
-  console.log(promise);
 
   return promise.filter((it) => it !== undefined);
 }
@@ -350,7 +350,7 @@ export default function load(): void {
   ipcMain.handle("deletePage", (event, { path }) => {
     return deletePage(path);
   });
-  ipcMain.handle("searchAttachments", (event, { query, type, mimetype }) => {
-    return searchAttachments(query, type, mimetype);
+  ipcMain.handle("search", (event, { query, type, mimetype }) => {
+    return search(query, type, mimetype);
   });
 }

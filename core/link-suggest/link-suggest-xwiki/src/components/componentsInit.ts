@@ -47,7 +47,42 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     mimetype?: string,
   ): Promise<Link[]> {
     // TODO: currently only proposing links available to guest
+    const json = await this.executeQuery(type, mimetype, query);
+
+    return json
+      .filter(({ filename }: { filename?: string[] }) => {
+        return filename;
+      })
+      .map(this.mapToLink)
+      .filter(this.filterLinks(type, mimetype));
+  }
+
+  private async executeQuery(
+    type: LinkType | undefined | LinkType.PAGE | LinkType.ATTACHMENT,
+    mimetype: string | undefined,
+    query: string,
+  ) {
     const baseURL = this.cristalApp.getWikiConfig().baseURL;
+    const fqs = this.initializeSolrQueryParameters(type, mimetype);
+    const params: Record<string, string> = {
+      query: fqs.map((it) => `fq=${it}`).join("\n"),
+      nb: "20",
+      media: "json",
+      input: `*${query}*`,
+    };
+
+    const getParams = new URLSearchParams(params).toString();
+    const response = await fetch(
+      `${baseURL}/bin/get/XWiki/SuggestSolrService?${getParams}`,
+    );
+
+    return await response.json();
+  }
+
+  private initializeSolrQueryParameters(
+    type: LinkType | LinkType.PAGE | LinkType.ATTACHMENT | undefined,
+    mimetype: string | undefined,
+  ) {
     const fqs = ["locale:*", "wiki:xwiki"];
 
     if (type) {
@@ -61,68 +96,53 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     if (mimetype) {
       fqs.push(`mimetype:((${mimetype}))`);
     }
-    const params: Record<string, string> = {
-      query: fqs.map((it) => `fq=${it}`).join("\n"),
-      nb: "20",
-      media: "json",
-      input: `*${query}*`,
-    };
+    return fqs;
+  }
 
-    const getParams = new URLSearchParams(params).toString();
-    const response = await fetch(
-      `${baseURL}/bin/get/XWiki/SuggestSolrService?${getParams}`,
-    );
-
-    const json = await response.json();
-
-    return json
-      .filter(({ filename }: { filename?: string[] }) => {
-        return filename;
-      })
-      .map(
-        ({
-          id,
-          filename,
-          type,
-        }: {
-          id: string;
-          filename: string[];
-          type: string;
-        }) => {
-          console.log(params);
-          const xwikiURL =
-            this.remoteURLSerializerProvider
-              .get()
-              ?.serialize(this.modelReferenceParserProvider.get()?.parse(id)) ??
-            "";
-
-          const link: Link = {
-            type: type == "ATTACHMENT" ? LinkType.ATTACHMENT : LinkType.PAGE,
-            id,
-            url: xwikiURL,
-            reference: id,
-            label: filename[0],
-            hint: filename[0],
-          };
-          return link;
-        },
-      )
-      .filter((link: Link) => {
-        if (type == undefined) {
-          return true;
-        } else {
-          const expectedType = link.type == type;
-          if (!expectedType) {
-            return false;
-          }
-          if (mimetype) {
-            // TODO...
-            return expectedType;
-          } else {
-            return true;
-          }
+  private filterLinks(
+    type: LinkType | undefined | LinkType.PAGE | LinkType.ATTACHMENT,
+    mimetype: string | undefined,
+  ) {
+    return (link: Link) => {
+      if (type == undefined) {
+        return true;
+      } else {
+        const expectedType = link.type == type;
+        if (!expectedType) {
+          return false;
         }
-      });
+        if (mimetype) {
+          // TODO...
+          return expectedType;
+        } else {
+          return true;
+        }
+      }
+    };
+  }
+
+  private mapToLink({
+    id,
+    filename,
+    type,
+  }: {
+    id: string;
+    filename: string[];
+    type: string;
+  }) {
+    const xwikiURL =
+      this.remoteURLSerializerProvider
+        .get()
+        ?.serialize(this.modelReferenceParserProvider.get()?.parse(id)) ?? "";
+
+    return {
+      type: type == "ATTACHMENT" ? LinkType.ATTACHMENT : LinkType.PAGE,
+      id,
+      url: xwikiURL,
+      reference: id,
+      label: filename[0],
+      hint: filename[0],
+    };
   }
 }
 

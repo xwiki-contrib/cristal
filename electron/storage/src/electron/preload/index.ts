@@ -60,12 +60,12 @@ const api: APITypes = {
   deletePage(path: string): Promise<void> {
     return ipcRenderer.invoke("deletePage", { path });
   },
-  searchAttachments(
+  search(
     query: string,
     type?: LinkType,
     mimetype?: string,
-  ): Promise<PageAttachment[]> {
-    return ipcRenderer.invoke("searchAttachments", { query, type, mimetype });
+  ): Promise<(PageAttachment | PageData)[]> {
+    return ipcRenderer.invoke("search", { query, type, mimetype });
   },
 };
 contextBridge.exposeInMainWorld("fileSystemStorage", api);

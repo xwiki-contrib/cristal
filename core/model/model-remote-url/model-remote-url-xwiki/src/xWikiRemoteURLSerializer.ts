@@ -44,22 +44,32 @@ class XWikiRemoteURLSerializer implements RemoteURLSerializer {
       case EntityType.SPACE:
         throw new Error("Not implemented");
       case EntityType.DOCUMENT: {
-        const baseURL = this.cristalApp.getWikiConfig().baseURL;
-        const documentReference = reference as DocumentReference;
-        const spaces = documentReference.space?.names.map(encodeURI).join("/");
-        if (documentReference.name == "WebHome") {
-          return `${baseURL}/${spaces}/`;
-        } else {
-          return `${baseURL}/${spaces}/${encodeURI(documentReference.name)}`;
-        }
+        return this.serializeDocument(reference);
       }
       case EntityType.ATTACHMENT: {
-        const baseURL = this.cristalApp.getWikiConfig().baseURL;
-        const attachmentReference = reference as AttachmentReference;
-        const documentReference = attachmentReference.document;
-        const spaces = documentReference.space?.names.map(encodeURI).join("/");
-        return `${baseURL}/bin/download/${spaces}/${encodeURI(documentReference.name)}/${encodeURI(attachmentReference.name)}`;
+        return this.serializeAttachment(reference);
       }
+    }
+  }
+
+  private serializeAttachment(reference: EntityReference) {
+    const baseURL = this.cristalApp.getWikiConfig().baseURL;
+    const attachmentReference = reference as AttachmentReference;
+    const documentReference = attachmentReference.document;
+    const spaces = documentReference.space?.names.map(encodeURI).join("/");
+    return `${baseURL}/bin/download/${spaces}/${encodeURI(documentReference.name)}/${encodeURI(
+      attachmentReference.name,
+    )}`;
+  }
+
+  private serializeDocument(reference: EntityReference) {
+    const baseURL = this.cristalApp.getWikiConfig().baseURL;
+    const documentReference = reference as DocumentReference;
+    const spaces = documentReference.space?.names.map(encodeURI).join("/");
+    if (documentReference.name == "WebHome") {
+      return `${baseURL}/${spaces}/`;
+    } else {
+      return `${baseURL}/${spaces}/${encodeURI(documentReference.name)}`;
     }
   }
 }

@@ -44,14 +44,14 @@ export interface APITypes {
 
   /**
    *
-   * @param query
-   * @param type
-   * @param mimetype
+   * @param query - search query
+   * @param type - the type of attach
+   * @param mimetype - the expected mimetype, only applied for attachments
    * @since 0.13
    */
-  searchAttachments(
+  search(
     query: string,
     type?: LinkType,
     mimetype?: string,
-  ): Promise<PageAttachment[]>;
+  ): Promise<(PageAttachment | PageData)[]>;
 }

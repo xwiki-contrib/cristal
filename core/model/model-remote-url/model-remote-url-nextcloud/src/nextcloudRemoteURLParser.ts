@@ -43,6 +43,28 @@ class NextcloudRemoteURLParser implements RemoteURLParser {
       return undefined;
     }
     urlStr = urlStr.replace(`${baseRestURL}/${USERNAME}/.cristal/`, "");
+    const segments = this.computeSegments(urlStr);
+
+    if (
+      segments.length >= 3 &&
+      segments[segments.length - 2] == "attachments"
+    ) {
+      return new AttachmentReference(
+        segments[segments.length - 1],
+        this.buildDocumentReference(
+          segments[segments.length - 3],
+          segments.splice(0, segments.length - 3),
+        ),
+      );
+    } else {
+      return this.buildDocumentReference(
+        segments[segments.length - 1],
+        segments.splice(0, segments.length - 1),
+      );
+    }
+  }
+
+  private computeSegments(urlStr: string) {
     let segments = decodeURIComponent(urlStr).split("/");
     if (segments[0] === "" || segments[0] === ".") {
       segments = segments.slice(1);
@@ -51,30 +73,17 @@ class NextcloudRemoteURLParser implements RemoteURLParser {
     if (segments[segments.length - 1] === "") {
       segments = segments.slice(0, segments.length - 1);
     }
+    return segments;
+  }
 
-    if (
-      segments.length >= 3 &&
-      segments[segments.length - 2] == "attachments"
-    ) {
-      return new AttachmentReference(
-        segments[segments.length - 1],
-        new DocumentReference(
-          segments[segments.length - 3],
-          new SpaceReference(
-            undefined,
-            ...segments.splice(0, segments.length - 3),
-          ),
-        ),
-      );
-    } else {
-      return new DocumentReference(
-        segments[segments.length - 1],
-        new SpaceReference(
-          undefined,
-          ...segments.splice(0, segments.length - 1),
-        ),
-      );
-    }
+  private buildDocumentReference(
+    documentReferenceName: string,
+    spaces: string[],
+  ) {
+    return new DocumentReference(
+      documentReferenceName,
+      new SpaceReference(undefined, ...spaces),
+    );
   }
 
   private getWikiConfig() {

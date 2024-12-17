@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { PageAttachment } from "@xwiki/cristal-api";
+import { PageAttachment, PageData } from "@xwiki/cristal-api";
 import {
   Link,
   LinkSuggestService,
@@ -29,11 +29,11 @@ import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-referenc
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 
 declare const fileSystemStorage: {
-  searchAttachments(
+  search(
     query: string,
     type?: LinkType,
     mimetype?: string,
-  ): Promise<PageAttachment[]>;
+  ): Promise<(PageAttachment | PageData)[]>;
 };
 
 /**
@@ -62,14 +62,11 @@ export class FilesystemLinkSuggestService implements LinkSuggestService {
     type?: LinkType,
     mimetype?: string,
   ): Promise<Link[]> {
-    const attachments = await fileSystemStorage.searchAttachments(
-      query,
-      type,
-      mimetype,
-    );
+    const attachments = await fileSystemStorage.search(query, type, mimetype);
     console.log(attachments);
     // TODO: convert to links.
-    return attachments.map((attachment) => {
+    return attachments.map((result) => {
+      const attachment = result as PageAttachment;
       return {
         id: attachment.id,
         reference: attachment.reference,
