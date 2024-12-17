@@ -132,6 +132,8 @@ export class NextcloudStorage extends AbstractStorage {
     return [lastModificationDate, lastAuthor];
   }
 
+  // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
+  // eslint-disable-next-line max-statements
   async getAttachments(page: string): Promise<AttachmentsData | undefined> {
     const response = await fetch(this.getAttachmentsBasePath(page), {
       method: "PROPFIND",
