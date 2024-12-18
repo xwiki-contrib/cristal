@@ -20,6 +20,11 @@
 import ImageView from "./vue/ImageView.vue";
 import Image from "@tiptap/extension-image";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
+import type { Mark } from "@tiptap/pm/model";
+
+function isExternalImage(mark: Mark) {
+  return !(mark.attrs.src as string)?.startsWith("http://");
+}
 
 /**
  * We need to override the default image view to be able to easily add widgets (i.e., visual elements that are not
@@ -36,6 +41,33 @@ const TiptapImage = Image.extend({
   addNodeView() {
     return VueNodeViewRenderer(ImageView);
   },
+  // addStorage() {
+  //   return {
+  //     markdown: {
+  //       serialize: {
+  //         open(state: unknown, mark: Mark) {
+  //           return isExternalImage(mark)
+  //             ? "![["
+  //             : // TODO: replace with a call to the default spec.
+  //               "![";
+  //         },
+  //         close: function (state: unknown, mark: Mark) {
+  //           if (isExternalImage(mark)) {
+  //             return `|${mark.attrs.src}]]`;
+  //           } else {
+  //             // TODO: replace with a call to the default spec.
+  //             return `](${mark.attrs.src.replace(/[()"]/g, "\\$&")}${
+  //               mark.attrs.alt
+  //                 ? ` "${mark.attrs.alt.replace(/"/g, '\\"')}"`
+  //                 : ""
+  //             })`;
+  //           }
+  //         },
+  //         mixable: true,
+  //       },
+  //     },
+  //   };
+  // },
 });
 
 export { TiptapImage };
