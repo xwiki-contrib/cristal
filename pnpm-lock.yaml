@@ -2673,11 +2673,11 @@ importers:
         specifier: 6.2.0
         version: 6.2.0(reflect-metadata@0.2.2)
       marked:
-        specifier: 15.0.3
-        version: 15.0.3
+        specifier: 15.0.4
+        version: 15.0.4
       marked-base-url:
         specifier: 1.1.6
-        version: 1.1.6(marked@15.0.3)
+        version: 1.1.6(marked@15.0.4)
     devDependencies:
       '@types/dompurify':
         specifier: 3.2.0
@@ -2847,8 +2847,8 @@ importers:
         specifier: 6.2.0
         version: 6.2.0(reflect-metadata@0.2.2)
       marked:
-        specifier: 15.0.3
-        version: 15.0.3
+        specifier: 15.0.4
+        version: 15.0.4
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -3683,10 +3683,6 @@ packages:
 
   '@eslint/eslintrc@3.2.0':
     resolution: {integrity: sha512-grOjVNN8P3hjJn/eIETF1wwd12DdnwFDoyceUJLYYdkpbwq3nLi+4fqrTAONx7XDALqlL220wC/RHSC/QTI/0w==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@eslint/js@9.16.0':
-    resolution: {integrity: sha512-tw2HxzQkrbeuvyj1tG2Yqq+0H9wGoI2IMk4EOsQeX+vmd75FtJAzf+gTA69WF+baUKRYQ3x2kbLE08js5OsTVg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/js@9.17.0':
@@ -6608,8 +6604,8 @@ packages:
     peerDependencies:
       marked: '>= 4 < 16'
 
-  marked@15.0.3:
-    resolution: {integrity: sha512-Ai0cepvl2NHnTcO9jYDtcOEtVBNVYR31XnEA3BndO7f5As1wzpcOceSUM8FDkNLJNIODcLpDTWay/qQhqbuMvg==}
+  marked@15.0.4:
+    resolution: {integrity: sha512-TCHvDqmb3ZJ4PWG7VEGVgtefA5/euFmsIhxtD0XsBxI39gUSKL81mIRFdt0AiNQozUahd4ke98ZdirExd/vSEw==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -8911,8 +8907,6 @@ snapshots:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-
-  '@eslint/js@9.16.0': {}
 
   '@eslint/js@9.17.0': {}
 
@@ -12344,11 +12338,11 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
-  marked-base-url@1.1.6(marked@15.0.3):
+  marked-base-url@1.1.6(marked@15.0.4):
     dependencies:
-      marked: 15.0.3
+      marked: 15.0.4
 
-  marked@15.0.3: {}
+  marked@15.0.4: {}
 
   matcher@3.0.0:
     dependencies:
