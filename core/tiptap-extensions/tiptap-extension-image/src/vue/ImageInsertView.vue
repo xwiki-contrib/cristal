@@ -33,11 +33,6 @@ const remoteURLSerializer = cristal
   .getContainer()
   .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
   .get();
-cristal
-  .getContainer()
-  .get<PageHierarchyResolverProvider>("PageHierarchyResolverProvider")
-  .get()
-  .getPageHierarchy(p);
 
 const route = useRoute();
 
@@ -119,8 +114,10 @@ function convertLink(link: Link) {
   ) as AttachmentReference;
   const documentReference = attachmentReference.document;
   const segments = documentReference.space?.names.slice(0) ?? [];
-  segments.push(documentReference.name);
-  segments.push(attachmentReference.name);
+  // TODO: replace with an actual construction of segments from a reference
+  if (documentReference.terminal) {
+    segments.push(documentReference.name);
+  }
   return {
     type: link.type,
     title: link.label,
@@ -223,7 +220,7 @@ async function fileSelected() {
 
 <style scoped>
 .image-insert-view {
-  background-color: white;
+  background-color: var(--cr-color-neutral-100);
   border-radius: var(--cr-border-radius-large);
   border: solid var(--sl-input-border-width) var(--sl-input-border-color);
   padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);
@@ -257,6 +254,10 @@ async function fileSelected() {
   padding: var(--cr-spacing-x-small);
   width: 100%;
   text-align: start;
+}
+
+.image-insert-view-content .selectable-item:hover {
+  background-color: white;
 }
 
 .image-insert-view-content .selectable-item:hover {
