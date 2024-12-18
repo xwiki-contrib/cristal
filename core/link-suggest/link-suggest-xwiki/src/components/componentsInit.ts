@@ -53,7 +53,7 @@ class XWikiLinkSuggestService implements LinkSuggestService {
       .filter(({ filename }: { filename?: string[] }) => {
         return filename;
       })
-      .map(this.mapToLink)
+      .map(this.mapToLink.bind(this))
       .filter(this.filterLinks(type, mimetype));
   }
 

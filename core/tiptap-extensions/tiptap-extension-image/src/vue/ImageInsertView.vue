@@ -33,6 +33,11 @@ const remoteURLSerializer = cristal
   .getContainer()
   .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
   .get();
+cristal
+  .getContainer()
+  .get<PageHierarchyResolverProvider>("PageHierarchyResolverProvider")
+  .get()
+  .getPageHierarchy(p);
 
 const route = useRoute();
 
@@ -200,11 +205,7 @@ async function fileSelected() {
               <li
                 v-for="link in links"
                 :key="link.id"
-                :class="[
-                  'item',
-                  'selectable-item',
-                  selected ? 'is-selected' : '',
-                ]"
+                :class="['item', 'selectable-item']"
                 @keydown.enter="insertImage(link.url)"
                 @click="insertImage(link.url)"
               >
@@ -258,7 +259,6 @@ async function fileSelected() {
   text-align: start;
 }
 
-.image-insert-view-content .selectable-item.is-selected,
 .image-insert-view-content .selectable-item:hover {
   background-color: var(--cr-color-neutral-200);
   cursor: pointer;
