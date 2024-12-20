@@ -26,12 +26,18 @@ import {
   SpaceReference,
 } from "@xwiki/cristal-model-api";
 import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 
 import { isEqual } from "lodash";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 
 @injectable()
 export class XWikiModelReferenceParser implements ModelReferenceParser {
+  constructor(
+    @inject<DocumentService>("DocumentService")
+    private readonly documentService: DocumentService,
+  ) {}
+
   parse(reference: string, type?: EntityType): EntityReference {
     const splits = reference.split(":");
     const noWiki = splits[splits.length - 1];
@@ -70,9 +76,6 @@ export class XWikiModelReferenceParser implements ModelReferenceParser {
   }
 
   private getCurrentDocumentReference() {
-    return new DocumentReference(
-      "WebHome",
-      new SpaceReference(undefined, "TestSpace"),
-    );
+    return this.documentService.getCurrentDocumentReference().value!;
   }
 }

@@ -67,9 +67,9 @@ class XWikiRemoteURLSerializer implements RemoteURLSerializer {
     const documentReference = reference as DocumentReference;
     const spaces = documentReference.space?.names.map(encodeURI).join("/");
     if (documentReference.name == "WebHome") {
-      return `${baseURL}/${spaces}/`;
+      return `${baseURL}/bin/view/${spaces}/`;
     } else {
-      return `${baseURL}/${spaces}/${encodeURI(documentReference.name)}`;
+      return `${baseURL}/bin/view/${spaces}/${encodeURI(documentReference.name)}`;
     }
   }
 }

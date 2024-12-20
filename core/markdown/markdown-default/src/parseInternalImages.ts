@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { EntityType } from "@xwiki/cristal-model-api";
 import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 import type { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import type { StateCore } from "markdown-it";
@@ -117,7 +118,7 @@ export function parseInternalImages(
               openToken.attrSet(
                 "src",
                 remoteURLSerializer.serialize(
-                  modelReferenceParser.parse(reference),
+                  modelReferenceParser.parse(reference, EntityType.ATTACHMENT),
                 ) ?? "",
               );
               if (text) {

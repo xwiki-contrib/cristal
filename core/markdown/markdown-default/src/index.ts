@@ -36,18 +36,17 @@ class DefaultMarkdownRenderer implements MarkdownRenderer {
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
   ) {
     this.md = markdownit();
+    const modelReferenceParser = this.modelReferenceParserProvider.get()!;
+    const remoteURLSerializer = this.remoteURLSerializerProvider.get()!;
     this.md.core.ruler.before(
       "inline",
       "markdown-internal-links",
-      parseInternalLinks,
+      parseInternalLinks(modelReferenceParser, remoteURLSerializer),
     );
     this.md.core.ruler.before(
       "markdown-internal-links",
       "markdown-internal-images",
-      parseInternalImages(
-        this.modelReferenceParserProvider.get()!,
-        this.remoteURLSerializerProvider.get()!,
-      ),
+      parseInternalImages(modelReferenceParser, remoteURLSerializer),
     );
   }
 

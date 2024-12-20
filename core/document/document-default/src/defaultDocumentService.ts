@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import { Store, StoreDefinition, defineStore, storeToRefs } from "pinia";
 import { Ref } from "vue";
@@ -27,6 +28,7 @@ import type {
   DocumentService,
 } from "@xwiki/cristal-document-api";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
 
 type Id = "document";
 type State = {
@@ -84,7 +86,14 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
     },
     getters: {
       documentReference() {
-        return undefined;
+        const modelReferenceParser = cristal
+          .getContainer()
+          .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
+          .get()!;
+        return modelReferenceParser.parse(
+          this.lastDocumentReference ?? "",
+          EntityType.DOCUMENT,
+        ) as DocumentReference;
       },
     },
     actions: {

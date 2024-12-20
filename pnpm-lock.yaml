@@ -663,6 +663,9 @@ importers:
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model/model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../model/model-reference/model-reference-api
       inversify:
         specifier: 6.2.0
         version: 6.2.0(reflect-metadata@0.2.2)
@@ -1240,6 +1243,10 @@ importers:
         version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
 
   core/markdown/markdown-api:
+    dependencies:
+      '@xwiki/cristal-document-api':
+        specifier: workspace:*
+        version: link:../../document/document-api
     devDependencies:
       typescript:
         specifier: 5.6.3
@@ -1253,6 +1260,9 @@ importers:
       '@xwiki/cristal-markdown-api':
         specifier: workspace:*
         version: link:../markdown-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-model-reference-api':
         specifier: workspace:*
         version: link:../../model/model-reference/model-reference-api
@@ -1409,6 +1419,9 @@ importers:
 
   core/model/model-reference/model-reference-xwiki:
     dependencies:
+      '@xwiki/cristal-document-api':
+        specifier: workspace:*
+        version: link:../../../document/document-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model-api

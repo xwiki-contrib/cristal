@@ -18,6 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { EntityType } from "@xwiki/cristal-model-api/dist";
+import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api/dist";
+import type { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api/dist";
 import type { StateCore } from "markdown-it";
 
 const INTERNAL_LINK_REGEX = /\[\[((?<text>[^\]|]+)\|)?(?<reference>[^\]|]+)]]/g;
@@ -85,38 +88,48 @@ function parseStringForInternalLinks(
   return tokens;
 }
 
-export function parseInternalLinks(state: StateCore): void {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  state.tokens.forEach((blockToken: any) => {
-    if (blockToken.type == "inline") {
-      const internalTokens = parseStringForInternalLinks(blockToken.content);
+export function parseInternalLinks(
+  modelReferenceParser: ModelReferenceParser,
+  remoteURLSerializer: RemoteURLSerializer,
+) {
+  return function (state: StateCore): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    state.tokens.forEach((blockToken: any) => {
+      if (blockToken.type == "inline") {
+        const internalTokens = parseStringForInternalLinks(blockToken.content);
 
-      // We replace the content of the current block node only if at least a link has been found.
-      if (hasLink(internalTokens)) {
-        blockToken.content = "";
-        // TODO: reduce the number of statements in the following method and reactivate the disabled eslint
-        // rule. eslint-disable-next-line max-statements
-        blockToken.children = internalTokens.flatMap((v) => {
-          if (typeof v == "string") {
-            const token = new state.Token("text", "span", 0);
-            token.content = v;
-            return [token];
-          } else {
-            const { text, reference } = v;
+        // We replace the content of the current block node only if at least a link has been found.
+        if (hasLink(internalTokens)) {
+          blockToken.content = "";
+          // TODO: reduce the number of statements in the following method and reactivate the disabled eslint
+          // rule. eslint-disable-next-line max-statements
+          blockToken.children = internalTokens.flatMap((v) => {
+            if (typeof v == "string") {
+              const token = new state.Token("text", "span", 0);
+              token.content = v;
+              return [token];
+            } else {
+              const { text, reference } = v;
 
-            const openToken = new state.Token("link_open", "a", 1);
-            openToken.attrSet("href", reference);
-            openToken.attrPush(["class", "internal-link"]);
-            const contentToken = new state.Token("text", "", 0);
-            contentToken.content = text || reference;
-            const closeToken = new state.Token("link_close", "a", -1);
-            // This is useful for the serializer, who is going to have access to this value to determine
-            // how to serialize the link
-            closeToken.attrPush(["class", "internal-link"]);
-            return [openToken, contentToken, closeToken];
-          }
-        });
+              const openToken = new state.Token("link_open", "a", 1);
+              openToken.attrSet(
+                "href",
+                remoteURLSerializer.serialize(
+                  modelReferenceParser.parse(reference),
+                ) ?? "",
+              );
+              openToken.attrPush(["class", "internal-link"]);
+              const contentToken = new state.Token("text", "", 0);
+              contentToken.content = text || reference;
+              const closeToken = new state.Token("link_close", "a", -1);
+              // This is useful for the serializer, who is going to have access to this value to determine
+              // how to serialize the link
+              closeToken.attrPush(["class", "internal-link"]);
+              return [openToken, contentToken, closeToken];
+            }
+          });
+        }
       }
-    }
-  });
+    });
+  };
 }
