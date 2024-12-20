@@ -25,7 +25,7 @@ import { loadLinkSuggest } from "../components/extensions/link-suggest";
 import { Slash } from "../components/extensions/slash";
 import { CollaborationKit, User } from "../extensions/collaboration";
 import Link from "../extensions/link";
-import Markdown from "../extensions/markdown";
+import initMarkdown from "../extensions/markdown";
 import Placeholder from "@tiptap/extension-placeholder";
 import Table from "@tiptap/extension-table";
 import TableCell from "@tiptap/extension-table-cell";
@@ -35,11 +35,14 @@ import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
   ImageInsertNode,
   TiptapImage as Image,
 } from "@xwiki/cristal-tiptap-extension-image";
+import { Container } from "inversify";
 import { debounce } from "lodash";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
 import { computed, inject, ref, watch } from "vue";
@@ -50,6 +53,7 @@ import type {
   LinkSuggestService,
   LinkSuggestServiceProvider,
 } from "@xwiki/cristal-link-suggest-api";
+import type { Markdown } from "tiptap-markdown";
 import type { ComputedRef, Ref } from "vue";
 
 const route = useRoute();
@@ -149,6 +153,64 @@ const currentUser = {
 
 let editor: Ref<Editor | undefined> = ref(undefined);
 
+function editorInit(
+  container: Container,
+  linkSuggest: LinkSuggestService | undefined,
+  MarkdownExtension: typeof Markdown,
+  realtimeURL: string | undefined,
+) {
+  return new Editor({
+    content: content.value || "",
+    extensions: [
+      GlobalDragHandle,
+      StarterKit.configure({
+        // Disable the default history in order to use Collaboration's history management so that users undo / redo
+        // only their own changes.
+        history: false,
+      }),
+      Placeholder.configure({
+        placeholder: "Type '/' to show the available actions",
+      }),
+      ImageInsertNode,
+      Image.configure({ inline: true }),
+      Table,
+      TableRow,
+      TableHeader,
+      TableCell,
+      Slash,
+      // TODO: I did it that way for simplicity but this should really be
+      // moved to an actual inversify component.
+      loadLinkSuggest(cristal.getSkinManager(), container, linkSuggest),
+      MarkdownExtension.configure({
+        html: true,
+      }),
+      Link.configure({
+        openOnClick: "whenNotEditable",
+      }),
+      CollaborationKit.configure({
+        channel: currentPageName.value,
+        user: currentUser,
+        saveCallback: save,
+        baseUrl: realtimeURL,
+      }),
+    ],
+  });
+}
+
+function loadComponentsFromLoadEditor() {
+  const container = cristal.getContainer();
+  const linkSuggest = container
+    .get<LinkSuggestServiceProvider>("LinkSuggestServiceProvider")
+    .get();
+  const modelReferenceParser = container
+    .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
+    .get()!;
+  const remoteURLSerialize = container
+    .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
+    .get()!;
+  return { container, linkSuggest, modelReferenceParser, remoteURLSerialize };
+}
+
 async function loadEditor(page: PageData | undefined) {
   // Push the content to the document.
   // TODO: move to a components based implementation
@@ -157,55 +219,22 @@ async function loadEditor(page: PageData | undefined) {
       page?.syntax == "markdown/1.2" ? page?.source : page?.html || "";
     title.value = page?.headlineRaw || "";
     titlePlaceholder.value = page?.name || currentPageName.value;
-
-    const linkSuggestServiceProvider = cristal
-      .getContainer()
-      .get<LinkSuggestServiceProvider>("LinkSuggestServiceProvider");
-    const linkSuggest: LinkSuggestService | undefined =
-      linkSuggestServiceProvider.get();
+    const { container, linkSuggest, modelReferenceParser, remoteURLSerialize } =
+      loadComponentsFromLoadEditor();
 
     const realtimeURL = cristal.getWikiConfig().realtimeURL;
 
-    editor.value = new Editor({
-      content: content.value || "",
-      extensions: [
-        GlobalDragHandle,
-        StarterKit.configure({
-          // Disable the default history in order to use Collaboration's history management so that users undo / redo
-          // only their own changes.
-          history: false,
-        }),
-        Placeholder.configure({
-          placeholder: "Type '/' to show the available actions",
-        }),
-        ImageInsertNode,
-        Image.configure({ inline: true }),
-        Table,
-        TableRow,
-        TableHeader,
-        TableCell,
-        Slash,
-        // TODO: I did it that way for simplicity but this should really be
-        // moved to an actual inversify component.
-        loadLinkSuggest(
-          cristal.getSkinManager(),
-          cristal.getContainer(),
-          linkSuggest,
-        ),
-        Markdown.configure({
-          html: true,
-        }),
-        Link.configure({
-          openOnClick: "whenNotEditable",
-        }),
-        CollaborationKit.configure({
-          channel: currentPageName.value,
-          user: currentUser,
-          saveCallback: save,
-          baseUrl: realtimeURL,
-        }),
-      ],
-    });
+    const MarkdownExtension = initMarkdown(
+      modelReferenceParser,
+      remoteURLSerialize,
+    );
+
+    editor.value = editorInit(
+      container,
+      linkSuggest,
+      MarkdownExtension,
+      realtimeURL,
+    );
   }
 }
 

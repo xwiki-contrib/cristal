@@ -22,35 +22,42 @@ import {
   parseInternalImages,
   parseInternalLinks,
 } from "@xwiki/cristal-markdown-default";
+import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import MarkdownIt from "markdown-it";
 import { Markdown } from "tiptap-markdown";
 
-export default Markdown.extend({
-  onBeforeCreate() {
-    const content = this.editor.options.content;
-    this.parent?.();
-    this.editor.storage.markdown.parser.md =
-      this.editor.storage.markdown.parser.md.use((md: MarkdownIt) => {
-        md.core.ruler.before(
-          "inline",
-          "markdown-internal-links",
-          parseInternalLinks,
-        );
-        // Is it important for the images to be parsed before the links, otherwise the exclamation mark prefixing the
-        // image links is just ignored as the rest of the syntax is the same.
-        md.core.ruler.before(
-          "markdown-internal-links",
-          "markdown-internal-images",
-          parseInternalImages(
-            // TODO: find out how to access those information from here, probably by passing them to the options when initializing the extension
-            modelReferenceParserProvider.get()!,
-            remoteURLSerializerProvider.get()!,
-          ),
-        );
-      });
-    // TODO: this is not optimal as the parent is also parsing the content but without the additional plugins.
-    // But his is also avoiding quite a lot of code duplication so keeping it like this for now.
-    this.editor.options.content =
-      this.editor.storage.markdown.parser.parse(content);
-  },
-});
+export default function (
+  modelReferenceParser: ModelReferenceParser,
+  remoteURLSerializer: RemoteURLSerializer,
+) {
+  return Markdown.extend({
+    onBeforeCreate() {
+      const content = this.editor.options.content;
+      this.parent?.();
+      this.editor.storage.markdown.parser.md =
+        this.editor.storage.markdown.parser.md.use((md: MarkdownIt) => {
+          md.core.ruler.before(
+            "inline",
+            "markdown-internal-links",
+            parseInternalLinks,
+          );
+          // Is it important for the images to be parsed before the links, otherwise the exclamation mark prefixing the
+          // image links is just ignored as the rest of the syntax is the same.
+          md.core.ruler.before(
+            "markdown-internal-links",
+            "markdown-internal-images",
+            parseInternalImages(
+              // TODO: find out how to access those information from here, probably by passing them to the options when initializing the extension
+              modelReferenceParser,
+              remoteURLSerializer,
+            ),
+          );
+        });
+      // TODO: this is not optimal as the parent is also parsing the content but without the additional plugins.
+      // But his is also avoiding quite a lot of code duplication so keeping it like this for now.
+      this.editor.options.content =
+        this.editor.storage.markdown.parser.parse(content);
+    },
+  });
+}
