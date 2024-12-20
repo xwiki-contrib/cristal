@@ -40,18 +40,14 @@ export default function (
           md.core.ruler.before(
             "inline",
             "markdown-internal-links",
-            parseInternalLinks,
+            parseInternalLinks(modelReferenceParser, remoteURLSerializer),
           );
           // Is it important for the images to be parsed before the links, otherwise the exclamation mark prefixing the
           // image links is just ignored as the rest of the syntax is the same.
           md.core.ruler.before(
             "markdown-internal-links",
             "markdown-internal-images",
-            parseInternalImages(
-              // TODO: find out how to access those information from here, probably by passing them to the options when initializing the extension
-              modelReferenceParser,
-              remoteURLSerializer,
-            ),
+            parseInternalImages(modelReferenceParser, remoteURLSerializer),
           );
         });
       // TODO: this is not optimal as the parent is also parsing the content but without the additional plugins.

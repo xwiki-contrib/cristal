@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { TiptapImage } from "./CristalTiptapImage";
+import { initTiptapImage } from "./CristalTiptapImage";
 import { ImageInsertNode } from "./ImageInsert";
 
-export { ImageInsertNode, TiptapImage };
+export { ImageInsertNode, initTiptapImage };

@@ -27,9 +27,11 @@ import {
   SpaceReference,
 } from "@xwiki/cristal-model-api";
 import { describe, expect, test } from "vitest";
+import { mock } from "vitest-mock-extended";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 
 describe("xWikiModelReferenceParser", () => {
-  const parser = new XWikiModelReferenceParser();
+  const parser = new XWikiModelReferenceParser(mock<DocumentService>());
   const currentSpace = new SpaceReference(undefined, "TestSpace");
   test.each([
     // TODO, the space reference must be filled relatively to the current document

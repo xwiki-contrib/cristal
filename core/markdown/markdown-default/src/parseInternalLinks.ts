@@ -18,9 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { EntityType } from "@xwiki/cristal-model-api/dist";
-import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api/dist";
-import type { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api/dist";
+import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import type { StateCore } from "markdown-it";
 
 const INTERNAL_LINK_REGEX = /\[\[((?<text>[^\]|]+)\|)?(?<reference>[^\]|]+)]]/g;

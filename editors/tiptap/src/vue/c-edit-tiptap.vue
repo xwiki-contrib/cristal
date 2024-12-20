@@ -24,7 +24,7 @@ import CTiptapBubbleMenu from "./c-tiptap-bubble-menu.vue";
 import { loadLinkSuggest } from "../components/extensions/link-suggest";
 import { Slash } from "../components/extensions/slash";
 import { CollaborationKit, User } from "../extensions/collaboration";
-import Link from "../extensions/link";
+import initLinkExtension from "../extensions/link";
 import initMarkdown from "../extensions/markdown";
 import Placeholder from "@tiptap/extension-placeholder";
 import Table from "@tiptap/extension-table";
@@ -35,12 +35,20 @@ import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
-import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+import {
+  ModelReferenceParserProvider,
+  ModelReferenceSerializer,
+  ModelReferenceSerializerProvider,
+} from "@xwiki/cristal-model-reference-api";
+import {
+  RemoteURLParser,
+  RemoteURLParserProvider,
+  RemoteURLSerializerProvider,
+} from "@xwiki/cristal-model-remote-url-api";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
   ImageInsertNode,
-  TiptapImage as Image,
+  initTiptapImage,
 } from "@xwiki/cristal-tiptap-extension-image";
 import { Container } from "inversify";
 import { debounce } from "lodash";
@@ -158,6 +166,8 @@ function editorInit(
   linkSuggest: LinkSuggestService | undefined,
   MarkdownExtension: typeof Markdown,
   realtimeURL: string | undefined,
+  serializer: ModelReferenceSerializer,
+  parser: RemoteURLParser,
 ) {
   return new Editor({
     content: content.value || "",
@@ -172,7 +182,7 @@ function editorInit(
         placeholder: "Type '/' to show the available actions",
       }),
       ImageInsertNode,
-      Image.configure({ inline: true }),
+      initTiptapImage(serializer, parser).configure({ inline: true }),
       Table,
       TableRow,
       TableHeader,
@@ -184,7 +194,7 @@ function editorInit(
       MarkdownExtension.configure({
         html: true,
       }),
-      Link.configure({
+      initLinkExtension(serializer, parser).configure({
         openOnClick: "whenNotEditable",
       }),
       CollaborationKit.configure({
@@ -208,7 +218,20 @@ function loadComponentsFromLoadEditor() {
   const remoteURLSerialize = container
     .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
     .get()!;
-  return { container, linkSuggest, modelReferenceParser, remoteURLSerialize };
+  const remoteURLParser = container
+    .get<RemoteURLParserProvider>("RemoteURLParserProvider")
+    .get()!;
+  const modelReferenceSerializer = container
+    .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")
+    .get()!;
+  return {
+    container,
+    linkSuggest,
+    modelReferenceParser,
+    remoteURLSerialize,
+    remoteURLParser,
+    modelReferenceSerializer,
+  };
 }
 
 async function loadEditor(page: PageData | undefined) {
@@ -219,8 +242,14 @@ async function loadEditor(page: PageData | undefined) {
       page?.syntax == "markdown/1.2" ? page?.source : page?.html || "";
     title.value = page?.headlineRaw || "";
     titlePlaceholder.value = page?.name || currentPageName.value;
-    const { container, linkSuggest, modelReferenceParser, remoteURLSerialize } =
-      loadComponentsFromLoadEditor();
+    const {
+      container,
+      linkSuggest,
+      modelReferenceParser,
+      remoteURLSerialize,
+      remoteURLParser,
+      modelReferenceSerializer,
+    } = loadComponentsFromLoadEditor();
 
     const realtimeURL = cristal.getWikiConfig().realtimeURL;
 
@@ -234,6 +263,8 @@ async function loadEditor(page: PageData | undefined) {
       linkSuggest,
       MarkdownExtension,
       realtimeURL,
+      modelReferenceSerializer,
+      remoteURLParser,
     );
   }
 }

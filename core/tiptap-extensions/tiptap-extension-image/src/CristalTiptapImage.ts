@@ -20,54 +20,79 @@
 import ImageView from "./vue/ImageView.vue";
 import Image from "@tiptap/extension-image";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
-import type { Mark } from "@tiptap/pm/model";
+import { EntityReference } from "@xwiki/cristal-model-api";
+import { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
+import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
+import type { Node } from "@tiptap/pm/model";
 
-function isExternalImage(mark: Mark) {
-  return !(mark.attrs.src as string)?.startsWith("http://");
+function serializeExternal(node: Node, state: any) {
+  state.write("![");
+  if (node.attrs.alt) {
+    state.write(node.attrs.alt);
+  }
+  state.write("](");
+  state.write(node.attrs.src);
+  state.write(")");
+  state.closeBlock(node);
 }
 
 /**
  * We need to override the default image view to be able to easily add widgets (i.e., visual elements that are not
  * part of the persisted DOM) using Vue.
  */
-const TiptapImage = Image.extend({
-  addAttributes() {
-    return {
-      ...this.parent?.(),
-      width: undefined,
-      height: undefined,
-    };
-  },
-  addNodeView() {
-    return VueNodeViewRenderer(ImageView);
-  },
-  addStorage() {
-    return {
-      markdown: {
-        serialize: {
-          open(state: unknown, mark: Mark) {
-            return isExternalImage(mark)
-              ? "![["
-              : // TODO: replace with a call to the default spec.
-                "![";
-          },
-          close: function (state: unknown, mark: Mark) {
-            if (isExternalImage(mark)) {
-              return `|${mark.attrs.src}]]`;
+const initTiptapImage = function (
+  serializer: ModelReferenceSerializer,
+  parser: RemoteURLParser,
+) {
+  function parseLink(mark: Node): EntityReference | undefined {
+    try {
+      return parser.parse(mark.attrs.src as string);
+    } catch {
+      return undefined;
+    }
+  }
+
+  function serializeInternal(
+    node: Node,
+    state: any,
+    entityRefence: EntityReference,
+  ) {
+    state.write("![[");
+    if (node.attrs.alt) {
+      state.write(node.attrs.alt);
+      state.write("|");
+    }
+    state.write(serializer.serialize(entityRefence)!);
+    state.write("]]");
+    state.closeBlock(node);
+  }
+
+  return Image.extend({
+    addAttributes() {
+      return {
+        ...this.parent?.(),
+        width: undefined,
+        height: undefined,
+      };
+    },
+    addNodeView() {
+      return VueNodeViewRenderer(ImageView);
+    },
+    addStorage() {
+      return {
+        markdown: {
+          serialize(state: any, node: Node) {
+            const entityReference = parseLink(node);
+            if (entityReference) {
+              serializeInternal(node, state, entityReference);
             } else {
-              // TODO: replace with a call to the default spec.
-              return `](${mark.attrs.src.replace(/[()"]/g, "\\$&")}${
-                mark.attrs.alt
-                  ? ` "${mark.attrs.alt.replace(/"/g, '\\"')}"`
-                  : ""
-              })`;
+              serializeExternal(node, state);
             }
           },
-          mixable: true,
         },
-      },
-    };
-  },
-});
+      };
+    },
+  });
+};
 
-export { TiptapImage };
+export { initTiptapImage };
