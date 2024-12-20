@@ -46,6 +46,13 @@ interface DocumentService {
   getCurrentDocumentReference(): Ref<DocumentReference | undefined>;
 
   /**
+   * Returns a serialized string of {@link getCurrentDocumentReference}.
+   *
+   * @since 0.13
+   */
+  getCurrentDocumentReferenceString(): Ref<string | undefined>;
+
+  /**
    * @returns the revision of the current document, or undefined if it's the last one
    * @since 0.12
    */

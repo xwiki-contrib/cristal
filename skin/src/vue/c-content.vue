@@ -27,7 +27,6 @@ import { CIcon, Size } from "@xwiki/cristal-icons";
 import { PageActions } from "@xwiki/cristal-page-actions-ui";
 import { computed, inject, onUpdated, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRoute } from "vue-router";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
@@ -36,8 +35,6 @@ import type { ComputedRef, Ref } from "vue";
 const { t } = useI18n({
   messages,
 });
-
-const route = useRoute();
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 const container = cristal.getContainer();
@@ -50,12 +47,7 @@ const currentPage: Ref<PageData | undefined> =
   documentService.getCurrentDocument();
 const currentPageRevision: Ref<string | undefined> =
   documentService.getCurrentDocumentRevision();
-const currentPageName: ComputedRef<string> = computed(() => {
-  // TODO: define a proper abstraction.
-  return (
-    (route.params.page as string) || cristal.getCurrentPage() || "Main.WebHome"
-  );
-});
+const currentPageName = documentService.getCurrentDocumentReferenceString();
 
 const contentRoot = ref(undefined);
 
@@ -121,7 +113,7 @@ onUpdated(() => {
         </router-link>
         <page-actions
           :current-page="currentPage"
-          :current-page-name="currentPageName"
+          :current-page-name="currentPageName ?? ''"
           :disabled="currentPageRevision !== undefined"
         ></page-actions>
       </div>

@@ -101,7 +101,8 @@ export function parseInternalLinks(
         if (hasLink(internalTokens)) {
           blockToken.content = "";
           // TODO: reduce the number of statements in the following method and reactivate the disabled eslint
-          // rule. eslint-disable-next-line max-statements
+          // rule.
+          // eslint-disable-next-line max-statements
           blockToken.children = internalTokens.flatMap((v) => {
             if (typeof v == "string") {
               const token = new state.Token("text", "span", 0);

@@ -28,10 +28,23 @@ import {
 } from "@xwiki/cristal-model-api";
 import { describe, expect, test } from "vitest";
 import { mock } from "vitest-mock-extended";
+import { ref } from "vue";
 import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { Ref } from "vue";
 
 describe("xWikiModelReferenceParser", () => {
-  const parser = new XWikiModelReferenceParser(mock<DocumentService>());
+  const documentService = mock<DocumentService>({
+    getCurrentDocumentReference(): Ref<DocumentReference | undefined> {
+      return ref(
+        new DocumentReference(
+          "WebHome",
+          new SpaceReference(undefined, "TestSpace"),
+        ),
+      );
+    },
+  });
+
+  const parser = new XWikiModelReferenceParser(documentService);
   const currentSpace = new SpaceReference(undefined, "TestSpace");
   test.each([
     ["WebHome", undefined, new DocumentReference("WebHome", currentSpace)],

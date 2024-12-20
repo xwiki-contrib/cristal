@@ -53,8 +53,7 @@ import {
 import { Container } from "inversify";
 import { debounce } from "lodash";
 import GlobalDragHandle from "tiptap-extension-global-drag-handle";
-import { computed, inject, ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { inject, ref, watch } from "vue";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
@@ -62,9 +61,8 @@ import type {
   LinkSuggestServiceProvider,
 } from "@xwiki/cristal-link-suggest-api";
 import type { Markdown } from "tiptap-markdown";
-import type { ComputedRef, Ref } from "vue";
+import type { Ref } from "vue";
 
-const route = useRoute();
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 
 const documentService = cristal
@@ -81,16 +79,12 @@ const content = ref("");
 const title = ref("");
 const titlePlaceholder = ref("");
 
-const currentPageName: ComputedRef<string> = computed(() => {
-  // TODO: define a proper abstraction.
-  return (
-    (route.params.page as string) || cristal.getCurrentPage() || "Main.WebHome"
-  );
-});
+const currentPageName: Ref<string | undefined> =
+  documentService.getCurrentDocumentReferenceString();
 
 const viewRouterParams = {
   name: "view",
-  params: { page: currentPageName.value },
+  params: { page: currentPageName.value ?? "" },
 };
 const view = () => {
   // Destroy the editor instance.
@@ -109,7 +103,7 @@ const save = async (authors: User[]) => {
     .get<StorageProvider>("StorageProvider")
     .get();
   await storage.save(
-    currentPageName.value,
+    currentPageName.value ?? "",
     editor.value?.storage.markdown.getMarkdown(),
     title.value,
     "html",
@@ -117,7 +111,7 @@ const save = async (authors: User[]) => {
   // If this save operation just created the document, the current document
   // will be undefined. So we update it.
   if (!currentPage.value) {
-    documentService.setCurrentDocument(currentPageName.value);
+    documentService.setCurrentDocument(currentPageName.value ?? "");
   }
   documentService.notifyDocumentChange("update", currentPage.value!);
 };
@@ -241,7 +235,7 @@ async function loadEditor(page: PageData | undefined) {
     content.value =
       page?.syntax == "markdown/1.2" ? page?.source : page?.html || "";
     title.value = page?.headlineRaw || "";
-    titlePlaceholder.value = page?.name || currentPageName.value;
+    titlePlaceholder.value = page?.name ?? currentPageName.value ?? "";
     const {
       container,
       linkSuggest,

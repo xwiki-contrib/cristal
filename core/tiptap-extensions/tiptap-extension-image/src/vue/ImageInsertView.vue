@@ -2,6 +2,7 @@
 import { NodeViewWrapper } from "@tiptap/vue-3";
 import { CristalApp } from "@xwiki/cristal-api";
 import { AttachmentsService } from "@xwiki/cristal-attachments-api";
+import { DocumentService } from "@xwiki/cristal-document-api";
 import {
   Link,
   LinkSuggestServiceProvider,
@@ -16,7 +17,6 @@ import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api
 import { LinkSuggestItem } from "@xwiki/cristal-tiptap-link-suggest-ui";
 import { debounce } from "lodash";
 import { Ref, inject, ref, useTemplateRef, watch } from "vue";
-import { useRoute } from "vue-router";
 import { Tippy } from "vue-tippy";
 import type { NodeViewProps } from "@tiptap/vue-3";
 import "@tiptap/extension-image";
@@ -33,8 +33,9 @@ const remoteURLSerializer = cristal
   .getContainer()
   .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
   .get();
-
-const route = useRoute();
+const documentService = cristal
+  .getContainer()
+  .get<DocumentService>("DocumentService")!;
 
 const loading = attachmentsService.isLoading();
 
@@ -130,14 +131,15 @@ function triggerUpload() {
   fileUpload.value?.click();
 }
 
+function getCurrentPageName() {
+  return documentService.getCurrentDocumentReferenceString().value ?? "";
+}
+
 async function fileSelected() {
   const files = fileUpload.value?.files;
   if (files && files.length > 0) {
     const fileItem = files.item(0)!;
-    const currentPageName =
-      (route.params.page as string) ||
-      cristal.getCurrentPage() ||
-      "Main.WebHome";
+    const currentPageName = getCurrentPageName();
     await attachmentsService.upload(currentPageName, [fileItem]);
 
     const parser = modelReferenceParser?.parse(currentPageName);

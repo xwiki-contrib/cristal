@@ -28,7 +28,10 @@ import type {
   DocumentService,
 } from "@xwiki/cristal-document-api";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import type {
+  ModelReferenceParserProvider,
+  ModelReferenceSerializerProvider,
+} from "@xwiki/cristal-model-reference-api";
 
 type Id = "document";
 type State = {
@@ -46,10 +49,14 @@ type WrappedRefs<Type> = {
   readonly [Property in keyof Type]: Ref<Type[Property]>;
 };
 type StateRefs = WrappedRefs<
-  State & { documentReference: DocumentReference | undefined }
+  State & {
+    documentReference: DocumentReference | undefined;
+    documentReferenceString: string | undefined;
+  }
 >;
 type Getters = {
   documentReference(): DocumentReference | undefined;
+  documentReferenceString(): string | undefined;
 };
 type Actions = {
   /**
@@ -77,6 +84,11 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
     .getContainer()
     .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
     .get()!;
+  const modelReferenceSerializer = cristal
+    .getContainer()
+    .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")
+    .get()!;
+
   return defineStore<Id, State, Getters, Actions>("document", {
     state() {
       return {
@@ -94,6 +106,9 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
           this.lastDocumentReference ?? "",
           EntityType.DOCUMENT,
         ) as DocumentReference;
+      },
+      documentReferenceString(): string | undefined {
+        return modelReferenceSerializer.serialize(this.documentReference);
       },
     },
     actions: {
@@ -162,6 +177,10 @@ export class DefaultDocumentService implements DocumentService {
 
   getCurrentDocumentReference(): Ref<DocumentReference | undefined> {
     return this.refs.documentReference;
+  }
+
+  getCurrentDocumentReferenceString(): Ref<string | undefined> {
+    return this.refs.documentReferenceString;
   }
 
   getCurrentDocumentRevision(): Ref<string | undefined> {
