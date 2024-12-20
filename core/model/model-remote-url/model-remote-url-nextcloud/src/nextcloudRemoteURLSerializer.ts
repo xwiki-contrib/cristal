@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { USERNAME } from "@xwiki/cristal-authentication-nextcloud";
 import {
   AttachmentReference,
   DocumentReference,
@@ -27,8 +28,6 @@ import {
 import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
-
-const USERNAME = "test";
 
 @injectable()
 class NextcloudRemoteURLSerializer implements RemoteURLSerializer {

@@ -355,6 +355,15 @@ importers:
         specifier: 6.0.3
         version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
 
+  core/authentication/authentication-nextcloud:
+    devDependencies:
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+      vite:
+        specifier: 6.0.3
+        version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
+
   core/authentication/authentication-ui:
     dependencies:
       '@xwiki/cristal-api':
@@ -515,6 +524,9 @@ importers:
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../../authentication/authentication-api
+      '@xwiki/cristal-authentication-nextcloud':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-nextcloud
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
@@ -1197,6 +1209,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-authentication-nextcloud':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-nextcloud
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../link-suggest-api
@@ -1524,6 +1539,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../../api
+      '@xwiki/cristal-authentication-nextcloud':
+        specifier: workspace:*
+        version: link:../../../authentication/authentication-nextcloud
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model-api
@@ -1671,6 +1689,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-authentication-nextcloud':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-nextcloud
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model/model-api
@@ -1856,6 +1877,9 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
+      prosemirror-markdown:
+        specifier: 1.13.1
+        version: 1.13.1
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -7400,9 +7424,6 @@ packages:
 
   prosemirror-keymap@1.2.2:
     resolution: {integrity: sha512-EAlXoksqC6Vbocqc0GtzCruZEzYgrn+iiGnNjsJsH4mrnIGex4qbLdWWNza3AW5W36ZRrlBID0eM6bdKH4OStQ==}
-
-  prosemirror-markdown@1.12.0:
-    resolution: {integrity: sha512-6F5HS8Z0HDYiS2VQDZzfZP6A0s/I0gbkJy8NCzzDMtcsz3qrfqyroMMeoSjAmOhDITyon11NbXSzztfKi+frSQ==}
 
   prosemirror-markdown@1.13.1:
     resolution: {integrity: sha512-Sl+oMfMtAjWtlcZoj/5L/Q39MpEnVZ840Xo330WJWUvgyhNmLBLN7MsHn07s53nG/KImevWHSE6fEj4q/GihHw==}
@@ -13175,11 +13196,6 @@ snapshots:
       prosemirror-state: 1.4.3
       w3c-keyname: 2.2.8
 
-  prosemirror-markdown@1.12.0:
-    dependencies:
-      markdown-it: 14.1.0
-      prosemirror-model: 1.23.0
-
   prosemirror-markdown@1.13.1:
     dependencies:
       '@types/markdown-it': 14.1.2
@@ -13808,7 +13824,7 @@ snapshots:
       '@types/markdown-it': 13.0.8
       markdown-it: 14.1.0
       markdown-it-task-lists: 2.1.1
-      prosemirror-markdown: 1.12.0
+      prosemirror-markdown: 1.13.1
 
   tmp-promise@3.0.3:
     dependencies:

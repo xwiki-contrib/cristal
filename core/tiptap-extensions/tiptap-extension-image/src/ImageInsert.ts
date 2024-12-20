@@ -17,7 +17,10 @@ const ImageInsertNode = Node.create({
   addStorage() {
     return {
       markdown: {
-        serialize: () => {},
+        serialize: () => {
+          // This element is only a temporary placeholder to pick and image, it is not ment to part of the persisted
+          // syntax.
+        },
       },
     };
   },

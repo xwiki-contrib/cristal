@@ -24,8 +24,9 @@ import { EntityReference } from "@xwiki/cristal-model-api";
 import { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
 import { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
 import type { Node } from "@tiptap/pm/model";
+import type { MarkdownSerializerState } from "prosemirror-markdown";
 
-function serializeExternal(node: Node, state: any) {
+function serializeExternal(node: Node, state: MarkdownSerializerState) {
   state.write("![");
   if (node.attrs.alt) {
     state.write(node.attrs.alt);
@@ -54,7 +55,7 @@ const initTiptapImage = function (
 
   function serializeInternal(
     node: Node,
-    state: any,
+    state: MarkdownSerializerState,
     entityRefence: EntityReference,
   ) {
     state.write("![[");
@@ -81,7 +82,7 @@ const initTiptapImage = function (
     addStorage() {
       return {
         markdown: {
-          serialize(state: any, node: Node) {
+          serialize(state: MarkdownSerializerState, node: Node) {
             const entityReference = parseLink(node);
             if (entityReference) {
               serializeInternal(node, state, entityReference);

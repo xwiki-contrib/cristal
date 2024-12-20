@@ -34,9 +34,7 @@ describe("xWikiModelReferenceParser", () => {
   const parser = new XWikiModelReferenceParser(mock<DocumentService>());
   const currentSpace = new SpaceReference(undefined, "TestSpace");
   test.each([
-    // TODO, the space reference must be filled relatively to the current document
     ["WebHome", undefined, new DocumentReference("WebHome", currentSpace)],
-    // TODO the document reference must be filled relatively to the current document
     [
       "attach:TestSpace.png",
       undefined,
@@ -45,7 +43,6 @@ describe("xWikiModelReferenceParser", () => {
         new DocumentReference("WebHome", currentSpace),
       ),
     ],
-    // TODO the document reference must be filled relatively to the current document
     [
       "TestSpace.png",
       EntityType.ATTACHMENT,
