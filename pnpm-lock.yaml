@@ -280,9 +280,15 @@ importers:
       '@xwiki/cristal-info-actions-api':
         specifier: workspace:*
         version: link:../../info-actions/info-actions-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-model-click-listener':
         specifier: workspace:*
         version: link:../../model/model-click-listener
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../model/model-reference/model-reference-api
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../../uiextension/uiextension-api
@@ -1219,6 +1225,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../link-suggest-api
@@ -2424,6 +2433,9 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../../core/model/model-api
       '@xwiki/cristal-model-reference-api':
         specifier: workspace:*
         version: link:../../../core/model/model-reference/model-reference-api
@@ -2554,6 +2566,9 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../core/model/model-api
       '@xwiki/cristal-model-remote-url-filesystem-api':
         specifier: workspace:*
         version: link:../../core/model/model-remote-url/model-remote-url-filesystem/model-remote-url-filesystem-api

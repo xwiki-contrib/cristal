@@ -70,6 +70,7 @@ class DocumentReference implements EntityReference {
   space?: SpaceReference;
   name: string;
   /**
+   * Indicates whether the current document reference is terminal.
    * @since 0.13
    */
   terminal: boolean;

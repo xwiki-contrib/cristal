@@ -26,9 +26,14 @@ import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-referenc
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type MarkdownIt from "markdown-it";
 
+/**
+ * Default implementation based on markdown-it.
+ * @since 0.13
+ */
 @injectable()
 class DefaultMarkdownRenderer implements MarkdownRenderer {
   private md: MarkdownIt;
+
   constructor(
     @inject<ModelReferenceParserProvider>("ModelReferenceParserProvider")
     private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
@@ -43,6 +48,9 @@ class DefaultMarkdownRenderer implements MarkdownRenderer {
       "markdown-internal-links",
       parseInternalLinks(modelReferenceParser, remoteURLSerializer),
     );
+    // This declaration needs to happen after markdown-internal-links, otherwise an error is thrown because
+    // markdown-internal-links is not found. But, "markdown-internal-images" is executed before
+    // "markdown-internal-links"
     this.md.core.ruler.before(
       "markdown-internal-links",
       "markdown-internal-images",

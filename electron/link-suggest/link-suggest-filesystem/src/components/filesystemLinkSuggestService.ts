@@ -23,6 +23,7 @@ import {
   LinkSuggestService,
   LinkType,
 } from "@xwiki/cristal-link-suggest-api";
+import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
@@ -33,7 +34,12 @@ declare const fileSystemStorage: {
     query: string,
     type?: LinkType,
     mimetype?: string,
-  ): Promise<(PageAttachment | PageData)[]>;
+  ): Promise<
+    (
+      | { type: EntityType.ATTACHMENT; value: PageAttachment }
+      | { type: EntityType.DOCUMENT; value: PageData }
+    )[]
+  >;
 };
 
 /**
@@ -66,15 +72,30 @@ export class FilesystemLinkSuggestService implements LinkSuggestService {
     console.log(attachments);
     // TODO: convert to links.
     return attachments.map((result) => {
-      const attachment = result as PageAttachment;
-      return {
-        id: attachment.id,
-        reference: attachment.reference,
-        url: attachment.href,
-        type: LinkType.ATTACHMENT,
-        hint: "",
-        label: attachment.id,
-      };
+      switch (result.type) {
+        case EntityType.ATTACHMENT: {
+          const attachment = result.value;
+          return {
+            id: attachment.id,
+            reference: attachment.reference,
+            url: attachment.href,
+            type: LinkType.ATTACHMENT,
+            hint: "",
+            label: attachment.id,
+          };
+        }
+        case EntityType.DOCUMENT: {
+          const document = result.value;
+          return {
+            id: document.id,
+            reference: document.id,
+            url: document.id,
+            type: LinkType.PAGE,
+            hint: "",
+            label: document.id,
+          };
+        }
+      }
     });
   }
 }

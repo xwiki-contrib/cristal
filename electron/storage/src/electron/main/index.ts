@@ -20,6 +20,7 @@
 
 import { PageAttachment, PageData } from "@xwiki/cristal-api";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
+import { EntityType } from "@xwiki/cristal-model-api";
 import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import { app, ipcMain, net, protocol, shell } from "electron";
 import mime from "mime";
@@ -108,7 +109,9 @@ async function pathExists(path: string) {
   return true;
 }
 
-async function readPage(path: string): Promise<PageData | undefined> {
+async function readPage(
+  path: string,
+): Promise<{ type: EntityType.DOCUMENT; value: PageData } | undefined> {
   if (!(await isWithin(HOME_PATH_FULL, path))) {
     throw new Error(`[${path}] is not in in [${HOME_PATH_FULL}]`);
   }
@@ -121,9 +124,12 @@ async function readPage(path: string): Promise<PageData | undefined> {
       parse.name = basename(dirname(path));
     }
     return {
-      ...parse,
-      lastAuthor: { name: os.userInfo().username },
-      lastModificationDate: new Date(pageStats.mtimeMs),
+      type: EntityType.DOCUMENT,
+      value: {
+        ...parse,
+        lastAuthor: { name: os.userInfo().username },
+        lastModificationDate: new Date(pageStats.mtimeMs),
+      },
     };
   } else {
     return undefined;
@@ -137,12 +143,14 @@ async function readAttachments(
     throw new Error(`[${path}] is not in in [${HOME_PATH_FULL}]`);
   }
   if (await isDirectory(path)) {
-    const pageContent = await fs.promises.readdir(path);
+    const attachments = await fs.promises.readdir(path);
     return (
       await Promise.all(
-        pageContent.map((attachment) => readAttachment(join(path, attachment))),
+        attachments.map((attachment) => readAttachment(join(path, attachment))),
       )
-    ).filter((it) => it !== undefined);
+    )
+      .filter((it) => it !== undefined)
+      .map((it) => it.value);
   } else {
     return undefined;
   }
@@ -150,7 +158,7 @@ async function readAttachments(
 
 async function readAttachment(
   path: string,
-): Promise<PageAttachment | undefined> {
+): Promise<{ type: EntityType.ATTACHMENT; value: PageAttachment } | undefined> {
   if (!(await isWithin(HOME_PATH_FULL, path))) {
     throw new Error(`[${path}] is not in in [${HOME_PATH_FULL}]`);
   }
@@ -159,13 +167,16 @@ async function readAttachment(
     const stats = await fs.promises.stat(path);
     const mimetype = mime.getType(path) || "";
     return {
-      id: basename(path),
-      mimetype,
-      reference: relative(HOME_PATH_FULL, path),
-      href: `${cristalFSProtocol}://${relative(HOME_PATH_FULL, path)}`,
-      date: stats.mtime,
-      size: stats.size,
-      author: undefined,
+      type: EntityType.ATTACHMENT,
+      value: {
+        id: basename(path),
+        mimetype,
+        reference: relative(HOME_PATH_FULL, path),
+        href: `${cristalFSProtocol}://${relative(HOME_PATH_FULL, path)}`,
+        date: stats.mtime,
+        size: stats.size,
+        author: undefined,
+      },
     };
   } else {
     return undefined;
@@ -222,7 +233,7 @@ async function savePage(
   // Set the flag to w+ so that the file is created if it does not already
   // exist, or fully replaced when it does.
   await fs.promises.writeFile(path, newJSON, { flag: "w+" });
-  return readPage(path);
+  return (await readPage(path))?.value;
 }
 
 async function saveAttachment(path: string, filePath: string) {
@@ -283,7 +294,12 @@ async function search(
   query: string,
   type?: LinkType,
   mimetype?: string,
-): Promise<(PageAttachment | PageData)[]> {
+): Promise<
+  (
+    | { type: EntityType.ATTACHMENT; value: PageAttachment }
+    | { type: EntityType.DOCUMENT; value: PageData }
+  )[]
+> {
   const attachments = (await readdir(HOME_PATH_FULL, { recursive: true })).map(
     (it) => join(HOME_PATH_FULL, it),
   );
@@ -297,17 +313,21 @@ async function search(
     }
   });
 
+  console.log("asyncRes", asyncRes);
+
+  const strings = asyncRes.filter((it) => basename(it).includes(query));
+  console.log("strings", strings);
   const promise = await Promise.all(
-    asyncRes
-      .filter((it) => basename(it).includes(query))
-      .map(async (it) => {
-        if (await isPage(it)) {
-          return readPage(it);
-        } else {
-          return readAttachment(it);
-        }
-      }),
+    strings.map(async (it) => {
+      if (await isPage(it)) {
+        return readPage(it);
+      } else {
+        return readAttachment(it);
+      }
+    }),
   );
+
+  console.log("promise", promise);
 
   return promise.filter((it) => it !== undefined);
 }
@@ -332,14 +352,14 @@ export default function load(): void {
   ipcMain.handle("resolveAttachmentsPath", (event, { page }) => {
     return resolveAttachmentsPath(page);
   });
-  ipcMain.handle("readPage", (event, { path }) => {
-    return readPage(path);
+  ipcMain.handle("readPage", async (event, { path }) => {
+    return (await readPage(path))?.value;
   });
   ipcMain.handle("readAttachments", (event, { path }) => {
     return readAttachments(path);
   });
-  ipcMain.handle("readAttachment", (event, { path }) => {
-    return readAttachment(path);
+  ipcMain.handle("readAttachment", async (event, { path }) => {
+    return (await readAttachment(path))?.value;
   });
   ipcMain.handle("savePage", (event, { path, content, title }) => {
     return savePage(path, content, title);

@@ -29,8 +29,8 @@ import type {
 } from "@xwiki/cristal-navigation-tree-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
-const USERNAME = "admin";
-const PASSWORD = "admin";
+const USERNAME = "test";
+const PASSWORD = "test";
 
 /**
  * Implementation of NavigationTreeSource for the Nextcloud backend.

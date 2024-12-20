@@ -20,6 +20,7 @@
 
 import { PageAttachment, PageData } from "@xwiki/cristal-api";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
+import { EntityType } from "@xwiki/cristal-model-api";
 
 export interface APITypes {
   resolvePath(page: string): Promise<string>;
@@ -53,5 +54,10 @@ export interface APITypes {
     query: string,
     type?: LinkType,
     mimetype?: string,
-  ): Promise<(PageAttachment | PageData)[]>;
+  ): Promise<
+    (
+      | { type: EntityType.ATTACHMENT; value: PageAttachment }
+      | { type: EntityType.DOCUMENT; value: PageData }
+    )[]
+  >;
 }

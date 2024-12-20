@@ -29,7 +29,7 @@ import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
-const USERNAME = "admin";
+const USERNAME = "test";
 
 @injectable()
 class NextcloudRemoteURLParser implements RemoteURLParser {

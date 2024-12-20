@@ -21,6 +21,7 @@
 import { Link, LinkType, name } from "@xwiki/cristal-link-suggest-api";
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
 import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
@@ -39,6 +40,8 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
     @inject<ModelReferenceParserProvider>("ModelReferenceParserProvider")
     private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
+    @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+    private authenticationManagerProvider: AuthenticationManagerProvider,
   ) {}
 
   async getLinks(
@@ -46,7 +49,6 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     type?: LinkType,
     mimetype?: string,
   ): Promise<Link[]> {
-    // TODO: currently only proposing links available to guest
     const json = await this.executeQuery(type, mimetype, query);
 
     return json
@@ -74,6 +76,11 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     const getParams = new URLSearchParams(params).toString();
     const response = await fetch(
       `${baseURL}/bin/get/XWiki/SuggestSolrService?${getParams}`,
+      {
+        headers: {
+          ...(await this.getCredentials()),
+        },
+      },
     );
 
     return await response.json();
@@ -143,6 +150,17 @@ class XWikiLinkSuggestService implements LinkSuggestService {
       label: filename[0],
       hint: filename[0],
     };
+  }
+
+  private async getCredentials(): Promise<{ Authorization?: string }> {
+    const authorizationHeader = await this.authenticationManagerProvider
+      .get()
+      ?.getAuthorizationHeader();
+    const headers: { Authorization?: string } = {};
+    if (authorizationHeader) {
+      headers["Authorization"] = authorizationHeader;
+    }
+    return headers;
   }
 }
 

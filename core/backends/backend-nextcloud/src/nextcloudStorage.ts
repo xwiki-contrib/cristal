@@ -30,8 +30,8 @@ import type { Logger } from "@xwiki/cristal-api";
 import type { UserDetails } from "@xwiki/cristal-authentication-api";
 
 // TODO: To be replaced by an actual authentication with CRISTAL-267
-const USERNAME = "admin";
-const PASSWORD = "admin";
+const USERNAME = "test";
+const PASSWORD = "test";
 
 /**
  * Access Nextcloud storage through http.

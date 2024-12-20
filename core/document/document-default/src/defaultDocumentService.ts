@@ -73,6 +73,10 @@ type DocumentStoreDefinition = StoreDefinition<Id, State, Getters, Actions>;
 type DocumentStore = Store<Id, State, Getters, Actions>;
 
 function createStore(cristal: CristalApp): DocumentStoreDefinition {
+  const modelReferenceParser = cristal
+    .getContainer()
+    .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
+    .get()!;
   return defineStore<Id, State, Getters, Actions>("document", {
     state() {
       return {
@@ -86,10 +90,6 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
     },
     getters: {
       documentReference() {
-        const modelReferenceParser = cristal
-          .getContainer()
-          .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
-          .get()!;
         return modelReferenceParser.parse(
           this.lastDocumentReference ?? "",
           EntityType.DOCUMENT,
@@ -161,8 +161,6 @@ export class DefaultDocumentService implements DocumentService {
   }
 
   getCurrentDocumentReference(): Ref<DocumentReference | undefined> {
-    // TODO: check if right value and possibly parse it
-    console.log(this.refs.lastDocumentReference);
     return this.refs.documentReference;
   }
 

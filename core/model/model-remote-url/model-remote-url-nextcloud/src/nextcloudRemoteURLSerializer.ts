@@ -28,7 +28,7 @@ import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 
-const USERNAME = "admin";
+const USERNAME = "test";
 
 @injectable()
 class NextcloudRemoteURLSerializer implements RemoteURLSerializer {

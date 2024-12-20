@@ -39,6 +39,8 @@ interface DocumentService {
   getCurrentDocument(): Ref<PageData | undefined>;
 
   /**
+   * Returns a reference the document reference for the current document.
+   *
    * @since 0.13
    */
   getCurrentDocumentReference(): Ref<DocumentReference | undefined>;
