@@ -26,9 +26,11 @@
   "dependencies": {
     "@xwiki/cristal-model-api": "workspace:*",
     "@xwiki/cristal-model-reference-api": "workspace:*",
-    "inversify": "6.2.0"
+    "inversify": "6.2.0",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
+    "@types/lodash": "4.17.13",
     "reflect-metadata": "0.2.2",
     "typescript": "5.6.3",
     "vite": "6.0.3",

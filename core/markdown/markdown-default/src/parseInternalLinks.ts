@@ -20,10 +20,9 @@
 
 import type { StateCore } from "markdown-it";
 
-const INTERNAL_IMAGE_REGEX =
-  /!\[\[((?<text>[^\]|]+)\|)?(?<reference>[^\]|]+)]]/g;
+const INTERNAL_LINK_REGEX = /\[\[((?<text>[^\]|]+)\|)?(?<reference>[^\]|]+)]]/g;
 
-type InternalImage = { text?: string; reference: string };
+type InternalLink = { text?: string; reference: string };
 
 /**
  * Takes the substring of content between start and end (and from start until the end if end is empty).
@@ -35,7 +34,7 @@ type InternalImage = { text?: string; reference: string };
  */
 function appendIfNotEmpty(
   content: string,
-  tokens: (string | InternalImage)[],
+  tokens: (string | InternalLink)[],
   start: number,
   end?: number,
 ) {
@@ -50,7 +49,7 @@ function appendIfNotEmpty(
  * Returns true if at least an internal link was found, false otherwise.
  * @param internalTokens - an array of tokens
  */
-function hasLink(internalTokens: (string | InternalImage)[]) {
+function hasLink(internalTokens: (string | InternalLink)[]) {
   return (
     internalTokens.length > 1 ||
     (internalTokens.length == 1 && typeof internalTokens[0] !== "string")
@@ -65,13 +64,13 @@ function hasLink(internalTokens: (string | InternalImage)[]) {
 // eslint-disable-next-line max-statements
 function parseStringForInternalLinks(
   content: string,
-): (string | InternalImage)[] {
+): (string | InternalLink)[] {
   const tokens = [];
 
   // The offset of the content before the previously matched internal link (or the beginning of the string).
   let offset = 0;
 
-  const matches = content.matchAll(INTERNAL_IMAGE_REGEX);
+  const matches = content.matchAll(INTERNAL_LINK_REGEX);
   for (const match of matches) {
     const preString = appendIfNotEmpty(content, tokens, offset, match.index);
     const text = match.groups?.text;
@@ -86,7 +85,7 @@ function parseStringForInternalLinks(
   return tokens;
 }
 
-export function parseInternalImages(state: StateCore) {
+export function parseInternalLinks(state: StateCore): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   state.tokens.forEach((blockToken: any) => {
     if (blockToken.type == "inline") {
@@ -105,14 +104,16 @@ export function parseInternalImages(state: StateCore) {
           } else {
             const { text, reference } = v;
 
-            const openToken = new state.Token("image_open", "img", 1);
-            openToken.attrSet("src", reference);
-            if (text) {
-              openToken.attrSet("alt", text);
-            }
+            const openToken = new state.Token("link_open", "a", 1);
+            openToken.attrSet("href", reference);
+            openToken.attrPush(["class", "internal-link"]);
+            const contentToken = new state.Token("text", "", 0);
+            contentToken.content = text || reference;
             const closeToken = new state.Token("link_close", "a", -1);
-
-            return [openToken, closeToken];
+            // This is useful for the serializer, who is going to have access to this value to determine
+            // how to serialize the link
+            closeToken.attrPush(["class", "internal-link"]);
+            return [openToken, contentToken, closeToken];
           }
         });
       }

@@ -638,6 +638,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.6.3)
@@ -657,6 +660,9 @@ importers:
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../document-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       inversify:
         specifier: 6.2.0
         version: 6.2.0(reflect-metadata@0.2.2)
@@ -1233,6 +1239,46 @@ importers:
         specifier: 6.0.3
         version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
 
+  core/markdown/markdown-api:
+    devDependencies:
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+      vite:
+        specifier: 6.0.3
+        version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
+
+  core/markdown/markdown-default:
+    dependencies:
+      '@xwiki/cristal-markdown-api':
+        specifier: workspace:*
+        version: link:../markdown-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../model/model-reference/model-reference-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../model/model-remote-url/model-remote-url-api
+      inversify:
+        specifier: 6.2.0
+        version: 6.2.0(reflect-metadata@0.2.2)
+      markdown-it:
+        specifier: 14.1.0
+        version: 14.1.0
+    devDependencies:
+      '@types/markdown-it':
+        specifier: 14.1.2
+        version: 14.1.2
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.6.3
+        version: 5.6.3
+      vite:
+        specifier: 6.0.3
+        version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
+
   core/model/model-api:
     devDependencies:
       typescript:
@@ -1372,7 +1418,13 @@ importers:
       inversify:
         specifier: 6.2.0
         version: 6.2.0(reflect-metadata@0.2.2)
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
     devDependencies:
+      '@types/lodash':
+        specifier: 4.17.13
+        version: 4.17.13
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -2158,6 +2210,9 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-markdown-default':
+        specifier: workspace:*
+        version: link:../../core/markdown/markdown-default
       '@xwiki/cristal-model-reference-api':
         specifier: workspace:*
         version: link:../../core/model/model-reference/model-reference-api
@@ -2669,6 +2724,9 @@ importers:
       '@xwiki/cristal-macros':
         specifier: workspace:*
         version: link:../macros
+      '@xwiki/cristal-markdown-default':
+        specifier: workspace:*
+        version: link:../core/markdown/markdown-default
       '@xwiki/cristal-model-click-listener':
         specifier: workspace:*
         version: link:../core/model/model-click-listener
@@ -2978,6 +3036,9 @@ importers:
       '@xwiki/cristal-info-actions-ui':
         specifier: workspace:*
         version: link:../core/info-actions/info-actions-ui
+      '@xwiki/cristal-markdown-api':
+        specifier: workspace:*
+        version: link:../core/markdown/markdown-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../core/model/model-api
@@ -3005,9 +3066,6 @@ importers:
       inversify:
         specifier: 6.2.0
         version: 6.2.0(reflect-metadata@0.2.2)
-      marked:
-        specifier: 15.0.4
-        version: 15.0.4
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2

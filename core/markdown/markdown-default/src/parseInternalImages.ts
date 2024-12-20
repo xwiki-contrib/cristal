@@ -18,11 +18,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import type { StateCore } from "markdown-it";
 
-const INTERNAL_LINK_REGEX = /\[\[((?<text>[^\]|]+)\|)?(?<reference>[^\]|]+)]]/g;
+const INTERNAL_IMAGE_REGEX =
+  /!\[\[((?<text>[^\]|]+)\|)?(?<reference>[^\]|]+)]]/g;
 
-type InternalLink = { text?: string; reference: string };
+type InternalImage = { text?: string; reference: string };
 
 /**
  * Takes the substring of content between start and end (and from start until the end if end is empty).
@@ -34,7 +37,7 @@ type InternalLink = { text?: string; reference: string };
  */
 function appendIfNotEmpty(
   content: string,
-  tokens: (string | InternalLink)[],
+  tokens: (string | InternalImage)[],
   start: number,
   end?: number,
 ) {
@@ -49,7 +52,7 @@ function appendIfNotEmpty(
  * Returns true if at least an internal link was found, false otherwise.
  * @param internalTokens - an array of tokens
  */
-function hasLink(internalTokens: (string | InternalLink)[]) {
+function hasLink(internalTokens: (string | InternalImage)[]) {
   return (
     internalTokens.length > 1 ||
     (internalTokens.length == 1 && typeof internalTokens[0] !== "string")
@@ -64,13 +67,13 @@ function hasLink(internalTokens: (string | InternalLink)[]) {
 // eslint-disable-next-line max-statements
 function parseStringForInternalLinks(
   content: string,
-): (string | InternalLink)[] {
+): (string | InternalImage)[] {
   const tokens = [];
 
   // The offset of the content before the previously matched internal link (or the beginning of the string).
   let offset = 0;
 
-  const matches = content.matchAll(INTERNAL_LINK_REGEX);
+  const matches = content.matchAll(INTERNAL_IMAGE_REGEX);
   for (const match of matches) {
     const preString = appendIfNotEmpty(content, tokens, offset, match.index);
     const text = match.groups?.text;
@@ -85,38 +88,48 @@ function parseStringForInternalLinks(
   return tokens;
 }
 
-export function parseInternalLinks(state: StateCore) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  state.tokens.forEach((blockToken: any) => {
-    if (blockToken.type == "inline") {
-      const internalTokens = parseStringForInternalLinks(blockToken.content);
+export function parseInternalImages(
+  modelReferenceParser: ModelReferenceParser,
+  remoteURLSerializer: RemoteURLSerializer,
+) {
+  return function (state: StateCore): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    state.tokens.forEach((blockToken: any) => {
+      if (blockToken.type == "inline") {
+        const internalTokens = parseStringForInternalLinks(blockToken.content);
 
-      // We replace the content of the current block node only if at least a link has been found.
-      if (hasLink(internalTokens)) {
-        blockToken.content = "";
-        // TODO: reduce the number of statements in the following method and reactivate the disabled eslint
-        // rule. eslint-disable-next-line max-statements
-        blockToken.children = internalTokens.flatMap((v) => {
-          if (typeof v == "string") {
-            const token = new state.Token("text", "span", 0);
-            token.content = v;
-            return [token];
-          } else {
-            const { text, reference } = v;
+        // We replace the content of the current block node only if at least a link has been found.
+        if (hasLink(internalTokens)) {
+          blockToken.content = "";
+          // TODO: reduce the number of statements in the following method and reactivate the disabled eslint
+          // rule.
+          // eslint-disable-next-line max-statements
+          blockToken.children = internalTokens.flatMap((v) => {
+            if (typeof v == "string") {
+              const token = new state.Token("text", "span", 0);
+              token.content = v;
+              return [token];
+            } else {
+              const { text, reference } = v;
 
-            const openToken = new state.Token("link_open", "a", 1);
-            openToken.attrSet("href", reference);
-            openToken.attrPush(["class", "internal-link"]);
-            const contentToken = new state.Token("text", "", 0);
-            contentToken.content = text || reference;
-            const closeToken = new state.Token("link_close", "a", -1);
-            // This is useful for the serializer, who is going to have access to this value to determine
-            // how to serialize the link
-            closeToken.attrPush(["class", "internal-link"]);
-            return [openToken, contentToken, closeToken];
-          }
-        });
+              const openToken = new state.Token("image_open", "img", 1);
+              console.log("reference", reference);
+              openToken.attrSet(
+                "src",
+                remoteURLSerializer.serialize(
+                  modelReferenceParser.parse(reference),
+                ) ?? "",
+              );
+              if (text) {
+                openToken.attrSet("alt", text);
+              }
+              const closeToken = new state.Token("link_close", "a", -1);
+
+              return [openToken, closeToken];
+            }
+          });
+        }
       }
-    }
-  });
+    });
+  };
 }

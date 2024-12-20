@@ -22,20 +22,32 @@ import {
   AttachmentReference,
   DocumentReference,
   EntityReference,
+  EntityType,
   SpaceReference,
 } from "@xwiki/cristal-model-api";
 import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 import { injectable } from "inversify";
 
+import { isEqual } from "lodash";
+
 @injectable()
 export class XWikiModelReferenceParser implements ModelReferenceParser {
-  parse(reference: string): EntityReference {
+  parse(reference: string, type?: EntityType): EntityReference {
     const splits = reference.split(":");
     const noWiki = splits[splits.length - 1];
-    if (noWiki.includes("@")) {
+    if (
+      noWiki.includes("@") ||
+      splits.includes("attach") ||
+      type == EntityType.ATTACHMENT
+    ) {
       const strings = noWiki.split("@");
-      const doc = this.parseDocumentReference(strings[0]);
-      return new AttachmentReference(strings[1], doc);
+      if (strings.length == 1) {
+        const doc = this.getCurrentDocumentReference();
+        return new AttachmentReference(strings[0], doc);
+      } else {
+        const doc = this.parseDocumentReference(strings[0]);
+        return new AttachmentReference(strings[1], doc);
+      }
     } else {
       return this.parseDocumentReference(noWiki);
     }
@@ -43,9 +55,24 @@ export class XWikiModelReferenceParser implements ModelReferenceParser {
 
   private parseDocumentReference(noWiki: string) {
     const segments = noWiki.split(".");
+    if (isEqual(segments, ["WebHome"])) {
+      const currentDocumentReference = this.getCurrentDocumentReference();
+      return new DocumentReference(segments[0], currentDocumentReference.space);
+    } else {
+      return new DocumentReference(
+        segments[segments.length - 1],
+        new SpaceReference(
+          undefined,
+          ...segments.slice(0, segments.length - 1),
+        ),
+      );
+    }
+  }
+
+  private getCurrentDocumentReference() {
     return new DocumentReference(
-      segments[segments.length - 1],
-      new SpaceReference(undefined, ...segments.slice(0, segments.length - 1)),
+      "WebHome",
+      new SpaceReference(undefined, "TestSpace"),
     );
   }
 }

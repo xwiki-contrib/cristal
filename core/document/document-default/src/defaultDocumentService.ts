@@ -26,6 +26,7 @@ import type {
   DocumentChange,
   DocumentService,
 } from "@xwiki/cristal-document-api";
+import type { DocumentReference } from "@xwiki/cristal-model-api";
 
 type Id = "document";
 type State = {
@@ -42,8 +43,12 @@ type State = {
 type WrappedRefs<Type> = {
   readonly [Property in keyof Type]: Ref<Type[Property]>;
 };
-type StateRefs = WrappedRefs<State>;
-type Getters = Record<string, never>;
+type StateRefs = WrappedRefs<
+  State & { documentReference: DocumentReference | undefined }
+>;
+type Getters = {
+  documentReference(): DocumentReference | undefined;
+};
 type Actions = {
   /**
    * Switch the loading state to true;
@@ -76,6 +81,11 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
         loading: false,
         error: undefined,
       };
+    },
+    getters: {
+      documentReference() {
+        return undefined;
+      },
     },
     actions: {
       // Loading must be in its own separate action because action changes are
@@ -139,6 +149,12 @@ export class DefaultDocumentService implements DocumentService {
 
   getCurrentDocument(): Ref<PageData | undefined> {
     return this.refs.document;
+  }
+
+  getCurrentDocumentReference(): Ref<DocumentReference | undefined> {
+    // TODO: check if right value and possibly parse it
+    console.log(this.refs.lastDocumentReference);
+    return this.refs.documentReference;
   }
 
   getCurrentDocumentRevision(): Ref<string | undefined> {

@@ -18,8 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { parseInternalImages } from "./parseInternalImages";
-import { parseInternalLinks } from "./parseInternalLinks";
+import {
+  parseInternalImages,
+  parseInternalLinks,
+} from "@xwiki/cristal-markdown-default";
 import MarkdownIt from "markdown-it";
 import { Markdown } from "tiptap-markdown";
 
@@ -29,15 +31,21 @@ export default Markdown.extend({
     this.parent?.();
     this.editor.storage.markdown.parser.md =
       this.editor.storage.markdown.parser.md.use((md: MarkdownIt) => {
-        // md.core.ruler.before(
-        //   "markdown-internal-links",
-        //   "markdown-internal-images",
-        //   parseInternalImages,
-        // );
         md.core.ruler.before(
           "inline",
           "markdown-internal-links",
           parseInternalLinks,
+        );
+        // Is it important for the images to be parsed before the links, otherwise the exclamation mark prefixing the
+        // image links is just ignored as the rest of the syntax is the same.
+        md.core.ruler.before(
+          "markdown-internal-links",
+          "markdown-internal-images",
+          parseInternalImages(
+            // TODO: find out how to access those information from here, probably by passing them to the options when initializing the extension
+            modelReferenceParserProvider.get()!,
+            remoteURLSerializerProvider.get()!,
+          ),
         );
       });
     // TODO: this is not optimal as the parent is also parsing the content but without the additional plugins.
