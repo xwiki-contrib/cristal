@@ -69,7 +69,6 @@ export class FilesystemLinkSuggestService implements LinkSuggestService {
     mimetype?: string,
   ): Promise<Link[]> {
     const attachments = await fileSystemStorage.search(query, type, mimetype);
-    console.log(attachments);
     // TODO: convert to links.
     return attachments.map((result) => {
       switch (result.type) {

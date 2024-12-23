@@ -190,6 +190,8 @@ function editorInit(
       }),
       initLinkExtension(serializer, parser).configure({
         openOnClick: "whenNotEditable",
+        // TODO: the protocols should be injected by extension.
+        protocols: ["http", "https", "cristalfs"],
       }),
       CollaborationKit.configure({
         channel: currentPageName.value,

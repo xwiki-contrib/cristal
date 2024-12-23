@@ -129,6 +129,7 @@ async function readPage(
         ...parse,
         lastAuthor: { name: os.userInfo().username },
         lastModificationDate: new Date(pageStats.mtimeMs),
+        id: relative(HOME_PATH_FULL, dirname(path)),
       },
     };
   } else {
@@ -309,13 +310,19 @@ async function search(
     } else if (type == LinkType.PAGE) {
       return isPage(path);
     } else {
-      return true;
+      return (await isAttachment(path, mimetype)) || (await isPage(path)); // TODO: filter out
     }
   });
 
-  const searchedEntities = allEntities.filter((it) =>
-    basename(it).includes(query),
-  );
+  const searchedEntities = await asyncFilter(allEntities, async (it) => {
+    if (await isAttachment(it)) {
+      return basename(it).includes(query);
+    } else if (await isPage(it)) {
+      return basename(dirname(it)).includes(query);
+    } else {
+      return false;
+    }
+  });
   return (
     await Promise.all(
       searchedEntities.map(async (it) => {
