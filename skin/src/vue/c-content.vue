@@ -112,11 +112,8 @@ onUpdated(() => {
     <template #doc-page-actions>
       <div class="doc-page-actions">
         <router-link
-          :to="
-            currentPageRevision || !currentPage?.canEdit
-              ? ''
-              : { name: 'edit', params: { page: currentPageName } }
-          "
+          v-if="!currentPageRevision && currentPage?.canEdit"
+          :to="{ name: 'edit', params: { page: currentPageName } }"
         >
           <x-btn
             size="small"

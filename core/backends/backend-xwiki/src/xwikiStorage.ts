@@ -149,7 +149,7 @@ export class XWikiStorage extends AbstractStorage {
     try {
       json = await response.json();
       if (!response.ok) {
-        // TODO: Fix CRISTAL-383
+        // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
         this.alertsServiceProvider
           .get()
           .error(`Could not load page ${page}. Reason: ${json.error}`);
@@ -318,7 +318,7 @@ export class XWikiStorage extends AbstractStorage {
     });
     if (!response.ok) {
       const errorMessage = await response.text();
-      // TODO: Fix CRISTAL-383
+      // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
       this.alertsServiceProvider
         .get()
         .error(`Could not save page ${page}. Reason: ${errorMessage}`);
