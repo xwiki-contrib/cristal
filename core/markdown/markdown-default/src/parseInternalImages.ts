@@ -61,7 +61,7 @@ function hasLink(internalTokens: (string | InternalImage)[]) {
 }
 
 /**
- * Parse a string in look for internal links. Returns a array of string or InternalLink types.
+ * Parse a string in look for internal links. Returns an array of string or InternalLink types.
  * @param content - a string to parse
  */
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
@@ -114,7 +114,6 @@ export function parseInternalImages(
               const { text, reference } = v;
 
               const openToken = new state.Token("image_open", "img", 1);
-              console.log("reference", reference);
               openToken.attrSet(
                 "src",
                 remoteURLSerializer.serialize(

@@ -303,7 +303,7 @@ async function search(
   const attachments = (await readdir(HOME_PATH_FULL, { recursive: true })).map(
     (it) => join(HOME_PATH_FULL, it),
   );
-  const asyncRes = await asyncFilter(attachments, async (path: string) => {
+  const allEntities = await asyncFilter(attachments, async (path: string) => {
     if (type == LinkType.ATTACHMENT) {
       return isAttachment(path, mimetype);
     } else if (type == LinkType.PAGE) {
@@ -313,23 +313,20 @@ async function search(
     }
   });
 
-  console.log("asyncRes", asyncRes);
-
-  const strings = asyncRes.filter((it) => basename(it).includes(query));
-  console.log("strings", strings);
-  const promise = await Promise.all(
-    strings.map(async (it) => {
-      if (await isPage(it)) {
-        return readPage(it);
-      } else {
-        return readAttachment(it);
-      }
-    }),
+  const searchedEntities = allEntities.filter((it) =>
+    basename(it).includes(query),
   );
-
-  console.log("promise", promise);
-
-  return promise.filter((it) => it !== undefined);
+  return (
+    await Promise.all(
+      searchedEntities.map(async (it) => {
+        if (await isPage(it)) {
+          return readPage(it);
+        } else {
+          return readAttachment(it);
+        }
+      }),
+    )
+  ).filter((it) => it !== undefined);
 }
 
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
