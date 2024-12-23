@@ -203,6 +203,7 @@ export class XWikiStorage extends AbstractStorage {
       Date.parse(json.dateModified),
     );
     pageContentData.lastAuthor = { name: json.editor };
+    pageContentData.canEdit = json.canEdit;
     return pageContentData;
   }
 
@@ -306,7 +307,7 @@ export class XWikiStorage extends AbstractStorage {
   async save(page: string, content: string, title: string): Promise<unknown> {
     const url = this.buildSavePageURL(page, ["rest", "wikis", "xwiki"]);
 
-    await fetch(url, {
+    const response = await fetch(url, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -315,6 +316,14 @@ export class XWikiStorage extends AbstractStorage {
       // TODO: the syntax provided by the save is ignored and the content is always saved as markdown.
       body: JSON.stringify({ content, title, syntax: "markdown/1.2" }),
     });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      // TODO: Fix CRISTAL-383
+      this.alertsServiceProvider
+        .get()
+        .error(`Could not save page ${page}. Reason: ${errorMessage}`);
+      throw new Error(errorMessage);
+    }
 
     return;
   }
