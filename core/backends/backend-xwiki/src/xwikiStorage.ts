@@ -322,6 +322,7 @@ export class XWikiStorage extends AbstractStorage {
       this.alertsServiceProvider
         .get()
         .error(`Could not save page ${page}. Reason: ${errorMessage}`);
+      // We need to throw an error to notify the editor that the save failed.
       throw new Error(errorMessage);
     }
 
