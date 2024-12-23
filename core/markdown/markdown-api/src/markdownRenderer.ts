@@ -24,5 +24,10 @@
  * @since 0.13
  */
 export interface MarkdownRenderer {
+  /**
+   * Converts the provided Markdown into an HTML 5.0 string.
+   *
+   * @param markdown - the Markdown string
+   */
   render(markdown: string): string;
 }
