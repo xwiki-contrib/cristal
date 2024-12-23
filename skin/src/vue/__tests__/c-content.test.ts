@@ -31,7 +31,7 @@ import {
   PageHierarchyResolver,
   PageHierarchyResolverProvider,
 } from "@xwiki/cristal-hierarchy-api";
-import { MarkdownRenderer } from "@xwiki/cristal-markdown-api/dist";
+import { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
 import { ClickListener } from "@xwiki/cristal-model-click-listener";
 import { Container } from "inversify";
 import { DeepPartial } from "ts-essentials";
