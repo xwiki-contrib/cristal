@@ -144,6 +144,9 @@ importers:
       '@xwiki/cristal-alerts-api':
         specifier: workspace:*
         version: link:../alerts-api
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
       inversify:
         specifier: 6.2.0
         version: 6.2.0(reflect-metadata@0.2.2)
@@ -181,6 +184,9 @@ importers:
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.6.3)
+      vue-i18n:
+        specifier: 10.0.5
+        version: 10.0.5(vue@3.5.13(typescript@5.6.3))
     devDependencies:
       reflect-metadata:
         specifier: 0.2.2
@@ -549,6 +555,9 @@ importers:
 
   core/backends/backend-xwiki:
     dependencies:
+      '@xwiki/cristal-alerts-api':
+        specifier: workspace:*
+        version: link:../../alerts/alerts-api
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
@@ -577,6 +586,9 @@ importers:
       vite:
         specifier: 6.0.3
         version: 6.0.3(@types/node@22.10.2)(tsx@4.19.2)(yaml@2.6.1)
+      vitest-mock-extended:
+        specifier: 2.0.2
+        version: 2.0.2(typescript@5.6.3)(vitest@2.1.8(@types/node@22.10.2)(happy-dom@15.11.7))
 
   core/browser/browser-api:
     dependencies:
