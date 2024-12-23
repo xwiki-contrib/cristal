@@ -52,10 +52,8 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     const json = await this.executeQuery(type, mimetype, query);
 
     return json
-      .filter(({ filename }: { filename?: string[] }) => {
-        return filename;
-      })
       .map(this.mapToLink.bind(this))
+      .filter((it: unknown) => it !== undefined)
       .filter(this.filterLinks(type, mimetype));
   }
 
@@ -128,28 +126,43 @@ class XWikiLinkSuggestService implements LinkSuggestService {
     };
   }
 
-  private mapToLink({
-    id,
-    filename,
-    type,
-  }: {
+  private mapToLink(result: {
     id: string;
     filename: string[];
     type: string;
+    title_: string;
+    name: string;
+    reference: string;
   }) {
+    const reference = result.reference;
+    const type = result.type;
     const xwikiURL =
       this.remoteURLSerializerProvider
         .get()
-        ?.serialize(this.modelReferenceParserProvider.get()?.parse(id)) ?? "";
+        ?.serialize(
+          this.modelReferenceParserProvider.get()?.parse(reference),
+        ) ?? "";
 
-    return {
-      type: type == "ATTACHMENT" ? LinkType.ATTACHMENT : LinkType.PAGE,
-      id,
-      url: xwikiURL,
-      reference: id,
-      label: filename[0],
-      hint: filename[0],
-    };
+    if (type == "ATTACHMENT") {
+      return {
+        type: LinkType.ATTACHMENT,
+        id: result.id,
+        url: xwikiURL,
+        reference,
+        label: result.filename[0],
+        hint: result.filename[0],
+      };
+    } else if (type == "DOCUMENT") {
+      const label = result.title_;
+      return {
+        type: LinkType.PAGE,
+        id: result.id,
+        url: xwikiURL,
+        reference,
+        label,
+        hint: label,
+      };
+    }
   }
 
   private async getCredentials(): Promise<{ Authorization?: string }> {

@@ -28,6 +28,7 @@ import linkSuggestStore, {
 } from "../stores/link-suggest-store";
 import { SelectionRange } from "@tiptap/pm/state";
 import { CIcon, Size } from "@xwiki/cristal-icons";
+import { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
 import { ContentTools } from "@xwiki/cristal-skin";
 import { debounce } from "lodash";
 import { Ref, inject, onMounted, onUpdated, ref, toRefs, watch } from "vue";
@@ -111,6 +112,10 @@ const linkSuggestServiceProvider = cristal
   .get<LinkSuggestServiceProvider>("LinkSuggestServiceProvider");
 let linkSuggest: LinkSuggestService | undefined =
   linkSuggestServiceProvider.get();
+const modelReferenceParser = cristal
+  .getContainer()
+  .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
+  .get();
 
 const store: LinkSuggestStore = linkSuggestStore();
 
@@ -122,7 +127,10 @@ store.updateProps({
 });
 
 const debouncedWatch = debounce(async (query: string) => {
-  const links = await initSuggestionsService(linkSuggest)({ query });
+  const links = await initSuggestionsService(
+    linkSuggest,
+    modelReferenceParser!,
+  )({ query });
   store.updateText(query);
   store.updateLinks(links);
 }, 400);
