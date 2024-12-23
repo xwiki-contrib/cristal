@@ -80,14 +80,12 @@ type DocumentStoreDefinition = StoreDefinition<Id, State, Getters, Actions>;
 type DocumentStore = Store<Id, State, Getters, Actions>;
 
 function createStore(cristal: CristalApp): DocumentStoreDefinition {
-  const modelReferenceParser = cristal
+  const modelReferenceParserProvider = cristal
     .getContainer()
-    .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
-    .get()!;
-  const modelReferenceSerializer = cristal
+    .get<ModelReferenceParserProvider>("ModelReferenceParserProvider");
+  const modelReferenceSerializerProvider = cristal
     .getContainer()
-    .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")
-    .get()!;
+    .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider");
 
   return defineStore<Id, State, Getters, Actions>("document", {
     state() {
@@ -102,13 +100,17 @@ function createStore(cristal: CristalApp): DocumentStoreDefinition {
     },
     getters: {
       documentReference() {
-        return modelReferenceParser.parse(
-          this.lastDocumentReference ?? "",
-          EntityType.DOCUMENT,
-        ) as DocumentReference;
+        return modelReferenceParserProvider
+          .get()
+          ?.parse(
+            this.lastDocumentReference ?? "",
+            EntityType.DOCUMENT,
+          ) as DocumentReference;
       },
       documentReferenceString(): string | undefined {
-        return modelReferenceSerializer.serialize(this.documentReference);
+        return modelReferenceSerializerProvider
+          .get()
+          ?.serialize(this.documentReference);
       },
     },
     actions: {
@@ -196,7 +198,9 @@ export class DefaultDocumentService implements DocumentService {
   }
 
   setCurrentDocument(documentReference: string, revision?: string): void {
-    this.store.update(documentReference, true, revision);
+    if (this.store) {
+      this.store.update(documentReference, true, revision);
+    }
   }
 
   refreshCurrentDocument(): void {
