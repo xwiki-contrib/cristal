@@ -137,18 +137,21 @@ async function expandTree() {
 async function lazyLoadChildren(item: unknown) {
   const treeItem = item as TreeItem;
   const childNodes = await treeSource.getChildNodes(treeItem.id);
-  for (const child of childNodes) {
-    treeItem.children?.push({
-      id: child.id,
-      title: child.label,
-      href: child.url,
-      children: child.has_children ? [] : undefined,
-      _location: child.location,
-    });
-  }
-  // If the node doesn't have any children, we update it.
-  if (childNodes.length == 0) {
-    treeItem.children = undefined;
+  // Check that the children array is still empty after all async calls.
+  if (treeItem.children?.length == 0) {
+    for (const child of childNodes) {
+      treeItem.children?.push({
+        id: child.id,
+        title: child.label,
+        href: child.url,
+        children: child.has_children ? [] : undefined,
+        _location: child.location,
+      });
+    }
+    // If the node doesn't have any children, we update it.
+    if (childNodes.length == 0) {
+      treeItem.children = undefined;
+    }
   }
 }
 
