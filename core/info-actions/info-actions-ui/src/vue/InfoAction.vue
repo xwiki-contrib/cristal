@@ -19,7 +19,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 
 <script lang="ts" setup>
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { CIcon } from "@xwiki/cristal-icons";
 import { InfoAction } from "@xwiki/cristal-info-actions-api";
 import { watch } from "vue";
 import { useRoute } from "vue-router";
@@ -40,7 +40,7 @@ const counter = await props.infoAction.counter();
 
 <template>
   <div :class="['info-action', infoAction.id]">
-    <c-icon :name="infoAction.iconName" :size="Size.Medium"></c-icon>
+    <c-icon :name="infoAction.iconName"></c-icon>
     <span class="counter">{{ counter }}</span>
     <!-- TODO: add a way to jump to the extra tabs. -->
   </div>
