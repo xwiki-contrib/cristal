@@ -40,7 +40,7 @@ const counter = await props.infoAction.counter();
 
 <template>
   <div :class="['info-action', infoAction.id]">
-    <c-icon :name="infoAction.iconName" :size="Size.Small"></c-icon>
+    <c-icon :name="infoAction.iconName" :size="Size.Medium"></c-icon>
     <span class="counter">{{ counter }}</span>
     <!-- TODO: add a way to jump to the extra tabs. -->
   </div>
@@ -50,8 +50,8 @@ const counter = await props.infoAction.counter();
 .info-action {
   display: flex;
   background-color: var(--cr-color-neutral-100);
-  border-radius: 99px;
-  padding: var(--cr-spacing-2x-small) var(--cr-spacing-2x-small);
+  border-radius: var(--cr-border-radius-medium);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);
   font-size: var(--cr-font-size-medium);
   flex-flow: row;
   gap: var(--cr-spacing-2x-small);
