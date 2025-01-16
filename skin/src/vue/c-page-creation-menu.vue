@@ -48,7 +48,9 @@ const dialogOpen: Ref<boolean> = ref(false);
 const name: Ref<string> = ref("");
 const namePlaceholder: Ref<string> = ref("");
 const location: Ref<string> = ref("");
+const pageAlreadyExists: Ref<boolean> = ref(false);
 var locationReference: SpaceReference | undefined = undefined;
+var newDocumentReference: string = "";
 
 defineProps<{
   currentPage: PageData;
@@ -68,19 +70,28 @@ function updateCurrentPage() {
   name.value = "";
 }
 
-function createPage() {
+async function createPage() {
   const newDocumentName = name.value ? name.value : namePlaceholder.value;
-  const newDocumentReference = referenceHandler.createDocumentReference(
-    newDocumentName,
-    locationReference!,
-  );
+  newDocumentReference = referenceSerializer.serialize(
+    referenceHandler.createDocumentReference(
+      newDocumentName,
+      locationReference!,
+    ),
+  )!;
 
-  cristal.setCurrentPage(
-    referenceSerializer.serialize(newDocumentReference)!,
-    "edit",
-  );
+  pageAlreadyExists.value =
+    (await cristal.getPage(newDocumentReference)) !== undefined;
 
+  if (!pageAlreadyExists.value) {
+    cristal.setCurrentPage(newDocumentReference, "edit");
+
+    dialogOpen.value = false;
+  }
+}
+
+function editExistingPage() {
   dialogOpen.value = false;
+  cristal.setCurrentPage(newDocumentReference, "edit");
 }
 </script>
 
@@ -103,6 +114,30 @@ function createPage() {
     </template>
     <template #default>
       <div id="new-page-content" class="grid">
+        <!-- We need 2 different divs to implement the following behavior:
+               - Use max available width from the parent
+               - Do not resize the parent if the content is larger -->
+        <div id="new-page-alerts-wrapper">
+          <div id="new-page-alerts">
+            <!-- Indicate that the selected page already exists. -->
+            <x-alert
+              v-if="pageAlreadyExists"
+              type="error"
+              :actions="[
+                {
+                  name: t('page.creation.menu.alert.action.edit'),
+                  callback: editExistingPage,
+                },
+              ]"
+              :description="
+                t('page.creation.menu.alert.content', {
+                  pageName: newDocumentReference,
+                })
+              "
+            >
+            </x-alert>
+          </div>
+        </div>
         <x-form class="subgrid" @form-submit="createPage">
           <x-text-field
             v-model="name"
@@ -141,6 +176,13 @@ function createPage() {
 </template>
 
 <style scoped>
+#new-page-alerts-wrapper {
+  display: flex;
+}
+#new-page-alerts {
+  flex-grow: 1;
+  width: 0;
+}
 #new-page-button {
   cursor: pointer;
 }
