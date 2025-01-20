@@ -48,9 +48,9 @@ const dialogOpen: Ref<boolean> = ref(false);
 const name: Ref<string> = ref("");
 const namePlaceholder: Ref<string> = ref("");
 const location: Ref<string> = ref("");
-const pageAlreadyExists: Ref<boolean> = ref(false);
+const existingPage: Ref<PageData | undefined> = ref(undefined);
 var locationReference: SpaceReference | undefined = undefined;
-var newDocumentReference: string = "";
+let newDocumentReference: string = "";
 
 defineProps<{
   currentPage: PageData;
@@ -79,10 +79,9 @@ async function createPage() {
     ),
   )!;
 
-  pageAlreadyExists.value =
-    (await cristal.getPage(newDocumentReference)) !== undefined;
+  existingPage.value = await cristal.getPage(newDocumentReference);
 
-  if (!pageAlreadyExists.value) {
+  if (!existingPage.value) {
     cristal.setCurrentPage(newDocumentReference, "edit");
 
     dialogOpen.value = false;
@@ -117,24 +116,56 @@ function editExistingPage() {
         <!-- We need 2 different divs to implement the following behavior:
                - Use max available width from the parent
                - Do not resize the parent if the content is larger -->
-        <div id="new-page-alerts-wrapper">
-          <div id="new-page-alerts">
+        <div class="alerts-wrapper">
+          <div class="alerts">
             <!-- Indicate that the selected page already exists. -->
-            <x-alert
-              v-if="pageAlreadyExists"
-              type="error"
-              :actions="[
-                {
-                  name: t('page.creation.menu.alert.action.edit'),
-                  callback: editExistingPage,
-                },
-              ]"
-              :description="
-                t('page.creation.menu.alert.content', {
-                  pageName: newDocumentReference,
-                })
-              "
-            >
+            <x-alert v-if="existingPage !== undefined" type="error">
+              <i18n-t
+                v-if="!existingPage!.canEdit"
+                keypath="page.creation.menu.alert.content"
+                tag="span"
+              >
+                <template #pageName>
+                  <a
+                    :href="
+                      cristal.getRouter().resolve({
+                        name: 'view',
+                        params: { page: newDocumentReference },
+                      }).href
+                    "
+                    >{{ newDocumentReference }}</a
+                  >
+                </template>
+              </i18n-t>
+              <i18n-t
+                v-else
+                keypath="page.creation.menu.alert.content.edit"
+                tag="span"
+              >
+                <template #pageName>
+                  <a
+                    :href="
+                      cristal.getRouter().resolve({
+                        name: 'view',
+                        params: { page: newDocumentReference },
+                      }).href
+                    "
+                    >{{ newDocumentReference }}</a
+                  >
+                </template>
+                <template #link>
+                  <a
+                    :href="
+                      cristal.getRouter().resolve({
+                        name: 'edit',
+                        params: { page: newDocumentReference },
+                      }).href
+                    "
+                    @click.prevent="editExistingPage"
+                    >{{ t("page.creation.menu.alert.content.edit.link") }}</a
+                  >
+                </template>
+              </i18n-t>
             </x-alert>
           </div>
         </div>
@@ -176,13 +207,6 @@ function editExistingPage() {
 </template>
 
 <style scoped>
-#new-page-alerts-wrapper {
-  display: flex;
-}
-#new-page-alerts {
-  flex-grow: 1;
-  width: 0;
-}
 #new-page-button {
   cursor: pointer;
 }
@@ -211,6 +235,13 @@ function editExistingPage() {
   gap: 0.5rem;
 }
 
+.alerts-wrapper {
+  display: flex;
+}
+.alerts {
+  flex-grow: 1;
+  width: 0;
+}
 input[type="submit"] {
   display: none;
 }
