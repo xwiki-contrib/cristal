@@ -18,38 +18,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import {
-  PageDeleteAction,
-  PageManagementActionCategory,
-  PageMoveAction,
-  PageRenameAction,
-} from "./PageManagement";
-import PageActions from "./vue/PageActions.vue";
-import type {
-  PageAction,
-  PageActionCategory,
-} from "@xwiki/cristal-page-actions-api";
+import { FileSystemPageRenameManager } from "./components/componentsInit";
+import { name as PageRenameManagerName } from "@xwiki/cristal-rename-api";
+import type { PageRenameManager } from "@xwiki/cristal-rename-api";
 import type { Container } from "inversify";
 
-class ComponentInit {
+export class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<PageActionCategory>("PageActionCategory")
-      .to(PageManagementActionCategory)
-      .whenTargetIsDefault();
-    container
-      .bind<PageAction>("PageAction")
-      .to(PageMoveAction)
-      .whenTargetIsDefault();
-    container
-      .bind<PageAction>("PageAction")
-      .to(PageRenameAction)
-      .whenTargetIsDefault();
-    container
-      .bind<PageAction>("PageAction")
-      .to(PageDeleteAction)
-      .whenTargetIsDefault();
+      .bind<PageRenameManager>(PageRenameManagerName)
+      .to(FileSystemPageRenameManager)
+      .inSingletonScope()
+      .whenTargetNamed("FileSystem");
   }
 }
-
-export { ComponentInit, PageActions };

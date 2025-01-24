@@ -359,6 +359,36 @@ async function createMinimalContent() {
   );
 }
 
+async function movePage(
+  path: string,
+  newPath: string,
+  preserveChildren: boolean,
+): Promise<void> {
+  const directory = dirname(path);
+  const newDirectory = dirname(newPath);
+
+  if (preserveChildren) {
+    await fs.promises.mkdir(dirname(newDirectory), { recursive: true });
+    await fs.promises.rename(directory, newDirectory);
+  } else {
+    await fs.promises.mkdir(newDirectory);
+    await fs.promises.rename(path, newPath);
+
+    if (await isDirectory(`${directory}/attachments`)) {
+      await fs.promises.rename(
+        `${directory}/attachments`,
+        `${newDirectory}/attachments`,
+      );
+    }
+
+    fs.promises.readdir(directory).then(async (files) => {
+      if (files.length === 0) {
+        await fs.promises.rmdir(directory);
+      }
+    });
+  }
+}
+
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 export default async function load(): Promise<void> {
@@ -414,5 +444,8 @@ export default async function load(): Promise<void> {
   });
   ipcMain.handle("search", (event, { query, type, mimetype }) => {
     return search(query, type, mimetype);
+  });
+  ipcMain.handle("movePage", (event, { path, newPath, preserveChildren }) => {
+    return movePage(path, newPath, preserveChildren);
   });
 }

@@ -156,6 +156,7 @@ async function onDocumentUpdate(page: PageData) {
     }
     rootNodes.value.push(newItem);
   }
+  await expandTree();
 }
 </script>
 
@@ -175,8 +176,8 @@ async function onDocumentUpdate(page: PageData) {
 
 <style scoped>
 :deep(a) {
-  text-decoration: none;
-  color: var(--cr-base-text-color);
+  text-decoration: none !important;
+  color: var(--cr-base-text-color) !important;
 }
 /* Disable hand cursor on items, since we disable the default click action. */
 :deep(sl-tree-item)::part(base) {

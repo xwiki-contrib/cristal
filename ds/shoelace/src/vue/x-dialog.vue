@@ -54,7 +54,7 @@ const open = defineModel<boolean>();
          and will hold the contents of our own footer slot (if any). -->
     <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
     Disabling it for now as I did not find an elegant solution to declare this property. -->
-    <div v-if="$slots.footer" slot="footer">
+    <div v-if="$slots.footer" id="footer" slot="footer">
       <slot name="footer" />
     </div>
   </sl-dialog>
@@ -64,5 +64,10 @@ const open = defineModel<boolean>();
 sl-dialog {
   --width: v-bind(width);
   --body-spacing: 0 1.25rem 1.25rem;
+}
+#footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--cr-spacing-x-small);
 }
 </style>

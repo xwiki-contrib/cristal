@@ -153,6 +153,10 @@ async function onDocumentUpdate(parents: string[]) {
   }
 
   // New page
+  if (current.value?.lazy) {
+    // We don't do anything because this node will be loaded lazily anyway.
+    return;
+  }
   const newItems = await treeSource.getChildNodes(props.node.id);
   newItemsLoop: for (const newItem of newItems) {
     for (const i of nodes.value.keys()) {
@@ -196,8 +200,8 @@ async function onDocumentUpdate(parents: string[]) {
 
 <style scoped>
 :deep(a) {
-  text-decoration: none;
-  color: var(--cr-base-text-color);
+  text-decoration: none !important;
+  color: var(--cr-base-text-color) !important;
 }
 /* Disable hand cursor on items, since we disable the default click action. */
 :deep(sl-tree-item)::part(base) {

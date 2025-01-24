@@ -19,10 +19,10 @@
  */
 
 import messages from "./translations";
-import DeletePage from "./vue/DeletePage.vue";
 import { AbstractPageActionCategory } from "@xwiki/cristal-page-actions-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import type { PageAction } from "@xwiki/cristal-page-actions-api";
+import type { PageRenameManagerProvider } from "@xwiki/cristal-rename-api";
 import type { Component } from "vue";
 
 const PAGE_MANAGEMENT_ID: string = "page-management";
@@ -39,14 +39,63 @@ class PageManagementActionCategory extends AbstractPageActionCategory {
 }
 
 @injectable()
+class PageMoveAction implements PageAction {
+  constructor(
+    @inject("PageRenameManagerProvider")
+    private readonly pageRenameManagerProvider: PageRenameManagerProvider,
+  ) {}
+
+  id = "page-move";
+  categoryId: string = PAGE_MANAGEMENT_ID;
+  order = 3000;
+
+  async enabled(): Promise<boolean> {
+    return this.pageRenameManagerProvider.has();
+  }
+
+  async component(): Promise<Component> {
+    return (await import("./vue/MovePage.vue")).default;
+  }
+}
+
+@injectable()
+class PageRenameAction implements PageAction {
+  constructor(
+    @inject("PageRenameManagerProvider")
+    private readonly pageRenameManagerProvider: PageRenameManagerProvider,
+  ) {}
+
+  id = "page-rename";
+  categoryId: string = PAGE_MANAGEMENT_ID;
+  order = 4000;
+
+  async enabled(): Promise<boolean> {
+    return this.pageRenameManagerProvider.has();
+  }
+
+  async component(): Promise<Component> {
+    return (await import("./vue/RenamePage.vue")).default;
+  }
+}
+
+@injectable()
 class PageDeleteAction implements PageAction {
   id = "page-delete";
   categoryId: string = PAGE_MANAGEMENT_ID;
   order = 5000;
 
+  async enabled(): Promise<boolean> {
+    return true;
+  }
+
   async component(): Promise<Component> {
-    return DeletePage;
+    return (await import("./vue/DeletePage.vue")).default;
   }
 }
 
-export { PageDeleteAction, PageManagementActionCategory };
+export {
+  PageDeleteAction,
+  PageManagementActionCategory,
+  PageMoveAction,
+  PageRenameAction,
+};
