@@ -178,11 +178,12 @@ async function onDocumentUpdate(parents: string[]) {
   >
     <a
       v-if="props.clickAction"
+      class="undecorated"
       :href="node.url"
       @click.prevent="onClick(node)"
       >{{ node.label }}</a
     >
-    <a v-else :href="node.url">{{ node.label }}</a>
+    <a v-else :href="node.url" class="undecorated">{{ node.label }}</a>
     <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
     Disabling it for now as I did not find an elegant solution to declare this property. -->
     <x-navigation-tree-item
@@ -199,12 +200,12 @@ async function onDocumentUpdate(parents: string[]) {
 </template>
 
 <style scoped>
-:deep(a) {
-  text-decoration: none !important;
-  color: var(--cr-base-text-color) !important;
+sl-tree-item > a.undecorated {
+  text-decoration: none;
+  color: var(--cr-base-text-color);
 }
 /* Disable hand cursor on items, since we disable the default click action. */
-:deep(sl-tree-item)::part(base) {
+sl-tree-item::part(base) {
   cursor: default;
 }
 </style>

@@ -364,28 +364,97 @@ async function movePage(
   newPath: string,
   preserveChildren: boolean,
 ): Promise<void> {
+  if (preserveChildren) {
+    const directory = dirname(path);
+    const newDirectory = dirname(newPath);
+
+    const success: boolean = await movePageDeep(directory, newDirectory);
+    if (!success) {
+      throw "Some child pages were not moved because they overlapped with children of the target.";
+    }
+  } else {
+    await movePageSingle(path, newPath);
+  }
+}
+
+async function movePageDeep(
+  directory: string,
+  newDirectory: string,
+): Promise<boolean> {
+  let success = true;
+
+  // We start by removing the directory from the arborescence.
+  const tempPath = resolvePath(`temp-${Math.random().toString(16).slice(2)}`);
+  await fs.promises.rename(directory, tempPath);
+
+  await fs.promises.mkdir(dirname(newDirectory), { recursive: true });
+
+  if (await pathExists(newDirectory)) {
+    // If the target directory already exists, we move the content instead.
+    success = await movePageDeepRecursive(tempPath, newDirectory);
+    // We put the (possible) unmoved content back to where it was.
+    await fs.promises.rename(tempPath, directory);
+  } else {
+    await fs.promises.rename(tempPath, newDirectory);
+  }
+  await cleanEmptyArborescence(directory);
+
+  return success;
+}
+
+async function movePageDeepRecursive(
+  directory: string,
+  newDirectory: string,
+): Promise<boolean> {
+  let success: boolean = true;
+
+  for (const file of await fs.promises.readdir(directory)) {
+    const filePath = join(directory, file);
+    const newFilePath = join(newDirectory, file);
+    if (await isDirectory(filePath)) {
+      success =
+        success && (await movePageDeep(filePath, join(newDirectory, file)));
+      await cleanEmptyArborescence(filePath);
+    } else if (!(await pathExists(newFilePath))) {
+      await fs.promises.rename(filePath, newFilePath);
+    } else {
+      success = false;
+    }
+  }
+
+  return success;
+}
+
+async function movePageSingle(path: string, newPath: string) {
   const directory = dirname(path);
   const newDirectory = dirname(newPath);
 
-  if (preserveChildren) {
-    await fs.promises.mkdir(dirname(newDirectory), { recursive: true });
-    await fs.promises.rename(directory, newDirectory);
-  } else {
-    await fs.promises.mkdir(newDirectory);
-    await fs.promises.rename(path, newPath);
+  await fs.promises.mkdir(newDirectory, { recursive: true });
+  await fs.promises.rename(path, newPath);
 
-    if (await isDirectory(`${directory}/attachments`)) {
-      await fs.promises.rename(
-        `${directory}/attachments`,
-        `${newDirectory}/attachments`,
-      );
+  if (await isDirectory(`${directory}/attachments`)) {
+    await fs.promises.rename(
+      `${directory}/attachments`,
+      `${newDirectory}/attachments`,
+    );
+  }
+
+  await cleanEmptyArborescence(directory);
+}
+
+/**
+ * Recursively delete empty directories, starting from the leaf.
+ * @param directory - the starting leaf directory
+ * @since 0.14
+ */
+async function cleanEmptyArborescence(directory: string): Promise<void> {
+  if (await isWithin(HOME_PATH_FULL, directory)) {
+    if (!(await pathExists(directory))) {
+      await cleanEmptyArborescence(dirname(directory));
+    } else if ((await isDirectory(directory)) && (await isEmpty(directory))) {
+      await fs.promises.rmdir(directory);
+      await cleanEmptyArborescence(dirname(directory));
     }
-
-    fs.promises.readdir(directory).then(async (files) => {
-      if (files.length === 0) {
-        await fs.promises.rmdir(directory);
-      }
-    });
   }
 }
 

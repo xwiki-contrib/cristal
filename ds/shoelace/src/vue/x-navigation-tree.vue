@@ -174,13 +174,4 @@ async function onDocumentUpdate(page: PageData) {
   </sl-tree>
 </template>
 
-<style scoped>
-:deep(a) {
-  text-decoration: none !important;
-  color: var(--cr-base-text-color) !important;
-}
-/* Disable hand cursor on items, since we disable the default click action. */
-:deep(sl-tree-item)::part(base) {
-  cursor: default;
-}
-</style>
+<style scoped></style>

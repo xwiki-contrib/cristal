@@ -31,7 +31,7 @@ interface PageRenameManager {
    *
    * @param pageData - the page for which to get the revisions
    * @param newReference - the new reference for the page
-   * @param preserveChildren - whether or not to also affect children
+   * @param preserveChildren - whether to also affect children
    * @returns true if this was successful, false with the reason otherwise
    */
   updateReference(
@@ -44,7 +44,7 @@ interface PageRenameManager {
 }
 
 /**
- * A PageRenameManagerProvider returns the instance of PageRenameManager
+ * A PageRenameManagerProvider returns the instance of {@link PageRenameManager}
  * matching the current wiki configuration.
  *
  * @since 0.14

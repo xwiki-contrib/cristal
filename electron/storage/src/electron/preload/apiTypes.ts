@@ -66,7 +66,7 @@ export interface APITypes {
    *
    * @param path - the path to the page to move
    * @param newPath - the new path for the page
-   * @param preserveChildren - whether or not to move children
+   * @param preserveChildren - whether to move children
    *
    * @since 0.14
    */

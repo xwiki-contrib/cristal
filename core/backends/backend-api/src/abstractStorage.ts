@@ -130,8 +130,8 @@ export abstract class AbstractStorage implements Storage {
    *
    * @param page - the page to move
    * @param newPage - the new location for the page
-   * @param preserveChildren - whether or not to move children
-   * @returns true if the delete was successful, false with the reason otherwise
+   * @param preserveChildren - whether to move children
+   * @returns true if the move was successful, false with the reason otherwise
    *
    * @since 0.14
    */
