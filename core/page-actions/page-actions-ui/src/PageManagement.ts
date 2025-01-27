@@ -38,6 +38,9 @@ class PageManagementActionCategory extends AbstractPageActionCategory {
   order = 1000;
 }
 
+/**
+ * @since 0.14
+ */
 @injectable()
 class PageMoveAction implements PageAction {
   constructor(
@@ -58,6 +61,9 @@ class PageMoveAction implements PageAction {
   }
 }
 
+/**
+ * @since 0.14
+ */
 @injectable()
 class PageRenameAction implements PageAction {
   constructor(

@@ -28,5 +28,3 @@ const checked = defineModel<boolean>();
 <template>
   <v-checkbox v-model="checked" :label="label" :messages="help"></v-checkbox>
 </template>
-
-<style scoped></style>

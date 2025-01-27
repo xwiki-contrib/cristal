@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { name as PageRenameManagerName } from "@xwiki/cristal-rename-api";
+import { name as pageRenameManagerName } from "@xwiki/cristal-rename-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type {
@@ -27,7 +27,7 @@ import type {
 } from "@xwiki/cristal-rename-api";
 
 /**
- * Default implementation for PageRenameManagerProvider.
+ * Default implementation for {@link PageRenameManagerProvider}.
  *
  * @since 0.14
  **/
@@ -40,14 +40,14 @@ class DefaultPageRenameManagerProvider implements PageRenameManagerProvider {
   has(): boolean {
     const container = this.cristalApp.getContainer();
     const wikiConfigType = this.cristalApp.getWikiConfig().getType();
-    return container.isBoundNamed(PageRenameManagerName, wikiConfigType);
+    return container.isBoundNamed(pageRenameManagerName, wikiConfigType);
   }
 
   get(): PageRenameManager {
     const container = this.cristalApp.getContainer();
     const wikiConfigType = this.cristalApp.getWikiConfig().getType();
     return container.getNamed<PageRenameManager>(
-      PageRenameManagerName,
+      pageRenameManagerName,
       wikiConfigType,
     );
   }

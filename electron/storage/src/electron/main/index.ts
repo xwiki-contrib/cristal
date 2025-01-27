@@ -368,6 +368,7 @@ async function movePage(
     const directory = dirname(path);
     const newDirectory = dirname(newPath);
 
+    // TODO: Fix CRISTAL-437 instead of doing this check here.
     const success: boolean = await movePageDeep(directory, newDirectory);
     if (!success) {
       throw "Some child pages were not moved because they overlapped with children of the target.";
@@ -413,7 +414,8 @@ async function movePageDeepRecursive(
     const newFilePath = join(newDirectory, file);
     if (await isDirectory(filePath)) {
       success =
-        success && (await movePageDeep(filePath, join(newDirectory, file)));
+        (await movePageDeepRecursive(filePath, join(newDirectory, file))) &&
+        success;
       await cleanEmptyArborescence(filePath);
     } else if (!(await pathExists(newFilePath))) {
       await fs.promises.rename(filePath, newFilePath);

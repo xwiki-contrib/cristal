@@ -287,7 +287,7 @@ export class NextcloudStorage extends AbstractStorage {
   }
 
   async move(): Promise<{ success: boolean; error?: string }> {
-    // TODO: to be implemented
+    // TODO: to be implemented in CRISTAL-435.
     throw new Error("Move not supported");
   }
 

@@ -173,5 +173,3 @@ async function onDocumentUpdate(page: PageData) {
     </x-navigation-tree-item>
   </sl-tree>
 </template>
-
-<style scoped></style>

@@ -19,14 +19,14 @@
  */
 
 import { FileSystemPageRenameManager } from "./components/componentsInit";
-import { name as PageRenameManagerName } from "@xwiki/cristal-rename-api";
+import { name as pageRenameManagerName } from "@xwiki/cristal-rename-api";
 import type { PageRenameManager } from "@xwiki/cristal-rename-api";
 import type { Container } from "inversify";
 
 export class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<PageRenameManager>(PageRenameManagerName)
+      .bind<PageRenameManager>(pageRenameManagerName)
       .to(FileSystemPageRenameManager)
       .inSingletonScope()
       .whenTargetNamed("FileSystem");

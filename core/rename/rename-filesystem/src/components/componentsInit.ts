@@ -24,7 +24,7 @@ import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type { PageRenameManager } from "@xwiki/cristal-rename-api";
 
 /**
- * Implementation of PageRenameManagerProvider for FileSystem backend.
+ * Implementation of {@link PageRenameManager} for FileSystem backend.
  *
  * @since 0.14
  **/

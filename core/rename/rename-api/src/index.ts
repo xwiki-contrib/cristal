@@ -40,7 +40,8 @@ interface PageRenameManager {
     preserveChildren: boolean,
   ): Promise<{ success: boolean; error?: string }>;
 
-  // TODO: add operations to update backlinks and set-up automatic redirects.
+  /* TODO: Fix CRISTAL-84 and add operations to update backlinks and set-up
+     automatic redirects. */
 }
 
 /**

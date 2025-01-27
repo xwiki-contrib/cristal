@@ -145,7 +145,7 @@ export class GitHubStorage extends AbstractStorage {
   }
 
   async move(): Promise<{ success: boolean; error?: string }> {
-    // TODO: to be implemented
+    // TODO: to be implemented in CRISTAL-436.
     throw new Error("Move not supported");
   }
 }
