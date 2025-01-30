@@ -2766,6 +2766,9 @@ importers:
       electron-builder:
         specifier: 25.1.8
         version: 25.1.8(electron-builder-squirrel-windows@24.13.3)
+      electron-builder-sandbox-fix:
+        specifier: 1.0.11
+        version: 1.0.11
       typescript:
         specifier: 5.7.3
         version: 5.7.3
@@ -5962,6 +5965,9 @@ packages:
     resolution: {integrity: sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
+
+  electron-builder-sandbox-fix@1.0.11:
+    resolution: {integrity: sha512-5laq82GtF9Mz6EPOoVs/pc+6Qr0Q/iP5oDJLKu4lKMS+olklz5d3XwDG6kwy3E6CRqE5Lx4aX2c7NA62/sT1Rw==}
 
   electron-builder-squirrel-windows@24.13.3:
     resolution: {integrity: sha512-oHkV0iogWfyK+ah9ZIvMDpei1m9ZRpdXcvde1wTpra2U8AFDNNpqJdnin5z+PM1GbQ5BoaKCWas2HSjtR0HwMg==}
@@ -11098,6 +11104,10 @@ snapshots:
   ejs@3.1.9:
     dependencies:
       jake: 10.8.7
+
+  electron-builder-sandbox-fix@1.0.11:
+    dependencies:
+      chalk: 4.1.2
 
   electron-builder-squirrel-windows@24.13.3(dmg-builder@25.1.8):
     dependencies:
