@@ -61,6 +61,5 @@ module.exports = async function () {
       executableName: "cristal",
       target: "nsis",
     },
-    afterPack: "electron-builder-sandbox-fix",
   };
 };
