@@ -253,6 +253,21 @@ TODO: these rules about opening and closing the sidebar should be better organiz
   display: block;
 }
 
+/*
+WIKI STYLES
+TODO: Discuss and move them to a more appropriate place
+*/
+
+/*CODE*/
+:deep(.box) {
+  :deep(.code) {
+    font-family: var(--cr-font-mono);
+    background: var(--cr-color-neutral-100);
+    border-radius: var(--cr-border-radius-medium);
+    padding: var(--cr-spacing-small);
+  }
+}
+
 /*LINKS*/
 
 :deep(.content a) {
@@ -316,11 +331,10 @@ TODO: these rules about opening and closing the sidebar should be better organiz
     }
   }
 }
-
 /*
-WIKI STYLES
-TODO: Discuss and move them to a more appropriate place
+END WIKI STYLES
 */
+
 @container xwCristal (max-width: 600px) {
   :deep(.wrapper.sidebar-is-collapsed) {
     &:has(.main-sidebar.is-visible) {
