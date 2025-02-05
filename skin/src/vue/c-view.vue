@@ -316,7 +316,14 @@ TODO: these rules about opening and closing the sidebar should be better organiz
     }
   }
 }
-
+:deep(blockquote) {
+  background-color: var(--cr-color-neutral-50);
+  color: var(--cr-color-neutral-600);
+  font-size: var(--cr-font-size-large);
+  border-inline-start: 2px solid var(--cr-color-neutral-200);
+  padding-inline-start: var(--cr-spacing-large);
+  margin: 0;
+}
 /*
 WIKI STYLES
 TODO: Discuss and move them to a more appropriate place
