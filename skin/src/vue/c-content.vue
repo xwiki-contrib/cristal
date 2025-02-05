@@ -160,6 +160,7 @@ onUpdated(() => {
   font-size: var(--cr-font-size-2x-large);
   line-height: var(--cr-font-size-2x-large);
   padding-block-start: var(--cr-spacing-small);
+  font-weight: var(--cr-font-weight-bold);
 }
 
 .doc-page-actions {
