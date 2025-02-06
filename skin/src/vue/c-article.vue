@@ -155,7 +155,6 @@ watch(
   line-height: var(--cr-font-size-2x-large);
 }
 
-
 @container xwCristal (max-width: 600px) {
   .content {
     padding-left: 0 var(--cr-spacing-x-small);
