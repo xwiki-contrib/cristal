@@ -258,16 +258,6 @@ WIKI STYLES
 TODO: Discuss and move them to a more appropriate place
 */
 
-/*CODE*/
-:deep(.box) {
-  :deep(.code) {
-    font-family: var(--cr-font-mono);
-    background: var(--cr-color-neutral-100);
-    border-radius: var(--cr-border-radius-medium);
-    padding: var(--cr-spacing-small);
-  }
-}
-
 /*LINKS*/
 
 :deep(.content a) {
