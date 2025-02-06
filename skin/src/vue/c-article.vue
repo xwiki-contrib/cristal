@@ -150,7 +150,7 @@ watch(
  * Code block style.
  * TODO: replace with a code macro rendering as soon as we support macro.
  */
- :deep(.box .code),
+:deep(.box .code),
 :deep(.doc-content.editor pre) {
   font-family: var(--cr-font-mono);
   background: var(--cr-color-neutral-100);
