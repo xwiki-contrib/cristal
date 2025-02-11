@@ -141,6 +141,7 @@ watch(
 }
 
 :deep(.doc-title) {
+  grid-area: doc-title;
   align-self: center;
   display: flex;
   border: none;
@@ -153,6 +154,7 @@ watch(
   max-width: var(--cr-sizes-max-page-width);
   width: 100%;
   line-height: var(--cr-font-size-2x-large);
+  padding-block-start: var(--cr-spacing-small);
 }
 
 @container xwCristal (max-width: 600px) {
