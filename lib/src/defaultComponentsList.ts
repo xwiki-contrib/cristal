@@ -25,6 +25,7 @@ import { ComponentInit as AuthenticationDefaultComponentInit } from "@xwiki/cris
 import { ComponentInit as AuthenticationUIComponentInit } from "@xwiki/cristal-authentication-ui";
 import { ComponentInit as BackendAPIComponentInit } from "@xwiki/cristal-backend-api";
 import { ComponentInit as DexieBackendComponentInit } from "@xwiki/cristal-backend-dexie";
+import { ComponentInit as GithubBackendComponentInit } from "@xwiki/cristal-backend-github";
 import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-backend-nextcloud";
 import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
 import { ComponentInit as DateAPIComponentInit } from "@xwiki/cristal-date-api";
@@ -35,9 +36,11 @@ import { ComponentInit as EditorTiptapComponentInit } from "@xwiki/cristal-edito
 import { ComponentInit as MenuButtonsComponentInit } from "@xwiki/cristal-extension-menubuttons";
 import { ComponentInit as ExtraTabsComponentInit } from "@xwiki/cristal-extra-tabs-default";
 import { ComponentInit as DefaultPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-default";
+import { ComponentInit as GitHubPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-github";
 import { ComponentInit as NextcloudPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-nextcloud";
 import { ComponentInit as XWikiPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-xwiki";
 import { ComponentInit as DefaultPageHistoryComponentInit } from "@xwiki/cristal-history-default";
+import { ComponentInit as GitHubPageHistoryComponentInit } from "@xwiki/cristal-history-github";
 import { ComponentInit as HistoryUIComponentInit } from "@xwiki/cristal-history-ui";
 import { ComponentInit as XWikiPageHistoryComponentInit } from "@xwiki/cristal-history-xwiki";
 import { ComponentInit as InfoActionsComponentInit } from "@xwiki/cristal-info-actions-default";
@@ -48,12 +51,15 @@ import { ComponentInit as MacrosComponentInit } from "@xwiki/cristal-macros";
 import { ComponentInit as MarkdownDefaultComponentInit } from "@xwiki/cristal-markdown-default";
 import { ComponentInit as ClickListenerComponentInit } from "@xwiki/cristal-model-click-listener";
 import { ComponentInit as ModelReferenceAPIComponentInit } from "@xwiki/cristal-model-reference-api";
+import { ComponentInit as ModelReferenceGitHubComponentInit } from "@xwiki/cristal-model-reference-github";
 import { ComponentInit as ModelReferenceNextcloudComponentInit } from "@xwiki/cristal-model-reference-nextcloud";
 import { ComponentInit as ModelReferenceXWikiComponentInit } from "@xwiki/cristal-model-reference-xwiki";
 import { ComponentInit as ModelRemoteURLAPIComponentInit } from "@xwiki/cristal-model-remote-url-api";
+import { ComponentInit as ModelRemoteURLGitHubComponentInit } from "@xwiki/cristal-model-remote-url-github";
 import { ComponentInit as ModelRemoteURLNextcloudComponentInit } from "@xwiki/cristal-model-remote-url-nextcloud";
 import { ComponentInit as ModelRemoteURLXWikiComponentInit } from "@xwiki/cristal-model-remote-url-xwiki";
 import { ComponentInit as DefaultNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-default";
+import { ComponentInit as GitHubNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-github";
 import { ComponentInit as NextcloudNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-nextcloud";
 import { ComponentInit as XWikiNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-xwiki";
 import { ComponentInit as ActionsPagesComponentInit } from "@xwiki/cristal-page-actions-default";
@@ -118,4 +124,10 @@ export function defaultComponentsList(container: Container): void {
   new DateAPIComponentInit(container);
   new MarkdownDefaultComponentInit(container);
   new RenameComponentInit(container);
+  new GithubBackendComponentInit(container);
+  new GitHubPageHierarchyComponentInit(container);
+  new GitHubNavigationTreeComponentInit(container);
+  new GitHubPageHistoryComponentInit(container);
+  new ModelReferenceGitHubComponentInit(container);
+  new ModelRemoteURLGitHubComponentInit(container);
 }

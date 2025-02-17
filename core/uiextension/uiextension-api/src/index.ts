@@ -70,4 +70,20 @@ interface UIExtensionsManager {
   list(name: string): Promise<UIExtension[]>;
 }
 
-export type { UIExtension, UIExtensionsManager };
+/**
+ * A {@link UIExtensionProvider} returns instances of {@link UIExtension}
+ * matching the current wiki configuration.
+ *
+ * @since 0.15
+ */
+interface UIExtensionProvider {
+  /**
+   * Return the instance of {@link UIExtension} matching the current wiki
+   * configuration for the extension managed by this provider.
+   *
+   * @returns the instance matching the configuration
+   */
+  get(): UIExtension;
+}
+
+export type { UIExtension, UIExtensionProvider, UIExtensionsManager };

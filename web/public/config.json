@@ -87,6 +87,28 @@
     "designSystem": "vuetify",
     "realtimeURL": "http://localhost:15681/collaboration"
   },
+  "GitHub": {
+    "name": "GitHub",
+    "configType": "GitHub",
+    "serverRendering": false,
+    "offline": false,
+    "baseURL": "https://raw.githubusercontent.com/ldubost/test/master/",
+    "baseRestURL": "https://api.github.com/repos/ldubost/test/",
+    "homePage": "README.md",
+    "designSystem": "vuetify",
+    "realtimeURL": "http://localhost:15681/collaboration"
+  },
+  "GitHubSL": {
+    "name": "GitHubSL",
+    "configType": "GitHub",
+    "serverRendering": false,
+    "offline": false,
+    "baseURL": "https://raw.githubusercontent.com/ldubost/test/master/",
+    "baseRestURL": "https://api.github.com/repos/ldubost/test/",
+    "homePage": "README.md",
+    "designSystem": "shoelace",
+    "realtimeURL": "http://localhost:15681/collaboration"
+  },
   "Nextcloud": {
     "name": "Nextcloud",
     "configType": "Nextcloud",

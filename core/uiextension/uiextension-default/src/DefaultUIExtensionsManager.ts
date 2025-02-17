@@ -20,6 +20,7 @@
 
 import {
   UIExtension,
+  UIExtensionProvider,
   UIExtensionsManager,
 } from "@xwiki/cristal-uiextension-api";
 import { injectable, multiInject } from "inversify";
@@ -29,11 +30,16 @@ import { sortBy } from "lodash";
 export class DefaultUIExtensionsManager implements UIExtensionsManager {
   constructor(
     @multiInject("UIExtension") private uiExtensions: UIExtension[],
+    @multiInject("UIExtensionProvider")
+    private uiExtensionProviders: UIExtensionProvider[],
   ) {}
 
   async list(name: string): Promise<UIExtension[]> {
     const filtered: UIExtension[] = [];
-    for (const uix of this.uiExtensions) {
+    for (const uix of [
+      ...this.uiExtensions,
+      ...this.uiExtensionProviders.map((p) => p.get()),
+    ]) {
       if (uix.uixpName === name) {
         const enabled = await uix.enabled();
         if (enabled) {

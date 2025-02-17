@@ -72,11 +72,10 @@ const pageExist = computed(() => {
 });
 
 onUpdated(() => {
-  ContentTools.transformImages(cristal, "xwikicontent");
-
   if (cristal && contentRoot.value) {
     ContentTools.listenToClicks(contentRoot.value, cristal);
     ContentTools.transformMacros(contentRoot.value, cristal);
+    ContentTools.transformImagesInElement(contentRoot.value, cristal);
   }
 });
 </script>

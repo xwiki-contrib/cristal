@@ -18,17 +18,35 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { GitHubLoginMenuUIExtension } from "./GitHubLoginMenuUIExtension";
 import { LoggedInMenuUIExtension } from "./LoggedInMenuUIExtension";
 import { LoginMenuUIExtension } from "./LoginMenuUIExtension";
-import { UIExtension } from "@xwiki/cristal-uiextension-api";
+import {
+  LoginMenuUIExtensionProvider,
+  extensionName as loginMenuUIExtensionName,
+} from "./LoginMenuUIExtensionProvider";
+import {
+  UIExtension,
+  UIExtensionProvider,
+} from "@xwiki/cristal-uiextension-api";
 import { Container } from "inversify";
 
 export class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<UIExtension>("UIExtension")
-      .to(LoginMenuUIExtension)
+      .bind<UIExtensionProvider>("UIExtensionProvider")
+      .to(LoginMenuUIExtensionProvider)
       .inSingletonScope();
+    container
+      .bind<UIExtension>(loginMenuUIExtensionName)
+      .to(LoginMenuUIExtension)
+      .inSingletonScope()
+      .whenTargetIsDefault();
+    container
+      .bind<UIExtension>(loginMenuUIExtensionName)
+      .to(GitHubLoginMenuUIExtension)
+      .inSingletonScope()
+      .whenTargetNamed("GitHub");
     container
       .bind<UIExtension>("UIExtension")
       .to(LoggedInMenuUIExtension)

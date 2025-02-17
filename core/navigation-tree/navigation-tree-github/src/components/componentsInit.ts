@@ -23,6 +23,7 @@ import { name as NavigationTreeSourceName } from "@xwiki/cristal-navigation-tree
 import { getParentNodesIdFromPath } from "@xwiki/cristal-navigation-tree-default";
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp, Logger, PageData } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
@@ -35,12 +36,11 @@ import type {
  **/
 @injectable()
 class GitHubNavigationTreeSource implements NavigationTreeSource {
-  private cristalApp: CristalApp;
-  public logger: Logger;
-
   constructor(
-    @inject<Logger>("Logger") logger: Logger,
-    @inject<CristalApp>("CristalApp") cristalApp: CristalApp,
+    @inject<Logger>("Logger") private readonly logger: Logger,
+    @inject<CristalApp>("CristalApp") private readonly cristalApp: CristalApp,
+    @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+    private readonly authenticationManagerProvider: AuthenticationManagerProvider,
   ) {
     this.logger = logger;
     this.logger.setModule(
@@ -55,21 +55,27 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
     const currentId = id ? id : "";
     const navigationTree: Array<NavigationTreeNode> = [];
 
+    const authorization = await this.authenticationManagerProvider
+      .get()
+      ?.getAuthorizationHeader();
+    const headers: { Accept: string; Authorization?: string } = {
+      Accept: "application/json",
+    };
+    if (authorization) {
+      headers.Authorization = authorization;
+    }
+
     const navigationTreeRequestUrl = new URL(
-      `${this.cristalApp.getWikiConfig().baseURL}/${currentId}`,
+      this.cristalApp.getWikiConfig().storage.getPageRestURL(currentId, ""),
     );
-    navigationTreeRequestUrl.search = new URLSearchParams([
-      ["noancestors", "1"],
-    ]).toString();
     try {
       const response = await fetch(navigationTreeRequestUrl, {
-        headers: {
-          Accept: "application/json",
-        },
+        headers: headers,
       });
       const jsonResponse = await response.json();
-      jsonResponse.payload.tree.items.forEach(
-        (treeNode: { name: string; path: string; contentType: string }) => {
+      console.log(jsonResponse);
+      jsonResponse.forEach(
+        (treeNode: { name: string; path: string; type: string }) => {
           navigationTree.push({
             id: treeNode.path,
             label: treeNode.name,
@@ -83,7 +89,7 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
                 page: treeNode.path,
               },
             }).href,
-            has_children: treeNode.contentType == "directory",
+            has_children: treeNode.type == "dir",
           });
         },
       );

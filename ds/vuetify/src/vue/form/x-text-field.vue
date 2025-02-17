@@ -33,6 +33,7 @@ const rules = computed(() => {
     :name="name"
     :autofocus="autofocus"
     :rules="rules"
+    :readonly="readonly"
   ></v-text-field>
 </template>
 

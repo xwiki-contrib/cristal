@@ -19,6 +19,7 @@
  */
 
 import { CristalAppLoader } from "@xwiki/cristal-lib";
+import { ComponentInit as AuthenticationGitHubComponentInit } from "@xwiki/cristal-authentication-github";
 import { ComponentInit as AuthenticationXWikiComponentInit } from "@xwiki/cristal-authentication-xwiki";
 import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-default";
 import { Container } from "inversify";
@@ -43,6 +44,7 @@ CristalAppLoader.init(
   (container: Container) => {
     defaultComponentsList(container);
     new BrowserComponentInit(container);
+    new AuthenticationGitHubComponentInit(container);
     new AuthenticationXWikiComponentInit(container);
   },
 );
