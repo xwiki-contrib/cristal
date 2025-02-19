@@ -55,6 +55,7 @@ const { t } = useI18n({
 const props = defineProps<NavigationTreeSelectProps>();
 const model = defineModel<SpaceReference>();
 
+const openedLocationDialog: Ref<boolean> = ref(false);
 const hierarchy: Ref<Array<PageHierarchyItem>> = ref([]);
 let selectedPage: DocumentReference | undefined;
 
@@ -88,7 +89,11 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
       <XBreadcrumb :items="hierarchy"></XBreadcrumb>
     </template>
   </v-text-field>
-  <XDialog width="auto" :title="t('vuetify.tree.select.location.label')">
+  <XDialog
+    v-model="openedLocationDialog"
+    width="auto"
+    :title="t('vuetify.tree.select.location.label')"
+  >
     <template #activator>
       <x-btn id="change-page-location-button" size="small" color="secondary">
         {{ t("vuetify.tree.select.location.label") }}
@@ -99,6 +104,11 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
         :current-page-reference="selectedPage"
         :click-action="treeNodeClickAction"
       ></XNavigationTree>
+    </template>
+    <template #footer>
+      <XBtn variant="primary" @click="openedLocationDialog = false">
+        {{ t("vuetify.tree.select.location.select") }}
+      </XBtn>
     </template>
   </XDialog>
 </template>

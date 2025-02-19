@@ -54,6 +54,7 @@ const { t } = useI18n({
 const props = defineProps<NavigationTreeSelectProps>();
 const model = defineModel<SpaceReference>();
 
+const openedLocationDialog: Ref<boolean> = ref(false);
 const hierarchy: Ref<Array<PageHierarchyItem>> = ref([]);
 let selectedPage: DocumentReference | undefined;
 
@@ -79,11 +80,15 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
   <sl-input :label="label" :help-text="help" readonly>
     <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
     Disabling it for now as I did not find an elegant solution to declare this property. -->
-    <div slot="prefix">
+    <div slot="prefix" @click.prevent>
       <XBreadcrumb :items="hierarchy"></XBreadcrumb>
     </div>
   </sl-input>
-  <XDialog width="auto" :title="t('shoelace.tree.select.location.label')">
+  <XDialog
+    v-model="openedLocationDialog"
+    width="auto"
+    :title="t('shoelace.tree.select.location.label')"
+  >
     <template #activator>
       <x-btn id="change-page-location-button" size="small" color="secondary">
         {{ t("shoelace.tree.select.location.label") }}
@@ -94,6 +99,11 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
         :current-page-reference="currentPageReference"
         :click-action="treeNodeClickAction"
       ></XNavigationTree>
+    </template>
+    <template #footer>
+      <XBtn variant="primary" @click="openedLocationDialog = false">
+        {{ t("shoelace.tree.select.location.select") }}
+      </XBtn>
     </template>
   </XDialog>
 </template>
