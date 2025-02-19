@@ -30,6 +30,10 @@ import load from "@xwiki/cristal-electron-storage/main";
 import { BrowserWindow, app } from "electron";
 import { platform } from "node:process";
 
+// Set up IPC listener for configuration loading before the app actually starts
+// It needs to be setup before the preload script runs, which means the first window mustn't have been created
+loadConfiguration();
+
 /**
  * Prevent electron from running multiple instances.
  */
@@ -58,9 +62,6 @@ if (process.env.NODE_ENV !== "development") {
   // Deactivate debug logs when the environment is not explicitly in development mode.
   console.debug = () => {};
 }
-
-// Set up IPC listener for configuration loading before the app actually starts
-loadConfiguration();
 
 /**
  * Create the application window when the background process is ready.
