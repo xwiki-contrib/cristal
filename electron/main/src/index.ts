@@ -59,6 +59,9 @@ if (process.env.NODE_ENV !== "development") {
   console.debug = () => {};
 }
 
+// Set up IPC listener for configuration loading before the app actually starts
+loadConfiguration();
+
 /**
  * Create the application window when the background process is ready.
  */
@@ -69,7 +72,6 @@ app
     restoreOrCreateWindow().then((w) => {
       loadBrowser(w);
       loadAuthentication(w, loadFile);
-      loadConfiguration();
     });
     /**
      * @see https://www.electronjs.org/docs/latest/api/app#event-activate-macos Event: 'activate'.
