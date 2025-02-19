@@ -18,20 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import ComponentInit from "./components/componentsInit";
-import { CristalLoader } from "./components/cristalLoader";
-import { DefaultExtensionConfig } from "./components/defaultExtensionConfig";
-import { DefaultExtensionManager } from "./components/defaultExtensionManager";
-import type { CristalComponent } from "./api/cristalComponent";
-import type { ExtensionConfig } from "./api/extensionConfig";
-import type { ExtensionManager } from "./api/extensionManager";
-import type { DefaultComponent } from "./components/defaultComponent";
-
-export type { CristalComponent, ExtensionConfig, ExtensionManager };
-export {
-  ComponentInit,
-  CristalLoader,
-  DefaultComponent,
-  DefaultExtensionConfig,
-  DefaultExtensionManager,
-};
+export { default as ComponentInit } from "./components/componentsInit";
+export { CristalLoader } from "./components/cristalLoader";
+export { DefaultExtensionConfig } from "./components/defaultExtensionConfig";
+export { DefaultExtensionManager } from "./components/defaultExtensionManager";
+export type { CristalComponent } from "./api/cristalComponent";
+export type { ExtensionConfig } from "./api/extensionConfig";
+export type { ExtensionManager } from "./api/extensionManager";
+export type { DefaultComponent } from "./components/defaultComponent";

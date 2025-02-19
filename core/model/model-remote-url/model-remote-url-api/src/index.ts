@@ -18,16 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./componentInit";
-import type { RemoteURLParser } from "./remoteURLParser";
-import type { RemoteURLParserProvider } from "./remoteURLParserProvider";
-import type { RemoteURLSerializer } from "./remoteURLSerializer";
-import type { RemoteURLSerializerProvider } from "./remoteURLSerializerProvider";
-
-export {
-  ComponentInit,
-  type RemoteURLParser,
-  type RemoteURLParserProvider,
-  type RemoteURLSerializer,
-  type RemoteURLSerializerProvider,
-};
+export { ComponentInit } from "./componentInit";
+export type { RemoteURLParser } from "./remoteURLParser";
+export type { RemoteURLParserProvider } from "./remoteURLParserProvider";
+export type { RemoteURLSerializer } from "./remoteURLSerializer";
+export type { RemoteURLSerializerProvider } from "./remoteURLSerializerProvider";

@@ -18,8 +18,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./components/componentsInit.js";
-import type { MenuEntry } from "./api/menuEntry";
-
-export type { MenuEntry };
-export { ComponentInit };
+export { ComponentInit } from "./components/componentsInit.js";
+export type { MenuEntry } from "./api/menuEntry";

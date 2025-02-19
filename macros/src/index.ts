@@ -18,7 +18,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import ComponentInit from "./components/componentsInit.js";
-import { DefaultMacroProvider } from "./components/defaultMacroProvider";
-
-export { ComponentInit, DefaultMacroProvider };
+export { default as ComponentInit } from "./components/componentsInit.js";
+export { DefaultMacroProvider } from "./components/defaultMacroProvider";

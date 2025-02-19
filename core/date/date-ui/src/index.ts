@@ -18,6 +18,4 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import Date from "./vue/CDate.vue";
-
-export { Date };
+export { default as Date } from "./vue/CDate.vue";

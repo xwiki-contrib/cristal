@@ -18,6 +18,4 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import InfoActions from "./vue/InfoActions.vue";
-
-export { InfoActions };
+export { default as InfoActions } from "./vue/InfoActions.vue";

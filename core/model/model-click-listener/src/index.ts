@@ -18,7 +18,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./componentInit";
-import type { ClickListener } from "./clickListener";
-
-export { type ClickListener, ComponentInit };
+export { ComponentInit } from "./componentInit";
+export type { ClickListener } from "./clickListener";

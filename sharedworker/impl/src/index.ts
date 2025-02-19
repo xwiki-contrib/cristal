@@ -18,7 +18,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import ComponentInit from "./components/componentsInit";
-import type { QueueWorker } from "@xwiki/cristal-sharedworker-api";
-export type { QueueWorker };
-export { ComponentInit };
+export { default as ComponentInit } from "./components/componentsInit";
+export type { QueueWorker } from "@xwiki/cristal-sharedworker-api";

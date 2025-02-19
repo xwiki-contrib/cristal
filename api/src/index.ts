@@ -18,46 +18,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { registerAsyncComponent } from "./api/designSystemLoader.js";
-import { DefaultPageData } from "./components/DefaultPageData.js";
-import { JSONLDDocument } from "./components/JSONLDDocument.js";
-import ComponentInit from "./components/componentsInit.js";
-import { DefaultLogger } from "./components/defaultLogger.js";
-import { DefaultLoggerConfig } from "./components/defaultLoggerConfig.js";
-import { DefaultWikiConfig } from "./components/defaultWikiConfig.js";
-import type { PageData } from "./api/PageData.js";
-import type { WikiConfig } from "./api/WikiConfig.js";
-import type { AttachmentsData } from "./api/attachmentsData";
-import type { CristalApp } from "./api/cristalApp.js";
-import type { DesignSystemLoader } from "./api/designSystemLoader.js";
-import type { Document } from "./api/document.js";
-import type { Logger } from "./api/logger.js";
-import type { LoggerConfig } from "./api/loggerConfig.js";
-import type { PageAttachment } from "./api/pageAttachment";
-import type { SkinManager } from "./api/skinManager.js";
-import type { Storage } from "./api/storage.js";
-import type { WrappingStorage } from "./api/wrappingStorage.js";
-
-export type {
-  AttachmentsData,
-  CristalApp,
-  DesignSystemLoader,
-  Document,
-  Logger,
-  LoggerConfig,
-  PageAttachment,
-  PageData,
-  SkinManager,
-  Storage,
-  WikiConfig,
-  WrappingStorage,
-};
-export {
-  ComponentInit,
-  DefaultLogger,
-  DefaultLoggerConfig,
-  DefaultPageData,
-  DefaultWikiConfig,
-  JSONLDDocument,
-  registerAsyncComponent,
-};
+export { registerAsyncComponent } from "./api/designSystemLoader.js";
+export { DefaultPageData } from "./components/DefaultPageData.js";
+export { JSONLDDocument } from "./components/JSONLDDocument.js";
+export { default as ComponentInit } from "./components/componentsInit.js";
+export { DefaultLogger } from "./components/defaultLogger.js";
+export { DefaultLoggerConfig } from "./components/defaultLoggerConfig.js";
+export { DefaultWikiConfig } from "./components/defaultWikiConfig.js";
+export type { PageData } from "./api/PageData.js";
+export type { WikiConfig } from "./api/WikiConfig.js";
+export type { AttachmentsData } from "./api/attachmentsData";
+export type { CristalApp } from "./api/cristalApp.js";
+export type { DesignSystemLoader } from "./api/designSystemLoader.js";
+export type { Document } from "./api/document.js";
+export type { Logger } from "./api/logger.js";
+export type { LoggerConfig } from "./api/loggerConfig.js";
+export type { PageAttachment } from "./api/pageAttachment";
+export type { SkinManager } from "./api/skinManager.js";
+export type { Storage } from "./api/storage.js";
+export type { WrappingStorage } from "./api/wrappingStorage.js";

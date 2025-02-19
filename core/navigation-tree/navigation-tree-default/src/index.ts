@@ -18,7 +18,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./components/componentsInit";
-import { getParentNodesIdFromPath } from "./utils";
-
-export { ComponentInit, getParentNodesIdFromPath };
+export { ComponentInit } from "./components/componentsInit";
+export { getParentNodesIdFromPath } from "./utils";
