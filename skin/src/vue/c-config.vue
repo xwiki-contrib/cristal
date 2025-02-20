@@ -19,15 +19,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script lang="ts" setup>
 import { inject } from "vue";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/cristal-api";
 
-const configList: Array<WikiConfig> = [];
 const cristal = inject<CristalApp>("cristal")!;
-let configs = cristal.getAvailableConfigurations();
-
-for (const wikiConfig of configs.values()) {
-  configList.push(wikiConfig);
-}
+const configList = [...cristal.getAvailableConfigurations().values()];
 const currentConfig = cristal.getWikiConfig().name;
 </script>
 <template>

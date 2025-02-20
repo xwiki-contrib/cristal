@@ -194,14 +194,20 @@ class AutoSaver extends EventEmitter {
     return false;
   }
 
-  private getUpdateCounts(): { [key: number]: number } {
-    const updateCounts: { [key: number]: number } = {};
-    this.hocuspocusProvider.awareness
-      ?.getStates()
-      .forEach((awarenessState, clientID) => {
-        const state = awarenessState[AutoSaver.AWARENESS_FIELD];
-        updateCounts[clientID] = state?.updateCount || 0;
-      });
+  private getUpdateCounts(): Record<number, number> {
+    if (!this.hocuspocusProvider.awareness) {
+      return {};
+    }
+
+    const updateCounts: Record<number, number> = {};
+
+    for (const [clientID, awarenessState] of this.hocuspocusProvider.awareness
+      .getStates()
+      .entries()) {
+      const state = awarenessState[AutoSaver.AWARENESS_FIELD];
+      updateCounts[clientID] = state?.updateCount ?? 0;
+    }
+
     return updateCounts;
   }
 
