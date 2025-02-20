@@ -174,7 +174,7 @@ export function parseInternalImages(
   remoteURLSerializer: RemoteURLSerializer,
 ): MarkdownIt.Core.RuleCore {
   return (state) => {
-    state.tokens.forEach((blockToken) => {
+    for (const blockToken of state.tokens) {
       if (blockToken.type == "inline") {
         handleInlineBlockToken(
           blockToken,
@@ -183,6 +183,6 @@ export function parseInternalImages(
           modelReferenceParser,
         );
       }
-    });
+    }
   };
 }

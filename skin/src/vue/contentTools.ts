@@ -52,8 +52,10 @@ export class ContentTools {
     if (css && css.length > 0) {
       // check new css
       ContentTools.logger?.debug("Current CSS is ", css.length);
-      css.forEach((cssLink) => {
+
+      for (const cssLink of css) {
         const url = ContentTools.urlToLoad(cssLink);
+
         if (url != null) {
           const divEl = document.createElement("link");
           divEl.href = url;
@@ -64,7 +66,7 @@ export class ContentTools {
         } else {
           ContentTools.logger?.debug("CSS already loaded: ", cssLink);
         }
-      });
+      }
     }
   }
 
@@ -75,7 +77,8 @@ export class ContentTools {
   public static loadJS(js: string[]): void {
     if (js && js.length > 0) {
       ContentTools.logger?.debug("Loading JS code for content");
-      js.forEach((jsLink) => {
+
+      for (const jsLink of js) {
         ContentTools.logger?.debug("JS Link: ", jsLink);
         const url = ContentTools.urlToLoad(jsLink);
         if (url != null) {
@@ -87,8 +90,10 @@ export class ContentTools {
         } else {
           ContentTools.logger?.debug("JS already loaded: ", jsLink);
         }
-      });
+      }
+
       ContentTools.logger?.debug("ready to fire event for main content");
+
       try {
         ContentTools.logger?.debug("prototype doc is", document);
         //// @ts-expect-error TODO describe
@@ -105,21 +110,24 @@ export class ContentTools {
     const range = document.createRange();
     range.setStart(document.head, 0);
     const contentToInject = range.createContextualFragment(html);
-    contentToInject
-      .querySelectorAll("link[href], script[src]")
-      .forEach((resource) => {
-        url1 = resource.getAttribute("src") ?? resource.getAttribute("ref");
-        document
-          .querySelectorAll("link[href], script[src]")
-          .forEach((resource2) => {
-            const url2 =
-              resource2.getAttribute("src") ?? resource2.getAttribute("href");
 
-            if (url1 && url1 == url2) {
-              return null;
-            }
-          });
-      });
+    for (const resource of Array.from(
+      contentToInject.querySelectorAll("link[href], script[src]"),
+    )) {
+      url1 = resource.getAttribute("src") ?? resource.getAttribute("ref");
+
+      for (const resource2 of Array.from(
+        document.querySelectorAll("link[href], script[src]"),
+      )) {
+        const url2 =
+          resource2.getAttribute("src") ?? resource2.getAttribute("href");
+
+        if (url1 && url1 == url2) {
+          return null;
+        }
+      }
+    }
+
     return url1;
   }
 
@@ -149,17 +157,18 @@ export class ContentTools {
       new MutationObserver((mutations) => {
         ContentTools.logger?.debug("Called in mutation records");
         for (const { addedNodes } of mutations) {
-          addedNodes.forEach((addedNode) => {
+          for (const addedNode of Array.from(addedNodes)) {
             if (addedNode.nodeType == 1) {
-              const imgs = (addedNode as HTMLElement).querySelectorAll("img");
-              imgs.forEach((img) => {
+              for (const img of Array.from(
+                (addedNode as HTMLElement).querySelectorAll("img"),
+              )) {
                 transform(img);
-              });
+              }
               if ((addedNode as HTMLElement).tagName === "IMG") {
                 transform(addedNode as HTMLImageElement);
               }
             }
-          });
+          }
         }
       }).observe(xwikiContentEl, { childList: true, subtree: true });
     }
@@ -198,13 +207,14 @@ export class ContentTools {
     new MutationObserver((mutations) => {
       ContentTools.logger?.debug("Called in mutation records");
       for (const { addedNodes } of mutations) {
-        addedNodes.forEach((addedNode) => {
+        for (const addedNode of Array.from(addedNodes)) {
           if (addedNode.nodeType == 1) {
-            const jsel = (addedNode as HTMLElement).querySelectorAll("script");
-            jsel.forEach((jsel) => {
+            for (const jsel of Array.from(
+              (addedNode as HTMLElement).querySelectorAll("script"),
+            )) {
               ContentTools.logger?.debug("Transforming script url " + jsel);
               transformScript(jsel);
-            });
+            }
             if ((addedNode as HTMLElement).tagName === "SCRIPT") {
               ContentTools.logger?.debug(
                 "Transforming script url " +
@@ -213,7 +223,7 @@ export class ContentTools {
               transformScript(addedNode as HTMLScriptElement);
             }
           }
-        });
+        }
       }
     }).observe(document.head, { childList: true, subtree: true });
   }
