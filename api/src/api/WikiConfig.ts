@@ -20,7 +20,18 @@
 
 import type { Storage } from "./storage";
 
-export interface WikiConfig {
+type ConfigObject = {
+  name: string;
+  baseURL: string;
+  baseRestURL: string;
+  realtimeURL: string;
+  homePage: string;
+  serverRendering: boolean;
+  offline: boolean;
+  designSystem: string;
+};
+
+interface WikiConfig {
   name: string;
   // The base url of the backend endpoint
   baseURL: string;
@@ -48,7 +59,7 @@ export interface WikiConfig {
     offline: boolean,
   ): void;
 
-  setConfigFromObject(configObject: Record<string, unknown>): void;
+  setConfigFromObject(configObject: ConfigObject): void;
 
   isSupported(format: string): boolean;
 
@@ -76,3 +87,5 @@ export interface WikiConfig {
    */
   getNewPageDefaultName(): string;
 }
+
+export type { ConfigObject, WikiConfig };
