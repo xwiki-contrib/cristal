@@ -184,9 +184,9 @@ function editExistingPage() {
       <x-btn @click.stop="dialogOpen = false">
         {{ t("page.creation.menu.cancel") }}
       </x-btn>
-      <x-btn variant="primary" type="submit" form="page-creation-form">{{
-        t("page.creation.menu.submit")
-      }}</x-btn>
+      <x-btn variant="primary" type="submit" form="page-creation-form">
+        {{ t("page.creation.menu.submit") }}
+      </x-btn>
     </template>
   </x-dialog>
 </template>
