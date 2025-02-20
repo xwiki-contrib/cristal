@@ -161,7 +161,8 @@ class CristalAppLoader extends CristalLoader {
       const localConfigName = window.localStorage.getItem("currentApp");
       if (
         localConfigName != null &&
-        this.cristal.getAvailableConfigurations().has(localConfigName)
+        (!this.cristal ||
+          this.cristal.getAvailableConfigurations().has(localConfigName))
       ) {
         return localConfigName;
       } else {
