@@ -68,25 +68,21 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
         },
       });
       const jsonResponse = await response.json();
-      jsonResponse.payload.tree.items.forEach(
-        (treeNode: { name: string; path: string; contentType: string }) => {
-          navigationTree.push({
-            id: treeNode.path,
-            label: treeNode.name,
-            location: new SpaceReference(
-              undefined,
-              ...treeNode.path.split("/"),
-            ),
-            url: this.cristalApp.getRouter().resolve({
-              name: "view",
-              params: {
-                page: treeNode.path,
-              },
-            }).href,
-            has_children: treeNode.contentType == "directory",
-          });
-        },
-      );
+
+      for (const treeNode of jsonResponse.payload) {
+        navigationTree.push({
+          id: treeNode.path,
+          label: treeNode.name,
+          location: new SpaceReference(undefined, ...treeNode.path.split("/")),
+          url: this.cristalApp.getRouter().resolve({
+            name: "view",
+            params: {
+              page: treeNode.path,
+            },
+          }).href,
+          has_children: treeNode.contentType == "directory",
+        });
+      }
     } catch (error) {
       this.logger.error(error);
       this.logger.debug("Could not load navigation tree.");

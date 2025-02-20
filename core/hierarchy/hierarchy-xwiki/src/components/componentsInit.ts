@@ -90,32 +90,30 @@ class XWikiPageHierarchyResolver implements PageHierarchyResolver {
       const response = await fetch(restApiUrl, { headers });
       const jsonResponse = await response.json();
       const hierarchy: Array<PageHierarchyItem> = [];
-      jsonResponse.hierarchy.items.forEach(
-        (hierarchyItem: { label: string; url: string; type: string }) => {
-          // If a document item is not terminal (i.e., WebHome) we exclude it.
-          if (
-            hierarchyItem.type != "document" ||
-            !hierarchyItem.url.endsWith("/")
-          ) {
-            hierarchy.push({
-              label: hierarchyItem.label,
-              pageId: this.storageProvider
-                .get()
-                .getPageFromViewURL(hierarchyItem.url)!,
-              url: this.cristalApp.getRouter().resolve({
-                name: "view",
-                params: {
-                  page: this.referenceSerializer.serialize(
-                    this.urlParser.parse(
-                      hierarchyItem.url,
-                    )! as DocumentReference,
-                  ),
-                },
-              }).href,
-            });
-          }
-        },
-      );
+
+      for (const hierarchyItem of jsonResponse.hierarchy.items) {
+        // If a document item is not terminal (i.e., WebHome) we exclude it.
+        if (
+          hierarchyItem.type != "document" ||
+          !hierarchyItem.url.endsWith("/")
+        ) {
+          hierarchy.push({
+            label: hierarchyItem.label,
+            pageId: this.storageProvider
+              .get()
+              .getPageFromViewURL(hierarchyItem.url)!,
+            url: this.cristalApp.getRouter().resolve({
+              name: "view",
+              params: {
+                page: this.referenceSerializer.serialize(
+                  this.urlParser.parse(hierarchyItem.url)! as DocumentReference,
+                ),
+              },
+            }).href,
+          });
+        }
+      }
+
       hierarchy[0].label = "Home";
       return hierarchy;
     } catch (error) {

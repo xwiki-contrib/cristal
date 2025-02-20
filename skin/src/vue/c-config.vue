@@ -25,9 +25,9 @@ const configList: Array<WikiConfig> = [];
 const cristal = inject<CristalApp>("cristal")!;
 let configs = cristal.getAvailableConfigurations();
 
-configs.forEach((wikiConfig: WikiConfig) => {
+for (const wikiConfig of configs.values()) {
   configList.push(wikiConfig);
-});
+}
 const currentConfig = cristal.getWikiConfig().name;
 </script>
 <template>
@@ -88,7 +88,7 @@ p {
   align-items: center;
 }
 
-.grid-container > * {
+.grid-container>* {
   display: grid;
   gap: var(--cr-spacing-medium);
   align-items: center;
@@ -98,7 +98,7 @@ p {
   padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-small);
 }
 
-.grid-container > *:last-child {
+.grid-container>*:last-child {
   border-bottom: 0;
 }
 </style>
