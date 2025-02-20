@@ -15,7 +15,7 @@
   },
   "main": "./main/dist/index.cjs",
   "scripts": {
-    "build:linux": "electron-builder --linux snap deb rpm AppImage --x64 --config .electron-builder.config.js --dir",
+    "build:linux": "electron-builder --linux snap deb rpm flatpak AppImage --x64 --config .electron-builder.config.js --dir",
     "build:mac": "electron-builder --mac dmg --x64 --arm64 --config .electron-builder.config.js --dir",
     "build:win": "electron-builder --win nsis msi --x64 --ia32 --config .electron-builder.config.js --dir",
     "clean": "rimraf dist",
@@ -30,6 +30,6 @@
     "electron": "34.0.2",
     "electron-builder": "25.1.8",
     "typescript": "5.7.3",
-    "vite": "6.0.11"
+    "vite": "6.1.0"
   }
 }

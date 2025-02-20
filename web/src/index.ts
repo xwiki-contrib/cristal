@@ -18,13 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { CristalAppLoader } from "@xwiki/cristal-lib";
+import { CristalAppLoader, defaultComponentsList } from "@xwiki/cristal-lib";
 import { ComponentInit as AuthenticationGitHubComponentInit } from "@xwiki/cristal-authentication-github";
 import { ComponentInit as AuthenticationXWikiComponentInit } from "@xwiki/cristal-authentication-xwiki";
 import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-default";
-import { Container } from "inversify";
 import { loadConfig } from "@xwiki/cristal-configuration-web";
-import { defaultComponentsList } from "@xwiki/cristal-lib";
 
 CristalAppLoader.init(
   [
@@ -41,8 +39,8 @@ CristalAppLoader.init(
   true,
   false,
   "XWiki",
-  (container: Container) => {
-    defaultComponentsList(container);
+  async (container, configuration) => {
+    await defaultComponentsList(container, configuration);
     new BrowserComponentInit(container);
     new AuthenticationGitHubComponentInit(container);
     new AuthenticationXWikiComponentInit(container);

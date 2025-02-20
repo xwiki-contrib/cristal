@@ -33,6 +33,11 @@ type TextFieldProps = {
   autofocus?: boolean;
   modelValue?: string;
   /**
+   * Help message.
+   * @since 0.15
+   */
+  help?: string;
+  /**
    * Whether the field should be readonly (default: false).
    * @since 0.15
    */

@@ -26,7 +26,6 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@mdi/font": "7.4.47",
     "@xwiki/cristal-alerts-default": "workspace:*",
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-attachments-default": "workspace:*",
@@ -84,7 +83,7 @@
     "@xwiki/cristal-sharedworker-impl": "workspace:*",
     "@xwiki/cristal-skin": "workspace:*",
     "@xwiki/cristal-uiextension-default": "workspace:*",
-    "inversify": "6.2.1",
+    "inversify": "6.2.2",
     "pinia": "2.3.1",
     "reflect-metadata": "0.2.2",
     "vue": "3.5.13",
@@ -92,11 +91,11 @@
     "vue-router": "4.5.0"
   },
   "devDependencies": {
-    "@shoelace-style/shoelace": "2.19.1",
+    "@shoelace-style/shoelace": "2.20.0",
     "@xwiki/cristal-dev-config": "workspace:*",
     "@xwiki/cristal-dsapi": "workspace:*",
     "typescript": "5.7.3",
-    "vite": "6.0.11",
+    "vite": "6.1.0",
     "vue-tsc": "2.2.0"
   },
   "publishConfig": {
