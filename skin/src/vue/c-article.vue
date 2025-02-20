@@ -142,10 +142,31 @@ watch(
   justify-content: center;
 }
 
+:deep(blockquote) {
+  background-color: var(--cr-color-neutral-50);
+  color: var(--cr-color-neutral-600);
+  font-size: var(--cr-font-size-large);
+  border-inline-start: 2px solid var(--cr-color-neutral-200);
+  padding-inline-start: var(--cr-spacing-large);
+  margin: 0;
+}
+
 @container xwCristal (max-width: 600px) {
   .content {
     padding-left: 0 var(--cr-spacing-x-small);
   }
+}
+
+/*
+ * Code block style.
+ * TODO: replace with a code macro rendering as soon as we support macro.
+ */
+:deep(.box .code),
+:deep(.doc-content.editor pre) {
+  font-family: var(--cr-font-mono);
+  background: var(--cr-color-neutral-100);
+  border-radius: var(--cr-border-radius-medium);
+  padding: var(--cr-spacing-small);
 }
 
 /*TABLE STYLES*/
