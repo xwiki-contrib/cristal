@@ -38,32 +38,24 @@ export class DefaultLogger implements Logger {
     this.module = module;
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  debug(...data: any[]): void {
+  debug(...data: unknown[]): void {
     if (!this.loggerConfig || this.loggerConfig.hasLevelId(this.module, 4)) {
       data.unshift(this.module + ":");
     }
     console.debug.apply(null, data);
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  info(...data: any[]): void {
+  info(...data: unknown[]): void {
     data.unshift(this.module + ":");
     console.info.apply(null, data);
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  warn(...data: any[]): void {
+  warn(...data: unknown[]): void {
     data.unshift(this.module + ":");
     console.warn.apply(null, data);
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error(...data: any[]): void {
+  error(...data: unknown[]): void {
     data.unshift(this.module + ":");
     console.error.apply(null, data);
   }

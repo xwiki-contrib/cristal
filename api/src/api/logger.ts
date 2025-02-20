@@ -23,19 +23,11 @@ export interface Logger {
 
   setModule(module: string): void;
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  debug(...data: any[]): void;
+  debug(...data: unknown[]): void;
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  info(...data: any[]): void;
+  info(...data: unknown[]): void;
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  warn(...data: any[]): void;
+  warn(...data: unknown[]): void;
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error(...data: any[]): void;
+  error(...data: unknown[]): void;
 }
