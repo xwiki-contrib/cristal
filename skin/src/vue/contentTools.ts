@@ -107,11 +107,11 @@ export class ContentTools {
     const contentToInject = range.createContextualFragment(html);
     contentToInject
       .querySelectorAll("link[href], script[src]")
-      .forEach(function (resource) {
+      .forEach((resource) => {
         url1 = resource.getAttribute("src") ?? resource.getAttribute("ref");
         document
           .querySelectorAll("link[href], script[src]")
-          .forEach(function (resource2) {
+          .forEach((resource2) => {
             const url2 =
               resource2.getAttribute("src") ?? resource2.getAttribute("href");
 
@@ -126,7 +126,7 @@ export class ContentTools {
   public static transformImages(cristal: CristalApp, element: string): void {
     const xwikiContentEl = document.getElementById(element);
     if (xwikiContentEl) {
-      const transform = function (img: HTMLImageElement | HTMLScriptElement) {
+      const transform = (img: HTMLImageElement | HTMLScriptElement) => {
         const srcItem = img.attributes.getNamedItem("src");
         if (srcItem) {
           ContentTools.logger?.debug("Found image with url ", srcItem.value);
@@ -146,7 +146,7 @@ export class ContentTools {
           }
         }
       };
-      new MutationObserver(function (mutations: Array<MutationRecord>) {
+      new MutationObserver((mutations) => {
         ContentTools.logger?.debug("Called in mutation records");
         for (const { addedNodes } of mutations) {
           addedNodes.forEach((addedNode) => {
@@ -169,7 +169,7 @@ export class ContentTools {
    * Experimental function to transform scripts
    */
   public static transformScripts(): void {
-    const transformScript = function (scriptEl: HTMLScriptElement) {
+    const transformScript = (scriptEl: HTMLScriptElement) => {
       const srcItem = scriptEl.attributes.getNamedItem("src");
       if (srcItem) {
         ContentTools.logger?.debug(
@@ -195,7 +195,7 @@ export class ContentTools {
       }
     };
 
-    new MutationObserver(function (mutations: Array<MutationRecord>) {
+    new MutationObserver((mutations) => {
       ContentTools.logger?.debug("Called in mutation records");
       for (const { addedNodes } of mutations) {
         addedNodes.forEach((addedNode) => {

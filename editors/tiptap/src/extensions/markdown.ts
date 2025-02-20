@@ -27,10 +27,10 @@ import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import MarkdownIt from "markdown-it";
 import { Markdown } from "tiptap-markdown";
 
-export default function (
+export default (
   modelReferenceParser: ModelReferenceParser,
   remoteURLSerializer: RemoteURLSerializer,
-) {
+) => {
   return Markdown.extend({
     onBeforeCreate() {
       const content = this.editor.options.content;
@@ -56,4 +56,4 @@ export default function (
         this.editor.storage.markdown.parser.parse(content);
     },
   });
-}
+};

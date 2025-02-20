@@ -76,7 +76,7 @@ export default class DefaultQueueWorker implements QueueWorker {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const that = this;
         this.workerInstance.setPageLoadedCallback(
-          Comlink.proxy(function (page: string) {
+          Comlink.proxy((page) => {
             that.pageLoaded(page);
           }),
         );

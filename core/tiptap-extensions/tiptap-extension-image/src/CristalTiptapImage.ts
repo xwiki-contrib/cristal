@@ -41,10 +41,10 @@ function serializeExternal(node: Node, state: MarkdownSerializerState) {
  * We need to override the default image view to be able to easily add widgets (i.e., visual elements that are not
  * part of the persisted DOM) using Vue.
  */
-const initTiptapImage = function (
+const initTiptapImage = (
   serializer: ModelReferenceSerializer,
   parser: RemoteURLParser,
-) {
+) => {
   function parseLink(mark: Node): EntityReference | undefined {
     try {
       return parser.parse(mark.attrs.src as string);
