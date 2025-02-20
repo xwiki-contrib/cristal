@@ -28,9 +28,7 @@ import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
 
 @injectable()
 export default class DefaultQueueWorker implements QueueWorker {
-  // TODO remove use of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private workerInstance: any;
+  private workerInstance: Comlink.Remote<MyWorker> | null = null;
   private cristalApp: CristalApp;
   private logger: Logger;
 

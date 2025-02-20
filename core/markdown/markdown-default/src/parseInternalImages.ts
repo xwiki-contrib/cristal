@@ -174,8 +174,7 @@ export function parseInternalImages(
   remoteURLSerializer: RemoteURLSerializer,
 ): MarkdownIt.Core.RuleCore {
   return function (state: StateCore): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    state.tokens.forEach((blockToken: any) => {
+    state.tokens.forEach((blockToken) => {
       if (blockToken.type == "inline") {
         handleInlineBlockToken(
           blockToken,

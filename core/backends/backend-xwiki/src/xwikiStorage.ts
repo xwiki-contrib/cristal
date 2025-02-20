@@ -272,7 +272,7 @@ export class XWikiStorage extends AbstractStorage {
     try {
       // TODO get rid of any
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const fieldMapping: any = document.get("xwikiMapping")[fieldName];
+      const fieldMapping = (document.get("xwikiMapping") as any)[fieldName];
       let type = fieldMapping["type"];
       let xwikiFieldName = fieldMapping["fieldName"];
       if (type == null) {

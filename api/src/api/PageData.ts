@@ -49,9 +49,7 @@ export interface PageData {
    */
   canEdit: boolean;
 
-  // TODO: remove any
-  toObject(): any; // eslint-disable-line
+  toObject(): Record<string, unknown>;
 
-  // TODO: remove any
-  fromObject(object: any): void; // eslint-disable-line
+  fromObject(object: Record<string, unknown>): void;
 }

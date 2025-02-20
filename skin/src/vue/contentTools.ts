@@ -107,20 +107,18 @@ export class ContentTools {
     const contentToInject = range.createContextualFragment(html);
     contentToInject
       .querySelectorAll("link[href], script[src]")
-      // TODO get rid of any
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .forEach(function (resource: any) {
-        url1 = resource.src || resource.href;
-        document.querySelectorAll("link[href], script[src]").forEach(function (
-          // TODO get rid of any
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          resource2: any,
-        ) {
-          const url2 = resource2.src || resource2.href;
-          if (url1 && url1 == url2) {
-            return null;
-          }
-        });
+      .forEach(function (resource) {
+        url1 = resource.getAttribute("src") ?? resource.getAttribute("ref");
+        document
+          .querySelectorAll("link[href], script[src]")
+          .forEach(function (resource2) {
+            const url2 =
+              resource2.getAttribute("src") ?? resource2.getAttribute("href");
+
+            if (url1 && url1 == url2) {
+              return null;
+            }
+          });
       });
     return url1;
   }
@@ -222,9 +220,7 @@ export class ContentTools {
 
   public static mount(
     component: Component,
-    // TODO get rid of any
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    props: any,
+    props: Record<string, unknown>,
     children: unknown,
     element: HTMLElement,
     app: App,

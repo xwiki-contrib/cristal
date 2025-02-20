@@ -48,9 +48,7 @@ export interface WikiConfig {
     offline: boolean,
   ): void;
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setConfigFromObject(configObject: any): void;
+  setConfigFromObject(configObject: Record<string, unknown>): void;
 
   isSupported(format: string): boolean;
 
