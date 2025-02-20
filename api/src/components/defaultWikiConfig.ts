@@ -89,25 +89,24 @@ export class DefaultWikiConfig implements WikiConfig {
     this.offline = offline;
   }
 
-  setConfigFromObject(configObject: Record<string, unknown>): void {
-    // TODO: validate object shape with a library
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.name = configObject.name as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.baseURL = configObject.baseURL as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.baseRestURL = configObject.baseRestURL as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.realtimeURL = configObject.realtimeURL as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.homePage = configObject.homePage as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.serverRendering = configObject.serverRendering as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.offline = configObject.offline as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    this.designSystem = configObject.designSystem as any;
+  setConfigFromObject(configObject: {
+    name: string;
+    baseURL: string;
+    baseRestURL: string;
+    realtimeURL: string;
+    homePage: string;
+    serverRendering: boolean;
+    offline: boolean;
+    designSystem: string;
+  }): void {
+    this.name = configObject.name;
+    this.baseURL = configObject.baseURL;
+    this.baseRestURL = configObject.baseRestURL;
+    this.realtimeURL = configObject.realtimeURL;
+    this.homePage = configObject.homePage;
+    this.serverRendering = configObject.serverRendering;
+    this.offline = configObject.offline;
+    this.designSystem = configObject.designSystem;
   }
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
