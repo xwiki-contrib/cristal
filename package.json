@@ -43,12 +43,12 @@
     "eslint-plugin-prettier": "5.2.3",
     "eslint-plugin-tsdoc": "0.4.0",
     "eslint-plugin-vue": "9.32.0",
-    "happy-dom": "16.8.1",
-    "nx": "20.4.0",
+    "happy-dom": "17.0.0",
+    "nx": "20.4.1",
     "prettier": "3.4.2",
     "rimraf": "6.0.1",
     "typescript": "5.7.3",
-    "vite": "6.0.11",
+    "vite": "6.1.0",
     "vite-plugin-css-injected-by-js": "3.5.2",
     "vite-plugin-dts": "4.5.0",
     "vitest": "3.0.5",
@@ -57,5 +57,15 @@
   "engines": {
     "node": "22.13.1"
   },
-  "packageManager": "pnpm@10.2.0"
+  "packageManager": "pnpm@10.2.1",
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild",
+      "nx",
+      "vue-demi"
+    ],
+    "onlyBuiltDependencies": [
+      "electron"
+    ]
+  }
 }

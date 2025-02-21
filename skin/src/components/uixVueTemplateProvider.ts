@@ -37,7 +37,7 @@ export class UIXVueTemplateProvider extends DefaultVueTemplateProvider {
     super();
   }
 
-  override getVueComponent(): Component {
+  override async getVueComponent(): Promise<Component> {
     return UIX;
   }
 

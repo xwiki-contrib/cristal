@@ -34,7 +34,7 @@ export class ErrorMacro extends AlertMacro {
     return ErrorMacro.macroName;
   }
 
-  override getVueComponent(): Component {
+  override async getVueComponent(): Promise<Component> {
     return Error;
   }
 }
