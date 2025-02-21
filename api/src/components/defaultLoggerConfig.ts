@@ -44,7 +44,7 @@ export class DefaultLoggerConfig implements LoggerConfig {
   addLevel(module: string, level: string): void {
     const nbLevel = this.levels.get(level);
     if (nbLevel != undefined) {
-      this.config.forEach((key) => {
+      for (const key of this.config.keys()) {
         if (key.startsWith(module)) {
           const currentLevel = this.computedConfig.get(key);
           if (currentLevel == null || (nbLevel && nbLevel > currentLevel)) {
@@ -53,7 +53,7 @@ export class DefaultLoggerConfig implements LoggerConfig {
             }
           }
         }
-      });
+      }
     }
   }
   getLevels(): Map<string, string> {

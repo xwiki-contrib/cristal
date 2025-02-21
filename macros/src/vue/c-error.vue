@@ -62,18 +62,18 @@ export default {
   mounted() {
     logger?.debug("In warning mounted");
     const cristal = inject<CristalApp>("cristal")!;
-    addedHTMLField.forEach((fieldName) => {
+    for (const fieldName of addedHTMLField) {
       logger?.debug("Transform image", fieldName);
       ContentTools.transformImages(cristal, fieldName);
-    });
+    }
   },
   updated() {
     logger?.debug("In field updated");
     const cristal = inject<CristalApp>("cristal")!;
-    addedHTMLField.forEach((fieldName) => {
+    for (const fieldName of addedHTMLField) {
       logger?.debug("Transform image", fieldName);
       ContentTools.transformImages(cristal, fieldName);
-    });
+    }
   },
 };
 </script>

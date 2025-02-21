@@ -173,9 +173,8 @@ export function parseInternalImages(
   modelReferenceParser: ModelReferenceParser,
   remoteURLSerializer: RemoteURLSerializer,
 ): MarkdownIt.Core.RuleCore {
-  return function (state: StateCore): void {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    state.tokens.forEach((blockToken: any) => {
+  return (state) => {
+    for (const blockToken of state.tokens) {
       if (blockToken.type == "inline") {
         handleInlineBlockToken(
           blockToken,
@@ -184,6 +183,6 @@ export function parseInternalImages(
           modelReferenceParser,
         );
       }
-    });
+    }
   };
 }
