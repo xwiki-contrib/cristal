@@ -61,7 +61,7 @@ export class GitHubStorage extends AbstractStorage {
     return `${this.wikiConfig.baseRestURL}${directory}${image}`;
   }
 
-  hashCode = function (str: string): string {
+  hashCode = (str: string): string => {
     let hash = 0,
       i,
       chr;

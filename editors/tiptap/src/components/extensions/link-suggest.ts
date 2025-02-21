@@ -112,11 +112,11 @@ function initSuggestionsService(
   // Return an array of suggestions from a query
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
   // eslint-disable-next-line max-statements
-  return async function ({
+  return async ({
     query,
   }: {
     query: string;
-  }): Promise<LinkSuggestionActionDescriptor[]> {
+  }): Promise<LinkSuggestionActionDescriptor[]> => {
     // TODO: add upload attachment action
     // TODO: add create new page action
     // TODO: add links suggestions

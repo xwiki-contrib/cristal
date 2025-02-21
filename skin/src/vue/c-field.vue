@@ -68,9 +68,7 @@ export default defineComponent({
         .get();
       logger?.debug("Ready to get edit field", props.name);
       editFieldValue.value = "";
-      storage.getEditField(document, props.name).then(function (
-        editField: string,
-      ) {
+      storage.getEditField(document, props.name).then((editField: string) => {
         editFieldValue.value = editField;
       });
     } else {

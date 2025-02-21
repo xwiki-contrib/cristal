@@ -76,7 +76,7 @@ export default function initLinkExtension(
                 return "[";
               }
             },
-            close: function (state: unknown, mark: Mark) {
+            close: (state: unknown, mark: Mark) => {
               if (parseLink(mark)) {
                 return `|${serializer.serialize(parser.parse(mark.attrs.href))}]]`;
               } else {
