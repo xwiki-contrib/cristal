@@ -20,14 +20,16 @@
 
 import type { Document } from "../api/document";
 
-export class JSONLDDocument implements Document {
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  protected jsonld: any;
+export type JsonLd = Record<string, unknown> & {
+  identifier: string;
+  name: string;
+  text: string;
+};
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(jsonld: any) {
+export class JSONLDDocument implements Document {
+  protected jsonld: JsonLd;
+
+  constructor(jsonld: JsonLd) {
     this.jsonld = jsonld;
   }
 
@@ -55,21 +57,15 @@ export class JSONLDDocument implements Document {
     this.jsonld.text = text;
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get(fieldName: string): any {
+  get(fieldName: string): unknown {
     return this.jsonld[fieldName];
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set(fieldName: string, value: any): void {
+  set(fieldName: string, value: unknown): void {
     this.jsonld[fieldName] = value;
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getSource(): any {
+  getSource(): unknown {
     return this.jsonld;
   }
 }
