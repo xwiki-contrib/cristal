@@ -49,8 +49,8 @@ jobs:
             .nx/
           key: ${{ github.ref }}-restore-cache-electron-linux
       - run: sudo apt install flatpak-builder
-      - run: cd ./electron; env DEBUG="@malept/flatpak-bundler" pnpm exec electron-builder build --linux flatpak
       - run: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      - run: cd ./electron; env DEBUG="@malept/flatpak-bundler" pnpm exec electron-builder build --linux flatpak
       - run: pnpm run --filter @xwiki/cristal-electron build:linux
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
