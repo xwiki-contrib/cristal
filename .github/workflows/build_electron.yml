@@ -34,16 +34,23 @@ jobs:
       - uses: actions/setup-node@v4.2.0
         with:
           cache: 'pnpm'
+      - run: pnpm install
       - id: restore-cache-electron-linux
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             .nx/
           key: ${{ github.ref }}-restore-cache-electron-linux
-      - run: pnpm install
       - run: pnpm run build
+      - id: restore-cache-electron-linux
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .nx/
+          key: ${{ github.ref }}-restore-cache-electron-linux
       - run: sudo apt install flatpak-builder
       - run: cd ./electron; env DEBUG="@malept/flatpak-bundler" pnpm exec electron-builder build --linux flatpak
+      - run: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
       - run: pnpm run --filter @xwiki/cristal-electron build:linux
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
