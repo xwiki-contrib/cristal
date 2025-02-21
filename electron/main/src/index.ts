@@ -130,3 +130,5 @@ if (import.meta.env.PROD) {
     )
     .catch((e) => console.error("Failed check and install updates:", e));
 }
+
+app.commandLine.appendArgument("--no-sandbox");
