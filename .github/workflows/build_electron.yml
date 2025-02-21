@@ -43,7 +43,7 @@ jobs:
       - run: pnpm install
       - run: pnpm run build
       - run: sudo apt install flatpak-builder
-      - run: cd ./web; env DEBUG="@malept/flatpak-bundler" pnpm exec electron-builder build --linux flatpak
+      - run: cd ./electron; env DEBUG="@malept/flatpak-bundler" pnpm exec electron-builder build --linux flatpak
       - run: pnpm run --filter @xwiki/cristal-electron build:linux
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
