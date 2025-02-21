@@ -34,23 +34,16 @@ jobs:
       - uses: actions/setup-node@v4.2.0
         with:
           cache: 'pnpm'
-      - run: pnpm install
       - id: restore-cache-electron-linux
-        uses: actions/cache/restore@v4
+        uses: actions/cache@v4
         with:
           path: |
             .nx/
           key: ${{ github.ref }}-restore-cache-electron-linux
+      - run: pnpm install
       - run: pnpm run build
-      - id: save-cache-electron-linux
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            .nx/
-          key: ${{ github.ref }}-restore-cache-electron-linux
       - run: sudo apt install flatpak-builder
       - run: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-      - run: cd ./electron; env DEBUG="@malept/flatpak-bundler" pnpm exec electron-builder build --linux flatpak
       - run: pnpm run --filter @xwiki/cristal-electron build:linux
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,5 +53,59 @@ jobs:
             electron/dist/cristal-*.*
             electron/dist/latest.yml
             electron/dist/latest-linux.yml
+          tag_name: ${{ github.ref }}
+          draft: true
+  electron-mac:
+    runs-on: macos-latest
+    needs: electron-prepare
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4.2.0
+        with:
+          cache: 'pnpm'
+      - id: restore-cache-electron-mac
+        uses: actions/cache@v4
+        with:
+          path: |
+            .nx/
+          key: ${{ github.ref }}-restore-cache-electron-mac
+      - run: pnpm install
+      - run: pnpm run build
+      - run: pnpm run --filter @xwiki/cristal-electron build:mac
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: electron/dist/cristal-*.dmg
+          tag_name: ${{ github.ref }}
+          draft: true
+  electron-win:
+    runs-on: windows-latest
+    needs: electron-prepare
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4.2.0
+        with:
+          cache: 'pnpm'
+      - id: restore-cache-electron-win
+        uses: actions/cache@v4
+        with:
+          path: |
+            .nx/
+            !.nx/workspace-data/d
+          key: ${{ github.ref }}-restore-cache-electron-win
+        env:
+          NX_DISABLE_DB: true
+          NX_DB_CACHE: false
+      - run: pnpm install
+      - run: pnpm run build
+      - run: pnpm run --filter @xwiki/cristal-electron build:win
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: electron/dist/cristal-*.*
           tag_name: ${{ github.ref }}
           draft: true
