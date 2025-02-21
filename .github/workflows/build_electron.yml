@@ -42,7 +42,7 @@ jobs:
             .nx/
           key: ${{ github.ref }}-restore-cache-electron-linux
       - run: pnpm run build
-      - id: restore-cache-electron-linux
+      - id: save-cache-electron-linux
         uses: actions/cache/save@v4
         with:
           path: |
