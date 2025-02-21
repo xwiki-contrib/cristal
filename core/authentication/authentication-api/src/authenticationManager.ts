@@ -29,7 +29,7 @@ interface AuthenticationManager {
   /**
    *  Starts the authentication process.
    */
-  start(): void;
+  start(): Promise<void>;
 
   /**
    * Handle the callback.

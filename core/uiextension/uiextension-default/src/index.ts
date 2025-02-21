@@ -18,11 +18,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { AbstractUIExtensionProvider } from "./AbstractUIExtensionProvider";
 import { DefaultUIExtensionsManager } from "./DefaultUIExtensionsManager";
 import { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
 import type { Container } from "inversify";
 
-export class ComponentInit {
+class ComponentInit {
   constructor(container: Container) {
     container
       .bind<UIExtensionsManager>("UIExtensionsManager")
@@ -30,3 +31,5 @@ export class ComponentInit {
       .inSingletonScope();
   }
 }
+
+export { AbstractUIExtensionProvider, ComponentInit };

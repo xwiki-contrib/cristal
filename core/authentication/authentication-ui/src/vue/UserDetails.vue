@@ -52,8 +52,8 @@ function logout() {
   <template v-if="!error">
     <i18n-t keypath="userDescription" tag="span">
       <a :href="profile">
-        <x-avatar v-if="avatar" :image="avatar" :name="name"></x-avatar>
-        {{ name }}
+        <x-avatar v-if="avatar" :image="avatar" :name="name"></x-avatar
+        >{{ name }}
       </a>
     </i18n-t>
   </template>
