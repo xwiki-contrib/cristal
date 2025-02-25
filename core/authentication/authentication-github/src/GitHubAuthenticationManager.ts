@@ -111,7 +111,7 @@ export class GitHubAuthenticationManager implements AuthenticationManager {
     // This converts the interval polling time and expiration time provided by
     // GitHub to milliseconds.
     // We need to add a little more delay to the interval when polling, just to
-    // be sure that we don't go to fast for GitHub (or we might get rate
+    // be sure that we don't go too fast for GitHub (or we might get rate
     // limited).
     const interval: number =
       parseInt(window.localStorage.getItem(this.localStorageInterval)!) * 1000 +
