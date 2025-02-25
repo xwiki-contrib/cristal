@@ -104,9 +104,9 @@ export class GitHubStorage extends AbstractStorage {
 
     if (response.status >= 200 && response.status < 300) {
       const json = await response.json();
-      const lastEditDetails = await this.getLastEditDetails(page, revision);
+      const { date, username } = await this.getLastEditDetails(page, revision);
 
-      return {
+      return Object.assign(new DefaultPageData(), {
         ...json,
         id: page,
         headline: json.name,
@@ -114,9 +114,9 @@ export class GitHubStorage extends AbstractStorage {
         canEdit:
           (await this.authenticationManagerProvider.get()?.isAuthenticated()) ??
           false,
-        lastModificationDate: lastEditDetails.date,
-        lastAuthor: { name: lastEditDetails.username },
-      };
+        lastModificationDate: date,
+        lastAuthor: { name: username },
+      });
     } else {
       return undefined;
     }
