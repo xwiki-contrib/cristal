@@ -409,6 +409,9 @@ importers:
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../authentication-api
+      '@xwiki/cristal-authentication-github-state':
+        specifier: workspace:*
+        version: link:../authentication-github-state
       axios:
         specifier: 1.7.9
         version: 1.7.9
@@ -418,6 +421,9 @@ importers:
       js-cookie:
         specifier: 3.0.5
         version: 3.0.5
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.7.3)
     devDependencies:
       '@types/js-cookie':
         specifier: 3.0.6
@@ -434,6 +440,92 @@ importers:
       vite:
         specifier: 6.0.11
         version: 6.0.11(@types/node@22.13.1)(tsx@4.19.2)(yaml@2.7.0)
+
+  core/authentication/authentication-github-state:
+    dependencies:
+      inversify:
+        specifier: 6.2.2
+        version: 6.2.2(reflect-metadata@0.2.2)
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.7.3)
+    devDependencies:
+      '@types/js-cookie':
+        specifier: 3.0.6
+        version: 3.0.6
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+      vite:
+        specifier: 6.0.11
+        version: 6.0.11(@types/node@22.13.1)(tsx@4.19.2)(yaml@2.7.0)
+
+  core/authentication/authentication-github-ui:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../authentication-api
+      '@xwiki/cristal-authentication-github-state':
+        specifier: workspace:*
+        version: link:../authentication-github-state
+      '@xwiki/cristal-browser-api':
+        specifier: workspace:*
+        version: link:../../browser/browser-api
+      '@xwiki/cristal-icons':
+        specifier: workspace:*
+        version: link:../../icons
+      '@xwiki/cristal-uiextension-api':
+        specifier: workspace:*
+        version: link:../../uiextension/uiextension-api
+      '@xwiki/cristal-uiextension-default':
+        specifier: workspace:*
+        version: link:../../uiextension/uiextension-default
+      inversify:
+        specifier: 6.2.2
+        version: 6.2.2(reflect-metadata@0.2.2)
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.7.3)
+      vue-i18n:
+        specifier: 11.1.0
+        version: 11.1.0(vue@3.5.13(typescript@5.7.3))
+    devDependencies:
+      '@vue/test-utils':
+        specifier: 2.4.6
+        version: 2.4.6
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      '@xwiki/cristal-dev-test-utils':
+        specifier: workspace:*
+        version: link:../../../dev/test-utils
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../../ds/api
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+      vite:
+        specifier: 6.1.0
+        version: 6.1.0(@types/node@22.13.1)(tsx@4.19.2)(yaml@2.7.0)
+      vitest:
+        specifier: 3.0.5
+        version: 3.0.5(@types/debug@4.1.12)(@types/node@22.13.1)(happy-dom@17.0.0)(tsx@4.19.2)(yaml@2.7.0)
+      vue-tsc:
+        specifier: 2.2.0
+        version: 2.2.0(typescript@5.7.3)
 
   core/authentication/authentication-nextcloud:
     devDependencies:
@@ -464,9 +556,6 @@ importers:
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../../uiextension/uiextension-api
-      '@xwiki/cristal-uiextension-default':
-        specifier: workspace:*
-        version: link:../../uiextension/uiextension-default
       inversify:
         specifier: 6.2.2
         version: 6.2.2(reflect-metadata@0.2.2)
@@ -609,6 +698,9 @@ importers:
       inversify:
         specifier: 6.2.2
         version: 6.2.2(reflect-metadata@0.2.2)
+      mime:
+        specifier: 4.0.6
+        version: 4.0.6
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1074,6 +1166,9 @@ importers:
       '@xwiki/cristal-hierarchy-api':
         specifier: workspace:*
         version: link:../hierarchy-api
+      '@xwiki/cristal-hierarchy-default':
+        specifier: workspace:*
+        version: link:../hierarchy-default
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model/model-api
@@ -2432,9 +2527,6 @@ importers:
 
   core/uiextension/uiextension-default:
     dependencies:
-      '@xwiki/cristal-api':
-        specifier: workspace:*
-        version: link:../../../api
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../uiextension-api
@@ -2917,6 +3009,81 @@ importers:
         specifier: 6.1.0
         version: 6.1.0(@types/node@22.13.1)(tsx@4.19.2)(yaml@2.7.0)
 
+  electron/authentication/authentication-github/authentication-github-main:
+    dependencies:
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../../../core/authentication/authentication-api
+      axios:
+        specifier: 1.7.9
+        version: 1.7.9
+      electron:
+        specifier: 34.0.2
+        version: 34.0.2
+      electron-store:
+        specifier: 10.0.1
+        version: 10.0.1
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../../dev/config
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+      vite:
+        specifier: 6.1.0
+        version: 6.1.0(@types/node@22.13.1)(tsx@4.19.2)(yaml@2.7.0)
+
+  electron/authentication/authentication-github/authentication-github-preload:
+    dependencies:
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../../../core/authentication/authentication-api
+      electron:
+        specifier: 34.0.2
+        version: 34.0.2
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../../dev/config
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+      vite:
+        specifier: 6.1.0
+        version: 6.1.0(@types/node@22.13.1)(tsx@4.19.2)(yaml@2.7.0)
+
+  electron/authentication/authentication-github/authentication-github-renderer:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../../../core/authentication/authentication-api
+      '@xwiki/cristal-authentication-github-state':
+        specifier: workspace:*
+        version: link:../../../../core/authentication/authentication-github-state
+      inversify:
+        specifier: 6.2.2
+        version: 6.2.2(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.7.3
+        version: 5.7.3
+      vite:
+        specifier: 6.1.0
+        version: 6.1.0(@types/node@22.13.1)(tsx@4.19.2)(yaml@2.7.0)
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.7.3)
+
   electron/authentication/authentication-xwiki/authentication-xwiki-main:
     dependencies:
       '@xwiki/cristal-authentication-api':
@@ -3113,6 +3280,9 @@ importers:
       '@xwiki/cristal-configuration-electron-main':
         specifier: workspace:*
         version: link:../configuration/configuration-electron/configuration-electron-main
+      '@xwiki/cristal-electron-authentication-github-main':
+        specifier: workspace:*
+        version: link:../authentication/authentication-github/authentication-github-main
       '@xwiki/cristal-electron-authentication-xwiki-main':
         specifier: workspace:*
         version: link:../authentication/authentication-xwiki/authentication-xwiki-main
@@ -3138,6 +3308,9 @@ importers:
       '@xwiki/cristal-configuration-electron-preload':
         specifier: workspace:*
         version: link:../configuration/configuration-electron/configuration-electron-preload
+      '@xwiki/cristal-electron-authentication-github-preload':
+        specifier: workspace:*
+        version: link:../authentication/authentication-github/authentication-github-preload
       '@xwiki/cristal-electron-authentication-xwiki-preload':
         specifier: workspace:*
         version: link:../authentication/authentication-xwiki/authentication-xwiki-preload
@@ -3166,6 +3339,9 @@ importers:
       '@xwiki/cristal-configuration-electron-renderer':
         specifier: workspace:*
         version: link:../configuration/configuration-electron/configuration-electron-renderer
+      '@xwiki/cristal-electron-authentication-github-renderer':
+        specifier: workspace:*
+        version: link:../authentication/authentication-github/authentication-github-renderer
       '@xwiki/cristal-electron-authentication-xwiki-renderer':
         specifier: workspace:*
         version: link:../authentication/authentication-xwiki/authentication-xwiki-renderer
@@ -3354,6 +3530,9 @@ importers:
       '@xwiki/cristal-authentication-default':
         specifier: workspace:*
         version: link:../core/authentication/authentication-default
+      '@xwiki/cristal-authentication-github-ui':
+        specifier: workspace:*
+        version: link:../core/authentication/authentication-github-ui
       '@xwiki/cristal-authentication-ui':
         specifier: workspace:*
         version: link:../core/authentication/authentication-ui

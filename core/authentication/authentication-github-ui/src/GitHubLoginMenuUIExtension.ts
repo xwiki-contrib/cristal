@@ -18,18 +18,40 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { LoginMenuUIExtension } from "./LoginMenuUIExtension";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import type {
+  AuthenticationManager,
+  AuthenticationManagerProvider,
+} from "@xwiki/cristal-authentication-api";
+import type { UIExtension } from "@xwiki/cristal-uiextension-api";
 import type { Component } from "vue";
 
 /**
- * {@link LoginMenuUIExtension} for the GitHub backend.
+ * Login {@link UIExtension} for the GitHub backend.
  *
  * @since 0.15
  */
 @injectable()
-export class GitHubLoginMenuUIExtension extends LoginMenuUIExtension {
-  override async component(): Promise<Component> {
+export class GitHubLoginMenuUIExtension implements UIExtension {
+  id = "sidebar.actions.githubLoginMenu";
+  uixpName = "sidebar.actions";
+  order = 2100;
+  parameters = {};
+
+  constructor(
+    @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+    private authenticationManager: AuthenticationManagerProvider,
+  ) {}
+
+  async component(): Promise<Component> {
     return (await import("./vue/GitHubLoginMenu.vue")).default;
+  }
+
+  async enabled(): Promise<boolean> {
+    const authenticationManager: AuthenticationManager =
+      this.authenticationManager.get()!;
+    const authenticated: boolean =
+      await authenticationManager?.isAuthenticated();
+    return !authenticated;
   }
 }

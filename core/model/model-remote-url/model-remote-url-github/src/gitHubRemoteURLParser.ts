@@ -19,6 +19,7 @@
  */
 
 import {
+  AttachmentReference,
   DocumentReference,
   EntityReference,
   SpaceReference,
@@ -34,17 +35,36 @@ class GitHubRemoteURLParser implements RemoteURLParser {
   ) {}
 
   parse(urlStr: string): EntityReference | undefined {
+    const baseURL = this.getWikiConfig().baseURL;
     const baseRestURL = this.getWikiConfig().baseRestURL;
-    if (urlStr.includes("://") && !urlStr.startsWith(baseRestURL)) {
-      return undefined;
-    }
-    urlStr = urlStr.replace(`${baseRestURL}/`, "");
-    const segments = this.computeSegments(urlStr);
 
-    return this.buildDocumentReference(
-      segments[segments.length - 1],
-      segments.splice(0, segments.length - 1),
-    );
+    if (urlStr.includes("://") && urlStr.startsWith(baseRestURL)) {
+      const segments = this.computeSegments(
+        urlStr.replace(`${baseRestURL}/`, ""),
+      );
+
+      return this.buildDocumentReference(
+        segments[segments.length - 1],
+        segments.splice(0, segments.length - 1),
+      );
+    } else if (urlStr.includes("://") && urlStr.startsWith(baseURL)) {
+      const segments = this.computeSegments(urlStr.replace(`${baseURL}/`, ""));
+
+      if (
+        segments.length >= 3 &&
+        segments[segments.length - 2] == "attachments"
+      ) {
+        return new AttachmentReference(
+          segments[segments.length - 1],
+          this.buildDocumentReference(
+            segments[segments.length - 3],
+            segments.splice(0, segments.length - 3),
+          ),
+        );
+      }
+    }
+
+    return undefined;
   }
 
   private computeSegments(urlStr: string) {

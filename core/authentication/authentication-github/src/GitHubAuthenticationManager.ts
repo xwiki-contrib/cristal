@@ -19,6 +19,7 @@
  */
 
 import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+import { GitHubAuthenticationState } from "@xwiki/cristal-authentication-github-state";
 import axios from "axios";
 import { inject, injectable } from "inversify";
 import Cookies from "js-cookie";
@@ -34,8 +35,12 @@ import type { CookieAttributes } from "js-cookie";
 @injectable()
 export class GitHubAuthenticationManager implements AuthenticationManager {
   constructor(
-    @inject<CristalApp>("CristalApp") private cristalApp: CristalApp,
+    @inject<CristalApp>("CristalApp") private readonly cristalApp: CristalApp,
+    @inject<GitHubAuthenticationState>(GitHubAuthenticationState)
+    private readonly authenticationState: GitHubAuthenticationState,
   ) {}
+
+  private readonly localStorageConfigName = "currentConfigName";
 
   private readonly localStorageDeviceCode = "authentication.device_code";
 
@@ -50,7 +55,9 @@ export class GitHubAuthenticationManager implements AuthenticationManager {
   private readonly accessTokenCookieKeyPrefix = "accessToken";
 
   async start(): Promise<void> {
-    const authorizationUrl = new URL("http://localhost:15682/device-login");
+    const authorizationUrl = new URL(
+      `${this.cristalApp.getWikiConfig().authenticationBaseURL}/device-login`,
+    );
 
     const response = await fetch(authorizationUrl);
     const jsonResponse: {
@@ -61,7 +68,7 @@ export class GitHubAuthenticationManager implements AuthenticationManager {
     } = await response.json();
 
     window.localStorage.setItem(
-      "currentConfigName",
+      this.localStorageConfigName,
       this.cristalApp.getWikiConfig().name,
     );
 
@@ -81,52 +88,65 @@ export class GitHubAuthenticationManager implements AuthenticationManager {
       this.localStorageInterval,
       jsonResponse.interval.toString(),
     );
+
+    this.authenticationState.modalOpened.value = true;
   }
 
   async callback(): Promise<void> {
-    const verificationUrl = new URL("http://localhost:15682/device-verify");
+    const verificationUrl = new URL(
+      `${this.cristalApp.getWikiConfig().authenticationBaseURL}/device-verify`,
+    );
     verificationUrl.searchParams.set(
       "device_code",
       window.localStorage.getItem(this.localStorageDeviceCode)!,
     );
-    const configName = window.localStorage.getItem("currentConfigName")!;
+    const configName = window.localStorage.getItem(
+      this.localStorageConfigName,
+    )!;
     const cookiesOptions: CookieAttributes = {
       secure: true,
       sameSite: "strict",
     };
 
-    // We need to add a little more delay when polling, otherwise GitHub complains.
+    // This converts the interval polling time and expiration time provided by
+    // GitHub to milliseconds.
+    // We need to add a little more delay to the interval when polling, just to
+    // be sure that we don't go to fast for GitHub (or we might get rate
+    // limited).
     const interval: number =
       parseInt(window.localStorage.getItem(this.localStorageInterval)!) * 1000 +
       500;
     let expiresIn: number =
       parseInt(window.localStorage.getItem(this.localStorageExpiresIn)!) * 1000;
 
+    // This interval handles polling the backend for the access token, using
+    // the interval time computed earlier.
+    // The backend will return an error until the login process has succeeded.
     const intervalId = setInterval(async () => {
-      fetch(verificationUrl).then(async (response) => {
-        const jsonResponse: {
-          error?: string;
-          access_token?: string;
-          token_type?: string;
-        } = await response.json();
-        if (!jsonResponse.error) {
-          Cookies.set(
-            this.getAccessTokenCookieKey(configName),
-            jsonResponse.access_token!,
-            cookiesOptions,
-          );
-          Cookies.set(
-            this.getTokenTypeCookieKey(configName),
-            jsonResponse.token_type!,
-            cookiesOptions,
-          );
-          window.location.reload();
-          clearInterval(intervalId);
-        } else if (expiresIn <= 0) {
-          clearInterval(intervalId);
-        }
-        expiresIn -= interval;
-      });
+      const response = await fetch(verificationUrl);
+      const jsonResponse: {
+        error?: string;
+        access_token?: string;
+        token_type?: string;
+      } = await response.json();
+      if (!jsonResponse.error) {
+        Cookies.set(
+          this.getAccessTokenCookieKey(configName),
+          jsonResponse.access_token!,
+          cookiesOptions,
+        );
+        Cookies.set(
+          this.getTokenTypeCookieKey(configName),
+          jsonResponse.token_type!,
+          cookiesOptions,
+        );
+        clearInterval(intervalId);
+        // We reload the content on successful login.
+        window.location.reload();
+      } else if (expiresIn <= 0) {
+        clearInterval(intervalId);
+      }
+      expiresIn -= interval;
     }, interval);
   }
 

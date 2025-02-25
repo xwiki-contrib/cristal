@@ -26,12 +26,15 @@ import {
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { inject, injectable } from "inversify";
+import mime from "mime";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
 import type { Logger } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 @injectable()
 export class GitHubStorage extends AbstractStorage {
+  private readonly ATTACHMENTS = "attachments";
+
   constructor(
     @inject<Logger>("Logger") logger: Logger,
     @inject<AuthenticationManagerProvider>("AuthenticationManagerProvider")
@@ -48,7 +51,7 @@ export class GitHubStorage extends AbstractStorage {
 
   getPageRestURL(page: string, _syntax: string, revision?: string): string {
     this.logger?.debug("GitHub Loading page", page);
-    let baseRestURL = `${this.wikiConfig.baseRestURL}contents/${page}`;
+    let baseRestURL = `${this.wikiConfig.baseRestURL}/contents/${page}`;
     if (revision) {
       baseRestURL = `${baseRestURL}?ref=${revision}`;
     }
@@ -66,7 +69,7 @@ export class GitHubStorage extends AbstractStorage {
 
   getImageURL(page: string, image: string): string {
     const directory = page.replace(/[^/]*$/, "");
-    return `${this.wikiConfig.baseURL}${directory}${image}`;
+    return `${this.wikiConfig.baseURL}/${directory}${image}`;
   }
 
   hashCode = function (str: string): string {
@@ -84,54 +87,36 @@ export class GitHubStorage extends AbstractStorage {
     return "" + hash;
   };
 
-  // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
-  // eslint-disable-next-line max-statements
   async getPageContent(
     page: string,
     syntax: string,
     revision?: string,
   ): Promise<PageData | undefined> {
     this.logger?.debug("GitHub Loading page", page);
-    const url = this.getPageRestURL(page, syntax, revision);
+    const url = this.getPageRestURL(`${page}/page.json`, syntax, revision);
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
         ...(await this.getCredentials()),
-        Accept: `application/vnd.github.${syntax == "html" ? "html" : "raw"}+json`,
+        Accept: "application/vnd.github.raw+json",
       },
     });
 
     if (response.status >= 200 && response.status < 300) {
-      const pageContentData = new DefaultPageData();
+      const json = await response.json();
+      const lastEditDetails = await this.getLastEditDetails(page, revision);
 
-      pageContentData.id = page;
-      pageContentData.name = page.split("/").pop()!;
-
-      // A JSON content type means the requested page was a folder,
-      // and we don't want to display the response as content.
-      if (
-        response.headers.get("Content-Type") ==
-        "application/json; charset=utf-8"
-      ) {
-        pageContentData.canEdit = false;
-      } else {
-        const text = await response.text();
-
-        pageContentData.source = text;
-        if (syntax == "html") {
-          pageContentData.syntax = "html";
-          pageContentData.html = text;
-        } else {
-          pageContentData.syntax = "md";
-        }
-        pageContentData.css = [];
-        pageContentData.version = this.hashCode(text);
-        pageContentData.canEdit =
+      return {
+        ...json,
+        id: page,
+        headline: json.name,
+        headlineRaw: json.name,
+        canEdit:
           (await this.authenticationManagerProvider.get()?.isAuthenticated()) ??
-          false;
-      }
-
-      return pageContentData;
+          false,
+        lastModificationDate: lastEditDetails.date,
+        lastAuthor: { name: lastEditDetails.username },
+      };
     } else {
       return undefined;
     }
@@ -140,14 +125,78 @@ export class GitHubStorage extends AbstractStorage {
   /**
    * @since 0.9
    */
-  getAttachments(): Promise<AttachmentsData | undefined> {
-    // TODO: to be implemented.
-    throw new Error("unsupported");
+  async getAttachments(page: string): Promise<AttachmentsData | undefined> {
+    const url = this.getPageRestURL(`${page}/${this.ATTACHMENTS}`, "");
+    const response = await fetch(url, {
+      cache: "no-store",
+      headers: {
+        ...(await this.getCredentials()),
+        Accept: "application/vnd.github.raw+json",
+      },
+    });
+    if (response.status >= 200 && response.status < 300) {
+      const jsonResponse: Array<{ name: string }> = await response.json();
+      return {
+        attachments: await Promise.all(
+          jsonResponse.map(
+            async (a) => (await this.getAttachment(page, a.name))!,
+          ),
+        ),
+        count: jsonResponse.length,
+      };
+    } else {
+      return { attachments: [], count: 0 };
+    }
   }
 
-  getAttachment(): Promise<PageAttachment | undefined> {
-    // TODO: to be implemented.
-    throw new Error("unsupported");
+  async getAttachment(
+    page: string,
+    name: string,
+  ): Promise<PageAttachment | undefined> {
+    const url = this.getPageRestURL(`${page}/${this.ATTACHMENTS}/${name}`, "");
+    const response = await fetch(url, {
+      cache: "no-store",
+      headers: {
+        ...(await this.getCredentials()),
+        Accept: "application/vnd.github.object+json",
+      },
+    });
+    if (response.status >= 200 && response.status < 300) {
+      const jsonResponse: {
+        download_url: string;
+        name: string;
+        path: string;
+        size: number;
+      } = await response.json();
+
+      const commitsUrl = new URL(`${this.wikiConfig.baseRestURL}/commits`);
+      commitsUrl.search = new URLSearchParams([
+        ["path", jsonResponse.path],
+        ["per_page", "1"],
+      ]).toString();
+      const commitsResponse = await fetch(commitsUrl, {
+        cache: "no-store",
+        headers: {
+          ...(await this.getCredentials()),
+          Accept: "application/vnd.github+json",
+        },
+      });
+      const jsonCommitsResponse: Array<{
+        commit: { author: { name: string; date: string } };
+      }> = await commitsResponse.json();
+
+      return {
+        reference: jsonResponse.name,
+        id: jsonResponse.path,
+        size: jsonResponse.size,
+        href: jsonResponse.download_url,
+        mimetype: mime.getType(jsonResponse.name) ?? "",
+        date: new Date(jsonCommitsResponse[0].commit.author.date),
+        author: jsonCommitsResponse[0].commit.author.name,
+      };
+    } else {
+      return undefined;
+    }
   }
 
   async getPanelContent(): Promise<PageData> {
@@ -158,8 +207,8 @@ export class GitHubStorage extends AbstractStorage {
     return "";
   }
 
-  async save(page: string, content: string): Promise<unknown> {
-    const pageRestUrl = this.getPageRestURL(page, "");
+  async save(page: string, content: string, title: string): Promise<unknown> {
+    const pageRestUrl = this.getPageRestURL(`${page}/page.json`, "");
 
     const headResponse = await fetch(pageRestUrl, {
       method: "HEAD",
@@ -177,11 +226,17 @@ export class GitHubStorage extends AbstractStorage {
     const putResponse = await fetch(pageRestUrl, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/vnd.github+json",
         ...(await this.getCredentials()),
       },
       body: JSON.stringify({
-        content: btoa(content),
+        content: btoa(
+          JSON.stringify({
+            source: content,
+            name: title,
+            syntax: "markdown/1.2",
+          }),
+        ),
         message: `Update ${page}`,
         sha: sha,
       }),
@@ -198,9 +253,51 @@ export class GitHubStorage extends AbstractStorage {
     return;
   }
 
-  async saveAttachments(): Promise<unknown> {
-    // TODO: to be implemented
-    throw new Error("unsupported");
+  async saveAttachments(page: string, files: File[]): Promise<unknown> {
+    return Promise.all(
+      files.map(async (file) => {
+        const fileUrl = `${this.getPageRestURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
+
+        const headResponse = await fetch(fileUrl, {
+          method: "HEAD",
+          cache: "no-store",
+          headers: {
+            ...(await this.getCredentials()),
+            Accept: "application/vnd.github.object+json",
+          },
+        });
+        const sha =
+          headResponse.status >= 200 && headResponse.status < 300
+            ? headResponse.headers.get("ETag")!.slice(3, -1)
+            : undefined;
+
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const putResponse = await fetch(fileUrl, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/vnd.github+json",
+              ...(await this.getCredentials()),
+            },
+            body: JSON.stringify({
+              content: (reader.result! as string).split(",")[1],
+              message: `Upload ${file.name}`,
+              sha: sha,
+            }),
+          });
+          if (!putResponse.ok) {
+            const errorMessage = await putResponse.text();
+            // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
+            this.alertsServiceProvider
+              .get()
+              .error(
+                `Could not upload attachment ${file.name} for page ${page}. Reason: ${errorMessage}`,
+              );
+          }
+        };
+        reader.readAsDataURL(file);
+      }),
+    );
   }
 
   async delete(page: string): Promise<{ success: boolean; error?: string }> {
@@ -222,7 +319,7 @@ export class GitHubStorage extends AbstractStorage {
     const success = await fetch(pageRestUrl, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/vnd.github+json",
         ...(await this.getCredentials()),
       },
       body: JSON.stringify({
@@ -254,5 +351,52 @@ export class GitHubStorage extends AbstractStorage {
       headers["Authorization"] = authorizationHeader;
     }
     return headers;
+  }
+
+  private async getLastEditDetails(
+    page: string,
+    revision?: string,
+  ): Promise<{ date: Date; username: string }> {
+    if (revision) {
+      const commitsUrl = new URL(
+        `${this.wikiConfig.baseRestURL}/commits/${revision}`,
+      );
+      const commitsResponse = await fetch(commitsUrl, {
+        cache: "no-store",
+        headers: {
+          ...(await this.getCredentials()),
+          Accept: "application/vnd.github+json",
+        },
+      });
+      const jsonCommitsResponse: {
+        commit: { author: { name: string; date: string } };
+      } = await commitsResponse.json();
+
+      return {
+        date: new Date(jsonCommitsResponse.commit.author.date),
+        username: jsonCommitsResponse.commit.author.name,
+      };
+    } else {
+      const commitsUrl = new URL(`${this.wikiConfig.baseRestURL}/commits`);
+      commitsUrl.search = new URLSearchParams([
+        ["path", page],
+        ["per_page", "1"],
+      ]).toString();
+      const commitsResponse = await fetch(commitsUrl, {
+        cache: "no-store",
+        headers: {
+          ...(await this.getCredentials()),
+          Accept: "application/vnd.github+json",
+        },
+      });
+      const jsonCommitsResponse: Array<{
+        commit: { author: { name: string; date: string } };
+      }> = await commitsResponse.json();
+
+      return {
+        date: new Date(jsonCommitsResponse[0].commit.author.date),
+        username: jsonCommitsResponse[0].commit.author.name,
+      };
+    }
   }
 }

@@ -19,6 +19,7 @@
  */
 
 import { GitHubAuthenticationManager } from "./GitHubAuthenticationManager";
+import { GitHubAuthenticationState } from "@xwiki/cristal-authentication-github-state";
 import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import type { Container } from "inversify";
 
@@ -29,5 +30,9 @@ export class ComponentInit {
       .to(GitHubAuthenticationManager)
       .inSingletonScope()
       .whenTargetNamed("GitHub");
+    container
+      .bind<GitHubAuthenticationState>(GitHubAuthenticationState)
+      .toSelf()
+      .inSingletonScope();
   }
 }

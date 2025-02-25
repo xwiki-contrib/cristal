@@ -19,6 +19,7 @@
  */
 
 import {
+  AttachmentReference,
   DocumentReference,
   EntityReference,
   EntityType,
@@ -52,9 +53,22 @@ class GitHubRemoteURLSerializer implements RemoteURLSerializer {
         return `${this.getBaseRestURL()}/${spaces}/${documentReference.name}`;
       }
       case EntityType.ATTACHMENT: {
-        throw new Error("Not implemented");
+        return this.serializeAttachmentReference(
+          reference as AttachmentReference,
+        );
       }
     }
+  }
+
+  private serializeAttachmentReference(
+    attachmentReference: AttachmentReference,
+  ) {
+    const spaces = attachmentReference.document.space?.names.join("/");
+    return `${this.getBaseURL()}/${spaces}/${attachmentReference.document.name}/${attachmentReference.name}`;
+  }
+
+  private getBaseURL() {
+    return this.cristalApp.getWikiConfig().baseURL;
   }
 
   private getBaseRestURL() {

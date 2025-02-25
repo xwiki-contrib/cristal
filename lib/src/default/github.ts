@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { ComponentInit as GitHubAuthenticationUIComponentInit } from "@xwiki/cristal-authentication-github-ui";
 import { ComponentInit as GitHubPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-github";
 import { ComponentInit as GitHubPageHistoryComponentInit } from "@xwiki/cristal-history-github";
 import { ComponentInit as ModelReferenceGitHubComponentInit } from "@xwiki/cristal-model-reference-github";
@@ -26,6 +27,7 @@ import { ComponentInit as GitHubNavigationTreeComponentInit } from "@xwiki/crist
 import type { Container } from "inversify";
 
 export function load(container: Container) {
+  new GitHubAuthenticationUIComponentInit(container);
   new GitHubPageHierarchyComponentInit(container);
   new GitHubNavigationTreeComponentInit(container);
   new GitHubPageHistoryComponentInit(container);

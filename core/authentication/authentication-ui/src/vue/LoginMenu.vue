@@ -36,8 +36,8 @@ const authenticationManager = cristal
   .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
   .get();
 
-async function login() {
-  await authenticationManager?.start();
+function login() {
+  authenticationManager?.start();
 }
 </script>
 

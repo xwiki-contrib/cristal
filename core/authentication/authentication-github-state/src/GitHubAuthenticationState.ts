@@ -18,21 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { AbstractUIExtensionProvider } from "@xwiki/cristal-uiextension-default";
 import { injectable } from "inversify";
-
-const extensionName = "LoginMenuUIExtension";
+import { ref } from "vue";
+import type { Ref } from "vue";
 
 /**
- * Backend-dependent provider for {@link ./LoginMenuUIExtension#LoginMenuUIExtension}.
+ * Authentication State for the GitHub backend.
  *
  * @since 0.15
  */
 @injectable()
-class LoginMenuUIExtensionProvider extends AbstractUIExtensionProvider {
-  override getUIExtensionName(): string {
-    return extensionName;
-  }
+export class GitHubAuthenticationState {
+  readonly modalOpened: Ref<boolean> = ref(false);
 }
-
-export { LoginMenuUIExtensionProvider, extensionName };

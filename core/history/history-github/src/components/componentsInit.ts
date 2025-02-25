@@ -56,14 +56,14 @@ class GitHubPageRevisionManager implements PageRevisionManager {
         .get()
         ?.getAuthorizationHeader();
       const headers: { Accept: string; Authorization?: string } = {
-        Accept: "application/json",
+        Accept: "application/vnd.github+json",
       };
       if (authorization) {
         headers.Authorization = authorization;
       }
 
       const historyRequestUrl = new URL(
-        `${this.cristalApp.getWikiConfig().baseRestURL}commits`,
+        `${this.cristalApp.getWikiConfig().baseRestURL}/commits`,
       );
       historyRequestUrl.search = new URLSearchParams([
         ["path", currentId],
@@ -71,35 +71,31 @@ class GitHubPageRevisionManager implements PageRevisionManager {
 
       try {
         const response = await fetch(historyRequestUrl, {
-          headers: {
-            Accept: "application/json",
-          },
+          headers: headers,
         });
-        const jsonResponse = await response.json();
-        jsonResponse.forEach(
-          (commit: {
-            sha: string;
-            commit: { author: { name: string; date: string }; message: string };
-            author: { avatar_url: string; html_url: string };
-          }) => {
-            revisions.push({
-              version: commit.sha.slice(0, 7),
-              date: new Date(commit.commit.author.date),
-              user: {
-                profile: commit.author.html_url,
-                name: commit.commit.author.name,
+        const jsonResponse: Array<{
+          sha: string;
+          commit: { author: { name: string; date: string }; message: string };
+          author: { avatar_url: string; html_url: string };
+        }> = await response.json();
+        for (const commit of jsonResponse) {
+          revisions.push({
+            version: commit.sha.slice(0, 7),
+            date: new Date(commit.commit.author.date),
+            user: {
+              profile: commit.author.html_url,
+              name: commit.commit.author.name,
+            },
+            comment: commit.commit.message,
+            url: this.cristalApp.getRouter().resolve({
+              name: "view",
+              params: {
+                page: currentId,
+                revision: commit.sha.slice(0, 7),
               },
-              comment: commit.commit.message,
-              url: this.cristalApp.getRouter().resolve({
-                name: "view",
-                params: {
-                  page: currentId,
-                  revision: commit.sha.slice(0, 7),
-                },
-              }).href,
-            });
-          },
-        );
+            }).href,
+          });
+        }
       } catch (error) {
         this.logger.error(error);
         this.alertsService.error(

@@ -60,7 +60,7 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
       .get()
       ?.getAuthorizationHeader();
     const headers: { Accept: string; Authorization?: string } = {
-      Accept: "application/json",
+      Accept: "application/vnd.github.raw+json",
     };
     if (authorization) {
       headers.Authorization = authorization;
@@ -74,25 +74,50 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
         headers: headers,
       });
       const jsonResponse = await response.json();
-      console.log(jsonResponse);
-      jsonResponse.forEach(
-        (treeNode: { name: string; path: string; type: string }) => {
-          navigationTree.push({
-            id: treeNode.path,
-            label: treeNode.name,
-            location: new SpaceReference(
-              undefined,
-              ...treeNode.path.split("/"),
-            ),
-            url: this.cristalApp.getRouter().resolve({
-              name: "view",
-              params: {
-                page: treeNode.path,
+      navigationTree.push(
+        ...(
+          await Promise.all(
+            jsonResponse.map(
+              async (treeNode: {
+                name: string;
+                path: string;
+                type: string;
+                git_url: string;
+              }) => {
+                if (treeNode.type == "dir" && treeNode.name != "attachments") {
+                  const currentPageData = await this.cristalApp.getPage(
+                    treeNode.path,
+                  );
+                  const gitResponse = await fetch(treeNode.git_url, {
+                    headers: headers,
+                  });
+                  return {
+                    id: treeNode.path,
+                    label:
+                      currentPageData && currentPageData.name
+                        ? currentPageData.name
+                        : treeNode.name,
+                    location: new SpaceReference(
+                      undefined,
+                      ...treeNode.path.split("/"),
+                    ),
+                    url: this.cristalApp.getRouter().resolve({
+                      name: "view",
+                      params: {
+                        page: treeNode.path,
+                      },
+                    }).href,
+                    has_children: (
+                      (await gitResponse.json()) as {
+                        tree: Array<{ type: string }>;
+                      }
+                    ).tree.some((n) => n.type == "tree"),
+                  };
+                }
               },
-            }).href,
-            has_children: treeNode.type == "dir",
-          });
-        },
+            ),
+          )
+        ).filter((n: NavigationTreeNode) => n !== undefined),
       );
     } catch (error) {
       this.logger.error(error);
