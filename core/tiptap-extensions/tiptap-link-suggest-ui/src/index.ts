@@ -17,6 +17,4 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import LinkSuggestItem from "./vue/LinkSuggestItem.vue";
-
-export { LinkSuggestItem };
+export { default as LinkSuggestItem } from "./vue/LinkSuggestItem.vue";

@@ -18,8 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import { defaultComponentsList } from "./default/defaultComponentsList";
-
-export { CristalAppLoader, DefaultCristalApp, defaultComponentsList };
+export { DefaultCristalApp } from "./components/DefaultCristalApp";
+export { CristalAppLoader } from "./components/cristalAppLoader";
+export { defaultComponentsList } from "./default/defaultComponentsList";
