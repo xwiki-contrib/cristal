@@ -43,6 +43,8 @@ export default {
       let editComponent = null;
       logger?.debug("Using first editor UIX component ", comps);
       if (comps != null) {
+        console.log({ comps });
+
         for (const item of comps) {
           // TODO: fix unsafe access to editorname
           // TODO: the editor should be drawn from the configuration
@@ -50,7 +52,9 @@ export default {
           // components manager, but instead load them lazily, or only load the
           // ones allowed by the configuration (e.g., one for wysiwyg, and one
           // for plain syntax edit).
-          if ((item as { editorname: string }).editorname === "editortiptap") {
+          if (
+            (item as { editorname: string }).editorname === "editorblocknote"
+          ) {
             editComponent = item;
             break;
           }
