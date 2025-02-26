@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "lib": [
+      "dom", "ES2015"
+    ],
+    "isolatedDeclarations": false,
+    "jsx": "preserve"
+  },
+  "extends": "./../../tsconfig.json",
+  "include": ["src"],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}
