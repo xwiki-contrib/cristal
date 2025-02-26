@@ -1,0 +1,68 @@
+{
+  "name": "@xwiki/cristal-editors-blocknote",
+  "version": "0.14.0",
+  "license": "LGPL 2.1",
+  "author": "XWiki Org Community <contact@xwiki.org>",
+  "homepage": "https://cristal.xwiki.org/",
+  "repository": {
+    "type": "git",
+    "directory": "editors/blocknote",
+    "url": "https://github.com/xwiki-contrib/cristal/"
+  },
+  "bugs": {
+    "url": "https://jira.xwiki.org/projects/CRISTAL/"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "pnpm compile",
+    "clean": "rimraf dist",
+    "compile": "vue-tsc --project tsconfig.json && vite build",
+    "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
+    "prepack": "pnpm build",
+    "test": "vitest --run"
+  },
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@blocknote/core": "0.23.2",
+    "@blocknote/mantine": "0.23.2",
+    "@blocknote/react": "0.23.2",
+    "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/cristal-document-api": "workspace:*",
+    "@xwiki/cristal-model-api": "workspace:*",
+    "@xwiki/cristal-skin": "workspace:*",
+    "inversify": "6.2.2",
+    "react-dom": "19.0.0",
+    "veaury": "2.6.2",
+    "vue": "3.5.13"
+  },
+  "peerDependencies": {
+    "reflect-metadata": "0.2.2"
+  },
+  "devDependencies": {
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
+    "@vitejs/plugin-react": "4.3.4",
+    "@vitejs/plugin-vue": "5.2.1",
+    "@vitejs/plugin-vue-jsx": "4.1.1",
+    "@xwiki/cristal-dev-config": "workspace:*",
+    "reflect-metadata": "0.2.2",
+    "typescript": "5.7.3",
+    "vite": "6.1.0",
+    "vue-tsc": "2.2.0"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "import": "./dist/index.es.js",
+        "require": "./dist/index.umd.js",
+        "types": "./dist/index.d.ts"
+      }
+    },
+    "main": "./dist/index.es.js",
+    "types": "./dist/index.d.ts"
+  }
+}
