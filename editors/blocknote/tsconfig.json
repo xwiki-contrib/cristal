@@ -6,7 +6,10 @@
       "dom", "ES2015"
     ],
     "isolatedDeclarations": false,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "types": [
+      "@xwiki/cristal-dsapi"
+    ]
   },
   "extends": "./../../tsconfig.json",
   "include": ["src"],

@@ -18,8 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Primitive } from "utility-types";
-
 /**
  * A single configuration entry.
  *
@@ -27,7 +25,39 @@ import { Primitive } from "utility-types";
  */
 type Configuration = {
   configType: string;
-  [key: string]: Primitive;
+} & ConfigurationOptions;
+
+type ConfigurationOptions = {
+  name: string;
+
+  /** The base url of the backend endpoint */
+  baseURL: string;
+
+  /** The rest base url of the backend endpoint */
+  baseRestURL: string;
+
+  /**
+   * Realtime endpoint URL.
+   * Defaults to http://localhost:15681/collaboration when undefined.
+   * @since 0.11
+   */
+  realtimeURL?: string;
+
+  /**
+   * Authentication server base URL.
+   * @since 0.15
+   */
+
+  authenticationBaseURL?: string;
+  homePage: string;
+  serverRendering: boolean;
+  designSystem: string;
+  offline: boolean;
+
+  /**
+   * @since 0.16
+   */
+  editor: string;
 };
 
 /**
@@ -44,4 +74,9 @@ type Configurations = { [key: string]: Configuration };
  */
 type ConfigurationLoader = () => Promise<Configurations>;
 
-export type { Configuration, ConfigurationLoader, Configurations };
+export type {
+  Configuration,
+  ConfigurationLoader,
+  ConfigurationOptions,
+  Configurations,
+};

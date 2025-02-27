@@ -2858,6 +2858,9 @@ importers:
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../../core/document/document-api
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../ds/api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../core/model/model-api
@@ -2867,6 +2870,9 @@ importers:
       inversify:
         specifier: 6.2.2
         version: 6.2.2(reflect-metadata@0.2.2)
+      react:
+        specifier: 19.0.0
+        version: 19.0.0
       react-dom:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
