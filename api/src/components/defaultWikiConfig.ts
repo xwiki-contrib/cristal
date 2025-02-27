@@ -62,6 +62,9 @@ export class DefaultWikiConfig implements WikiConfig {
   public designSystem: string;
   // @ts-expect-error offline is temporarily undefined during class
   // initialization
+  public editor: string;
+  // @ts-expect-error offline is temporarily undefined during class
+  // initialization
   public offline: boolean;
   public offlineSetup: boolean;
   // @ts-expect-error cristal is temporarily undefined during class
@@ -83,7 +86,11 @@ export class DefaultWikiConfig implements WikiConfig {
     serverRendering: boolean,
     designSystem: string,
     offline: boolean,
-    optional?: { realtimeURL?: string; authenticationBaseURL?: string },
+    editor: string,
+    optional?: {
+      realtimeURL?: string;
+      authenticationBaseURL?: string;
+    },
   ): void {
     this.name = name;
     this.baseURL = baseURL;
@@ -93,6 +100,7 @@ export class DefaultWikiConfig implements WikiConfig {
     this.homePage = homePage;
     this.serverRendering = serverRendering;
     this.designSystem = designSystem;
+    this.editor = editor;
     this.offline = offline;
   }
 
@@ -108,6 +116,7 @@ export class DefaultWikiConfig implements WikiConfig {
     this.serverRendering = configObject.serverRendering;
     this.offline = configObject.offline;
     this.designSystem = configObject.designSystem;
+    this.editor = configObject.editor;
   }
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.

@@ -88,10 +88,10 @@ export async function defaultComponentsList(
     (await import("./github")).load(container);
   }
 
-  if (configuration.editorType === "Tiptap") {
+  if (configuration.editor === "tiptap" || configuration.editor === undefined) {
     const { ComponentInit } = await import("@xwiki/cristal-editors-tiptap");
     new ComponentInit(container);
-  } else if (configuration.editorType === "Blocknote") {
+  } else if (configuration.editor === "blocknote") {
     const { ComponentInit } = await import("@xwiki/cristal-editors-blocknote");
     new ComponentInit(container);
   }

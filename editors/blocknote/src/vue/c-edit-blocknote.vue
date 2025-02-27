@@ -18,32 +18,26 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import App from "../react/App";
-import { CristalApp } from "@xwiki/cristal-api";
+import { BlockNoteWrapper } from "../react/BlockNoteView";
+import { NonSlotProps, reactComponentAdapter } from "../react-adapter";
+import { CristalApp, PageData } from "@xwiki/cristal-api";
 import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
 import { CArticle } from "@xwiki/cristal-skin";
 import { createRoot } from "react-dom/client";
-import { applyReactInVue, setVeauryOptions } from "veaury";
-import { inject, type Ref, ref } from "vue";
+import { setVeauryOptions } from "veaury";
+import { inject, ref, watch } from "vue";
+import type { BlockNoteWrapperProps } from "../react/BlockNoteView";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { Ref } from "vue";
 
 setVeauryOptions({
   react: {
     createRoot,
   },
 });
-
-// injectSyncUpdateForPureReactInVue(BlockNoteView, {
-//   // The name of the hook function that determines the content update of the Input component
-//   onChange(args: any) {
-//     return {
-//       value: args.target.value,
-//     };
-//   },
-// });
 
 const cristal = inject<CristalApp>("cristal")!;
 const container = cristal.getContainer();
@@ -56,16 +50,52 @@ const currentPageReference: Ref<DocumentReference | undefined> =
 const title = ref(""); // TODO
 const titlePlaceholder = ref(""); // TODO
 
-const EditorComp = applyReactInVue(App);
+const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteWrapper);
+
+const editorProps = ref<NonSlotProps<BlockNoteWrapperProps> | null>(null);
+
+function loadEditor(currentPage: PageData | undefined): void {
+  if (!currentPage) {
+    // TODO
+    return;
+  }
+
+  if (currentPage.syntax !== "markdown/1.2") {
+    // TODO
+    throw new Error('TODO: only "markdown/1.2" syntax is supported here');
+  }
+
+  editorProps.value = {
+    initialContent: {
+      syntax: currentPage.syntax,
+      source: currentPage.source,
+    },
+    theme: "light",
+  };
+}
+
+watch(
+  loading,
+  (newLoading) => {
+    if (!newLoading) {
+      loadEditor(currentPage.value);
+    }
+  },
+  { immediate: true },
+);
+
+function test() {
+  alert("yoh");
+}
 </script>
 
 <template>
   <c-article
-    :loading="loading"
-    :error="error"
-    :current-page="currentPage"
-    :current-page-reference="currentPageReference"
-    :page-exist="true"
+    :loading
+    :error
+    :current-page
+    :current-page-reference
+    page-exist
     before-u-i-x-p-id="edit.before"
     after-u-i-x-p-id="edit.after"
   >
@@ -78,7 +108,14 @@ const EditorComp = applyReactInVue(App);
       />
     </template>
     <template #default>
-      <EditorComp />
+      <h1 v-if="!editorProps">Loading...</h1>
+      <h1 v-else>
+        <BlockNoteViewAdapter v-bind="editorProps">
+          <template #node:formattingToolbar>
+            <button @click="test">hello world!</button>
+          </template>
+        </BlockNoteViewAdapter>
+      </h1>
     </template>
   </c-article>
 </template>
