@@ -18,26 +18,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import { BlockNoteWrapper } from "../react/BlockNoteView";
-import { NonSlotProps, reactComponentAdapter } from "../react-adapter";
+import { BlockNoteViewWrapper } from "../react/BlockNoteView";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
+import { reactComponentAdapter } from "@xwiki/cristal-reactivue";
 import { CArticle } from "@xwiki/cristal-skin";
-import { createRoot } from "react-dom/client";
-import { setVeauryOptions } from "veaury";
 import { inject, ref, watch } from "vue";
-import type { BlockNoteWrapperProps } from "../react/BlockNoteView";
+import type { BlockNoteViewWrapperProps } from "../react/BlockNoteView";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { ReactNonSlotProps } from "@xwiki/cristal-reactivue";
 import type { Ref } from "vue";
-
-setVeauryOptions({
-  react: {
-    createRoot,
-  },
-});
 
 const cristal = inject<CristalApp>("cristal")!;
 const container = cristal.getContainer();
@@ -50,9 +43,11 @@ const currentPageReference: Ref<DocumentReference | undefined> =
 const title = ref(""); // TODO
 const titlePlaceholder = ref(""); // TODO
 
-const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteWrapper);
+const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteViewWrapper);
 
-const editorProps = ref<NonSlotProps<BlockNoteWrapperProps> | null>(null);
+const editorProps = ref<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(
+  null,
+);
 
 function loadEditor(currentPage: PageData | undefined): void {
   if (!currentPage) {
@@ -111,8 +106,15 @@ function test() {
       <h1 v-if="!editorProps">Loading...</h1>
       <h1 v-else>
         <BlockNoteViewAdapter v-bind="editorProps">
-          <template #node:formattingToolbar>
+          <template #formattingToolbar>
             <button @click="test">hello world!</button>
+            <BlockNoteViewAdapter
+              :initial-content="{
+                syntax: 'markdown/1.2',
+                source:
+                  'This is BlockNote (React) inside a Vue component, inside BlockNote (React) inside a Vue component!',
+              }"
+            />
           </template>
         </BlockNoteViewAdapter>
       </h1>

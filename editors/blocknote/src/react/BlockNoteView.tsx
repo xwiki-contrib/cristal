@@ -14,7 +14,7 @@ import {
   FormattingToolbarController,
   useCreateBlockNote,
 } from "@blocknote/react";
-import { ReactNode, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   DefaultBlockSchema,
@@ -25,14 +25,14 @@ type DefaultEditorOptionsType = BlockNoteEditorOptions<
 /**
  * Properties for the {@link BlockNoteEditor} component
  */
-type BlockNoteWrapperProps = {
+type BlockNoteViewWrapperProps = {
   initialContent: EditorInitialContent;
   blockNoteOptions?: Partial<
     Omit<DefaultEditorOptionsType, "initialContent" | "schema">
   >;
   theme?: "light" | "dark";
   readonly?: boolean;
-  formattingToolbar: ReactNode;
+  formattingToolbar: ReactElement;
 };
 
 type EditorInitialContent = { syntax: "markdown/1.2"; source: string };
@@ -40,13 +40,13 @@ type EditorInitialContent = { syntax: "markdown/1.2"; source: string };
 /**
  * BlockNote editor wrapper
  */
-function BlockNoteWrapper({
+function BlockNoteViewWrapper({
   initialContent,
   blockNoteOptions,
   theme,
   readonly,
   formattingToolbar,
-}: BlockNoteWrapperProps) {
+}: BlockNoteViewWrapperProps) {
   // Creates a new editor instance.
   const editor = useCreateBlockNote(blockNoteOptions);
 
@@ -90,7 +90,7 @@ function contentToBlock(
 }
 
 export {
-  BlockNoteWrapper,
-  type BlockNoteWrapperProps,
+  BlockNoteViewWrapper,
+  type BlockNoteViewWrapperProps,
   type EditorInitialContent,
 };
