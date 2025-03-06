@@ -2886,15 +2886,33 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../api
+      '@xwiki/cristal-attachments-api':
+        specifier: workspace:*
+        version: link:../../core/attachments/attachments-api
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../../core/document/document-api
       '@xwiki/cristal-dsapi':
         specifier: workspace:*
         version: link:../../ds/api
+      '@xwiki/cristal-icons':
+        specifier: workspace:*
+        version: link:../../core/icons
+      '@xwiki/cristal-link-suggest-api':
+        specifier: workspace:*
+        version: link:../../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-markdown-api':
+        specifier: workspace:*
+        version: link:../../core/markdown/markdown-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../core/model/model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../core/model/model-reference/model-reference-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../core/model/model-remote-url/model-remote-url-api
       '@xwiki/cristal-reactivue':
         specifier: workspace:*
         version: link:../../core/reactivue
@@ -2913,6 +2931,9 @@ importers:
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.7.3)
+      vue-i18n:
+        specifier: 11.1.1
+        version: 11.1.1(vue@3.5.13(typescript@5.7.3))
     devDependencies:
       '@types/react':
         specifier: 19.0.8

@@ -1,0 +1,242 @@
+<script setup lang="ts">
+import LinkSuggestItem from "./LinkSuggestItem.vue";
+import messages from "../../translations";
+import { debounce } from "../../utils";
+import { CristalApp } from "@xwiki/cristal-api";
+import { AttachmentsService } from "@xwiki/cristal-attachments-api";
+import { DocumentService } from "@xwiki/cristal-document-api";
+import {
+  Link,
+  LinkSuggestServiceProvider,
+  LinkType,
+} from "@xwiki/cristal-link-suggest-api";
+import {
+  AttachmentReference,
+  DocumentReference,
+} from "@xwiki/cristal-model-api";
+import { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+import { Ref, inject, ref, useTemplateRef, watch } from "vue";
+import { useI18n } from "vue-i18n";
+
+const emit = defineEmits<{
+  selected: [{ url: string }];
+}>();
+
+const cristal = inject<CristalApp>("cristal")!;
+const container = cristal.getContainer();
+
+const attachmentsService =
+  container.get<AttachmentsService>("AttachmentsService");
+
+const modelReferenceParser = container
+  .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
+  .get();
+
+const remoteURLSerializer = container
+  .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
+  .get();
+
+const documentService = container.get<DocumentService>("DocumentService")!;
+
+const { t } = useI18n({
+  messages,
+});
+
+const loading = attachmentsService.isLoading();
+
+const imageNameQueryInput = useTemplateRef<HTMLInputElement>(
+  "imageNameQueryInput",
+);
+
+const fileUpload = useTemplateRef<HTMLInputElement>("fileUpload");
+
+const imageNameQuery = defineModel<string>("imageNameQuery");
+
+const links: Ref<Link[]> = ref([]);
+const linksSearchError: Ref<string | undefined> = ref(undefined);
+const linksSearchLoading: Ref<boolean> = ref(false);
+
+const linkSuggestServiceProvider = cristal
+  .getContainer()
+  .get<LinkSuggestServiceProvider>("LinkSuggestServiceProvider");
+const linkSuggestService = linkSuggestServiceProvider.get()!;
+
+async function searchAttachments(query: string) {
+  if (linkSuggestService) {
+    links.value = await linkSuggestService.getLinks(
+      query,
+      LinkType.ATTACHMENT,
+      "image/*",
+    );
+  }
+}
+
+watch(
+  imageNameQuery,
+  debounce(async () => {
+    if (imageNameQuery.value && imageNameQuery.value.length) {
+      const query = imageNameQuery.value;
+      await searchAttachments(query);
+    }
+  }),
+);
+
+// Start a first empty search on the first load, to not let the content empty.
+searchAttachments("");
+
+function insertTextAsLink() {
+  if (imageNameQuery.value) {
+    emit("selected", { url: imageNameQuery.value });
+  }
+}
+
+function convertLink(link: Link) {
+  const attachmentReference = modelReferenceParser?.parse(
+    link.reference,
+  ) as AttachmentReference;
+  const documentReference = attachmentReference.document;
+  const segments = documentReference.space?.names.slice(0) ?? [];
+  // TODO: replace with an actual construction of segments from a reference
+  if (documentReference.terminal) {
+    segments.push(documentReference.name);
+  }
+  return {
+    type: link.type,
+    title: link.label,
+    segments,
+    imageURL: remoteURLSerializer?.serialize(attachmentReference),
+  };
+}
+
+function triggerUpload() {
+  fileUpload.value?.click();
+}
+
+function getCurrentPageName() {
+  return documentService.getCurrentDocumentReferenceString().value ?? "";
+}
+
+async function fileSelected() {
+  const files = fileUpload.value?.files;
+  if (files && files.length > 0) {
+    const fileItem = files.item(0)!;
+    const currentPageName = getCurrentPageName();
+    await attachmentsService.upload(currentPageName, [fileItem]);
+
+    const parser = modelReferenceParser?.parse(currentPageName);
+
+    const src = remoteURLSerializer?.serialize(
+      new AttachmentReference(fileItem.name, parser as DocumentReference),
+    );
+    if (src) {
+      emit("selected", { url: src });
+    }
+  }
+}
+</script>
+
+<template>
+  <div class="image-insert-view-content no-drag-handle">
+    <div v-if="loading">
+      {{ t("blocknote.image.insertView.loading") }}
+    </div>
+    <ul v-else class="item-group">
+      <li class="item">
+        <x-btn @click="triggerUpload">
+          {{ t("blocknote.image.insertView.upload") }}
+        </x-btn>
+        <input
+          v-show="false"
+          ref="fileUpload"
+          type="file"
+          accept="image/*"
+          @change="fileSelected"
+        />
+      </li>
+      <li class="item">
+        <input
+          ref="imageNameQueryInput"
+          v-model="imageNameQuery"
+          type="text"
+          :placeholder="t('blocknote.image.insertView.search.placeholder')"
+          @keydown.enter="insertTextAsLink"
+        />
+      </li>
+      <li v-if="linksSearchLoading" class="item">
+        {{ t("blocknote.image.insertView.loading") }}
+      </li>
+      <li v-else-if="linksSearchError" class="item">
+        {{ linksSearchError }}
+      </li>
+      <li v-else-if="links.length == 0 && imageNameQuery" class="item">
+        {{ t("blocknote.image.insertView.noResults") }}
+      </li>
+      <template v-else>
+        <!-- factorize with c-blocknote-link-suggest -->
+        <li
+          v-for="link in links"
+          :key="link.id"
+          :class="['item', 'selectable-item']"
+          @keydown.enter="$emit('selected', { url: link.url })"
+          @click="$emit('selected', { url: link.url })"
+        >
+          <link-suggest-item :link="convertLink(link)"></link-suggest-item>
+        </li>
+      </template>
+    </ul>
+  </div>
+</template>
+
+<style scoped>
+.image-insert-view {
+  background-color: var(--cr-color-neutral-100);
+  border-radius: var(--cr-border-radius-large);
+  border: solid var(--sl-input-border-width) var(--sl-input-border-color);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);
+}
+
+.image-insert-view-content {
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);
+  position: relative;
+  border-radius: var(--cr-tooltip-border-radius);
+  background: white;
+  overflow: hidden auto;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.1),
+    0 10px 20px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  width: auto;
+}
+
+.image-insert-view-content input {
+  width: 100%;
+}
+
+.image-insert-view-content ul {
+  list-style: none;
+}
+
+.image-insert-view-content .item-group {
+  overflow: auto;
+  padding: 0;
+}
+
+.image-insert-view-content .item {
+  display: block;
+  background: transparent;
+  border: none;
+  padding: var(--cr-spacing-x-small);
+  width: 100%;
+  text-align: start;
+}
+
+.image-insert-view-content .selectable-item:hover {
+  background-color: white;
+}
+
+.image-insert-view-content .selectable-item:hover {
+  background-color: var(--cr-color-neutral-200);
+  cursor: pointer;
+}
+</style>

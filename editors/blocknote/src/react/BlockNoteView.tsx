@@ -1,25 +1,34 @@
 import {
+  BlockType,
+  EditorInlineContentSchema,
+  EditorSchema,
+  EditorStyleSchema,
+  EditorType,
+} from "../blocknote";
+import {
   Block,
   BlockNoteEditor,
   BlockNoteEditorOptions,
-  DefaultBlockSchema,
-  DefaultInlineContentSchema,
-  DefaultStyleSchema,
 } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import {
+  FilePanelController,
+  FilePanelProps,
   FormattingToolbar,
   FormattingToolbarController,
+  LinkToolbarController,
+  LinkToolbarProps,
   useCreateBlockNote,
 } from "@blocknote/react";
-import React, { ReactElement, useEffect, useState } from "react";
+import { ReactivueChild } from "@xwiki/cristal-reactivue";
+import React, { useEffect, useState } from "react";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
-  DefaultBlockSchema,
-  DefaultInlineContentSchema,
-  DefaultStyleSchema
+  EditorSchema,
+  EditorInlineContentSchema,
+  EditorStyleSchema
 >;
 
 /**
@@ -32,10 +41,29 @@ type BlockNoteViewWrapperProps = {
   >;
   theme?: "light" | "dark";
   readonly?: boolean;
-  formattingToolbar: ReactElement;
+
+  formattingToolbar: ReactivueChild<{
+    editor: EditorType;
+    currentBlock: BlockType;
+  }>;
+
+  linkToolbar: ReactivueChild<{
+    editor: EditorType;
+    linkToolbarProps: LinkToolbarProps;
+  }>;
+
+  filePanel: ReactivueChild<{
+    editor: EditorType;
+    filePanelProps: FilePanelProps<
+      EditorInlineContentSchema,
+      EditorStyleSchema
+    >;
+  }>;
 };
 
-type EditorInitialContent = { syntax: "markdown/1.2"; source: string };
+type EditorInitialContent =
+  | { syntax: "markdown"; source: string }
+  | { syntax: "html"; source: string };
 
 /**
  * BlockNote editor wrapper
@@ -45,7 +73,9 @@ function BlockNoteViewWrapper({
   blockNoteOptions,
   theme,
   readonly,
-  formattingToolbar,
+  formattingToolbar: CustomFormattingToolbar,
+  linkToolbar: CustomLinkToolbar,
+  filePanel: CustomFilePanel,
 }: BlockNoteViewWrapperProps) {
   // Creates a new editor instance.
   const editor = useCreateBlockNote(blockNoteOptions);
@@ -68,11 +98,31 @@ function BlockNoteViewWrapper({
       editor={editor}
       editable={!convertingInitialContent && readonly !== true}
       theme={theme}
+      // Override some builtin components
       formattingToolbar={false}
+      linkToolbar={false}
+      filePanel={false}
     >
       <FormattingToolbarController
         formattingToolbar={() => (
-          <FormattingToolbar>Toolbar: {formattingToolbar}</FormattingToolbar>
+          <FormattingToolbar>
+            <CustomFormattingToolbar
+              editor={editor}
+              currentBlock={editor.getTextCursorPosition().block}
+            />
+          </FormattingToolbar>
+        )}
+      />
+
+      <LinkToolbarController
+        linkToolbar={(props) => (
+          <CustomLinkToolbar editor={editor} linkToolbarProps={props} />
+        )}
+      />
+
+      <FilePanelController
+        filePanel={(props) => (
+          <CustomFilePanel editor={editor} filePanelProps={props} />
         )}
       />
     </BlockNoteView>
@@ -84,8 +134,11 @@ function contentToBlock(
   content: EditorInitialContent,
 ): Promise<Block[]> {
   switch (content.syntax) {
-    case "markdown/1.2":
+    case "markdown":
       return editor.tryParseMarkdownToBlocks(content.source);
+
+    case "html":
+      return editor.tryParseHTMLToBlocks(content.source);
   }
 }
 
@@ -93,4 +146,5 @@ export {
   BlockNoteViewWrapper,
   type BlockNoteViewWrapperProps,
   type EditorInitialContent,
+  type EditorSchema,
 };
