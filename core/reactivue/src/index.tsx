@@ -1,12 +1,11 @@
 /* eslint-disable vue/multi-word-component-names */
-/* eslint-disable vue/one-component-per-file */
 
 import { createRef, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { createApp, defineComponent, h } from "vue";
 import type { ReactElement } from "react";
 import type { Root } from "react-dom/client";
-import type { App, DefineSetupFnComponent, SlotsType } from "vue";
+import type { App, SlotsType, VNode } from "vue";
 
 // This import is required as the return type of `reactComponentAdapter` references some types from `@vue/shared`
 // If we remove this import, we will get a fatal error from the TypeScript compiler:
@@ -22,6 +21,7 @@ import "@vue/shared";
  */
 type ReactComponentAdapterOptions = {
   dontHyphenizeProps?: boolean;
+  modifyVueApp?: (app: App) => void;
 };
 
 /**
@@ -45,32 +45,56 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
 
     // Initialize the wrapper component's state
     data(): ReactAdapterComponentState<Props> {
-      const propsTransformer = (props: Props) =>
-        options?.dontHyphenizeProps
-          ? props
-          : transformVuePropsHyphenCasing(props);
+      const mergePropsAndSlots: ReactAdapterComponentState<Props>["mergePropsAndSlots"] =
+        (props, slots) => {
+          const merged = {
+            // Properties are left "as is"
+            ...props,
+            // Slots are transformed as we need to render Vue component inside React
+            ...Object.fromEntries(
+              Object.entries(slots).map(([slotName, vueComponent]) => [
+                slotName,
+                // biome-ignore lint/correctness/useJsxKeyInIterable: TODO
+                (props: Record<string, unknown>) => (
+                  <VueComponentWrapper
+                    vueComponent={
+                      vueComponent as VueComponent<Record<string, unknown>>
+                    }
+                    props={props}
+                    modifyVueApp={options?.modifyVueApp}
+                  />
+                ),
+              ]),
+            ),
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } as any;
+
+          return options?.dontHyphenizeProps
+            ? merged
+            : transformVuePropsHyphenCasing(merged);
+        };
 
       return {
+        // Provided options
+        options: options ?? {},
         // The HTML element where the component is going to be rendered
         root: null,
-        // Props transform function
-        propsTransformer,
+        // Props & slots merger
+        mergePropsAndSlots,
         // Create an Observable object with the props so the indirection layer (see below)
         // can be notified when props or slots change
         observableProps: new Observable<Props>(
-          propsTransformer(
-            mergePropsAndSlots(
-              // Note that we use '$attrs', as `defineComponent` will only list
-              // properties that are listed in the `props` field into `this.$props`
-              // But as we only provided an object _shape_ and not an actual description object,
-              // Vue will consider our component does not have any property, and will put
-              // anything provided to this component into `this.$attrs`
-              //
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              this.$attrs as any,
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              this.$slots as any,
-            ),
+          mergePropsAndSlots(
+            // Note that we use '$attrs', as `defineComponent` will only list
+            // properties that are listed in the `props` field into `this.$props`
+            // But as we only provided an object _shape_ and not an actual description object,
+            // Vue will consider our component does not have any property, and will put
+            // anything provided to this component into `this.$attrs`
+            //
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            this.$attrs as any,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            this.$slots as any,
           ),
         ),
       };
@@ -100,13 +124,11 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
         ({ props, slots }) => {
           // Update the observable in order to notify the indirection layer
           this.$data.observableProps.set(
-            this.$data.propsTransformer(
-              mergePropsAndSlots(
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                props as any,
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                slots as any,
-              ),
+            this.$data.mergePropsAndSlots(
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              props as any,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              slots as any,
             ),
           );
         },
@@ -117,6 +139,33 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
     render: () => h("div"),
   });
 }
+
+/**
+ * State of the wrapper component
+ */
+type ReactAdapterComponentState<Props extends Record<string, unknown>> = {
+  root: Root | null;
+  observableProps: Observable<Props>;
+  options: ReactComponentAdapterOptions;
+  mergePropsAndSlots: (
+    props: ReactNonSlotProps<Props>,
+    slots: ReactSlotsTypeAdapter<Props>,
+  ) => Props;
+};
+
+/**
+ * Type of a Vue component
+ */
+type VueComponent<Props extends Record<string, unknown>> = (
+  props: Props,
+) => VNode[];
+
+/**
+ * Type of a Reactivue-compatible React child element
+ */
+type ReactivueChild<Props extends Record<string, unknown>> = (
+  props: Props,
+) => ReactElement;
 
 /**
  * Remove all keys whose value is `never` from a record
@@ -133,8 +182,10 @@ type FilterOutNeverKeys<T extends Record<string, unknown>> = Pick<
  */
 type ReactSlotsTypeAdapter<Props extends Record<string, unknown>> =
   FilterOutNeverKeys<{
-    [Prop in keyof Required<Props>]: Props[Prop] extends ReactElement
-      ? DefineSetupFnComponent<Record<never, never>>
+    [Prop in keyof Required<Props>]: Props[Prop] extends ReactivueChild<
+      infer SlotProps
+    >
+      ? VueComponent<SlotProps>
       : never;
   }>;
 
@@ -143,49 +194,12 @@ type ReactSlotsTypeAdapter<Props extends Record<string, unknown>> =
  */
 type ReactNonSlotProps<Props extends Record<string, unknown>> =
   FilterOutNeverKeys<{
-    [Prop in keyof Props]: Props[Prop] extends ReactElement
+    [Prop in keyof Props]: Props[Prop] extends (
+      props: infer _ extends Record<string, unknown>,
+    ) => ReactElement
       ? never
       : Props[Prop];
   }>;
-
-/**
- * State of the wrapper component
- */
-type ReactAdapterComponentState<Props extends Record<string, unknown>> = {
-  root: Root | null;
-  observableProps: Observable<Props>;
-  propsTransformer: (props: Props) => Props;
-};
-
-/**
- * Merge properties and slots together (from Vue) to get the target React's component correct properties
- *
- * @param props -
- * @param slots -
- * @returns
- */
-function mergePropsAndSlots<Props extends Record<string, unknown>>(
-  props: ReactNonSlotProps<Props>,
-  slots: ReactSlotsTypeAdapter<Props>,
-): Props {
-  return {
-    // Properties are left "as is"
-    ...props,
-    // Slots are transformed as we need to render Vue component inside React
-    ...Object.fromEntries(
-      Object.entries(slots).map(([slotName, vueComponent]) => [
-        slotName,
-        // biome-ignore lint/correctness/useJsxKeyInIterable: TODO
-        <VueComponentWrapper
-          vueComponent={
-            vueComponent as DefineSetupFnComponent<Record<never, never>>
-          }
-        />,
-      ]),
-    ),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any;
-}
 
 /**
  * Transform properties from Vue to correct hyphen-casing to camel-casing
@@ -249,10 +263,14 @@ type ReactIndirectLayerProps<Props extends Record<string, unknown>> = {
  * @param param0 - The Vue component to render
  * @returns A wrapping React component
  */
-function VueComponentWrapper({
+function VueComponentWrapper<Props extends Record<string, unknown>>({
   vueComponent,
+  props,
+  modifyVueApp,
 }: {
-  vueComponent: DefineSetupFnComponent<Record<never, never>>;
+  vueComponent: VueComponent<Props>;
+  props: Props;
+  modifyVueApp: ReactComponentAdapterOptions["modifyVueApp"];
 }) {
   // The element the Vue component is going to be rendered into
   const containerRef = createRef<HTMLDivElement>();
@@ -262,22 +280,19 @@ function VueComponentWrapper({
 
   useEffect(() => {
     // Only import Vue when the component mounts
-    const loadVue = async () => {
-      if (containerRef.current) {
-        // Clean up previous instance if it exists
-        if (vueInstanceRef.current) {
-          vueInstanceRef.current.unmount();
-        }
-
-        // Create a new Vue app with your component
-        // TODO: if perf is bad, see https://github.com/gloriasoft/veaury?tab=readme-ov-file#context
-        const app = createApp(vueComponent, {});
-        app.mount(containerRef.current);
-        vueInstanceRef.current = app;
+    if (containerRef.current) {
+      // Clean up previous instance if it exists
+      if (vueInstanceRef.current) {
+        vueInstanceRef.current.unmount();
       }
-    };
 
-    loadVue();
+      // Create a new Vue app with your component
+      // TODO: if perf is bad, consider implementing https://github.com/gloriasoft/veaury?tab=readme-ov-file#context
+      const app = createApp(vueComponent, props);
+      modifyVueApp?.(app);
+      app.mount(containerRef.current);
+      vueInstanceRef.current = app;
+    }
 
     // Clean up when component unmounts
     return () => {
@@ -317,5 +332,5 @@ class Observable<T> {
   }
 }
 
-export { reactComponentAdapter };
-export type { ReactComponentAdapterOptions, ReactNonSlotProps };
+export { VueComponentWrapper, reactComponentAdapter };
+export type { ReactComponentAdapterOptions, ReactNonSlotProps, ReactivueChild };
