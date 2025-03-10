@@ -18,8 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { AuthenticationManager } from "./authenticationManager";
-import type { AuthenticationManagerProvider } from "./authenticationManagerProvider";
-import type { UserDetails } from "./userDetails";
-
-export { AuthenticationManager, AuthenticationManagerProvider, UserDetails };
+export type { AuthenticationManager } from "./authenticationManager";
+export type { AuthenticationManagerProvider } from "./authenticationManagerProvider";
+export type { UserDetails } from "./userDetails";

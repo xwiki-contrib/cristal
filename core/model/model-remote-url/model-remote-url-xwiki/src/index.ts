@@ -18,6 +18,4 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./componentInit";
-
-export { ComponentInit };
+export { ComponentInit } from "./componentInit";

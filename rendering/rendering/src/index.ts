@@ -18,9 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import ComponentInit from "./components/componentsInit";
-import type { Converter } from "./api/converter";
-import type { Renderer } from "./api/renderer";
-
-export type { Converter, Renderer };
-export { ComponentInit };
+export { default as ComponentInit } from "./components/componentsInit";
+export type { Converter } from "./api/converter";
+export type { Renderer } from "./api/renderer";
