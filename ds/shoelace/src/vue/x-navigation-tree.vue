@@ -64,7 +64,7 @@ var selectedTreeItem: SlTreeItem | undefined;
 const props = defineProps<NavigationTreeProps>();
 
 onBeforeMount(async () => {
-  rootNodes.value.push(...(await treeSource.getChildNodes("")));
+  rootNodes.value.push(...(await getChildNodes("")));
 
   documentService.registerDocumentChangeListener("delete", onDocumentDelete);
   documentService.registerDocumentChangeListener("update", onDocumentUpdate);
@@ -76,7 +76,8 @@ watch(items, expandTree);
 async function expandTree() {
   if (props.currentPageReference) {
     const nodesToExpand = treeSource.getParentNodesId(
-      props.currentPageReference,
+      props.currentPageReference!,
+      props.includeTerminals,
     );
     if (items.value) {
       await Promise.all(
@@ -105,7 +106,7 @@ function onSelectionChange(selection: SlTreeItem) {
 }
 
 async function onDocumentDelete(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {
       if (parents.length == 1) {
@@ -122,13 +123,13 @@ async function onDocumentDelete(page: DocumentReference) {
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 async function onDocumentUpdate(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
 
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {
       if (parents.length == 1) {
         // Page update
-        const newItems = await treeSource.getChildNodes("");
+        const newItems = await getChildNodes("");
         for (const newItem of newItems) {
           if (newItem.id == rootNodes.value[i].id) {
             rootNodes.value[i].label = newItem.label;
@@ -146,7 +147,7 @@ async function onDocumentUpdate(page: DocumentReference) {
   }
 
   // New page
-  const newItems = await treeSource.getChildNodes("");
+  const newItems = await getChildNodes("");
   newItemsLoop: for (const newItem of newItems) {
     for (const i of rootNodes.value.keys()) {
       if (newItem.id == rootNodes.value[i].id) {
@@ -156,6 +157,12 @@ async function onDocumentUpdate(page: DocumentReference) {
     rootNodes.value.push(newItem);
   }
   await expandTree();
+}
+
+async function getChildNodes(id: string) {
+  return (await treeSource.getChildNodes(id)).filter(
+    (c) => props.includeTerminals || !c.is_terminal,
+  );
 }
 </script>
 
@@ -167,6 +174,7 @@ async function onDocumentUpdate(page: DocumentReference) {
       ref="items"
       :node="item"
       :click-action="clickAction"
+      :include-terminals="includeTerminals"
       @selection-change="onSelectionChange"
     >
     </x-navigation-tree-item>

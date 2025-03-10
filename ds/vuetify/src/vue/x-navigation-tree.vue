@@ -50,6 +50,7 @@ type TreeItem = {
   href: string;
   children?: Array<TreeItem>;
   _location: SpaceReference;
+  _is_terminal: boolean;
 };
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
@@ -70,13 +71,14 @@ var isExpanding: boolean = false;
 const props = defineProps<NavigationTreeProps>();
 
 onBeforeMount(async () => {
-  for (const node of await treeSource.getChildNodes("")) {
+  for (const node of await getChildNodes("")) {
     rootNodes.value.push({
       id: node.id,
       title: node.label,
       href: node.url,
       children: node.has_children ? [] : undefined,
       _location: node.location,
+      _is_terminal: node.is_terminal,
     });
   }
   await expandTree();
@@ -93,7 +95,8 @@ async function expandTree() {
   if (props.currentPageReference && !isExpanding) {
     isExpanding = true;
     const newExpandedNodes = treeSource.getParentNodesId(
-      props.currentPageReference,
+      props.currentPageReference!,
+      props.includeTerminals,
     );
     let i;
     let currentNodes = rootNodes.value;
@@ -125,6 +128,7 @@ async function expandTree() {
               location: node._location,
               url: node.href,
               has_children: node.children !== undefined,
+              is_terminal: node._is_terminal,
             });
           }
         }
@@ -136,7 +140,7 @@ async function expandTree() {
 
 async function lazyLoadChildren(item: unknown) {
   const treeItem = item as TreeItem;
-  const childNodes = await treeSource.getChildNodes(treeItem.id);
+  const childNodes = await getChildNodes(treeItem.id);
   for (const child of childNodes) {
     treeItem.children?.push({
       id: child.id,
@@ -144,6 +148,7 @@ async function lazyLoadChildren(item: unknown) {
       href: child.url,
       children: child.has_children ? [] : undefined,
       _location: child.location,
+      _is_terminal: child.is_terminal,
     });
   }
   // If the node doesn't have any children, we update it.
@@ -164,7 +169,7 @@ function clearSelection() {
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 async function onDocumentDelete(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
   let currentItem: TreeItem | undefined = undefined;
   let currentItemChildren: TreeItem[] | undefined = rootNodes.value;
   let notFound = false;
@@ -193,7 +198,7 @@ async function onDocumentDelete(page: DocumentReference) {
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 async function onDocumentUpdate(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page);
+  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
   let currentParent: string | undefined = undefined;
   let currentItems: TreeItem[] | undefined = rootNodes.value;
   let notFound = false;
@@ -204,7 +209,7 @@ async function onDocumentUpdate(page: DocumentReference) {
       if (currentItems[i].id == parents[0]) {
         if (parents.length == 1) {
           // Page update
-          const newItems = await treeSource.getChildNodes(
+          const newItems = await getChildNodes(
             currentParent ? currentParent : "",
           );
           for (const newItem of newItems) {
@@ -235,11 +240,10 @@ async function onDocumentUpdate(page: DocumentReference) {
     // We don't do anything because this node will be loaded lazily anyway.
     return;
   }
-  const newItems = await treeSource.getChildNodes(
-    currentParent ? currentParent : "",
-  );
+  const newItems = await getChildNodes(currentParent ? currentParent : "");
   const currentPageParents = treeSource.getParentNodesId(
-    props.currentPageReference,
+    props.currentPageReference!,
+    props.includeTerminals,
   );
   newItemsLoop: for (const newItem of newItems) {
     for (const i of currentItems!.keys()) {
@@ -253,6 +257,7 @@ async function onDocumentUpdate(page: DocumentReference) {
       href: newItem.url,
       children: newItem.has_children ? [] : undefined,
       _location: newItem.location,
+      _is_terminal: newItem.is_terminal,
     });
     if (
       currentPageParents.length > 0 &&
@@ -262,6 +267,12 @@ async function onDocumentUpdate(page: DocumentReference) {
       activatedNodes.value = [newItem.id];
     }
   }
+}
+
+async function getChildNodes(id: string) {
+  return (await treeSource.getChildNodes(id)).filter(
+    (c) => props.includeTerminals || !c.is_terminal,
+  );
 }
 </script>
 
@@ -289,6 +300,7 @@ async function onDocumentUpdate(page: DocumentReference) {
             location: item._location,
             url: item.href,
             has_children: item.children !== undefined,
+            is_terminal: item._is_terminal,
           });
         "
         >{{ item.title }}</a

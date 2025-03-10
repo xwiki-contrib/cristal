@@ -163,6 +163,7 @@ function onClickOutsideMainSidebar() {
         ></c-page-creation-menu>
         <XNavigationTree
           :current-page-reference="currentPageReference"
+          include-terminals
         ></XNavigationTree>
       </c-sidebar-panel>
       <UIX uixname="sidebar.after" />
