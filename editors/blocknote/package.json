@@ -27,11 +27,13 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@blocknote/core": "0.23.2",
-    "@blocknote/mantine": "0.23.2",
-    "@blocknote/react": "0.23.2",
+    "@blocknote/core": "0.24.0",
+    "@blocknote/mantine": "0.24.0",
+    "@blocknote/react": "0.24.0",
+    "@hocuspocus/provider": "2.15.2",
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-attachments-api": "workspace:*",
+    "@xwiki/cristal-authentication-api": "workspace:*",
     "@xwiki/cristal-document-api": "workspace:*",
     "@xwiki/cristal-dsapi": "workspace:*",
     "@xwiki/cristal-icons": "workspace:*",
@@ -40,13 +42,14 @@
     "@xwiki/cristal-model-api": "workspace:*",
     "@xwiki/cristal-model-reference-api": "workspace:*",
     "@xwiki/cristal-model-remote-url-api": "workspace:*",
-    "@xwiki/cristal-skin": "workspace:*",
     "@xwiki/cristal-reactivue": "workspace:*",
+    "@xwiki/cristal-skin": "workspace:*",
     "inversify": "6.2.2",
     "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react-dom": "19.0.0",  
     "vue": "3.5.13",
-    "vue-i18n": "11.1.1"
+    "vue-i18n": "11.1.1",
+    "yjs": "13.6.23"
   },
   "peerDependencies": {
     "reflect-metadata": "0.2.2"
@@ -54,7 +57,6 @@
   "devDependencies": {
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
-    "@vitejs/plugin-react": "4.3.4",
     "@vitejs/plugin-vue": "5.2.1",
     "@vitejs/plugin-vue-jsx": "4.1.1",
     "@xwiki/cristal-dev-config": "workspace:*",
