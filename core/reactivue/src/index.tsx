@@ -1,6 +1,6 @@
 /* eslint-disable vue/multi-word-component-names */
 
-import { createRef, useEffect, useRef, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { createApp, defineComponent, h } from "vue";
 import type { ReactElement } from "react";
@@ -15,6 +15,8 @@ import type { App, SlotsType, VNode } from "vue";
 //
 // eslint-disable-next-line vue/prefer-import-from-vue
 import "@vue/shared";
+
+console.warn("updated 2");
 
 /**
  * Options for {@link reactComponentAdapter}
@@ -45,57 +47,30 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
 
     // Initialize the wrapper component's state
     data(): ReactAdapterComponentState<Props> {
-      const mergePropsAndSlots: ReactAdapterComponentState<Props>["mergePropsAndSlots"] =
-        (props, slots) => {
-          const merged = {
-            // Properties are left "as is"
-            ...props,
-            // Slots are transformed as we need to render Vue component inside React
-            ...Object.fromEntries(
-              Object.entries(slots).map(([slotName, vueComponent]) => [
-                slotName,
-                // biome-ignore lint/correctness/useJsxKeyInIterable: TODO
-                (props: Record<string, unknown>) => (
-                  <VueComponentWrapper
-                    vueComponent={
-                      vueComponent as VueComponent<Record<string, unknown>>
-                    }
-                    props={props}
-                    modifyVueApp={options?.modifyVueApp}
-                  />
-                ),
-              ]),
-            ),
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } as any;
-
-          return options?.dontHyphenizeProps
-            ? merged
-            : transformVuePropsHyphenCasing(merged);
-        };
+      console.log(this.$attrs);
 
       return {
         // Provided options
         options: options ?? {},
         // The HTML element where the component is going to be rendered
         root: null,
-        // Props & slots merger
-        mergePropsAndSlots,
         // Create an Observable object with the props so the indirection layer (see below)
         // can be notified when props or slots change
         observableProps: new Observable<Props>(
-          mergePropsAndSlots(
-            // Note that we use '$attrs', as `defineComponent` will only list
-            // properties that are listed in the `props` field into `this.$props`
-            // But as we only provided an object _shape_ and not an actual description object,
-            // Vue will consider our component does not have any property, and will put
-            // anything provided to this component into `this.$attrs`
-            //
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            this.$attrs as any,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            this.$slots as any,
-          ),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          this.$attrs as any,
+          // mergePropsAndSlots(
+          //   // Note that we use '$attrs', as `defineComponent` will only list
+          //   // properties that are listed in the `props` field into `this.$props`
+          //   // But as we only provided an object _shape_ and not an actual description object,
+          //   // Vue will consider our component does not have any property, and will put
+          //   // anything provided to this component into `this.$attrs`
+          //   //
+          //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          //   this.$attrs as any,
+          //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          //   this.$slots as any,
+          // ),
         ),
       };
     },
@@ -121,16 +96,17 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
       // There isn't a 'native' way to watch these in Vue, so we resort to using a custom watcher
       this.$watch(
         () => ({ props: { ...this.$attrs }, slots: { ...this.$slots } }),
-        ({ props, slots }) => {
+        () => {
+          throw new Error("NOPE! TODO");
           // Update the observable in order to notify the indirection layer
-          this.$data.observableProps.set(
-            this.$data.mergePropsAndSlots(
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              props as any,
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              slots as any,
-            ),
-          );
+          // this.$data.observableProps.set(
+          //   this.$data.mergePropsAndSlots(
+          //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          //     props as any,
+          //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          //     slots as any,
+          //   ),
+          // );
         },
       );
     },
@@ -147,10 +123,6 @@ type ReactAdapterComponentState<Props extends Record<string, unknown>> = {
   root: Root | null;
   observableProps: Observable<Props>;
   options: ReactComponentAdapterOptions;
-  mergePropsAndSlots: (
-    props: ReactNonSlotProps<Props>,
-    slots: ReactSlotsTypeAdapter<Props>,
-  ) => Props;
 };
 
 /**
@@ -200,28 +172,6 @@ type ReactNonSlotProps<Props extends Record<string, unknown>> =
       ? never
       : Props[Prop];
   }>;
-
-/**
- * Transform properties from Vue to correct hyphen-casing to camel-casing
- *
- * Required as Vue isn't case-sensitive when it comes to using properties in a <template>,
- * so we need to use this function to "fix" properties that are written with hyphens
- *
- * @param props - Hyphen-cased props
- * @returns Corrected props
- */
-function transformVuePropsHyphenCasing<Props extends Record<string, unknown>>(
-  // Note that we don't actually get `Props`, we get a hyphen-cased version of that type
-  props: Props,
-): Props {
-  return Object.fromEntries(
-    Object.entries(props).map(([name, value]) => [
-      name.replace(/-([a-z])/g, (_, l: string) => l.toUpperCase()),
-      value,
-    ]),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) as any;
-}
 
 /**
  * Indirection layer, used to wrap the component to render and update its properties dynamically

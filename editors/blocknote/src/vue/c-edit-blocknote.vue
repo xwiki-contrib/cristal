@@ -21,15 +21,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
+import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
 import { BlockNoteViewWrapper } from "../react/BlockNoteView";
+import { HocuspocusProvider } from "@hocuspocus/provider";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
-import { AttachmentsService } from "@xwiki/cristal-attachments-api";
+import { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
-import { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
+// import { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
 import { reactComponentAdapter } from "@xwiki/cristal-reactivue";
 import { CArticle } from "@xwiki/cristal-skin";
 import { inject, ref, watch } from "vue";
@@ -41,15 +43,18 @@ import type { Ref } from "vue";
 
 const cristal = inject<CristalApp>("cristal")!;
 const container = cristal.getContainer();
-const attachmentsService =
-  container.get<AttachmentsService>("AttachmentsService");
 const documentService = container.get<DocumentService>(documentServiceName);
 const loading = documentService.isLoading();
 const error = documentService.getError();
 const currentPage = documentService.getCurrentDocument();
 const currentPageReference: Ref<DocumentReference | undefined> =
   documentService.getCurrentDocumentReference();
-const markdownRenderer = container.get<MarkdownRenderer>("MarkdownRenderer");
+// const markdownRenderer = container.get<MarkdownRenderer>("MarkdownRenderer");
+const authenticationManager = container
+  .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+  .get();
+
+const { realtimeURL } = cristal.getWikiConfig();
 
 const title = ref(""); // TODO
 const titlePlaceholder = ref(""); // TODO
@@ -72,7 +77,8 @@ const editorProps = ref<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(
   null,
 );
 
-function loadEditor(currentPage: PageData | undefined): void {
+// eslint-disable-next-line max-statements
+async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
     // TODO
     return;
@@ -83,12 +89,44 @@ function loadEditor(currentPage: PageData | undefined): void {
     throw new Error('TODO: only "markdown/1.2" syntax is supported here');
   }
 
+  let collaboration: NonNullable<
+    BlockNoteViewWrapperProps["blockNoteOptions"]
+  >["collaboration"] = undefined;
+
+  if (realtimeURL) {
+    console.info(`Setting up realtime collaboration with URL: ${realtimeURL}`);
+
+    const documentReference =
+      documentService.getCurrentDocumentReferenceString().value;
+
+    if (!documentReference) {
+      throw new Error("Got no document reference!");
+    }
+
+    const provider = new HocuspocusProvider({
+      url: realtimeURL,
+      name: documentReference,
+      // token?
+    });
+
+    const user = await computeCurrentUser(authenticationManager);
+
+    collaboration = {
+      provider,
+      fragment: provider.document.getXmlFragment("document-store"),
+      user,
+    };
+  }
+
   editorProps.value = {
+    theme: "light",
     initialContent: {
       syntax: "html",
-      source: markdownRenderer.render(currentPage.source),
+      source: "",
     },
-    theme: "light",
+    blockNoteOptions: {
+      collaboration,
+    },
   };
 }
 
