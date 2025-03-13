@@ -1,9 +1,10 @@
 /* eslint-disable vue/multi-word-component-names */
+/* eslint-disable vue/one-component-per-file */
 
-import React, { createRef, useEffect, useRef, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { createApp, defineComponent, h } from "vue";
-import type { ReactElement } from "react";
+import { createApp, defineComponent, h, toRaw } from "vue";
+import type { ReactElement, ReactNode } from "react";
 import type { Root } from "react-dom/client";
 import type { App, SlotsType, VNode } from "vue";
 
@@ -15,8 +16,6 @@ import type { App, SlotsType, VNode } from "vue";
 //
 // eslint-disable-next-line vue/prefer-import-from-vue
 import "@vue/shared";
-
-console.warn("updated 2");
 
 /**
  * Options for {@link reactComponentAdapter}
@@ -47,8 +46,6 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
 
     // Initialize the wrapper component's state
     data(): ReactAdapterComponentState<Props> {
-      console.log(this.$attrs);
-
       return {
         // Provided options
         options: options ?? {},
@@ -57,20 +54,11 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
         // Create an Observable object with the props so the indirection layer (see below)
         // can be notified when props or slots change
         observableProps: new Observable<Props>(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          this.$attrs as any,
-          // mergePropsAndSlots(
-          //   // Note that we use '$attrs', as `defineComponent` will only list
-          //   // properties that are listed in the `props` field into `this.$props`
-          //   // But as we only provided an object _shape_ and not an actual description object,
-          //   // Vue will consider our component does not have any property, and will put
-          //   // anything provided to this component into `this.$attrs`
-          //   //
-          //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          //   this.$attrs as any,
-          //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          //   this.$slots as any,
-          // ),
+          createPropsAndSlotsMergerProxy(
+            () => this.$attrs,
+            () => this.$slots,
+            options,
+          ),
         ),
       };
     },
@@ -92,21 +80,10 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
         />,
       );
 
-      // Be notified of any properties and slot changes
-      // There isn't a 'native' way to watch these in Vue, so we resort to using a custom watcher
       this.$watch(
-        () => ({ props: { ...this.$attrs }, slots: { ...this.$slots } }),
+        () => [{ ...this.$attrs }, { ...this.$slots }],
         () => {
-          throw new Error("NOPE! TODO");
-          // Update the observable in order to notify the indirection layer
-          // this.$data.observableProps.set(
-          //   this.$data.mergePropsAndSlots(
-          //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          //     props as any,
-          //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          //     slots as any,
-          //   ),
-          // );
+          this.$data.observableProps.trigger();
         },
       );
     },
@@ -174,6 +151,144 @@ type ReactNonSlotProps<Props extends Record<string, unknown>> =
   }>;
 
 /**
+ * Create proxy to merge properties and slots together in a trap object
+ * @param props - A getter for Vue's properties object
+ * @param slots - A getter for Vue's slots object
+ * @returns
+ */
+function createPropsAndSlotsMergerProxy<Props extends Record<string, unknown>>(
+  props: () => Record<string | symbol, unknown>,
+  slots: () => Record<
+    string | symbol,
+    VueComponent<Record<string, unknown>> | undefined
+  >,
+  options: ReactComponentAdapterOptions | undefined,
+) {
+  // This is a cache that maps Vue slot names to React adapter functions
+  // Here, caching doesn't improve performance ; its purpose is to allow React
+  // to determine we are re-using the same component every time we access the
+  // same property through the returned proxy, which avoids resetting the
+  // underlying component's state.
+  //
+  // If we got rid of this cache, React would think our slot adapter changes
+  // every time and would mount a completely reset component on every render,
+  // which would be extremely bad for performance but also for coherency.
+  const slotsAdapterCache = new Map<
+    string | symbol,
+    {
+      slot: VueComponent<Record<string, unknown>>;
+      reactFn: (props: Record<string, unknown>) => ReactNode;
+    }
+  >();
+
+  return new Proxy(
+    {},
+    {
+      // eslint-disable-next-line max-statements
+      get: (_, propName) => {
+        if (Object.hasOwn(props(), propName)) {
+          return props()[propName];
+        }
+
+        if (Object.hasOwn(slots(), propName)) {
+          const slot = slots()[propName];
+
+          if (!slot) {
+            throw new Error(`Undefined slot: ${propName.toString()}`);
+          }
+
+          const cached = slotsAdapterCache.get(propName);
+
+          if (cached?.slot === slot) {
+            // console.log("Cached!");
+            return cached.reactFn;
+          }
+
+          console.debug("Rendering uncached slot: ", { name: propName });
+
+          let observableProps: Observable<Record<string, unknown>> | null =
+            null;
+
+          const reactFn = (props: Record<string, unknown>) => {
+            if (observableProps) {
+              observableProps.set(props);
+            } else {
+              observableProps = new Observable(props);
+            }
+
+            return (
+              <VueComponentWrapper
+                vueComponent={slot}
+                props={observableProps}
+                modifyVueApp={options?.modifyVueApp}
+              />
+            );
+          };
+
+          slotsAdapterCache.set(propName, { slot, reactFn });
+
+          return reactFn;
+        }
+
+        console.debug("Unknown property: ", { propName });
+        return undefined;
+      },
+
+      has: (_, propName) =>
+        Object.hasOwn(props(), propName) || Object.hasOwn(slots(), propName),
+
+      set: () => {
+        throw new Error("Tried to set property on read-only object");
+      },
+
+      isExtensible: () => true,
+
+      preventExtensions: () => true,
+
+      ownKeys: () => [
+        ...new Set(Reflect.ownKeys(props()).concat(Reflect.ownKeys(slots()))),
+      ],
+
+      getOwnPropertyDescriptor: (_, p) => {
+        if (Object.hasOwn(props(), p)) {
+          return Object.getOwnPropertyDescriptor(props(), p);
+        }
+
+        if (Object.hasOwn(slots(), p)) {
+          return Object.getOwnPropertyDescriptor(slots(), p);
+        }
+
+        return undefined;
+      },
+
+      getPrototypeOf(/*target*/) {
+        throw new Error("TODO: get prototype of (proxy)");
+      },
+
+      apply(/*target, thisArg, argArray*/) {
+        throw new Error("TODO: function call on target (proxy)");
+      },
+
+      construct() {
+        throw new Error("Tried to construct from proxied object");
+      },
+
+      defineProperty() {
+        throw new Error("Tried to define a property on read-only object");
+      },
+
+      deleteProperty() {
+        throw new Error("Tried to delete a propery on read-only object");
+      },
+
+      setPrototypeOf() {
+        throw new Error("Tried to set prototype on read-only subject");
+      },
+    },
+  ) as Props;
+}
+
+/**
  * Indirection layer, used to wrap the component to render and update its properties dynamically
  *
  * This only renders the underlying component with the provided properties, nothing else
@@ -184,13 +299,15 @@ type ReactNonSlotProps<Props extends Record<string, unknown>> =
 function ReactIndirectionLayer<Props extends Record<string, unknown>>({
   Component,
   componentProps,
-}: ReactIndirectLayerProps<Props>) {
+}: ReactIndirectionLayerProps<Props>) {
+  componentProps = toRaw(componentProps);
+
   const [props, setProps] = useState(componentProps.get());
 
   // Update this component when the provided underlying component's properties change
   useEffect(() => {
     componentProps.watch((props) => {
-      setProps(props);
+      setProps({ ...props });
     });
   }, [componentProps]);
 
@@ -198,9 +315,9 @@ function ReactIndirectionLayer<Props extends Record<string, unknown>>({
 }
 
 /**
- * Properties for the indirection layer component
+ * Properties for the React indirection layer component
  */
-type ReactIndirectLayerProps<Props extends Record<string, unknown>> = {
+type ReactIndirectionLayerProps<Props extends Record<string, unknown>> = {
   Component: React.FC<Props>;
   componentProps: Observable<Props>;
 };
@@ -219,7 +336,7 @@ function VueComponentWrapper<Props extends Record<string, unknown>>({
   modifyVueApp,
 }: {
   vueComponent: VueComponent<Props>;
-  props: Props;
+  props: Observable<Props>;
   modifyVueApp: ReactComponentAdapterOptions["modifyVueApp"];
 }) {
   // The element the Vue component is going to be rendered into
@@ -228,6 +345,11 @@ function VueComponentWrapper<Props extends Record<string, unknown>>({
   // Instance of a Vue application
   const vueInstanceRef = useRef<App<Element> | null>(null);
 
+  // NOTE: We deliberately don't list "props" as a dependency of this useEffect()
+  // Indeed, this would cause the useEffect() to re-run on each properties change,
+  // which would then cause a new Vue app to be created everytime - which would reset
+  // the entire underlying components' state.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     // Only import Vue when the component mounts
     if (containerRef.current) {
@@ -238,28 +360,75 @@ function VueComponentWrapper<Props extends Record<string, unknown>>({
 
       // Create a new Vue app with your component
       // TODO: if perf is bad, consider implementing https://github.com/gloriasoft/veaury?tab=readme-ov-file#context
-      const app = createApp(vueComponent, props);
+      const app = createApp(VueIndirectionLayer, {
+        vueComponent,
+        props,
+      } satisfies VueIndirectionLayerProps<Props>);
+
+      // Apply Vue app modification function
       modifyVueApp?.(app);
+
+      // Mount the app into the (HTML element) container
       app.mount(containerRef.current);
+
       vueInstanceRef.current = app;
     }
 
     // Clean up when component unmounts
-    return () => {
-      if (vueInstanceRef.current) {
-        vueInstanceRef.current.unmount();
-      }
-    };
-  }, [vueComponent, containerRef]);
+    return () => vueInstanceRef.current?.unmount();
+  }, [vueComponent, modifyVueApp, containerRef.current]);
 
+  // Use a placeholder <div> to wrap the future mounted component
   return <div ref={containerRef} />;
 }
+
+const VueIndirectionLayer = defineComponent({
+  __typeProps: {} as VueIndirectionLayerProps<Record<string, unknown>>,
+
+  data(): VueIndirectionLayerState {
+    const { props } = this.$attrs as VueIndirectionLayerProps<
+      Record<string, unknown>
+    >;
+
+    return {
+      props: props.get(),
+    };
+  },
+
+  mounted() {
+    const { props } = this.$attrs as VueIndirectionLayerProps<
+      Record<string, unknown>
+    >;
+
+    props.watch((props) => {
+      this.$data.props = props;
+    });
+  },
+
+  render() {
+    const { vueComponent } = this.$attrs as VueIndirectionLayerProps<
+      Record<string, unknown>
+    >;
+
+    // TODO: reactive
+    return vueComponent(this.$data.props);
+  },
+});
+
+type VueIndirectionLayerProps<Props extends Record<string, unknown>> = {
+  vueComponent: VueComponent<Props>;
+  props: Observable<Props>;
+};
+
+type VueIndirectionLayerState = {
+  props: Record<string, unknown>;
+};
 
 /**
  * Lightweight observable type
  */
 class Observable<T> {
-  private _listeners = new Array<(value: T) => void>();
+  private readonly _listeners = new Array<(value: T) => void>();
 
   constructor(private _value: T) {}
 
@@ -269,7 +438,10 @@ class Observable<T> {
 
   set(value: T): void {
     this._value = value;
+    this.trigger();
+  }
 
+  trigger(): void {
     for (const listener of this._listeners) {
       listener(this._value);
     }
