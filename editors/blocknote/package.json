@@ -27,9 +27,10 @@
   },
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@blocknote/core": "0.24.0",
-    "@blocknote/mantine": "0.24.0",
-    "@blocknote/react": "0.24.0",
+    "@blocknote/core": "0.25.1",
+    "@blocknote/mantine": "0.25.1",
+    "@blocknote/react": "0.25.1",
+    "@blocknote/xl-multi-column": "0.25.1",
     "@hocuspocus/provider": "2.15.2",
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-attachments-api": "workspace:*",
@@ -46,24 +47,23 @@
     "@xwiki/cristal-skin": "workspace:*",
     "inversify": "6.2.2",
     "react": "19.0.0",
-    "react-dom": "19.0.0",  
+    "react-dom": "19.0.0",
     "vue": "3.5.13",
-    "vue-i18n": "11.1.1",
-    "yjs": "13.6.23"
+    "vue-i18n": "11.1.2"
   },
   "peerDependencies": {
     "reflect-metadata": "0.2.2"
   },
   "devDependencies": {
-    "@types/react": "19.0.8",
-    "@types/react-dom": "19.0.3",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "@vitejs/plugin-vue": "5.2.1",
     "@vitejs/plugin-vue-jsx": "4.1.1",
     "@xwiki/cristal-dev-config": "workspace:*",
     "reflect-metadata": "0.2.2",
-    "typescript": "5.7.3",
-    "vite": "6.1.0",
-    "vue-tsc": "2.2.0"
+    "typescript": "5.8.2",
+    "vite": "6.2.1",
+    "vue-tsc": "2.2.8"
   },
   "publishConfig": {
     "exports": {
