@@ -1,14 +1,17 @@
 import {
   BlockType,
+  EditorBlockSchema,
   EditorInlineContentSchema,
   EditorSchema,
   EditorStyleSchema,
   EditorType,
+  createBlockNoteSchema,
 } from "../blocknote";
 import {
-  Block,
-  BlockNoteEditor,
   BlockNoteEditorOptions,
+  combineByGroup,
+  filterSuggestionItems,
+  locales,
 } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
@@ -20,13 +23,20 @@ import {
   FormattingToolbarController,
   LinkToolbarController,
   LinkToolbarProps,
+  SuggestionMenuController,
+  getDefaultReactSlashMenuItems,
   useCreateBlockNote,
 } from "@blocknote/react";
+import {
+  getMultiColumnSlashMenuItems,
+  locales as multiColumnLocales,
+  multiColumnDropCursor,
+} from "@blocknote/xl-multi-column";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
-  EditorSchema,
+  EditorBlockSchema,
   EditorInlineContentSchema,
   EditorStyleSchema
 >;
@@ -35,10 +45,7 @@ type DefaultEditorOptionsType = BlockNoteEditorOptions<
  * Properties for the {@link BlockNoteEditor} component
  */
 type BlockNoteViewWrapperProps = {
-  initialContent: EditorInitialContent;
-  blockNoteOptions?: Partial<
-    Omit<DefaultEditorOptionsType, "initialContent" | "schema">
-  >;
+  blockNoteOptions?: Partial<Omit<DefaultEditorOptionsType, "schema">>;
   theme?: "light" | "dark";
   readonly?: boolean;
 
@@ -61,15 +68,10 @@ type BlockNoteViewWrapperProps = {
   }>;
 };
 
-type EditorInitialContent =
-  | { syntax: "markdown"; source: string }
-  | { syntax: "html"; source: string };
-
 /**
  * BlockNote editor wrapper
  */
 function BlockNoteViewWrapper({
-  initialContent,
   blockNoteOptions,
   theme,
   readonly,
@@ -78,31 +80,47 @@ function BlockNoteViewWrapper({
   filePanel: CustomFilePanel,
 }: BlockNoteViewWrapperProps) {
   // Creates a new editor instance.
-  const editor = useCreateBlockNote(blockNoteOptions);
+  const editor = useCreateBlockNote({
+    ...blockNoteOptions,
+    schema: createBlockNoteSchema(),
+    // The default drop cursor only shows up above and below blocks - we replace
+    // it with the multi-column one that also shows up on the sides of blocks.
+    dropCursor: multiColumnDropCursor,
+    // Merges the default dictionary with the multi-column dictionary.
+    dictionary: {
+      ...locales.en,
+      multi_column: multiColumnLocales.en,
+    },
+  });
 
-  // Is initial content being converted?
-  const [convertingInitialContent, setConvertingInitialContent] =
-    useState(true);
-
-  // Convert the initial content to blocks
-  useEffect(() => {
-    contentToBlock(editor, initialContent).then((blocks) => {
-      editor.replaceBlocks(editor.document, blocks);
-      setConvertingInitialContent(false);
-    });
-  }, [setConvertingInitialContent]);
+  const getSlashMenuItems = useMemo(() => {
+    return async (query: string) =>
+      filterSuggestionItems(
+        combineByGroup(
+          getDefaultReactSlashMenuItems(editor),
+          getMultiColumnSlashMenuItems(editor),
+        ),
+        query,
+      );
+  }, [editor]);
 
   // Renders the editor instance using a React component.
   return (
     <BlockNoteView
       editor={editor}
-      editable={!convertingInitialContent && readonly !== true}
+      editable={readonly !== true}
       theme={theme}
       // Override some builtin components
       formattingToolbar={false}
       linkToolbar={false}
       filePanel={false}
+      slashMenu={false}
     >
+      <SuggestionMenuController
+        triggerCharacter={"/"}
+        getItems={getSlashMenuItems}
+      />
+
       <FormattingToolbarController
         formattingToolbar={() => (
           <FormattingToolbar>
@@ -129,22 +147,5 @@ function BlockNoteViewWrapper({
   );
 }
 
-function contentToBlock(
-  editor: BlockNoteEditor,
-  content: EditorInitialContent,
-): Promise<Block[]> {
-  switch (content.syntax) {
-    case "markdown":
-      return editor.tryParseMarkdownToBlocks(content.source);
-
-    case "html":
-      return editor.tryParseHTMLToBlocks(content.source);
-  }
-}
-
-export {
-  BlockNoteViewWrapper,
-  type BlockNoteViewWrapperProps,
-  type EditorInitialContent,
-  type EditorSchema,
-};
+export type { BlockNoteViewWrapperProps, EditorSchema };
+export { BlockNoteViewWrapper };

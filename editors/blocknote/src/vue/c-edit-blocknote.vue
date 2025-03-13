@@ -34,7 +34,7 @@ import {
 // import { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
 import { reactComponentAdapter } from "@xwiki/cristal-reactivue";
 import { CArticle } from "@xwiki/cristal-skin";
-import { inject, ref, watch } from "vue";
+import { inject, ref, shallowRef, watch } from "vue";
 import { createI18n } from "vue-i18n";
 import type { BlockNoteViewWrapperProps } from "../react/BlockNoteView";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
@@ -73,9 +73,8 @@ const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteViewWrapper, {
   },
 });
 
-const editorProps = ref<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(
-  null,
-);
+const editorProps =
+  shallowRef<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(null);
 
 // eslint-disable-next-line max-statements
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
@@ -120,12 +119,14 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
 
   editorProps.value = {
     theme: "light",
-    initialContent: {
-      syntax: "html",
-      source: "",
-    },
     blockNoteOptions: {
       collaboration,
+      initialContent: [
+        {
+          type: "paragraph",
+          content: "Salut les gens !",
+        },
+      ],
     },
   };
 }
