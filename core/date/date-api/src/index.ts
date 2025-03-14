@@ -18,7 +18,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./componentInit";
-import { DateService } from "./dateService";
-
-export { ComponentInit, type DateService };
+export { ComponentInit } from "./componentInit";
+export type { DateService } from "./dateService";

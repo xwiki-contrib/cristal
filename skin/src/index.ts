@@ -18,32 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import ComponentInit from "./components/componentsInit";
-import { DefaultMacroData } from "./components/defaultMacroData";
-import { DefaultSkinManager } from "./components/defaultSkinManager";
-import DefaultUIXTemplateProvider from "./components/defaultUIXTemplateProvider";
-import DefaultVueTemplateProvider from "./components/defaultVueTemplateProvider";
-import CArticle from "./vue/c-article.vue";
-import CTemplate from "./vue/c-template.vue";
-import { ContentTools } from "./vue/contentTools";
-import type { MacroData } from "./api/macroData";
-import type { MacroProvider } from "./api/macroProvider";
-import type { UIXTemplateProvider } from "./api/uixTemplateProvider";
-import type { VueTemplateProvider } from "./api/vueTemplateProvider";
-
-export type {
-  MacroData,
-  MacroProvider,
-  UIXTemplateProvider,
-  VueTemplateProvider,
-};
-export {
-  CArticle,
-  CTemplate,
-  ComponentInit,
-  ContentTools,
-  DefaultMacroData,
-  DefaultSkinManager,
-  DefaultUIXTemplateProvider,
-  DefaultVueTemplateProvider,
-};
+export { default as ComponentInit } from "./components/componentsInit";
+export { DefaultMacroData } from "./components/defaultMacroData";
+export { DefaultSkinManager } from "./components/defaultSkinManager";
+export { default as DefaultUIXTemplateProvider } from "./components/defaultUIXTemplateProvider";
+export { default as DefaultVueTemplateProvider } from "./components/defaultVueTemplateProvider";
+export { default as CArticle } from "./vue/c-article.vue";
+export { default as CTemplate } from "./vue/c-template.vue";
+export { ContentTools } from "./vue/contentTools";
+export type { MacroData } from "./api/macroData";
+export type { MacroProvider } from "./api/macroProvider";
+export type { UIXTemplateProvider } from "./api/uixTemplateProvider";
+export type { VueTemplateProvider } from "./api/vueTemplateProvider";
