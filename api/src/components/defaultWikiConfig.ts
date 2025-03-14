@@ -19,7 +19,7 @@
  */
 
 import { inject, injectable } from "inversify";
-import type { WikiConfig } from "../api/WikiConfig";
+import type { ConfigObject, WikiConfig } from "../api/WikiConfig";
 import type { CristalApp } from "../api/cristalApp";
 import type { Logger } from "../api/logger";
 import type { Storage } from "../api/storage";
@@ -96,9 +96,7 @@ export class DefaultWikiConfig implements WikiConfig {
     this.offline = offline;
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setConfigFromObject(configObject: any): void {
+  setConfigFromObject(configObject: ConfigObject): void {
     this.name = configObject.name;
     this.baseURL = configObject.baseURL;
     this.baseRestURL = configObject.baseRestURL;

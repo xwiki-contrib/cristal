@@ -31,18 +31,12 @@ export interface Document {
 
   setText(text: string): void;
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get(fieldName: string): any;
+  get(fieldName: string): unknown;
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  set(fieldName: string, value: any): void;
+  set(fieldName: string, value: unknown): void;
 
   /*
    * Allows retrieving the source of the document
    */
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getSource(): any;
+  getSource(): unknown;
 }
