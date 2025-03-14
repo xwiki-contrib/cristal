@@ -5,7 +5,6 @@ import { createRef, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { createApp, defineComponent, h, toRaw } from "vue";
 import type { ReactElement, ReactNode } from "react";
-import type { Root } from "react-dom/client";
 import type { App, SlotsType, VNode } from "vue";
 
 // This import is required as the return type of `reactComponentAdapter` references some types from `@vue/shared`
@@ -49,8 +48,6 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
       return {
         // Provided options
         options: options ?? {},
-        // The HTML element where the component is going to be rendered
-        root: null,
         // Create an Observable object with the props so the indirection layer (see below)
         // can be notified when props or slots change
         observableProps: new Observable<Props>(
@@ -72,8 +69,7 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
       }
 
       // Render the element inside the container element
-      this.$data.root = createRoot(this.$el);
-      this.$data.root.render(
+      createRoot(this.$el).render(
         <ReactIndirectionLayer
           Component={Component}
           componentProps={this.$data.observableProps}
@@ -97,7 +93,6 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
  * State of the wrapper component
  */
 type ReactAdapterComponentState<Props extends Record<string, unknown>> = {
-  root: Root | null;
   observableProps: Observable<Props>;
   options: ReactComponentAdapterOptions;
 };

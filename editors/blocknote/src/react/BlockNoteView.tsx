@@ -6,13 +6,10 @@ import {
   EditorStyleSchema,
   EditorType,
   createBlockNoteSchema,
+  createDictionary,
+  querySuggestionsMenuItems,
 } from "../blocknote";
-import {
-  BlockNoteEditorOptions,
-  combineByGroup,
-  filterSuggestionItems,
-  locales,
-} from "@blocknote/core";
+import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
@@ -24,16 +21,11 @@ import {
   LinkToolbarController,
   LinkToolbarProps,
   SuggestionMenuController,
-  getDefaultReactSlashMenuItems,
   useCreateBlockNote,
 } from "@blocknote/react";
-import {
-  getMultiColumnSlashMenuItems,
-  locales as multiColumnLocales,
-  multiColumnDropCursor,
-} from "@blocknote/xl-multi-column";
+import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
-import React, { useMemo } from "react";
+import React from "react";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -79,30 +71,19 @@ function BlockNoteViewWrapper({
   linkToolbar: CustomLinkToolbar,
   filePanel: CustomFilePanel,
 }: BlockNoteViewWrapperProps) {
+  const schema = createBlockNoteSchema();
+
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
     ...blockNoteOptions,
-    schema: createBlockNoteSchema(),
+    // Editor's schema, with custom blocks definition
+    schema,
+    // Merges the default dictionary with the multi-column dictionary.
+    dictionary: createDictionary(),
     // The default drop cursor only shows up above and below blocks - we replace
     // it with the multi-column one that also shows up on the sides of blocks.
     dropCursor: multiColumnDropCursor,
-    // Merges the default dictionary with the multi-column dictionary.
-    dictionary: {
-      ...locales.en,
-      multi_column: multiColumnLocales.en,
-    },
   });
-
-  const getSlashMenuItems = useMemo(() => {
-    return async (query: string) =>
-      filterSuggestionItems(
-        combineByGroup(
-          getDefaultReactSlashMenuItems(editor),
-          getMultiColumnSlashMenuItems(editor),
-        ),
-        query,
-      );
-  }, [editor]);
 
   // Renders the editor instance using a React component.
   return (
@@ -118,7 +99,7 @@ function BlockNoteViewWrapper({
     >
       <SuggestionMenuController
         triggerCharacter={"/"}
-        getItems={getSlashMenuItems}
+        getItems={async (query) => querySuggestionsMenuItems(editor, query)}
       />
 
       <FormattingToolbarController
