@@ -1,4 +1,4 @@
-export function debounce<T>(func: (arg: T) => unknown): (arg: T) => void {
+function debounce<T>(func: (arg: T) => unknown): (arg: T) => void {
   let running = false;
 
   const debounced = (arg: T) => {
@@ -19,3 +19,5 @@ export function debounce<T>(func: (arg: T) => unknown): (arg: T) => void {
 
   return debounced;
 }
+
+export { debounce };

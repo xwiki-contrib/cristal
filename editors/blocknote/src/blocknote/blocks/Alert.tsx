@@ -16,11 +16,15 @@ export const Alert = createCustomBlockSpec({
   },
   implementation: {
     render(props) {
+      console.log("Updated!");
+
       const callback = () => {
         const color = `#${new Array(6)
           .fill(0)
           .map(() => Math.floor(Math.random() * 10))
           .join("")}`;
+
+        console.log("Updating !");
 
         props.editor.updateBlock(props.block, {
           props: {
@@ -46,7 +50,6 @@ export const Alert = createCustomBlockSpec({
               marginRight: "5px",
               cursor: "pointer",
             }}
-            contentEditable
           >
             Change color!
           </button>
@@ -70,4 +73,5 @@ export const Alert = createCustomBlockSpec({
       type: "alert",
     }),
   },
+  toolbar: () => <strong>TODO: toolbar for Alert</strong>,
 });

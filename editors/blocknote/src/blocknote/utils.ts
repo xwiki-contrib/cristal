@@ -1,3 +1,4 @@
+import { EditorType } from ".";
 import {
   BlockNoteEditor,
   CustomBlockConfig,
@@ -10,9 +11,9 @@ import {
   ReactCustomBlockImplementation,
   createReactBlockSpec,
 } from "@blocknote/react";
-import { ReactNode } from "react";
+import { ReactElement } from "react";
 
-export function createCustomBlockSpec<
+function createCustomBlockSpec<
   const T extends CustomBlockConfig,
   const I extends InlineContentSchema,
   const S extends StyleSchema,
@@ -23,11 +24,10 @@ export function createCustomBlockSpec<
     title: string;
     aliases?: string[];
     group: string;
-    icon: ReactNode;
-    create: () => PartialBlock<{
-      [_ in T["type"]]: T;
-    }>;
+    icon: ReactElement;
+    create: () => PartialBlock<Record<T["type"], T>>;
   };
+  toolbar: () => ReactElement;
 }) {
   return {
     block: createReactBlockSpec(block.config, block.implementation),
@@ -41,5 +41,16 @@ export function createCustomBlockSpec<
         insertOrUpdateBlock(editor, block.slashMenu.create());
       },
     }),
+    toolbar,
   };
 }
+
+function upgradeEditorType(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  editor: BlockNoteEditor<any, any, any>,
+): EditorType {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return editor as any;
+}
+
+export { createCustomBlockSpec, upgradeEditorType };

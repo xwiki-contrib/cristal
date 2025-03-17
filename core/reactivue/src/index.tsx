@@ -377,6 +377,12 @@ function VueComponentWrapper<Props extends Record<string, unknown>>({
   return <div ref={containerRef} />;
 }
 
+/**
+ * Indirection layer, used to wrap the component to render and update its properties dynamically
+ *
+ * This only renders the underlying component with the provided properties, nothing else
+ */
+
 const VueIndirectionLayer = defineComponent({
   __typeProps: {} as VueIndirectionLayerProps<Record<string, unknown>>,
 
@@ -405,8 +411,10 @@ const VueIndirectionLayer = defineComponent({
       Record<string, unknown>
     >;
 
-    // TODO: reactive
-    return vueComponent(this.$data.props);
+    return vueComponent(
+      // TODO: using 'this.$data' may create some problems as Vue put it behind a Proxy
+      this.$data.props,
+    );
   },
 });
 
@@ -425,17 +433,33 @@ type VueIndirectionLayerState = {
 class Observable<T> {
   private readonly _listeners = new Array<(value: T) => void>();
 
+  /**
+   * Create a new observable value
+   * @param _value -
+   */
   constructor(private _value: T) {}
 
+  /**
+   * Get the observed value
+   * @returns The observed value
+   */
   get(): T {
     return this._value;
   }
 
+  /**
+   * Replace the observed value with another
+   * Will trigger all listeners
+   * @param value -
+   */
   set(value: T): void {
     this._value = value;
     this.trigger();
   }
 
+  /**
+   * Trigger all listeners (without changing the observable value)
+   */
   trigger(): void {
     for (const listener of this._listeners) {
       listener(this._value);
