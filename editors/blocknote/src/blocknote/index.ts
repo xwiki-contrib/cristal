@@ -1,4 +1,5 @@
 import { Alert } from "./blocks/Alert";
+import { TableOfContents } from "./blocks/TableOfContents";
 import {
   Block,
   BlockNoteEditor,
@@ -34,6 +35,7 @@ function createBlockNoteSchema(): EditorSchema {
 
       // Custom blocks
       alert: Alert.block,
+      toc: TableOfContents.block,
     },
   });
 }
@@ -59,7 +61,7 @@ function querySuggestionsMenuItems(
       getMultiColumnSlashMenuItems(editor),
 
       // Custom blocks
-      [Alert.slashMenuEntry(editor)],
+      [Alert.slashMenuEntry(editor), TableOfContents.slashMenuEntry(editor)],
     ),
     query,
   );
@@ -78,6 +80,7 @@ type EditorBlockSchema = DefaultBlockSchema & {
 
   // Custom blocks
   alert: typeof Alert.block.config;
+  toc: typeof TableOfContents.block.config;
 };
 
 type EditorInlineContentSchema = DefaultInlineContentSchema;
