@@ -60,7 +60,7 @@ export class DefaultWikiConfig implements WikiConfig {
   // @ts-expect-error designSystem is temporarily undefined during class
   // initialization
   public designSystem: string;
-  // @ts-expect-error offline is temporarily undefined during class
+  // @ts-expect-error editor is temporarily undefined during class
   // initialization
   public editor: string;
   // @ts-expect-error offline is temporarily undefined during class
