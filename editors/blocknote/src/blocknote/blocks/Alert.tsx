@@ -19,10 +19,12 @@ export const Alert = createCustomBlockSpec({
       console.log("Updated!");
 
       const callback = () => {
-        const color = `#${new Array(6)
-          .fill(0)
-          .map(() => Math.floor(Math.random() * 10))
-          .join("")}`;
+        // const color = `#${new Array(6)
+        //   .fill(0)
+        //   .map(() => Math.floor(Math.random() * 10))
+        //   .join("")}`;
+
+        const color = ["red", "green", "blue"][Math.floor(Math.random() * 3)];
 
         console.log("Updating !");
 
