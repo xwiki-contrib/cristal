@@ -1,4 +1,6 @@
 {
+	"extends": "../../tsconfig.json",
+
 	"compilerOptions": {
 		"target": "ES2020",
 		"useDefineForClassFields": true,
@@ -11,6 +13,7 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "react-jsx",
+		"isolatedDeclarations": false,
 
 		/* Linting */
 		"strict": true,

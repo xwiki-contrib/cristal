@@ -27,6 +27,6 @@ export default class ComponentInit {
     container
       .bind<UIXTemplateProvider>("UIXTemplateProvider")
       .to(UixBlocknoteEditorProvider)
-      .whenTargetNamed(UixBlocknoteEditorProvider.extensionPoint);
+      .whenNamed(UixBlocknoteEditorProvider.extensionPoint);
   }
 }
