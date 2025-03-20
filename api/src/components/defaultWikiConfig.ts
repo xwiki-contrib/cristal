@@ -48,6 +48,13 @@ export class DefaultWikiConfig implements WikiConfig {
    * @since 0.15
    */
   authenticationBaseURL?: string;
+
+  /**
+   * Mode of authentication to use: "basic" or "oauth2".
+   * @since 0.16
+   */
+  authenticationMode?: "basic" | "oauth2";
+
   // @ts-expect-error homePage is temporarily undefined during class
   // initialization
   public homePage: string;
@@ -83,13 +90,18 @@ export class DefaultWikiConfig implements WikiConfig {
     serverRendering: boolean,
     designSystem: string,
     offline: boolean,
-    optional?: { realtimeURL?: string; authenticationBaseURL?: string },
+    optional?: {
+      realtimeURL?: string;
+      authenticationBaseURL?: string;
+      authenticationMode?: "basic" | "oauth2";
+    },
   ): void {
     this.name = name;
     this.baseURL = baseURL;
     this.baseRestURL = baseRestURL;
     this.realtimeURL = optional?.realtimeURL;
     this.authenticationBaseURL = optional?.authenticationBaseURL;
+    this.authenticationMode = optional?.authenticationMode;
     this.homePage = homePage;
     this.serverRendering = serverRendering;
     this.designSystem = designSystem;
@@ -104,6 +116,7 @@ export class DefaultWikiConfig implements WikiConfig {
     this.baseRestURL = configObject.baseRestURL;
     this.realtimeURL = configObject.realtimeURL;
     this.authenticationBaseURL = configObject.authenticationBaseURL;
+    this.authenticationMode = configObject.authenticationMode;
     this.homePage = configObject.homePage;
     this.serverRendering = configObject.serverRendering;
     this.offline = configObject.offline;

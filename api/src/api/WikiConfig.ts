@@ -37,6 +37,11 @@ export interface WikiConfig {
    * @since 0.15
    */
   authenticationBaseURL?: string;
+  /**
+   * Mode of authentication to use: "basic" or "oauth2".
+   * @since 0.16
+   */
+  authenticationMode?: "basic" | "oauth2";
   homePage: string;
   storage: Storage;
   serverRendering: boolean;
