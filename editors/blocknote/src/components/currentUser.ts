@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { stringToColor } from "../utils";
 import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 
 /**
@@ -28,28 +29,20 @@ import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 export async function computeCurrentUser(
   authentication?: AuthenticationManager,
 ): Promise<{ name: string; color: string }> {
-  let ret = {
-    name: "Anonymous",
-    // avatar: noavatar,
-    color: "#000000",
-  };
+  let name = "Anonymous";
+
   if (authentication && (await authentication.isAuthenticated())) {
     try {
       const userDetails = await authentication.getUserDetails();
-      ret = {
-        name: userDetails.name,
-        // avatar: userDetails.avatar ?? noavatar,
-        color: "#000000",
-      };
+      name = userDetails.name;
     } catch (e) {
       console.error("Failed to get the user details", e);
-      ret = {
-        name: "Unknown",
-        // avatar: noavatar,
-        color: "#000000",
-      };
+      name = "<Error>";
     }
   }
 
-  return ret;
+  return {
+    name,
+    color: stringToColor(name),
+  };
 }
