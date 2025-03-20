@@ -57,7 +57,7 @@ const authenticationManager = container
 const { realtimeURL } = cristal.getWikiConfig();
 
 const title = ref(""); // TODO
-const titlePlaceholder = ref(""); // TODO
+const titlePlaceholder = ref("");
 
 const linkEditionCtx = createLinkEditionContext(container);
 
@@ -128,7 +128,11 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
         },
       ],
     },
+    formattingToolbarOnlyFor: [],
   };
+
+  title.value = documentService.getTitle().value ?? "";
+  titlePlaceholder.value = documentService.getTitle().value ?? "";
 }
 
 watch(
@@ -164,23 +168,34 @@ watch(
       <h1 v-if="!editorProps">Loading...</h1>
       <h1 v-else>
         <BlockNoteViewAdapter v-bind="editorProps">
+          <!-- Custom (popover) formatting toolbar -->
           <template #formattingToolbar="{ editor, currentBlock }">
             <ImageToolbar
               v-if="currentBlock.type === 'image'"
               :editor
               :current-block
             />
-            <div v-else>
-              <strong>Unknown block type: {{ currentBlock.type }}</strong>
-            </div>
+
+            <strong v-else>Unknown block type: {{ currentBlock.type }}</strong>
           </template>
 
+          <!-- Custom (popover) toolbar for link edition -->
           <template #linkToolbar="{ editor, linkToolbarProps }">
             <LinkToolbar :editor :link-toolbar-props :link-edition-ctx />
           </template>
 
+          <!-- Custom (popover) file panel for editing file-like blocks -->
           <template #filePanel="{ editor, filePanelProps }">
-            <ImageFilePanel :editor :file-panel-props :link-edition-ctx />
+            <ImageFilePanel
+              v-if="filePanelProps.block.type === 'image'"
+              :editor
+              :file-panel-props
+              :link-edition-ctx
+            />
+
+            <strong v-else>
+              Unexpected file type block: {{ filePanelProps.block.type }}
+            </strong>
           </template>
         </BlockNoteViewAdapter>
       </h1>

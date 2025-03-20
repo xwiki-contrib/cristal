@@ -4,9 +4,6 @@ import {
   Block,
   BlockNoteEditor,
   BlockNoteSchema,
-  DefaultBlockSchema,
-  DefaultInlineContentSchema,
-  DefaultStyleSchema,
   Dictionary,
   combineByGroup,
   defaultBlockSpecs,
@@ -17,21 +14,20 @@ import {
   DefaultReactSuggestionItem,
   getDefaultReactSlashMenuItems,
 } from "@blocknote/react";
-import {
-  ColumnBlock,
-  ColumnListBlock,
-  getMultiColumnSlashMenuItems,
-  locales as multiColumnLocales,
-} from "@blocknote/xl-multi-column";
 
-function createBlockNoteSchema(): EditorSchema {
+function createBlockNoteSchema() {
+  // Get rid of some block types
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { checkListItem, audio, video, file, ...remainingBlockSpecs } =
+    defaultBlockSpecs;
+
   return BlockNoteSchema.create({
     blockSpecs: {
-      ...defaultBlockSpecs,
+      ...remainingBlockSpecs,
 
       // First-party extension blocks
-      column: ColumnBlock,
-      columnList: ColumnListBlock,
+      // column: ColumnBlock,
+      // columnList: ColumnListBlock,
 
       // Custom blocks
       alert: Alert.block,
@@ -44,8 +40,8 @@ function createDictionary(): Dictionary & Record<string, unknown> {
   return {
     ...locales.en,
 
-    // First-party extensions
-    multi_column: multiColumnLocales.en,
+    // // First-party extensions
+    // multi_column: multiColumnLocales.en,
   };
 }
 
@@ -57,35 +53,50 @@ function querySuggestionsMenuItems(
     combineByGroup(
       getDefaultReactSlashMenuItems(editor),
 
-      // First-party extension blocks
-      getMultiColumnSlashMenuItems(editor),
+      // // First-party extension blocks
+      // getMultiColumnSlashMenuItems(editor),
 
       // Custom blocks
-      [Alert.slashMenuEntry(editor), TableOfContents.slashMenuEntry(editor)],
+      [Alert, TableOfContents].map((custom) => custom.slashMenuEntry(editor)),
     ),
     query,
   );
 }
 
-type EditorSchema = BlockNoteSchema<
-  EditorBlockSchema,
-  EditorInlineContentSchema,
-  EditorStyleSchema
->;
+type EditorSchema = ReturnType<typeof createBlockNoteSchema>;
 
-type EditorBlockSchema = DefaultBlockSchema & {
-  // First-party extension blocks
-  column: typeof ColumnBlock.config;
-  columnList: typeof ColumnListBlock.config;
+type EditorBlockSchema =
+  EditorSchema extends BlockNoteSchema<
+    infer BlockSchema,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    infer _,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    infer __
+  >
+    ? BlockSchema
+    : never;
 
-  // Custom blocks
-  alert: typeof Alert.block.config;
-  toc: typeof TableOfContents.block.config;
-};
+type EditorInlineContentSchema =
+  EditorSchema extends BlockNoteSchema<
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    infer _,
+    infer InlineContentSchema,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    infer __
+  >
+    ? InlineContentSchema
+    : never;
 
-type EditorInlineContentSchema = DefaultInlineContentSchema;
-
-type EditorStyleSchema = DefaultStyleSchema;
+type EditorStyleSchema =
+  EditorSchema extends BlockNoteSchema<
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    infer _,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    infer __,
+    infer StyleSchema
+  >
+    ? StyleSchema
+    : never;
 
 type EditorType = BlockNoteEditor<
   EditorBlockSchema,

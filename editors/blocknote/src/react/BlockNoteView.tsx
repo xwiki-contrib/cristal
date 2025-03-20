@@ -46,6 +46,8 @@ type BlockNoteViewWrapperProps = {
     currentBlock: BlockType;
   }>;
 
+  formattingToolbarOnlyFor: Array<BlockType["type"]>;
+
   linkToolbar: ReactivueChild<{
     editor: EditorType;
     linkToolbarProps: LinkToolbarProps;
@@ -68,6 +70,7 @@ function BlockNoteViewWrapper({
   theme,
   readonly,
   formattingToolbar: CustomFormattingToolbar,
+  formattingToolbarOnlyFor,
   linkToolbar: CustomLinkToolbar,
   filePanel: CustomFilePanel,
 }: BlockNoteViewWrapperProps) {
@@ -103,14 +106,20 @@ function BlockNoteViewWrapper({
       />
 
       <FormattingToolbarController
-        formattingToolbar={() => (
-          <FormattingToolbar>
-            <CustomFormattingToolbar
-              editor={editor}
-              currentBlock={editor.getTextCursorPosition().block}
-            />
-          </FormattingToolbar>
-        )}
+        formattingToolbar={() => {
+          const currentBlock = editor.getTextCursorPosition().block;
+
+          return (
+            <FormattingToolbar>
+              {formattingToolbarOnlyFor.includes(currentBlock.type) && (
+                <CustomFormattingToolbar
+                  editor={editor}
+                  currentBlock={currentBlock}
+                />
+              )}
+            </FormattingToolbar>
+          );
+        }}
       />
 
       <LinkToolbarController
