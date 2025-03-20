@@ -27,7 +27,7 @@ function createCustomBlockSpec<
     icon: ReactElement;
     create: () => PartialBlock<Record<T["type"], T>>;
   };
-  toolbar: () => ReactElement;
+  toolbar: () => ReactElement | null;
 }) {
   return {
     block: createReactBlockSpec(block.config, block.implementation),
