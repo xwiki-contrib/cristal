@@ -1,5 +1,5 @@
-import { Alert } from "./blocks/Alert";
-import { TableOfContents } from "./blocks/TableOfContents";
+import { BlockQuote } from "./blocks/BlockQuote";
+import { Heading4, Heading5, Heading6 } from "./blocks/Headings";
 import {
   Block,
   BlockNoteEditor,
@@ -30,8 +30,10 @@ function createBlockNoteSchema() {
       // columnList: ColumnListBlock,
 
       // Custom blocks
-      alert: Alert.block,
-      toc: TableOfContents.block,
+      Heading4: Heading4.block,
+      Heading5: Heading5.block,
+      Heading6: Heading6.block,
+      BlockQuote: BlockQuote.block,
     },
   });
 }
@@ -57,7 +59,9 @@ function querySuggestionsMenuItems(
       // getMultiColumnSlashMenuItems(editor),
 
       // Custom blocks
-      [Alert, TableOfContents].map((custom) => custom.slashMenuEntry(editor)),
+      [Heading4, Heading5, Heading6, BlockQuote].map((custom) =>
+        custom.slashMenuEntry(editor),
+      ),
     ),
     query,
   );
