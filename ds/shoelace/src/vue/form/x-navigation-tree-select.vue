@@ -20,8 +20,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <script setup lang="ts">
 import messages from "../../translations";
 import "@shoelace-style/shoelace/dist/components/input/input";
+import { navigationTreeSelectPropsDefaults } from "@xwiki/cristal-dsapi";
 import { SpaceReference } from "@xwiki/cristal-model-api";
-import { inject, onMounted, ref, withDefaults } from "vue";
+import { inject, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { NavigationTreeSelectProps } from "@xwiki/cristal-dsapi";
@@ -51,9 +52,10 @@ const referenceHandler: ModelReferenceHandler = cristal
 const { t } = useI18n({
   messages,
 });
-const props = withDefaults(defineProps<NavigationTreeSelectProps>(), {
-  includeTerminals: false,
-});
+const props = withDefaults(
+  defineProps<NavigationTreeSelectProps>(),
+  navigationTreeSelectPropsDefaults,
+);
 const model = defineModel<SpaceReference>();
 
 const openedLocationDialog: Ref<boolean> = ref(false);

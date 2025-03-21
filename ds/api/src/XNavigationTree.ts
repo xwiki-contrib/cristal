@@ -34,4 +34,9 @@ type NavigationTreeProps = {
   includeTerminals?: boolean;
 };
 
+const navigationTreePropsDefaults = {
+  includeTerminals: true,
+};
+
 export type { NavigationTreeProps };
+export { navigationTreePropsDefaults };
