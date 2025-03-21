@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { router as githubRouter } from "./github";
-import { router as nextcloudRouter } from "./nextcloud";
+import { router as githubRouter } from "./routers/github";
+import { router as nextcloudRouter } from "./routers/nextcloud";
 import express from "express";
 
 const app = express();

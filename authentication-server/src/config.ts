@@ -22,11 +22,23 @@ const config = {
   github: {
     DEVICE_LOGIN_URL: "https://github.com/login/device/code",
     DEVICE_VERIFY_URL: "https://github.com/login/oauth/access_token",
+    /**
+     * Client ID of the GitHub app to use for log-in.
+     * See https://docs.github.com/en/apps
+     */
     APP_CLIENT_ID: "",
   },
   nextcloud: {
     OAUTH2_AUTHORIZE_PATH: "/index.php/apps/oauth2/authorize",
+    /**
+     * ID of the OAuth2 client to use for log-in.
+     * See https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/oauth2.html
+     */
     OAUTH2_CLIENT_ID: "",
+    /**
+     * Secret of the OAuth2 client to use for log-in.
+     * See https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/oauth2.html
+     */
     OAUTH2_CLIENT_SECRET: "",
     OAUTH2_TOKEN_PATH: "/index.php/apps/oauth2/api/v1/token",
   },

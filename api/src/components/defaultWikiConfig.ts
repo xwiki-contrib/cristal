@@ -20,6 +20,7 @@
 
 import { inject, injectable } from "inversify";
 import type { WikiConfig } from "../api/WikiConfig";
+import type { AuthenticationMode } from "../api/authentication";
 import type { CristalApp } from "../api/cristalApp";
 import type { Logger } from "../api/logger";
 import type { Storage } from "../api/storage";
@@ -53,7 +54,7 @@ export class DefaultWikiConfig implements WikiConfig {
    * Mode of authentication to use: "basic" or "oauth2".
    * @since 0.16
    */
-  authenticationMode?: "basic" | "oauth2";
+  authenticationMode?: AuthenticationMode;
 
   // @ts-expect-error homePage is temporarily undefined during class
   // initialization
@@ -93,7 +94,7 @@ export class DefaultWikiConfig implements WikiConfig {
     optional?: {
       realtimeURL?: string;
       authenticationBaseURL?: string;
-      authenticationMode?: "basic" | "oauth2";
+      authenticationMode?: AuthenticationMode;
     },
   ): void {
     this.name = name;

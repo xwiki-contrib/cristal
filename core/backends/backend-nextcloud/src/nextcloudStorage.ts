@@ -27,6 +27,7 @@ import {
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
+import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
 import type { Logger } from "@xwiki/cristal-api";
 import type {
   AuthenticationManagerProvider,
@@ -49,6 +50,8 @@ export class NextcloudStorage extends AbstractStorage {
     @inject("Logger") logger: Logger,
     @inject("AuthenticationManagerProvider")
     private authenticationManagerProvider: AuthenticationManagerProvider,
+    @inject("AlertsServiceProvider")
+    private readonly alertsServiceProvider: AlertsServiceProvider,
   ) {
     super(logger, "storage.components.nextcloudStorage");
   }
@@ -284,7 +287,13 @@ export class NextcloudStorage extends AbstractStorage {
       await this.authenticationManagerProvider.get()?.getUserDetails()
     )?.username;
     if (!username) {
-      return;
+      // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
+      this.alertsServiceProvider
+        .get()
+        .error(
+          `Could not save attachments for page ${page}, the user is not properly logged-in.`,
+        );
+      return undefined;
     }
 
     return Promise.all(

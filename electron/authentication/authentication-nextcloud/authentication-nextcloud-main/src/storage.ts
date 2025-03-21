@@ -19,6 +19,7 @@
  */
 
 import Store from "electron-store";
+import type { AuthenticationMode } from "@xwiki/cristal-api";
 
 const tokenTypeKey = "tokenType";
 
@@ -58,78 +59,78 @@ const storeInstance: Store = new Store({
   // TODO: add encryption key
 });
 
-function set<T>(key: string, value: T, mode: string) {
+function set<T>(key: string, value: T, mode: AuthenticationMode) {
   // @ts-expect-error type resolution failing because of electron-store library bug
   storeInstance.set(`${key}-${mode}`, value);
 }
 
-function get<T>(key: string, mode: string): T {
+function get<T>(key: string, mode: AuthenticationMode): T {
   // @ts-expect-error type resolution failing because of electron-store library bug
   return storeInstance.get(`${key}-${mode}`) as T;
 }
 
-function rm(key: string, mode: string) {
+function rm(key: string, mode: AuthenticationMode) {
   // @ts-expect-error type resolution failing because of electron-store library bug
   storeInstance.delete(`${key}-${mode}`);
 }
 
-function setTokenType(value: string, mode: string): void {
+function setTokenType(value: string, mode: AuthenticationMode): void {
   set(tokenTypeKey, value, mode);
 }
 
-function setAccessToken(value: string, mode: string): void {
+function setAccessToken(value: string, mode: AuthenticationMode): void {
   set(accessTokenKey, value, mode);
 }
 
-function setRefreshToken(value: string, mode: string): void {
+function setRefreshToken(value: string, mode: AuthenticationMode): void {
   set(refreshTokenKey, value, mode);
 }
 
-function setExpiryDate(value: number, mode: string): void {
+function setExpiryDate(value: number, mode: AuthenticationMode): void {
   set(expiryDateKey, value, mode);
 }
 
-function setUserId(value: string, mode: string): void {
+function setUserId(value: string, mode: AuthenticationMode): void {
   set(userIdKey, value, mode);
 }
 
-function getTokenType(mode: string): string {
+function getTokenType(mode: AuthenticationMode): string {
   return get(tokenTypeKey, mode);
 }
 
-function getAccessToken(mode: string): string {
+function getAccessToken(mode: AuthenticationMode): string {
   return get(accessTokenKey, mode);
 }
 
-function getRefreshToken(mode: string): string {
+function getRefreshToken(mode: AuthenticationMode): string {
   return get(refreshTokenKey, mode);
 }
 
-function getExpiryDate(mode: string): number {
+function getExpiryDate(mode: AuthenticationMode): number {
   return get(expiryDateKey, mode);
 }
 
-function getUserId(mode: string): string {
+function getUserId(mode: AuthenticationMode): string {
   return get(userIdKey, mode);
 }
 
-function deleteTokenType(mode: string): void {
+function deleteTokenType(mode: AuthenticationMode): void {
   rm(tokenTypeKey, mode);
 }
 
-function deleteAccessToken(mode: string): void {
+function deleteAccessToken(mode: AuthenticationMode): void {
   rm(accessTokenKey, mode);
 }
 
-function deleteRefreshToken(mode: string): void {
+function deleteRefreshToken(mode: AuthenticationMode): void {
   rm(refreshTokenKey, mode);
 }
 
-function deleteExpiryDate(mode: string): void {
+function deleteExpiryDate(mode: AuthenticationMode): void {
   rm(expiryDateKey, mode);
 }
 
-function deleteUserId(mode: string): void {
+function deleteUserId(mode: AuthenticationMode): void {
   rm(userIdKey, mode);
 }
 

@@ -43,6 +43,9 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
       await this.authenticationManagerProvider.get()?.getUserDetails()
     )?.username;
     if (!username) {
+      console.log(
+        "Could not fetch links to suggest, the user is not properly logged-in.",
+      );
       return [];
     }
 

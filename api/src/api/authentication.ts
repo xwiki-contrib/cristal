@@ -18,23 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { injectable } from "inversify";
-import { ref } from "vue";
-import type { Ref } from "vue";
-
 /**
- * Authentication State for the Nextcloud backend.
- * This state is required to handle basic auth for Nextcloud, and enables to
- * interact with the UI modal that asks for login information.
- * "username" and "password" are references to the fields of the modal's form,
- * and "callback" will be executed on submit.
- *
+ * Mode of authentication to use for storages that support multiple.
+ * Currently: either "basic" or "oauth2".
  * @since 0.16
  */
-@injectable()
-export class NextcloudAuthenticationState {
-  readonly modalOpened: Ref<boolean> = ref(false);
-  readonly username: Ref<string> = ref("");
-  readonly password: Ref<string> = ref("");
-  readonly callback: Ref<() => void> = ref(() => {});
-}
+export type AuthenticationMode = "basic" | "oauth2";

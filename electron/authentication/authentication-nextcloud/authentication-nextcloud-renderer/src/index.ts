@@ -18,7 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { NextcloudAuthenticationManager } from "./NextcloudAuthenticationManager";
+import { NextcloudBasicAuthenticationManager } from "./NextcloudBasicAuthenticationManager";
+import { NextcloudOAuth2AuthenticationManager } from "./NextcloudOAuth2AuthenticationManager";
 import { NextcloudAuthenticationState } from "@xwiki/cristal-authentication-nextcloud-state";
 import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import type { Container } from "inversify";
@@ -27,9 +28,14 @@ class ComponentInit {
   constructor(container: Container) {
     container
       .bind<AuthenticationManager>("AuthenticationManager")
-      .to(NextcloudAuthenticationManager)
+      .to(NextcloudBasicAuthenticationManager)
       .inSingletonScope()
-      .whenNamed("Nextcloud");
+      .whenNamed("Nextcloud/basic");
+    container
+      .bind<AuthenticationManager>("AuthenticationManager")
+      .to(NextcloudOAuth2AuthenticationManager)
+      .inSingletonScope()
+      .whenNamed("Nextcloud/oauth2");
     container
       .bind<NextcloudAuthenticationState>(NextcloudAuthenticationState)
       .toSelf()

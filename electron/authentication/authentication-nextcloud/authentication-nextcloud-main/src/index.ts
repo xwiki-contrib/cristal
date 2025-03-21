@@ -38,6 +38,7 @@ import {
 import { UserDetails } from "@xwiki/cristal-authentication-api";
 import axios from "axios";
 import { BrowserWindow, ipcMain } from "electron";
+import type { AuthenticationMode } from "@xwiki/cristal-api";
 
 const callbackUrl = "http://callback/";
 
@@ -159,7 +160,7 @@ export function load(
 
   ipcMain.handle(
     "authentication:nextcloud:isLoggedIn",
-    async (_event, { mode }: { mode: "oauth2" | "basic" }) => {
+    async (_event, { mode }: { mode: AuthenticationMode }) => {
       const tokenType = getTokenType(mode);
       const accessTokenKey = getAccessToken(mode);
       return tokenType && accessTokenKey;
@@ -170,7 +171,7 @@ export function load(
     "authentication:nextcloud:userDetails",
     async (
       _event,
-      { baseUrl, mode }: { baseUrl: string; mode: "oauth2" | "basic" },
+      { baseUrl, mode }: { baseUrl: string; mode: AuthenticationMode },
     ): Promise<UserDetails> => {
       const userId = getUserId(mode);
       return {
@@ -184,7 +185,7 @@ export function load(
 
   ipcMain.handle(
     "authentication:nextcloud:authorizationValue",
-    async (_event, { mode }: { mode: "oauth2" | "basic" }) => {
+    async (_event, { mode }: { mode: AuthenticationMode }) => {
       return {
         tokenType: getTokenType(mode),
         accessToken: getAccessToken(mode),
@@ -194,7 +195,7 @@ export function load(
 
   ipcMain.handle(
     "authentication:nextcloud:logout",
-    async (_event, { mode }: { mode: "oauth2" | "basic" }): Promise<void> => {
+    async (_event, { mode }: { mode: AuthenticationMode }): Promise<void> => {
       deleteAccessToken(mode);
       deleteTokenType(mode);
       deleteRefreshToken(mode);

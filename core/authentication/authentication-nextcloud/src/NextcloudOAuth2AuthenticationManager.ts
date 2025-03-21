@@ -19,7 +19,6 @@
  */
 
 import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
-import { NextcloudAuthenticationState } from "@xwiki/cristal-authentication-nextcloud-state";
 import AsyncLock from "async-lock";
 import axios from "axios";
 import { inject, injectable } from "inversify";
@@ -29,17 +28,15 @@ import type { UserDetails } from "@xwiki/cristal-authentication-api";
 import type { CookieAttributes } from "js-cookie";
 
 /**
- * {@link AuthenticationManager} for the Nextcloud backend.
+ * {@link AuthenticationManager} for the Nextcloud backend, using OAuth2.
  *
  * @since 0.16
  */
 @injectable()
-export class NextcloudAuthenticationManager implements AuthenticationManager {
-  constructor(
-    @inject("CristalApp") private readonly cristalApp: CristalApp,
-    @inject(NextcloudAuthenticationState)
-    private readonly authenticationState: NextcloudAuthenticationState,
-  ) {}
+export class NextcloudOAuth2AuthenticationManager
+  implements AuthenticationManager
+{
+  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
   private readonly localStorageConfigName = "currentConfigName";
 
@@ -75,38 +72,16 @@ export class NextcloudAuthenticationManager implements AuthenticationManager {
 
     // TODO: to be moved as part of a more generic API
     window.localStorage.setItem(this.localStorageConfigName, config.name);
-    window.localStorage.setItem(this.localStorageConfigType, config.getType());
+    window.localStorage.setItem(
+      this.localStorageConfigType,
+      `${config.getType()}/oauth2`,
+    );
     window.localStorage.setItem(this.localStorageConfigBaseUrl, config.baseURL);
 
-    if (config.authenticationMode == "oauth2") {
-      await this.startOauth2(config);
-    } else {
-      this.authenticationState.callback.value = () => {
-        Cookies.set(
-          this.getAccessTokenCookieKey(config.name),
-          btoa(
-            `${this.authenticationState.username.value}:${this.authenticationState.password.value}`,
-          ),
-          this.cookiesOptions,
-        );
-        Cookies.set(
-          this.getTokenTypeCookieKey(config.name),
-          "Basic",
-          this.cookiesOptions,
-        );
-        Cookies.set(
-          this.getUserIdCookieKey(config.name),
-          this.authenticationState.username.value,
-          this.cookiesOptions,
-        );
-        // We reload the content on successful login.
-        window.location.reload();
-      };
-      this.authenticationState.modalOpened.value = true;
-    }
+    await this.startOauth2(config);
   }
 
-  async startOauth2(config: WikiConfig): Promise<void> {
+  private async startOauth2(config: WikiConfig): Promise<void> {
     const authorizationUrl = new URL(
       `${config.authenticationBaseURL}/authorize`,
     );
@@ -127,8 +102,6 @@ export class NextcloudAuthenticationManager implements AuthenticationManager {
     window.location.href = authorizationUrl.toString();
   }
 
-  // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
-  // eslint-disable-next-line max-statements
   async callback(): Promise<void> {
     const href = new URL(window.location.href);
     const code = href.searchParams.get("code");
@@ -146,48 +119,51 @@ export class NextcloudAuthenticationManager implements AuthenticationManager {
     );
 
     const { data: tokenData } = await axios.get(tokenUrl.toString());
-    const {
-      access_token: accessToken,
-      refresh_token: refreshToken,
-      expires_in: expiresIn,
-      token_type: tokenType,
-      user_id: userId,
-    } = tokenData;
+    this.saveTokenData(tokenData);
 
+    // Redirect to the page where the user was before starting the log-in.
+    window.location.href = window.localStorage.getItem(
+      this.localStorageOriginKey,
+    )!;
+  }
+
+  private saveTokenData(data: {
+    access_token: string;
+    refresh_token: string;
+    expires_in: number;
+    token_type: string;
+    user_id: string;
+  }) {
     const configName = window.localStorage.getItem(
       this.localStorageConfigName,
     )!;
 
     Cookies.set(
       this.getAccessTokenCookieKey(configName),
-      accessToken,
+      data.access_token,
       this.cookiesOptions,
     );
     Cookies.set(
       this.getTokenTypeCookieKey(configName),
-      tokenType,
+      data.token_type,
       this.cookiesOptions,
     );
     Cookies.set(
       this.getRefreshTokenCookieKey(configName),
-      refreshToken,
+      data.refresh_token,
       this.cookiesOptions,
     );
     Cookies.set(
       this.getExpiryDateCookieKey(configName),
       // We apply a safety margin of 10s to the expiration date.
-      (Date.now() + (expiresIn - 10) * 1000).toString(),
+      (Date.now() + (data.expires_in - 10) * 1000).toString(),
       this.cookiesOptions,
     );
     Cookies.set(
       this.getUserIdCookieKey(configName),
-      userId,
+      data.user_id,
       this.cookiesOptions,
     );
-    // Redirect to the page where the user was before starting the log-in.
-    window.location.href = window.localStorage.getItem(
-      this.localStorageOriginKey,
-    )!;
   }
 
   async getUserDetails(): Promise<UserDetails> {
@@ -215,9 +191,7 @@ export class NextcloudAuthenticationManager implements AuthenticationManager {
   async getAuthorizationHeader(): Promise<string | undefined> {
     const isAuthenticated = await this.isAuthenticated();
     if (isAuthenticated) {
-      if (this.resolveConfig().authenticationMode == "oauth2") {
-        await this.refreshToken();
-      }
+      await this.refreshToken();
       return `${this.getTokenType()} ${Cookies.get(this.getAccessTokenCookieKey())}`;
     }
   }
@@ -238,27 +212,27 @@ export class NextcloudAuthenticationManager implements AuthenticationManager {
 
   private getAccessTokenCookieKey(configName?: string) {
     const config = this.resolveConfig(configName);
-    return `${this.accessTokenCookieKeyPrefix}-${config?.authenticationMode}-${config?.baseURL}`;
+    return `${this.accessTokenCookieKeyPrefix}-oauth2-${config?.baseURL}`;
   }
 
   private getTokenTypeCookieKey(configName?: string) {
     const config = this.resolveConfig(configName);
-    return `${this.tokenTypeCookieKeyPrefix}-${config?.authenticationMode}-${config?.baseURL}`;
+    return `${this.tokenTypeCookieKeyPrefix}-oauth2-${config?.baseURL}`;
   }
 
   private getUserIdCookieKey(configName?: string) {
     const config = this.resolveConfig(configName);
-    return `${this.userIdCookieKeyPrefix}-${config?.authenticationMode}-${config?.baseURL}`;
+    return `${this.userIdCookieKeyPrefix}-oauth2-${config?.baseURL}`;
   }
 
   private getRefreshTokenCookieKey(configName?: string) {
     const config = this.resolveConfig(configName);
-    return `${this.refreshTokenCookieKeyPrefix}-${config?.authenticationMode}-${config?.baseURL}`;
+    return `${this.refreshTokenCookieKeyPrefix}-oauth2-${config?.baseURL}`;
   }
 
   private getExpiryDateCookieKey(configName?: string) {
     const config = this.resolveConfig(configName);
-    return `${this.expiryDateCookieKeyPrefix}-${config?.authenticationMode}-${config?.baseURL}`;
+    return `${this.expiryDateCookieKeyPrefix}-oauth2-${config?.baseURL}`;
   }
 
   private resolveConfig(configName?: string): WikiConfig {
@@ -270,6 +244,8 @@ export class NextcloudAuthenticationManager implements AuthenticationManager {
   }
 
   private async refreshToken() {
+    // We lock this process to avoid sending multiple refresh requests at the
+    // same time.
     await this.lock.acquire("refresh", async () => {
       if (Date.now() > parseInt(Cookies.get(this.getExpiryDateCookieKey())!)) {
         const refreshUrl = new URL(
