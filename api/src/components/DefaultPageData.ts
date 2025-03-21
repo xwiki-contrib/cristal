@@ -57,9 +57,7 @@ export class DefaultPageData implements PageData {
     this.version = "";
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toObject(): any {
+  toObject(): Record<string, unknown> {
     return {
       id: this.id,
       name: this.name,
@@ -73,17 +71,26 @@ export class DefaultPageData implements PageData {
     };
   }
 
-  // TODO get rid of any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  fromObject(object: any): void {
-    this.id = object.id;
-    this.name = object.name;
-    this.source = object.source;
-    this.syntax = object.syntax;
-    this.html = object.html;
+  fromObject(object: Record<string, unknown>): void {
     this.document = new JSONLDDocument(object.document);
-    this.css = object.css;
-    this.js = object.js;
-    this.version = object.version;
+
+    // TODO: validate object shape with a library
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.id = object.id as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.name = object.name as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.source = object.source as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.syntax = object.syntax as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.html = object.html as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.css = object.css as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.js = object.js as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this.version = object.version as any;
   }
 }
