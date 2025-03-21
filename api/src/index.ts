@@ -28,6 +28,7 @@ import { DefaultWikiConfig } from "./components/defaultWikiConfig.js";
 import type { PageData } from "./api/PageData.js";
 import type { WikiConfig } from "./api/WikiConfig.js";
 import type { AttachmentsData } from "./api/attachmentsData";
+import type { AuthenticationMode } from "./api/authentication";
 import type { CristalApp } from "./api/cristalApp.js";
 import type { DesignSystemLoader } from "./api/designSystemLoader.js";
 import type { Document } from "./api/document.js";
@@ -40,6 +41,7 @@ import type { WrappingStorage } from "./api/wrappingStorage.js";
 
 export type {
   AttachmentsData,
+  AuthenticationMode,
   CristalApp,
   DesignSystemLoader,
   Document,
