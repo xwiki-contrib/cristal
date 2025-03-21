@@ -18,9 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { AbstractStorage } from "./abstractStorage";
-import { ComponentInit } from "./componentInit";
-import type OfflineStorage from "./offlineStorage";
-import type { StorageProvider } from "./storageProvider";
-
-export { AbstractStorage, ComponentInit, OfflineStorage, StorageProvider };
+export { AbstractStorage } from "./abstractStorage";
+export { ComponentInit } from "./componentInit";
+export type { default as OfflineStorage } from "./offlineStorage";
+export type { StorageProvider } from "./storageProvider";

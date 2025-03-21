@@ -18,6 +18,4 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import UIExtensions from "./vue/UIExtensions.vue";
-
-export { UIExtensions };
+export { default as UIExtensions } from "./vue/UIExtensions.vue";
