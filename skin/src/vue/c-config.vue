@@ -19,15 +19,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script lang="ts" setup>
 import { inject } from "vue";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/cristal-api";
 
-const configList: Array<WikiConfig> = [];
 const cristal = inject<CristalApp>("cristal")!;
-let configs = cristal.getAvailableConfigurations();
+const configList = [...cristal.getAvailableConfigurations().values()];
 
-configs.forEach((wikiConfig: WikiConfig) => {
-  configList.push(wikiConfig);
-});
 const currentConfig = cristal.getWikiConfig().name;
 </script>
 <template>
@@ -88,7 +84,7 @@ p {
   align-items: center;
 }
 
-.grid-container > * {
+.grid-container>* {
   display: grid;
   gap: var(--cr-spacing-medium);
   align-items: center;
@@ -98,7 +94,7 @@ p {
   padding: var(--cr-spacing-x-small) var(--cr-spacing-2x-small);
 }
 
-.grid-container > *:last-child {
+.grid-container>*:last-child {
   border-bottom: 0;
 }
 </style>
