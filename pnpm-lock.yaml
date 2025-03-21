@@ -2453,8 +2453,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       prosemirror-markdown:
-        specifier: 1.13.1
-        version: 1.13.1
+        specifier: 1.13.2
+        version: 1.13.2
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -2843,10 +2843,10 @@ importers:
         version: 2.11.4(@tiptap/pm@2.11.4)
       '@tiptap/extension-collaboration':
         specifier: 2.11.4
-        version: 2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(@tiptap/pm@2.11.4)(y-prosemirror@1.2.11(prosemirror-model@1.23.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))
+        version: 2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(@tiptap/pm@2.11.4)(y-prosemirror@1.2.11(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))
       '@tiptap/extension-collaboration-cursor':
         specifier: 2.11.4
-        version: 2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(y-prosemirror@1.2.11(prosemirror-model@1.23.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))
+        version: 2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(y-prosemirror@1.2.11(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))
       '@tiptap/extension-heading':
         specifier: 2.11.4
         version: 2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))
@@ -7954,14 +7954,17 @@ packages:
   prosemirror-keymap@1.2.2:
     resolution: {integrity: sha512-EAlXoksqC6Vbocqc0GtzCruZEzYgrn+iiGnNjsJsH4mrnIGex4qbLdWWNza3AW5W36ZRrlBID0eM6bdKH4OStQ==}
 
-  prosemirror-markdown@1.13.1:
-    resolution: {integrity: sha512-Sl+oMfMtAjWtlcZoj/5L/Q39MpEnVZ840Xo330WJWUvgyhNmLBLN7MsHn07s53nG/KImevWHSE6fEj4q/GihHw==}
+  prosemirror-markdown@1.13.2:
+    resolution: {integrity: sha512-FPD9rHPdA9fqzNmIIDhhnYQ6WgNoSWX9StUZ8LEKapaXU9i6XgykaHKhp6XMyXlOWetmaFgGDS/nu/w9/vUc5g==}
 
   prosemirror-menu@1.2.4:
     resolution: {integrity: sha512-S/bXlc0ODQup6aiBbWVsX/eM+xJgCTAfMq/nLqaO5ID/am4wS0tTCIkzwytmao7ypEtjj39i7YbJjAgO20mIqA==}
 
   prosemirror-model@1.23.0:
     resolution: {integrity: sha512-Q/fgsgl/dlOAW9ILu4OOhYWQbc7TQd4BwKH/RwmUjyVf8682Be4zj3rOYdLnYEcGzyg8LL9Q5IWYKD8tdToreQ==}
+
+  prosemirror-model@1.25.0:
+    resolution: {integrity: sha512-/8XUmxWf0pkj2BmtqZHYJipTBMHIdVjuvFzMvEoxrtyGNmfvdhBiRwYt/eFwy2wA9DtBW3RLqvZnjurEkHaFCw==}
 
   prosemirror-schema-basic@1.2.3:
     resolution: {integrity: sha512-h+H0OQwZVqMon1PNn0AG9cTfx513zgIG2DY00eJ00Yvgb3UD+GQ/VlWW5rcaxacpCGT1Yx8nuhwXk4+QbXUfJA==}
@@ -9926,16 +9929,16 @@ snapshots:
     dependencies:
       '@tiptap/core': 2.11.4(@tiptap/pm@2.11.4)
 
-  '@tiptap/extension-collaboration-cursor@2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(y-prosemirror@1.2.11(prosemirror-model@1.23.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))':
+  '@tiptap/extension-collaboration-cursor@2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(y-prosemirror@1.2.11(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))':
     dependencies:
       '@tiptap/core': 2.11.4(@tiptap/pm@2.11.4)
-      y-prosemirror: 1.2.11(prosemirror-model@1.23.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24)
+      y-prosemirror: 1.2.11(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24)
 
-  '@tiptap/extension-collaboration@2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(@tiptap/pm@2.11.4)(y-prosemirror@1.2.11(prosemirror-model@1.23.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))':
+  '@tiptap/extension-collaboration@2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))(@tiptap/pm@2.11.4)(y-prosemirror@1.2.11(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))':
     dependencies:
       '@tiptap/core': 2.11.4(@tiptap/pm@2.11.4)
       '@tiptap/pm': 2.11.4
-      y-prosemirror: 1.2.11(prosemirror-model@1.23.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24)
+      y-prosemirror: 1.2.11(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24)
 
   '@tiptap/extension-document@2.11.4(@tiptap/core@2.11.4(@tiptap/pm@2.11.4))':
     dependencies:
@@ -10045,7 +10048,7 @@ snapshots:
       prosemirror-history: 1.4.1
       prosemirror-inputrules: 1.4.0
       prosemirror-keymap: 1.2.2
-      prosemirror-markdown: 1.13.1
+      prosemirror-markdown: 1.13.2
       prosemirror-menu: 1.2.4
       prosemirror-model: 1.23.0
       prosemirror-schema-basic: 1.2.3
@@ -13365,11 +13368,11 @@ snapshots:
       prosemirror-state: 1.4.3
       w3c-keyname: 2.2.8
 
-  prosemirror-markdown@1.13.1:
+  prosemirror-markdown@1.13.2:
     dependencies:
       '@types/markdown-it': 14.1.2
       markdown-it: 14.1.0
-      prosemirror-model: 1.23.0
+      prosemirror-model: 1.25.0
 
   prosemirror-menu@1.2.4:
     dependencies:
@@ -13379,6 +13382,10 @@ snapshots:
       prosemirror-state: 1.4.3
 
   prosemirror-model@1.23.0:
+    dependencies:
+      orderedmap: 2.1.1
+
+  prosemirror-model@1.25.0:
     dependencies:
       orderedmap: 2.1.1
 
@@ -14023,7 +14030,7 @@ snapshots:
       '@types/markdown-it': 13.0.8
       markdown-it: 14.1.0
       markdown-it-task-lists: 2.1.1
-      prosemirror-markdown: 1.13.1
+      prosemirror-markdown: 1.13.2
 
   tmp-promise@3.0.3:
     dependencies:
@@ -14491,10 +14498,10 @@ snapshots:
 
   xmlbuilder@15.1.1: {}
 
-  y-prosemirror@1.2.11(prosemirror-model@1.23.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24):
+  y-prosemirror@1.2.11(prosemirror-model@1.25.0)(prosemirror-state@1.4.3)(prosemirror-view@1.37.0)(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24):
     dependencies:
       lib0: 0.2.99
-      prosemirror-model: 1.23.0
+      prosemirror-model: 1.25.0
       prosemirror-state: 1.4.3
       prosemirror-view: 1.37.0
       y-protocols: 1.0.6(yjs@13.6.24)
