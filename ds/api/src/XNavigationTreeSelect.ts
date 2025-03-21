@@ -32,7 +32,7 @@ type NavigationTreeSelectProps = {
   currentPageReference?: DocumentReference;
   modelValue?: SpaceReference;
   /**
-   * Whether to include terminal pages as select options.
+   * Whether to include terminal pages as select options (default: false).
    * @since 0.16
    */
   includeTerminals?: boolean;

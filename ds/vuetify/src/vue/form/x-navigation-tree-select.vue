@@ -21,7 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import messages from "../../translations";
 import XBreadcrumb from "../x-breadcrumb.vue";
 import { SpaceReference } from "@xwiki/cristal-model-api";
-import { inject, onMounted, ref } from "vue";
+import { inject, onMounted, ref, withDefaults } from "vue";
 import { useI18n } from "vue-i18n";
 import { VTextField } from "vuetify/components/VTextField";
 import type { CristalApp } from "@xwiki/cristal-api";
@@ -52,7 +52,9 @@ const referenceHandler: ModelReferenceHandler = cristal
 const { t } = useI18n({
   messages,
 });
-const props = defineProps<NavigationTreeSelectProps>();
+const props = withDefaults(defineProps<NavigationTreeSelectProps>(), {
+  includeTerminals: false,
+});
 const model = defineModel<SpaceReference>();
 
 const openedLocationDialog: Ref<boolean> = ref(false);
@@ -103,6 +105,7 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
       <XNavigationTree
         :current-page-reference="selectedPage"
         :click-action="treeNodeClickAction"
+        :include-terminals="includeTerminals"
       ></XNavigationTree>
     </template>
     <template #footer>

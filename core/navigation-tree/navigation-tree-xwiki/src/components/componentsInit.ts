@@ -82,7 +82,7 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
 
   getParentNodesId(
     page: DocumentReference,
-    includeTerminal: boolean,
+    includeTerminal: boolean = true,
   ): Array<string> {
     const result = [];
     if (page.space) {

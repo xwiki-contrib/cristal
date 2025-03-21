@@ -33,7 +33,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *     on items, were also disabled.
  */
 import XNavigationTreeItem from "./x-navigation-tree-item.vue";
-import { inject, onBeforeMount, ref, useTemplateRef, watch } from "vue";
+import {
+  inject,
+  onBeforeMount,
+  ref,
+  useTemplateRef,
+  watch,
+  withDefaults,
+} from "vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
 import type { CristalApp } from "@xwiki/cristal-api";
@@ -61,7 +68,9 @@ const items = useTemplateRef<Array<typeof XNavigationTreeItem>>("items");
 
 var selectedTreeItem: SlTreeItem | undefined;
 
-const props = defineProps<NavigationTreeProps>();
+const props = withDefaults(defineProps<NavigationTreeProps>(), {
+  includeTerminals: true,
+});
 
 onBeforeMount(async () => {
   rootNodes.value.push(...(await getChildNodes("")));

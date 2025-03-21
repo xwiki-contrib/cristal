@@ -29,7 +29,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *     item was disabled. Default hover effects, such as darkening or changing
  *     the cursor on items, were also disabled.
  */
-import { inject, onBeforeMount, ref, watch } from "vue";
+import { inject, onBeforeMount, ref, watch, withDefaults } from "vue";
 import { VTreeview } from "vuetify/labs/VTreeview";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
@@ -68,7 +68,9 @@ const activatedNodes: Ref<Array<string>> = ref(new Array<string>());
 const expandedNodes: Ref<unknown> = ref([]);
 var isExpanding: boolean = false;
 
-const props = defineProps<NavigationTreeProps>();
+const props = withDefaults(defineProps<NavigationTreeProps>(), {
+  includeTerminals: true,
+});
 
 onBeforeMount(async () => {
   for (const node of await getChildNodes("")) {

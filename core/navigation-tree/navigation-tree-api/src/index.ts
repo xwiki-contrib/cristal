@@ -36,7 +36,7 @@ type NavigationTreeNode = {
   url: string;
   has_children: boolean;
   /**
-   * whether this node corresponds to a terminal page
+   * Whether this node corresponds to a terminal page.
    * @since 0.16
    */
   is_terminal: boolean;
@@ -61,13 +61,13 @@ interface NavigationTreeSource {
    * Returns the ids of the parents nodes for a given page.
    *
    * @param page - the reference to the page
-   * @param includeTerminal - whether to include the final terminal page
+   * @param includeTerminal - whether to include the final terminal page (default: true)
    * @returns the parents nodes ids
    * @since 0.16
    **/
   getParentNodesId(
     page: DocumentReference,
-    includeTerminal: boolean,
+    includeTerminal?: boolean,
   ): Array<string>;
 }
 
