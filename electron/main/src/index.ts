@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import "reflect-metadata";
 import { restoreOrCreateWindow } from "./mainWindow";
 import { loadFile } from "./reload";
 import "./security-restrictions";
