@@ -83,6 +83,18 @@
     "editor": "tiptap",
     "realtimeURL": "http://localhost:15681/collaboration"
   },
+  "LocalhostBlocknote": {
+    "name": "LocalhostBlocknote",
+    "configType": "XWiki",
+    "serverRendering": false,
+    "offline": false,
+    "baseURL": "http://localhost:15680/xwiki",
+    "baseRestURL": "/rest/cristal/page?media=json",
+    "homePage": "Main.WebHome",
+    "designSystem": "vuetify",
+    "editor": "blocknote",
+    "realtimeURL": "http://localhost:15681/collaboration"
+  },
   "LocalhostSL": {
     "name": "LocalhostSL",
     "configType": "XWiki",
