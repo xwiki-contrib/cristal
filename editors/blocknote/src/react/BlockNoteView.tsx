@@ -24,6 +24,7 @@ import {
   useCreateBlockNote,
 } from "@blocknote/react";
 import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
+import { HocuspocusProvider } from "@hocuspocus/provider";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
 import React from "react";
 
@@ -40,6 +41,7 @@ type BlockNoteViewWrapperProps = {
   blockNoteOptions?: Partial<Omit<DefaultEditorOptionsType, "schema">>;
   theme?: "light" | "dark";
   readonly?: boolean;
+  content: string;
 
   formattingToolbar: ReactivueChild<{
     editor: EditorType;
@@ -73,8 +75,35 @@ function BlockNoteViewWrapper({
   formattingToolbarOnlyFor,
   linkToolbar: CustomLinkToolbar,
   filePanel: CustomFilePanel,
+  content,
 }: BlockNoteViewWrapperProps) {
   const schema = createBlockNoteSchema();
+
+  const provider = blockNoteOptions?.collaboration?.provider as
+    | HocuspocusProvider
+    | undefined;
+
+  // When realtime is activated, the first user to join the session sets the content for everybody.
+  // The rest of the participants will just retrieve the editor content from the realtime server.
+  // We know who is the first user joining the session by checking for the absence of an initialContentLoaded key in the
+  // document's configuration map (shared across all session participants).
+  if (provider) {
+    provider.on("synced", () => {
+      if (
+        !provider.document.getMap("configuration").get("initialContentLoaded")
+      ) {
+        provider.document
+          .getMap("configuration")
+          .set("initialContentLoaded", true);
+        editor
+          .tryParseMarkdownToBlocks(content)
+          .then((blocks) => editor.replaceBlocks(editor.document, blocks));
+      }
+    });
+    provider.on("destroy", () => {
+      provider.destroy();
+    });
+  }
 
   // Creates a new editor instance.
   const editor = useCreateBlockNote({

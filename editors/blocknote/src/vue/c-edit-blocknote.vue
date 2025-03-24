@@ -119,6 +119,8 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
 
   editorProps.value = {
     theme: "light",
+    // TODO: improve to also support html, or discard editing for unsupported syntaxes?
+    content: currentPage.source,
     blockNoteOptions: {
       collaboration,
       initialContent: [
