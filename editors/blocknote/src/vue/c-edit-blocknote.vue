@@ -60,11 +60,10 @@ const editorProps =
 const realtimeProvider = shallowRef<HocuspocusProvider | null>(null);
 
 async function getRealtimeProvider(): Promise<
-  | NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
-  | null
+  NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
 > {
   if (!realtimeURL) {
-    return null;
+    return undefined;
   }
 
   const documentReference =
@@ -113,13 +112,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     // TODO: improve to also support html, or discard editing for unsupported syntaxes?
     content: currentPage.source,
     blockNoteOptions: {
-      collaboration: collaboration ?? undefined,
-      initialContent: [
-        {
-          type: "paragraph",
-          content: "Salut les gens !",
-        },
-      ],
+      collaboration,
     },
     formattingToolbarOnlyFor: [],
   };
