@@ -3219,9 +3219,6 @@ importers:
 
   electron/authentication/authentication-nextcloud/authentication-nextcloud-main:
     dependencies:
-      '@xwiki/cristal-api':
-        specifier: workspace:*
-        version: link:../../../../api
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../../../../core/authentication/authentication-api
@@ -3247,9 +3244,6 @@ importers:
 
   electron/authentication/authentication-nextcloud/authentication-nextcloud-preload:
     dependencies:
-      '@xwiki/cristal-api':
-        specifier: workspace:*
-        version: link:../../../../api
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../../../../core/authentication/authentication-api

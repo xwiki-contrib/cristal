@@ -23,7 +23,7 @@ import {
   AuthenticationManagerProvider,
 } from "@xwiki/cristal-authentication-api";
 import { inject, injectable } from "inversify";
-import type { AuthenticationMode, CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/cristal-api";
 
 /**
  * Default implementation of the authentication manager. Resolve the class
@@ -36,22 +36,20 @@ class DefaultAuthenticationManagerProvider
 {
   constructor(@inject("CristalApp") private cristalApp: CristalApp) {}
 
-  get(
-    type?: string,
-    mode?: AuthenticationMode,
-  ): AuthenticationManager | undefined {
-    const resolvedType = type || this.cristalApp.getWikiConfig().getType();
-    const resolvedMode =
-      mode || this.cristalApp.getWikiConfig()?.authenticationMode;
+  get(type?: string): AuthenticationManager | undefined {
+    const resolvedType =
+      type ??
+      this.cristalApp.getWikiConfig().authenticationManager ??
+      this.cristalApp.getWikiConfig().getType();
     try {
-      return this.cristalApp.getContainer().get("AuthenticationManager", {
-        name: resolvedType + (resolvedMode ? `/${resolvedMode}` : ""),
-      });
+      return this.cristalApp
+        .getContainer()
+        .get("AuthenticationManager", { name: resolvedType });
     } catch (e) {
       this.cristalApp
         .getLogger("authentication.api")
         .warn(
-          `Couldn't resolve AuthenticationManager for type=[${resolvedType}] and mode=[${resolvedMode}]`,
+          `Couldn't resolve AuthenticationManager for type=[${resolvedType}]`,
           e,
         );
       return undefined;

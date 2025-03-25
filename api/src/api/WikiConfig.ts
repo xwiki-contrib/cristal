@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { AuthenticationMode } from "./authentication";
 import type { Storage } from "./storage";
 
 export interface WikiConfig {
@@ -39,10 +38,11 @@ export interface WikiConfig {
    */
   authenticationBaseURL?: string;
   /**
-   * Mode of authentication to use: "basic" or "oauth2".
+   * Authentication Manager component to use.
+   * By default, resolves to configuration type.
    * @since 0.16
    */
-  authenticationMode?: AuthenticationMode;
+  authenticationManager?: string;
   homePage: string;
   storage: Storage;
   serverRendering: boolean;

@@ -20,7 +20,6 @@
 
 import { inject, injectable } from "inversify";
 import type { WikiConfig } from "../api/WikiConfig";
-import type { AuthenticationMode } from "../api/authentication";
 import type { CristalApp } from "../api/cristalApp";
 import type { Logger } from "../api/logger";
 import type { Storage } from "../api/storage";
@@ -51,10 +50,11 @@ export class DefaultWikiConfig implements WikiConfig {
   authenticationBaseURL?: string;
 
   /**
-   * Mode of authentication to use: "basic" or "oauth2".
+   * Authentication Manager component to use.
+   * By default, resolves to configuration type.
    * @since 0.16
    */
-  authenticationMode?: AuthenticationMode;
+  authenticationManager?: string;
 
   // @ts-expect-error homePage is temporarily undefined during class
   // initialization
@@ -94,7 +94,7 @@ export class DefaultWikiConfig implements WikiConfig {
     optional?: {
       realtimeURL?: string;
       authenticationBaseURL?: string;
-      authenticationMode?: AuthenticationMode;
+      authenticationManager?: string;
     },
   ): void {
     this.name = name;
@@ -102,7 +102,7 @@ export class DefaultWikiConfig implements WikiConfig {
     this.baseRestURL = baseRestURL;
     this.realtimeURL = optional?.realtimeURL;
     this.authenticationBaseURL = optional?.authenticationBaseURL;
-    this.authenticationMode = optional?.authenticationMode;
+    this.authenticationManager = optional?.authenticationManager;
     this.homePage = homePage;
     this.serverRendering = serverRendering;
     this.designSystem = designSystem;
@@ -117,7 +117,7 @@ export class DefaultWikiConfig implements WikiConfig {
     this.baseRestURL = configObject.baseRestURL;
     this.realtimeURL = configObject.realtimeURL;
     this.authenticationBaseURL = configObject.authenticationBaseURL;
-    this.authenticationMode = configObject.authenticationMode;
+    this.authenticationManager = configObject.authenticationManager;
     this.homePage = configObject.homePage;
     this.serverRendering = configObject.serverRendering;
     this.offline = configObject.offline;

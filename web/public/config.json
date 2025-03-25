@@ -122,7 +122,7 @@
     "homePage": "home",
     "realtimeURL": "http://localhost:15681/collaboration",
     "authenticationBaseURL": "http://localhost:15682/nextcloud",
-    "authenticationMode": "oauth2"
+    "authenticationManager": "Nextcloud/oauth2"
   },
   "NextcloudBasic": {
     "name": "NextcloudBasic",
@@ -134,6 +134,6 @@
     "designSystem": "shoelace",
     "homePage": "home",
     "realtimeURL": "http://localhost:15681/collaboration",
-    "authenticationMode": "basic"
+    "authenticationManager": "Nextcloud/basic"
   }
 }

@@ -21,23 +21,22 @@
 import { UserDetails } from "@xwiki/cristal-authentication-api";
 import { NextcloudAuthenticationState } from "@xwiki/cristal-authentication-nextcloud-state";
 import { inject, injectable } from "inversify";
-import type { AuthenticationMode } from "@xwiki/cristal-api";
 import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 
 interface AuthenticationWindow extends Window {
   authenticationNextcloud: {
     loginBasic: (username: string, password: string) => Promise<void>;
 
-    isLoggedIn(mode: AuthenticationMode): Promise<boolean>;
+    isLoggedIn(mode: string): Promise<boolean>;
 
-    getUserDetails(mode: AuthenticationMode): Promise<UserDetails>;
+    getUserDetails(mode: string): Promise<UserDetails>;
 
-    getAuthorizationValue(mode: AuthenticationMode): Promise<{
+    getAuthorizationValue(mode: string): Promise<{
       tokenType: string;
       accessToken: string;
     }>;
 
-    logout(mode: AuthenticationMode): Promise<void>;
+    logout(mode: string): Promise<void>;
   };
 }
 declare const window: AuthenticationWindow;

@@ -20,7 +20,6 @@
 
 import { UserDetails } from "@xwiki/cristal-authentication-api";
 import { contextBridge, ipcRenderer } from "electron";
-import type { AuthenticationMode } from "@xwiki/cristal-api";
 
 contextBridge.exposeInMainWorld("authenticationNextcloud", {
   async loginOauth2(
@@ -40,27 +39,27 @@ contextBridge.exposeInMainWorld("authenticationNextcloud", {
     });
   },
 
-  async isLoggedIn(mode: AuthenticationMode): Promise<boolean> {
+  async isLoggedIn(mode: string): Promise<boolean> {
     return ipcRenderer.invoke("authentication:nextcloud:isLoggedIn", {
       mode,
     });
   },
 
-  async getUserDetails(mode: AuthenticationMode): Promise<UserDetails> {
+  async getUserDetails(mode: string): Promise<UserDetails> {
     return ipcRenderer.invoke("authentication:nextcloud:userDetails", {
       mode,
     });
   },
 
   async getAuthorizationValue(
-    mode: AuthenticationMode,
+    mode: string,
   ): Promise<{ tokenType: string; accessToken: string }> {
     return ipcRenderer.invoke("authentication:nextcloud:authorizationValue", {
       mode,
     });
   },
 
-  async logout(mode: AuthenticationMode): Promise<void> {
+  async logout(mode: string): Promise<void> {
     await ipcRenderer.invoke("authentication:nextcloud:logout", {
       mode,
     });
