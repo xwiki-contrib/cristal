@@ -9,7 +9,7 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote";
-import { BlockNoteEditorOptions } from "@blocknote/core";
+import { BlockNoteEditor, BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
@@ -23,7 +23,6 @@ import {
   SuggestionMenuController,
   useCreateBlockNote,
 } from "@blocknote/react";
-import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
 import React from "react";
@@ -65,6 +64,22 @@ type BlockNoteViewWrapperProps = {
 };
 
 /**
+ * Load the provided content, parse it to Markdown and load it to the provided editor.
+ * @param editor - the editor in which the parsed content will be loaded
+ * @param content - the content to parse in Markdown before loading it in the editor
+ */
+function parseAndLoadContent(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  editor: () => BlockNoteEditor<any, any, any>,
+  content: string,
+) {
+  const e = editor();
+  e.tryParseMarkdownToBlocks(content).then((blocks) =>
+    e.replaceBlocks(e.document, blocks),
+  );
+}
+
+/**
  * BlockNote editor wrapper
  */
 function BlockNoteViewWrapper({
@@ -95,9 +110,7 @@ function BlockNoteViewWrapper({
         provider.document
           .getMap("configuration")
           .set("initialContentLoaded", true);
-        editor
-          .tryParseMarkdownToBlocks(content)
-          .then((blocks) => editor.replaceBlocks(editor.document, blocks));
+        parseAndLoadContent(() => editor, content);
       }
     });
     provider.on("destroy", () => {
@@ -114,8 +127,11 @@ function BlockNoteViewWrapper({
     dictionary: createDictionary(),
     // The default drop cursor only shows up above and below blocks - we replace
     // it with the multi-column one that also shows up on the sides of blocks.
-    dropCursor: multiColumnDropCursor,
   });
+
+  if (!provider) {
+    parseAndLoadContent(() => editor, content);
+  }
 
   // Renders the editor instance using a React component.
   return (
