@@ -38,6 +38,10 @@ type NavigationTreeSelectProps = {
   includeTerminals?: boolean;
 };
 
+/**
+ * Default props values for NavigationTreeSelect implementations.
+ * @since 0.16
+ */
 const navigationTreeSelectPropsDefaults = {
   includeTerminals: false,
 };

@@ -34,6 +34,10 @@ type NavigationTreeProps = {
   includeTerminals?: boolean;
 };
 
+/**
+ * Default props values for NavigationTree implementations.
+ * @since 0.16
+ */
 const navigationTreePropsDefaults = {
   includeTerminals: true,
 };
