@@ -25,7 +25,7 @@ function createCustomBlockSpec<
     aliases?: string[];
     group: string;
     icon: ReactElement;
-    create: () => PartialBlock<Record<T["type"], T>>;
+    default: PartialBlock<Record<T["type"], T>>;
   };
   toolbar: () => ReactElement | null;
 }) {
@@ -38,7 +38,7 @@ function createCustomBlockSpec<
       group: block.slashMenu.group,
       icon: block.slashMenu.icon,
       onItemClick: () => {
-        insertOrUpdateBlock(editor, block.slashMenu.create());
+        insertOrUpdateBlock(editor, block.slashMenu.default);
       },
     }),
     toolbar,

@@ -16,9 +16,9 @@ export const BlockQuote = createCustomBlockSpec({
     group: "Basic blocks",
     icon: <>B</>,
     aliases: [],
-    create: () => ({
+    default: {
       type: "BlockQuote",
-    }),
+    },
   },
   toolbar: () => <>TODO</>,
 });
