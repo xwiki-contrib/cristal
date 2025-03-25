@@ -18,12 +18,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import ImageFilePanel from "./blocks/ImageFilePanel.vue";
-import ImageToolbar from "./blocks/ImageToolbar.vue";
-import LinkToolbar from "./blocks/LinkToolbar.vue";
+import CBlockNoteView from "./c-blocknote-view.vue";
+import CRealtimeUsers from "./c-realtime-users.vue";
 import { computeCurrentUser } from "../components/currentUser";
-import { createLinkEditionContext } from "../components/linkEditionContext";
-import { BlockNoteViewWrapper } from "../react/BlockNoteView";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
@@ -32,10 +29,8 @@ import {
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
 // import { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
-import { reactComponentAdapter } from "@xwiki/cristal-reactivue";
 import { CArticle } from "@xwiki/cristal-skin";
 import { inject, ref, shallowRef, watch } from "vue";
-import { createI18n } from "vue-i18n";
 import type { BlockNoteViewWrapperProps } from "../react/BlockNoteView";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
 import type { ReactNonSlotProps } from "@xwiki/cristal-reactivue";
@@ -59,22 +54,40 @@ const { realtimeURL } = cristal.getWikiConfig();
 const title = ref(""); // TODO
 const titlePlaceholder = ref("");
 
-const linkEditionCtx = createLinkEditionContext(container);
-
-const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteViewWrapper, {
-  modifyVueApp: (app) => {
-    cristal.getSkinManager().loadDesignSystem(app, container);
-
-    // TODO: import from global
-    // TODO: language
-    app.use(createI18n({ legacy: false, fallbackLocale: "en" }));
-
-    app.provide("cristal", cristal);
-  },
-});
-
 const editorProps =
   shallowRef<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(null);
+
+const realtimeProvider = shallowRef<HocuspocusProvider | null>(null);
+
+async function getRealtimeProvider(): Promise<
+  | NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
+  | null
+> {
+  if (!realtimeURL) {
+    return null;
+  }
+
+  const documentReference =
+    documentService.getCurrentDocumentReferenceString().value;
+
+  if (!documentReference) {
+    throw new Error("Got no document reference!");
+  }
+
+  const provider = new HocuspocusProvider({
+    url: realtimeURL,
+    name: documentReference,
+    // token?
+  });
+
+  const user = await computeCurrentUser(authenticationManager);
+
+  return {
+    provider,
+    fragment: provider.document.getXmlFragment("document-store"),
+    user,
+  };
+}
 
 // eslint-disable-next-line max-statements
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
@@ -88,33 +101,11 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     throw new Error('TODO: only "markdown/1.2" syntax is supported here');
   }
 
-  let collaboration: NonNullable<
-    BlockNoteViewWrapperProps["blockNoteOptions"]
-  >["collaboration"] = undefined;
+  const collaboration = await getRealtimeProvider();
 
-  if (realtimeURL) {
+  if (collaboration) {
     console.info(`Setting up realtime collaboration with URL: ${realtimeURL}`);
-
-    const documentReference =
-      documentService.getCurrentDocumentReferenceString().value;
-
-    if (!documentReference) {
-      throw new Error("Got no document reference!");
-    }
-
-    const provider = new HocuspocusProvider({
-      url: realtimeURL,
-      name: documentReference,
-      // token?
-    });
-
-    const user = await computeCurrentUser(authenticationManager);
-
-    collaboration = {
-      provider,
-      fragment: provider.document.getXmlFragment("document-store"),
-      user,
-    };
+    realtimeProvider.value = collaboration.provider;
   }
 
   editorProps.value = {
@@ -122,7 +113,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     // TODO: improve to also support html, or discard editing for unsupported syntaxes?
     content: currentPage.source,
     blockNoteOptions: {
-      collaboration,
+      collaboration: collaboration ?? undefined,
       initialContent: [
         {
           type: "paragraph",
@@ -135,6 +126,10 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
 
   title.value = documentService.getTitle().value ?? "";
   titlePlaceholder.value = documentService.getTitle().value ?? "";
+}
+
+function submit() {
+  alert("TODO: save");
 }
 
 watch(
@@ -168,39 +163,56 @@ watch(
     </template>
     <template #default>
       <h1 v-if="!editorProps">Loading...</h1>
-      <h1 v-else>
-        <BlockNoteViewAdapter v-bind="editorProps">
-          <!-- Custom (popover) formatting toolbar -->
-          <template #formattingToolbar="{ editor, currentBlock }">
-            <ImageToolbar
-              v-if="currentBlock.type === 'image'"
-              :editor
-              :current-block
+      <template v-else>
+        <CBlockNoteView :editor-props :cristal />
+
+        <form class="pagemenu" @submit="submit">
+          <div class="pagemenu-status">
+            <c-realtime-users
+              v-if="realtimeProvider"
+              :provider="realtimeProvider"
             />
 
-            <strong v-else>Unknown block type: {{ currentBlock.type }}</strong>
-          </template>
+            <!-- <c-save-status
+              v-if="editor && hasRealtime"
+              :auto-saver="editor.storage.cristalCollaborationKit.autoSaver"
+            /> -->
+          </div>
 
-          <!-- Custom (popover) toolbar for link edition -->
-          <template #linkToolbar="{ editor, linkToolbarProps }">
-            <LinkToolbar :editor :link-toolbar-props :link-edition-ctx />
-          </template>
-
-          <!-- Custom (popover) file panel for editing file-like blocks -->
-          <template #filePanel="{ editor, filePanelProps }">
-            <ImageFilePanel
-              v-if="filePanelProps.block.type === 'image'"
-              :editor
-              :file-panel-props
-              :link-edition-ctx
-            />
-
-            <strong v-else>
-              Unexpected file type block: {{ filePanelProps.block.type }}
-            </strong>
-          </template>
-        </BlockNoteViewAdapter>
-      </h1>
+          <div class="pagemenu-actions">
+            <x-btn size="small" variant="primary" @click="submit">Close</x-btn>
+          </div>
+        </form>
+      </template>
     </template>
   </c-article>
 </template>
+
+<style>
+.pagemenu {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-flow: row;
+  gap: var(--cr-spacing-x-small);
+  padding: var(--cr-spacing-x-small) var(--cr-spacing-x-small);
+  background: var(--cr-color-neutral-100);
+  width: var(--cr-spacing-max-page);
+  margin: var(--cr-spacing-x-small) auto;
+  border-radius: var(--cr-input-border-radius-medium);
+  max-width: var(--cr-sizes-max-page-width);
+  width: 100%;
+}
+
+.pagemenu-status {
+  /* The content of this section may be a mix of inline and block level elements. */
+  display: flex;
+  /* Push the actions to the right end of the menu. */
+  flex-grow: 1;
+}
+
+.pagemenu-status > * {
+  /* Match the action button padding, which seems to be hard-coded.  */
+  padding: 0 12px;
+}
+</style>
