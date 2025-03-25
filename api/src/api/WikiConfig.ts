@@ -18,30 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { ConfigurationOptions } from "@xwiki/cristal-configuration-api";
 import type { Storage } from "./storage";
 
-export interface WikiConfig {
-  name: string;
-  // The base url of the backend endpoint
-  baseURL: string;
-  // The rest base url of the backend endpoint
-  baseRestURL: string;
-  /**
-   * Realtime endpoint URL.
-   * Defaults to http://localhost:15681/collaboration when undefined.
-   * @since 0.11
-   */
-  realtimeURL?: string;
-  /**
-   * Authentication server base URL.
-   * @since 0.15
-   */
-  authenticationBaseURL?: string;
-  homePage: string;
+export interface WikiConfig extends ConfigurationOptions {
   storage: Storage;
-  serverRendering: boolean;
-  designSystem: string;
-  offline: boolean;
 
   setConfig(
     name: string,
@@ -51,6 +32,7 @@ export interface WikiConfig {
     serverRendering: boolean,
     designSystem: string,
     offline: boolean,
+    editor: string,
   ): void;
 
   // TODO get rid of any
