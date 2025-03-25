@@ -73,6 +73,7 @@ export class NextcloudStorage extends AbstractStorage {
     )?.username;
     if (!username) {
       const pageData = new DefaultPageData();
+      // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
       pageData.html = "Not logged-in.";
       pageData.canEdit = false;
       return pageData;

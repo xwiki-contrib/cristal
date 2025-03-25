@@ -73,7 +73,7 @@ export class NextcloudBasicAuthenticationManager
   }
 
   async callback(): Promise<void> {
-    throw new Error("Not implemented");
+    console.warn("No callback registered for basic auth.");
   }
 
   async getUserDetails(): Promise<UserDetails> {
