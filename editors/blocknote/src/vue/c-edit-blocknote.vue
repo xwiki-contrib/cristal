@@ -157,7 +157,11 @@ watch(
     <template #default>
       <h1 v-if="!editorProps">Loading...</h1>
       <template v-else>
-        <CBlockNoteView :editor-props :cristal />
+        <div class="editor-centerer">
+          <div class="editor">
+            <CBlockNoteView :editor-props :cristal />
+          </div>
+        </div>
 
         <form class="pagemenu" @submit="submit">
           <div class="pagemenu-status">
@@ -181,7 +185,7 @@ watch(
   </c-article>
 </template>
 
-<style>
+<style scoped>
 .pagemenu {
   position: sticky;
   bottom: 0;
@@ -207,5 +211,17 @@ watch(
 .pagemenu-status > * {
   /* Match the action button padding, which seems to be hard-coded.  */
   padding: 0 12px;
+}
+
+.editor-centerer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.editor {
+  outline: none;
+  max-width: var(--cr-sizes-max-page-width);
+  width: 100%;
 }
 </style>

@@ -9,7 +9,7 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote";
-import { BlockNoteEditor, BlockNoteEditorOptions } from "@blocknote/core";
+import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
@@ -68,15 +68,13 @@ type BlockNoteViewWrapperProps = {
  * @param editor - the editor in which the parsed content will be loaded
  * @param content - the content to parse in Markdown before loading it in the editor
  */
-function parseAndLoadContent(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  editor: () => BlockNoteEditor<any, any, any>,
+async function parseAndLoadContent(
+  // TODO: MaybeUninit<EditorType>
+  editor: EditorType,
   content: string,
 ) {
-  const e = editor();
-  e.tryParseMarkdownToBlocks(content).then((blocks) =>
-    e.replaceBlocks(e.document, blocks),
-  );
+  const blocks = await editor.tryParseMarkdownToBlocks(content);
+  editor.replaceBlocks(editor.document, blocks);
 }
 
 /**
@@ -110,7 +108,8 @@ function BlockNoteViewWrapper({
         provider.document
           .getMap("configuration")
           .set("initialContentLoaded", true);
-        parseAndLoadContent(() => editor, content);
+
+        parseAndLoadContent(editor, content);
       }
     });
     provider.on("destroy", () => {
@@ -130,7 +129,7 @@ function BlockNoteViewWrapper({
   });
 
   if (!provider) {
-    parseAndLoadContent(() => editor, content);
+    parseAndLoadContent(editor, content);
   }
 
   // Renders the editor instance using a React component.
