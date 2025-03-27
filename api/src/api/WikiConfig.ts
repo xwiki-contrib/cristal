@@ -49,7 +49,7 @@ export interface WikiConfig {
   designSystem: string;
   offline: boolean;
   /**
-   * Root folder to store pages.
+   * Root location to store pages.
    * @since 0.16
    */
   storageRoot?: string;

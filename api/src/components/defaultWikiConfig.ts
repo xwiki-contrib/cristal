@@ -88,7 +88,7 @@ export class DefaultWikiConfig implements WikiConfig {
   public offlineSetup: boolean;
 
   /**
-   * Root folder to store pages.
+   * Root location to store pages.
    * @since 0.16
    */
   storageRoot?: string;
