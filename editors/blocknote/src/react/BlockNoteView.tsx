@@ -46,6 +46,7 @@ import {
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
 import React from "react";
+import { ShallowRef } from "vue";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -61,6 +62,7 @@ type BlockNoteViewWrapperProps = {
   theme?: "light" | "dark";
   readonly?: boolean;
   content: string;
+  editorRef?: ShallowRef<EditorType | null>;
 
   formattingToolbar: ReactivueChild<{
     editor: EditorType;
@@ -100,6 +102,7 @@ async function parseAndLoadContent(
 /**
  * BlockNote editor wrapper
  */
+// eslint-disable-next-line max-statements
 function BlockNoteViewWrapper({
   blockNoteOptions,
   theme,
@@ -109,6 +112,7 @@ function BlockNoteViewWrapper({
   linkToolbar: CustomLinkToolbar,
   filePanel: CustomFilePanel,
   content,
+  editorRef,
 }: BlockNoteViewWrapperProps) {
   const schema = createBlockNoteSchema();
 
@@ -147,6 +151,10 @@ function BlockNoteViewWrapper({
     // The default drop cursor only shows up above and below blocks - we replace
     // it with the multi-column one that also shows up on the sides of blocks.
   });
+
+  if (editorRef) {
+    editorRef.value = editor;
+  }
 
   if (!provider) {
     parseAndLoadContent(editor, content);

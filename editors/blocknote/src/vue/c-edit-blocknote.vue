@@ -20,6 +20,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <script setup lang="ts">
 import CBlockNoteView from "./c-blocknote-view.vue";
 import CRealtimeUsers from "./c-realtime-users.vue";
+import { EditorType } from "../blocknote";
+import { blocksToUniAst } from "../blocknote/serializer";
 import { computeCurrentUser } from "../components/currentUser";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
@@ -51,6 +53,8 @@ const { realtimeURL } = cristal.getWikiConfig();
 
 const title = ref(""); // TODO
 const titlePlaceholder = ref("");
+
+const editor = shallowRef<EditorType | null>(null);
 
 const editorProps =
   shallowRef<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(null);
@@ -106,6 +110,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   }
 
   editorProps.value = {
+    editorRef: editor,
     theme: "light",
     // TODO: improve to also support html, or discard editing for unsupported syntaxes?
     content: currentPage.source,
@@ -120,7 +125,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
 }
 
 function submit() {
-  alert("TODO: save");
+  console.log(blocksToUniAst(editor.value!.document));
 }
 
 watch(
