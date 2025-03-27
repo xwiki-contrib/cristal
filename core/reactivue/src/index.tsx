@@ -38,6 +38,8 @@ import "@vue/shared";
 
 /**
  * Options for {@link reactComponentAdapter}
+ *
+ * @since 0.16
  */
 type ReactComponentAdapterOptions = {
   dontHyphenizeProps?: boolean;
@@ -46,6 +48,8 @@ type ReactComponentAdapterOptions = {
 
 /**
  * Wrap a React component to render it as a Vue component
+ *
+ * @since 0.16
  *
  * @param Component - A React component
  * @param options - Options for the adapter
@@ -126,6 +130,8 @@ type VueComponent<Props extends Record<string, unknown>> = (
 
 /**
  * Type of a Reactivue-compatible React child element
+ *
+ * @since 0.16
  */
 type ReactivueChild<Props extends Record<string, unknown>> = (
   props: Props,
@@ -155,6 +161,8 @@ type ReactSlotsTypeAdapter<Props extends Record<string, unknown>> =
 
 /**
  * Filter out slots from a component's properties
+ *
+ * @since 0.16
  */
 type ReactNonSlotProps<Props extends Record<string, unknown>> =
   FilterOutNeverKeys<{
@@ -341,6 +349,8 @@ type ReactIndirectionLayerProps<Props extends Record<string, unknown>> = {
  * Wrap a Vue component to render it inside React
  *
  * Note that this spawns an entire Vue application for every component
+ *
+ * @since 0.16
  *
  * @param param0 - The Vue component to render
  * @returns A wrapping React component

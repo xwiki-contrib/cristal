@@ -2,28 +2,16 @@
 	"extends": "../../tsconfig.json",
 
 	"compilerOptions": {
-		"target": "ES2020",
-		"useDefineForClassFields": true,
 		"module": "NodeNext",
 		"lib": ["ES2022", "DOM", "DOM.Iterable"],
-		"skipLibCheck": true,
 
 		/* Bundler mode */
 		"moduleResolution": "nodenext",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
 		"jsx": "react-jsx",
 		"isolatedDeclarations": false,
 
-		/* Linting */
-		"strict": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noFallthroughCasesInSwitch": true,
-
 		/* Building */
 		"sourceMap": true,
-		"declaration": true,
 		"declarationMap": true,
 		"outDir": "dist/"
 	},

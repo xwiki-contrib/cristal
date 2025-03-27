@@ -55,6 +55,7 @@ type ConfigurationOptions = {
   offline: boolean;
 
   /**
+   * Name of the editor to load (e.g. "blocknote")
    * @since 0.16
    */
   editor: string;

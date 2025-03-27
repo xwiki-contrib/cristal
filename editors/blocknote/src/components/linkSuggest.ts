@@ -1,3 +1,23 @@
+/*
+ * See the LICENSE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
 import { Link, LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
 import {
   AttachmentReference,
@@ -7,7 +27,7 @@ import {
 import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 
 /**
- * @since 0.11
+ * @since 0.16
  */
 enum LinkType {
   PAGE,
@@ -16,6 +36,8 @@ enum LinkType {
 
 /**
  * Describe a link suggestion action (i.e., a search result entry).
+ *
+ * @since 0.16
  */
 type LinkSuggestion = {
   title: string;
@@ -25,10 +47,17 @@ type LinkSuggestion = {
   type: LinkType;
 };
 
+/**
+ * Shape of a function providing a list of link suggestions for a given query
+ *
+ * @since 0.16
+ */
 type LinkSuggestor = (params: { query: string }) => Promise<LinkSuggestion[]>;
 
 /**
  * Build a function returning an array of link suggestions from a string.
+ *
+ * @since 0.16
  */
 function createLinkSuggestor(
   linkSuggest?: LinkSuggestService,

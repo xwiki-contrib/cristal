@@ -28,7 +28,6 @@ import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
-// import { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
 import { CArticle } from "@xwiki/cristal-skin";
 import { inject, ref, shallowRef, watch } from "vue";
 import type { BlockNoteViewWrapperProps } from "../react/BlockNoteView";
@@ -44,7 +43,6 @@ const error = documentService.getError();
 const currentPage = documentService.getCurrentDocument();
 const currentPageReference: Ref<DocumentReference | undefined> =
   documentService.getCurrentDocumentReference();
-// const markdownRenderer = container.get<MarkdownRenderer>("MarkdownRenderer");
 const authenticationManager = container
   .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
   .get();

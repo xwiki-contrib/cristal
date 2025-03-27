@@ -40,7 +40,21 @@ function debounce<T>(func: (arg: T) => unknown): (arg: T) => void {
   return debounced;
 }
 
-function stringToColor(str: string, prc?: number) {
+/**
+ * Convert a string to a color
+ *
+ * Similar to a hash, changing the input string slightly will result in a totally different color
+ *
+ * Colors should be expected to be nice-looking and different enough from one another
+ *
+ * @since 0.16
+ *
+ * @param str - An input string (e.g. username, document title, etc.)
+ * @param prc - Optional lightness/darkness variation number
+ *
+ * @returns The generated color, in hexadecimal (e.g. `#789ABC`)
+ */
+function stringToColor(str: string, prc?: number): string {
   // Check for optional lightness/darkness
   prc = prc ?? -10;
 

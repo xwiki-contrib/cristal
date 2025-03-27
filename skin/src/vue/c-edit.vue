@@ -21,12 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import { CristalApp } from "@xwiki/cristal-api";
 import { inject, markRaw } from "vue";
 
-const cristal = inject<CristalApp>("cristal");
-
-if (!cristal) {
-  // TODO
-  throw new Error("Cristal not defined");
-}
+const cristal = inject<CristalApp>("cristal")!;
 
 const comps = await cristal.getUIXTemplates("editor");
 const logger = cristal.getLogger("skin.vue.editor");
@@ -39,11 +34,6 @@ const editComponent =
   comps.find(
     (item) =>
       // TODO: fix unsafe access to editorname
-      // TODO: the editor should be drawn from the configuration
-      // TODO: also, we shouldn't load all the editors when initializing the
-      // components manager, but instead load them lazily, or only load the
-      // ones allowed by the configuration (e.g., one for wysiwyg, and one
-      // for plain syntax edit).
       (item as { editorname: string }).editorname === (editor ?? "tiptap"),
   ) ?? comps[0];
 
