@@ -55,6 +55,17 @@ const emit = defineEmits<
   (e: "blocknote-save", content: string) => void
 >();
 
+defineExpose({
+  async getContent() {
+    return extractEditorContent();
+  },
+});
+
+async function extractEditorContent() {
+  const editor = editorProps.editorRef?.value;
+  return editor?.blocksToMarkdownLossy(editor?.document);
+}
+
 // eslint-disable-next-line max-statements
 async function getRealtimeProvider(): Promise<
   NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
@@ -82,8 +93,7 @@ async function getRealtimeProvider(): Promise<
   });
 
   new AutoSaver(provider, async () => {
-    const editor = editorProps.editorRef?.value;
-    const content = await editor?.blocksToMarkdownLossy(editor?.document);
+    const content = await extractEditorContent();
     if (content) {
       emit("blocknote-save", content);
     }

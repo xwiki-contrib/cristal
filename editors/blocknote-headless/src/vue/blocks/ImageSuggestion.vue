@@ -20,10 +20,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <script setup lang="ts">
 import LinkSuggestItem from "./LinkSuggestItem.vue";
 import messages from "../../translations";
-import { debounce } from "../../utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { Container } from "inversify";
+import { debounce } from "lodash-es";
 import { Ref, inject, ref, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AttachmentsService } from "@xwiki/cristal-attachments-api";

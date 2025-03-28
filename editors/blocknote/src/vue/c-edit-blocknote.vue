@@ -31,7 +31,8 @@ import {
 } from "@xwiki/cristal-editors-blocknote-headless";
 import { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
 import { CArticle } from "@xwiki/cristal-skin";
-import { inject, ref, shallowRef, watch } from "vue";
+import { debounce } from "lodash-es";
+import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type {
@@ -69,6 +70,8 @@ const titlePlaceholder = modelReferenceHandler?.getTitle(
 const editor = shallowRef<EditorType | null>(null);
 
 const editorProps = shallowRef<BlocknoteEditorProps | null>(null);
+
+const editorInstance = useTemplateRef<typeof CBlockNoteView>("editorInstance");
 
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
@@ -155,6 +158,13 @@ const save = async (content: string) => {
   }
   documentService.notifyDocumentChange("update", currentPageReference.value!);
 };
+
+watch(
+  title,
+  debounce(async () => {
+    save(await editorInstance.value?.getContent());
+  }, 500),
+);
 </script>
 
 <template>
@@ -183,6 +193,7 @@ const save = async (content: string) => {
           <div class="editor-centerer">
             <div class="editor">
               <CBlockNoteView
+                ref="editorInstance"
                 :editor-props
                 :container
                 :skin-manager

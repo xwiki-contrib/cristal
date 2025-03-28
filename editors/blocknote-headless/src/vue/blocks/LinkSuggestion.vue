@@ -20,8 +20,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <script setup lang="ts">
 import { LinkEditionContext } from "../../components/linkEditionContext";
 import { LinkSuggestion } from "../../components/linkSuggest";
-import { debounce } from "../../utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
+import { debounce } from "lodash-es";
 import { ref, watch } from "vue";
 
 const { linkEditionCtx } = defineProps<{
