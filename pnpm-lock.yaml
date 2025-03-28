@@ -2748,7 +2748,7 @@ importers:
     dependencies:
       '@shoelace-style/shoelace':
         specifier: 2.20.1
-        version: 2.20.1(@floating-ui/utils@0.2.9)(@types/react@19.0.10)
+        version: 2.20.1(@floating-ui/utils@0.2.9)(@types/react@19.0.12)
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../api
@@ -2862,6 +2862,70 @@ importers:
 
   editors/blocknote:
     dependencies:
+      '@hocuspocus/provider':
+        specifier: 2.15.2
+        version: 2.15.2(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24)
+      '@xwiki/cristal-alerts-api':
+        specifier: workspace:*
+        version: link:../../core/alerts/alerts-api
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../api
+      '@xwiki/cristal-backend-api':
+        specifier: workspace:*
+        version: link:../../core/backends/backend-api
+      '@xwiki/cristal-document-api':
+        specifier: workspace:*
+        version: link:../../core/document/document-api
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../ds/api
+      '@xwiki/cristal-editors-blocknote-headless':
+        specifier: workspace:*
+        version: link:../blocknote-headless
+      '@xwiki/cristal-icons':
+        specifier: workspace:*
+        version: link:../../core/icons
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../core/model/model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../../core/model/model-reference/model-reference-api
+      '@xwiki/cristal-skin':
+        specifier: workspace:*
+        version: link:../../skin
+      inversify:
+        specifier: 7.1.0
+        version: 7.1.0(reflect-metadata@0.2.2)
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.8.2)
+      vue-i18n:
+        specifier: 11.1.2
+        version: 11.1.2(vue@3.5.13(typescript@5.8.2))
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: 5.2.1
+        version: 5.2.1(vite@6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+      vite:
+        specifier: 6.2.1
+        version: 6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0)
+      vue-tsc:
+        specifier: 2.2.8
+        version: 2.2.8(typescript@5.8.2)
+
+  editors/blocknote-headless:
+    dependencies:
       '@blocknote/core':
         specifier: 0.25.1
         version: 0.25.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24))(@types/hast@3.0.4)
@@ -2874,9 +2938,6 @@ importers:
       '@hocuspocus/provider':
         specifier: 2.15.2
         version: 2.15.2(y-protocols@1.0.6(yjs@13.6.24))(yjs@13.6.24)
-      '@mantine/core':
-        specifier: 7.17.1
-        version: 7.17.1(@mantine/hooks@7.17.2(react@19.0.0))(@types/react@19.0.10)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../api
@@ -2898,9 +2959,6 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../core/link-suggest/link-suggest-api
-      '@xwiki/cristal-markdown-api':
-        specifier: workspace:*
-        version: link:../../core/markdown/markdown-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../core/model/model-api
@@ -2913,18 +2971,15 @@ importers:
       '@xwiki/cristal-reactivue':
         specifier: workspace:*
         version: link:../../core/reactivue
-      '@xwiki/cristal-skin':
-        specifier: workspace:*
-        version: link:../../skin
+      eventemitter3:
+        specifier: 5.0.1
+        version: 5.0.1
       inversify:
         specifier: 7.1.0
         version: 7.1.0(reflect-metadata@0.2.2)
       react:
         specifier: 19.0.0
         version: 19.0.0
-      react-dom:
-        specifier: 19.0.0
-        version: 19.0.0(react@19.0.0)
       vue:
         specifier: 3.5.13
         version: 3.5.13(typescript@5.8.2)
@@ -2938,21 +2993,9 @@ importers:
       '@types/react-dom':
         specifier: 19.0.4
         version: 19.0.4(@types/react@19.0.10)
-      '@vitejs/plugin-vue':
-        specifier: 5.2.1
-        version: 5.2.1(vite@6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
-      '@vitejs/plugin-vue-jsx':
-        specifier: 4.1.1
-        version: 4.1.1(vite@6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))
-      '@xwiki/cristal-dev-config':
-        specifier: workspace:*
-        version: link:../../dev/config
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
-      typescript:
-        specifier: 5.8.2
-        version: 5.8.2
       vite:
         specifier: 6.2.1
         version: 6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0)
@@ -3861,7 +3904,7 @@ importers:
     devDependencies:
       '@shoelace-style/shoelace':
         specifier: 2.20.1
-        version: 2.20.1(@floating-ui/utils@0.2.9)(@types/react@19.0.10)
+        version: 2.20.1(@floating-ui/utils@0.2.9)(@types/react@19.0.12)
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../dev/config
@@ -4383,22 +4426,8 @@ packages:
     resolution: {integrity: sha512-rRHT8siFIXQrAYOYqZQVsAr8vJ+cBNqcVAY6m5V8/4QqzaPl+zDBe6cLEPRDuNOUf3ww8RfJVlOyQMoSI+5Ang==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helper-annotate-as-pure@7.25.9':
-    resolution: {integrity: sha512-gv7320KBUFJz1RnylIg5WWYPRXKZ884AGkYpgpWW02TH66Dl+HaC1t1CKd0z3R4b6hdYEcmrNZHUmfCP+1u3/g==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/helper-compilation-targets@7.26.5':
     resolution: {integrity: sha512-IXuyn5EkouFJscIDuFF5EsiSolseme1s0CZB+QxVugqJLYmKdxI1VfIBOst0SUu4rnk2Z7kqTwmoO1lp3HIfnA==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-create-class-features-plugin@7.26.9':
-    resolution: {integrity: sha512-ubbUqCofvxPRurw5L8WTsCLSkQiVpov4Qx0WMA+jUN+nXBK8ADPlJO1grkFw5CWKC5+sZSOfuGMdX1aI1iT9Sg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-
-  '@babel/helper-member-expression-to-functions@7.25.9':
-    resolution: {integrity: sha512-wbfdZ9w5vk0C0oyHqAJbc62+vet5prjj01jjJ8sKn3j9h3MQQlflEdXYvuqRWjHnM12coDEqiC1IRCi0U/EKwQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-module-imports@7.25.9':
@@ -4411,22 +4440,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0
 
-  '@babel/helper-optimise-call-expression@7.25.9':
-    resolution: {integrity: sha512-FIpuNaz5ow8VyrYcnXQTDRGvV6tTjkNtCK/RYNDXGSLlUD6cBuQTSw43CShGxjvfBTfcUA/r6UhUCbtYqkhcuQ==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/helper-plugin-utils@7.26.5':
     resolution: {integrity: sha512-RS+jZcRdZdRFzMyr+wcsaqOmld1/EqTghfaBGQQd/WnRdzdlvSZ//kF7U8VQTxf1ynZ4cjUcYgjVGx13ewNPMg==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-replace-supers@7.26.5':
-    resolution: {integrity: sha512-bJ6iIVdYX1YooY2X7w1q6VITt+LnUILtNk7zT78ykuwStx8BauCzxvFqFaHjOpW1bVnSUM1PN1f0p5P21wHxvg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-
-  '@babel/helper-skip-transparent-expression-wrappers@7.25.9':
-    resolution: {integrity: sha512-K4Du3BFa3gvyhzgPcntrkDgZzQaq6uozzcpGbOO1OEJaI+EJdqWIMTLgFgQf6lrfiDFo5FU+BxKepI9RmZqahA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-string-parser@7.25.9':
@@ -4450,18 +4465,6 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/plugin-syntax-jsx@7.25.9':
-    resolution: {integrity: sha512-ld6oezHQMZsZfp6pWtbjaNDF2tiiCYYDqQszHt5VV437lewP9aSi2Of99CK0D0XB21k7FLgnLcmQKyKzynfeAA==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-syntax-typescript@7.25.9':
-    resolution: {integrity: sha512-hjMgRy5hb8uJJjUcdWunWVcoi9bGpJp8p5Ol1229PoN6aytsLwNMgmdftO23wnCLMfVmTwZDWMPNq/D1SY60JQ==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
   '@babel/plugin-transform-react-jsx-self@7.25.9':
     resolution: {integrity: sha512-y8quW6p0WHkEhmErnfe58r7x0A70uKphQm8Sp8cV7tjNQwK56sNVK0M73LK3WuYmsuyrftut4xAkjjgU0twaMg==}
     engines: {node: '>=6.9.0'}
@@ -4470,12 +4473,6 @@ packages:
 
   '@babel/plugin-transform-react-jsx-source@7.25.9':
     resolution: {integrity: sha512-+iqjT8xmXhhYv4/uiYd8FNQsraMFZIfxVSqxxVSZP0WbbSAWvBXAul0m/zu+7Vv4O/3WtApy9pmaTMiumEZgfg==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-transform-typescript@7.26.8':
-    resolution: {integrity: sha512-bME5J9AC8ChwA7aEPJ6zym3w7aObZULHhbNLU0bKUhKsAkylkzUdq+0kdymh9rzi8nlNFl2bmldFBCKNJBUpuw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -5696,6 +5693,9 @@ packages:
   '@types/react@19.0.10':
     resolution: {integrity: sha512-JuRQ9KXLEjaUNjTWpzuR231Z2WpIwczOkBEIvbHNCzQefFIT0L8IqE6NV6ULLyC1SI/i234JnDoMkfg+RjQj2g==}
 
+  '@types/react@19.0.12':
+    resolution: {integrity: sha512-V6Ar115dBDrjbtXSrS+/Oruobc+qVbbUxDFC1RSbRqLt5SYvxxyIDrSC85RWml54g+jfNeEMZhEj7wW07ONQhA==}
+
   '@types/react@19.0.8':
     resolution: {integrity: sha512-9P/o1IGdfmQxrujGbIMDyYaaCykhLKc0NGCtYcECNUr9UAaDe4gwvV9bR6tvd5Br1SG0j+PBpbKr2UYY8CwqSw==}
 
@@ -5843,13 +5843,6 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0
 
-  '@vitejs/plugin-vue-jsx@4.1.1':
-    resolution: {integrity: sha512-uMJqv/7u1zz/9NbWAD3XdjaY20tKTf17XVfQ9zq4wY1BjsB/PjpJPMe2xiG39QpP4ZdhYNhm4Hvo66uJrykNLA==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    peerDependencies:
-      vite: ^5.0.0 || ^6.0.0
-      vue: ^3.0.0
-
   '@vitejs/plugin-vue@5.2.1':
     resolution: {integrity: sha512-cxh314tzaWwOLqVes2gnnCtvBDcM1UMdn+iFR+UjAn411dPT3tOmqrJjbMd7koZpMAmBM/GqeV4n9ge7JSiJJQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -5906,22 +5899,6 @@ packages:
 
   '@volar/typescript@2.4.12':
     resolution: {integrity: sha512-HJB73OTJDgPc80K30wxi3if4fSsZZAOScbj2fcicMuOPoOkcf9NNAINb33o+DzhBdF9xTKC1gnPmIRDous5S0g==}
-
-  '@vue/babel-helper-vue-transform-on@1.4.0':
-    resolution: {integrity: sha512-mCokbouEQ/ocRce/FpKCRItGo+013tHg7tixg3DUNS+6bmIchPt66012kBMm476vyEIJPafrvOf4E5OYj3shSw==}
-
-  '@vue/babel-plugin-jsx@1.4.0':
-    resolution: {integrity: sha512-9zAHmwgMWlaN6qRKdrg1uKsBKHvnUU+Py+MOCTuYZBoZsopa90Di10QRjB+YPnVss0BZbG/H5XFwJY1fTxJWhA==}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-
-  '@vue/babel-plugin-resolve-type@1.4.0':
-    resolution: {integrity: sha512-4xqDRRbQQEWHQyjlYSgZsWj44KfiF6D+ktCuXyZ8EnVDYV3pztmXJDf1HveAjUAXxAnR8daCQT51RneWWxtTyQ==}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
 
   '@vue/compiler-core@3.5.13':
     resolution: {integrity: sha512-oOdAkwqUfW1WqpwSYJce06wvt6HljgY3fGeM9NcVA1HaYOij3mZG9Rkysn0OHuyUAGMbEbARIpsG+LPVlBJ5/Q==}
@@ -10115,10 +10092,6 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.25
       jsesc: 3.1.0
 
-  '@babel/helper-annotate-as-pure@7.25.9':
-    dependencies:
-      '@babel/types': 7.26.10
-
   '@babel/helper-compilation-targets@7.26.5':
     dependencies:
       '@babel/compat-data': 7.26.8
@@ -10126,26 +10099,6 @@ snapshots:
       browserslist: 4.24.4
       lru-cache: 5.1.1
       semver: 6.3.1
-
-  '@babel/helper-create-class-features-plugin@7.26.9(@babel/core@7.26.10)':
-    dependencies:
-      '@babel/core': 7.26.10
-      '@babel/helper-annotate-as-pure': 7.25.9
-      '@babel/helper-member-expression-to-functions': 7.25.9
-      '@babel/helper-optimise-call-expression': 7.25.9
-      '@babel/helper-replace-supers': 7.26.5(@babel/core@7.26.10)
-      '@babel/helper-skip-transparent-expression-wrappers': 7.25.9
-      '@babel/traverse': 7.26.10
-      semver: 6.3.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/helper-member-expression-to-functions@7.25.9':
-    dependencies:
-      '@babel/traverse': 7.26.10
-      '@babel/types': 7.26.10
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/helper-module-imports@7.25.9':
     dependencies:
@@ -10163,27 +10116,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-optimise-call-expression@7.25.9':
-    dependencies:
-      '@babel/types': 7.26.10
-
   '@babel/helper-plugin-utils@7.26.5': {}
-
-  '@babel/helper-replace-supers@7.26.5(@babel/core@7.26.10)':
-    dependencies:
-      '@babel/core': 7.26.10
-      '@babel/helper-member-expression-to-functions': 7.25.9
-      '@babel/helper-optimise-call-expression': 7.25.9
-      '@babel/traverse': 7.26.10
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/helper-skip-transparent-expression-wrappers@7.25.9':
-    dependencies:
-      '@babel/traverse': 7.26.10
-      '@babel/types': 7.26.10
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/helper-string-parser@7.25.9': {}
 
@@ -10200,16 +10133,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.10
 
-  '@babel/plugin-syntax-jsx@7.25.9(@babel/core@7.26.10)':
-    dependencies:
-      '@babel/core': 7.26.10
-      '@babel/helper-plugin-utils': 7.26.5
-
-  '@babel/plugin-syntax-typescript@7.25.9(@babel/core@7.26.10)':
-    dependencies:
-      '@babel/core': 7.26.10
-      '@babel/helper-plugin-utils': 7.26.5
-
   '@babel/plugin-transform-react-jsx-self@7.25.9(@babel/core@7.26.10)':
     dependencies:
       '@babel/core': 7.26.10
@@ -10219,17 +10142,6 @@ snapshots:
     dependencies:
       '@babel/core': 7.26.10
       '@babel/helper-plugin-utils': 7.26.5
-
-  '@babel/plugin-transform-typescript@7.26.8(@babel/core@7.26.10)':
-    dependencies:
-      '@babel/core': 7.26.10
-      '@babel/helper-annotate-as-pure': 7.25.9
-      '@babel/helper-create-class-features-plugin': 7.26.9(@babel/core@7.26.10)
-      '@babel/helper-plugin-utils': 7.26.5
-      '@babel/helper-skip-transparent-expression-wrappers': 7.25.9
-      '@babel/plugin-syntax-typescript': 7.25.9(@babel/core@7.26.10)
-    transitivePeerDependencies:
-      - supports-color
 
   '@babel/runtime@7.26.10':
     dependencies:
@@ -10874,9 +10786,9 @@ snapshots:
 
   '@lit-labs/ssr-dom-shim@1.3.0': {}
 
-  '@lit/react@1.0.7(@types/react@19.0.10)':
+  '@lit/react@1.0.7(@types/react@19.0.12)':
     dependencies:
-      '@types/react': 19.0.10
+      '@types/react': 19.0.12
 
   '@lit/reactive-element@2.0.4':
     dependencies:
@@ -11195,11 +11107,11 @@ snapshots:
 
   '@shoelace-style/localize@3.2.1': {}
 
-  '@shoelace-style/shoelace@2.20.1(@floating-ui/utils@0.2.9)(@types/react@19.0.10)':
+  '@shoelace-style/shoelace@2.20.1(@floating-ui/utils@0.2.9)(@types/react@19.0.12)':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
       '@floating-ui/dom': 1.6.13
-      '@lit/react': 1.0.7(@types/react@19.0.10)
+      '@lit/react': 1.0.7(@types/react@19.0.12)
       '@shoelace-style/animations': 1.2.0
       '@shoelace-style/localize': 3.2.1
       composed-offset-position: 0.0.6(@floating-ui/utils@0.2.9)
@@ -11709,6 +11621,10 @@ snapshots:
     dependencies:
       csstype: 3.1.3
 
+  '@types/react@19.0.12':
+    dependencies:
+      csstype: 3.1.3
+
   '@types/react@19.0.8':
     dependencies:
       csstype: 3.1.3
@@ -11875,16 +11791,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue-jsx@4.1.1(vite@6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))':
-    dependencies:
-      '@babel/core': 7.26.10
-      '@babel/plugin-transform-typescript': 7.26.8(@babel/core@7.26.10)
-      '@vue/babel-plugin-jsx': 1.4.0(@babel/core@7.26.10)
-      vite: 6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0)
-      vue: 3.5.13(typescript@5.8.2)
-    transitivePeerDependencies:
-      - supports-color
-
   '@vitejs/plugin-vue@5.2.1(vite@6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       vite: 6.2.1(@types/node@22.13.10)(tsx@4.19.3)(yaml@2.7.0)
@@ -11968,35 +11874,6 @@ snapshots:
       '@volar/language-core': 2.4.12
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
-
-  '@vue/babel-helper-vue-transform-on@1.4.0': {}
-
-  '@vue/babel-plugin-jsx@1.4.0(@babel/core@7.26.10)':
-    dependencies:
-      '@babel/helper-module-imports': 7.25.9
-      '@babel/helper-plugin-utils': 7.26.5
-      '@babel/plugin-syntax-jsx': 7.25.9(@babel/core@7.26.10)
-      '@babel/template': 7.26.9
-      '@babel/traverse': 7.26.10
-      '@babel/types': 7.26.10
-      '@vue/babel-helper-vue-transform-on': 1.4.0
-      '@vue/babel-plugin-resolve-type': 1.4.0(@babel/core@7.26.10)
-      '@vue/shared': 3.5.13
-    optionalDependencies:
-      '@babel/core': 7.26.10
-    transitivePeerDependencies:
-      - supports-color
-
-  '@vue/babel-plugin-resolve-type@1.4.0(@babel/core@7.26.10)':
-    dependencies:
-      '@babel/code-frame': 7.26.2
-      '@babel/core': 7.26.10
-      '@babel/helper-module-imports': 7.25.9
-      '@babel/helper-plugin-utils': 7.26.5
-      '@babel/parser': 7.26.10
-      '@vue/compiler-sfc': 3.5.13
-    transitivePeerDependencies:
-      - supports-color
 
   '@vue/compiler-core@3.5.13':
     dependencies:

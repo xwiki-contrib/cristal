@@ -21,29 +21,26 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import LinkSuggestItem from "./LinkSuggestItem.vue";
 import messages from "../../translations";
 import { debounce } from "../../utils";
-import { CristalApp } from "@xwiki/cristal-api";
-import { AttachmentsService } from "@xwiki/cristal-attachments-api";
-import { DocumentService } from "@xwiki/cristal-document-api";
-import {
-  Link,
-  LinkSuggestServiceProvider,
-  LinkType,
-} from "@xwiki/cristal-link-suggest-api";
-import {
-  AttachmentReference,
-  DocumentReference,
-} from "@xwiki/cristal-model-api";
-import { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
-import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+import { LinkType } from "@xwiki/cristal-link-suggest-api";
+import { AttachmentReference } from "@xwiki/cristal-model-api";
+import { Container } from "inversify";
 import { Ref, inject, ref, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import type { AttachmentsService } from "@xwiki/cristal-attachments-api";
+import type { DocumentService } from "@xwiki/cristal-document-api";
+import type {
+  Link,
+  LinkSuggestServiceProvider,
+} from "@xwiki/cristal-link-suggest-api";
+import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 
 const emit = defineEmits<{
   selected: [{ url: string }];
 }>();
 
-const cristal = inject<CristalApp>("cristal")!;
-const container = cristal.getContainer();
+const container = inject<Container>("container")!;
 
 const attachmentsService =
   container.get<AttachmentsService>("AttachmentsService");
@@ -76,9 +73,9 @@ const links: Ref<Link[]> = ref([]);
 const linksSearchError: Ref<string | undefined> = ref(undefined);
 const linksSearchLoading: Ref<boolean> = ref(false);
 
-const linkSuggestServiceProvider = cristal
-  .getContainer()
-  .get<LinkSuggestServiceProvider>("LinkSuggestServiceProvider");
+const linkSuggestServiceProvider = container.get<LinkSuggestServiceProvider>(
+  "LinkSuggestServiceProvider",
+);
 const linkSuggestService = linkSuggestServiceProvider.get()!;
 
 async function searchAttachments(query: string) {

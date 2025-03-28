@@ -21,34 +21,104 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
+import { AutoSaver } from "../components/autoSaver";
+import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
+import { providerRef } from "../components/realtimeState";
 import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
 } from "../react/BlockNoteView";
-import { CristalApp } from "@xwiki/cristal-api";
+import { HocuspocusProvider } from "@hocuspocus/provider";
+import {
+  DocumentService,
+  name as documentServiceName,
+} from "@xwiki/cristal-document-api";
 import {
   ReactNonSlotProps,
   reactComponentAdapter,
 } from "@xwiki/cristal-reactivue";
-import { createI18n } from "vue-i18n";
+import { Container } from "inversify";
 
-const props = defineProps<{
+import { createI18n } from "vue-i18n";
+import type { SkinManager } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api/dist";
+
+const { editorProps, container, skinManager } = defineProps<{
   editorProps: ReactNonSlotProps<BlockNoteViewWrapperProps>;
-  cristal: CristalApp;
+  container: Container;
+  skinManager: SkinManager;
 }>();
 
-const container = props.cristal.getContainer();
+const emit = defineEmits<
+  // TODO: the type of the content might change!
+  (e: "blocknote-save", content: string) => void
+>();
+
+// eslint-disable-next-line max-statements
+async function getRealtimeProvider(): Promise<
+  NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
+> {
+  const documentService = container.get<DocumentService>(documentServiceName);
+  const authenticationManager = container
+    .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+    .get()!;
+
+  if (!editorProps.realtimeServerURL) {
+    return undefined;
+  }
+
+  const documentReference =
+    documentService.getCurrentDocumentReferenceString().value;
+
+  if (!documentReference) {
+    throw new Error("Got no document reference!");
+  }
+
+  const provider = new HocuspocusProvider({
+    url: editorProps.realtimeServerURL,
+    // we distinguish from sessions from other editors with a ':blocknote' suffix.
+    name: `${documentReference}:blocknote`,
+  });
+
+  new AutoSaver(provider, async () => {
+    const editor = editorProps.editorRef?.value;
+    const content = await editor?.blocksToMarkdownLossy(editor?.document);
+    if (content) {
+      emit("blocknote-save", content);
+    }
+  });
+
+  // TODO: add listen when no realtime
+
+  const user = await computeCurrentUser(authenticationManager);
+
+  providerRef.value = provider;
+
+  return {
+    provider,
+    fragment: provider.document.getXmlFragment("document-store"),
+    user,
+  };
+}
+
+const collaboration = await getRealtimeProvider();
+
+const editorPropsInitialized = {
+  ...editorProps,
+  blockNoteOptions: {
+    ...editorProps.blockNoteOptions,
+    collaboration,
+  },
+};
 
 const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteViewWrapper, {
   modifyVueApp: (app) => {
-    props.cristal.getSkinManager().loadDesignSystem(app, container);
+    skinManager.loadDesignSystem(app, container);
 
-    // TODO: import from global
-    // TODO: language
     app.use(createI18n({ legacy: false, fallbackLocale: "en" }));
 
-    app.provide("cristal", props.cristal);
+    app.provide("container", container);
   },
 });
 
@@ -56,7 +126,7 @@ const linkEditionCtx = createLinkEditionContext(container);
 </script>
 
 <template>
-  <BlockNoteViewAdapter v-bind="editorProps">
+  <BlockNoteViewAdapter v-bind="editorPropsInitialized">
     <!-- Custom (popover) formatting toolbar -->
     <template #formattingToolbar="{ editor, currentBlock }">
       <ImageToolbar

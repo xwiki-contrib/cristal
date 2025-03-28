@@ -63,6 +63,7 @@ type BlockNoteViewWrapperProps = {
   readonly?: boolean;
   content: string;
   editorRef?: ShallowRef<EditorType | null>;
+  realtimeServerURL?: string;
 
   formattingToolbar: ReactivueChild<{
     editor: EditorType;
@@ -150,6 +151,9 @@ function BlockNoteViewWrapper({
     dictionary: createDictionary(),
     // The default drop cursor only shows up above and below blocks - we replace
     // it with the multi-column one that also shows up on the sides of blocks.
+    tables: {
+      headers: true,
+    },
   });
 
   if (editorRef) {

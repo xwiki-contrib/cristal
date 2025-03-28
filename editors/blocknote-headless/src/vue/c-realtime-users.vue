@@ -19,6 +19,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import { User } from "../components/currentUser";
+import { providerRef } from "../components/realtimeState";
 import NoAvatar from "../images/noavatar.png";
 import {
   HocuspocusProvider,
@@ -29,26 +30,34 @@ import {
   onStatusParameters,
 } from "@hocuspocus/provider";
 import { CIcon, Size } from "@xwiki/cristal-icons";
-import { ref } from "vue";
-
-const { provider } = defineProps<{ provider: HocuspocusProvider }>();
+import { ref, watch } from "vue";
 
 const status = ref(WebSocketStatus.Disconnected);
 
-provider.on("status", (event: onStatusParameters) => {
-  status.value = event.status;
-});
+watch(
+  providerRef,
+  (provider: HocuspocusProvider | undefined) => {
+    if (provider) {
+      provider.on("status", (event: onStatusParameters) => {
+        status.value = event.status;
+      });
+      provider.on("awarenessChange", (event: onAwarenessChangeParameters) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        users.value = Array.from(event.states.values() as any);
+      });
+    }
+  },
+  {
+    immediate: true,
+  },
+);
 
 const users = ref<{ user: User; clientId: string }[]>([]);
-
-provider.on("awarenessChange", (event: onAwarenessChangeParameters) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  users.value = Array.from(event.states.values() as any);
-});
 </script>
 
 <template>
-  <span class="connection-status">
+  <!-- this element produce content only if a provider has been initialized -->
+  <span v-if="providerRef" class="connection-status">
     <span
       v-if="status === WebSocketStatus.Disconnected"
       class="connection-status-offline"

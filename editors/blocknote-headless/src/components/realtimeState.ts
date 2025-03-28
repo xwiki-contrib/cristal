@@ -17,39 +17,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-import { DefaultVueTemplateProvider } from "@xwiki/cristal-skin";
-import { injectable } from "inversify";
-import type { Component } from "vue";
+import { HocuspocusProvider } from "@hocuspocus/provider";
+import { Ref, ref } from "vue";
 
 /**
- * Editor provider for Blocknote editor.
- *
+ * Reactive reference used to share the realtime status between the UI components.
+ * This ref is initialized by c-blocknote-view.vue.
  * @since 0.16
  */
-@injectable()
-export class UixBlocknoteEditorProvider extends DefaultVueTemplateProvider {
-  public static override cname = "cristal.editor.blocknote";
-  public static override hint = "";
-  public static override priority = 1000;
-  public static override singleton = true;
-  public static extensionPoint = "editor";
+const providerRef: Ref<HocuspocusProvider | undefined> = ref();
 
-  registered = false;
-
-  override async getVueComponent(): Promise<Component> {
-    const component = (await import("../vue/c-edit-blocknote.vue")).default;
-    component.editorname = "blocknote";
-    return component;
-  }
-  override getVueName(): string {
-    return "BlocknoteEditor";
-  }
-  override isGlobal(): boolean {
-    return false;
-  }
-
-  isSupported(): boolean {
-    return true;
-  }
-}
+export { providerRef };

@@ -18,79 +18,58 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import CBlockNoteView from "./c-blocknote-view.vue";
-import CRealtimeUsers from "./c-realtime-users.vue";
-import { EditorType } from "../blocknote";
-import { blocksToUniAst } from "../blocknote/serializer";
-import { computeCurrentUser } from "../components/currentUser";
-import { HocuspocusProvider } from "@hocuspocus/provider";
+import messages from "../translations";
+import { AlertsService } from "@xwiki/cristal-alerts-api";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
-import { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
+import {
+  BlocknoteEditor as CBlockNoteView,
+  BlocknoteEditorRealtimeUsers,
+} from "@xwiki/cristal-editors-blocknote-headless";
+import { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
 import { CArticle } from "@xwiki/cristal-skin";
 import { inject, ref, shallowRef, watch } from "vue";
-import type { BlockNoteViewWrapperProps } from "../react/BlockNoteView";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
-import type { ReactNonSlotProps } from "@xwiki/cristal-reactivue";
-import type { Ref } from "vue";
+import { useI18n } from "vue-i18n";
+import type { StorageProvider } from "@xwiki/cristal-backend-api";
+import type {
+  BlocknoteEditorProps,
+  EditorType,
+} from "@xwiki/cristal-editors-blocknote-headless";
+
+const { t } = useI18n({
+  messages,
+});
 
 const cristal = inject<CristalApp>("cristal")!;
 const container = cristal.getContainer();
+const skinManager = cristal.getSkinManager();
 const documentService = container.get<DocumentService>(documentServiceName);
 const loading = documentService.isLoading();
 const error = documentService.getError();
+const unknownSyntax = ref();
 const currentPage = documentService.getCurrentDocument();
-const currentPageReference: Ref<DocumentReference | undefined> =
-  documentService.getCurrentDocumentReference();
-const authenticationManager = container
-  .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+const currentPageName = documentService.getCurrentDocumentReferenceString();
+const currentPageReference = documentService.getCurrentDocumentReference();
+const modelReferenceHandler = container
+  .get<ModelReferenceHandlerProvider>("ModelReferenceHandlerProvider")
   .get();
+const alertsService = container.get<AlertsService>("AlertsService")!;
+const storage = container.get<StorageProvider>("StorageProvider").get();
 
 const { realtimeURL } = cristal.getWikiConfig();
 
-const title = ref(""); // TODO
-const titlePlaceholder = ref("");
+const title = ref("");
+const titlePlaceholder = modelReferenceHandler?.getTitle(
+  currentPageReference.value!,
+);
 
 const editor = shallowRef<EditorType | null>(null);
 
-const editorProps =
-  shallowRef<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(null);
+const editorProps = shallowRef<BlocknoteEditorProps | null>(null);
 
-const realtimeProvider = shallowRef<HocuspocusProvider | null>(null);
-
-async function getRealtimeProvider(): Promise<
-  NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
-> {
-  if (!realtimeURL) {
-    return undefined;
-  }
-
-  const documentReference =
-    documentService.getCurrentDocumentReferenceString().value;
-
-  if (!documentReference) {
-    throw new Error("Got no document reference!");
-  }
-
-  const provider = new HocuspocusProvider({
-    url: realtimeURL,
-    name: documentReference,
-    // token?
-  });
-
-  const user = await computeCurrentUser(authenticationManager);
-
-  return {
-    provider,
-    fragment: provider.document.getXmlFragment("document-store"),
-    user,
-  };
-}
-
-// eslint-disable-next-line max-statements
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
     // TODO
@@ -98,35 +77,48 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   }
 
   if (currentPage.syntax !== "markdown/1.2") {
-    // TODO
-    throw new Error('TODO: only "markdown/1.2" syntax is supported here');
-  }
-
-  const collaboration = await getRealtimeProvider();
-
-  if (collaboration) {
-    console.info(`Setting up realtime collaboration with URL: ${realtimeURL}`);
-    realtimeProvider.value = collaboration.provider;
+    // TODO add a translation
+    unknownSyntax.value = `Syntax [${currentPage.syntax}] is not editable with this editor.`;
+    return;
   }
 
   editorProps.value = {
     editorRef: editor,
     theme: "light",
-    // TODO: improve to also support html, or discard editing for unsupported syntaxes?
     content: currentPage.source,
-    blockNoteOptions: {
-      collaboration,
-    },
+    realtimeServerURL: realtimeURL,
     formattingToolbarOnlyFor: [],
   };
 
   title.value = documentService.getTitle().value ?? "";
-  titlePlaceholder.value = documentService.getTitle().value ?? "";
 }
 
-function submit() {
-  console.log(blocksToUniAst(editor.value!.document));
-}
+const view = () => {
+  // Destroy the editor instance.
+  // editor.value?.destroy();
+  // Navigate to view mode.
+  const viewRouterParams = {
+    name: "view",
+    params: { page: currentPageName.value ?? "" },
+  };
+
+  cristal?.getRouter().push(viewRouterParams);
+};
+
+const submit = async () => {
+  // if (realtimeURL == undefined) {
+  //   // await save();
+  // } else {
+  //   // await editor.value?.storage.cristalCollaborationKit.autoSaver.save();
+  // }
+  // let goToView = true;
+  // if (!lastSaveSucceeded) {
+  //   goToView = confirm(t("tiptap.editor.onquit.message"));
+  // }
+  // if (goToView) {
+  view();
+  // }
+};
 
 watch(
   loading,
@@ -137,6 +129,32 @@ watch(
   },
   { immediate: true },
 );
+
+const save = async (content: string) => {
+  try {
+    // TODO: html does not make any sense here.
+    await storage.save(
+      currentPageName.value ?? "",
+      content,
+      title.value,
+      "html",
+    );
+    // Update the on quit content with the last successfully saved content.
+    // updateOnQuitContent();
+    // lastSaveSucceeded = true;
+  } catch (e) {
+    // lastSaveSucceeded = false;
+    console.error(e);
+    alertsService.error(t("blocknote.editor.save.error"));
+  }
+
+  // If this save operation just created the document, the current document
+  // will be undefined. So we update it.
+  if (!currentPage.value) {
+    documentService.setCurrentDocument(currentPageName.value ?? "");
+  }
+  documentService.notifyDocumentChange("update", currentPageReference.value!);
+};
 </script>
 
 <template>
@@ -158,32 +176,39 @@ watch(
       />
     </template>
     <template #default>
-      <h1 v-if="!editorProps">Loading...</h1>
-      <template v-else>
-        <div class="editor-centerer">
-          <div class="editor">
-            <CBlockNoteView :editor-props :cristal />
+      <div class="doc-content">
+        <span v-if="!editorProps && !unknownSyntax">Loading...</span>
+        <span v-else-if="unknownSyntax">{{ unknownSyntax }}</span>
+        <template v-else>
+          <div class="editor-centerer">
+            <div class="editor">
+              <CBlockNoteView
+                :editor-props
+                :container
+                :skin-manager
+                @blocknote-save="save"
+              />
+            </div>
           </div>
-        </div>
 
-        <form class="pagemenu" @submit="submit">
-          <div class="pagemenu-status">
-            <c-realtime-users
-              v-if="realtimeProvider"
-              :provider="realtimeProvider"
-            />
+          <form class="pagemenu" @submit="submit">
+            <div class="pagemenu-status">
+              <BlocknoteEditorRealtimeUsers />
 
-            <!-- <c-save-status
+              <!-- <c-save-status
               v-if="editor && hasRealtime"
               :auto-saver="editor.storage.cristalCollaborationKit.autoSaver"
             /> -->
-          </div>
+            </div>
 
-          <div class="pagemenu-actions">
-            <x-btn size="small" variant="primary" @click="submit">Close</x-btn>
-          </div>
-        </form>
-      </template>
+            <div class="pagemenu-actions">
+              <x-btn size="small" variant="primary" @click="submit">
+                Close
+              </x-btn>
+            </div>
+          </form>
+        </template>
+      </div>
     </template>
   </c-article>
 </template>

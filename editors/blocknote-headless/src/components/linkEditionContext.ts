@@ -19,20 +19,20 @@
  */
 
 import { LinkSuggestor, createLinkSuggestor } from "./linkSuggest";
-import { LinkSuggestServiceProvider } from "@xwiki/cristal-link-suggest-api";
-import {
+import { Container } from "inversify";
+import type { LinkSuggestServiceProvider } from "@xwiki/cristal-link-suggest-api";
+import type {
   ModelReferenceParser,
   ModelReferenceParserProvider,
   ModelReferenceSerializer,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
-import {
+import type {
   RemoteURLParser,
   RemoteURLParserProvider,
   RemoteURLSerializer,
   RemoteURLSerializerProvider,
 } from "@xwiki/cristal-model-remote-url-api";
-import { Container } from "inversify";
 
 export type LinkEditionContext = {
   suggestLink: LinkSuggestor;
