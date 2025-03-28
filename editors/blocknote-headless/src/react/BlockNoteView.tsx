@@ -45,6 +45,7 @@ import {
   SuggestionMenuController,
   useCreateBlockNote,
 } from "@blocknote/react";
+import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
 import React from "react";
@@ -150,6 +151,7 @@ function BlockNoteViewWrapper({
     ...blockNoteOptions,
     // Editor's schema, with custom blocks definition
     schema,
+    dropCursor: multiColumnDropCursor,
     // Merges the default dictionary with the multi-column dictionary.
     dictionary: createDictionary(),
     // The default drop cursor only shows up above and below blocks - we replace

@@ -229,6 +229,21 @@ function convertBlock(block: BlockType, previousBlocks: BlockType[]): Block {
         styles: convertBlockStyles(block.props),
       };
     }
+
+    case "column": {
+      return {
+        type: "paragraph",
+        content: [],
+        styles: {},
+      };
+    }
+    case "columnList": {
+      return {
+        type: "paragraph",
+        content: [],
+        styles: {},
+      };
+    }
   }
 }
 

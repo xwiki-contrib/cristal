@@ -36,13 +36,18 @@ import {
   DefaultReactSuggestionItem,
   getDefaultReactSlashMenuItems,
 } from "@blocknote/react";
+import {
+  getMultiColumnSlashMenuItems,
+  locales as multiColumnLocales,
+  withMultiColumn,
+} from "@blocknote/xl-multi-column";
 
 function createBlockNoteSchema() {
   // Get rid of some block types
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { audio, video, file, ...remainingBlockSpecs } = defaultBlockSpecs;
 
-  return BlockNoteSchema.create({
+  const blockNoteSchema = BlockNoteSchema.create({
     blockSpecs: {
       ...remainingBlockSpecs,
 
@@ -57,6 +62,7 @@ function createBlockNoteSchema() {
       BlockQuote: BlockQuote.block,
     },
   });
+  return withMultiColumn(blockNoteSchema);
 }
 
 function createDictionary(): Dictionary & Record<string, unknown> {
@@ -64,7 +70,7 @@ function createDictionary(): Dictionary & Record<string, unknown> {
     ...locales.en,
 
     // // First-party extensions
-    // multi_column: multiColumnLocales.en,
+    multi_column: multiColumnLocales.en,
   };
 }
 
@@ -77,7 +83,7 @@ function querySuggestionsMenuItems(
       getDefaultReactSlashMenuItems(editor),
 
       // // First-party extension blocks
-      // getMultiColumnSlashMenuItems(editor),
+      getMultiColumnSlashMenuItems(editor),
 
       // Custom blocks
       [Heading4, Heading5, Heading6, BlockQuote].map((custom) =>
