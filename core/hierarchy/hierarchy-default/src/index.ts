@@ -18,7 +18,5 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit } from "./components/componentsInit";
-import { getPageHierarchyFromPath } from "./utils";
-
-export { ComponentInit, getPageHierarchyFromPath };
+export { ComponentInit } from "./components/componentsInit";
+export { getPageHierarchyFromPath } from "./utils";
