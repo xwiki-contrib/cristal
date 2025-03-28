@@ -109,8 +109,7 @@ function convertBlock(block: Block): BlockType {
         content: block.content.map(convertInlineContent),
         props: {
           ...convertBlockStyles(block.styles),
-          // TODO
-          start: 0,
+          start: block.number,
         },
       };
 

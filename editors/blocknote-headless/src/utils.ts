@@ -98,4 +98,4 @@ function assertInArray<T, U extends T>(
   return value as U;
 }
 
-export { assertInArray, assertUnreachable, debounce, stringToColor };
+export { assertInArray, assertUnreachable, stringToColor };
