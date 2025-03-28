@@ -25,6 +25,8 @@ import {
   BlockNoteEditor,
   BlockNoteSchema,
   Dictionary,
+  Link,
+  StyledText,
   combineByGroup,
   defaultBlockSpecs,
   filterSuggestionItems,
@@ -127,6 +129,9 @@ type EditorType = BlockNoteEditor<
   EditorStyleSchema
 >;
 
+type EditorStyledText = StyledText<EditorStyleSchema>;
+type EditorLink = Link<EditorStyleSchema>;
+
 type BlockType = Block<
   EditorBlockSchema,
   EditorInlineContentSchema,
@@ -140,8 +145,10 @@ export type {
   BlockType,
   EditorBlockSchema,
   EditorInlineContentSchema,
+  EditorLink,
   EditorSchema,
   EditorStyleSchema,
+  EditorStyledText,
   EditorType,
 };
 

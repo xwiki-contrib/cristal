@@ -18,7 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { BlockType, EditorInlineContentSchema, EditorStyleSchema } from ".";
+import {
+  BlockType,
+  EditorInlineContentSchema,
+  EditorLink,
+  EditorStyleSchema,
+  EditorStyledText,
+} from ".";
 import {
   Block,
   BlockStyles,
@@ -27,19 +33,22 @@ import {
   Text,
   UniAst,
 } from "../uniast/ast";
-import {
-  Link,
-  StyledText,
-  TableCell as BlockNoteTableCell,
-} from "@blocknote/core";
+import { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
+
+// TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
 
 export function blocksToUniAst(blocks: BlockType[]): UniAst {
   return {
-    blocks: blocks.map(convertBlock),
+    blocks: convertBlocks(blocks),
   };
 }
 
-function convertBlock(block: BlockType): Block {
+function convertBlocks(blocks: BlockType[]): Block[] {
+  return blocks.map((block, i) => convertBlock(block, blocks.slice(0, i)));
+}
+
+// TODO: explain that previous blocks are required to compute number for contiguous numbered list items
+function convertBlock(block: BlockType, previousBlocks: BlockType[]): Block {
   const dontExpectChildren = () => {
     if (block.children.length > 0) {
       console.error({ unexpextedChildrenInBlock: block });
@@ -101,7 +110,7 @@ function convertBlock(block: BlockType): Block {
       return {
         type: "bulletListItem",
         content: block.content.map(convertInlineContent),
-        subItems: block.children.map(convertBlock).map((block) => {
+        subItems: convertBlocks(block.children).map((block) => {
           if (
             block.type !== "bulletListItem" &&
             block.type !== "numberedListItem"
@@ -119,8 +128,9 @@ function convertBlock(block: BlockType): Block {
     case "numberedListItem":
       return {
         type: "numberedListItem",
+        number: computeNumberedListItemNum(block, previousBlocks),
         content: block.content.map(convertInlineContent),
-        subItems: block.children.map(convertBlock).map((block) => {
+        subItems: convertBlocks(block.children).map((block) => {
           if (
             block.type !== "bulletListItem" &&
             block.type !== "numberedListItem"
@@ -140,7 +150,7 @@ function convertBlock(block: BlockType): Block {
         type: "checkedListItem",
         checked: block.props.checked,
         content: block.content.map(convertInlineContent),
-        subItems: block.children.map(convertBlock).map((block) => {
+        subItems: convertBlocks(block.children).map((block) => {
           if (
             block.type !== "bulletListItem" &&
             block.type !== "numberedListItem"
@@ -222,6 +232,33 @@ function convertBlock(block: BlockType): Block {
   }
 }
 
+// eslint-disable-next-line max-statements
+function computeNumberedListItemNum(
+  numberedListItem: Extract<BlockType, { type: "numberedListItem" }>,
+  previousBlocks: BlockType[],
+): number {
+  if (numberedListItem.props.start !== undefined) {
+    return numberedListItem.props.start;
+  }
+
+  let number = 1;
+
+  for (const block of previousBlocks.toReversed()) {
+    if (block.type !== "numberedListItem") {
+      break;
+    }
+
+    if (block.props.start !== undefined) {
+      number += block.props.start;
+      break;
+    }
+
+    number += 1;
+  }
+
+  return number;
+}
+
 function convertBlockStyles(styles: BlockStyles): BlockStyles {
   // Remove unneeded properties
   const { textAlignment, backgroundColor, textColor } = styles;
@@ -230,7 +267,7 @@ function convertBlockStyles(styles: BlockStyles): BlockStyles {
 
 function convertTableCell(
   cell:
-    | (StyledText<EditorStyleSchema> | Link<EditorStyleSchema>)[]
+    | Array<EditorStyledText | EditorLink>
     | BlockNoteTableCell<EditorInlineContentSchema, EditorStyleSchema>,
 ): TableCell {
   return Array.isArray(cell)
@@ -247,7 +284,7 @@ function convertTableCell(
 }
 
 function convertInlineContent(
-  inlineContent: StyledText<EditorStyleSchema> | Link<EditorStyleSchema>,
+  inlineContent: EditorStyledText | Link<EditorStyleSchema>,
 ): InlineContent {
   switch (inlineContent.type) {
     case "text":
@@ -269,7 +306,7 @@ function convertInlineContent(
   }
 }
 
-function convertText(text: StyledText<EditorStyleSchema>): Text {
+function convertText(text: EditorStyledText): Text {
   const { bold, italic, underline, strike, code, backgroundColor, textColor } =
     text.styles;
 

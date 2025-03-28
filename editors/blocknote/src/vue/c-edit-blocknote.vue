@@ -89,7 +89,8 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   editorProps.value = {
     editorRef: editor,
     theme: "light",
-    content: currentPage.source,
+    // TODO: fix type for "currentPage.source"
+    content: currentPage.source ?? "",
     realtimeServerURL: realtimeURL,
     formattingToolbarOnlyFor: [],
   };

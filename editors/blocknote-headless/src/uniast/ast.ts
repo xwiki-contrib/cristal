@@ -31,33 +31,25 @@ type Block =
   | {
       type: "bulletListItem";
       content: InlineContent[];
-      subItems: Extract<
-        Block,
-        { type: "bulletListItem" | "numberedListItem" | "checkedListItem" }
-      >[];
+      subItems: ListItem[];
       styles: BlockStyles;
     }
   | {
       type: "numberedListItem";
+      number: number;
       content: InlineContent[];
-      subItems: Extract<
-        Block,
-        { type: "bulletListItem" | "numberedListItem" | "checkedListItem" }
-      >[];
+      subItems: ListItem[];
       styles: BlockStyles;
     }
   | {
       type: "checkedListItem";
       checked: boolean;
       content: InlineContent[];
-      subItems: Extract<
-        Block,
-        { type: "bulletListItem" | "numberedListItem" | "checkedListItem" }
-      >[];
+      subItems: ListItem[];
       styles: BlockStyles;
     }
   | { type: "blockQuote"; content: Block[]; styles: BlockStyles }
-  | { type: "codeBlock"; language: string; content: string }
+  | { type: "codeBlock"; language?: string; content: string }
   | {
       type: "table";
       columns: TableColumn[];
@@ -77,6 +69,11 @@ type Block =
       name: string;
       props: Record<string, boolean | number | string>;
     };
+
+type ListItem = Extract<
+  Block,
+  { type: "bulletListItem" | "numberedListItem" | "checkedListItem" }
+>;
 
 type BlockStyles = {
   textColor?: string;
@@ -100,16 +97,16 @@ type InlineContent =
   | { type: "link"; target: LinkTarget; content: Text[] };
 
 type Text = {
-  styles: TextStyles;
   content: string;
+  styles: TextStyles;
 };
 
 type TextStyles = {
-  bold: boolean;
-  italic: boolean;
-  strikethrough: boolean;
-  underline: boolean;
-  code: boolean;
+  bold?: boolean;
+  italic?: boolean;
+  strikethrough?: boolean;
+  underline?: boolean;
+  code?: boolean;
   textColor?: string;
   backgroundColor?: string;
 };
@@ -124,6 +121,7 @@ export type {
   BlockStyles,
   InlineContent,
   LinkTarget,
+  ListItem,
   TableCell,
   TableColumn,
   Text,

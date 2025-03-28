@@ -29,6 +29,8 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote";
+import { uniAstToBlocks } from "../blocknote/parser";
+import { markdownToUniAst } from "../uniast/markdown/parser";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
@@ -96,7 +98,8 @@ async function parseAndLoadContent(
   editor: EditorType,
   content: string,
 ) {
-  const blocks = await editor.tryParseMarkdownToBlocks(content);
+  const uniAst = markdownToUniAst(content);
+  const blocks = uniAstToBlocks(uniAst);
   editor.replaceBlocks(editor.document, blocks);
 }
 

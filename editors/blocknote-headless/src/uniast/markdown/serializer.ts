@@ -18,14 +18,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Block, InlineContent, TableCell, Text, UniAst } from "../ast";
+import {
+  Block,
+  InlineContent,
+  ListItem,
+  TableCell,
+  Text,
+  UniAst,
+} from "../ast";
 
 export function uniAstToMarkdown(uniAst: UniAst): string {
   const { blocks } = uniAst;
+
   const out: string[] = [];
 
-  for (const block of blocks) {
-    out.push(blockToMarkdown(block));
+  for (let i = 0; i < blocks.length; i++) {
+    out.push(blockToMarkdown(blocks[i]));
   }
 
   return out.join("\n\n");
@@ -40,22 +48,24 @@ function blockToMarkdown(block: Block): string {
       return `${"#".repeat(block.level)} ${inlineContentsToMarkdown(block.content)}`;
 
     case "bulletListItem":
-      return `* ${inlineContentsToMarkdown(block.content)}${block.subItems.map((item) => "\n  " + blockToMarkdown(item)).join("")}`;
+      return `* ${listItemContentToMarkdown(block)}`;
 
-    case "numberedListItem":
-      return `- ${inlineContentsToMarkdown(block.content)}${block.subItems.map((item) => "\n  " + blockToMarkdown(item)).join("")}`;
+    case "numberedListItem": {
+      return `${block.number}. ${listItemContentToMarkdown(block)}`;
+    }
 
     case "checkedListItem":
-      return `- [${block.checked ? "x" : " "}] ${inlineContentsToMarkdown(block.content)}${block.subItems.map((item) => "\n  " + blockToMarkdown(item)).join("")}`;
+      return `* [${block.checked ? "x" : " "}] ${listItemContentToMarkdown(block)}`;
 
     case "blockQuote":
       return block.content
-        .flatMap((block) => blockToMarkdown(block).split("\n"))
+        .map(blockToMarkdown)
+        .flatMap((item) => item.split("\n"))
         .map((line) => `> ${line}`)
         .join("\n");
 
     case "codeBlock":
-      return `\`\`\`${block.language}\n${block.content}\n\`\`\``;
+      return `\`\`\`${block.language ?? ""}\n${block.content}\n\`\`\``;
 
     case "table":
       return tableToMarkdown(block);
@@ -66,6 +76,17 @@ function blockToMarkdown(block: Block): string {
     case "macro":
       throw new Error("TODO: macro");
   }
+}
+
+function listItemContentToMarkdown(item: ListItem): string {
+  return (
+    inlineContentsToMarkdown(item.content) +
+    item.subItems
+      .map(blockToMarkdown)
+      .flatMap((item) => item.split("\n"))
+      .map((line) => "\n\t" + line)
+      .join("")
+  );
 }
 
 function tableToMarkdown(table: Extract<Block, { type: "table" }>): string {

@@ -21,6 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
+import { blocksToUniAst } from "../blocknote/serializer";
 import { AutoSaver } from "../components/autoSaver";
 import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
@@ -29,6 +30,7 @@ import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
 } from "../react/BlockNoteView";
+import { uniAstToMarkdown } from "../uniast/markdown/serializer";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import {
   DocumentService,
@@ -52,10 +54,10 @@ const { editorProps, container, skinManager } = defineProps<{
   skinManager: SkinManager;
 }>();
 
-const emit = defineEmits<
+const emit = defineEmits<{
   // TODO: the type of the content might change!
-  (e: "blocknote-save", content: string) => void
->();
+  "blocknote-save": [content: string];
+}>();
 
 defineExpose({
   async getContent() {
@@ -65,7 +67,7 @@ defineExpose({
 
 async function extractEditorContent() {
   const editor = editorProps.editorRef?.value;
-  return editor?.blocksToMarkdownLossy(editor?.document);
+  return editor && uniAstToMarkdown(blocksToUniAst(editor.document));
 }
 
 // eslint-disable-next-line max-statements

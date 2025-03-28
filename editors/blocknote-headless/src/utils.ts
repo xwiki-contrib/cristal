@@ -63,4 +63,39 @@ function stringToColor(str: string, prc?: number): string {
   return `#${comp.toString(16).slice(1)}`;
 }
 
-export { stringToColor };
+/**
+ * Ensure a statement is unreachable
+ *
+ * @param value -
+ *
+ * @since 0.16
+ */
+function assertUnreachable(value: never): never {
+  console.error({ unreachable: value });
+  throw new Error("Reached a theorically unreachable statement");
+}
+
+/**
+ * Assert that a value is in an array, and fix its type
+ *
+ * @since 0.16
+ *
+ * @param array -
+ * @param value -
+ * @param message -
+ *
+ * @returns -
+ */
+function assertInArray<T, U extends T>(
+  value: T,
+  array: U[],
+  message: string,
+): U {
+  if (!array.includes(value as U)) {
+    throw new Error(message + ": " + value);
+  }
+
+  return value as U;
+}
+
+export { assertInArray, assertUnreachable, debounce, stringToColor };
