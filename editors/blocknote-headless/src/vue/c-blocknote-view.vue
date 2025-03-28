@@ -24,7 +24,7 @@ import LinkToolbar from "./blocks/LinkToolbar.vue";
 import { AutoSaver } from "../components/autoSaver";
 import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
-import { providerRef } from "../components/realtimeState";
+import { autoSaverRef, providerRef } from "../components/realtimeState";
 import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
@@ -94,14 +94,12 @@ async function getRealtimeProvider(): Promise<
     name: `${documentReference}:blocknote`,
   });
 
-  new AutoSaver(provider, async () => {
+  autoSaverRef.value = new AutoSaver(provider, async () => {
     const content = await extractEditorContent();
     if (content) {
       emit("blocknote-save", content);
     }
   });
-
-  // TODO: add listen when no realtime
 
   const user = await computeCurrentUser(authenticationManager);
 

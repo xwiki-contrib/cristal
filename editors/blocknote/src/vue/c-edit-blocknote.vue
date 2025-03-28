@@ -28,6 +28,7 @@ import {
 import {
   BlocknoteEditor as CBlockNoteView,
   BlocknoteEditorRealtimeUsers,
+  BlocknoteRealtimeStatus,
 } from "@xwiki/cristal-editors-blocknote-headless";
 import { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
 import { CArticle } from "@xwiki/cristal-skin";
@@ -109,18 +110,9 @@ const view = () => {
 };
 
 const submit = async () => {
-  // if (realtimeURL == undefined) {
-  //   // await save();
-  // } else {
-  //   // await editor.value?.storage.cristalCollaborationKit.autoSaver.save();
-  // }
-  // let goToView = true;
-  // if (!lastSaveSucceeded) {
-  //   goToView = confirm(t("tiptap.editor.onquit.message"));
-  // }
-  // if (goToView) {
+  // Perform a last save before quitting.
+  await save(await editorInstance.value?.getContent());
   view();
-  // }
 };
 
 watch(
@@ -142,9 +134,6 @@ const save = async (content: string) => {
       title.value,
       "html",
     );
-    // Update the on quit content with the last successfully saved content.
-    // updateOnQuitContent();
-    // lastSaveSucceeded = true;
   } catch (e) {
     // lastSaveSucceeded = false;
     console.error(e);
@@ -205,11 +194,7 @@ watch(
           <form class="pagemenu" @submit="submit">
             <div class="pagemenu-status">
               <BlocknoteEditorRealtimeUsers />
-
-              <!-- <c-save-status
-              v-if="editor && hasRealtime"
-              :auto-saver="editor.storage.cristalCollaborationKit.autoSaver"
-            /> -->
+              <BlocknoteRealtimeStatus />
             </div>
 
             <div class="pagemenu-actions">

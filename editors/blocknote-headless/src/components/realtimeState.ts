@@ -17,6 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { AutoSaver } from "./autoSaver";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { Ref, ref } from "vue";
 
@@ -27,4 +28,11 @@ import { Ref, ref } from "vue";
  */
 const providerRef: Ref<HocuspocusProvider | undefined> = ref();
 
-export { providerRef };
+/**
+ * Reactive reference to an autosaver the share the realtime status between the UI components.
+ * This ref is initialized by c-blocknote-view.vue.
+ * @since 0.16
+ */
+const autoSaverRef: Ref<AutoSaver | undefined> = ref();
+
+export { autoSaverRef, providerRef };
