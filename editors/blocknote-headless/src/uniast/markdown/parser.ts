@@ -55,10 +55,12 @@ function tokenToBlock(marked: Token): Block[] {
       ];
 
     case "br":
-      throw new Error("TODO: br");
+      // TODO
+      return [];
 
     case "hr":
-      throw new Error("TODO: hr");
+      // TODO
+      return [];
 
     case "list":
       // TODO: "token.loose" property

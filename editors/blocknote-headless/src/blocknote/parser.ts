@@ -148,10 +148,7 @@ function convertBlock(block: Block): BlockType {
           })),
         },
         children: [],
-        props: {
-          // TODO (?)
-          textColor: "default",
-        },
+        props: convertBlockStyles(block.styles),
       };
 
     case "image":
@@ -188,7 +185,6 @@ function convertCustomBlockContent(
     throw new Error("Expected a single paragraph inside custom block");
   }
 
-  // TODO: styles
   return content[0].content.map(convertInlineContent);
 }
 

@@ -122,7 +122,13 @@ function inlineContentToMarkdown(inlineContent: InlineContent): string {
       return textToMarkdown(inlineContent.props);
 
     case "link":
-      throw new Error("TODO: links");
+      switch (inlineContent.target.type) {
+        case "external":
+          return `[${inlineContent.content.map(textToMarkdown).join("")}](${inlineContent.target.url})`;
+
+        case "internal":
+          throw new Error("TODO: internal links");
+      }
   }
 }
 
