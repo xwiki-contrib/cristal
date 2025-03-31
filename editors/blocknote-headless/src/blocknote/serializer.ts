@@ -230,20 +230,20 @@ function convertBlock(block: BlockType, previousBlocks: BlockType[]): Block {
       };
     }
 
-    case "column": {
+    case "column":
+      // TODO
       return {
         type: "paragraph",
         content: [],
         styles: {},
       };
-    }
-    case "columnList": {
+
+    case "columnList":
       return {
         type: "paragraph",
         content: [],
         styles: {},
       };
-    }
   }
 }
 
