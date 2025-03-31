@@ -72,7 +72,8 @@ const editor = shallowRef<EditorType | null>(null);
 
 const editorProps = shallowRef<BlocknoteEditorProps | null>(null);
 
-const editorInstance = useTemplateRef<typeof CBlockNoteView>("editorInstance");
+const editorInstance =
+  useTemplateRef<InstanceType<typeof CBlockNoteView>>("editorInstance");
 
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
@@ -112,7 +113,7 @@ const view = () => {
 
 const submit = async () => {
   // Perform a last save before quitting.
-  await save(await editorInstance.value?.getContent());
+  await save(await editorInstance.value!.getContent());
   view();
 };
 
@@ -152,7 +153,7 @@ const save = async (content: string) => {
 watch(
   title,
   debounce(async () => {
-    save(await editorInstance.value?.getContent());
+    save(await editorInstance.value!.getContent());
   }, 500),
 );
 </script>

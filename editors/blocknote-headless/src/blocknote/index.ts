@@ -37,6 +37,8 @@ import {
   getDefaultReactSlashMenuItems,
 } from "@blocknote/react";
 import {
+  ColumnBlock,
+  ColumnListBlock,
   getMultiColumnSlashMenuItems,
   locales as multiColumnLocales,
   withMultiColumn,
@@ -52,8 +54,8 @@ function createBlockNoteSchema() {
       ...remainingBlockSpecs,
 
       // First-party extension blocks
-      // column: ColumnBlock,
-      // columnList: ColumnListBlock,
+      column: ColumnBlock,
+      columnList: ColumnListBlock,
 
       // Custom blocks
       Heading4: Heading4.block,
@@ -62,6 +64,7 @@ function createBlockNoteSchema() {
       BlockQuote: BlockQuote.block,
     },
   });
+
   return withMultiColumn(blockNoteSchema);
 }
 

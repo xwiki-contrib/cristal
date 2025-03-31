@@ -66,8 +66,8 @@ defineExpose({
 });
 
 async function extractEditorContent() {
-  const editor = editorProps.editorRef?.value;
-  return editor && uniAstToMarkdown(blocksToUniAst(editor.document));
+  const editor = editorProps.editorRef!.value!;
+  return uniAstToMarkdown(blocksToUniAst(editor.document));
 }
 
 // eslint-disable-next-line max-statements
