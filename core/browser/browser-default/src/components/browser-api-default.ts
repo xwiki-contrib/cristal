@@ -49,4 +49,6 @@ export class BrowserApiDefault implements BrowserApi {
       window.removeEventListener("beforeunload", listener);
     });
   }
+
+  setLocation(): void {}
 }

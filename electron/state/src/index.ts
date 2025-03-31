@@ -18,7 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export interface APITypes {
-  reloadBrowser(): void;
-  setStorageRoot(storageRoot?: string): void;
+const storedConfig: {
+  storageRoot?: string;
+} = {};
+
+function setStorageRoot(storageRoot?: string): void {
+  storedConfig.storageRoot = storageRoot;
 }
+
+function getStorageRoot(): string | undefined {
+  return storedConfig.storageRoot;
+}
+
+export { getStorageRoot, setStorageRoot };
