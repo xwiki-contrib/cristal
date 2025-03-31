@@ -34,6 +34,8 @@ const HOME_PATH = ".cristal";
 const HOME_PATH_FULL = join(app.getPath("home"), HOME_PATH);
 
 function getHomePathFull(): string {
+  // If no custom storage root was provided in the current configuration, we
+  // fallback to the folder `${HOME}/.cristal`.
   return getStorageRoot() ?? HOME_PATH_FULL;
 }
 

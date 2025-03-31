@@ -50,5 +50,9 @@ export class BrowserApiDefault implements BrowserApi {
     });
   }
 
-  setLocation(): void {}
+  setLocation(): void {
+    // At this point, we need to change the current URL on configuration
+    // switching, but this operation is already handled during app loading for
+    // the initial configuration (which is when this method is called).
+  }
 }

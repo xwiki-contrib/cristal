@@ -22,10 +22,20 @@ const storedConfig: {
   storageRoot?: string;
 } = {};
 
+/**
+ * Set the storage root location for the current configuration.
+ * @param storageRoot - the new storage root location
+ * @since 0.16
+ */
 function setStorageRoot(storageRoot?: string): void {
   storedConfig.storageRoot = storageRoot;
 }
 
+/**
+ * Get the storage root location for the current configuration.
+ * @returns the current storage root location
+ * @since 0.16
+ */
 function getStorageRoot(): string | undefined {
   return storedConfig.storageRoot;
 }
