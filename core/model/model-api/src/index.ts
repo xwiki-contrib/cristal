@@ -97,7 +97,7 @@ class AttachmentReference implements BaseEntityReference {
 }
 
 /**
- * @since 0.17
+ * @since 0.1
  */
 type EntityReference =
   | AttachmentReference
