@@ -5,9 +5,15 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from ".";
-import { Block, BlockStyles, InlineContent, Text, UniAst } from "../uniast/ast";
-import { ConverterContext } from "../uniast/interface";
 import { TableCell } from "@blocknote/core";
+import {
+  Block,
+  BlockStyles,
+  ConverterContext,
+  InlineContent,
+  Text,
+  UniAst,
+} from "@xwiki/cristal-uniast";
 
 export class UniAstToBlockNoteConverter {
   constructor(public context: ConverterContext) {}

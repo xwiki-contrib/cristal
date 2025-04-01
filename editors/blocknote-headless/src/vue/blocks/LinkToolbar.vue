@@ -32,6 +32,10 @@ defineProps<{
 
 <template>
   <div style="border: 1px solid black; padding: 5px; background-color: white">
+    <p>
+      Current link is: <strong>{{ linkToolbarProps.url }}</strong>
+    </p>
+
     <LinkSuggestion
       :link-edition-ctx
       @selected="({ url, title }) => linkToolbarProps.editLink(url, title)"

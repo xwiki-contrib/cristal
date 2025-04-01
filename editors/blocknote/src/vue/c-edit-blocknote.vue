@@ -31,16 +31,17 @@ import {
   BlocknoteRealtimeStatus,
 } from "@xwiki/cristal-editors-blocknote-headless";
 import { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
-import { ReactNonSlotProps } from "@xwiki/cristal-reactivue";
 import { CArticle } from "@xwiki/cristal-skin";
+import {
+  MarkdownToUniAstConverter,
+  UniAst,
+  createConverterContext,
+} from "@xwiki/cristal-uniast";
 import { debounce } from "lodash-es";
 import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
-import type {
-  BlockNoteViewWrapperProps,
-  EditorType,
-} from "@xwiki/cristal-editors-blocknote-headless";
+import type { EditorType } from "@xwiki/cristal-editors-blocknote-headless";
 
 const { t } = useI18n({
   messages,
@@ -71,8 +72,11 @@ const titlePlaceholder = modelReferenceHandler?.getTitle(
 
 const editor = shallowRef<EditorType | null>(null);
 
-const editorProps =
-  shallowRef<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(null);
+const editorProps = shallowRef<
+  InstanceType<typeof CBlockNoteView>["$props"]["editorProps"] | null
+>(null);
+
+const editorContent = shallowRef<UniAst | null>(null);
 
 const editorInstance =
   useTemplateRef<InstanceType<typeof CBlockNoteView>>("editorInstance");
@@ -92,15 +96,19 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   editorProps.value = {
     editorRef: editor,
     theme: "light",
-    // TODO: fix type for "currentPage.source"
-    content: [],
     formattingToolbarOnlyFor: [],
   };
+
+  const markdownConverter = new MarkdownToUniAstConverter(
+    createConverterContext(container),
+  );
+
+  editorContent.value = markdownConverter.parseMarkdown(currentPage.source);
 
   title.value = documentService.getTitle().value ?? "";
 }
 
-const view = () => {
+function view() {
   // Destroy the editor instance.
   // editor.value?.destroy();
   // Navigate to view mode.
@@ -110,25 +118,25 @@ const view = () => {
   };
 
   cristal?.getRouter().push(viewRouterParams);
-};
+}
 
-const submit = async () => {
+async function submit() {
   // Perform a last save before quitting.
   await save(await editorInstance.value!.getContent());
   view();
-};
+}
 
 watch(
   loading,
-  (newLoading) => {
-    if (!newLoading) {
+  (loading) => {
+    if (!loading) {
       loadEditor(currentPage.value);
     }
   },
   { immediate: true },
 );
 
-const save = async (content: string) => {
+async function save(content: string) {
   try {
     // TODO: html does not make any sense here.
     await storage.save(
@@ -149,7 +157,7 @@ const save = async (content: string) => {
     documentService.setCurrentDocument(currentPageName.value ?? "");
   }
   documentService.notifyDocumentChange("update", currentPageReference.value!);
-};
+}
 
 watch(
   title,
@@ -179,7 +187,7 @@ watch(
     </template>
     <template #default>
       <div class="doc-content">
-        <span v-if="!editorProps">Loading...</span>
+        <span v-if="!editorProps || !editorContent">Loading...</span>
         <span v-else-if="unknownSyntax">{{ unknownSyntax }}</span>
         <template v-else>
           <div class="editor-centerer">
@@ -187,6 +195,7 @@ watch(
               <CBlockNoteView
                 ref="editorInstance"
                 :editor-props
+                :editor-content
                 :container
                 :skin-manager
                 :realtime-server-u-r-l

@@ -21,6 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
+import { UniAstToBlockNoteConverter } from "../blocknote/parser";
 import { BlockNoteToUniAstConverter } from "../blocknote/serializer";
 import { AutoSaver } from "../components/autoSaver";
 import { computeCurrentUser } from "../components/currentUser";
@@ -30,8 +31,6 @@ import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
 } from "../react/BlockNoteView";
-import { ConverterContext } from "../uniast/interface";
-import { UniAstToMarkdownConverter } from "../uniast/markdown/serializer";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import {
   DocumentService,
@@ -41,6 +40,11 @@ import {
   ReactNonSlotProps,
   reactComponentAdapter,
 } from "@xwiki/cristal-reactivue";
+import {
+  UniAst,
+  UniAstToMarkdownConverter,
+  createConverterContext,
+} from "@xwiki/cristal-uniast";
 import { Container } from "inversify";
 
 import { debounce } from "lodash-es";
@@ -49,8 +53,15 @@ import { createI18n } from "vue-i18n";
 import type { SkinManager } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api/dist";
 
-const { editorProps, realtimeServerURL, container, skinManager } = defineProps<{
-  editorProps: ReactNonSlotProps<BlockNoteViewWrapperProps>;
+const {
+  editorProps,
+  editorContent: uniAst,
+  realtimeServerURL,
+  container,
+  skinManager,
+} = defineProps<{
+  editorProps: Omit<ReactNonSlotProps<BlockNoteViewWrapperProps>, "content">;
+  editorContent: UniAst;
   realtimeServerURL?: string;
   container: Container;
   skinManager: SkinManager;
@@ -154,21 +165,20 @@ const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteViewWrapper, {
 });
 
 const linkEditionCtx = createLinkEditionContext(container);
-
-const converterContext: ConverterContext = {
-  parseReferenceFromUrl: (url) =>
-    linkEditionCtx.remoteURLParser.parse(url) ?? null,
-
-  serializeReferenceToUrl: (reference) =>
-    linkEditionCtx.remoteURLSerializer.serialize(reference) ?? null,
-};
+const converterContext = createConverterContext(container);
 
 const blockNoteToUniAst = new BlockNoteToUniAstConverter(converterContext);
 const uniAstToMarkdown = new UniAstToMarkdownConverter();
+
+const uniAstToBlockNote = new UniAstToBlockNoteConverter(converterContext);
+
+const content = uniAstToBlockNote.uniAstToBlockNote(uniAst);
+
+console.log({ uniAst, content });
 </script>
 
 <template>
-  <BlockNoteViewAdapter v-bind="initializedEditorProps">
+  <BlockNoteViewAdapter v-bind="initializedEditorProps" :content>
     <!-- Custom (popover) formatting toolbar -->
     <template #formattingToolbar="{ editor, currentBlock }">
       <ImageToolbar

@@ -2611,6 +2611,28 @@ importers:
         specifier: 2.2.8
         version: 2.2.8(typescript@5.8.2)
 
+  core/uniast:
+    dependencies:
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../model/model-api
+      '@xwiki/cristal-model-reference-api':
+        specifier: workspace:*
+        version: link:../model/model-reference/model-reference-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../model/model-remote-url/model-remote-url-api
+      inversify:
+        specifier: 7.1.0
+        version: 7.1.0(reflect-metadata@0.2.2)
+      marked:
+        specifier: 15.0.7
+        version: 15.0.7
+    devDependencies:
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+
   core/user/user-ui:
     dependencies:
       '@xwiki/cristal-authentication-api':
@@ -2898,6 +2920,9 @@ importers:
       '@xwiki/cristal-skin':
         specifier: workspace:*
         version: link:../../skin
+      '@xwiki/cristal-uniast':
+        specifier: workspace:*
+        version: link:../../core/uniast
       inversify:
         specifier: 7.1.0
         version: 7.1.0(reflect-metadata@0.2.2)
@@ -2983,6 +3008,9 @@ importers:
       '@xwiki/cristal-reactivue':
         specifier: workspace:*
         version: link:../../core/reactivue
+      '@xwiki/cristal-uniast':
+        specifier: workspace:*
+        version: link:../../core/uniast
       eventemitter3:
         specifier: 5.0.1
         version: 5.0.1
@@ -2992,9 +3020,6 @@ importers:
       lodash-es:
         specifier: 4.17.21
         version: 4.17.21
-      marked:
-        specifier: 15.0.7
-        version: 15.0.7
       react:
         specifier: 19.0.0
         version: 19.0.0

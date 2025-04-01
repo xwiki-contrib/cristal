@@ -25,16 +25,16 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from ".";
+import { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
 import {
   Block,
   BlockStyles,
+  ConverterContext,
   InlineContent,
   TableCell,
   Text,
   UniAst,
-} from "../uniast/ast";
-import { ConverterContext } from "../uniast/interface";
-import { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
+} from "@xwiki/cristal-uniast";
 
 // TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
 
