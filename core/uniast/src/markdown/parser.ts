@@ -28,7 +28,7 @@ import {
   UniAst,
 } from "../ast";
 import { ConverterContext } from "../interface";
-import { assertInArray, assertUnreachable } from "../utils";
+import { assertInArray, assertUnreachable, tryFallible } from "../utils";
 import { Lexer, MarkedToken, Token } from "marked";
 
 /**
@@ -138,8 +138,8 @@ export class MarkdownToUniAstConverter {
       case "image": {
         // TODO: parse XWiki's specific internal images syntax
 
-        const reference = this.context.parseReference(
-          token.href.replace(/^mailto:/, ""),
+        const reference = tryFallible(() =>
+          this.context.parseReference(token.href.replace(/^mailto:/, "")),
         );
 
         // TODO: "token.text" property
@@ -297,8 +297,8 @@ export class MarkdownToUniAstConverter {
       case "link": {
         // TODO: parse XWiki's specific internal images syntax
 
-        const reference = this.context.parseReference(
-          token.href.replace(/^mailto:/, ""),
+        const reference = tryFallible(() =>
+          this.context.parseReference(token.href.replace(/^mailto:/, "")),
         );
 
         return [

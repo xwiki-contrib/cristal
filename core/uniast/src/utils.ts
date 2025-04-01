@@ -53,4 +53,18 @@ function assertInArray<T, U extends T>(
   return value as U;
 }
 
-export { assertInArray, assertUnreachable };
+/**
+ * Get a function's output or the error it thrown
+ *
+ * @since 0.16
+ */
+function tryFallible<T>(func: () => T): T | null {
+  try {
+    return func();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (e: unknown) {
+    return null;
+  }
+}
+
+export { assertInArray, assertUnreachable, tryFallible };
