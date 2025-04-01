@@ -19,18 +19,15 @@
  */
 
 /**
- * Convert a string to a color
+ * Convert a string to a color. * Similar to a hash, changing the input string slightly will result in a totally
+ * different color. Colors should be expected to be nice-looking and different enough from one another.
  *
- * Similar to a hash, changing the input string slightly will result in a totally different color
- *
- * Colors should be expected to be nice-looking and different enough from one another
- *
- * @since 0.16
- *
- * @param str - An input string (e.g. username, document title, etc.)
+ * @param str - An input string (e.g., username, document title, etc.)
  * @param prc - Optional lightness/darkness variation number
  *
  * @returns The generated color, in hexadecimal (e.g. `#789ABC`)
+ *
+ * @since 0.16
  */
 function stringToColor(str: string, prc?: number): string {
   // Check for optional lightness/darkness
@@ -63,39 +60,4 @@ function stringToColor(str: string, prc?: number): string {
   return `#${comp.toString(16).slice(1)}`;
 }
 
-/**
- * Ensure a statement is unreachable
- *
- * @param value -
- *
- * @since 0.16
- */
-function assertUnreachable(value: never): never {
-  console.error({ unreachable: value });
-  throw new Error("Reached a theorically unreachable statement");
-}
-
-/**
- * Assert that a value is in an array, and fix its type
- *
- * @since 0.16
- *
- * @param array -
- * @param value -
- * @param message -
- *
- * @returns -
- */
-function assertInArray<T, U extends T>(
-  value: T,
-  array: U[],
-  message: string,
-): U {
-  if (!array.includes(value as U)) {
-    throw new Error(message + ": " + value);
-  }
-
-  return value as U;
-}
-
-export { assertInArray, assertUnreachable, stringToColor };
+export { stringToColor };

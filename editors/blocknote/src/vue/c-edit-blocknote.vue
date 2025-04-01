@@ -187,8 +187,8 @@ watch(
     </template>
     <template #default>
       <div class="doc-content">
-        <span v-if="!editorProps || !editorContent">Loading...</span>
-        <span v-else-if="unknownSyntax">{{ unknownSyntax }}</span>
+        <span v-if="unknownSyntax">{{ unknownSyntax }}</span>
+        <span v-else-if="!editorProps || !editorContent">Loading...</span>
         <template v-else>
           <div class="editor-centerer">
             <div class="editor">

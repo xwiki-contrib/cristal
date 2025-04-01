@@ -21,13 +21,13 @@
 /**
  * Ensure a statement is unreachable
  *
- * @param value -
+ * @param value - the error value printed when this method is reached
  *
  * @since 0.16
  */
 function assertUnreachable(value: never): never {
   console.error({ unreachable: value });
-  throw new Error("Reached a theorically unreachable statement");
+  throw new Error("Reached a theoretically unreachable statement");
 }
 
 /**
@@ -35,9 +35,9 @@ function assertUnreachable(value: never): never {
  *
  * @since 0.16
  *
- * @param array -
- * @param value -
- * @param message -
+ * @param array - the array to check
+ * @param value - the value expected in the array
+ * @param message - a message displayed in case the value is not found in the array
  *
  * @returns -
  */

@@ -49,11 +49,11 @@ type ReactComponentAdapterOptions = {
 /**
  * Wrap a React component to render it as a Vue component
  *
- * @since 0.16
- *
  * @param Component - A React component
  * @param options - Options for the adapter
  * @returns A Vue component
+ *
+ * @since 0.16
  */
 function reactComponentAdapter<Props extends Record<string, unknown>>(
   Component: React.FC<Props>,
@@ -316,8 +316,8 @@ function createPropsAndSlotsMergerProxy<Props extends Record<string, unknown>>(
  *
  * This only renders the underlying component with the provided properties, nothing else
  *
- * @param param0 -
- * @returns
+ * @param props - the props of this component, a Component and the component's props
+ * @returns the instantiated component
  */
 function ReactIndirectionLayer<Props extends Record<string, unknown>>({
   Component,
@@ -345,18 +345,18 @@ type ReactIndirectionLayerProps<Props extends Record<string, unknown>> = {
   componentProps: Observable<Props>;
 };
 
-/**
- * Wrap a Vue component to render it inside React
- *
- * Note that this spawns an entire Vue application for every component
- *
- * @since 0.16
- *
- * @param param0 - The Vue component to render
- * @returns A wrapping React component
- */
 function VueComponentWrapper<Props extends Record<string, unknown>>({
   vueComponent,
+  /**
+   * Wrap a Vue component to render it inside React
+   *
+   * Note that this spawns an entire Vue application for every component
+   *
+   * @param param0 - The Vue component to render
+   * @returns A wrapping React component
+   *
+   * @since 0.16
+   */
   props,
   modifyVueApp,
 }: {
@@ -459,13 +459,14 @@ type VueIndirectionLayerState = {
 
 /**
  * Lightweight observable type
+ * @since 0.16
  */
 class Observable<T> {
   private readonly _listeners = new Array<(value: T) => void>();
 
   /**
    * Create a new observable value
-   * @param _value -
+   * @param _value - the value of the observable
    */
   constructor(private _value: T) {}
 
@@ -478,9 +479,8 @@ class Observable<T> {
   }
 
   /**
-   * Replace the observed value with another
-   * Will trigger all listeners
-   * @param value -
+   * Replaces the observed value with another value, and triggers all listeners.
+   * @param value - the new value of the observable
    */
   set(value: T): void {
     this._value = value;

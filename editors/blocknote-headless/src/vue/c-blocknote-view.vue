@@ -173,8 +173,6 @@ const uniAstToMarkdown = new UniAstToMarkdownConverter();
 const uniAstToBlockNote = new UniAstToBlockNoteConverter(converterContext);
 
 const content = uniAstToBlockNote.uniAstToBlockNote(uniAst);
-
-console.log({ uniAst, content });
 </script>
 
 <template>
