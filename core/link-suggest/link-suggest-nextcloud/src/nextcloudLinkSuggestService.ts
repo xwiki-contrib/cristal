@@ -18,11 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { PASSWORD, USERNAME } from "@xwiki/cristal-authentication-nextcloud";
 import { Link, LinkType } from "@xwiki/cristal-link-suggest-api";
 import { inject, injectable } from "inversify";
 import xmlescape from "xml-escape";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
 
 /**
@@ -30,19 +30,37 @@ import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
  */
 @injectable()
 export class NextcloudLinkSuggestService implements LinkSuggestService {
-  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
+  constructor(
+    @inject("CristalApp") private readonly cristalApp: CristalApp,
+    @inject("AuthenticationManagerProvider")
+    private authenticationManagerProvider: AuthenticationManagerProvider,
+  ) {}
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
   // eslint-disable-next-line max-statements
   async getLinks(query: string): Promise<Link[]> {
-    const baseRestURL = this.cristalApp
-      .getWikiConfig()
-      .baseRestURL.replace(/\/files$/, "");
+    const username = (
+      await this.authenticationManagerProvider.get()?.getUserDetails()
+    )?.username;
+    if (!username) {
+      console.error(
+        "Could not fetch links to suggest, the user is not properly logged-in.",
+      );
+      return [];
+    }
+
+    const config = this.cristalApp.getWikiConfig();
+    const storageRoot = (
+      config.storageRoot ?? `/files/${username}/.cristal`
+    ).replace("${username}", username);
+
     const options = {
       method: "SEARCH",
       headers: {
         "Content-Type": "text/xml",
-        ...this.getBaseHeaders(),
+        Authorization: (await this.authenticationManagerProvider
+          .get()!
+          .getAuthorizationHeader())!,
       },
       body: `<?xml version="1.0" encoding="UTF-8"?>
  <d:searchrequest xmlns:d="DAV:" xmlns:oc="http://owncloud.org/ns">
@@ -58,7 +76,7 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
          </d:select>
          <d:from>
              <d:scope>
-                 <d:href>/files/${USERNAME}/.cristal</d:href>
+                 <d:href>${storageRoot}</d:href>
                  <d:depth>infinity</d:depth>
              </d:scope>
          </d:from>
@@ -77,7 +95,7 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
 
     const attachmentsSegment = "/attachments/";
     try {
-      const response = await fetch(baseRestURL, options);
+      const response = await fetch(config.baseRestURL, options);
       const txt = await response.text();
       const xml = new window.DOMParser().parseFromString(txt, "text/xml");
       const responseNodes = xml.getElementsByTagName("d:response");
@@ -130,12 +148,5 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
       console.log(`Failed to search for link with query = [${query}]`, e);
       return [];
     }
-  }
-
-  private getBaseHeaders() {
-    // TODO: the authentication is currently hardcoded.
-    return {
-      Authorization: `Basic ${btoa(`${USERNAME}:${PASSWORD}`)}`,
-    };
   }
 }

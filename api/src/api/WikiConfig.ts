@@ -22,7 +22,38 @@ import { ConfigurationOptions } from "@xwiki/cristal-configuration-api";
 import type { Storage } from "./storage";
 
 export interface WikiConfig extends ConfigurationOptions {
+  name: string;
+  // The base url of the backend endpoint
+  baseURL: string;
+  // The rest base url of the backend endpoint
+  baseRestURL: string;
+  /**
+   * Realtime endpoint URL.
+   * Defaults to http://localhost:15681/collaboration when undefined.
+   * @since 0.11
+   */
+  realtimeURL?: string;
+  /**
+   * Authentication server base URL.
+   * @since 0.15
+   */
+  authenticationBaseURL?: string;
+  /**
+   * Authentication Manager component to use.
+   * By default, resolves to configuration type.
+   * @since 0.16
+   */
+  authenticationManager?: string;
+  homePage: string;
   storage: Storage;
+  serverRendering: boolean;
+  designSystem: string;
+  offline: boolean;
+  /**
+   * Root location to store pages.
+   * @since 0.16
+   */
+  storageRoot?: string;
 
   setConfig(
     name: string,

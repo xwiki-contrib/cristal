@@ -18,12 +18,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { PASSWORD, USERNAME } from "@xwiki/cristal-authentication-nextcloud";
-import { SpaceReference } from "@xwiki/cristal-model-api";
+import { SpaceReference, WikiReference } from "@xwiki/cristal-model-api";
 import { name as NavigationTreeSourceName } from "@xwiki/cristal-navigation-tree-api";
 import { getParentNodesIdFromPath } from "@xwiki/cristal-navigation-tree-default";
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
 import type {
   NavigationTreeNode,
@@ -43,6 +43,8 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
   constructor(
     @inject("Logger") logger: Logger,
     @inject("CristalApp") cristalApp: CristalApp,
+    @inject("AuthenticationManagerProvider")
+    private authenticationManagerProvider: AuthenticationManagerProvider,
   ) {
     this.logger = logger;
     this.logger.setModule(
@@ -67,7 +69,14 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
             currentPageData && currentPageData.name
               ? currentPageData.name
               : spaces[spaces.length - 1],
-          location: new SpaceReference(undefined, ...spaces),
+          location: new SpaceReference(
+            new WikiReference(
+              (
+                await this.authenticationManagerProvider.get()!.getUserDetails()
+              ).username!,
+            ),
+            ...spaces,
+          ),
           url: this.cristalApp.getRouter().resolve({
             name: "view",
             params: {
@@ -86,18 +95,30 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
   // eslint-disable-next-line max-statements
   private async getSubDirectories(directory: string): Promise<Array<string>> {
+    const username = (
+      await this.authenticationManagerProvider.get()?.getUserDetails()
+    )?.username;
+    if (!username) {
+      return [];
+    }
+
     const subdirectories: Array<string> = [];
     try {
-      const response = await fetch(
-        `${this.cristalApp.getWikiConfig().baseRestURL}/${USERNAME}/.cristal/${directory}`,
-        {
-          method: "PROPFIND",
-          headers: {
-            ...this.getBaseHeaders(),
-            Depth: "2",
-          },
-        },
+      const config = this.cristalApp.getWikiConfig();
+      const rootUrl = new URL(
+        `${config.baseRestURL}${
+          config.storageRoot ?? `/files/${username}/.cristal`
+        }`.replace("${username}", username),
       );
+      const response = await fetch(`${rootUrl}/${directory}`, {
+        method: "PROPFIND",
+        headers: {
+          Authorization: (await this.authenticationManagerProvider
+            .get()!
+            .getAuthorizationHeader())!,
+          Depth: "2",
+        },
+      });
 
       const text = await response.text();
       const data = new window.DOMParser().parseFromString(text, "text/xml");
@@ -108,12 +129,13 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
         if (response.getElementsByTagName("d:collection").length > 0) {
           const urlFragments = response
             .getElementsByTagName("d:href")[0]
-            .textContent!.split("/");
+            .textContent!.replace(rootUrl.pathname, "")
+            .split("/");
           const subdirectory = urlFragments[urlFragments.length - 2];
 
           // Remove attachments folders
           if (subdirectory !== "attachments") {
-            subdirectories.push(urlFragments.slice(6, -1).join("/"));
+            subdirectories.push(urlFragments.slice(1, -1).join("/"));
           }
         }
       }
@@ -127,13 +149,6 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
 
   getParentNodesId(page: DocumentReference): Array<string> {
     return getParentNodesIdFromPath(page);
-  }
-
-  private getBaseHeaders() {
-    // TODO: the authentication is currently hardcoded.
-    return {
-      Authorization: `Basic ${btoa(`${USERNAME}:${PASSWORD}`)}`,
-    };
   }
 }
 

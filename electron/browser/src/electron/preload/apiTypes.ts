@@ -20,4 +20,5 @@
 
 export interface APITypes {
   reloadBrowser(): void;
+  setStorageRoot(storageRoot?: string): void;
 }
