@@ -31,13 +31,14 @@ import {
   BlocknoteRealtimeStatus,
 } from "@xwiki/cristal-editors-blocknote-headless";
 import { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
+import { ReactNonSlotProps } from "@xwiki/cristal-reactivue";
 import { CArticle } from "@xwiki/cristal-skin";
 import { debounce } from "lodash-es";
 import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type {
-  BlocknoteEditorProps,
+  BlockNoteViewWrapperProps,
   EditorType,
 } from "@xwiki/cristal-editors-blocknote-headless";
 
@@ -61,7 +62,7 @@ const modelReferenceHandler = container
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
-const { realtimeURL } = cristal.getWikiConfig();
+const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
 
 const title = ref("");
 const titlePlaceholder = modelReferenceHandler?.getTitle(
@@ -70,7 +71,8 @@ const titlePlaceholder = modelReferenceHandler?.getTitle(
 
 const editor = shallowRef<EditorType | null>(null);
 
-const editorProps = shallowRef<BlocknoteEditorProps | null>(null);
+const editorProps =
+  shallowRef<ReactNonSlotProps<BlockNoteViewWrapperProps> | null>(null);
 
 const editorInstance =
   useTemplateRef<InstanceType<typeof CBlockNoteView>>("editorInstance");
@@ -91,8 +93,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     editorRef: editor,
     theme: "light",
     // TODO: fix type for "currentPage.source"
-    content: currentPage.source ?? "",
-    realtimeServerURL: realtimeURL,
+    content: [],
     formattingToolbarOnlyFor: [],
   };
 
@@ -178,7 +179,7 @@ watch(
     </template>
     <template #default>
       <div class="doc-content">
-        <span v-if="!editorProps && !unknownSyntax">Loading...</span>
+        <span v-if="!editorProps">Loading...</span>
         <span v-else-if="unknownSyntax">{{ unknownSyntax }}</span>
         <template v-else>
           <div class="editor-centerer">
@@ -188,6 +189,7 @@ watch(
                 :editor-props
                 :container
                 :skin-manager
+                :realtime-server-u-r-l
                 @blocknote-save="save"
               />
             </div>

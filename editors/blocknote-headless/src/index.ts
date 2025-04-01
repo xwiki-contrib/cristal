@@ -22,13 +22,11 @@ import BlocknoteEditorRealtimeUsers from "./vue/c-realtime-users.vue";
 import BlocknoteRealtimeStatus from "./vue/c-save-status.vue";
 import type { EditorType } from "./blocknote";
 import type { BlockNoteViewWrapperProps } from "./react/BlockNoteView";
-import type { ReactNonSlotProps } from "@xwiki/cristal-reactivue";
-
-type BlocknoteEditorProps = ReactNonSlotProps<BlockNoteViewWrapperProps>;
 
 export {
   BlocknoteEditor,
   BlocknoteEditorRealtimeUsers,
   BlocknoteRealtimeStatus,
 };
-export type { BlocknoteEditorProps, EditorType };
+
+export type { BlockNoteViewWrapperProps, EditorType };

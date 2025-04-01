@@ -29,8 +29,6 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote";
-import { uniAstToBlocks } from "../blocknote/parser";
-import { markdownToUniAst } from "../uniast/markdown/parser";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
@@ -64,9 +62,8 @@ type BlockNoteViewWrapperProps = {
   blockNoteOptions?: Partial<Omit<DefaultEditorOptionsType, "schema">>;
   theme?: "light" | "dark";
   readonly?: boolean;
-  content: string;
+  content: BlockType[];
   editorRef?: ShallowRef<EditorType | null>;
-  realtimeServerURL?: string;
 
   formattingToolbar: ReactivueChild<{
     editor: EditorType;
@@ -92,15 +89,13 @@ type BlockNoteViewWrapperProps = {
 /**
  * Load the provided content, parse it to Markdown and load it to the provided editor.
  * @param editor - the editor in which the parsed content will be loaded
- * @param content - the content to parse in Markdown before loading it in the editor
+ * @param blocks - the content to to load into the editor
  */
 async function parseAndLoadContent(
   // TODO: MaybeUninit<EditorType>
   editor: EditorType,
-  content: string,
+  blocks: BlockType[],
 ) {
-  const uniAst = markdownToUniAst(content);
-  const blocks = uniAstToBlocks(uniAst);
   editor.replaceBlocks(editor.document, blocks);
 }
 

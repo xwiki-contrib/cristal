@@ -21,7 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
-import { blocksToUniAst } from "../blocknote/serializer";
+import { BlockNoteToUniAstConverter } from "../blocknote/serializer";
 import { AutoSaver } from "../components/autoSaver";
 import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
@@ -30,7 +30,8 @@ import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
 } from "../react/BlockNoteView";
-import { uniAstToMarkdown } from "../uniast/markdown/serializer";
+import { ConverterContext } from "../uniast/interface";
+import { UniAstToMarkdownConverter } from "../uniast/markdown/serializer";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import {
   DocumentService,
@@ -48,8 +49,9 @@ import { createI18n } from "vue-i18n";
 import type { SkinManager } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api/dist";
 
-const { editorProps, container, skinManager } = defineProps<{
+const { editorProps, realtimeServerURL, container, skinManager } = defineProps<{
   editorProps: ReactNonSlotProps<BlockNoteViewWrapperProps>;
+  realtimeServerURL?: string;
   container: Container;
   skinManager: SkinManager;
 }>();
@@ -67,7 +69,8 @@ defineExpose({
 
 async function extractEditorContent() {
   const editor = editorProps.editorRef!.value!;
-  return uniAstToMarkdown(blocksToUniAst(editor.document));
+  const uniAst = blockNoteToUniAst.blocksToUniAst(editor.document);
+  return uniAstToMarkdown.toMarkdown(uniAst);
 }
 
 // eslint-disable-next-line max-statements
@@ -79,7 +82,7 @@ async function getRealtimeProvider(): Promise<
     .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
     .get()!;
 
-  if (!editorProps.realtimeServerURL) {
+  if (!realtimeServerURL) {
     return undefined;
   }
 
@@ -91,13 +94,14 @@ async function getRealtimeProvider(): Promise<
   }
 
   const provider = new HocuspocusProvider({
-    url: editorProps.realtimeServerURL,
+    url: realtimeServerURL,
     // we distinguish from sessions from other editors with a ':blocknote' suffix.
     name: `${documentReference}:blocknote`,
   });
 
   autoSaverRef.value = new AutoSaver(provider, async () => {
     const content = await extractEditorContent();
+
     if (content) {
       emit("blocknote-save", content);
     }
@@ -116,24 +120,22 @@ async function getRealtimeProvider(): Promise<
 
 const collaboration = await getRealtimeProvider();
 
-if (!editorProps.realtimeServerURL) {
-  if (editorProps.editorRef) {
-    watch(editorProps.editorRef, (editor) => {
-      if (editor) {
-        const debouncedSave = debounce(async () => {
-          const content = await extractEditorContent();
-          if (content) {
-            emit("blocknote-save", content);
-          }
-        }, 500);
+if (!realtimeServerURL && editorProps.editorRef) {
+  watch(editorProps.editorRef, (editor) => {
+    if (editor) {
+      const debouncedSave = debounce(async () => {
+        const content = await extractEditorContent();
+        if (content) {
+          emit("blocknote-save", content);
+        }
+      }, 500);
 
-        editor?.onChange(debouncedSave);
-      }
-    });
-  }
+      editor?.onChange(debouncedSave);
+    }
+  });
 }
 
-const editorPropsInitialized = {
+const initializedEditorProps = {
   ...editorProps,
   blockNoteOptions: {
     ...editorProps.blockNoteOptions,
@@ -152,10 +154,21 @@ const BlockNoteViewAdapter = reactComponentAdapter(BlockNoteViewWrapper, {
 });
 
 const linkEditionCtx = createLinkEditionContext(container);
+
+const converterContext: ConverterContext = {
+  parseReferenceFromUrl: (url) =>
+    linkEditionCtx.remoteURLParser.parse(url) ?? null,
+
+  serializeReferenceToUrl: (reference) =>
+    linkEditionCtx.remoteURLSerializer.serialize(reference) ?? null,
+};
+
+const blockNoteToUniAst = new BlockNoteToUniAstConverter(converterContext);
+const uniAstToMarkdown = new UniAstToMarkdownConverter();
 </script>
 
 <template>
-  <BlockNoteViewAdapter v-bind="editorPropsInitialized">
+  <BlockNoteViewAdapter v-bind="initializedEditorProps">
     <!-- Custom (popover) formatting toolbar -->
     <template #formattingToolbar="{ editor, currentBlock }">
       <ImageToolbar

@@ -33,308 +33,327 @@ import {
   Text,
   UniAst,
 } from "../uniast/ast";
+import { ConverterContext } from "../uniast/interface";
 import { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
 
 // TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
 
-export function blocksToUniAst(blocks: BlockType[]): UniAst {
-  return {
-    blocks: convertBlocks(blocks),
-  };
-}
+export class BlockNoteToUniAstConverter {
+  constructor(public context: ConverterContext) {}
 
-function convertBlocks(blocks: BlockType[]): Block[] {
-  return blocks.map((block, i) => convertBlock(block, blocks.slice(0, i)));
-}
+  blocksToUniAst(blocks: BlockType[]): UniAst {
+    return {
+      blocks: this.convertBlocks(blocks),
+    };
+  }
 
-// TODO: explain that previous blocks are required to compute number for contiguous numbered list items
-function convertBlock(block: BlockType, previousBlocks: BlockType[]): Block {
-  const dontExpectChildren = () => {
-    if (block.children.length > 0) {
-      console.error({ unexpextedChildrenInBlock: block });
-      throw new Error("Unexpected children in block");
-    }
-  };
+  private convertBlocks(blocks: BlockType[]): Block[] {
+    return blocks.map((block, i) =>
+      this.convertBlock(block, blocks.slice(0, i)),
+    );
+  }
 
-  switch (block.type) {
-    case "paragraph":
-      dontExpectChildren();
+  // TODO: explain that previous blocks are required to compute number for contiguous numbered list items
+  private convertBlock(block: BlockType, previousBlocks: BlockType[]): Block {
+    const dontExpectChildren = () => {
+      if (block.children.length > 0) {
+        console.error({ unexpextedChildrenInBlock: block });
+        throw new Error("Unexpected children in block");
+      }
+    };
 
-      return {
-        type: "paragraph",
-        content: block.content.map(convertInlineContent),
-        styles: convertBlockStyles(block.props),
-      };
+    switch (block.type) {
+      case "paragraph":
+        dontExpectChildren();
 
-    case "heading":
-      dontExpectChildren();
+        return {
+          type: "paragraph",
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          styles: this.convertBlockStyles(block.props),
+        };
 
-      return {
-        type: "heading",
-        level: block.props.level,
-        content: block.content.map(convertInlineContent),
-        styles: convertBlockStyles(block.props),
-      };
+      case "heading":
+        dontExpectChildren();
 
-    case "Heading4":
-      dontExpectChildren();
+        return {
+          type: "heading",
+          level: block.props.level,
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          styles: this.convertBlockStyles(block.props),
+        };
 
-      return {
-        type: "heading",
-        level: 4,
-        content: block.content.map(convertInlineContent),
-        styles: {}, // TODO
-      };
+      case "Heading4":
+        dontExpectChildren();
 
-    case "Heading5":
-      dontExpectChildren();
+        return {
+          type: "heading",
+          level: 4,
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          styles: {}, // TODO
+        };
 
-      return {
-        type: "heading",
-        level: 4,
-        content: block.content.map(convertInlineContent),
-        styles: {}, // TODO
-      };
+      case "Heading5":
+        dontExpectChildren();
 
-    case "Heading6":
-      dontExpectChildren();
+        return {
+          type: "heading",
+          level: 4,
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          styles: {}, // TODO
+        };
 
-      return {
-        type: "heading",
-        level: 4,
-        content: block.content.map(convertInlineContent),
-        styles: {}, // TODO
-      };
+      case "Heading6":
+        dontExpectChildren();
 
-    case "bulletListItem":
-      return {
-        type: "bulletListItem",
-        content: block.content.map(convertInlineContent),
-        subItems: convertBlocks(block.children).map((block) => {
-          if (
-            block.type !== "bulletListItem" &&
-            block.type !== "numberedListItem"
-          ) {
-            throw new Error(
-              "Unexpected child type in list item: " + block.type,
-            );
-          }
+        return {
+          type: "heading",
+          level: 4,
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          styles: {}, // TODO
+        };
 
-          return block;
-        }),
-        styles: convertBlockStyles(block.props),
-      };
-
-    case "numberedListItem":
-      return {
-        type: "numberedListItem",
-        number: computeNumberedListItemNum(block, previousBlocks),
-        content: block.content.map(convertInlineContent),
-        subItems: convertBlocks(block.children).map((block) => {
-          if (
-            block.type !== "bulletListItem" &&
-            block.type !== "numberedListItem"
-          ) {
-            throw new Error(
-              "Unexpected child type in list item: " + block.type,
-            );
-          }
-
-          return block;
-        }),
-        styles: convertBlockStyles(block.props),
-      };
-
-    case "checkListItem":
-      return {
-        type: "checkedListItem",
-        checked: block.props.checked,
-        content: block.content.map(convertInlineContent),
-        subItems: convertBlocks(block.children).map((block) => {
-          if (
-            block.type !== "bulletListItem" &&
-            block.type !== "numberedListItem"
-          ) {
-            throw new Error(
-              "Unexpected child type in list item: " + block.type,
-            );
-          }
-
-          return block;
-        }),
-        styles: convertBlockStyles(block.props),
-      };
-
-    case "codeBlock":
-      dontExpectChildren();
-
-      return {
-        type: "codeBlock",
-        content: block.content
-          .map((inline) => {
-            if (inline.type !== "text") {
+      case "bulletListItem":
+        return {
+          type: "bulletListItem",
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          subItems: this.convertBlocks(block.children).map((block) => {
+            if (
+              block.type !== "bulletListItem" &&
+              block.type !== "numberedListItem"
+            ) {
               throw new Error(
-                "Unexpected inline element type in code block: " + inline.type,
+                "Unexpected child type in list item: " + block.type,
               );
             }
 
-            return inline.text;
-          })
-          .join(""),
-        language: block.props.language,
-      };
+            return block;
+          }),
+          styles: this.convertBlockStyles(block.props),
+        };
 
-    case "BlockQuote":
-      dontExpectChildren();
+      case "numberedListItem":
+        return {
+          type: "numberedListItem",
+          number: this.computeNumberedListItemNum(block, previousBlocks),
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          subItems: this.convertBlocks(block.children).map((block) => {
+            if (
+              block.type !== "bulletListItem" &&
+              block.type !== "numberedListItem"
+            ) {
+              throw new Error(
+                "Unexpected child type in list item: " + block.type,
+              );
+            }
 
-      return {
-        type: "blockQuote",
-        content: [
-          {
-            type: "paragraph",
-            content: block.content.map(convertInlineContent),
-            styles: {},
+            return block;
+          }),
+          styles: this.convertBlockStyles(block.props),
+        };
+
+      case "checkListItem":
+        return {
+          type: "checkedListItem",
+          checked: block.props.checked,
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          subItems: this.convertBlocks(block.children).map((block) => {
+            if (
+              block.type !== "bulletListItem" &&
+              block.type !== "numberedListItem"
+            ) {
+              throw new Error(
+                "Unexpected child type in list item: " + block.type,
+              );
+            }
+
+            return block;
+          }),
+          styles: this.convertBlockStyles(block.props),
+        };
+
+      case "codeBlock":
+        dontExpectChildren();
+
+        return {
+          type: "codeBlock",
+          content: block.content
+            .map((inline) => {
+              if (inline.type !== "text") {
+                throw new Error(
+                  "Unexpected inline element type in code block: " +
+                    inline.type,
+                );
+              }
+
+              return inline.text;
+            })
+            .join(""),
+          language: block.props.language,
+        };
+
+      case "BlockQuote":
+        dontExpectChildren();
+
+        return {
+          type: "blockQuote",
+          content: [
+            {
+              type: "paragraph",
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              styles: {},
+            },
+          ],
+          styles: this.convertBlockStyles(block.props),
+        };
+
+      case "image":
+        dontExpectChildren();
+
+        return {
+          type: "image",
+          target: {
+            // TODO: support internal
+            type: "external",
+            url: block.props.url,
           },
-        ],
-        styles: convertBlockStyles(block.props),
-      };
+          caption: block.props.caption,
+          widthPx: block.props.previewWidth,
+          styles: { alignment: block.props.textAlignment },
+        };
 
-    case "image":
-      dontExpectChildren();
+      case "table": {
+        dontExpectChildren();
 
-      return {
-        type: "image",
-        target: {
-          // TODO: support internal
-          type: "external",
-          url: block.props.url,
-        },
-        caption: block.props.caption,
-        widthPx: block.props.previewWidth,
-        styles: { alignment: block.props.textAlignment },
-      };
+        const [header, ...rows] = block.content.rows;
 
-    case "table": {
-      dontExpectChildren();
-
-      const [header, ...rows] = block.content.rows;
-
-      return {
-        type: "table",
-        columns: header.cells.map((cell, i) => ({
-          headerCell: convertTableCell(cell),
-          widthPx: block.content.columnWidths[i],
-        })),
-        rows: rows.map((row) => row.cells.map(convertTableCell)),
-        styles: convertBlockStyles(block.props),
-      };
-    }
-
-    case "column":
-      // TODO
-      return {
-        type: "paragraph",
-        content: [],
-        styles: {},
-      };
-
-    case "columnList":
-      return {
-        type: "paragraph",
-        content: [],
-        styles: {},
-      };
-  }
-}
-
-// eslint-disable-next-line max-statements
-function computeNumberedListItemNum(
-  numberedListItem: Extract<BlockType, { type: "numberedListItem" }>,
-  previousBlocks: BlockType[],
-): number {
-  if (numberedListItem.props.start !== undefined) {
-    return numberedListItem.props.start;
-  }
-
-  let number = 1;
-
-  for (const block of previousBlocks.toReversed()) {
-    if (block.type !== "numberedListItem") {
-      break;
-    }
-
-    if (block.props.start !== undefined) {
-      number += block.props.start;
-      break;
-    }
-
-    number += 1;
-  }
-
-  return number;
-}
-
-function convertBlockStyles(styles: BlockStyles): BlockStyles {
-  // Remove unneeded properties
-  const { textAlignment, backgroundColor, textColor } = styles;
-  return { textAlignment, backgroundColor, textColor };
-}
-
-function convertTableCell(
-  cell:
-    | Array<EditorStyledText | EditorLink>
-    | BlockNoteTableCell<EditorInlineContentSchema, EditorStyleSchema>,
-): TableCell {
-  return Array.isArray(cell)
-    ? {
-        content: cell.map(convertInlineContent),
-        styles: {},
+        return {
+          type: "table",
+          columns: header.cells.map((cell, i) => ({
+            headerCell: this.convertTableCell(cell),
+            widthPx: block.content.columnWidths[i],
+          })),
+          rows: rows.map((row) =>
+            row.cells.map((item) => this.convertTableCell(item)),
+          ),
+          styles: this.convertBlockStyles(block.props),
+        };
       }
-    : {
-        content: cell.content.map(convertInlineContent),
-        styles: convertBlockStyles(cell.props),
-        colSpan: cell.props.colspan,
-        rowSpan: cell.props.rowspan,
-      };
-}
 
-function convertInlineContent(
-  inlineContent: EditorStyledText | Link<EditorStyleSchema>,
-): InlineContent {
-  switch (inlineContent.type) {
-    case "text":
-      return {
-        type: "text",
-        props: convertText(inlineContent),
-      };
+      case "column":
+        // TODO
+        return {
+          type: "paragraph",
+          content: [],
+          styles: {},
+        };
 
-    case "link":
-      return {
-        type: "link",
-        content: inlineContent.content.map(convertText),
-        target: {
-          // TODO: internal links
-          type: "external",
-          url: inlineContent.href,
-        },
-      };
+      case "columnList":
+        return {
+          type: "paragraph",
+          content: [],
+          styles: {},
+        };
+    }
   }
-}
 
-function convertText(text: EditorStyledText): Text {
-  const { bold, italic, underline, strike, code, backgroundColor, textColor } =
-    text.styles;
+  // eslint-disable-next-line max-statements
+  private computeNumberedListItemNum(
+    numberedListItem: Extract<BlockType, { type: "numberedListItem" }>,
+    previousBlocks: BlockType[],
+  ): number {
+    if (numberedListItem.props.start !== undefined) {
+      return numberedListItem.props.start;
+    }
 
-  return {
-    content: text.text,
-    styles: {
-      bold: bold ?? false,
-      italic: italic ?? false,
-      underline: underline ?? false,
-      strikethrough: strike ?? false,
-      code: code ?? false,
+    let number = 1;
+
+    for (const block of previousBlocks.toReversed()) {
+      if (block.type !== "numberedListItem") {
+        break;
+      }
+
+      if (block.props.start !== undefined) {
+        number += block.props.start;
+        break;
+      }
+
+      number += 1;
+    }
+
+    return number;
+  }
+
+  private convertBlockStyles(styles: BlockStyles): BlockStyles {
+    // Remove unneeded properties
+    const { textAlignment, backgroundColor, textColor } = styles;
+    return { textAlignment, backgroundColor, textColor };
+  }
+
+  private convertTableCell(
+    cell:
+      | Array<EditorStyledText | EditorLink>
+      | BlockNoteTableCell<EditorInlineContentSchema, EditorStyleSchema>,
+  ): TableCell {
+    return Array.isArray(cell)
+      ? {
+          content: cell.map((item) => this.convertInlineContent(item)),
+          styles: {},
+        }
+      : {
+          content: cell.content.map((item) => this.convertInlineContent(item)),
+          styles: this.convertBlockStyles(cell.props),
+          colSpan: cell.props.colspan,
+          rowSpan: cell.props.rowspan,
+        };
+  }
+
+  private convertInlineContent(
+    inlineContent: EditorStyledText | Link<EditorStyleSchema>,
+  ): InlineContent {
+    switch (inlineContent.type) {
+      case "text":
+        return {
+          type: "text",
+          props: this.convertText(inlineContent),
+        };
+
+      case "link":
+        return {
+          type: "link",
+          content: inlineContent.content.map((item) => this.convertText(item)),
+          target: {
+            // TODO: internal links
+            type: "external",
+            url: inlineContent.href,
+          },
+        };
+    }
+  }
+
+  private convertText(text: EditorStyledText): Text {
+    const {
+      bold,
+      italic,
+      underline,
+      strike,
+      code,
       backgroundColor,
       textColor,
-    },
-  };
+    } = text.styles;
+
+    return {
+      content: text.text,
+      styles: {
+        bold: bold ?? false,
+        italic: italic ?? false,
+        underline: underline ?? false,
+        strikethrough: strike ?? false,
+        code: code ?? false,
+        backgroundColor,
+        textColor,
+      },
+    };
+  }
 }

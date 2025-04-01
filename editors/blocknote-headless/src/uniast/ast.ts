@@ -18,6 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { EntityReference } from "@xwiki/cristal-model-api";
+
 type UniAst = { blocks: Block[] };
 
 type Block =
@@ -112,7 +114,7 @@ type TextStyles = {
 };
 
 type LinkTarget =
-  | { type: "internal"; reference: string }
+  | { type: "internal"; reference: EntityReference }
   | { type: "external"; url: string };
 
 export type {

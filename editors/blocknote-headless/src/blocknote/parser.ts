@@ -6,222 +6,249 @@ import {
   EditorStyledText,
 } from ".";
 import { Block, BlockStyles, InlineContent, Text, UniAst } from "../uniast/ast";
+import { ConverterContext } from "../uniast/interface";
 import { TableCell } from "@blocknote/core";
 
-export function uniAstToBlocks(uniAst: UniAst): BlockType[] {
-  return uniAst.blocks.map(convertBlock);
-}
+export class UniAstToBlockNoteConverter {
+  constructor(public context: ConverterContext) {}
 
-function convertBlock(block: Block): BlockType {
-  switch (block.type) {
-    case "paragraph":
-      return {
-        type: "paragraph",
-        id: genId(),
-        children: [],
-        content: block.content.map(convertInlineContent),
-        props: convertBlockStyles(block.styles),
-      };
+  uniAstToBlockNote(uniAst: UniAst): BlockType[] {
+    return uniAst.blocks.map((item) => this.convertBlock(item));
+  }
 
-    case "heading":
-      switch (block.level) {
-        case 1:
-        case 2:
-        case 3:
-          return {
-            type: "heading",
-            id: genId(),
-            children: [],
-            content: block.content.map(convertInlineContent),
-            props: { ...convertBlockStyles(block.styles), level: block.level },
-          };
+  private convertBlock(block: Block): BlockType {
+    switch (block.type) {
+      case "paragraph":
+        return {
+          type: "paragraph",
+          id: genId(),
+          children: [],
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          props: this.convertBlockStyles(block.styles),
+        };
 
-        case 4:
-          return {
-            type: "Heading4",
-            id: genId(),
-            children: [],
-            content: block.content.map(convertInlineContent),
-            props: convertBlockStyles(block.styles),
-          };
+      case "heading":
+        switch (block.level) {
+          case 1:
+          case 2:
+          case 3:
+            return {
+              type: "heading",
+              id: genId(),
+              children: [],
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              props: {
+                ...this.convertBlockStyles(block.styles),
+                level: block.level,
+              },
+            };
 
-        case 5:
-          return {
-            type: "Heading5",
-            id: genId(),
-            children: [],
-            content: block.content.map(convertInlineContent),
-            props: convertBlockStyles(block.styles),
-          };
+          case 4:
+            return {
+              type: "Heading4",
+              id: genId(),
+              children: [],
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              props: this.convertBlockStyles(block.styles),
+            };
 
-        case 6:
-          return {
-            type: "Heading6",
-            id: genId(),
-            children: [],
-            content: block.content.map(convertInlineContent),
-            props: convertBlockStyles(block.styles),
-          };
-      }
+          case 5:
+            return {
+              type: "Heading5",
+              id: genId(),
+              children: [],
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              props: this.convertBlockStyles(block.styles),
+            };
 
-      break;
+          case 6:
+            return {
+              type: "Heading6",
+              id: genId(),
+              children: [],
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              props: this.convertBlockStyles(block.styles),
+            };
+        }
 
-    case "blockQuote":
-      return {
-        type: "BlockQuote",
-        id: genId(),
-        children: [],
-        content: convertCustomBlockContent(block.content),
-        props: convertBlockStyles(block.styles),
-      };
+        break;
 
-    case "codeBlock":
-      return {
-        type: "codeBlock",
-        id: genId(),
-        children: [],
-        content: [
-          {
-            type: "text",
-            text: block.content,
-            styles: {},
+      case "blockQuote":
+        return {
+          type: "BlockQuote",
+          id: genId(),
+          children: [],
+          content: this.convertCustomBlockContent(block.content),
+          props: this.convertBlockStyles(block.styles),
+        };
+
+      case "codeBlock":
+        return {
+          type: "codeBlock",
+          id: genId(),
+          children: [],
+          content: [
+            {
+              type: "text",
+              text: block.content,
+              styles: {},
+            },
+          ],
+          props: {
+            language: block.language ?? "",
           },
-        ],
-        props: {
-          language: block.language ?? "",
-        },
-      };
+        };
 
-    case "bulletListItem":
-      return {
-        type: "bulletListItem",
-        id: genId(),
-        children: block.subItems.map(convertBlock),
-        content: block.content.map(convertInlineContent),
-        props: convertBlockStyles(block.styles),
-      };
+      case "bulletListItem":
+        return {
+          type: "bulletListItem",
+          id: genId(),
+          children: block.subItems.map((item) => this.convertBlock(item)),
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          props: this.convertBlockStyles(block.styles),
+        };
 
-    case "numberedListItem":
-      return {
-        type: "numberedListItem",
-        id: genId(),
-        children: block.subItems.map(convertBlock),
-        content: block.content.map(convertInlineContent),
-        props: {
-          ...convertBlockStyles(block.styles),
-          start: block.number,
-        },
-      };
+      case "numberedListItem":
+        return {
+          type: "numberedListItem",
+          id: genId(),
+          children: block.subItems.map((item) => this.convertBlock(item)),
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          props: {
+            ...this.convertBlockStyles(block.styles),
+            start: block.number,
+          },
+        };
 
-    case "checkedListItem":
-      return {
-        type: "checkListItem",
-        id: genId(),
-        children: block.subItems.map(convertBlock),
-        content: block.content.map(convertInlineContent),
-        props: { ...convertBlockStyles(block.styles), checked: block.checked },
-      };
+      case "checkedListItem":
+        return {
+          type: "checkListItem",
+          id: genId(),
+          children: block.subItems.map((item) => this.convertBlock(item)),
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          props: {
+            ...this.convertBlockStyles(block.styles),
+            checked: block.checked,
+          },
+        };
 
-    case "table":
-      return {
-        type: "table",
-        id: genId(),
-        content: {
-          type: "tableContent",
-          columnWidths: block.columns.map((col) => col.widthPx),
-          rows: block.rows.map((cells) => ({
-            cells: cells.map(
-              (cell) =>
-                ({
-                  type: "tableCell",
-                  content: cell.content.map(convertInlineContent),
-                  props: {
-                    ...convertBlockStyles(cell.styles),
-                    colspan: cell.colSpan,
-                    rowspan: cell.rowSpan,
-                  },
-                }) satisfies TableCell<
-                  EditorInlineContentSchema,
-                  EditorStyleSchema
-                >,
-            ),
-          })),
-        },
-        children: [],
-        props: convertBlockStyles(block.styles),
-      };
+      case "table":
+        return {
+          type: "table",
+          id: genId(),
+          content: {
+            type: "tableContent",
+            columnWidths: block.columns.map((col) => col.widthPx),
+            rows: block.rows.map((cells) => ({
+              cells: cells.map(
+                (cell) =>
+                  ({
+                    type: "tableCell",
+                    content: cell.content.map((item) =>
+                      this.convertInlineContent(item),
+                    ),
+                    props: {
+                      ...this.convertBlockStyles(cell.styles),
+                      colspan: cell.colSpan,
+                      rowspan: cell.rowSpan,
+                    },
+                  }) satisfies TableCell<
+                    EditorInlineContentSchema,
+                    EditorStyleSchema
+                  >,
+              ),
+            })),
+          },
+          children: [],
+          props: this.convertBlockStyles(block.styles),
+        };
 
-    case "image":
-      if (block.target.type !== "external") {
-        throw new Error("TODO: handle internal links");
-      }
+      case "image":
+        return {
+          type: "image",
+          id: genId(),
+          children: [],
+          content: undefined,
+          props: {
+            url:
+              block.target.type === "external"
+                ? block.target.url
+                : (this.context.serializeReferenceToUrl(
+                    block.target.reference,
+                  ) ??
+                  // TODO: proper error handling
+                  "about:blank"),
+            caption: block.caption ?? "",
+            showPreview: true,
+            previewWidth: block.widthPx ?? 0,
+            backgroundColor: "default",
+            textAlignment: block.styles.alignment ?? "left",
+            // TODO (?)
+            name: "",
+          },
+        };
 
-      return {
-        type: "image",
-        id: genId(),
-        children: [],
-        content: undefined,
-        props: {
-          url: block.target.url,
-          caption: block.caption ?? "",
-          showPreview: true,
-          previewWidth: block.widthPx ?? 0,
-          backgroundColor: "default",
-          textAlignment: block.styles.alignment ?? "left",
-          // TODO (?)
-          name: "",
-        },
-      };
-
-    case "macro":
-      throw new Error("TODO: macro");
-  }
-}
-
-function convertCustomBlockContent(
-  content: Block[],
-): Array<EditorStyledText | EditorLink> {
-  if (content.length > 1 || content[0].type !== "paragraph") {
-    throw new Error("Expected a single paragraph inside custom block");
+      case "macro":
+        throw new Error("TODO: macro");
+    }
   }
 
-  return content[0].content.map(convertInlineContent);
-}
+  private convertCustomBlockContent(
+    content: Block[],
+  ): Array<EditorStyledText | EditorLink> {
+    if (content.length > 1 || content[0].type !== "paragraph") {
+      throw new Error("Expected a single paragraph inside custom block");
+    }
 
-function convertBlockStyles(styles: BlockStyles) {
-  return {
-    backgroundColor: styles.backgroundColor ?? "default",
-    textColor: styles.textColor ?? "default",
-    textAlignment: styles.textAlignment ?? "left",
-  };
-}
-
-function convertInlineContent(
-  inlineContent: InlineContent,
-): EditorStyledText | EditorLink {
-  switch (inlineContent.type) {
-    case "text":
-      return convertText(inlineContent.props);
-
-    case "link":
-      if (inlineContent.target.type !== "external") {
-        throw new Error("TODO: handle internal links");
-      }
-
-      return {
-        type: "link",
-        content: inlineContent.content.map(convertText),
-        href: inlineContent.target.url,
-      };
+    return content[0].content.map((item) => this.convertInlineContent(item));
   }
-}
 
-function convertText(text: Text): EditorStyledText {
-  return {
-    type: "text",
-    text: text.content,
-    styles: text.styles,
-  };
+  private convertBlockStyles(styles: BlockStyles) {
+    return {
+      backgroundColor: styles.backgroundColor ?? "default",
+      textColor: styles.textColor ?? "default",
+      textAlignment: styles.textAlignment ?? "left",
+    };
+  }
+
+  private convertInlineContent(
+    inlineContent: InlineContent,
+  ): EditorStyledText | EditorLink {
+    switch (inlineContent.type) {
+      case "text":
+        return this.convertText(inlineContent.props);
+
+      case "link":
+        return {
+          type: "link",
+          content: inlineContent.content.map((item) => this.convertText(item)),
+          href:
+            inlineContent.target.type === "external"
+              ? inlineContent.target.url
+              : (this.context.serializeReferenceToUrl(
+                  inlineContent.target.reference,
+                ) ??
+                // TODO: proper error handling
+                "about:blank"),
+        };
+    }
+  }
+
+  private convertText(text: Text): EditorStyledText {
+    return {
+      type: "text",
+      text: text.content,
+      styles: text.styles,
+    };
+  }
 }
 
 function genId(): string {

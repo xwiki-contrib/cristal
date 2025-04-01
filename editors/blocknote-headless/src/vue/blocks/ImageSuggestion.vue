@@ -24,7 +24,7 @@ import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { Container } from "inversify";
 import { debounce } from "lodash-es";
-import { Ref, inject, ref, useTemplateRef, watch } from "vue";
+import { inject, ref, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AttachmentsService } from "@xwiki/cristal-attachments-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
@@ -69,9 +69,9 @@ const fileUpload = useTemplateRef<HTMLInputElement>("fileUpload");
 
 const imageNameQuery = defineModel<string>("imageNameQuery");
 
-const links: Ref<Link[]> = ref([]);
-const linksSearchError: Ref<string | undefined> = ref(undefined);
-const linksSearchLoading: Ref<boolean> = ref(false);
+const links = ref<Link[]>([]);
+const linksSearchError = ref<string | undefined>(undefined);
+const linksSearchLoading = ref(false);
 
 const linkSuggestServiceProvider = container.get<LinkSuggestServiceProvider>(
   "LinkSuggestServiceProvider",

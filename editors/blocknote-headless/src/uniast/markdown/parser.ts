@@ -8,267 +8,291 @@ import {
   TextStyles,
   UniAst,
 } from "../ast";
+import { ConverterContext } from "../interface";
 import { Lexer, MarkedToken, Token } from "marked";
 
-export function markdownToUniAst(markdown: string): UniAst {
-  const tokens = new Lexer().lex(markdown);
+export class MarkdownToUniAstConverter {
+  constructor(public context: ConverterContext) {}
 
-  return {
-    blocks: tokens.flatMap(tokenToBlock),
-  };
-}
+  parseMarkdown(markdown: string): UniAst {
+    const tokens = new Lexer().lex(markdown);
 
-function tokenToBlock(marked: Token): Block[] {
-  const token = marked as MarkedToken;
+    return {
+      blocks: tokens.flatMap(this.tokenToBlock),
+    };
+  }
 
-  switch (token.type) {
-    case "paragraph":
-      return [
-        {
-          type: "paragraph",
-          content: tokenChildrenToInline(token, {}),
-          styles: {},
-        },
-      ];
+  private tokenToBlock(marked: Token): Block[] {
+    const token = marked as MarkedToken;
 
-    case "heading":
-      return [
-        {
-          type: "heading",
-          level: assertInArray(
-            token.depth,
-            [1, 2, 3, 4, 5, 6] as const,
-            "Invalid heading depth in markdown parser",
-          ),
-          content: tokenChildrenToInline(token, {}),
-          styles: {},
-        },
-      ];
+    switch (token.type) {
+      case "paragraph":
+        return [
+          {
+            type: "paragraph",
+            content: this.tokenChildrenToInline(token, {}),
+            styles: {},
+          },
+        ];
 
-    case "blockquote":
-      return [
-        {
-          type: "blockQuote",
-          content: token.tokens.flatMap(tokenToBlock),
-          styles: {},
-        },
-      ];
+      case "heading":
+        return [
+          {
+            type: "heading",
+            level: assertInArray(
+              token.depth,
+              [1, 2, 3, 4, 5, 6] as const,
+              "Invalid heading depth in markdown parser",
+            ),
+            content: this.tokenChildrenToInline(token, {}),
+            styles: {},
+          },
+        ];
 
-    case "br":
-      // TODO
-      return [];
+      case "blockquote":
+        return [
+          {
+            type: "blockQuote",
+            content: token.tokens.flatMap(this.tokenToBlock),
+            styles: {},
+          },
+        ];
 
-    case "hr":
-      // TODO
-      return [];
+      case "br":
+        // TODO
+        return [];
 
-    case "list":
-      // TODO: "token.loose" property
-      return token.items.map((item, i) => listItemToBlock(item, i, token));
+      case "hr":
+        // TODO
+        return [];
 
-    case "list_item":
-      throw new Error('Unexpected "list_item" element in markdown parser');
+      case "list":
+        // TODO: "token.loose" property
+        return token.items.map((item, i) =>
+          this.listItemToBlock(item, i, token),
+        );
 
-    case "code":
-      // TODO: "token.escaped" property
-      // TODO: "token.codeBlockStyle" property
-      return [
-        {
-          type: "codeBlock",
-          content: token.text,
-          language: token.lang,
-        },
-      ];
+      case "list_item":
+        throw new Error('Unexpected "list_item" element in markdown parser');
 
-    case "table":
-      return [
-        {
-          type: "table",
-          columns: token.header.map<TableColumn>((cell) => ({
-            headerCell: {
-              content: tokenChildrenToInline(cell, {}),
-              styles: {
-                textAlignment: cell.align ?? undefined,
-              },
-            },
-          })),
-          rows: token.rows.map((row) =>
-            row.map<TableCell>((row) => ({
-              content: tokenChildrenToInline(row, {}),
-              styles: {
-                textAlignment: row.align ?? undefined,
+      case "code":
+        // TODO: "token.escaped" property
+        // TODO: "token.codeBlockStyle" property
+        return [
+          {
+            type: "codeBlock",
+            content: token.text,
+            language: token.lang,
+          },
+        ];
+
+      case "table":
+        return [
+          {
+            type: "table",
+            columns: token.header.map<TableColumn>((cell) => ({
+              headerCell: {
+                content: this.tokenChildrenToInline(cell, {}),
+                styles: {
+                  textAlignment: cell.align ?? undefined,
+                },
               },
             })),
-          ),
-          styles: {},
-        },
-      ];
-
-    case "image":
-      // TODO: "token.text" property
-      return [
-        {
-          type: "image",
-          // TODO: internal
-          target: {
-            type: "external",
-            url: token.href,
+            rows: token.rows.map((row) =>
+              row.map<TableCell>((row) => ({
+                content: this.tokenChildrenToInline(row, {}),
+                styles: {
+                  textAlignment: row.align ?? undefined,
+                },
+              })),
+            ),
+            styles: {},
           },
-          caption: token.title ?? undefined,
-          styles: {},
-        },
-      ];
+        ];
 
-    case "space":
-      return [];
+      case "image": {
+        // TODO: parse XWiki's specific internal images syntax
 
-    case "strong":
-    case "em":
-    case "del":
-    case "codespan":
-    case "text":
-    case "def":
-    case "html":
-    case "escape":
-    case "link":
-      throw new Error(
-        "Unexpected block type in markdown parser: " + token.type,
-      );
+        const reference = this.context.parseReferenceFromUrl(token.href);
 
-    default:
-      assertUnreachable(token);
-  }
-}
+        // TODO: "token.text" property
+        return [
+          {
+            type: "image",
+            target: reference
+              ? { type: "internal", reference }
+              : { type: "external", url: token.href },
+            caption: token.title ?? undefined,
+            styles: {},
+          },
+        ];
+      }
 
-// eslint-disable-next-line max-statements
-function listItemToBlock(
-  item: Extract<MarkedToken, { type: "list_item" }>,
-  itemIndex: number,
-  parentList: Extract<MarkedToken, { type: "list" }>,
-): ListItem {
-  let tokens: Token[];
-  let subItems: ListItem[];
+      case "space":
+        return [];
 
-  const lastItem = item.tokens[item.tokens.length - 1] as
-    | MarkedToken
-    | undefined;
+      // NOTE: These are handled in the `tokenToInline` function below
+      case "strong":
+      case "em":
+      case "del":
+      case "codespan":
+      case "text":
+      case "def":
+      case "html":
+      case "escape":
+      case "link":
+        throw new Error(
+          "Unexpected block type in markdown parser: " + token.type,
+        );
 
-  if (lastItem?.type === "list") {
-    tokens = item.tokens.slice(0, item.tokens.length - 1);
-    subItems = lastItem.items.map((item, i) =>
-      listItemToBlock(item, i, lastItem),
-    ); // TODO
-  } else {
-    tokens = item.tokens;
-    subItems = [];
+      default:
+        assertUnreachable(token);
+    }
   }
 
-  const content = tokenChildrenToInline({ tokens }, {});
+  // eslint-disable-next-line max-statements
+  private listItemToBlock(
+    item: Extract<MarkedToken, { type: "list_item" }>,
+    itemIndex: number,
+    parentList: Extract<MarkedToken, { type: "list" }>,
+  ): ListItem {
+    let tokens: Token[];
+    let subItems: ListItem[];
 
-  if (item.task) {
+    const lastItem = item.tokens[item.tokens.length - 1] as
+      | MarkedToken
+      | undefined;
+
+    if (lastItem?.type === "list") {
+      tokens = item.tokens.slice(0, item.tokens.length - 1);
+      subItems = lastItem.items.map((item, i) =>
+        this.listItemToBlock(item, i, lastItem),
+      ); // TODO
+    } else {
+      tokens = item.tokens;
+      subItems = [];
+    }
+
+    const content = this.tokenChildrenToInline({ tokens }, {});
+
+    if (item.task) {
+      return {
+        type: "checkedListItem",
+        checked: item.checked ?? false,
+        content,
+        subItems,
+        styles: {},
+      };
+    }
+
+    if (parentList.ordered) {
+      return {
+        type: "numberedListItem",
+        number: (parentList.start || 1) + itemIndex,
+        content,
+        subItems,
+        styles: {},
+      };
+    }
+
     return {
-      type: "checkedListItem",
-      checked: item.checked ?? false,
+      type: "bulletListItem",
       content,
       subItems,
       styles: {},
     };
   }
 
-  if (parentList.ordered) {
-    return {
-      type: "numberedListItem",
-      number: (parentList.start || 1) + itemIndex,
-      content,
-      subItems,
-      styles: {},
-    };
+  private tokenChildrenToInline(
+    token: { tokens?: Token[] },
+    styles: TextStyles,
+  ): InlineContent[] {
+    return (
+      token.tokens?.flatMap((child) => this.tokenToInline(child, styles)) ?? []
+    );
   }
 
-  return {
-    type: "bulletListItem",
-    content,
-    subItems,
-    styles: {},
-  };
-}
+  private tokenToInline(marked: Token, styles: TextStyles): InlineContent[] {
+    const token = marked as MarkedToken;
 
-function tokenChildrenToInline(
-  token: { tokens?: Token[] },
-  styles: TextStyles,
-): InlineContent[] {
-  return token.tokens?.flatMap((child) => tokenToInline(child, styles)) ?? [];
-}
+    switch (token.type) {
+      // NOTE: These blocks are handled in a function above
+      case "paragraph":
+      case "heading":
+      case "table":
+      case "blockquote":
+      case "br":
+      case "hr":
+      case "list":
+      case "list_item":
+      case "space":
+      case "code":
+      case "image":
+        console.error({ token });
+        throw new Error(
+          "Unexpected inline type in markdown parser: " + token.type,
+        );
 
-function tokenToInline(marked: Token, styles: TextStyles): InlineContent[] {
-  const token = marked as MarkedToken;
+      case "strong":
+        return this.tokenChildrenToInline(token, { ...styles, bold: true });
 
-  switch (token.type) {
-    case "paragraph":
-    case "heading":
-    case "table":
-    case "blockquote":
-    case "br":
-    case "hr":
-    case "list":
-    case "list_item":
-    case "space":
-    case "code":
-    case "image":
-      console.error({ token });
-      throw new Error(
-        "Unexpected inline type in markdown parser: " + token.type,
-      );
+      case "em":
+        return this.tokenChildrenToInline(token, { ...styles, italic: true });
 
-    case "strong":
-      return tokenChildrenToInline(token, { ...styles, bold: true });
+      case "del":
+        return this.tokenChildrenToInline(token, {
+          ...styles,
+          strikethrough: true,
+        });
 
-    case "em":
-      return tokenChildrenToInline(token, { ...styles, italic: true });
+      case "codespan":
+        return [
+          {
+            type: "text",
+            props: { content: token.text, styles: {} },
+          },
+        ];
 
-    case "del":
-      return tokenChildrenToInline(token, { ...styles, strikethrough: true });
+      case "text":
+        return token.tokens
+          ? this.tokenChildrenToInline(token, styles)
+          : [{ type: "text", props: { content: token.text, styles } }];
 
-    case "codespan":
-      return [
-        {
-          type: "text",
-          props: { content: token.text, styles: {} },
-        },
-      ];
+      case "def":
+        throw new Error("Unsupported inline element: <def>");
 
-    case "text":
-      return token.tokens
-        ? tokenChildrenToInline(token, styles)
-        : [{ type: "text", props: { content: token.text, styles } }];
+      case "html":
+        throw new Error("TODO: html");
 
-    case "def":
-      throw new Error("Unsupported inline element: <def>");
+      case "escape":
+        return [{ type: "text", props: { content: token.text, styles } }];
 
-    case "html":
-      throw new Error("TODO: html");
+      case "link": {
+        // TODO: parse XWiki's specific internal images syntax
 
-    case "escape":
-      return [{ type: "text", props: { content: token.text, styles } }];
+        const reference = this.context.parseReferenceFromUrl(token.href);
 
-    case "link":
-      return [
-        {
-          type: "link",
-          content: tokenChildrenToInline(token, styles).map((token) => {
-            if (token.type !== "text") {
-              throw new Error(
-                "Unexpected text span in link in markdown parser",
-              );
-            }
+        return [
+          {
+            type: "link",
+            content: this.tokenChildrenToInline(token, styles).map((token) => {
+              if (token.type !== "text") {
+                throw new Error(
+                  "Unexpected text span in link in markdown parser",
+                );
+              }
 
-            return token.props;
-          }),
-          target: { type: "external", url: token.href },
-        },
-      ];
+              return token.props;
+            }),
+            target: reference
+              ? { type: "internal", reference }
+              : { type: "external", url: token.href },
+          },
+        ];
+      }
 
-    default:
-      assertUnreachable(token);
+      default:
+        assertUnreachable(token);
+    }
   }
 }

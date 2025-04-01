@@ -27,136 +27,142 @@ import {
   UniAst,
 } from "../ast";
 
-export function uniAstToMarkdown(uniAst: UniAst): string {
-  const { blocks } = uniAst;
+export class UniAstToMarkdownConverter {
+  toMarkdown(uniAst: UniAst): string {
+    const { blocks } = uniAst;
 
-  const out: string[] = [];
+    const out: string[] = [];
 
-  for (let i = 0; i < blocks.length; i++) {
-    out.push(blockToMarkdown(blocks[i]));
-  }
-
-  return out.join("\n\n");
-}
-
-function blockToMarkdown(block: Block): string {
-  switch (block.type) {
-    case "paragraph":
-      return inlineContentsToMarkdown(block.content);
-
-    case "heading":
-      return `${"#".repeat(block.level)} ${inlineContentsToMarkdown(block.content)}`;
-
-    case "bulletListItem":
-      return `* ${listItemContentToMarkdown(block)}`;
-
-    case "numberedListItem": {
-      return `${block.number}. ${listItemContentToMarkdown(block)}`;
+    for (let i = 0; i < blocks.length; i++) {
+      out.push(this.blockToMarkdown(blocks[i]));
     }
 
-    case "checkedListItem":
-      return `* [${block.checked ? "x" : " "}] ${listItemContentToMarkdown(block)}`;
-
-    case "blockQuote":
-      return block.content
-        .map(blockToMarkdown)
-        .flatMap((item) => item.split("\n"))
-        .map((line) => `> ${line}`)
-        .join("\n");
-
-    case "codeBlock":
-      return `\`\`\`${block.language ?? ""}\n${block.content}\n\`\`\``;
-
-    case "table":
-      return tableToMarkdown(block);
-
-    case "image":
-      throw new Error("TODO: images");
-
-    case "macro":
-      throw new Error("TODO: macro");
-  }
-}
-
-function listItemContentToMarkdown(item: ListItem): string {
-  return (
-    inlineContentsToMarkdown(item.content) +
-    item.subItems
-      .map(blockToMarkdown)
-      .flatMap((item) => item.split("\n"))
-      .map((line) => "\n\t" + line)
-      .join("")
-  );
-}
-
-function tableToMarkdown(table: Extract<Block, { type: "table" }>): string {
-  const { columns, rows } = table;
-
-  const out = [
-    columns
-      .map((column) =>
-        column.headerCell ? tableCellToMarkdown(column.headerCell) : "",
-      )
-      .join(" | "),
-    columns.map(() => " - ").join(" | "),
-  ];
-
-  for (const cell of rows) {
-    out.push(cell.map(tableCellToMarkdown).join(" | "));
+    return out.join("\n\n");
   }
 
-  return out.map((line) => `| ${line} |`).join("\n");
-}
+  private blockToMarkdown(block: Block): string {
+    switch (block.type) {
+      case "paragraph":
+        return this.inlineContentsToMarkdown(block.content);
 
-function tableCellToMarkdown(cell: TableCell): string {
-  return inlineContentsToMarkdown(cell.content);
-}
+      case "heading":
+        return `${"#".repeat(block.level)} ${this.inlineContentsToMarkdown(block.content)}`;
 
-function inlineContentsToMarkdown(inlineContents: InlineContent[]): string {
-  return inlineContents.map(inlineContentToMarkdown).join("");
-}
+      case "bulletListItem":
+        return `* ${this.listItemContentToMarkdown(block)}`;
 
-function inlineContentToMarkdown(inlineContent: InlineContent): string {
-  switch (inlineContent.type) {
-    case "text":
-      return textToMarkdown(inlineContent.props);
-
-    case "link":
-      switch (inlineContent.target.type) {
-        case "external":
-          return `[${inlineContent.content.map(textToMarkdown).join("")}](${inlineContent.target.url})`;
-
-        case "internal":
-          throw new Error("TODO: internal links");
+      case "numberedListItem": {
+        return `${block.number}. ${this.listItemContentToMarkdown(block)}`;
       }
-  }
-}
 
-// eslint-disable-next-line max-statements
-function textToMarkdown(text: Text): string {
-  const { content, styles } = text;
+      case "checkedListItem":
+        return `* [${block.checked ? "x" : " "}] ${this.listItemContentToMarkdown(block)}`;
 
-  const { bold, italic, strikethrough, code } = styles;
+      case "blockQuote":
+        return block.content
+          .map((item) => this.blockToMarkdown(item))
+          .flatMap((item) => item.split("\n"))
+          .map((line) => `> ${line}`)
+          .join("\n");
 
-  const surroundings = [];
+      case "codeBlock":
+        return `\`\`\`${block.language ?? ""}\n${block.content}\n\`\`\``;
 
-  // Code must be first as it's going to be the most outer surrounding
-  // Otherwise other surroundings would be "trapped" inside the inline code content
-  if (code) {
-    surroundings.push("`");
-  }
+      case "table":
+        return this.tableToMarkdown(block);
 
-  if (strikethrough) {
-    surroundings.push("~~");
-  }
+      case "image":
+        return block.target.type === "external"
+          ? `![${block.caption}](${block.target.url})`
+          : `![[${block.caption}|${block.target.reference}]]`;
 
-  if (italic) {
-    surroundings.push("_");
-  }
-
-  if (bold) {
-    surroundings.push("**");
+      case "macro":
+        throw new Error("TODO: macro");
+    }
   }
 
-  return `${surroundings.join("")}${content}${surroundings.toReversed().join("")}`;
+  private listItemContentToMarkdown(item: ListItem): string {
+    return (
+      this.inlineContentsToMarkdown(item.content) +
+      item.subItems
+        .map((item) => this.blockToMarkdown(item))
+        .flatMap((item) => item.split("\n"))
+        .map((line) => "\n\t" + line)
+        .join("")
+    );
+  }
+
+  private tableToMarkdown(table: Extract<Block, { type: "table" }>): string {
+    const { columns, rows } = table;
+
+    const out = [
+      columns
+        .map((column) =>
+          column.headerCell ? this.tableCellToMarkdown(column.headerCell) : "",
+        )
+        .join(" | "),
+      columns.map(() => " - ").join(" | "),
+    ];
+
+    for (const cell of rows) {
+      out.push(cell.map((item) => this.tableCellToMarkdown(item)).join(" | "));
+    }
+
+    return out.map((line) => `| ${line} |`).join("\n");
+  }
+
+  private tableCellToMarkdown(cell: TableCell): string {
+    return this.inlineContentsToMarkdown(cell.content);
+  }
+
+  private inlineContentsToMarkdown(inlineContents: InlineContent[]): string {
+    return inlineContents
+      .map((item) => this.inlineContentToMarkdown(item))
+      .join("");
+  }
+
+  private inlineContentToMarkdown(inlineContent: InlineContent): string {
+    switch (inlineContent.type) {
+      case "text":
+        return this.textToMarkdown(inlineContent.props);
+
+      case "link":
+        switch (inlineContent.target.type) {
+          case "external":
+            return `[${inlineContent.content.map((item) => this.textToMarkdown(item)).join("")}](${inlineContent.target.url})`;
+
+          case "internal":
+            return `[[${inlineContent.content.map((item) => this.textToMarkdown(item)).join("")}|${inlineContent.target.reference}]]`;
+        }
+    }
+  }
+
+  // eslint-disable-next-line max-statements
+  private textToMarkdown(text: Text): string {
+    const { content, styles } = text;
+
+    const { bold, italic, strikethrough, code } = styles;
+
+    const surroundings = [];
+
+    // Code must be first as it's going to be the most outer surrounding
+    // Otherwise other surroundings would be "trapped" inside the inline code content
+    if (code) {
+      surroundings.push("`");
+    }
+
+    if (strikethrough) {
+      surroundings.push("~~");
+    }
+
+    if (italic) {
+      surroundings.push("_");
+    }
+
+    if (bold) {
+      surroundings.push("**");
+    }
+
+    return `${surroundings.join("")}${content}${surroundings.toReversed().join("")}`;
+  }
 }
