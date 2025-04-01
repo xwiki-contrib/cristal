@@ -54,9 +54,13 @@ function assertInArray<T, U extends T>(
 }
 
 /**
- * Get a function's output or the error it thrown
+ * Get a function's output or `null` if thrown an error
  *
  * @since 0.16
+ *
+ * @param func - The function to try
+ *
+ * @returns -
  */
 function tryFallible<T>(func: () => T): T | null {
   try {
