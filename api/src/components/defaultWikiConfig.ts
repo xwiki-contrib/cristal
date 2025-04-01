@@ -37,6 +37,7 @@ type ConfigObjectType = {
   authenticationBaseURL?: string;
   authenticationManager?: string;
   storageRoot?: string;
+  editor?: string;
 };
 
 @injectable()
@@ -122,11 +123,6 @@ export class DefaultWikiConfig implements WikiConfig {
       authenticationManager?: string;
       storageRoot?: string;
     },
-    editor: string,
-    optional?: {
-      realtimeURL?: string;
-      authenticationBaseURL?: string;
-    },
   ): void {
     Object.assign<WikiConfig, ConfigObjectType>(this, {
       name,
@@ -136,14 +132,13 @@ export class DefaultWikiConfig implements WikiConfig {
       serverRendering,
       designSystem,
       offline,
-      editor
+      editor,
       ...optional,
     });
   }
 
   setConfigFromObject(configObject: ConfigObjectType): void {
     Object.assign<WikiConfig, ConfigObjectType>(this, configObject);
-    this.editor = configObject.editor;
   }
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.

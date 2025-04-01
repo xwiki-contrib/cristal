@@ -20,8 +20,14 @@
 
 import { EntityReference } from "@xwiki/cristal-model-api";
 
+/**
+ * @since 0.16
+ */
 type UniAst = { blocks: Block[] };
 
+/**
+ * @since 0.16
+ */
 type Block =
   | { type: "paragraph"; styles: BlockStyles; content: InlineContent[] }
   | {
@@ -72,21 +78,36 @@ type Block =
       props: Record<string, boolean | number | string>;
     };
 
+/**
+ * @since 0.16
+ */
 type ListItem = Extract<
   Block,
   { type: "bulletListItem" | "numberedListItem" | "checkedListItem" }
 >;
 
+/**
+ * @since 0.16
+ */
 type BlockStyles = {
   textColor?: string;
   backgroundColor?: string;
   textAlignment?: Alignment;
 };
 
+/**
+ * @since 0.16
+ */
 type Alignment = "left" | "center" | "right" | "justify";
 
+/**
+ * @since 0.16
+ */
 type TableColumn = { headerCell?: TableCell; widthPx?: number };
 
+/**
+ * @since 0.16
+ */
 type TableCell = {
   content: InlineContent[];
   styles: BlockStyles;
@@ -94,15 +115,24 @@ type TableCell = {
   colSpan?: number;
 };
 
+/**
+ * @since 0.16
+ */
 type InlineContent =
   | { type: "text"; props: Text }
   | { type: "link"; target: LinkTarget; content: Text[] };
 
+/**
+ * @since 0.16
+ */
 type Text = {
   content: string;
   styles: TextStyles;
 };
 
+/**
+ * @since 0.16
+ */
 type TextStyles = {
   bold?: boolean;
   italic?: boolean;
@@ -113,6 +143,9 @@ type TextStyles = {
   backgroundColor?: string;
 };
 
+/**
+ * @since 0.16
+ */
 type LinkTarget =
   | { type: "internal"; reference: EntityReference }
   | { type: "external"; url: string };

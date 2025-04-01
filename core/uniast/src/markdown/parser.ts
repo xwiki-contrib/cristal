@@ -31,6 +31,11 @@ import { ConverterContext } from "../interface";
 import { assertInArray, assertUnreachable } from "../utils";
 import { Lexer, MarkedToken, Token } from "marked";
 
+/**
+ * Convert Markdown string to a Universal AST.
+ *
+ * @since 0.16
+ */
 export class MarkdownToUniAstConverter {
   constructor(public context: ConverterContext) {}
 

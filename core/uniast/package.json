@@ -18,11 +18,9 @@
   },
   "main": "./src/index.ts",
   "scripts": {
-    "build": "pnpm compile",
+    "build": "tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
-    "compile": "tsc",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
-    "prepack": "pnpm build",
     "test": "vitest --run"
   },
   "types": "dist/index.d.ts",
@@ -32,6 +30,11 @@
     "@xwiki/cristal-model-remote-url-api": "workspace:*",
     "inversify": "7.1.0",
     "marked": "15.0.7"
+  },
+  "devDependencies": {
+    "@xwiki/cristal-dev-config": "workspace:*",
+    "typescript": "5.8.2",
+    "vite": "6.2.2"
   },
   "publishConfig": {
     "exports": {
@@ -43,8 +46,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "devDependencies": {
-    "typescript": "5.8.2"
   }
 }

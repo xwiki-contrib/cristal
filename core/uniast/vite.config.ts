@@ -18,30 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Primitive } from "utility-types";
+import { generateConfig } from "../../vite.config";
 
-/**
- * A single configuration entry.
- *
- * @since 0.14
- */
-type Configuration = {
-  configType: string;
-  [key: string]: Primitive;
-};
-
-/**
- * The set of available configurations.
- *
- * @since 0.14
- */
-type Configurations = { [key: string]: Configuration };
-
-/**
- * Signature of the configuration loader.
- *
- * @since 0.14
- */
-type ConfigurationLoader = () => Promise<Configurations>;
-
-export type { Configuration, ConfigurationLoader, Configurations };
+export default generateConfig(import.meta.url);

@@ -18,10 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ConfigurationOptions } from "@xwiki/cristal-configuration-api";
 import type { Storage } from "./storage";
 
-export interface WikiConfig extends ConfigurationOptions {
+export interface WikiConfig {
   name: string;
   // The base url of the backend endpoint
   baseURL: string;
@@ -54,6 +53,12 @@ export interface WikiConfig extends ConfigurationOptions {
    * @since 0.16
    */
   storageRoot?: string;
+  /**
+   * The (optional) type of the editor. The default is "tiptap".
+   *
+   * @since 0.16
+   */
+  editor?: string;
 
   setConfig(
     name: string,

@@ -15,6 +15,11 @@ import {
   UniAst,
 } from "@xwiki/cristal-uniast";
 
+/**
+ * Converts the Universal AS to the internal format of Blocknote.
+ *
+ * @since 0.16
+ */
 export class UniAstToBlockNoteConverter {
   constructor(public context: ConverterContext) {}
 

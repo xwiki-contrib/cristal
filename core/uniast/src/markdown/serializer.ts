@@ -27,6 +27,11 @@ import {
   UniAst,
 } from "../ast";
 
+/**
+ * Converts Universal AST trees to markdown.
+ *
+ * @since 0.16
+ */
 export class UniAstToMarkdownConverter {
   toMarkdown(uniAst: UniAst): string {
     const { blocks } = uniAst;

@@ -38,6 +38,10 @@ import {
 
 // TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
 
+/**
+ * Convert the internal format of Blocknote to the Universal AST.
+ * @since 0.16
+ */
 export class BlockNoteToUniAstConverter {
   constructor(public context: ConverterContext) {}
 
