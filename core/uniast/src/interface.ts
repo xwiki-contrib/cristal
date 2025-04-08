@@ -17,18 +17,72 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { EntityReference } from "@xwiki/cristal-model-api";
+import { tryFallible } from "./utils";
+import { EntityReference, EntityType } from "@xwiki/cristal-model-api";
 import {
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
+import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import { Container } from "inversify";
 
+/**
+ * Set of tools used by converters
+ *
+ * @since 0.16
+ */
 export type ConverterContext = {
-  parseReference: (reference: string) => EntityReference | null;
-  serializeReferenceToUrl: (reference: EntityReference) => string;
+  /**
+   * Try to parse a reference from a string
+   * This function must **NOT** throw
+   *
+   * @since 0.16
+   *
+   * @param reference -
+   * @param type -
+   *
+   * @returns - The entity reference or `null` if the input as invalid. Must be serializable with `serializeReferenceToUrl`
+   */
+  parseReference(
+    reference: string,
+    type: EntityType | null,
+  ): EntityReference | null;
+
+  /**
+   * Serialize a reference to a string
+   * This function must **NOT** throw
+   *
+   * @since 0.17
+   *
+   * @param reference -
+   *
+   * @returns - The serialized reference. Must be parsable with `parseReference`
+   */
+  serializeReference(reference: EntityReference): string;
+
+  /**
+   * Get the URL a reference is pointing to
+   * This function must **NOT** throw
+   *
+   * @since 0.17
+   *
+   * @param reference -
+   *
+   * @returns - The URL for the reference
+   */
+  getUrlFromReference(reference: EntityReference): string;
 };
 
+/**
+ * @since 0.16
+ *
+ * Automatically create a converter context from a container
+ * This works by extracting the required providers from the container
+ *
+ * @param container - Cristal application's Inversify container
+ *
+ * @returns -
+ */
 export function createConverterContext(container: Container): ConverterContext {
   const modelReferenceParser = container
     .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
@@ -38,10 +92,20 @@ export function createConverterContext(container: Container): ConverterContext {
     .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")
     .get()!;
 
-  return {
-    parseReference: (reference) => modelReferenceParser.parse(reference),
+  const remoteURLSerializer = container
+    .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
+    .get()!;
 
-    serializeReferenceToUrl: (reference) =>
+  return {
+    parseReference: (reference, type) =>
+      tryFallible(() =>
+        modelReferenceParser.parse(reference, type ?? undefined),
+      ),
+
+    serializeReference: (reference) =>
       modelReferenceSerializer.serialize(reference)!,
+
+    getUrlFromReference: (reference) =>
+      remoteURLSerializer.serialize(reference)!,
   };
 }

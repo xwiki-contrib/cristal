@@ -10,8 +10,8 @@ import {
   Block,
   BlockStyles,
   ConverterContext,
+  Image,
   InlineContent,
-  Text,
   UniAst,
 } from "@xwiki/cristal-uniast";
 
@@ -30,6 +30,10 @@ export class UniAstToBlockNoteConverter {
   private convertBlock(block: Block): BlockType {
     switch (block.type) {
       case "paragraph":
+        if (block.content.length === 1 && block.content[0].type === "image") {
+          return this.convertImage(block.content[0]);
+        }
+
         return {
           type: "paragraph",
           id: genId(),
@@ -118,38 +122,51 @@ export class UniAstToBlockNoteConverter {
           },
         };
 
-      case "bulletListItem":
-        return {
-          type: "bulletListItem",
-          id: genId(),
-          children: block.subItems.map((item) => this.convertBlock(item)),
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          props: this.convertBlockStyles(block.styles),
-        };
+      case "listItem": {
+        const [paragraph, ...remaining] = block.content;
 
-      case "numberedListItem":
-        return {
-          type: "numberedListItem",
-          id: genId(),
-          children: block.subItems.map((item) => this.convertBlock(item)),
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          props: {
-            ...this.convertBlockStyles(block.styles),
-            start: block.number,
-          },
-        };
+        if (paragraph.type !== "paragraph") {
+          throw new Error("First content in list item must be a paragraph");
+        }
 
-      case "checkedListItem":
-        return {
-          type: "checkListItem",
-          id: genId(),
-          children: block.subItems.map((item) => this.convertBlock(item)),
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          props: {
-            ...this.convertBlockStyles(block.styles),
-            checked: block.checked,
-          },
-        };
+        if (block.checked !== undefined) {
+          return {
+            type: "checkListItem",
+            id: genId(),
+            children: remaining.map((item) => this.convertBlock(item)),
+            content: paragraph.content.map((item) =>
+              this.convertInlineContent(item),
+            ),
+            props: {
+              ...this.convertBlockStyles(block.styles),
+              checked: block.checked,
+            },
+          };
+        } else if (block.number !== undefined) {
+          return {
+            type: "numberedListItem",
+            id: genId(),
+            children: remaining.map((item) => this.convertBlock(item)),
+            content: paragraph.content.map((item) =>
+              this.convertInlineContent(item),
+            ),
+            props: {
+              ...this.convertBlockStyles(block.styles),
+              start: block.number,
+            },
+          };
+        } else {
+          return {
+            type: "bulletListItem",
+            id: genId(),
+            children: remaining.map((item) => this.convertBlock(item)),
+            content: paragraph.content.map((item) =>
+              this.convertInlineContent(item),
+            ),
+            props: this.convertBlockStyles(block.styles),
+          };
+        }
+      }
 
       case "table":
         return {
@@ -160,21 +177,19 @@ export class UniAstToBlockNoteConverter {
             columnWidths: block.columns.map((col) => col.widthPx),
             rows: block.rows.map((cells) => ({
               cells: cells.map(
-                (cell) =>
-                  ({
-                    type: "tableCell",
-                    content: cell.content.map((item) =>
-                      this.convertInlineContent(item),
-                    ),
-                    props: {
-                      ...this.convertBlockStyles(cell.styles),
-                      colspan: cell.colSpan,
-                      rowspan: cell.rowSpan,
-                    },
-                  }) satisfies TableCell<
-                    EditorInlineContentSchema,
-                    EditorStyleSchema
-                  >,
+                (
+                  cell,
+                ): TableCell<EditorInlineContentSchema, EditorStyleSchema> => ({
+                  type: "tableCell",
+                  content: cell.content.map((item) =>
+                    this.convertInlineContent(item),
+                  ),
+                  props: {
+                    ...this.convertBlockStyles(cell.styles),
+                    colspan: cell.colSpan,
+                    rowspan: cell.rowSpan,
+                  },
+                }),
               ),
             })),
           },
@@ -183,29 +198,10 @@ export class UniAstToBlockNoteConverter {
         };
 
       case "image":
-        return {
-          type: "image",
-          id: genId(),
-          children: [],
-          content: undefined,
-          props: {
-            url:
-              block.target.type === "external"
-                ? block.target.url
-                : (this.context.serializeReferenceToUrl(
-                    block.target.reference,
-                  ) ??
-                  // TODO: proper error handling
-                  "about:blank"),
-            caption: block.caption ?? "",
-            showPreview: true,
-            previewWidth: block.widthPx ?? 0,
-            backgroundColor: "default",
-            textAlignment: block.styles.alignment ?? "left",
-            // TODO (?)
-            name: "",
-          },
-        };
+        return this.convertImage(block);
+
+      case "break":
+        throw new Error("TODO: break");
 
       case "macro":
         throw new Error("TODO: macro");
@@ -230,35 +226,69 @@ export class UniAstToBlockNoteConverter {
     };
   }
 
+  private convertImage(image: Image): BlockType {
+    const url =
+      image.target.type === "external"
+        ? image.target.url
+        : this.context.getUrlFromReference(image.target.reference);
+
+    return {
+      type: "image",
+      id: genId(),
+      children: [],
+      content: undefined,
+      props: {
+        url,
+        caption: image.caption ?? "",
+        showPreview: true,
+        // NOTE: 512 is the default width applied by BlockNote when inserting images in the editor
+        //       or when converting from Markdown / HTML
+        previewWidth: image.widthPx ?? 512,
+        backgroundColor: "default",
+        textAlignment: image.styles.alignment ?? "left",
+        // TODO (?)
+        name: "",
+      },
+    };
+  }
+
   private convertInlineContent(
     inlineContent: InlineContent,
   ): EditorStyledText | EditorLink {
     switch (inlineContent.type) {
       case "text":
-        return this.convertText(inlineContent.props);
+        return {
+          type: "text",
+          text: inlineContent.content,
+          styles: inlineContent.styles,
+        };
 
-      case "link":
+      case "link": {
+        const href =
+          inlineContent.target.type === "external"
+            ? inlineContent.target.url
+            : this.context.getUrlFromReference(inlineContent.target.reference);
+
         return {
           type: "link",
-          content: inlineContent.content.map((item) => this.convertText(item)),
-          href:
-            inlineContent.target.type === "external"
-              ? inlineContent.target.url
-              : (this.context.serializeReferenceToUrl(
-                  inlineContent.target.reference,
-                ) ??
-                // TODO: proper error handling
-                "about:blank"),
-        };
-    }
-  }
+          content: inlineContent.content.map((item) => {
+            const converted = this.convertInlineContent(item);
 
-  private convertText(text: Text): EditorStyledText {
-    return {
-      type: "text",
-      text: text.content,
-      styles: text.styles,
-    };
+            if (converted.type !== "text") {
+              throw new Error(
+                "Only inline texts are supported inside links in BlockNote",
+              );
+            }
+
+            return converted;
+          }),
+          href,
+        };
+      }
+
+      case "image":
+        throw new Error("Inline images are currently unsupported in blocknote");
+    }
   }
 }
 

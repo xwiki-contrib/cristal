@@ -32,7 +32,6 @@ import {
   ConverterContext,
   InlineContent,
   TableCell,
-  Text,
   UniAst,
 } from "@xwiki/cristal-uniast";
 
@@ -118,60 +117,54 @@ export class BlockNoteToUniAstConverter {
 
       case "bulletListItem":
         return {
-          type: "bulletListItem",
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          subItems: this.convertBlocks(block.children).map((block) => {
-            if (
-              block.type !== "bulletListItem" &&
-              block.type !== "numberedListItem"
-            ) {
-              throw new Error(
-                "Unexpected child type in list item: " + block.type,
-              );
-            }
-
-            return block;
-          }),
+          type: "listItem",
+          content: [
+            // TODO: change when nested blocks are supported in blocknote
+            {
+              type: "paragraph",
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              styles: {},
+            },
+            ...this.convertBlocks(block.children),
+          ],
           styles: this.convertBlockStyles(block.props),
         };
 
       case "numberedListItem":
         return {
-          type: "numberedListItem",
+          type: "listItem",
           number: this.computeNumberedListItemNum(block, previousBlocks),
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          subItems: this.convertBlocks(block.children).map((block) => {
-            if (
-              block.type !== "bulletListItem" &&
-              block.type !== "numberedListItem"
-            ) {
-              throw new Error(
-                "Unexpected child type in list item: " + block.type,
-              );
-            }
-
-            return block;
-          }),
+          content: [
+            // TODO: change when nested blocks are supported in blocknote
+            {
+              type: "paragraph",
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              styles: {},
+            },
+            ...this.convertBlocks(block.children),
+          ],
           styles: this.convertBlockStyles(block.props),
         };
 
       case "checkListItem":
         return {
-          type: "checkedListItem",
+          type: "listItem",
           checked: block.props.checked,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          subItems: this.convertBlocks(block.children).map((block) => {
-            if (
-              block.type !== "bulletListItem" &&
-              block.type !== "numberedListItem"
-            ) {
-              throw new Error(
-                "Unexpected child type in list item: " + block.type,
-              );
-            }
-
-            return block;
-          }),
+          content: [
+            // TODO: change when nested blocks are supported in blocknote
+            {
+              type: "paragraph",
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              styles: {},
+            },
+            ...this.convertBlocks(block.children),
+          ],
           styles: this.convertBlockStyles(block.props),
         };
 
@@ -254,6 +247,7 @@ export class BlockNoteToUniAstConverter {
         };
 
       case "columnList":
+        // TODO
         return {
           type: "paragraph",
           content: [],
@@ -317,16 +311,44 @@ export class BlockNoteToUniAstConverter {
     inlineContent: EditorStyledText | Link<EditorStyleSchema>,
   ): InlineContent {
     switch (inlineContent.type) {
-      case "text":
+      case "text": {
+        const {
+          bold,
+          italic,
+          underline,
+          strike,
+          code,
+          backgroundColor,
+          textColor,
+        } = inlineContent.styles;
+
         return {
           type: "text",
-          props: this.convertText(inlineContent),
+          content: inlineContent.text,
+          styles: {
+            bold: bold ?? false,
+            italic: italic ?? false,
+            underline: underline ?? false,
+            strikethrough: strike ?? false,
+            code: code ?? false,
+            backgroundColor,
+            textColor,
+          },
         };
+      }
 
       case "link":
         return {
           type: "link",
-          content: inlineContent.content.map((item) => this.convertText(item)),
+          content: inlineContent.content.map((item) => {
+            const converted = this.convertInlineContent(item);
+
+            if (converted.type === "link") {
+              throw new Error("Nested links are not supported");
+            }
+
+            return converted;
+          }),
           target: {
             // TODO: internal links
             type: "external",
@@ -334,30 +356,5 @@ export class BlockNoteToUniAstConverter {
           },
         };
     }
-  }
-
-  private convertText(text: EditorStyledText): Text {
-    const {
-      bold,
-      italic,
-      underline,
-      strike,
-      code,
-      backgroundColor,
-      textColor,
-    } = text.styles;
-
-    return {
-      content: text.text,
-      styles: {
-        bold: bold ?? false,
-        italic: italic ?? false,
-        underline: underline ?? false,
-        strikethrough: strike ?? false,
-        code: code ?? false,
-        backgroundColor,
-        textColor,
-      },
-    };
   }
 }

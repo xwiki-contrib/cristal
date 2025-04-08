@@ -37,23 +37,10 @@ type Block =
       styles: BlockStyles;
     }
   | {
-      type: "bulletListItem";
-      content: InlineContent[];
-      subItems: ListItem[];
-      styles: BlockStyles;
-    }
-  | {
-      type: "numberedListItem";
-      number: number;
-      content: InlineContent[];
-      subItems: ListItem[];
-      styles: BlockStyles;
-    }
-  | {
-      type: "checkedListItem";
-      checked: boolean;
-      content: InlineContent[];
-      subItems: ListItem[];
+      type: "listItem";
+      number?: number;
+      checked?: boolean;
+      content: Block[];
       styles: BlockStyles;
     }
   | { type: "blockQuote"; content: Block[]; styles: BlockStyles }
@@ -64,27 +51,15 @@ type Block =
       rows: TableCell[][];
       styles: BlockStyles;
     }
-  | {
+  | ({
       type: "image";
-      caption?: string;
-      widthPx?: number;
-      heightPx?: number;
-      target: LinkTarget;
-      styles: { alignment?: Alignment };
-    }
+    } & Image)
+  | { type: "break" }
   | {
       type: "macro";
       name: string;
       props: Record<string, boolean | number | string>;
     };
-
-/**
- * @since 0.16
- */
-type ListItem = Extract<
-  Block,
-  { type: "bulletListItem" | "numberedListItem" | "checkedListItem" }
->;
 
 /**
  * @since 0.16
@@ -99,6 +74,18 @@ type BlockStyles = {
  * @since 0.16
  */
 type Alignment = "left" | "center" | "right" | "justify";
+
+/**
+ * @since 0.17
+ */
+type Image = {
+  target: LinkTarget;
+  caption?: string;
+  alt?: string;
+  widthPx?: number;
+  heightPx?: number;
+  styles: { alignment?: Alignment };
+};
 
 /**
  * @since 0.16
@@ -119,8 +106,13 @@ type TableCell = {
  * @since 0.16
  */
 type InlineContent =
-  | { type: "text"; props: Text }
-  | { type: "link"; target: LinkTarget; content: Text[] };
+  | ({ type: "text" } & Text)
+  | ({ type: "image" } & Image)
+  | {
+      type: "link";
+      target: LinkTarget;
+      content: Exclude<InlineContent, { type: "link" }>[];
+    };
 
 /**
  * @since 0.16
@@ -154,9 +146,9 @@ export type {
   Alignment,
   Block,
   BlockStyles,
+  Image,
   InlineContent,
   LinkTarget,
-  ListItem,
   TableCell,
   TableColumn,
   Text,

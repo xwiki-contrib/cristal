@@ -21,5 +21,5 @@
 // TODO: don't do barrel files!
 export * from "./ast";
 export * from "./interface";
-export * from "./markdown/parser";
-export * from "./markdown/serializer";
+export * from "./markdown/md-to-uniast";
+export * from "./markdown/uniast-to-md";

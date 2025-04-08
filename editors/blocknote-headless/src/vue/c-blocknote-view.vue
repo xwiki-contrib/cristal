@@ -21,8 +21,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
-import { UniAstToBlockNoteConverter } from "../blocknote/parser";
-import { BlockNoteToUniAstConverter } from "../blocknote/serializer";
+import { BlockNoteToUniAstConverter } from "../blocknote/bn-to-uniast";
+import { UniAstToBlockNoteConverter } from "../blocknote/uniast-to-bn";
 import { AutoSaver } from "../components/autoSaver";
 import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";

@@ -162,7 +162,9 @@ async function save(content: string) {
 watch(
   title,
   debounce(async () => {
-    save(await editorInstance.value!.getContent());
+    if (editorInstance.value) {
+      save(await editorInstance.value.getContent());
+    }
   }, 500),
 );
 </script>

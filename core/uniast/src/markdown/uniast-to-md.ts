@@ -18,14 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import {
-  Block,
-  InlineContent,
-  ListItem,
-  TableCell,
-  Text,
-  UniAst,
-} from "../ast";
+import { Block, Image, InlineContent, TableCell, Text, UniAst } from "../ast";
 
 /**
  * Converts Universal AST trees to markdown.
@@ -48,20 +41,24 @@ export class UniAstToMarkdownConverter {
   private blockToMarkdown(block: Block): string {
     switch (block.type) {
       case "paragraph":
-        return this.inlineContentsToMarkdown(block.content);
+        return this.convertInlineContents(block.content);
 
       case "heading":
-        return `${"#".repeat(block.level)} ${this.inlineContentsToMarkdown(block.content)}`;
+        return `${"#".repeat(block.level)} ${this.convertInlineContents(block.content)}`;
 
-      case "bulletListItem":
-        return `* ${this.listItemContentToMarkdown(block)}`;
+      case "listItem": {
+        const prefix = block.number !== undefined ? `${block.number}.` : "*";
 
-      case "numberedListItem": {
-        return `${block.number}. ${this.listItemContentToMarkdown(block)}`;
+        const checked =
+          block.checked !== undefined ? ` [${block.checked ? "x" : " "}]` : "";
+
+        const content = block.content
+          .flatMap((item) => this.blockToMarkdown(item).split("\n"))
+          .map((line) => "  " + line)
+          .join("\n");
+
+        return `${prefix}${checked} ${content}`;
       }
-
-      case "checkedListItem":
-        return `* [${block.checked ? "x" : " "}] ${this.listItemContentToMarkdown(block)}`;
 
       case "blockQuote":
         return block.content
@@ -81,20 +78,19 @@ export class UniAstToMarkdownConverter {
           ? `![${block.caption}](${block.target.url})`
           : `![[${block.caption}|${block.target.reference}]]`;
 
+      case "break":
+        return "---";
+
       case "macro":
         throw new Error("TODO: macro");
     }
   }
 
-  private listItemContentToMarkdown(item: ListItem): string {
-    return (
-      this.inlineContentsToMarkdown(item.content) +
-      item.subItems
-        .map((item) => this.blockToMarkdown(item))
-        .flatMap((item) => item.split("\n"))
-        .map((line) => "\n\t" + line)
-        .join("")
-    );
+  private convertImage(image: Image): string {
+    // TODO: alt text
+    return image.target.type === "external"
+      ? `![${image.caption}](${image.target.url})`
+      : `![[${image.caption}|${image.target.reference}]]`;
   }
 
   private tableToMarkdown(table: Extract<Block, { type: "table" }>): string {
@@ -103,47 +99,50 @@ export class UniAstToMarkdownConverter {
     const out = [
       columns
         .map((column) =>
-          column.headerCell ? this.tableCellToMarkdown(column.headerCell) : "",
+          column.headerCell ? this.convertTableCell(column.headerCell) : "",
         )
         .join(" | "),
       columns.map(() => " - ").join(" | "),
     ];
 
     for (const cell of rows) {
-      out.push(cell.map((item) => this.tableCellToMarkdown(item)).join(" | "));
+      out.push(cell.map((item) => this.convertTableCell(item)).join(" | "));
     }
 
     return out.map((line) => `| ${line} |`).join("\n");
   }
 
-  private tableCellToMarkdown(cell: TableCell): string {
-    return this.inlineContentsToMarkdown(cell.content);
+  private convertTableCell(cell: TableCell): string {
+    return this.convertInlineContents(cell.content);
   }
 
-  private inlineContentsToMarkdown(inlineContents: InlineContent[]): string {
+  private convertInlineContents(inlineContents: InlineContent[]): string {
     return inlineContents
-      .map((item) => this.inlineContentToMarkdown(item))
+      .map((item) => this.convertInlineContent(item))
       .join("");
   }
 
-  private inlineContentToMarkdown(inlineContent: InlineContent): string {
+  private convertInlineContent(inlineContent: InlineContent): string {
     switch (inlineContent.type) {
       case "text":
-        return this.textToMarkdown(inlineContent.props);
+        return this.convertText(inlineContent);
+
+      case "image":
+        return this.convertImage(inlineContent);
 
       case "link":
         switch (inlineContent.target.type) {
           case "external":
-            return `[${inlineContent.content.map((item) => this.textToMarkdown(item)).join("")}](${inlineContent.target.url})`;
+            return `[${this.convertInlineContents(inlineContent.content)}](${inlineContent.target.url})`;
 
           case "internal":
-            return `[[${inlineContent.content.map((item) => this.textToMarkdown(item)).join("")}|${inlineContent.target.reference}]]`;
+            return `[[${this.convertInlineContents(inlineContent.content)}|${inlineContent.target.reference}]]`;
         }
     }
   }
 
   // eslint-disable-next-line max-statements
-  private textToMarkdown(text: Text): string {
+  private convertText(text: Text): string {
     const { content, styles } = text;
 
     const { bold, italic, strikethrough, code } = styles;
