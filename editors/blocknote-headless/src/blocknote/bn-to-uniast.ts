@@ -31,6 +31,7 @@ import {
   BlockStyles,
   ConverterContext,
   InlineContent,
+  LinkTarget,
   TableCell,
   UniAst,
 } from "@xwiki/cristal-uniast";
@@ -210,11 +211,7 @@ export class BlockNoteToUniAstConverter {
 
         return {
           type: "image",
-          target: {
-            // TODO: support internal
-            type: "external",
-            url: block.props.url,
-          },
+          target: this.parseTarget(block.props.url),
           caption: block.props.caption,
           widthPx: block.props.previewWidth,
           styles: { alignment: block.props.textAlignment },
@@ -349,12 +346,16 @@ export class BlockNoteToUniAstConverter {
 
             return converted;
           }),
-          target: {
-            // TODO: internal links
-            type: "external",
-            url: inlineContent.href,
-          },
+          target: this.parseTarget(inlineContent.href),
         };
     }
+  }
+
+  private parseTarget(url: string): LinkTarget {
+    const reference = this.context.parseReferenceFromUrl(url);
+
+    return reference
+      ? { type: "internal", reference }
+      : { type: "external", url };
   }
 }

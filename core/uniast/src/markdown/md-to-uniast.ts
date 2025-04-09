@@ -57,12 +57,7 @@ export class MarkdownToUniAstConverter {
    * @returns -
    */
   parseMarkdown(markdown: string): UniAst {
-    // TODO: parse XWiki's specific internal images syntax
-    // TODO: parse XWiki's specific internal links syntax
     // TODO: auto-links (URLs + emails)
-
-    markdown =
-      "some super test@**m*a*il**.c*o*m address\n[[type the link label|doc:TestPage2]]\n\n![[XWikiLogo.png|XWikiLogo.png]]\n\nRemaining!";
 
     const ast = unified()
       .use(remarkParse)
@@ -377,9 +372,10 @@ export class MarkdownToUniAstConverter {
       previousMatch = i + 1;
 
       const caption = substr.substring(0, pipeCharPos);
+      const targetStr = substr.substring(pipeCharPos + 1);
 
       const reference = this.context.parseReference(
-        substr.substring(pipeCharPos + 1),
+        targetStr,
         isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT,
       );
 
@@ -388,7 +384,9 @@ export class MarkdownToUniAstConverter {
           ? { type: "internal", reference }
           : {
               type: "external",
-              url: "about:blank:invalid_reference",
+              // NOTE: If reference is invalid, fall back to a URL
+              // Probably not the best way to do it
+              url: targetStr,
             };
 
       out.push(

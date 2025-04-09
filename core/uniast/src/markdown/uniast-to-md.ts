@@ -19,6 +19,7 @@
  */
 
 import { Block, Image, InlineContent, TableCell, Text, UniAst } from "../ast";
+import { ConverterContext } from "../interface";
 
 /**
  * Converts Universal AST trees to markdown.
@@ -26,6 +27,8 @@ import { Block, Image, InlineContent, TableCell, Text, UniAst } from "../ast";
  * @since 0.16
  */
 export class UniAstToMarkdownConverter {
+  constructor(public context: ConverterContext) {}
+
   toMarkdown(uniAst: UniAst): string {
     const { blocks } = uniAst;
 
@@ -74,9 +77,7 @@ export class UniAstToMarkdownConverter {
         return this.tableToMarkdown(block);
 
       case "image":
-        return block.target.type === "external"
-          ? `![${block.caption}](${block.target.url})`
-          : `![[${block.caption}|${block.target.reference}]]`;
+        return this.convertImage(block);
 
       case "break":
         return "---";
@@ -90,7 +91,7 @@ export class UniAstToMarkdownConverter {
     // TODO: alt text
     return image.target.type === "external"
       ? `![${image.caption}](${image.target.url})`
-      : `![[${image.caption}|${image.target.reference}]]`;
+      : `![[${image.caption}|${this.context.serializeReference(image.target.reference)}]]`;
   }
 
   private tableToMarkdown(table: Extract<Block, { type: "table" }>): string {
@@ -136,7 +137,7 @@ export class UniAstToMarkdownConverter {
             return `[${this.convertInlineContents(inlineContent.content)}](${inlineContent.target.url})`;
 
           case "internal":
-            return `[[${this.convertInlineContents(inlineContent.content)}|${inlineContent.target.reference}]]`;
+            return `[[${this.convertInlineContents(inlineContent.content)}|${this.context.serializeReference(inlineContent.target.reference)}]]`;
         }
     }
   }

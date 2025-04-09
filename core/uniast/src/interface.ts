@@ -23,7 +23,10 @@ import {
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
-import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+import {
+  RemoteURLParserProvider,
+  RemoteURLSerializerProvider,
+} from "@xwiki/cristal-model-remote-url-api";
 import { Container } from "inversify";
 
 /**
@@ -41,7 +44,7 @@ export type ConverterContext = {
    * @param reference -
    * @param type -
    *
-   * @returns - The entity reference or `null` if the input as invalid. Must be serializable with `serializeReferenceToUrl`
+   * @returns - The entity reference or `null` if the input as invalid. Must be inversible with `serializeReference`
    */
   parseReference(
     reference: string,
@@ -56,9 +59,21 @@ export type ConverterContext = {
    *
    * @param reference -
    *
-   * @returns - The serialized reference. Must be parsable with `parseReference`
+   * @returns - The serialized reference. Must be inversible with `parseReference`
    */
   serializeReference(reference: EntityReference): string;
+
+  /**
+   * Parse the URL of a reference to that reference
+   * This function must **NOT** throw
+   *
+   * @since 0.17
+   *
+   * @param url -
+   *
+   * @returns - The reference or `null` if the input is invalid. Must be inversable with `getUrlFromReference`
+   */
+  parseReferenceFromUrl(url: string): EntityReference | null;
 
   /**
    * Get the URL a reference is pointing to
@@ -68,7 +83,7 @@ export type ConverterContext = {
    *
    * @param reference -
    *
-   * @returns - The URL for the reference
+   * @returns - The URL for the reference. Must be inversible with `getReferenceFromUrl`
    */
   getUrlFromReference(reference: EntityReference): string;
 };
@@ -92,6 +107,10 @@ export function createConverterContext(container: Container): ConverterContext {
     .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")
     .get()!;
 
+  const remoteURLParser = container
+    .get<RemoteURLParserProvider>("RemoteURLParserProvider")
+    .get()!;
+
   const remoteURLSerializer = container
     .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
     .get()!;
@@ -104,6 +123,8 @@ export function createConverterContext(container: Container): ConverterContext {
 
     serializeReference: (reference) =>
       modelReferenceSerializer.serialize(reference)!,
+
+    parseReferenceFromUrl: (url) => remoteURLParser.parse(url) ?? null,
 
     getUrlFromReference: (reference) =>
       remoteURLSerializer.serialize(reference)!,

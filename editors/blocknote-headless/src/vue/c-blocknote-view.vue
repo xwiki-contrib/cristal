@@ -168,7 +168,7 @@ const linkEditionCtx = createLinkEditionContext(container);
 const converterContext = createConverterContext(container);
 
 const blockNoteToUniAst = new BlockNoteToUniAstConverter(converterContext);
-const uniAstToMarkdown = new UniAstToMarkdownConverter();
+const uniAstToMarkdown = new UniAstToMarkdownConverter(converterContext);
 
 const uniAstToBlockNote = new UniAstToBlockNoteConverter(converterContext);
 
