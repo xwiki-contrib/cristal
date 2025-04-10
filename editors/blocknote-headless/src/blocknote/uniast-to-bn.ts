@@ -247,7 +247,7 @@ export class UniAstToBlockNoteConverter {
         backgroundColor: "default",
         textAlignment: image.styles.alignment ?? "left",
         // TODO (?)
-        name: "",
+        name: image.alt ?? "",
       },
     };
   }

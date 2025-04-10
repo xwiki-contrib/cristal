@@ -20,6 +20,7 @@
 import { tryFallible } from "./utils";
 import { EntityReference, EntityType } from "@xwiki/cristal-model-api";
 import {
+  ModelReferenceHandlerProvider,
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
@@ -86,6 +87,18 @@ export type ConverterContext = {
    * @returns - The URL for the reference. Must be inversible with `getReferenceFromUrl`
    */
   getUrlFromReference(reference: EntityReference): string;
+
+  /**
+   * Get the display name of a reference
+   * This function must **NOT** throw
+   *
+   * @since 0.17
+   *
+   * @param reference -
+   *
+   * @returns - The display name for this reference
+   */
+  getDisplayName(reference: EntityReference): string;
 };
 
 /**
@@ -115,6 +128,10 @@ export function createConverterContext(container: Container): ConverterContext {
     .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
     .get()!;
 
+  const modelReferenceHandler = container
+    .get<ModelReferenceHandlerProvider>("ModelReferenceHandlerProvider")
+    .get()!;
+
   return {
     parseReference: (reference, type) =>
       tryFallible(() =>
@@ -128,5 +145,7 @@ export function createConverterContext(container: Container): ConverterContext {
 
     getUrlFromReference: (reference) =>
       remoteURLSerializer.serialize(reference)!,
+
+    getDisplayName: (reference) => modelReferenceHandler.getTitle(reference),
   };
 }

@@ -20,6 +20,7 @@
 
 import {
   Block,
+  Image,
   InlineContent,
   LinkTarget,
   TableCell,
@@ -30,7 +31,7 @@ import {
 import { ConverterContext } from "../interface";
 import { assertInArray, assertUnreachable } from "../utils";
 import { EntityType } from "@xwiki/cristal-model-api";
-import { PhrasingContent, RootContent } from "mdast";
+import { Image as MdImage, PhrasingContent, RootContent } from "mdast";
 import { gfmStrikethroughFromMarkdown } from "mdast-util-gfm-strikethrough";
 import { gfmTableFromMarkdown } from "mdast-util-gfm-table";
 import { gfmTaskListItemFromMarkdown } from "mdast-util-gfm-task-list-item";
@@ -159,14 +160,10 @@ export class MarkdownToUniAstConverter {
         ];
 
       case "image":
-        // TODO: "token.text" property
         return [
           {
             type: "image",
-            target: { type: "external", url: block.url },
-            caption: block.title ?? undefined,
-            alt: block.alt ?? undefined,
-            styles: {},
+            ...this.convertImage(block),
           },
         ];
 
@@ -208,15 +205,10 @@ export class MarkdownToUniAstConverter {
   ): InlineContent[] {
     switch (inline.type) {
       case "image":
-        // TODO: "token.text" property
-        // TODO: deduplicate this code
         return [
           {
             type: "image",
-            target: { type: "external", url: inline.url },
-            caption: inline.title ?? undefined,
-            alt: inline.alt ?? undefined,
-            styles: {},
+            ...this.convertImage(inline),
           },
         ];
 
@@ -282,6 +274,16 @@ export class MarkdownToUniAstConverter {
       default:
         assertUnreachable(inline);
     }
+  }
+
+  private convertImage(image: MdImage): Image {
+    // TODO: "token.text" property
+    return {
+      target: { type: "external", url: image.url },
+      caption: undefined,
+      alt: image.alt ?? undefined,
+      styles: {},
+    };
   }
 
   // eslint-disable-next-line max-statements
@@ -350,10 +352,18 @@ export class MarkdownToUniAstConverter {
       treated = i + 1;
 
       const substr = text.substring(match + 2, i - 1);
+
+      let title: string | null;
+      let targetStr: string;
+
       const pipeCharPos = substr.indexOf("|");
 
-      if (pipeCharPos === -1) {
-        continue;
+      if (pipeCharPos !== -1) {
+        title = substr.substring(0, pipeCharPos);
+        targetStr = substr.substring(pipeCharPos + 1);
+      } else {
+        title = null;
+        targetStr = substr;
       }
 
       const precedingContent = text.substring(
@@ -371,9 +381,6 @@ export class MarkdownToUniAstConverter {
 
       previousMatch = i + 1;
 
-      const caption = substr.substring(0, pipeCharPos);
-      const targetStr = substr.substring(pipeCharPos + 1);
-
       const reference = this.context.parseReference(
         targetStr,
         isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT,
@@ -389,18 +396,22 @@ export class MarkdownToUniAstConverter {
               url: targetStr,
             };
 
+      title ??= reference
+        ? this.context.getDisplayName(reference)
+        : "<invalid reference>";
+
       out.push(
         isImage
           ? {
               type: "image",
               target,
               styles: { alignment: "left" },
-              caption,
+              alt: title,
             }
           : {
               type: "link",
               target,
-              content: [{ type: "text", content: caption, styles }],
+              content: [{ type: "text", content: title, styles }],
             },
       );
     }
