@@ -29,7 +29,7 @@ import {
   UniAst,
 } from "../ast";
 import { ConverterContext } from "../interface";
-import { assertInArray, assertUnreachable } from "../utils";
+import { assertInArray, assertUnreachable, tryFallibleOrError } from "../utils";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { Image as MdImage, PhrasingContent, RootContent } from "mdast";
 import { gfmStrikethroughFromMarkdown } from "mdast-util-gfm-strikethrough";
@@ -57,17 +57,20 @@ export class MarkdownToUniAstConverter {
    * @param markdown -
    * @returns -
    */
-  parseMarkdown(markdown: string): UniAst {
+  parseMarkdown(markdown: string): UniAst | Error {
     // TODO: auto-links (URLs + emails)
+    //     > https://jira.xwiki.org/browse/CRISTAL-513
 
     const ast = unified()
       .use(remarkParse)
       .use(remarkPartialGfm)
       .parse(markdown);
 
-    return {
-      blocks: ast.children.flatMap((item) => this.convertBlock(item)),
-    };
+    const blocks = tryFallibleOrError(() =>
+      ast.children.flatMap((item) => this.convertBlock(item)),
+    );
+
+    return blocks instanceof Error ? blocks : { blocks };
   }
 
   private convertBlock(block: RootContent): Block[] {
@@ -176,7 +179,8 @@ export class MarkdownToUniAstConverter {
       case "definition":
       case "footnoteDefinition":
       case "footnoteReference":
-        throw new Error("TODO: " + block.type);
+      case "html":
+        throw new Error("TODO: handle blocks of type " + block.type);
 
       // NOTE: These are handled in the `tokenToInline` function below
       case "text":
@@ -184,7 +188,6 @@ export class MarkdownToUniAstConverter {
       case "strong":
       case "emphasis":
       case "inlineCode":
-      case "html":
       case "link":
       case "tableCell":
       case "tableRow":
@@ -246,10 +249,8 @@ export class MarkdownToUniAstConverter {
       case "footnoteReference":
       case "linkReference":
       case "imageReference":
-        throw new Error("TODO: " + inline.type);
-
       case "break":
-        throw new Error("Breaks are not supported");
+        throw new Error("TODO: handle inlines of type " + inline.type);
 
       case "link": {
         return [
@@ -260,7 +261,7 @@ export class MarkdownToUniAstConverter {
               .map((token) => {
                 if (token.type !== "text") {
                   throw new Error(
-                    "Unexpected text span in link in markdown parser",
+                    "Unexpected link inside link in markdown parser",
                   );
                 }
 

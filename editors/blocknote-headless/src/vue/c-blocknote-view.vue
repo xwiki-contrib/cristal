@@ -61,7 +61,7 @@ const {
   skinManager,
 } = defineProps<{
   editorProps: Omit<ReactNonSlotProps<BlockNoteViewWrapperProps>, "content">;
-  editorContent: UniAst;
+  editorContent: UniAst | Error;
   realtimeServerURL?: string;
   container: Container;
   skinManager: SkinManager;
@@ -81,6 +81,12 @@ defineExpose({
 async function extractEditorContent() {
   const editor = editorProps.editorRef!.value!;
   const uniAst = blockNoteToUniAst.blocksToUniAst(editor.document);
+
+  if (uniAst instanceof Error) {
+    // TODO: show proper error to user
+    throw uniAst;
+  }
+
   return uniAstToMarkdown.toMarkdown(uniAst);
 }
 
@@ -113,7 +119,8 @@ async function getRealtimeProvider(): Promise<
   autoSaverRef.value = new AutoSaver(provider, async () => {
     const content = await extractEditorContent();
 
-    if (content) {
+    // TODO: error reporting
+    if (!(content instanceof Error)) {
       emit("blocknote-save", content);
     }
   });
@@ -136,7 +143,9 @@ if (!realtimeServerURL && editorProps.editorRef) {
     if (editor) {
       const debouncedSave = debounce(async () => {
         const content = await extractEditorContent();
-        if (content) {
+
+        // TODO: error reporting
+        if (!(content instanceof Error)) {
           emit("blocknote-save", content);
         }
       }, 500);
@@ -172,11 +181,18 @@ const uniAstToMarkdown = new UniAstToMarkdownConverter(converterContext);
 
 const uniAstToBlockNote = new UniAstToBlockNoteConverter(converterContext);
 
-const content = uniAstToBlockNote.uniAstToBlockNote(uniAst);
+const content =
+  uniAst instanceof Error
+    ? uniAst
+    : uniAstToBlockNote.uniAstToBlockNote(uniAst);
 </script>
 
 <template>
-  <BlockNoteViewAdapter v-bind="initializedEditorProps" :content>
+  <h1 v-if="content instanceof Error">
+    Failed to parse document: {{ content }}
+  </h1>
+
+  <BlockNoteViewAdapter v-else v-bind="initializedEditorProps" :content>
     <!-- Custom (popover) formatting toolbar -->
     <template #formattingToolbar="{ editor, currentBlock }">
       <ImageToolbar

@@ -25,6 +25,7 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from ".";
+import { tryFallibleOrError } from "../utils";
 import { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
 import {
   Block,
@@ -45,10 +46,14 @@ import {
 export class BlockNoteToUniAstConverter {
   constructor(public context: ConverterContext) {}
 
-  blocksToUniAst(blocks: BlockType[]): UniAst {
-    return {
-      blocks: this.convertBlocks(blocks),
-    };
+  blocksToUniAst(blocks: BlockType[]): UniAst | Error {
+    const uniAstBlocks = tryFallibleOrError(() => this.convertBlocks(blocks));
+
+    return uniAstBlocks instanceof Error
+      ? uniAstBlocks
+      : {
+          blocks: uniAstBlocks,
+        };
   }
 
   private convertBlocks(blocks: BlockType[]): Block[] {
@@ -62,7 +67,7 @@ export class BlockNoteToUniAstConverter {
     const dontExpectChildren = () => {
       if (block.children.length > 0) {
         console.error({ unexpextedChildrenInBlock: block });
-        throw new Error("Unexpected children in block");
+        throw new Error("Unexpected children in block type: " + block.type);
       }
     };
 
@@ -341,7 +346,9 @@ export class BlockNoteToUniAstConverter {
             const converted = this.convertInlineContent(item);
 
             if (converted.type === "link") {
-              throw new Error("Nested links are not supported");
+              throw new Error(
+                "Nested links are not supported inside BlockNote",
+              );
             }
 
             return converted;

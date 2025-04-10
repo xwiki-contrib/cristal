@@ -20,6 +20,7 @@
 
 import { Block, Image, InlineContent, TableCell, Text, UniAst } from "../ast";
 import { ConverterContext } from "../interface";
+import { tryFallibleOrError } from "../utils";
 
 /**
  * Converts Universal AST trees to markdown.
@@ -29,13 +30,19 @@ import { ConverterContext } from "../interface";
 export class UniAstToMarkdownConverter {
   constructor(public context: ConverterContext) {}
 
-  toMarkdown(uniAst: UniAst): string {
+  toMarkdown(uniAst: UniAst): string | Error {
     const { blocks } = uniAst;
 
     const out: string[] = [];
 
     for (let i = 0; i < blocks.length; i++) {
-      out.push(this.blockToMarkdown(blocks[i]));
+      const md = tryFallibleOrError(() => this.blockToMarkdown(blocks[i]));
+
+      if (md instanceof Error) {
+        return md;
+      }
+
+      out.push(md);
     }
 
     return out.join("\n\n");
@@ -83,7 +90,7 @@ export class UniAstToMarkdownConverter {
         return "---";
 
       case "macro":
-        throw new Error("TODO: macro");
+        throw new Error("TODO: handle macros");
     }
   }
 

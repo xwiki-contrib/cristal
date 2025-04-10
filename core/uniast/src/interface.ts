@@ -42,8 +42,8 @@ export type ConverterContext = {
    *
    * @since 0.16
    *
-   * @param reference -
-   * @param type -
+   * @param reference - The reference string to parse
+   * @param type - Optional type of reference, introduced in 0.17
    *
    * @returns - The entity reference or `null` if the input as invalid. Must be inversible with `serializeReference`
    */
@@ -58,7 +58,7 @@ export type ConverterContext = {
    *
    * @since 0.17
    *
-   * @param reference -
+   * @param reference - The reference to serialize
    *
    * @returns - The serialized reference. Must be inversible with `parseReference`
    */
@@ -70,7 +70,7 @@ export type ConverterContext = {
    *
    * @since 0.17
    *
-   * @param url -
+   * @param url - The reference URL to parse
    *
    * @returns - The reference or `null` if the input is invalid. Must be inversable with `getUrlFromReference`
    */
@@ -82,7 +82,7 @@ export type ConverterContext = {
    *
    * @since 0.17
    *
-   * @param reference -
+   * @param reference - The reference to get an URL from
    *
    * @returns - The URL for the reference. Must be inversible with `getReferenceFromUrl`
    */
@@ -94,7 +94,7 @@ export type ConverterContext = {
    *
    * @since 0.17
    *
-   * @param reference -
+   * @param reference - The reference to get the name of
    *
    * @returns - The display name for this reference
    */
@@ -102,10 +102,10 @@ export type ConverterContext = {
 };
 
 /**
- * @since 0.16
- *
  * Automatically create a converter context from a container
  * This works by extracting the required providers from the container
+ *
+ * @since 0.16
  *
  * @param container - Cristal application's Inversify container
  *

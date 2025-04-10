@@ -5,6 +5,7 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from ".";
+import { tryFallibleOrError } from "../utils";
 import { TableCell } from "@blocknote/core";
 import {
   Block,
@@ -23,8 +24,10 @@ import {
 export class UniAstToBlockNoteConverter {
   constructor(public context: ConverterContext) {}
 
-  uniAstToBlockNote(uniAst: UniAst): BlockType[] {
-    return uniAst.blocks.map((item) => this.convertBlock(item));
+  uniAstToBlockNote(uniAst: UniAst): BlockType[] | Error {
+    return tryFallibleOrError(() =>
+      uniAst.blocks.map((item) => this.convertBlock(item)),
+    );
   }
 
   private convertBlock(block: Block): BlockType {
@@ -126,7 +129,9 @@ export class UniAstToBlockNoteConverter {
         const [paragraph, ...remaining] = block.content;
 
         if (paragraph.type !== "paragraph") {
-          throw new Error("First content in list item must be a paragraph");
+          throw new Error(
+            "First content in list item is expected to be a paragraph",
+          );
         }
 
         if (block.checked !== undefined) {
@@ -201,10 +206,8 @@ export class UniAstToBlockNoteConverter {
         return this.convertImage(block);
 
       case "break":
-        throw new Error("TODO: break");
-
       case "macro":
-        throw new Error("TODO: macro");
+        throw new Error("TODO: handle block of type " + block.type);
     }
   }
 

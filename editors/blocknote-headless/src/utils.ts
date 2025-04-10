@@ -60,4 +60,44 @@ function stringToColor(str: string, prc?: number): string {
   return `#${comp.toString(16).slice(1)}`;
 }
 
-export { stringToColor };
+/**
+ * Get a function's output of the thrown error
+ * Will construct a new Error object if the thrown value is not an instance of the Error class
+ *
+ * @since 0.17
+ *
+ * @param func - The function to try
+ *
+ * @returns -
+ */
+// eslint-disable-next-line max-statements
+function tryFallibleOrError<T>(func: () => T): T | Error {
+  try {
+    return func();
+  } catch (e: unknown) {
+    if (e instanceof Error) {
+      return e;
+    }
+
+    if (typeof e === "string") {
+      return new Error(e);
+    }
+
+    if (typeof e === "number" || typeof e === "boolean") {
+      return new Error(e.toString());
+    }
+
+    if (e === null) {
+      return new Error("null");
+    }
+
+    if (e === undefined) {
+      return new Error("undefined");
+    }
+
+    console.error({ throw: e });
+    return new Error("<thrown unknown value type>");
+  }
+}
+
+export { stringToColor, tryFallibleOrError };
