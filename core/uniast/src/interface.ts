@@ -141,7 +141,8 @@ export function createConverterContext(container: Container): ConverterContext {
     serializeReference: (reference) =>
       modelReferenceSerializer.serialize(reference)!,
 
-    parseReferenceFromUrl: (url) => remoteURLParser.parse(url) ?? null,
+    parseReferenceFromUrl: (url) =>
+      tryFallible(() => remoteURLParser.parse(url)) ?? null,
 
     getUrlFromReference: (reference) =>
       remoteURLSerializer.serialize(reference)!,
