@@ -25,8 +25,8 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from ".";
-import { tryFallibleOrError } from "../utils";
 import { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
+import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import {
   Block,
   BlockStyles,
@@ -241,15 +241,8 @@ export class BlockNoteToUniAstConverter {
       }
 
       case "column":
-        // TODO
-        return {
-          type: "paragraph",
-          content: [],
-          styles: {},
-        };
-
       case "columnList":
-        // TODO
+        // TODO: support columns
         return {
           type: "paragraph",
           content: [],

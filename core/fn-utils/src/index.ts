@@ -23,7 +23,7 @@
  *
  * @param value - the error value printed when this method is reached
  *
- * @since 0.16
+ * @since 0.17
  */
 function assertUnreachable(value: never): never {
   console.error({ unreachable: value });
@@ -33,7 +33,7 @@ function assertUnreachable(value: never): never {
 /**
  * Assert that a value is in an array, and fix its type
  *
- * @since 0.16
+ * @since 0.17
  *
  * @param array - the array to check
  * @param value - the value expected in the array
@@ -56,7 +56,7 @@ function assertInArray<T, U extends T>(
 /**
  * Get a function's output or `null` if thrown an error
  *
- * @since 0.16
+ * @since 0.17
  *
  * @param func - The function to try
  *

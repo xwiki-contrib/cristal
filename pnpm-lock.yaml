@@ -1218,6 +1218,18 @@ importers:
         specifier: 2.2.8
         version: 2.2.8(typescript@5.8.2)
 
+  core/fn-utils:
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../dev/config
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+      vite:
+        specifier: 6.2.4
+        version: 6.2.4(@types/node@22.14.0)(tsx@4.19.3)(yaml@2.7.0)
+
   core/hierarchy/hierarchy-api:
     dependencies:
       '@xwiki/cristal-api':
@@ -2740,6 +2752,9 @@ importers:
 
   core/uniast:
     dependencies:
+      '@xwiki/cristal-fn-utils':
+        specifier: workspace:*
+        version: link:../fn-utils
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../model/model-api
@@ -3147,6 +3162,9 @@ importers:
       '@xwiki/cristal-dsapi':
         specifier: workspace:*
         version: link:../../ds/api
+      '@xwiki/cristal-fn-utils':
+        specifier: workspace:*
+        version: link:../../core/fn-utils
       '@xwiki/cristal-icons':
         specifier: workspace:*
         version: link:../../core/icons

@@ -20,7 +20,7 @@
 
 import { Block, Image, InlineContent, TableCell, Text, UniAst } from "../ast";
 import { ConverterContext } from "../interface";
-import { tryFallibleOrError } from "../utils";
+import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 
 /**
  * Converts Universal AST trees to markdown.

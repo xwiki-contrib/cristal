@@ -7,6 +7,9 @@
     /* Bundler mode */
     "noEmit": false,
     "isolatedDeclarations": false,
+
+    // NOTE: this is required as some of mdast packages' typing will not work
+    //       with the usual "node" module resolution type
     "moduleResolution": "bundler",
 
     /* Building */

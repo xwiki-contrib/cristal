@@ -29,7 +29,11 @@ import {
   UniAst,
 } from "../ast";
 import { ConverterContext } from "../interface";
-import { assertInArray, assertUnreachable, tryFallibleOrError } from "../utils";
+import {
+  assertInArray,
+  assertUnreachable,
+  tryFallibleOrError,
+} from "@xwiki/cristal-fn-utils";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { Image as MdImage, PhrasingContent, RootContent } from "mdast";
 import { gfmStrikethroughFromMarkdown } from "mdast-util-gfm-strikethrough";

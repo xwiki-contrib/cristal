@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { tryFallible } from "./utils";
+import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { EntityReference, EntityType } from "@xwiki/cristal-model-api";
 import {
   ModelReferenceHandlerProvider,

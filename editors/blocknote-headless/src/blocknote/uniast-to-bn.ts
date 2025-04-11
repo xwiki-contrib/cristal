@@ -5,8 +5,8 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from ".";
-import { tryFallibleOrError } from "../utils";
 import { TableCell } from "@blocknote/core";
+import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import {
   Block,
   BlockStyles,
