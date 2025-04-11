@@ -57,17 +57,18 @@ export class UniAstToMarkdownConverter {
         return `${"#".repeat(block.level)} ${this.convertInlineContents(block.content)}`;
 
       case "listItem": {
-        const prefix = block.number !== undefined ? `${block.number}.` : "*";
+        let prefix = block.number !== undefined ? `${block.number}. ` : "* ";
 
-        const checked =
-          block.checked !== undefined ? ` [${block.checked ? "x" : " "}]` : "";
+        if (block.checked !== undefined) {
+          prefix += `[${block.checked ? "x" : " "}] `;
+        }
 
         const content = block.content
           .flatMap((item) => this.blockToMarkdown(item).split("\n"))
-          .map((line) => "  " + line)
+          .map((line, i) => (i > 0 ? " ".repeat(prefix.length) : "") + line)
           .join("\n");
 
-        return `${prefix}${checked} ${content}`;
+        return `${prefix}${content}`;
       }
 
       case "blockQuote":
@@ -97,8 +98,8 @@ export class UniAstToMarkdownConverter {
   private convertImage(image: Image): string {
     // TODO: alt text
     return image.target.type === "external"
-      ? `![${image.caption}](${image.target.url})`
-      : `![[${image.caption}|${this.context.serializeReference(image.target.reference)}]]`;
+      ? `![${image.alt}](${image.target.url})`
+      : `![[${image.alt}|${this.context.serializeReference(image.target.reference)}]]`;
   }
 
   private tableToMarkdown(table: Extract<Block, { type: "table" }>): string {
