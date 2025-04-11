@@ -23,6 +23,7 @@ import {
   Image,
   InlineContent,
   LinkTarget,
+  ListItem,
   TableCell,
   TableColumn,
   TextStyles,
@@ -72,112 +73,103 @@ export class MarkdownToUniAstConverter {
       .parse(markdown);
 
     const blocks = tryFallibleOrError(() =>
-      ast.children.flatMap((item) => this.convertBlock(item)),
+      ast.children.map((item) => this.convertBlock(item)),
     );
 
     return blocks instanceof Error ? blocks : { blocks };
   }
 
-  private convertBlock(block: RootContent): Block[] {
+  private convertBlock(block: RootContent): Block {
     switch (block.type) {
       case "paragraph":
-        return [
-          {
-            type: "paragraph",
-            content: block.children.flatMap((item) =>
-              this.convertInline(item, {}),
-            ),
-            styles: {},
-          },
-        ];
+        return {
+          type: "paragraph",
+          content: block.children.flatMap((item) =>
+            this.convertInline(item, {}),
+          ),
+          styles: {},
+        };
 
       case "heading":
-        return [
-          {
-            type: "heading",
-            level: assertInArray(
-              block.depth,
-              [1, 2, 3, 4, 5, 6] as const,
-              "Invalid heading depth in markdown parser",
-            ),
-            content: block.children.flatMap((item) =>
-              this.convertInline(item, {}),
-            ),
-            styles: {},
-          },
-        ];
+        return {
+          type: "heading",
+          level: assertInArray(
+            block.depth,
+            [1, 2, 3, 4, 5, 6] as const,
+            "Invalid heading depth in markdown parser",
+          ),
+          content: block.children.flatMap((item) =>
+            this.convertInline(item, {}),
+          ),
+          styles: {},
+        };
 
       case "blockquote":
-        return [
-          {
-            type: "blockQuote",
-            content: block.children.flatMap((item) => this.convertBlock(item)),
-            styles: {},
-          },
-        ];
+        return {
+          type: "blockQuote",
+          content: block.children.map((item) => this.convertBlock(item)),
+          styles: {},
+        };
 
       case "list":
         // TODO: "token.loose" property
-        return block.children.map(
-          (item, i): Block => ({
-            type: "listItem",
-            number: block.ordered ? (block.start ?? 1) + i : undefined,
-            checked: item.checked ?? undefined,
-            content: item.children.flatMap((item) => this.convertBlock(item)),
-            styles: {},
-          }),
-        );
+        return {
+          type: "list",
+          items: block.children.map(
+            (item, i): ListItem => ({
+              number: block.ordered ? (block.start ?? 1) + i : undefined,
+              checked: item.checked ?? undefined,
+              content: item.children.map((item) => this.convertBlock(item)),
+              styles: {},
+            }),
+          ),
+          styles: {},
+        };
 
       case "code":
         // TODO: "token.escaped" property
         // TODO: "token.codeBlockStyle" property
-        return [
-          {
-            type: "codeBlock",
-            content: block.value,
-            language: block.lang ?? undefined,
-          },
-        ];
+        return {
+          type: "codeBlock",
+          content: block.value,
+          language: block.lang ?? undefined,
+        };
 
       case "table":
-        return [
-          {
-            type: "table",
-            columns: block.children[0]?.children.map(
-              (cell): TableColumn => ({
-                headerCell: {
-                  content: cell.children.flatMap((item) =>
-                    this.convertInline(item, {}),
-                  ),
-                  styles: {},
-                },
+        return {
+          type: "table",
+          columns: block.children[0]?.children.map(
+            (cell): TableColumn => ({
+              headerCell: {
+                content: cell.children.flatMap((item) =>
+                  this.convertInline(item, {}),
+                ),
+                styles: {},
+              },
+            }),
+          ),
+          rows: block.children.map((row) =>
+            row.children.map(
+              (cell): TableCell => ({
+                content: cell.children.flatMap((item) =>
+                  this.convertInline(item, {}),
+                ),
+                styles: {},
               }),
             ),
-            rows: block.children.map((row) =>
-              row.children.map(
-                (cell): TableCell => ({
-                  content: cell.children.flatMap((item) =>
-                    this.convertInline(item, {}),
-                  ),
-                  styles: {},
-                }),
-              ),
-            ),
-            styles: {},
-          },
-        ];
+          ),
+          styles: {},
+        };
 
       case "image":
-        return [
-          {
-            type: "image",
-            ...this.convertImage(block),
-          },
-        ];
+        return {
+          type: "image",
+          ...this.convertImage(block),
+        };
 
       case "break":
       case "thematicBreak":
-        return [{ type: "break" }];
+        return { type: "break" };
 
       case "imageReference":
       case "linkReference":

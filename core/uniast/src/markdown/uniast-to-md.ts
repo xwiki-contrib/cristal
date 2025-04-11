@@ -18,7 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Block, Image, InlineContent, TableCell, Text, UniAst } from "../ast";
+import {
+  Block,
+  Image,
+  InlineContent,
+  TableCell,
+  Text,
+  UniAst,
+  ListItem,
+} from "../ast";
 import { ConverterContext } from "../interface";
 import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 
@@ -56,19 +64,8 @@ export class UniAstToMarkdownConverter {
       case "heading":
         return `${"#".repeat(block.level)} ${this.convertInlineContents(block.content)}`;
 
-      case "listItem": {
-        let prefix = block.number !== undefined ? `${block.number}. ` : "* ";
-
-        if (block.checked !== undefined) {
-          prefix += `[${block.checked ? "x" : " "}] `;
-        }
-
-        const content = block.content
-          .flatMap((item) => this.blockToMarkdown(item).split("\n"))
-          .map((line, i) => (i > 0 ? " ".repeat(prefix.length) : "") + line)
-          .join("\n");
-
-        return `${prefix}${content}`;
+      case "list": {
+        return block.items.map((item) => this.convertListItem(item)).join("\n");
       }
 
       case "blockQuote":
@@ -82,7 +79,7 @@ export class UniAstToMarkdownConverter {
         return `\`\`\`${block.language ?? ""}\n${block.content}\n\`\`\``;
 
       case "table":
-        return this.tableToMarkdown(block);
+        return this.convertTable(block);
 
       case "image":
         return this.convertImage(block);
@@ -95,6 +92,21 @@ export class UniAstToMarkdownConverter {
     }
   }
 
+  private convertListItem(listItem: ListItem): string {
+    let prefix = listItem.number !== undefined ? `${listItem.number}. ` : "* ";
+
+    if (listItem.checked !== undefined) {
+      prefix += `[${listItem.checked ? "x" : " "}] `;
+    }
+
+    const content = listItem.content
+      .flatMap((item) => this.blockToMarkdown(item).split("\n"))
+      .map((line, i) => (i > 0 ? " ".repeat(prefix.length) : "") + line)
+      .join("\n");
+
+    return `${prefix}${content}`;
+  }
+
   private convertImage(image: Image): string {
     // TODO: alt text
     return image.target.type === "external"
@@ -102,7 +114,7 @@ export class UniAstToMarkdownConverter {
       : `![[${image.alt}|${this.context.serializeReference(image.target.reference)}]]`;
   }
 
-  private tableToMarkdown(table: Extract<Block, { type: "table" }>): string {
+  private convertTable(table: Extract<Block, { type: "table" }>): string {
     const { columns, rows } = table;
 
     const out = [

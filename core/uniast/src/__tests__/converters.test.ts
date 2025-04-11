@@ -256,7 +256,10 @@ describe("MarkdownToUniAstConverter", () => {
         "",
         "* Bullet item 1",
         "* Bullet item 2",
+        "",
+        // This item ends up isolated as it used another bullet style ('-' instead of '*' in the source)
         "* Bullet item 3",
+        "",
         "* Bullet item 4 line 1",
         "  Bullet item 4 line 2",
         "  Bullet item 4 line **3**",
@@ -265,7 +268,7 @@ describe("MarkdownToUniAstConverter", () => {
         "2. Numbered item 2",
         "3. Numbered item 3",
         "4. Numbered item 6",
-        "",
+        // This item ends up combined to the list above as using a number, even after two line breaks, will make it part of the same list
         "5. Another list starting at 2",
         "",
         "* [ ] Unchecked task 1",
@@ -413,240 +416,258 @@ describe("MarkdownToUniAstConverter", () => {
             type: "blockQuote",
           },
           {
-            checked: undefined,
-            content: [
+            items: [
               {
+                checked: undefined,
                 content: [
                   {
-                    content: "Bullet item 1",
+                    content: [
+                      {
+                        content: "Bullet item 1",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
                     styles: {},
-                    type: "text",
+                    type: "paragraph",
                   },
                 ],
+                number: undefined,
                 styles: {},
-                type: "paragraph",
+              },
+              {
+                checked: undefined,
+                content: [
+                  {
+                    content: [
+                      {
+                        content: "Bullet item 2",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
+                    styles: {},
+                    type: "paragraph",
+                  },
+                ],
+                number: undefined,
+                styles: {},
               },
             ],
-            number: undefined,
             styles: {},
-            type: "listItem",
+            type: "list",
           },
           {
-            checked: undefined,
-            content: [
+            items: [
               {
+                checked: undefined,
                 content: [
                   {
-                    content: "Bullet item 2",
+                    content: [
+                      {
+                        content: "Bullet item 3",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
                     styles: {},
-                    type: "text",
+                    type: "paragraph",
                   },
                 ],
+                number: undefined,
                 styles: {},
-                type: "paragraph",
               },
             ],
-            number: undefined,
             styles: {},
-            type: "listItem",
+            type: "list",
           },
           {
-            checked: undefined,
-            content: [
+            items: [
               {
+                checked: undefined,
                 content: [
                   {
-                    content: "Bullet item 3",
+                    content: [
+                      {
+                        content:
+                          "Bullet item 4 line 1\nBullet item 4 line 2\nBullet item 4 line ",
+                        styles: {},
+                        type: "text",
+                      },
+                      {
+                        content: "3",
+                        styles: {
+                          bold: true,
+                        },
+                        type: "text",
+                      },
+                    ],
                     styles: {},
-                    type: "text",
+                    type: "paragraph",
                   },
                 ],
+                number: undefined,
                 styles: {},
-                type: "paragraph",
               },
             ],
-            number: undefined,
             styles: {},
-            type: "listItem",
+            type: "list",
           },
           {
-            checked: undefined,
-            content: [
+            items: [
               {
+                checked: undefined,
                 content: [
                   {
-                    content:
-                      "Bullet item 4 line 1\nBullet item 4 line 2\nBullet item 4 line ",
+                    content: [
+                      {
+                        content: "Numbered item 1",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
                     styles: {},
-                    type: "text",
-                  },
-                  {
-                    content: "3",
-                    styles: {
-                      bold: true,
-                    },
-                    type: "text",
+                    type: "paragraph",
                   },
                 ],
+                number: 1,
                 styles: {},
-                type: "paragraph",
+              },
+              {
+                checked: undefined,
+                content: [
+                  {
+                    content: [
+                      {
+                        content: "Numbered item 2",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
+                    styles: {},
+                    type: "paragraph",
+                  },
+                ],
+                number: 2,
+                styles: {},
+              },
+              {
+                checked: undefined,
+                content: [
+                  {
+                    content: [
+                      {
+                        content: "Numbered item 3",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
+                    styles: {},
+                    type: "paragraph",
+                  },
+                ],
+                number: 3,
+                styles: {},
+              },
+              {
+                checked: undefined,
+                content: [
+                  {
+                    content: [
+                      {
+                        content: "Numbered item 6",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
+                    styles: {},
+                    type: "paragraph",
+                  },
+                ],
+                number: 4,
+                styles: {},
+              },
+              {
+                checked: undefined,
+                content: [
+                  {
+                    content: [
+                      {
+                        content: "Another list starting at 2",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
+                    styles: {},
+                    type: "paragraph",
+                  },
+                ],
+                number: 5,
+                styles: {},
               },
             ],
-            number: undefined,
             styles: {},
-            type: "listItem",
+            type: "list",
           },
           {
-            checked: undefined,
-            content: [
+            items: [
               {
+                checked: false,
                 content: [
                   {
-                    content: "Numbered item 1",
+                    content: [
+                      {
+                        content: "Unchecked task 1",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
                     styles: {},
-                    type: "text",
+                    type: "paragraph",
                   },
                 ],
+                number: undefined,
                 styles: {},
-                type: "paragraph",
               },
-            ],
-            number: 1,
-            styles: {},
-            type: "listItem",
-          },
-          {
-            checked: undefined,
-            content: [
               {
+                checked: true,
                 content: [
                   {
-                    content: "Numbered item 2",
+                    content: [
+                      {
+                        content: "Checked task 2",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
                     styles: {},
-                    type: "text",
+                    type: "paragraph",
                   },
                 ],
+                number: undefined,
                 styles: {},
-                type: "paragraph",
               },
-            ],
-            number: 2,
-            styles: {},
-            type: "listItem",
-          },
-          {
-            checked: undefined,
-            content: [
               {
+                checked: true,
                 content: [
                   {
-                    content: "Numbered item 3",
+                    content: [
+                      {
+                        content: "Checked task 3",
+                        styles: {},
+                        type: "text",
+                      },
+                    ],
                     styles: {},
-                    type: "text",
+                    type: "paragraph",
                   },
                 ],
+                number: undefined,
                 styles: {},
-                type: "paragraph",
               },
             ],
-            number: 3,
             styles: {},
-            type: "listItem",
-          },
-          {
-            checked: undefined,
-            content: [
-              {
-                content: [
-                  {
-                    content: "Numbered item 6",
-                    styles: {},
-                    type: "text",
-                  },
-                ],
-                styles: {},
-                type: "paragraph",
-              },
-            ],
-            number: 4,
-            styles: {},
-            type: "listItem",
-          },
-          {
-            checked: undefined,
-            content: [
-              {
-                content: [
-                  {
-                    content: "Another list starting at 2",
-                    styles: {},
-                    type: "text",
-                  },
-                ],
-                styles: {},
-                type: "paragraph",
-              },
-            ],
-            number: 5,
-            styles: {},
-            type: "listItem",
-          },
-          {
-            checked: false,
-            content: [
-              {
-                content: [
-                  {
-                    content: "Unchecked task 1",
-                    styles: {},
-                    type: "text",
-                  },
-                ],
-                styles: {},
-                type: "paragraph",
-              },
-            ],
-            number: undefined,
-            styles: {},
-            type: "listItem",
-          },
-          {
-            checked: true,
-            content: [
-              {
-                content: [
-                  {
-                    content: "Checked task 2",
-                    styles: {},
-                    type: "text",
-                  },
-                ],
-                styles: {},
-                type: "paragraph",
-              },
-            ],
-            number: undefined,
-            styles: {},
-            type: "listItem",
-          },
-          {
-            checked: true,
-            content: [
-              {
-                content: [
-                  {
-                    content: "Checked task 3",
-                    styles: {},
-                    type: "text",
-                  },
-                ],
-                styles: {},
-                type: "paragraph",
-              },
-            ],
-            number: undefined,
-            styles: {},
-            type: "listItem",
+            type: "list",
           },
           {
             content: "Code block 1",
