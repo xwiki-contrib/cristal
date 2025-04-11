@@ -31,6 +31,7 @@ import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
 } from "../react/BlockNoteView";
+import messages from "../translations";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import {
   DocumentService,
@@ -49,7 +50,7 @@ import { Container } from "inversify";
 
 import { debounce } from "lodash-es";
 import { watch } from "vue";
-import { createI18n } from "vue-i18n";
+import { createI18n, useI18n } from "vue-i18n";
 import type { SkinManager } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api/dist";
 
@@ -185,11 +186,15 @@ const content =
   uniAst instanceof Error
     ? uniAst
     : uniAstToBlockNote.uniAstToBlockNote(uniAst);
+
+const { t } = useI18n({
+  messages,
+});
 </script>
 
 <template>
   <h1 v-if="content instanceof Error">
-    Failed to parse document: {{ content }}
+    {{ t("blocknote.document.parsingError") }}: {{ content }}
   </h1>
 
   <BlockNoteViewAdapter v-else v-bind="initializedEditorProps" :content>

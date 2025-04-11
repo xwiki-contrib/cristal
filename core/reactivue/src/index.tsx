@@ -352,7 +352,7 @@ type ReactIndirectionLayerProps<Props extends Record<string, unknown>> = {
  *
  * @param options - The Vue component to render along with options like properties
  *
- * @returns - A wrapping React component
+ * @returns A wrapping React component
  *
  * @since 0.16
  */

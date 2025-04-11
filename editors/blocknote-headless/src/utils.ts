@@ -68,7 +68,7 @@ function stringToColor(str: string, prc?: number): string {
  *
  * @param func - The function to try
  *
- * @returns -
+ * @returns The function's output, the thrown error if it's an instance of the `Error` class, or a constructed `Error` instance
  */
 // eslint-disable-next-line max-statements
 function tryFallibleOrError<T>(func: () => T): T | Error {

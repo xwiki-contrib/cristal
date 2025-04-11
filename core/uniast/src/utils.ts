@@ -39,7 +39,7 @@ function assertUnreachable(value: never): never {
  * @param value - the value expected in the array
  * @param message - a message displayed in case the value is not found in the array
  *
- * @returns -
+ * @returns Whether the value is in the provided array, with the correct type
  */
 function assertInArray<T, U extends T>(
   value: T,
@@ -60,7 +60,7 @@ function assertInArray<T, U extends T>(
  *
  * @param func - The function to try
  *
- * @returns -
+ * @returns The function's output, or `null` if it thrown an error
  */
 function tryFallible<T>(func: () => T): T | null {
   try {
@@ -79,7 +79,7 @@ function tryFallible<T>(func: () => T): T | null {
  *
  * @param func - The function to try
  *
- * @returns -
+ * @returns The function's output, the thrown error if it's an instance of the `Error` class, or a constructed `Error` instance
  */
 // eslint-disable-next-line max-statements
 function tryFallibleOrError<T>(func: () => T): T | Error {

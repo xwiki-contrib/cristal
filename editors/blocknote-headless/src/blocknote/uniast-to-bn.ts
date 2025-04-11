@@ -249,7 +249,6 @@ export class UniAstToBlockNoteConverter {
         previewWidth: image.widthPx ?? 512,
         backgroundColor: "default",
         textAlignment: image.styles.alignment ?? "left",
-        // TODO (?)
         name: image.alt ?? "",
       },
     };

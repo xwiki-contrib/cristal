@@ -175,8 +175,7 @@ watch(
   title,
   debounce(async () => {
     if (editorInstance.value) {
-      saveContent();
-      return;
+      await saveContent();
     }
   }, 500),
 );

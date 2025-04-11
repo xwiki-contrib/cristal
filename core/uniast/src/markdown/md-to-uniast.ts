@@ -54,8 +54,9 @@ export class MarkdownToUniAstConverter {
    *
    * @since 0.16
    *
-   * @param markdown -
-   * @returns -
+   * @param markdown - The markdown content to parse
+   *
+   * @returns The Universal Ast
    */
   parseMarkdown(markdown: string): UniAst | Error {
     // TODO: auto-links (URLs + emails)

@@ -45,7 +45,7 @@ export type ConverterContext = {
    * @param reference - The reference string to parse
    * @param type - Optional type of reference, introduced in 0.17
    *
-   * @returns - The entity reference or `null` if the input as invalid. Must be inversible with `serializeReference`
+   * @returns The entity reference or `null` if the input as invalid. Must be inversible with `serializeReference`
    */
   parseReference(
     reference: string,
@@ -60,7 +60,7 @@ export type ConverterContext = {
    *
    * @param reference - The reference to serialize
    *
-   * @returns - The serialized reference. Must be inversible with `parseReference`
+   * @returns The serialized reference. Must be inversible with `parseReference`
    */
   serializeReference(reference: EntityReference): string;
 
@@ -72,7 +72,7 @@ export type ConverterContext = {
    *
    * @param url - The reference URL to parse
    *
-   * @returns - The reference or `null` if the input is invalid. Must be inversable with `getUrlFromReference`
+   * @returns The reference or `null` if the input is invalid. Must be inversable with `getUrlFromReference`
    */
   parseReferenceFromUrl(url: string): EntityReference | null;
 
@@ -84,7 +84,7 @@ export type ConverterContext = {
    *
    * @param reference - The reference to get an URL from
    *
-   * @returns - The URL for the reference. Must be inversible with `getReferenceFromUrl`
+   * @returns The URL for the reference. Must be inversible with `getReferenceFromUrl`
    */
   getUrlFromReference(reference: EntityReference): string;
 
@@ -96,7 +96,7 @@ export type ConverterContext = {
    *
    * @param reference - The reference to get the name of
    *
-   * @returns - The display name for this reference
+   * @returns The display name for this reference
    */
   getDisplayName(reference: EntityReference): string;
 };
@@ -109,7 +109,7 @@ export type ConverterContext = {
  *
  * @param container - Cristal application's Inversify container
  *
- * @returns -
+ * @returns The container containing everything required by the various converters
  */
 export function createConverterContext(container: Container): ConverterContext {
   const modelReferenceParser = container
