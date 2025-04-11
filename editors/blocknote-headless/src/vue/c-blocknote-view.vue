@@ -21,8 +21,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
-import { UniAstToBlockNoteConverter } from "../blocknote/parser";
-import { BlockNoteToUniAstConverter } from "../blocknote/serializer";
+import { BlockNoteToUniAstConverter } from "../blocknote/bn-to-uniast";
+import { UniAstToBlockNoteConverter } from "../blocknote/uniast-to-bn";
 import { AutoSaver } from "../components/autoSaver";
 import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
@@ -31,6 +31,7 @@ import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
 } from "../react/BlockNoteView";
+import messages from "../translations";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import {
   DocumentService,
@@ -49,7 +50,7 @@ import { Container } from "inversify";
 
 import { debounce } from "lodash-es";
 import { watch } from "vue";
-import { createI18n } from "vue-i18n";
+import { createI18n, useI18n } from "vue-i18n";
 import type { SkinManager } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api/dist";
 
@@ -61,7 +62,7 @@ const {
   skinManager,
 } = defineProps<{
   editorProps: Omit<ReactNonSlotProps<BlockNoteViewWrapperProps>, "content">;
-  editorContent: UniAst;
+  editorContent: UniAst | Error;
   realtimeServerURL?: string;
   container: Container;
   skinManager: SkinManager;
@@ -81,6 +82,12 @@ defineExpose({
 async function extractEditorContent() {
   const editor = editorProps.editorRef!.value!;
   const uniAst = blockNoteToUniAst.blocksToUniAst(editor.document);
+
+  if (uniAst instanceof Error) {
+    // TODO: show proper error to user
+    throw uniAst;
+  }
+
   return uniAstToMarkdown.toMarkdown(uniAst);
 }
 
@@ -113,7 +120,8 @@ async function getRealtimeProvider(): Promise<
   autoSaverRef.value = new AutoSaver(provider, async () => {
     const content = await extractEditorContent();
 
-    if (content) {
+    // TODO: error reporting
+    if (!(content instanceof Error)) {
       emit("blocknote-save", content);
     }
   });
@@ -136,7 +144,9 @@ if (!realtimeServerURL && editorProps.editorRef) {
     if (editor) {
       const debouncedSave = debounce(async () => {
         const content = await extractEditorContent();
-        if (content) {
+
+        // TODO: error reporting
+        if (!(content instanceof Error)) {
           emit("blocknote-save", content);
         }
       }, 500);
@@ -168,15 +178,26 @@ const linkEditionCtx = createLinkEditionContext(container);
 const converterContext = createConverterContext(container);
 
 const blockNoteToUniAst = new BlockNoteToUniAstConverter(converterContext);
-const uniAstToMarkdown = new UniAstToMarkdownConverter();
+const uniAstToMarkdown = new UniAstToMarkdownConverter(converterContext);
 
 const uniAstToBlockNote = new UniAstToBlockNoteConverter(converterContext);
 
-const content = uniAstToBlockNote.uniAstToBlockNote(uniAst);
+const content =
+  uniAst instanceof Error
+    ? uniAst
+    : uniAstToBlockNote.uniAstToBlockNote(uniAst);
+
+const { t } = useI18n({
+  messages,
+});
 </script>
 
 <template>
-  <BlockNoteViewAdapter v-bind="initializedEditorProps" :content>
+  <h1 v-if="content instanceof Error">
+    {{ t("blocknote.document.parsingError") }}: {{ content }}
+  </h1>
+
+  <BlockNoteViewAdapter v-else v-bind="initializedEditorProps" :content>
     <!-- Custom (popover) formatting toolbar -->
     <template #formattingToolbar="{ editor, currentBlock }">
       <ImageToolbar
