@@ -1,3 +1,23 @@
+/*
+ * See the LICENSE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
 import { UniAst } from "../ast";
 import { ConverterContext, createConverterContext } from "../interface";
 import { MarkdownToUniAstConverter } from "../markdown/md-to-uniast";
@@ -192,7 +212,7 @@ describe("MarkdownToUniAstConverter", () => {
         "##### Heading level 5",
         "###### Heading level 6",
         "> Blockquote line 1",
-        "> Blockquote line 2",
+        ">   Blockquote line 2",
         "",
         "> Some separate blockquote",
         "",
@@ -222,11 +242,11 @@ describe("MarkdownToUniAstConverter", () => {
         "Code block 2 (js)",
         "```",
         "",
-        "| Heading 1 | Heading 2 | Heading **3** |",
-        "| --------- | --------- | ------------- |",
+        "| Heading 1| Heading 2| Heading **3**|",
+        "| ---------|--------- |-------------|",
         "| Row 1 cell 1 | Row 1 cell 2 | Row 1 cell **3** ",
-        "| Row 2 cell 1 | Row 2 cell 2 | Row 2 cell **3** ",
-        "| Row 3 cell 1 | Row 3 cell 2 | Row 3 cell **3** ",
+        "| Row 2 cell 1 | Row 2 cell 2 | Row 2 cell **3** |",
+        "|Row 3 cell 1 | Row 3 cell 2| Row 3 cell __3__|",
         "",
         "![Image alt](http://somewhere.somewhere)",
         "",

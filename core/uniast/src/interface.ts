@@ -40,8 +40,6 @@ export type ConverterContext = {
    * Try to parse a reference from a string
    * This function must **NOT** throw
    *
-   * @since 0.16
-   *
    * @param reference - The reference string to parse
    * @param type - Optional type of reference, introduced in 0.17
    *

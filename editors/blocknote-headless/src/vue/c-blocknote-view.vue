@@ -92,8 +92,6 @@ async function extractEditorContent() {
 }
 
 async function notifyChanges(): Promise<void> {
-  console.log("salut");
-
   const content = await extractEditorContent();
 
   // TODO: error reporting
@@ -191,7 +189,7 @@ const { t } = useI18n({
 
 <template>
   <h1 v-if="content instanceof Error">
-    {{ t("blocknote.document.parsingError") }}: {{ content }}
+    {{ t("blocknote.document.parsingError", { reason: content }) }}
   </h1>
 
   <BlockNoteViewAdapter v-else v-bind="initializedEditorProps" :content>

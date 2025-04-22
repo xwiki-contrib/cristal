@@ -146,7 +146,7 @@ function BlockNoteViewWrapper({
   // document's configuration map (shared across all session participants).
   if (provider) {
     provider.on("synced", () => {
-      console.log("HocusPocus synced");
+      console.debug("HocusPocus synced");
 
       if (
         !provider.document.getMap("configuration").get("initialContentLoaded")
