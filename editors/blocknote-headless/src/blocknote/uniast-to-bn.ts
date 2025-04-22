@@ -26,11 +26,11 @@ export class UniAstToBlockNoteConverter {
 
   uniAstToBlockNote(uniAst: UniAst): BlockType[] | Error {
     return tryFallibleOrError(() =>
-      uniAst.blocks.map((item) => this.convertBlock(item)),
+      uniAst.blocks.flatMap((item) => this.convertBlock(item)),
     );
   }
 
-  private convertBlock(block: Block): BlockType {
+  private convertBlock(block: Block): BlockType | BlockType[] {
     switch (block.type) {
       case "paragraph":
         if (block.content.length === 1 && block.content[0].type === "image") {
@@ -125,53 +125,8 @@ export class UniAstToBlockNoteConverter {
           },
         };
 
-      case "listItem": {
-        const [paragraph, ...remaining] = block.content;
-
-        if (paragraph.type !== "paragraph") {
-          throw new Error(
-            "First content in list item is expected to be a paragraph",
-          );
-        }
-
-        if (block.checked !== undefined) {
-          return {
-            type: "checkListItem",
-            id: genId(),
-            children: remaining.map((item) => this.convertBlock(item)),
-            content: paragraph.content.map((item) =>
-              this.convertInlineContent(item),
-            ),
-            props: {
-              ...this.convertBlockStyles(block.styles),
-              checked: block.checked,
-            },
-          };
-        } else if (block.number !== undefined) {
-          return {
-            type: "numberedListItem",
-            id: genId(),
-            children: remaining.map((item) => this.convertBlock(item)),
-            content: paragraph.content.map((item) =>
-              this.convertInlineContent(item),
-            ),
-            props: {
-              ...this.convertBlockStyles(block.styles),
-              start: block.number,
-            },
-          };
-        } else {
-          return {
-            type: "bulletListItem",
-            id: genId(),
-            children: remaining.map((item) => this.convertBlock(item)),
-            content: paragraph.content.map((item) =>
-              this.convertInlineContent(item),
-            ),
-            props: this.convertBlockStyles(block.styles),
-          };
-        }
-      }
+      case "list":
+        return this.convertList(block);
 
       case "table":
         return {
@@ -227,6 +182,72 @@ export class UniAstToBlockNoteConverter {
       textColor: styles.textColor ?? "default",
       textAlignment: styles.textAlignment ?? "left",
     };
+  }
+
+  private convertList(
+    list: Extract<Block, { type: "list" }>,
+  ): Extract<
+    BlockType,
+    { type: "bulletListItem" | "checkListItem" | "numberedListItem" }
+  >[] {
+    // eslint-disable-next-line max-statements
+    return list.items.map((listItem) => {
+      const contentParagraph = listItem.content.at(0);
+
+      if (contentParagraph && contentParagraph.type !== "paragraph") {
+        throw new Error(
+          "List items should start with a paragraph in BlockNote",
+        );
+      }
+
+      const content =
+        contentParagraph?.content.map((item) =>
+          this.convertInlineContent(item),
+        ) ?? [];
+
+      const styles = {
+        ...this.convertBlockStyles(list.styles),
+        ...this.convertBlockStyles(listItem.styles),
+      };
+
+      const subList = listItem.content.at(1);
+
+      if (subList && subList.type !== "list") {
+        throw new Error(
+          "Only sub-lists are alllowed inside list items in BlockNote",
+        );
+      }
+
+      const children = subList ? this.convertList(subList) : [];
+
+      if (listItem.checked !== undefined) {
+        return {
+          id: genId(),
+          type: "checkListItem",
+          content,
+          children,
+          props: { ...styles, checked: listItem.checked },
+        };
+      }
+
+      if (listItem.number !== undefined) {
+        return {
+          id: genId(),
+          type: "numberedListItem",
+          content,
+          children,
+          props: { ...styles, start: listItem.number },
+        };
+      }
+
+      return {
+        id: genId(),
+        type: "bulletListItem",
+        content,
+        children,
+        props: styles,
+      };
+    });
   }
 
   private convertImage(image: Image): BlockType {

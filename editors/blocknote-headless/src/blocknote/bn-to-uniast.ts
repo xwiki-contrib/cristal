@@ -33,6 +33,7 @@ import {
   ConverterContext,
   InlineContent,
   LinkTarget,
+  ListItem,
   TableCell,
   UniAst,
 } from "@xwiki/cristal-uniast";
@@ -56,14 +57,42 @@ export class BlockNoteToUniAstConverter {
         };
   }
 
+  // eslint-disable-next-line max-statements
   private convertBlocks(blocks: BlockType[]): Block[] {
-    return blocks.map((block, i) =>
-      this.convertBlock(block, blocks.slice(0, i)),
-    );
+    const out: Block[] = [];
+
+    for (const block of blocks) {
+      if (
+        block.type !== "bulletListItem" &&
+        block.type !== "numberedListItem" &&
+        block.type !== "checkListItem"
+      ) {
+        out.push(this.convertBlock(block));
+        continue;
+      }
+
+      const lastBlock = out.at(-1);
+      const currentList = lastBlock?.type === "list" ? lastBlock : null;
+
+      console.log(!!currentList);
+
+      const listItem = this.convertListItem(block, currentList);
+
+      if (currentList) {
+        currentList.items.push(listItem);
+      } else {
+        out.push({
+          type: "list",
+          items: [listItem],
+          styles: {},
+        });
+      }
+    }
+
+    return out;
   }
 
-  // TODO: explain that previous blocks are required to compute number for contiguous numbered list items
-  private convertBlock(block: BlockType, previousBlocks: BlockType[]): Block {
+  private convertBlock(block: BlockType): Block {
     const dontExpectChildren = () => {
       if (block.children.length > 0) {
         console.error({ unexpextedChildrenInBlock: block });
@@ -119,59 +148,6 @@ export class BlockNoteToUniAstConverter {
           level: 4,
           content: block.content.map((item) => this.convertInlineContent(item)),
           styles: {}, // TODO
-        };
-
-      case "bulletListItem":
-        return {
-          type: "listItem",
-          content: [
-            // TODO: change when nested blocks are supported in blocknote
-            {
-              type: "paragraph",
-              content: block.content.map((item) =>
-                this.convertInlineContent(item),
-              ),
-              styles: {},
-            },
-            ...this.convertBlocks(block.children),
-          ],
-          styles: this.convertBlockStyles(block.props),
-        };
-
-      case "numberedListItem":
-        return {
-          type: "listItem",
-          number: this.computeNumberedListItemNum(block, previousBlocks),
-          content: [
-            // TODO: change when nested blocks are supported in blocknote
-            {
-              type: "paragraph",
-              content: block.content.map((item) =>
-                this.convertInlineContent(item),
-              ),
-              styles: {},
-            },
-            ...this.convertBlocks(block.children),
-          ],
-          styles: this.convertBlockStyles(block.props),
-        };
-
-      case "checkListItem":
-        return {
-          type: "listItem",
-          checked: block.props.checked,
-          content: [
-            // TODO: change when nested blocks are supported in blocknote
-            {
-              type: "paragraph",
-              content: block.content.map((item) =>
-                this.convertInlineContent(item),
-              ),
-              styles: {},
-            },
-            ...this.convertBlocks(block.children),
-          ],
-          styles: this.convertBlockStyles(block.props),
         };
 
       case "codeBlock":
@@ -248,34 +224,80 @@ export class BlockNoteToUniAstConverter {
           content: [],
           styles: {},
         };
+
+      case "bulletListItem":
+      case "numberedListItem":
+      case "checkListItem":
+        throw new Error(
+          "Block should have been handled elsewhere in BlockNote to UniAst converter: " +
+            block.type,
+        );
     }
   }
 
-  // eslint-disable-next-line max-statements
-  private computeNumberedListItemNum(
-    numberedListItem: Extract<BlockType, { type: "numberedListItem" }>,
-    previousBlocks: BlockType[],
-  ): number {
-    if (numberedListItem.props.start !== undefined) {
-      return numberedListItem.props.start;
-    }
+  private convertListItem(
+    block: Extract<
+      BlockType,
+      { type: "bulletListItem" | "numberedListItem" | "checkListItem" }
+    >,
+    currentList: Extract<Block, { type: "list" }> | null,
+  ): ListItem {
+    switch (block.type) {
+      case "bulletListItem":
+        return {
+          content: [
+            // TODO: change when nested blocks are supported in blocknote
+            {
+              type: "paragraph",
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              styles: {},
+            },
+            ...this.convertBlocks(block.children),
+          ],
+          styles: this.convertBlockStyles(block.props),
+        };
 
-    let number = 1;
+      case "numberedListItem": {
+        const prevNumber = currentList?.items.at(-1)?.number;
 
-    for (const block of previousBlocks.toReversed()) {
-      if (block.type !== "numberedListItem") {
-        break;
+        const number = (prevNumber ?? 0) + 1;
+
+        return {
+          number,
+          content: [
+            // TODO: change when nested blocks are supported in blocknote
+            {
+              type: "paragraph",
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              styles: {},
+            },
+            ...this.convertBlocks(block.children),
+          ],
+          styles: this.convertBlockStyles(block.props),
+        };
       }
 
-      if (block.props.start !== undefined) {
-        number += block.props.start;
-        break;
-      }
-
-      number += 1;
+      case "checkListItem":
+        return {
+          checked: block.props.checked,
+          content: [
+            // TODO: change when nested blocks are supported in blocknote
+            {
+              type: "paragraph",
+              content: block.content.map((item) =>
+                this.convertInlineContent(item),
+              ),
+              styles: {},
+            },
+            ...this.convertBlocks(block.children),
+          ],
+          styles: this.convertBlockStyles(block.props),
+        };
     }
-
-    return number;
   }
 
   private convertBlockStyles(styles: BlockStyles): BlockStyles {

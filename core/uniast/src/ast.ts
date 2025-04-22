@@ -37,10 +37,8 @@ type Block =
       styles: BlockStyles;
     }
   | {
-      type: "listItem";
-      number?: number;
-      checked?: boolean;
-      content: Block[];
+      type: "list";
+      items: ListItem[];
       styles: BlockStyles;
     }
   | { type: "blockQuote"; content: Block[]; styles: BlockStyles }
@@ -74,6 +72,16 @@ type BlockStyles = {
  * @since 0.16
  */
 type Alignment = "left" | "center" | "right" | "justify";
+
+/**
+ * @since 0.17
+ */
+type ListItem = {
+  number?: number;
+  checked?: boolean;
+  content: Block[];
+  styles: BlockStyles;
+};
 
 /**
  * @since 0.17
@@ -148,6 +156,7 @@ export type {
   BlockStyles,
   Image,
   InlineContent,
+  ListItem,
   LinkTarget,
   TableCell,
   TableColumn,

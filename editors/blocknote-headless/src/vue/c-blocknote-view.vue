@@ -91,6 +91,17 @@ async function extractEditorContent() {
   return uniAstToMarkdown.toMarkdown(uniAst);
 }
 
+async function notifyChanges(): Promise<void> {
+  console.log("salut");
+
+  const content = await extractEditorContent();
+
+  // TODO: error reporting
+  if (!(content instanceof Error)) {
+    emit("blocknote-save", content);
+  }
+}
+
 // eslint-disable-next-line max-statements
 async function getRealtimeProvider(): Promise<
   NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
@@ -117,14 +128,7 @@ async function getRealtimeProvider(): Promise<
     name: `${documentReference}:blocknote`,
   });
 
-  autoSaverRef.value = new AutoSaver(provider, async () => {
-    const content = await extractEditorContent();
-
-    // TODO: error reporting
-    if (!(content instanceof Error)) {
-      emit("blocknote-save", content);
-    }
-  });
+  autoSaverRef.value = new AutoSaver(provider, notifyChanges);
 
   const user = await computeCurrentUser(authenticationManager);
 
@@ -142,14 +146,7 @@ const collaboration = await getRealtimeProvider();
 if (!realtimeServerURL && editorProps.editorRef) {
   watch(editorProps.editorRef, (editor) => {
     if (editor) {
-      const debouncedSave = debounce(async () => {
-        const content = await extractEditorContent();
-
-        // TODO: error reporting
-        if (!(content instanceof Error)) {
-          emit("blocknote-save", content);
-        }
-      }, 500);
+      const debouncedSave = debounce(notifyChanges, 500);
 
       editor?.onChange(debouncedSave);
     }
