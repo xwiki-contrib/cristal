@@ -46,7 +46,6 @@ function update(url: string) {
 
 <style scoped>
 div {
-  border: 1px solid black;
   padding: 5px;
   background-color: white;
 }

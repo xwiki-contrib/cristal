@@ -40,9 +40,10 @@ function insertLink(url: string) {
 </script>
 
 <template>
-  <x-btn variant="text" @click="showLinkEditor = !showLinkEditor">
-    <c-icon name="link" />
-  </x-btn>
+  <!-- NOTE: Long-term, this component should be part of the toolbar natively, not extending the default toolbar -->
+  <button @click="showLinkEditor = !showLinkEditor">
+    <c-icon class="icon" name="link" />
+  </button>
 
   <div v-if="showLinkEditor" class="linkEditor">
     <LinkEditor
@@ -64,10 +65,28 @@ function insertLink(url: string) {
   position: absolute;
   left: 0;
   /* Yes, this is dirty */
-  top: 3rem;
+  top: 2.5rem;
   background: white;
   width: 100%;
   box-shadow: 0px 4px 12px #cfcfcf;
   border-radius: 6px;
+}
+
+button {
+  display: block;
+  border-radius: 4px;
+  height: 30px;
+  max-height: 30px;
+  width: 30px;
+}
+
+button:hover {
+  background-color: #efefef;
+}
+
+.icon {
+  font-size: 1.1rem;
+  color: #3f3f3f;
+  height: 30px;
 }
 </style>
