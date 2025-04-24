@@ -119,7 +119,8 @@ function BlockNoteViewWrapper({
     | undefined;
 
   // Prevent changes in the editor until the provider has synced with other clients
-  const [ready, setReady] = useState(!provider);
+  // TODO: "ready" is not defined here (see below)
+  const [, setReady] = useState(!provider);
 
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
@@ -168,6 +169,9 @@ function BlockNoteViewWrapper({
     parseAndLoadContent(editor, content);
   }
 
+  // TODO: this condition ensures the editor does not show until all changes have been synced with clients
+  // Currently, there is a problem with realtime not syncing changes in a reliable fashion, so we disable it for now
+  //
   // if (!ready) {
   //   return <h1>Syncing changes with other realtime users...</h1>;
   // }
