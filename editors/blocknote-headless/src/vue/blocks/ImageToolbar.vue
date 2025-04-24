@@ -18,12 +18,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+import ImageFilePanel from "./ImageFilePanel.vue";
 import { BlockOfType, EditorType } from "../../blocknote";
+import { LinkEditionContext } from "../../components/linkEditionContext";
 import { ref, watch } from "vue";
 
-const { editor, currentBlock: image } = defineProps<{
+const {
+  editor,
+  currentBlock: image,
+  linkEditionCtx,
+} = defineProps<{
   editor: EditorType;
   currentBlock: BlockOfType<"image">;
+  linkEditionCtx: LinkEditionContext;
 }>();
 
 const url = ref(image.props.url);
@@ -34,5 +41,10 @@ watch(url, (url) => {
 </script>
 
 <template>
-  <input v-model="url" type="text" />
+  <ImageFilePanel
+    :current-block="image"
+    :link-edition-ctx
+    :editor
+    @updated="editor.focus()"
+  />
 </template>

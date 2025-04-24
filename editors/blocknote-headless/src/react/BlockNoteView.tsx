@@ -69,7 +69,7 @@ type BlockNoteViewWrapperProps = {
     currentBlock: BlockType;
   }>;
 
-  formattingToolbarOnlyFor: Array<BlockType["type"]>;
+  prefixDefaultFormattingToolbarFor: Array<BlockType["type"]>;
 
   linkToolbar: ReactivueChild<{
     editor: EditorType;
@@ -106,7 +106,7 @@ function BlockNoteViewWrapper({
   blockNoteOptions,
   theme,
   formattingToolbar: CustomFormattingToolbar,
-  formattingToolbarOnlyFor,
+  prefixDefaultFormattingToolbarFor,
   linkToolbar: CustomLinkToolbar,
   filePanel: CustomFilePanel,
   content,
@@ -168,9 +168,9 @@ function BlockNoteViewWrapper({
     parseAndLoadContent(editor, content);
   }
 
-  if (!ready) {
-    return <h1>Syncing changes with other realtime users...</h1>;
-  }
+  // if (!ready) {
+  //   return <h1>Syncing changes with other realtime users...</h1>;
+  // }
 
   // Renders the editor instance using a React component.
   return (
@@ -193,14 +193,18 @@ function BlockNoteViewWrapper({
           const currentBlock = editor.getTextCursorPosition().block;
 
           return (
-            <FormattingToolbar>
-              {formattingToolbarOnlyFor.includes(currentBlock.type) && (
+            <>
+              {prefixDefaultFormattingToolbarFor.includes(
+                currentBlock.type,
+              ) && <FormattingToolbar />}
+
+              <FormattingToolbar>
                 <CustomFormattingToolbar
                   editor={editor}
                   currentBlock={currentBlock}
                 />
-              )}
-            </FormattingToolbar>
+              </FormattingToolbar>
+            </>
           );
         }}
       />

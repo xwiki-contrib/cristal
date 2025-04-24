@@ -18,36 +18,56 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import ImageSuggestion from "./ImageSuggestion.vue";
+import LinkEditor from "./LinkEditor.vue";
 import { BlockOfType, EditorType } from "../../blocknote";
 import { LinkEditionContext } from "../../components/linkEditionContext";
+import { CIcon } from "@xwiki/cristal-icons";
+import { ref } from "vue";
 
-const { editor, currentBlock: image } = defineProps<{
+const { editor, linkEditionCtx } = defineProps<{
   editor: EditorType;
-  currentBlock: BlockOfType<"image">;
+  currentBlock: BlockOfType<"paragraph">;
   linkEditionCtx: LinkEditionContext;
 }>();
 
-const emit = defineEmits<{
-  updated: [];
-}>();
+const showLinkEditor = ref(false);
 
-function update(url: string) {
-  editor.updateBlock({ id: image.id }, { props: { url } });
-  emit("updated");
+const selected = editor.getSelectedText();
+
+function insertLink(url: string) {
+  editor.createLink(url);
 }
 </script>
 
 <template>
-  <div>
-    <ImageSuggestion @selected="({ url }) => update(url)" />
+  <x-btn variant="text" @click="showLinkEditor = !showLinkEditor">
+    <c-icon name="link" />
+  </x-btn>
+
+  <div v-if="showLinkEditor" class="linkEditor">
+    <LinkEditor
+      :link-edition-ctx
+      :current="{ title: selected, reference: null, url: '' }"
+      hide-title
+      @update="({ url }) => insertLink(url)"
+    />
   </div>
 </template>
 
 <style scoped>
-div {
-  border: 1px solid black;
-  padding: 5px;
-  background-color: white;
+/*
+  NOTE: Popover is implemented manually here due to an unresolved bug in the library we'd like to use
+  Once that issue is resolved, this code block will be removed and the library will be used instead
+  Consider this a temporary "dirty" hack
+*/
+.linkEditor {
+  position: absolute;
+  left: 0;
+  /* Yes, this is dirty */
+  top: 3rem;
+  background: white;
+  width: 100%;
+  box-shadow: 0px 4px 12px #cfcfcf;
+  border-radius: 6px;
 }
 </style>

@@ -18,27 +18,61 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import LinkSuggestion from "./LinkSuggestion.vue";
+import LinkEditor from "./LinkEditor.vue";
 import { EditorType } from "../../blocknote";
 import { LinkEditionContext } from "../../components/linkEditionContext";
 import { LinkToolbarProps } from "@blocknote/react";
+import { tryFallible } from "@xwiki/cristal-fn-utils";
+import { CIcon } from "@xwiki/cristal-icons";
+import { ref } from "vue";
 
-defineProps<{
+const { linkToolbarProps } = defineProps<{
   editor: EditorType;
   linkToolbarProps: LinkToolbarProps;
   linkEditionCtx: LinkEditionContext;
 }>();
+
+const editingLink = ref(false);
+
+function openTarget() {
+  if (linkToolbarProps.url) {
+    window.open(linkToolbarProps.url);
+  }
+}
 </script>
 
 <template>
-  <div style="border: 1px solid black; padding: 5px; background-color: white">
-    <p>
-      Current link is: <strong>{{ linkToolbarProps.url }}</strong>
-    </p>
+  <div class="container">
+    <x-btn variant="text" @click="editingLink = !editingLink">Edit link</x-btn>
 
-    <LinkSuggestion
+    <x-btn variant="text" @click="openTarget">
+      <c-icon name="box-arrow-up-right" />
+    </x-btn>
+
+    <x-btn variant="text" @click="linkToolbarProps.deleteLink()">
+      <c-icon name="trash" />
+    </x-btn>
+
+    <LinkEditor
+      v-if="editingLink"
       :link-edition-ctx
-      @selected="({ url, title }) => linkToolbarProps.editLink(url, title)"
+      :current="{
+        url: linkToolbarProps.url,
+        reference: tryFallible(
+          () =>
+            linkEditionCtx.remoteURLParser.parse(linkToolbarProps.url) ?? null,
+        ),
+        title: linkToolbarProps.text,
+      }"
+      @update="({ url, title }) => linkToolbarProps.editLink(url, title)"
     />
   </div>
 </template>
+
+<style scoped>
+.container {
+  background-color: white;
+  box-shadow: 0 1px 1px 1px #0f0f0f;
+  border-radius: 5px;
+}
+</style>

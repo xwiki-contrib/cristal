@@ -21,6 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import ImageFilePanel from "./blocks/ImageFilePanel.vue";
 import ImageToolbar from "./blocks/ImageToolbar.vue";
 import LinkToolbar from "./blocks/LinkToolbar.vue";
+import ParagraphToolbar from "./blocks/ParagraphToolbar.vue";
 import { BlockNoteToUniAstConverter } from "../blocknote/bn-to-uniast";
 import { UniAstToBlockNoteConverter } from "../blocknote/uniast-to-bn";
 import { AutoSaver } from "../components/autoSaver";
@@ -61,7 +62,10 @@ const {
   container,
   skinManager,
 } = defineProps<{
-  editorProps: Omit<ReactNonSlotProps<BlockNoteViewWrapperProps>, "content">;
+  editorProps: Omit<
+    ReactNonSlotProps<BlockNoteViewWrapperProps>,
+    "content" | "prefixDefaultFormattingToolbarFor"
+  >;
   editorContent: UniAst | Error;
   realtimeServerURL?: string;
   container: Container;
@@ -151,8 +155,12 @@ if (!realtimeServerURL && editorProps.editorRef) {
   });
 }
 
-const initializedEditorProps = {
+const initializedEditorProps: Omit<
+  ReactNonSlotProps<BlockNoteViewWrapperProps>,
+  "content"
+> = {
   ...editorProps,
+  prefixDefaultFormattingToolbarFor: ["paragraph"],
   blockNoteOptions: {
     ...editorProps.blockNoteOptions,
     collaboration,
@@ -201,6 +209,13 @@ const { t } = useI18n({
         :current-block
       />
 
+      <ParagraphToolbar
+        v-else-if="currentBlock.type === 'paragraph'"
+        :editor
+        :current-block
+        :link-edition-ctx
+      />
+
       <strong v-else>Unknown block type: {{ currentBlock.type }}</strong>
     </template>
 
@@ -214,7 +229,7 @@ const { t } = useI18n({
       <ImageFilePanel
         v-if="filePanelProps.block.type === 'image'"
         :editor
-        :file-panel-props
+        :current-block="filePanelProps.block"
         :link-edition-ctx
       />
 
