@@ -40,10 +40,6 @@ function insertLink(url: string) {
 </script>
 
 <template>
-  <!--
-    NOTE: Long-term, this component should be part of the toolbar natively, not extending the default toolbar 
-    Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1640
-  -->
   <button @click="showLinkEditor = !showLinkEditor">
     <c-icon class="icon" name="link" />
   </button>

@@ -69,6 +69,10 @@ type BlockNoteViewWrapperProps = {
     currentBlock: BlockType;
   }>;
 
+  /**
+   * Prepend the default formatting toolbar for the provided block types
+   * For all these blocks, the custom-provided `formattingToolbar` will be *appended* to the default toolbar instead of replacing it
+   */
   prefixDefaultFormattingToolbarFor: Array<BlockType["type"]>;
 
   linkToolbar: ReactivueChild<{
@@ -198,9 +202,12 @@ function BlockNoteViewWrapper({
 
           return (
             <>
-              {prefixDefaultFormattingToolbarFor.includes(
-                currentBlock.type,
-              ) && <FormattingToolbar />}
+              {
+                // Prepend the default formatting toolbar for blocks that require it
+                prefixDefaultFormattingToolbarFor.includes(
+                  currentBlock.type,
+                ) && <FormattingToolbar />
+              }
 
               <FormattingToolbar>
                 <CustomFormattingToolbar
