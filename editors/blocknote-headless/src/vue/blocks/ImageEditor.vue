@@ -19,6 +19,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import LinkSuggestList from "./LinkSuggestList.vue";
+import { LinkEditionContext } from "../../components/linkEditionContext";
 import { LinkSuggestion } from "../../components/linkSuggest";
 import messages from "../../translations";
 import { DocumentService } from "@xwiki/cristal-document-api";
@@ -27,17 +28,19 @@ import {
   AttachmentReference,
   DocumentReference,
 } from "@xwiki/cristal-model-api";
-import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import { Container } from "inversify";
 import { debounce } from "lodash-es";
-import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
+import { inject, onMounted, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AttachmentsService } from "@xwiki/cristal-attachments-api";
 import type {
   Link,
   LinkSuggestServiceProvider,
 } from "@xwiki/cristal-link-suggest-api";
-import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+
+const { linkEditionCtx } = defineProps<{
+  linkEditionCtx: LinkEditionContext;
+}>();
 
 const emit = defineEmits<{
   select: [{ url: string }];
@@ -47,14 +50,6 @@ const container = inject<Container>("container")!;
 
 const attachmentsService =
   container.get<AttachmentsService>("AttachmentsService");
-
-const modelReferenceParser = container
-  .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
-  .get();
-
-const remoteURLSerializer = container
-  .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
-  .get();
 
 const documentService = container.get<DocumentService>("DocumentService")!;
 
@@ -119,9 +114,9 @@ async function fileSelected() {
     const currentPageName = getCurrentPageName();
     await attachmentsService.upload(currentPageName, [fileItem]);
 
-    const parser = modelReferenceParser?.parse(currentPageName);
+    const parser = linkEditionCtx.modelReferenceParser?.parse(currentPageName);
 
-    const url = remoteURLSerializer?.serialize(
+    const url = linkEditionCtx.remoteURLSerializer?.serialize(
       new AttachmentReference(fileItem.name, parser as DocumentReference),
     );
 
@@ -138,7 +133,7 @@ function insertTextAsLink() {
 }
 
 function convertLink(link: Link): LinkSuggestion {
-  const attachmentReference = modelReferenceParser?.parse(
+  const attachmentReference = linkEditionCtx.modelReferenceParser?.parse(
     link.reference,
   ) as AttachmentReference;
 
@@ -160,6 +155,10 @@ function convertLink(link: Link): LinkSuggestion {
 }
 
 const listInstance = shallowRef<InstanceType<typeof LinkSuggestList>>();
+
+onMounted(() => {
+  imageNameQueryInput.value?.focus();
+});
 </script>
 
 <template>

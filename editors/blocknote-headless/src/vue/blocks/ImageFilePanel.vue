@@ -18,7 +18,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import ImageSearchSelector from "./ImageSearchSelector.vue";
+import ImageSearchSelector from "./ImageEditor.vue";
 import { BlockOfType, EditorType } from "../../blocknote";
 import { LinkEditionContext } from "../../components/linkEditionContext";
 
@@ -40,7 +40,7 @@ function update(url: string) {
 
 <template>
   <div>
-    <ImageSearchSelector @select="({ url }) => update(url)" />
+    <ImageSearchSelector :link-edition-ctx @select="({ url }) => update(url)" />
   </div>
 </template>
 
