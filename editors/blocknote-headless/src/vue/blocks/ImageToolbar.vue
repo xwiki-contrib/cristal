@@ -92,9 +92,8 @@ button:hover {
 }
 
 /*
-  NOTE: Popover is implemented manually here due to an unresolved bug in the library we'd like to use
-  Once that issue is resolved, this code block will be removed and the library will be used instead
-  Consider this a temporary "dirty" hack
+  NOTE: Popover is implemented manually here due to positioning problems with Tippy + considerations to switch to Floating UI now that Tippy is deprecated
+  This is temporary and will be replaced with a "proper" solution using a dedicated library in the near future
 */
 .imageSelector {
   position: absolute;
