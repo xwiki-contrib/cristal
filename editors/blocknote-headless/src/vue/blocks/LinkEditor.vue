@@ -47,7 +47,6 @@ const target = ref({
 });
 
 const title = ref(current?.title ?? "");
-
 const results = ref<LinkSuggestion[]>([]);
 
 const query = ref(
@@ -72,11 +71,13 @@ const search = debounce(async (query: string) => {
 });
 
 function select(result: LinkSuggestion) {
+  const reference = linkEditionCtx.modelReferenceParser.parse(result.reference);
+
   title.value ||= result.title;
-  query.value = result.title;
+  query.value = linkEditionCtx.modelReferenceSerializer.serialize(reference)!;
   target.value = {
     url: result.url,
-    reference: linkEditionCtx.modelReferenceParser.parse(result.reference),
+    reference,
   };
   results.value = [];
 }

@@ -68,17 +68,34 @@ function openTarget() {
     ]"
   />
 
-  <LinkEditor
-    v-if="editingLink"
-    :link-edition-ctx
-    :current="{
-      url: linkToolbarProps.url,
-      reference: tryFallible(
-        () =>
-          linkEditionCtx.remoteURLParser.parse(linkToolbarProps.url) ?? null,
-      ),
-      title: linkToolbarProps.text,
-    }"
-    @update="({ url, title }) => linkToolbarProps.editLink(url, title)"
-  />
+  <div v-if="editingLink" class="link-editor">
+    <LinkEditor
+      :link-edition-ctx
+      :current="{
+        url: linkToolbarProps.url,
+        reference: tryFallible(
+          () =>
+            linkEditionCtx.remoteURLParser.parse(linkToolbarProps.url) ?? null,
+        ),
+        title: linkToolbarProps.text,
+      }"
+      @update="({ url, title }) => linkToolbarProps.editLink(url, title)"
+    />
+  </div>
 </template>
+
+<style scoped>
+/*
+  NOTE: Popover is implemented manually here due to positioning problems with Tippy + considerations to switch to Floating UI now that Tippy is deprecated
+  This is temporary and will be replaced with a "proper" solution using a dedicated library in the near future
+*/
+.link-editor {
+  position: absolute;
+  left: 0;
+  /* Yes, this is dirty */
+  top: 2.5rem;
+  background: white;
+  box-shadow: 0px 4px 12px #cfcfcf;
+  border-radius: 6px;
+}
+</style>
