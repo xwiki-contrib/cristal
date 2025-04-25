@@ -40,7 +40,7 @@ function update(url: string) {
 
 <template>
   <div>
-    <ImageSearchSelector @selected="({ url }) => update(url)" />
+    <ImageSearchSelector @select="({ url }) => update(url)" />
   </div>
 </template>
 

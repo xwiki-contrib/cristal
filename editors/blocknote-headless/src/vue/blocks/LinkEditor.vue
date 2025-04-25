@@ -25,7 +25,7 @@ import { CIcon } from "@xwiki/cristal-icons";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { EntityReference } from "@xwiki/cristal-model-api";
 import { debounce } from "lodash-es";
-import { ref, shallowRef } from "vue";
+import { onMounted, ref, shallowRef } from "vue";
 
 const { linkEditionCtx, current, hideTitle } = defineProps<{
   linkEditionCtx: LinkEditionContext;
@@ -81,24 +81,6 @@ function select(result: LinkSuggestion) {
   results.value = [];
 }
 
-function keydown(e: KeyboardEvent) {
-  if (!listInstance.value) {
-    throw new Error("List instance is not defined");
-  }
-
-  if (e.key === "ArrowUp") {
-    listInstance.value.focusRelative(-1);
-  } else if (e.key === "ArrowDown") {
-    listInstance.value.focusRelative(1);
-  } else if (e.key === "Enter") {
-    listInstance.value.select();
-  } else {
-    return;
-  }
-
-  e.preventDefault();
-}
-
 function submit() {
   emit("update", {
     title: title.value,
@@ -108,6 +90,11 @@ function submit() {
 }
 
 const listInstance = shallowRef<InstanceType<typeof LinkSuggestList>>();
+const queryInput = shallowRef<HTMLInputElement>();
+
+onMounted(() => {
+  queryInput.value?.focus();
+});
 </script>
 
 <template>
@@ -125,11 +112,14 @@ const listInstance = shallowRef<InstanceType<typeof LinkSuggestList>>();
     </label>
 
     <input
+      ref="queryInput"
       v-model="query"
       type="text"
       placeholder="URL or page reference"
       @input="search(query)"
-      @keydown="keydown"
+      @keydown.up.prevent="listInstance?.focusRelative(-1)"
+      @keydown.down.prevent="listInstance?.focusRelative(1)"
+      @keydown.enter.prevent="listInstance?.select()"
     />
 
     <x-btn @click="submit">Save</x-btn>

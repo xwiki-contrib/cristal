@@ -131,6 +131,10 @@ watch(selected, async (selected) => {
         'no-image': !images,
       }"
       v-bind="{ [dataUrlAttr]: link.url }"
+      @click="
+        selected = link;
+        $emit('select', link);
+      "
     >
       <div v-if="images" class="image">
         <img :src="link.url" alt="" />
