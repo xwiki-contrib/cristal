@@ -21,8 +21,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import LinkSuggestList from "./LinkSuggestList.vue";
 import { LinkSuggestion } from "../../components/linkSuggest";
 import messages from "../../translations";
+import { DocumentService } from "@xwiki/cristal-document-api";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
-import { AttachmentReference } from "@xwiki/cristal-model-api";
+import {
+  AttachmentReference,
+  DocumentReference,
+} from "@xwiki/cristal-model-api";
+import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import { Container } from "inversify";
 import { debounce } from "lodash-es";
 import { inject, ref, useTemplateRef, watch } from "vue";
@@ -46,6 +51,12 @@ const attachmentsService =
 const modelReferenceParser = container
   .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
   .get();
+
+const remoteURLSerializer = container
+  .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
+  .get();
+
+const documentService = container.get<DocumentService>("DocumentService")!;
 
 const { t } = useI18n({
   messages,
@@ -91,6 +102,35 @@ watch(
 // Start a first empty search on the first load, to not let the content empty.
 searchAttachments("");
 
+const fileUpload = useTemplateRef<HTMLInputElement>("fileUpload");
+
+function triggerUpload() {
+  fileUpload.value?.click();
+}
+
+function getCurrentPageName() {
+  return documentService.getCurrentDocumentReferenceString().value ?? "";
+}
+
+async function fileSelected() {
+  const files = fileUpload.value?.files;
+  if (files && files.length > 0) {
+    const fileItem = files.item(0)!;
+    const currentPageName = getCurrentPageName();
+    await attachmentsService.upload(currentPageName, [fileItem]);
+
+    const parser = modelReferenceParser?.parse(currentPageName);
+
+    const url = remoteURLSerializer?.serialize(
+      new AttachmentReference(fileItem.name, parser as DocumentReference),
+    );
+
+    if (url) {
+      emit("select", { url: url });
+    }
+  }
+}
+
 function insertTextAsLink() {
   if (imageNameQuery.value) {
     emit("select", { url: imageNameQuery.value });
@@ -127,6 +167,19 @@ function convertLink(link: Link): LinkSuggestion {
     </div>
 
     <ul v-else class="item-group">
+      <li class="item">
+        <x-btn @click="triggerUpload">
+          {{ t("blocknote.image.insertView.upload") }}
+        </x-btn>
+        <input
+          v-show="false"
+          ref="fileUpload"
+          type="file"
+          accept="image/*"
+          @change="fileSelected"
+        />
+      </li>
+
       <li class="item">
         <input
           ref="imageNameQueryInput"
@@ -171,6 +224,24 @@ function convertLink(link: Link): LinkSuggestion {
     0 10px 20px rgba(0, 0, 0, 0.1);
   max-height: 300px;
   width: auto;
+}
+
+ul {
+  list-style: none;
+}
+
+.item-group {
+  overflow: auto;
+  padding: 0;
+}
+
+.item {
+  display: block;
+  background: transparent;
+  border: none;
+  padding: var(--cr-spacing-x-small);
+  width: 100%;
+  text-align: start;
 }
 
 input {
