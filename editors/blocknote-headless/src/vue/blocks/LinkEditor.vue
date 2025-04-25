@@ -18,13 +18,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+import LinkSuggestList from "./LinkSuggestList.vue";
 import { LinkEditionContext } from "../../components/linkEditionContext";
 import { LinkSuggestion } from "../../components/linkSuggest";
 import { CIcon } from "@xwiki/cristal-icons";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { EntityReference } from "@xwiki/cristal-model-api";
 import { debounce } from "lodash-es";
-import { ref } from "vue";
+import { ref, shallowRef } from "vue";
 
 const { linkEditionCtx, current, hideTitle } = defineProps<{
   linkEditionCtx: LinkEditionContext;
@@ -80,6 +81,24 @@ function select(result: LinkSuggestion) {
   results.value = [];
 }
 
+function keydown(e: KeyboardEvent) {
+  if (!listInstance.value) {
+    throw new Error("List instance is not defined");
+  }
+
+  if (e.key === "ArrowUp") {
+    listInstance.value.focusRelative(-1);
+  } else if (e.key === "ArrowDown") {
+    listInstance.value.focusRelative(1);
+  } else if (e.key === "Enter") {
+    listInstance.value.select();
+  } else {
+    return;
+  }
+
+  e.preventDefault();
+}
+
 function submit() {
   emit("update", {
     title: title.value,
@@ -87,6 +106,8 @@ function submit() {
     reference: target.value.reference,
   });
 }
+
+const listInstance = shallowRef<InstanceType<typeof LinkSuggestList>>();
 </script>
 
 <template>
@@ -108,25 +129,27 @@ function submit() {
       type="text"
       placeholder="URL or page reference"
       @input="search(query)"
+      @keydown="keydown"
     />
 
     <x-btn @click="submit">Save</x-btn>
   </div>
 
-  <div v-if="results.length > 0">
-    <hr />
+  <hr />
 
-    <ul>
-      <li
-        v-for="result in results"
-        :key="result.url"
-        class="search-result"
-        @click="select(result)"
-      >
-        {{ result.title }}
-      </li>
-    </ul>
-  </div>
+  <LinkSuggestList
+    ref="listInstance"
+    :links="
+      results.map((result) => ({
+        type: LinkType.PAGE,
+        segments: result.segments,
+        title: result.title,
+        reference: result.reference,
+        url: result.url,
+      }))
+    "
+    @select="select"
+  />
 </template>
 
 <style scoped>
@@ -153,13 +176,5 @@ function submit() {
 input {
   border: 1px solid lightgray;
   padding: 5px;
-}
-
-.search-result {
-  cursor: pointer;
-}
-
-.search-result:hover {
-  text-decoration: underline;
 }
 </style>

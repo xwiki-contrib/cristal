@@ -248,6 +248,7 @@ const { t } = useI18n({
   NOTE: This is an extremely dirty hack to hide the default link insertion button from BlockNote's default toolbar
   Once the toolbar becomes customizable, this will be
   The selector is explicitly very precise to avoid breaking something during updates
+  Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1640
 */
 :deep(
   [data-floating-ui-focusable]

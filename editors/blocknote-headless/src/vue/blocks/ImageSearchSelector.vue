@@ -18,7 +18,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import LinkSuggestItem from "./LinkSuggestItem.vue";
+import LinkSuggestList from "./LinkSuggestList.vue";
+import { LinkSuggestion } from "../../components/linkSuggest";
 import messages from "../../translations";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { AttachmentReference } from "@xwiki/cristal-model-api";
@@ -32,10 +33,9 @@ import type {
   LinkSuggestServiceProvider,
 } from "@xwiki/cristal-link-suggest-api";
 import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
-import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 
 const emit = defineEmits<{
-  selected: [{ url: string }];
+  select: [{ url: string }];
 }>();
 
 const container = inject<Container>("container")!;
@@ -45,10 +45,6 @@ const attachmentsService =
 
 const modelReferenceParser = container
   .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
-  .get();
-
-const remoteURLSerializer = container
-  .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
   .get();
 
 const { t } = useI18n({
@@ -97,25 +93,29 @@ searchAttachments("");
 
 function insertTextAsLink() {
   if (imageNameQuery.value) {
-    emit("selected", { url: imageNameQuery.value });
+    emit("select", { url: imageNameQuery.value });
   }
 }
 
-function convertLink(link: Link) {
+function convertLink(link: Link): LinkSuggestion {
   const attachmentReference = modelReferenceParser?.parse(
     link.reference,
   ) as AttachmentReference;
+
   const documentReference = attachmentReference.document;
   const segments = documentReference.space?.names.slice(0) ?? [];
+
   // TODO: replace with an actual construction of segments from a reference
   if (documentReference.terminal) {
     segments.push(documentReference.name);
   }
+
   return {
     type: link.type,
     title: link.label,
+    reference: link.reference,
+    url: link.url,
     segments,
-    imageURL: remoteURLSerializer?.serialize(attachmentReference),
   };
 }
 </script>
@@ -150,16 +150,11 @@ function convertLink(link: Link) {
       </li>
 
       <template v-else>
-        <!-- factorize with c-blocknote-link-suggest -->
-        <li
-          v-for="link in links"
-          :key="link.id"
-          :class="['item', 'selectable-item']"
-          @keydown.enter="$emit('selected', { url: link.url })"
-          @click="$emit('selected', { url: link.url })"
-        >
-          <link-suggest-item :link="convertLink(link)" />
-        </li>
+        <LinkSuggestList
+          images
+          :links="links.map(convertLink)"
+          @select="(link) => $emit('select', { url: link.url })"
+        />
       </template>
     </ul>
   </div>
@@ -178,35 +173,9 @@ function convertLink(link: Link) {
   width: auto;
 }
 
-.image-insert-view input {
-  width: 100%;
-}
-
-.image-insert-view ul {
-  list-style: none;
-}
-
-.image-insert-view .item-group {
-  overflow: auto;
-  padding: 0;
-}
-
-.image-insert-view .item {
-  display: block;
-  background: transparent;
-  border: none;
-  padding: var(--cr-spacing-x-small);
-  width: 100%;
-  text-align: start;
-}
-
-.image-insert-view .selectable-item:hover {
-  background-color: var(--cr-color-neutral-200);
-  cursor: pointer;
-}
-
 input {
   outline: none;
   border: 1px solid lightgray;
+  width: 100%;
 }
 </style>
