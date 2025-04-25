@@ -19,9 +19,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import ImageFilePanel from "./ImageFilePanel.vue";
+import ToolbarButtonSet from "./ToolbarButtonSet.vue";
 import { BlockOfType, EditorType } from "../../blocknote";
 import { LinkEditionContext } from "../../components/linkEditionContext";
-import { CIcon } from "@xwiki/cristal-icons";
 import { ref, watch } from "vue";
 
 const {
@@ -44,15 +44,24 @@ const showImagePanel = ref(false);
 </script>
 
 <template>
-  <div class="container">
-    <button @click="showImagePanel = !showImagePanel">
-      <c-icon class="icon" name="pencil" />
-    </button>
-
-    <button @click="editor.removeBlocks([image.id])">
-      <c-icon class="icon" name="trash" />
-    </button>
-  </div>
+  <ToolbarButtonSet
+    :buttons="[
+      {
+        icon: 'pencil',
+        title: 'Edit',
+        onClick() {
+          showImagePanel = !showImagePanel;
+        },
+      },
+      {
+        icon: 'trash',
+        title: 'Delete',
+        onClick() {
+          editor.removeBlocks([image.id]);
+        },
+      },
+    ]"
+  />
 
   <div v-if="showImagePanel" class="imageSelector">
     <ImageFilePanel
@@ -65,32 +74,6 @@ const showImagePanel = ref(false);
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-  box-shadow: 0 1px 1px 1px #0f0f0f;
-  border-radius: 5px;
-}
-
-button {
-  display: block;
-  border-radius: 4px;
-  height: 30px;
-  max-height: 30px;
-  width: 30px;
-}
-
-button:hover {
-  background-color: #efefef;
-}
-
-.icon {
-  font-size: 1.1rem;
-  color: #3f3f3f;
-  height: 30px;
-}
-
 /*
   NOTE: Popover is implemented manually here due to positioning problems with Tippy + considerations to switch to Floating UI now that Tippy is deprecated
   This is temporary and will be replaced with a "proper" solution using a dedicated library in the near future

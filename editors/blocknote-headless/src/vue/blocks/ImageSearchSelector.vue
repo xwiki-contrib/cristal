@@ -30,7 +30,7 @@ import {
 import { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import { Container } from "inversify";
 import { debounce } from "lodash-es";
-import { inject, ref, useTemplateRef, watch } from "vue";
+import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AttachmentsService } from "@xwiki/cristal-attachments-api";
 import type {
@@ -158,6 +158,8 @@ function convertLink(link: Link): LinkSuggestion {
     segments,
   };
 }
+
+const listInstance = shallowRef<InstanceType<typeof LinkSuggestList>>();
 </script>
 
 <template>
@@ -171,6 +173,7 @@ function convertLink(link: Link): LinkSuggestion {
         <x-btn @click="triggerUpload">
           {{ t("blocknote.image.insertView.upload") }}
         </x-btn>
+
         <input
           v-show="false"
           ref="fileUpload"
@@ -186,7 +189,11 @@ function convertLink(link: Link): LinkSuggestion {
           v-model="imageNameQuery"
           type="text"
           :placeholder="t('blocknote.image.insertView.search.placeholder')"
-          @keydown.enter="insertTextAsLink"
+          @keydown.up.prevent="listInstance?.focusRelative(-1)"
+          @keydown.down.prevent="listInstance?.focusRelative(1)"
+          @keydown.enter="
+            listInstance ? listInstance.select() : insertTextAsLink()
+          "
         />
       </li>
 
@@ -204,6 +211,7 @@ function convertLink(link: Link): LinkSuggestion {
 
       <template v-else>
         <LinkSuggestList
+          ref="listInstance"
           images
           :links="links.map(convertLink)"
           @select="(link) => $emit('select', { url: link.url })"

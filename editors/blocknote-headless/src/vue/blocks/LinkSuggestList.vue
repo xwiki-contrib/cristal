@@ -116,7 +116,7 @@ watch(selected, async (selected) => {
     throw new Error("Internal error: corresponding list item is not defined");
   }
 
-  element.scrollIntoView();
+  element.scrollIntoView({ block: "nearest" });
 });
 </script>
 
@@ -167,6 +167,8 @@ watch(selected, async (selected) => {
   grid-column-gap: 0;
   grid-row-gap: 0;
   cursor: pointer;
+  margin: 0.5em;
+  padding: 1em;
 }
 
 .parent:hover,

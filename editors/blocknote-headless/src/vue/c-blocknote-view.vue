@@ -222,7 +222,9 @@ const { t } = useI18n({
 
     <!-- Custom (popover) toolbar for link edition -->
     <template #linkToolbar="{ editor, linkToolbarProps }">
-      <LinkToolbar :editor :link-toolbar-props :link-edition-ctx />
+      <div class="shadow">
+        <LinkToolbar :editor :link-toolbar-props :link-edition-ctx />
+      </div>
     </template>
 
     <!-- Custom (popover) file panel for editing file-like blocks -->
@@ -256,5 +258,11 @@ const { t } = useI18n({
     > button:last-child
 ) {
   display: none;
+}
+
+.shadow {
+  box-shadow: 0px 4px 12px #cfcfcf;
+  border-radius: 6px;
+  padding: 2px;
 }
 </style>

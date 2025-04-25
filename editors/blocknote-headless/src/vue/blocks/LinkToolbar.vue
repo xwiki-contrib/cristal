@@ -19,11 +19,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import LinkEditor from "./LinkEditor.vue";
+import ToolbarButtonSet from "./ToolbarButtonSet.vue";
 import { EditorType } from "../../blocknote";
 import { LinkEditionContext } from "../../components/linkEditionContext";
 import { LinkToolbarProps } from "@blocknote/react";
 import { tryFallible } from "@xwiki/cristal-fn-utils";
-import { CIcon } from "@xwiki/cristal-icons";
 import { ref } from "vue";
 
 const { linkToolbarProps } = defineProps<{
@@ -42,37 +42,43 @@ function openTarget() {
 </script>
 
 <template>
-  <div class="container">
-    <x-btn variant="text" @click="editingLink = !editingLink">Edit link</x-btn>
+  <ToolbarButtonSet
+    :buttons="[
+      {
+        icon: 'pencil',
+        title: 'Edit',
+        onClick() {
+          editingLink = !editingLink;
+        },
+      },
+      {
+        icon: 'box-arrow-up-right',
+        title: 'Open',
+        onClick() {
+          openTarget();
+        },
+      },
+      {
+        icon: 'trash',
+        title: 'Delete',
+        onClick() {
+          linkToolbarProps.deleteLink();
+        },
+      },
+    ]"
+  />
 
-    <x-btn variant="text" @click="openTarget">
-      <c-icon name="box-arrow-up-right" />
-    </x-btn>
-
-    <x-btn variant="text" @click="linkToolbarProps.deleteLink()">
-      <c-icon name="trash" />
-    </x-btn>
-
-    <LinkEditor
-      v-if="editingLink"
-      :link-edition-ctx
-      :current="{
-        url: linkToolbarProps.url,
-        reference: tryFallible(
-          () =>
-            linkEditionCtx.remoteURLParser.parse(linkToolbarProps.url) ?? null,
-        ),
-        title: linkToolbarProps.text,
-      }"
-      @update="({ url, title }) => linkToolbarProps.editLink(url, title)"
-    />
-  </div>
+  <LinkEditor
+    v-if="editingLink"
+    :link-edition-ctx
+    :current="{
+      url: linkToolbarProps.url,
+      reference: tryFallible(
+        () =>
+          linkEditionCtx.remoteURLParser.parse(linkToolbarProps.url) ?? null,
+      ),
+      title: linkToolbarProps.text,
+    }"
+    @update="({ url, title }) => linkToolbarProps.editLink(url, title)"
+  />
 </template>
-
-<style scoped>
-.container {
-  background-color: white;
-  box-shadow: 0 1px 1px 1px #0f0f0f;
-  border-radius: 5px;
-}
-</style>
