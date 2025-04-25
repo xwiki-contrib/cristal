@@ -29,12 +29,12 @@ const { editor, currentBlock: image } = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  updated: [];
+  update: [];
 }>();
 
 function update(url: string) {
   editor.updateBlock({ id: image.id }, { props: { url } });
-  emit("updated");
+  emit("update");
 }
 </script>
 

@@ -45,6 +45,6 @@ watch(url, (url) => {
     :current-block="image"
     :link-edition-ctx
     :editor
-    @updated="editor.focus()"
+    @update="editor.focus()"
   />
 </template>
