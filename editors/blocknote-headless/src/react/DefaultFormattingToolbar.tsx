@@ -24,9 +24,9 @@ export type DefaultFormattingToolbarProps = {
   };
 };
 
-export const DefaultFormattingToolbar = ({
-  disableButtons,
-}: DefaultFormattingToolbarProps) => (
+export const DefaultFormattingToolbar: React.FC<
+  DefaultFormattingToolbarProps
+> = ({ disableButtons }) => (
   <>
     {disableButtons?.blockTypeSelect !== true && (
       <BlockTypeSelect key={"blockTypeSelect"} />
