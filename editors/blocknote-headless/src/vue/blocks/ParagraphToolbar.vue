@@ -19,9 +19,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script setup lang="ts">
 import LinkEditor from "./LinkEditor.vue";
+import ToolbarButtonSet from "./ToolbarButtonSet.vue";
 import { BlockOfType, EditorType } from "../../blocknote";
 import { LinkEditionContext } from "../../components/linkEditionContext";
-import { CIcon } from "@xwiki/cristal-icons";
 import { ref } from "vue";
 
 const { editor, linkEditionCtx } = defineProps<{
@@ -40,9 +40,17 @@ function insertLink(url: string) {
 </script>
 
 <template>
-  <button @click="showLinkEditor = !showLinkEditor">
-    <c-icon class="icon" name="link" />
-  </button>
+  <ToolbarButtonSet
+    :buttons="[
+      {
+        icon: 'link',
+        title: 'Create link',
+        onClick() {
+          showLinkEditor = !showLinkEditor;
+        },
+      },
+    ]"
+  />
 
   <div v-if="showLinkEditor" class="linkEditor">
     <LinkEditor
@@ -69,23 +77,5 @@ function insertLink(url: string) {
   width: 100%;
   box-shadow: 0px 4px 12px #cfcfcf;
   border-radius: 6px;
-}
-
-button {
-  display: block;
-  border-radius: 4px;
-  height: 30px;
-  max-height: 30px;
-  width: 30px;
-}
-
-button:hover {
-  background-color: #efefef;
-}
-
-.icon {
-  font-size: 1.1rem;
-  color: #3f3f3f;
-  height: 30px;
 }
 </style>
