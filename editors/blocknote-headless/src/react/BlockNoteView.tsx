@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { DefaultFormattingToolbar } from "./DefaultFormattingToolbar";
 import {
   BlockType,
   EditorBlockSchema,
@@ -64,16 +65,16 @@ type BlockNoteViewWrapperProps = {
   content: BlockType[];
   editorRef?: ShallowRef<EditorType | null>;
 
-  formattingToolbar: ReactivueChild<{
-    editor: EditorType;
-    currentBlock: BlockType;
-  }>;
-
   /**
    * Prepend the default formatting toolbar for the provided block types
    * For all these blocks, the custom-provided `formattingToolbar` will be *appended* to the default toolbar instead of replacing it
    */
   prefixDefaultFormattingToolbarFor: Array<BlockType["type"]>;
+
+  formattingToolbar: ReactivueChild<{
+    editor: EditorType;
+    currentBlock: BlockType;
+  }>;
 
   linkToolbar: ReactivueChild<{
     editor: EditorType;
@@ -201,21 +202,23 @@ function BlockNoteViewWrapper({
           const currentBlock = editor.getTextCursorPosition().block;
 
           return (
-            <>
+            <FormattingToolbar>
               {
                 // Prepend the default formatting toolbar for blocks that require it
                 prefixDefaultFormattingToolbarFor.includes(
                   currentBlock.type,
-                ) && <FormattingToolbar />
+                ) && (
+                  <DefaultFormattingToolbar
+                    disableButtons={{ createLink: true }}
+                  />
+                )
               }
 
-              <FormattingToolbar>
-                <CustomFormattingToolbar
-                  editor={editor}
-                  currentBlock={currentBlock}
-                />
-              </FormattingToolbar>
-            </>
+              <CustomFormattingToolbar
+                editor={editor}
+                currentBlock={currentBlock}
+              />
+            </FormattingToolbar>
           );
         }}
       />

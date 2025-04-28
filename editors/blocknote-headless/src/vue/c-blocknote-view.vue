@@ -252,10 +252,10 @@ const { t } = useI18n({
   The selector is explicitly very precise to avoid breaking something during updates
   Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1640
 */
-:deep(
+:global(
   [data-floating-ui-focusable]
     > .bn-toolbar.bn-formatting-toolbar:first-child
-    > button:last-child
+    > button:last-of-type
 ) {
   display: none;
 }
