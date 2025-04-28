@@ -70,7 +70,7 @@ export class BlockNoteToUniAstConverter {
         const converted = this.convertBlock(block);
 
         if (converted !== null) {
-          out.push();
+          out.push(converted);
         }
 
         continue;
