@@ -2907,8 +2907,8 @@ importers:
         specifier: 1.11.2
         version: 1.11.2
       '@gouvminint/vue-dsfr':
-        specifier: 5.11.0
-        version: 5.11.0(oh-vue-icons@1.0.0-rc3(vue@3.5.13(typescript@5.8.2)))(vue-router@4.5.0(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
+        specifier: 5.22.0
+        version: 5.22.0(oh-vue-icons@1.0.0-rc3(vue@3.5.13(typescript@5.8.2)))(vue-router@4.5.0(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../api
@@ -5311,10 +5311,6 @@ packages:
     resolution: {integrity: sha512-gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/js@9.23.0':
-    resolution: {integrity: sha512-35MJ8vCPU0ZMxo7zfev2pypqTwWTofFZO6m4KAtdoFhRpLJUpHTZZ+KB3C7Hb1d7bULYwO4lJXGCi5Se+8OMbw==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
   '@eslint/js@9.25.1':
     resolution: {integrity: sha512-dEIwmjntEx8u3Uvv+kr3PDeeArL8Hw07H9kyYxCjnM9pBjfEhk6uLXSchxxzgiwtRhhzVzqmUSDFBOi1TuZ7qg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -5355,13 +5351,13 @@ packages:
     resolution: {integrity: sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==}
     engines: {node: '>=18.16.1'}
 
-  '@gouvminint/vue-dsfr@5.11.0':
-    resolution: {integrity: sha512-D1Vm+tJAtKJlZq6NO2lNogSYKcv7J0fHv0WY1qV5XzynKZS3JtE6BsFYDzhocv15rg9pcImmvw7qLWUUx57EAw==}
-    engines: {node: '>=18.x.x', npm: '>=8.x.x'}
+  '@gouvminint/vue-dsfr@5.22.0':
+    resolution: {integrity: sha512-tmoIuoM0set008/H7ReKhIIzBS1hfeQoVAyWgdIxUi1VcPPM78IRXVAIrEGabkjRs5+nStUIqRUzLw3/+1P71w==}
+    engines: {node: '>=20.x.x', npm: '>=10.x.x'}
     peerDependencies:
       oh-vue-icons: 1.0.0-rc3
-      vue: ^3.4.21
-      vue-router: ^4.3.0
+      vue: ^3.4.27
+      vue-router: ^4.3.2
 
   '@hocuspocus/common@2.15.2':
     resolution: {integrity: sha512-wU1wxXNnQQMXyeL3mdSDYiQsm/r/QyJVjjQhF7sUBrLnjdsN7bA1cvfcSvJBr1ymrMSeYRmUL3UlQmEHEOaP7w==}
@@ -11399,8 +11395,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@9.23.0': {}
-
   '@eslint/js@9.25.1': {}
 
   '@eslint/object-schema@2.1.6': {}
@@ -11439,7 +11433,7 @@ snapshots:
 
   '@gouvfr/dsfr@1.11.2': {}
 
-  '@gouvminint/vue-dsfr@5.11.0(oh-vue-icons@1.0.0-rc3(vue@3.5.13(typescript@5.8.2)))(vue-router@4.5.0(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
+  '@gouvminint/vue-dsfr@5.22.0(oh-vue-icons@1.0.0-rc3(vue@3.5.13(typescript@5.8.2)))(vue-router@4.5.0(vue@3.5.13(typescript@5.8.2)))(vue@3.5.13(typescript@5.8.2))':
     dependencies:
       '@gouvfr/dsfr': 1.11.2
       focus-trap: 7.5.4
