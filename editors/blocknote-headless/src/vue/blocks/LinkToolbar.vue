@@ -92,7 +92,11 @@ function openTarget() {
 .link-editor {
   position: absolute;
   left: 0;
-  /* Yes, this is dirty */
+  /*
+    Here we are positioning the popoverin an absolute fashion below the above element (the toolbar)
+    We're assuming it here it has a fixed height of 2.5 rem (+ padding), which should stay true no matter what your screen resolution is
+    (Yes, this is dirty)
+  */
   top: 2.5rem;
   background: white;
   box-shadow: 0px 4px 12px #cfcfcf;
