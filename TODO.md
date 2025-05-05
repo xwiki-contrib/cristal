@@ -1,0 +1,4 @@
+- [ ] update save code
+- [ ] test autosuggest
+- [ ] test attachments handling 
+- [ ] overall, test if the paths looks alright after the refactoring, especially for subpages 

@@ -23,6 +23,7 @@ import { getStorageRoot } from "@xwiki/cristal-electron-state";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
+import { DefaultPageReader } from "@xwiki/cristal-page-default";
 import { app, ipcMain, net, protocol, shell } from "electron";
 import mime from "mime";
 import fs from "node:fs";
@@ -44,7 +45,7 @@ function resolvePath(page: string, ...lastSegments: string[]) {
 }
 
 function resolvePagePath(page: string): string {
-  return resolvePath(page, "page.json");
+  return resolvePath(page + ".md");
 }
 
 function resolveAttachmentsPath(page: string): string {
@@ -89,11 +90,8 @@ async function isAttachment(path: string, mimetype?: string) {
 }
 
 async function isPage(path: string) {
-  if (!(await isFile(path))) {
-    return false;
-  }
-
-  return basename(path) == "page.json";
+  // TODO: make sure that checking for a file is enough, maybe check for a .md extension too.
+  return (await isFile(path)) == true;
 }
 
 async function isDirectory(path: string) {
@@ -130,11 +128,15 @@ async function readPage(
   if (await isFile(path)) {
     const pageContent = await fs.promises.readFile(path);
     const pageStats = await fs.promises.stat(path);
-    const parse = JSON.parse(pageContent.toString("utf8"));
+    const content = pageContent.toString("utf8");
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const data = new DefaultPageReader().readPage(content) as any;
+
     return {
       type: EntityType.DOCUMENT,
       value: {
-        ...parse,
+        ...data,
         lastAuthor: { name: os.userInfo().username },
         lastModificationDate: new Date(pageStats.mtimeMs),
         id: relative(homePathFull, dirname(path)),
@@ -269,7 +271,7 @@ async function saveAttachment(path: string, filePath: string) {
  * @since 0.10
  */
 async function listChildren(page: string): Promise<Array<string>> {
-  const folderPath = resolvePath(page).replace(/\/page.json$/, "");
+  const folderPath = dirname(resolvePath(page));
 
   const children = [];
   if (await isDirectory(folderPath)) {
@@ -293,7 +295,7 @@ async function listChildren(page: string): Promise<Array<string>> {
  * @since 0.11
  */
 async function deletePage(path: string): Promise<void> {
-  await shell.trashItem(path.replace(/\/page.json$/, ""));
+  await shell.trashItem(dirname(path));
 }
 
 async function asyncFilter<T>(arr: T[], predicate: (i: T) => Promise<boolean>) {
@@ -357,7 +359,7 @@ async function search(
  */
 async function createMinimalContent() {
   await savePage(
-    join(getHomePathFull(), "index", "page.json"),
+    join(getHomePathFull(), "index.json"),
     "# Welcome\n" +
       "\n" +
       "This is a new **Cristal** wiki.\n" +
