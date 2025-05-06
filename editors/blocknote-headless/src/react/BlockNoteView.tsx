@@ -47,7 +47,7 @@ import {
 import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShallowRef } from "vue";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
@@ -71,16 +71,26 @@ type BlockNoteViewWrapperProps = {
    */
   prefixDefaultFormattingToolbarFor: Array<BlockType["type"]>;
 
+  /**
+   * Replace BlockNote's default formatting toolbar with a custom one
+   * Can be used together with `prefixDefaultFormattingToolbarFor` to make this one be _appended_ to the default one
+   */
   formattingToolbar: ReactivueChild<{
     editor: EditorType;
     currentBlock: BlockType;
   }>;
 
+  /**
+   * Replace BlockNote's link toolbar with a custom one
+   */
   linkToolbar: ReactivueChild<{
     editor: EditorType;
     linkToolbarProps: LinkToolbarProps;
   }>;
 
+  /**
+   * Replace BlockNote's file/image panel with a custom one
+   */
   filePanel: ReactivueChild<{
     editor: EditorType;
     filePanelProps: FilePanelProps<
@@ -95,7 +105,7 @@ type BlockNoteViewWrapperProps = {
  * @param editor - the editor in which the parsed content will be loaded
  * @param blocks - the content to to load into the editor
  */
-async function parseAndLoadContent(
+function parseAndLoadContent(
   // TODO: MaybeUninit<EditorType>
   editor: EditorType,
   blocks: BlockType[],
@@ -171,8 +181,19 @@ function BlockNoteViewWrapper({
       provider.destroy();
     });
   } else {
+    // If we don't have a provider, we can simply load the content directly
     parseAndLoadContent(editor, content);
   }
+
+  // Disconnect from the realtime provider when the component is unmounted
+  // Otherwise, our user profile may be left over and still be displayed to other users
+  useEffect(() => {
+    console.debug(
+      "BlockNoteView is being unmunted, disconnecting from the realtime provider...",
+    );
+
+    provider?.disconnect();
+  }, []);
 
   // TODO: this condition ensures the editor does not show until all changes have been synced with clients
   // Currently, there is a problem with realtime not syncing changes in a reliable fashion, so we disable it for now
