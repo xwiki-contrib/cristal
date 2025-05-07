@@ -31,7 +31,8 @@ import {
 import { CIcon, Size } from "@xwiki/cristal-icons";
 import { ref, watch } from "vue";
 
-const status = ref(WebSocketStatus.Disconnected);
+const status = ref<WebSocketStatus>();
+console.log({ providerRef });
 
 watch(
   providerRef,
@@ -39,6 +40,8 @@ watch(
     if (!provider) {
       return;
     }
+
+    status.value = WebSocketStatus.Connecting;
 
     provider.on("status", (event: onStatusParameters) => {
       status.value = event.status;
@@ -71,6 +74,7 @@ const users = ref<{ user: User; clientId: string }[]>([]);
       />
       <span class="connection-status-label">Offline</span>
     </span>
+
     <span
       v-if="status === WebSocketStatus.Connecting"
       class="connection-status-connecting"
@@ -82,6 +86,7 @@ const users = ref<{ user: User; clientId: string }[]>([]);
       />
       <span class="connection-status-label">Connecting</span>
     </span>
+
     <span
       v-if="status === WebSocketStatus.Connected"
       class="connection-status-users"

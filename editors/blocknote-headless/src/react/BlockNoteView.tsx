@@ -134,8 +134,7 @@ function BlockNoteViewWrapper({
     | undefined;
 
   // Prevent changes in the editor until the provider has synced with other clients
-  // TODO: "ready" is not defined here (see below)
-  const [, setReady] = useState(!provider);
+  const [ready, setReady] = useState(!provider);
 
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
@@ -161,15 +160,23 @@ function BlockNoteViewWrapper({
   // We know who is the first user joining the session by checking for the absence of an initialContentLoaded key in the
   // document's configuration map (shared across all session participants).
   if (provider) {
+    console.debug("Trying to connect to HocusPocus server...");
+
     provider.on("synced", () => {
       console.debug("HocusPocus synced");
 
-      if (
-        !provider.document.getMap("configuration").get("initialContentLoaded")
-      ) {
+      const initialContentLoaded = provider.document
+        .getMap("configuration")
+        .get("initialContentLoaded");
+
+      if (!initialContentLoaded) {
         provider.document
           .getMap("configuration")
           .set("initialContentLoaded", true);
+
+        console.debug("Setting initial content for HocusPocus first player", {
+          content,
+        });
 
         parseAndLoadContent(editor, content);
       }
@@ -195,12 +202,13 @@ function BlockNoteViewWrapper({
     provider?.disconnect();
   }, []);
 
-  // TODO: this condition ensures the editor does not show until all changes have been synced with clients
-  // Currently, there is a problem with realtime not syncing changes in a reliable fashion, so we disable it for now
-  //
-  // if (!ready) {
-  //   return <h1>Syncing changes with other realtime users...</h1>;
-  // }
+  if (!ready) {
+    return (
+      <h3>
+        <em>Syncing changes with other realtime users...</em>
+      </h3>
+    );
+  }
 
   // Renders the editor instance using a React component.
   return (
