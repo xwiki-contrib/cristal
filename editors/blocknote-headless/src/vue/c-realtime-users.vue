@@ -32,7 +32,6 @@ import { CIcon, Size } from "@xwiki/cristal-icons";
 import { ref, watch } from "vue";
 
 const status = ref<WebSocketStatus>();
-console.log({ providerRef });
 
 watch(
   providerRef,

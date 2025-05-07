@@ -159,47 +159,55 @@ function BlockNoteViewWrapper({
   // The rest of the participants will just retrieve the editor content from the realtime server.
   // We know who is the first user joining the session by checking for the absence of an initialContentLoaded key in the
   // document's configuration map (shared across all session participants).
-  if (provider) {
-    console.debug("Trying to connect to HocusPocus server...");
+  useEffect(() => {
+    if (provider) {
+      console.debug("Trying to connect to realtime server...");
 
-    provider.on("synced", () => {
-      console.debug("HocusPocus synced");
+      provider.on("synced", () => {
+        console.debug("Connected to realtime server and synced!");
 
-      const initialContentLoaded = provider.document
-        .getMap("configuration")
-        .get("initialContentLoaded");
-
-      if (!initialContentLoaded) {
-        provider.document
+        const initialContentLoaded = provider.document
           .getMap("configuration")
-          .set("initialContentLoaded", true);
+          .get("initialContentLoaded");
 
-        console.debug("Setting initial content for HocusPocus first player", {
-          content,
-        });
+        if (!initialContentLoaded) {
+          provider.document
+            .getMap("configuration")
+            .set("initialContentLoaded", true);
 
-        parseAndLoadContent(editor, content);
-      }
+          console.debug("Setting initial content for realtime first player", {
+            content,
+          });
 
-      setReady(true);
-    });
+          parseAndLoadContent(editor, content);
+        }
 
-    provider.on("destroy", () => {
-      provider.destroy();
-    });
-  } else {
-    // If we don't have a provider, we can simply load the content directly
-    parseAndLoadContent(editor, content);
-  }
+        setReady(true);
+      });
+
+      provider.on("destroy", () => {
+        provider.destroy();
+      });
+    } else {
+      // If we don't have a provider, we can simply load the content directly
+      console.debug(
+        "No realtime provider, setting document's content directly",
+      );
+
+      parseAndLoadContent(editor, content);
+    }
+  }, [provider]);
 
   // Disconnect from the realtime provider when the component is unmounted
   // Otherwise, our user profile may be left over and still be displayed to other users
   useEffect(() => {
-    console.debug(
-      "BlockNoteView is being unmunted, disconnecting from the realtime provider...",
-    );
+    return () => {
+      console.debug(
+        "BlockNoteView is being unmounted, disconnecting from the realtime provider...",
+      );
 
-    provider?.disconnect();
+      provider?.disconnect();
+    };
   }, []);
 
   if (!ready) {
