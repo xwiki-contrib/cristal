@@ -101,15 +101,11 @@ type BlockNoteViewWrapperProps = {
 };
 
 /**
- * Load the provided content, parse it to Markdown and load it to the provided editor.
+ * Load the provided content into the provided editor.
  * @param editor - the editor in which the parsed content will be loaded
- * @param blocks - the content to to load into the editor
+ * @param blocks - the content to load into the editor
  */
-function parseAndLoadContent(
-  // TODO: MaybeUninit<EditorType>
-  editor: EditorType,
-  blocks: BlockType[],
-) {
+async function replaceContent(editor: EditorType, blocks: BlockType[]) {
   editor.replaceBlocks(editor.document, blocks);
 }
 
@@ -179,7 +175,7 @@ function BlockNoteViewWrapper({
             content,
           });
 
-          parseAndLoadContent(editor, content);
+          replaceContent(editor, content);
         }
 
         setReady(true);
@@ -194,7 +190,7 @@ function BlockNoteViewWrapper({
         "No realtime provider, setting document's content directly",
       );
 
-      parseAndLoadContent(editor, content);
+      replaceContent(editor, content);
     }
   }, [provider]);
 
