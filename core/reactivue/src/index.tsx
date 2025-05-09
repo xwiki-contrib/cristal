@@ -22,7 +22,7 @@
  */
 
 import { createRef, useEffect, useRef, useState } from "react";
-import { createRoot } from "react-dom/client";
+import { Root, createRoot } from "react-dom/client";
 import { createApp, defineComponent, h, toRaw } from "vue";
 import type { ReactElement, ReactNode } from "react";
 import type { App, SlotsType, VNode } from "vue";
@@ -81,6 +81,8 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
             options,
           ),
         ),
+        // The React root element
+        reactRoot: null,
       };
     },
 
@@ -93,12 +95,15 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
       }
 
       // Render the element inside the container element
-      createRoot(this.$el).render(
+      const root = createRoot(this.$el);
+      root.render(
         <ReactIndirectionLayer
           Component={Component}
           componentProps={this.$data.observableProps}
         />,
       );
+
+      this.$data.reactRoot = root;
 
       this.$watch(
         () => [{ ...this.$attrs }, { ...this.$slots }],
@@ -106,6 +111,16 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
           this.$data.observableProps.trigger();
         },
       );
+    },
+
+    beforeUnmount() {
+      const root = this.$data.reactRoot;
+
+      if (!root) {
+        throw new Error("Missing React root from adapter component's state");
+      }
+
+      root.unmount();
     },
 
     // The component will be rendered inside this element
@@ -119,6 +134,7 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
 type ReactAdapterComponentState<Props extends Record<string, unknown>> = {
   observableProps: Observable<Props>;
   options: ReactComponentAdapterOptions;
+  reactRoot: Root | null;
 };
 
 /**
