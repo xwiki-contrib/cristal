@@ -106,6 +106,11 @@ type BlockNoteViewWrapperProps = {
  * @param blocks - the content to load into the editor
  */
 async function replaceContent(editor: EditorType, blocks: BlockType[]) {
+  // TODO: with time, see if this fix actually works fine
+  if (editor.document.length === 0) {
+    editor.insertInlineContent("");
+  }
+
   editor.replaceBlocks(editor.document, blocks);
 }
 
