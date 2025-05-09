@@ -59,22 +59,19 @@ import type { AuthenticationManagerProvider } from "@xwiki/cristal-authenticatio
 const {
   editorProps,
   editorContent: uniAst,
-  realtimeServerURL,
+  realtimeServerURL = undefined,
   container,
   skinManager,
-} = withDefaults(
-  defineProps<{
-    editorProps: Omit<
-      ReactNonSlotProps<BlockNoteViewWrapperProps>,
-      "content" | "prefixDefaultFormattingToolbarFor" | "editorRef"
-    >;
-    editorContent: UniAst | Error;
-    realtimeServerURL?: string | undefined;
-    container: Container;
-    skinManager: SkinManager;
-  }>(),
-  { realtimeServerURL: undefined },
-);
+} = defineProps<{
+  editorProps: Omit<
+    ReactNonSlotProps<BlockNoteViewWrapperProps>,
+    "content" | "prefixDefaultFormattingToolbarFor"
+  >;
+  editorContent: UniAst | Error;
+  realtimeServerURL?: string | undefined;
+  container: Container;
+  skinManager: SkinManager;
+}>();
 
 const editorRef = shallowRef<EditorType | null>(null);
 
