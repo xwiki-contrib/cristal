@@ -18,16 +18,20 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import {
-  conditionalComponentsList,
-  defaultComponentsList,
-} from "./default/defaultComponentsList";
+import { injectable } from "inversify";
+import type { ConfigurationsSettings } from "./configurations";
+import type { SettingsSerializer } from "@xwiki/cristal-settings-api";
 
-export {
-  CristalAppLoader,
-  DefaultCristalApp,
-  conditionalComponentsList,
-  defaultComponentsList,
-};
+/**
+ * Implementation of {@link SettingsSerializer} for {@link ConfigurationSettings}.
+ * In particular, it will handle serializing Map instances used as content.
+ * @since 0.18
+ */
+@injectable()
+export class ConfigurationsSettingsSerializer implements SettingsSerializer {
+  serialize(settings: ConfigurationsSettings): string {
+    return `{"key":${JSON.stringify(settings.key)},"content":${JSON.stringify(
+      Object.fromEntries(settings.content),
+    )}}`;
+  }
+}

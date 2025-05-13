@@ -180,7 +180,7 @@ configs.forEach(
       await new SidebarPageObject(page).openSidebar();
       await page.locator("#sidebar #new-page-button").nth(0).click();
 
-      const newPageDialogForm = page.locator("form");
+      const newPageDialogForm = page.locator("#page-creation-form");
       await newPageDialogForm.dispatchEvent("submit");
 
       const editorHeader = page.locator(".content .doc-header input").nth(0);

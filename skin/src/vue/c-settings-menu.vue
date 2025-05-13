@@ -18,21 +18,24 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import CTemplate from "./c-template.vue";
+import CConfigMenu from "./c-config-menu.vue";
 import logo from "../images/xwiki-logo-color.svg";
 import { CIcon } from "@xwiki/cristal-icons";
+import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 </script>
 
 <template>
-  <x-dialog width="auto" :logo="logo" title="Configuration">
+  <x-dialog width="auto" :logo="logo" title="Settings">
     <template #activator="{ props }">
-      <x-btn>
-        <c-icon name="arrow-left-right" v-bind="props"></c-icon>Switch
-        Configuration
-      </x-btn>
+      <c-icon name="gear" v-bind="props"></c-icon>
     </template>
     <template #default>
-      <CTemplate name="config" />
+      <suspense>
+        <u-i-extensions uix-name="settings.categories"></u-i-extensions>
+      </suspense>
+    </template>
+    <template #footer>
+      <c-config-menu></c-config-menu>
     </template>
   </x-dialog>
 </template>

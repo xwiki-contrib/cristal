@@ -18,16 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import {
-  conditionalComponentsList,
-  defaultComponentsList,
-} from "./default/defaultComponentsList";
+import { generateConfigVue } from "../../../vite.config";
 
-export {
-  CristalAppLoader,
-  DefaultCristalApp,
-  conditionalComponentsList,
-  defaultComponentsList,
-};
+export default generateConfigVue(import.meta.url);

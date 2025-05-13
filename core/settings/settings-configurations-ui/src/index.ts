@@ -18,16 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import {
-  conditionalComponentsList,
-  defaultComponentsList,
-} from "./default/defaultComponentsList";
+import { SettingsConfigurationsUIExtension } from "./settingsConfigurationsUIExtension";
+import { Container } from "inversify";
+import type { UIExtension } from "@xwiki/cristal-uiextension-api";
 
-export {
-  CristalAppLoader,
-  DefaultCristalApp,
-  conditionalComponentsList,
-  defaultComponentsList,
-};
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<UIExtension>("UIExtension")
+      .to(SettingsConfigurationsUIExtension)
+      .inSingletonScope();
+  }
+}

@@ -18,16 +18,27 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import {
-  conditionalComponentsList,
-  defaultComponentsList,
-} from "./default/defaultComponentsList";
+import { injectable } from "inversify";
+import type { UIExtension } from "@xwiki/cristal-uiextension-api";
+import type { Component } from "vue";
 
-export {
-  CristalAppLoader,
-  DefaultCristalApp,
-  conditionalComponentsList,
-  defaultComponentsList,
-};
+/**
+ * Settings category {@link UIExtension} for Configurations management.
+ *
+ * @since 0.18
+ */
+@injectable()
+export class SettingsConfigurationsUIExtension implements UIExtension {
+  id = "settings.categories.configurations";
+  uixpName = "settings.categories";
+  order = 1000;
+  parameters = {};
+
+  async component(): Promise<Component> {
+    return (await import("./vue/SettingsConfigurations.vue")).default;
+  }
+
+  async enabled(): Promise<boolean> {
+    return true;
+  }
+}

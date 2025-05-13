@@ -19,21 +19,26 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <script lang="ts" setup>
 import { inject } from "vue";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
+import type {
+  CristalApp,
+  WikiConfig,
+  WikiConfigProxy,
+} from "@xwiki/cristal-api";
+import type { Ref } from "vue";
 
-const configList: Array<WikiConfig> = [];
 const cristal = inject<CristalApp>("cristal")!;
-let configs = cristal.getAvailableConfigurations();
+const wikiConfigProxy = cristal
+  .getContainer()
+  .get<WikiConfigProxy>("WikiConfigProxy")!;
+const configs: Ref<Map<string, WikiConfig>> =
+  wikiConfigProxy.getAvailableConfigurations();
 
-configs.forEach((wikiConfig: WikiConfig) => {
-  configList.push(wikiConfig);
-});
 const currentConfig = cristal.getWikiConfig().name;
 </script>
 <template>
   <div>
     <div class="grid-container">
-      <div v-for="wikiConfig in configList" :key="wikiConfig.name">
+      <div v-for="[key, wikiConfig] in configs" :key="key">
         <div>
           <div class="wiki-name">
             {{ wikiConfig.name }}

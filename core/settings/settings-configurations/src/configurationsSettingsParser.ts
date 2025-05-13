@@ -18,16 +18,26 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import {
-  conditionalComponentsList,
-  defaultComponentsList,
-} from "./default/defaultComponentsList";
+import { injectable } from "inversify";
+import type { ConfigurationsSettings } from "./configurations";
+import type { Configuration } from "@xwiki/cristal-configuration-api";
+import type { SettingsParser } from "@xwiki/cristal-settings-api";
 
-export {
-  CristalAppLoader,
-  DefaultCristalApp,
-  conditionalComponentsList,
-  defaultComponentsList,
-};
+/**
+ * Implementation of {@link SettingsParser} for {@link ConfigurationSettings}.
+ * In particular, it will handle parsing Map instances used as content.
+ * @since 0.18
+ */
+@injectable()
+export class ConfigurationsSettingsParser implements SettingsParser {
+  parse(serializedSettings: string): ConfigurationsSettings {
+    const parsed = JSON.parse(serializedSettings) as {
+      key: string;
+      content: [string: Configuration];
+    };
+    return {
+      key: parsed.key,
+      content: new Map(Object.entries(parsed.content)),
+    };
+  }
+}

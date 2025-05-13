@@ -18,16 +18,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import {
-  conditionalComponentsList,
-  defaultComponentsList,
-} from "./default/defaultComponentsList";
+import { injectable } from "inversify";
+import type { UIExtension } from "@xwiki/cristal-uiextension-api";
+import type { Component } from "vue";
 
-export {
-  CristalAppLoader,
-  DefaultCristalApp,
-  conditionalComponentsList,
-  defaultComponentsList,
-};
+@injectable()
+export class SettingsMenuUIExtension implements UIExtension {
+  id = "sidebar.actions.settingsMenu";
+  uixpName = "sidebar.actions";
+  order = 1000;
+  parameters = {};
+
+  async component(): Promise<Component> {
+    return (await import("../../vue/c-settings-menu.vue")).default;
+  }
+
+  async enabled(): Promise<boolean> {
+    return true;
+  }
+}

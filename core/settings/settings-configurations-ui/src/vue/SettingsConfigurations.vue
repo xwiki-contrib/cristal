@@ -17,24 +17,33 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script setup lang="ts">
-import CTemplate from "./c-template.vue";
-import logo from "../images/xwiki-logo-color.svg";
-import { CIcon } from "@xwiki/cristal-icons";
+
+<script lang="ts" setup>
+import ConfigurationsTable from "./ConfigurationsTable.vue";
+import messages from "../translations";
+import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
+import { inject } from "vue";
+import { useI18n } from "vue-i18n";
+import type { CristalApp } from "@xwiki/cristal-api";
+import type { SettingsManager } from "@xwiki/cristal-settings-api";
+
+const cristal = inject<CristalApp>("cristal")!;
+const settingsManager = cristal
+  .getContainer()
+  .get<SettingsManager>("SettingsManager")!;
+
+const { t } = useI18n({
+  messages,
+});
 </script>
 
 <template>
-  <x-dialog width="auto" :logo="logo" title="Configuration">
-    <template #activator="{ props }">
-      <x-btn>
-        <c-icon name="arrow-left-right" v-bind="props"></c-icon>Switch
-        Configuration
-      </x-btn>
-    </template>
-    <template #default>
-      <CTemplate name="config" />
-    </template>
-  </x-dialog>
-</template>
+  <h2>{{ t("settings.configurations.title") }}</h2>
 
-<style scoped></style>
+  <ConfigurationsTable
+    :configurations="
+      settingsManager.get(ConfigurationsSettings) ??
+      new ConfigurationsSettings()
+    "
+  ></ConfigurationsTable>
+</template>

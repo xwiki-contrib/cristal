@@ -18,22 +18,28 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { injectable } from "inversify";
-import type { UIExtension } from "@xwiki/cristal-uiextension-api";
-import type { Component } from "vue";
+import { ConfigurationsSettings } from "./configurations";
+import { ConfigurationsSettingsParser } from "./configurationsSettingsParser";
+import { ConfigurationsSettingsSerializer } from "./configurationsSettingsSerializer";
+import { Container } from "inversify";
+import type {
+  SettingsParser,
+  SettingsSerializer,
+} from "@xwiki/cristal-settings-api";
 
-@injectable()
-export class ConfigMenuUIExtension implements UIExtension {
-  id = "sidebar.actions.configMenu";
-  uixpName = "sidebar.actions";
-  order = 1000;
-  parameters = {};
-
-  async component(): Promise<Component> {
-    return (await import("../../vue/c-config-menu.vue")).default;
-  }
-
-  async enabled(): Promise<boolean> {
-    return true;
+class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<SettingsSerializer>("SettingsSerializer")
+      .to(ConfigurationsSettingsSerializer)
+      .inSingletonScope()
+      .whenNamed(ConfigurationsSettings.SETTINGS_KEY);
+    container
+      .bind<SettingsParser>("SettingsParser")
+      .to(ConfigurationsSettingsParser)
+      .inSingletonScope()
+      .whenNamed(ConfigurationsSettings.SETTINGS_KEY);
   }
 }
+
+export { ComponentInit, ConfigurationsSettings };

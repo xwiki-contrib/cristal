@@ -18,16 +18,25 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultCristalApp } from "./components/DefaultCristalApp";
-import { CristalAppLoader } from "./components/cristalAppLoader";
-import {
-  conditionalComponentsList,
-  defaultComponentsList,
-} from "./default/defaultComponentsList";
+import type { Configuration } from "@xwiki/cristal-configuration-api";
+import type { Settings } from "@xwiki/cristal-settings-api";
 
-export {
-  CristalAppLoader,
-  DefaultCristalApp,
-  conditionalComponentsList,
-  defaultComponentsList,
-};
+/**
+ * Imlementation of {@link Settings} to handle {@link Configuration} instances.
+ * @since 0.18
+ */
+export class ConfigurationsSettings implements Settings {
+  static SETTINGS_KEY: string = "configurations";
+
+  key: string;
+  content: Map<string, Configuration>;
+
+  constructor(configurations?: Map<string, Configuration>) {
+    this.key = ConfigurationsSettings.SETTINGS_KEY;
+    this.content = new Map();
+
+    if (configurations) {
+      configurations!.forEach((v, k) => this.content.set(k, v));
+    }
+  }
+}

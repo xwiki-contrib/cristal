@@ -27,7 +27,11 @@ import { ComponentInit as XWikiAuthenticationComponentInit } from "@xwiki/crista
 import { ComponentInit as SettingsComponentInit } from "@xwiki/cristal-electron-settings-renderer";
 import { ComponentInit as ElectronStorageComponentInit } from "@xwiki/cristal-electron-storage";
 import { ComponentInit as FileSystemPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-filesystem";
-import { CristalAppLoader, defaultComponentsList } from "@xwiki/cristal-lib";
+import {
+  CristalAppLoader,
+  conditionalComponentsList,
+  defaultComponentsList,
+} from "@xwiki/cristal-lib";
 import { ComponentInit as FileSystemLinkSuggestComponentInit } from "@xwiki/cristal-link-suggest-filesystem";
 import { ComponentInit as ModelReferenceFilesystemComponentInit } from "@xwiki/cristal-model-reference-filesystem";
 import { ComponentInit as ModelRemoteURLFilesystemComponentInit } from "@xwiki/cristal-model-remote-url-filesystem-default";
@@ -50,8 +54,8 @@ CristalAppLoader.init(
   true,
   "FileSystemSL",
   // eslint-disable-next-line max-statements
-  async (container, configuration) => {
-    await defaultComponentsList(container, configuration);
+  async (container) => {
+    await defaultComponentsList(container);
     new ElectronStorageComponentInit(container);
     new BrowserComponentInit(container);
     new FileSystemPageHierarchyComponentInit(container);
@@ -64,5 +68,8 @@ CristalAppLoader.init(
     new GitHubAuthenticationComponentInit(container);
     new NextcloudAuthenticationComponentInit(container);
     new SettingsComponentInit(container);
+  },
+  async (container, configuration) => {
+    await conditionalComponentsList(container, configuration);
   },
 );
