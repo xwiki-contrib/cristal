@@ -830,6 +830,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
+      '@xwiki/cristal-utils-inversify':
+        specifier: workspace:*
+        version: link:../../../utils/inversify
       inversify:
         specifier: 7.5.1
         version: 7.5.1(reflect-metadata@0.2.2)
@@ -864,6 +867,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
+      '@xwiki/cristal-utils-inversify':
+        specifier: workspace:*
+        version: link:../../../utils/inversify
       fast-xml-parser:
         specifier: 5.2.1
         version: 5.2.1
@@ -898,6 +904,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
+      '@xwiki/cristal-utils-inversify':
+        specifier: workspace:*
+        version: link:../../../utils/inversify
       '@xwiki/cristal-xwiki-utils':
         specifier: workspace:*
         version: link:../../xwiki/xwiki-utils
@@ -4069,6 +4078,9 @@ importers:
       '@xwiki/cristal-model-remote-url-filesystem-api':
         specifier: workspace:*
         version: link:../../core/model/model-remote-url/model-remote-url-filesystem/model-remote-url-filesystem-api
+      '@xwiki/cristal-utils-inversify':
+        specifier: workspace:*
+        version: link:../../utils/inversify
       electron:
         specifier: 36.0.0
         version: 36.0.0
@@ -4725,6 +4737,25 @@ importers:
       ts-node:
         specifier: 10.9.2
         version: 10.9.2(@types/node@22.15.3)(typescript@5.8.3)
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  utils/inversify:
+    dependencies:
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../dev/config
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../ds/api
       typescript:
         specifier: 5.8.3
         version: 5.8.3

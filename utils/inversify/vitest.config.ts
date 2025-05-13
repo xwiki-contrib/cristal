@@ -18,19 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { GitHubWikiConfig } from "./GitHubWikiConfig";
-import { GitHubStorage } from "./githubStorage";
-import { Storage } from "@xwiki/cristal-api";
-import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
-import { Container } from "inversify";
-import type { WikiConfig } from "@xwiki/cristal-api";
+import localConfig from "./vite.config";
+import { mergeConfig } from "vitest/config";
+import defaultConfig from "@xwiki/cristal-dev-config/vitest-vue.config";
 
-export class ComponentInit {
-  constructor(container: Container) {
-    container
-      .bind<WikiConfig>("WikiConfig")
-      .to(GitHubWikiConfig)
-      .when(whenNamedOrDefault("GitHub"));
-    container.bind<Storage>("Storage").to(GitHubStorage).whenNamed("GitHub");
-  }
-}
+export default mergeConfig(defaultConfig, localConfig);

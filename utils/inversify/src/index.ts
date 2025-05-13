@@ -18,28 +18,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { FileSystemConfig } from "./components/FileSystemConfig";
-import FileSystemStorage from "./components/fileSystemStorage";
-import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
-import type { Logger, Storage, WikiConfig } from "@xwiki/cristal-api";
-import type { Container } from "inversify";
+import type { BindingConstraints, MetadataName } from "inversify";
 
-export default class ComponentInit {
-  logger: Logger;
-
-  constructor(container: Container) {
-    this.logger = container.get<Logger>("Logger");
-    this.logger.setModule("electron.storage.components.componentsInit");
-
-    this.logger?.debug("Init Sample Module components begin");
-    container
-      .bind<WikiConfig>("WikiConfig")
-      .to(FileSystemConfig)
-      .when(whenNamedOrDefault("FileSystem"));
-    container
-      .bind<Storage>("Storage")
-      .to(FileSystemStorage)
-      .whenNamed("FileSystem");
-    this.logger?.debug("Init Sample Module components end");
-  }
+/**
+ * Condition to bind a component both on a named scope and the default scope.
+ * @since 0.18
+ */
+function whenNamedOrDefault(
+  name: MetadataName,
+): (constraints: BindingConstraints) => boolean {
+  return (constraints: BindingConstraints) =>
+    constraints.name == name || constraints.name == undefined;
 }
+
+export { whenNamedOrDefault };

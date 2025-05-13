@@ -1,12 +1,12 @@
 {
-  "name": "@xwiki/cristal-backend-xwiki",
+  "name": "@xwiki/cristal-utils-inversify",
   "version": "0.17.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
     "type": "git",
-    "directory": "/core/backend/backend-xwiki",
+    "directory": "/utils/inversify",
     "url": "https://github.com/xwiki-contrib/cristal/"
   },
   "bugs": {
@@ -19,24 +19,18 @@
   "main": "./src/index.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json && vite build",
+    "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
     "test": "vitest --run"
   },
   "dependencies": {
-    "@xwiki/cristal-alerts-api": "workspace:*",
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-authentication-api": "workspace:*",
-    "@xwiki/cristal-backend-api": "workspace:*",
-    "@xwiki/cristal-utils-inversify": "workspace:*",
-    "@xwiki/cristal-xwiki-utils": "workspace:*",
     "inversify": "7.5.1"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "reflect-metadata": "0.2.2",
+    "@xwiki/cristal-dsapi": "workspace:*",
     "typescript": "5.8.3",
-    "vite": "6.3.4",
-    "vitest-mock-extended": "3.1.0"
+    "vite": "6.3.4"
   },
   "publishConfig": {
     "exports": {
