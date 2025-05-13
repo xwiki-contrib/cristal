@@ -3844,6 +3844,9 @@ importers:
       '@xwiki/cristal-electron-authentication-xwiki-main':
         specifier: workspace:*
         version: link:../authentication/authentication-xwiki/authentication-xwiki-main
+      '@xwiki/cristal-electron-settings-main':
+        specifier: workspace:*
+        version: link:../settings/settings-main
       '@xwiki/cristal-electron-storage':
         specifier: workspace:*
         version: link:../storage
@@ -3878,6 +3881,9 @@ importers:
       '@xwiki/cristal-electron-authentication-xwiki-preload':
         specifier: workspace:*
         version: link:../authentication/authentication-xwiki/authentication-xwiki-preload
+      '@xwiki/cristal-electron-settings-preload':
+        specifier: workspace:*
+        version: link:../settings/settings-preload
     devDependencies:
       '@types/node':
         specifier: 22.15.3
@@ -3912,6 +3918,9 @@ importers:
       '@xwiki/cristal-electron-authentication-xwiki-renderer':
         specifier: workspace:*
         version: link:../authentication/authentication-xwiki/authentication-xwiki-renderer
+      '@xwiki/cristal-electron-settings-renderer':
+        specifier: workspace:*
+        version: link:../settings/settings-renderer
       '@xwiki/cristal-electron-storage':
         specifier: workspace:*
         version: link:../storage
@@ -3958,6 +3967,69 @@ importers:
       '@vitejs/plugin-react':
         specifier: 4.4.1
         version: 4.4.1(vite@6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0))
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  electron/settings/settings-main:
+    dependencies:
+      '@xwiki/cristal-settings-api':
+        specifier: workspace:*
+        version: link:../../../core/settings/settings-api
+      electron:
+        specifier: 36.0.0
+        version: 36.0.0
+      electron-store:
+        specifier: 10.0.1
+        version: 10.0.1
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  electron/settings/settings-preload:
+    dependencies:
+      electron:
+        specifier: 36.0.0
+        version: 36.0.0
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  electron/settings/settings-renderer:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-settings-api':
+        specifier: workspace:*
+        version: link:../../../core/settings/settings-api
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../../ds/api
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -9759,10 +9831,6 @@ packages:
     resolution: {integrity: sha512-34R7HTnG0XIJcBSn5XhDd7nNFPRcXYRZrBB2O2jdKqYODldSzBAqzsWoZYYvduky73toYS/ESqxPvkDf/F0XMg==}
     engines: {node: '>=10'}
 
-  type-fest@4.26.1:
-    resolution: {integrity: sha512-yOGpmOAL7CkKe/91I5O3gPICmJNLJ1G4zFYVAsRHg7M64biSnPtRj0WNQt++bRkjYOqjWXrhnUw1utzmVErAdg==}
-    engines: {node: '>=16'}
-
   type-fest@4.39.0:
     resolution: {integrity: sha512-w2IGJU1tIgcrepg9ZJ82d8UmItNQtOFJG0HCUE3SzMokKkTsruVDALl2fAdiEzJlfduoU+VyXJWIIUZ+6jV+nw==}
     engines: {node: '>=16'}
@@ -12913,7 +12981,7 @@ snapshots:
       dot-prop: 9.0.0
       env-paths: 3.0.0
       json-schema-typed: 8.0.1
-      semver: 7.6.3
+      semver: 7.7.1
       uint8array-extras: 1.4.0
 
   confbox@0.1.8: {}
@@ -13124,7 +13192,7 @@ snapshots:
 
   dot-prop@9.0.0:
     dependencies:
-      type-fest: 4.26.1
+      type-fest: 4.39.0
 
   dotenv-expand@11.0.7:
     dependencies:
@@ -13214,7 +13282,7 @@ snapshots:
   electron-store@10.0.1:
     dependencies:
       conf: 13.0.1
-      type-fest: 4.26.1
+      type-fest: 4.39.0
 
   electron-to-chromium@1.5.129: {}
 
@@ -16350,8 +16418,6 @@ snapshots:
 
   type-fest@0.13.1:
     optional: true
-
-  type-fest@4.26.1: {}
 
   type-fest@4.39.0: {}
 

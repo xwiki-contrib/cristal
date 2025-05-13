@@ -18,12 +18,33 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { sha256sum } from "./nodeCrypto";
-export { versions } from "./versions";
-import "@xwiki/cristal-electron-storage/preload";
-import "@xwiki/cristal-browser-electron/preload";
-import "@xwiki/cristal-electron-authentication-github-preload";
-import "@xwiki/cristal-electron-authentication-nextcloud-preload";
-import "@xwiki/cristal-electron-authentication-xwiki-preload";
-import "@xwiki/cristal-electron-settings-preload";
-import "@xwiki/cristal-configuration-electron-preload";
+import { injectable } from "inversify";
+import type {
+  SettingsManager,
+  SettingsStorage,
+} from "@xwiki/cristal-settings-api";
+
+interface SettingsWindow extends Window {
+  settings: {
+    save(settings: string): Promise<void>;
+
+    load(): Promise<string>;
+  };
+}
+declare const window: SettingsWindow;
+
+/**
+ * Default implementation for {@link SettingsStorage} on Electron.
+ * It stores and retrieves settings as JSON from Electron storage.
+ * @since 0.18
+ */
+@injectable()
+export class DefaultSettingsStorage implements SettingsStorage {
+  async save(settingsManager: SettingsManager): Promise<void> {
+    await window.settings.save(settingsManager.toJSON());
+  }
+
+  async load(settingsManager: SettingsManager): Promise<void> {
+    settingsManager.fromJSON((await window.settings.load()) ?? "[]");
+  }
+}

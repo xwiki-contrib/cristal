@@ -18,12 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { sha256sum } from "./nodeCrypto";
-export { versions } from "./versions";
-import "@xwiki/cristal-electron-storage/preload";
-import "@xwiki/cristal-browser-electron/preload";
-import "@xwiki/cristal-electron-authentication-github-preload";
-import "@xwiki/cristal-electron-authentication-nextcloud-preload";
-import "@xwiki/cristal-electron-authentication-xwiki-preload";
-import "@xwiki/cristal-electron-settings-preload";
-import "@xwiki/cristal-configuration-electron-preload";
+import { DefaultSettingsStorage } from "./defaultSettingsStorage";
+import { Container } from "inversify";
+import type { SettingsStorage } from "@xwiki/cristal-settings-api";
+
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<SettingsStorage>("SettingsStorage")
+      .to(DefaultSettingsStorage)
+      .inSingletonScope();
+  }
+}

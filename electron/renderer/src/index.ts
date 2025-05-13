@@ -24,6 +24,7 @@ import { loadConfig } from "@xwiki/cristal-configuration-electron-renderer";
 import { ComponentInit as GitHubAuthenticationComponentInit } from "@xwiki/cristal-electron-authentication-github-renderer";
 import { ComponentInit as NextcloudAuthenticationComponentInit } from "@xwiki/cristal-electron-authentication-nextcloud-renderer";
 import { ComponentInit as XWikiAuthenticationComponentInit } from "@xwiki/cristal-electron-authentication-xwiki-renderer";
+import { ComponentInit as SettingsComponentInit } from "@xwiki/cristal-electron-settings-renderer";
 import { ComponentInit as ElectronStorageComponentInit } from "@xwiki/cristal-electron-storage";
 import { ComponentInit as FileSystemPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-filesystem";
 import { CristalAppLoader, defaultComponentsList } from "@xwiki/cristal-lib";
@@ -62,5 +63,6 @@ CristalAppLoader.init(
     new FileSystemRenameComponentInit(container);
     new GitHubAuthenticationComponentInit(container);
     new NextcloudAuthenticationComponentInit(container);
+    new SettingsComponentInit(container);
   },
 );

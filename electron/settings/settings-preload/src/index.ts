@@ -18,12 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { sha256sum } from "./nodeCrypto";
-export { versions } from "./versions";
-import "@xwiki/cristal-electron-storage/preload";
-import "@xwiki/cristal-browser-electron/preload";
-import "@xwiki/cristal-electron-authentication-github-preload";
-import "@xwiki/cristal-electron-authentication-nextcloud-preload";
-import "@xwiki/cristal-electron-authentication-xwiki-preload";
-import "@xwiki/cristal-electron-settings-preload";
-import "@xwiki/cristal-configuration-electron-preload";
+import { contextBridge, ipcRenderer } from "electron";
+
+contextBridge.exposeInMainWorld("settings", {
+  async save(settings: string): Promise<void> {
+    ipcRenderer.invoke("settings:save", {
+      settings,
+    });
+  },
+
+  async load(): Promise<string> {
+    return ipcRenderer.invoke("settings:load", {});
+  },
+});
