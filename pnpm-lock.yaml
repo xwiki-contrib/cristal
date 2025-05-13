@@ -2580,6 +2580,71 @@ importers:
         specifier: 6.3.4
         version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
 
+  core/settings/settings-api:
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../../ds/api
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  core/settings/settings-browser:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-settings-api':
+        specifier: workspace:*
+        version: link:../settings-api
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../../ds/api
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  core/settings/settings-default:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-settings-api':
+        specifier: workspace:*
+        version: link:../settings-api
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../../ds/api
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
   core/tiptap-extensions/tiptap-extension-image:
     dependencies:
       '@tiptap/extension-image':
@@ -4190,6 +4255,9 @@ importers:
       '@xwiki/cristal-rendering':
         specifier: workspace:*
         version: link:../rendering/rendering
+      '@xwiki/cristal-settings-default':
+        specifier: workspace:*
+        version: link:../core/settings/settings-default
       '@xwiki/cristal-sharedworker-impl':
         specifier: workspace:*
         version: link:../sharedworker/impl
@@ -4624,6 +4692,9 @@ importers:
       '@xwiki/cristal-navigation-tree-xwiki':
         specifier: workspace:*
         version: link:../core/navigation-tree/navigation-tree-xwiki
+      '@xwiki/cristal-settings-browser':
+        specifier: workspace:*
+        version: link:../core/settings/settings-browser
       express:
         specifier: 5.1.0
         version: 5.1.0

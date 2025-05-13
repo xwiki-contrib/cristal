@@ -47,6 +47,7 @@ import { ComponentInit as ActionsPagesComponentInit } from "@xwiki/cristal-page-
 import { ComponentInit as ActionsPagesUIComponentInit } from "@xwiki/cristal-page-actions-ui";
 import { ComponentInit as RenameComponentInit } from "@xwiki/cristal-rename-default";
 import { ComponentInit as RenderingComponentInit } from "@xwiki/cristal-rendering";
+import { ComponentInit as SettingsComponentInit } from "@xwiki/cristal-settings-default";
 import { ComponentInit as SkinComponentInit } from "@xwiki/cristal-skin";
 import { ComponentInit as UIExtensionDefaultComponentInit } from "@xwiki/cristal-uiextension-default";
 import type { Container } from "inversify";
@@ -122,4 +123,5 @@ export async function defaultComponentsList(
   new MarkdownDefaultComponentInit(container);
   new RenameComponentInit(container);
   new GithubBackendComponentInit(container);
+  new SettingsComponentInit(container);
 }
