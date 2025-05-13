@@ -19,8 +19,10 @@
  */
 
 import type { Storage } from "./storage";
+import type { Configurations } from "@xwiki/cristal-configuration-api";
+import type { Ref } from "vue";
 
-export interface WikiConfig {
+interface WikiConfig {
   name: string;
   // The base url of the backend endpoint
   baseURL: string;
@@ -101,3 +103,16 @@ export interface WikiConfig {
    */
   getNewPageDefaultName(): string;
 }
+
+/**
+ * Service that provides a reactive proxy to handle changes in available
+ * WikiConfigs.
+ *
+ * @since 0.18
+ */
+interface WikiConfigProxy {
+  getAvailableConfigurations(): Ref<Map<string, WikiConfig>>;
+  setAvailableConfigurations(config: Configurations): void;
+}
+
+export type { WikiConfig, WikiConfigProxy };

@@ -19,10 +19,14 @@
  */
 
 import ComponentInit from "./componentsInit";
-import { DefaultLogger, DefaultLoggerConfig } from "@xwiki/cristal-api";
+import {
+  DefaultLogger,
+  DefaultLoggerConfig,
+  DefaultWikiConfigProxy,
+} from "@xwiki/cristal-api";
 import { Container } from "inversify";
 import type { ExtensionManager } from "../api/extensionManager";
-import type { Logger, LoggerConfig } from "@xwiki/cristal-api";
+import type { Logger, LoggerConfig, WikiConfigProxy } from "@xwiki/cristal-api";
 
 export class CristalLoader {
   // @ts-expect-error logger can be temporarily undefined during class
@@ -128,6 +132,10 @@ export class CristalLoader {
       .to(DefaultLoggerConfig)
       .inSingletonScope();
     this.container.bind<Logger>("Logger").to(DefaultLogger);
+    this.container
+      .bind<WikiConfigProxy>("WikiConfigProxy")
+      .to(DefaultWikiConfigProxy)
+      .inSingletonScope();
 
     const loggerConfig = this.container.get<LoggerConfig>("LoggerConfig");
     if (loggerConfig) {
