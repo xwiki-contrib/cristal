@@ -18,34 +18,25 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
-defineProps<{
-  title: string;
-  width: string | number | undefined;
-}>();
+import "@shoelace-style/shoelace/dist/components/option/option";
+import "@shoelace-style/shoelace/dist/components/select/select";
+import type { SelectProps } from "@xwiki/cristal-dsapi";
+
+defineProps<SelectProps>();
+
+const selected = defineModel<string>();
 </script>
-
 <template>
-  <v-dialog :width="width" attach="#view" scrollable>
-    <template #activator="{ props }">
-      <span v-bind="props">
-        <slot name="activator" />
-      </span>
-    </template>
-    <template #default>
-      <v-card :title="title">
-        <v-card-text>
-          <slot name="default" />
-        </v-card-text>
-        <v-card-actions v-if="$slots.footer">
-          <slot name="footer" />
-        </v-card-actions>
-      </v-card>
-    </template>
-  </v-dialog>
+  <sl-select
+    :label="label"
+    :help-text="help"
+    :required="required"
+    :value="selected"
+    @sl-change="selected = $event.target.value"
+    @sl-hide.stop
+  >
+    <sl-option v-for="item in items" :key="item" :value="item">{{
+      item
+    }}</sl-option>
+  </sl-select>
 </template>
-
-<style scoped>
-:deep(.v-card-actions) {
-  padding: var(--cr-spacing-large);
-}
-</style>

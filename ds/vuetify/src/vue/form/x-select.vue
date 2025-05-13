@@ -18,34 +18,39 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
-defineProps<{
-  title: string;
-  width: string | number | undefined;
-}>();
+import messages from "../../translations";
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
+import { VSelect } from "vuetify/components/VSelect";
+import type { SelectProps } from "@xwiki/cristal-dsapi";
+
+const props = defineProps<SelectProps>();
+const selected = defineModel<string>();
+
+const { t } = useI18n({
+  messages,
+});
+
+const rules = computed(() => {
+  const rulesList = [];
+  if (props.required) {
+    rulesList.push((value: unknown) => {
+      if (value) {
+        return true;
+      } else {
+        return t("vuetify.select.input.mandatory");
+      }
+    });
+  }
+  return rulesList;
+});
 </script>
-
 <template>
-  <v-dialog :width="width" attach="#view" scrollable>
-    <template #activator="{ props }">
-      <span v-bind="props">
-        <slot name="activator" />
-      </span>
-    </template>
-    <template #default>
-      <v-card :title="title">
-        <v-card-text>
-          <slot name="default" />
-        </v-card-text>
-        <v-card-actions v-if="$slots.footer">
-          <slot name="footer" />
-        </v-card-actions>
-      </v-card>
-    </template>
-  </v-dialog>
+  <v-select
+    v-model="selected"
+    :label="label"
+    :messages="help"
+    :items="items"
+    :rules="rules"
+  ></v-select>
 </template>
-
-<style scoped>
-:deep(.v-card-actions) {
-  padding: var(--cr-spacing-large);
-}
-</style>
