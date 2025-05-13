@@ -31,6 +31,8 @@ import {
 import { CIcon, Size } from "@xwiki/cristal-icons";
 import { ref, watch } from "vue";
 
+// We don't assign a status yet, as we don't know if realtime is enabled or not
+// (the providerRef may be empty now but filled later)
 const status = ref<WebSocketStatus>();
 
 watch(
@@ -40,8 +42,10 @@ watch(
       return;
     }
 
+    // Now that we now we have a provider, we can indicate it's connecting
     status.value = WebSocketStatus.Connecting;
 
+    // As soon as the provider's status changes, update it
     provider.on("status", (event: onStatusParameters) => {
       status.value = event.status;
     });

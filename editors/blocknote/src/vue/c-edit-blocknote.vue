@@ -81,7 +81,7 @@ const editorInstance =
 /**
  * Setup the editor and title input using the fetched page's content
  *
- * @param currentPage -
+ * @param currentPage - The fetched current page
  */
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
@@ -128,7 +128,7 @@ function navigateToView() {
 /**
  * Save a content into the current page document
  *
- * @param content -
+ * @param content - The content to save
  */
 async function save(content: string) {
   try {

@@ -107,6 +107,10 @@ type BlockNoteViewWrapperProps = {
  */
 async function replaceContent(editor: EditorType, blocks: BlockType[]) {
   // TODO: with time, see if this fix actually works fine
+  //
+  // Some BlockNote crash seems to happen when replacing the whole document, but only sometimes.
+  // So here we ensure the document is never empty by introducing some empty inline content, which will be put
+  // inside a paragraph.
   if (editor.document.length === 0) {
     editor.insertInlineContent("");
   }

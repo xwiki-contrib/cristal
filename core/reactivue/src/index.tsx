@@ -95,6 +95,9 @@ function reactComponentAdapter<Props extends Record<string, unknown>>(
       }
 
       // Render the element inside the container element
+      //
+      // NOTE: We put the root in a variable before assigning it to the component's state,
+      //       as to not access it through a Proxy, which could result in some weird issues
       const root = createRoot(this.$el);
       root.render(
         <ReactIndirectionLayer
