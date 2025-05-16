@@ -63,8 +63,6 @@ const modelReferenceHandler = container
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
-console.warn([currentPageName, { ...currentPageReference }]);
-
 const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
 
 const title = ref("");
