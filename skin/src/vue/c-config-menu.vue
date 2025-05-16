@@ -26,7 +26,10 @@ import { CIcon } from "@xwiki/cristal-icons";
 <template>
   <x-dialog width="auto" :logo="logo" title="Configuration">
     <template #activator="{ props }">
-      <c-icon name="gear" v-bind="props"></c-icon>
+      <x-btn>
+        <c-icon name="arrow-left-right" v-bind="props"></c-icon>Switch
+        Configuration
+      </x-btn>
     </template>
     <template #default>
       <CTemplate name="config" />

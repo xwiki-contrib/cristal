@@ -25,8 +25,9 @@ import ComponentInit from "./components/componentsInit.js";
 import { DefaultLogger } from "./components/defaultLogger.js";
 import { DefaultLoggerConfig } from "./components/defaultLoggerConfig.js";
 import { DefaultWikiConfig } from "./components/defaultWikiConfig.js";
+import { DefaultWikiConfigProxy } from "./components/defaultWikiConfigProxy";
 import type { PageData } from "./api/PageData.js";
-import type { WikiConfig } from "./api/WikiConfig.js";
+import type { WikiConfig, WikiConfigProxy } from "./api/WikiConfig.js";
 import type { AttachmentsData } from "./api/attachmentsData";
 import type { CristalApp } from "./api/cristalApp.js";
 import type { DesignSystemLoader } from "./api/designSystemLoader.js";
@@ -50,6 +51,7 @@ export type {
   SkinManager,
   Storage,
   WikiConfig,
+  WikiConfigProxy,
   WrappingStorage,
 };
 export {
@@ -58,6 +60,7 @@ export {
   DefaultLoggerConfig,
   DefaultPageData,
   DefaultWikiConfig,
+  DefaultWikiConfigProxy,
   JSONLDDocument,
   registerAsyncComponent,
 };
