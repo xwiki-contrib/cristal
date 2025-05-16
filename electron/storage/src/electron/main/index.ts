@@ -23,7 +23,10 @@ import { getStorageRoot } from "@xwiki/cristal-electron-state";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
-import { DefaultPageReader } from "@xwiki/cristal-page-default";
+import {
+  DefaultPageReader,
+  DefaultPageWriter,
+} from "@xwiki/cristal-page-default";
 import { app, ipcMain, net, protocol, shell } from "electron";
 import mime from "mime";
 import fs from "node:fs";
@@ -137,6 +140,8 @@ async function readPage(
       type: EntityType.DOCUMENT,
       value: {
         ...data,
+        source: data.pageContent,
+        syntax: "markdown/1.2",
         lastAuthor: { name: os.userInfo().username },
         lastModificationDate: new Date(pageStats.mtimeMs),
         id: relative(homePathFull, dirname(path)),
@@ -222,32 +227,27 @@ async function savePage(
   if (!(await isWithin(homePathFull, path))) {
     throw new Error(`[${path}] is not in in [${homePathFull}]`);
   }
-  let jsonContent: {
-    source: string;
-    name: string;
-    syntax?: string;
-  };
+  let page: { [key: string]: unknown };
   if ((await pathExists(path)) && (await isFile(path))) {
     const fileContent = await fs.promises.readFile(path);
     const textDecoder = new TextDecoder("utf-8");
-    jsonContent = JSON.parse(textDecoder.decode(fileContent));
-    jsonContent.source = content;
-    jsonContent.name = title;
+    page = new DefaultPageReader().readPage(textDecoder.decode(fileContent));
+    page.pageContent = content;
+    page.name = title;
   } else {
-    jsonContent = {
+    page = {
       name: title,
-      source: content,
-      syntax: "markdown/1.2",
+      pageContent: content,
     };
   }
 
-  const newJSON = JSON.stringify(jsonContent, null, 2);
+  const newContent = new DefaultPageWriter().writePage(page);
   const parentDirectory = dirname(path);
   // Create the parent directories in case they do not exist.
   await fs.promises.mkdir(parentDirectory, { recursive: true });
   // Set the flag to w+ so that the file is created if it does not already
   // exist, or fully replaced when it does.
-  await fs.promises.writeFile(path, newJSON, { flag: "w+" });
+  await fs.promises.writeFile(path, newContent, { flag: "w+" });
   return (await readPage(path))?.value;
 }
 
@@ -271,7 +271,7 @@ async function saveAttachment(path: string, filePath: string) {
  * @since 0.10
  */
 async function listChildren(page: string): Promise<Array<string>> {
-  const folderPath = dirname(resolvePath(page));
+  const folderPath = resolvePath(page);
 
   const children = [];
   if (await isDirectory(folderPath)) {

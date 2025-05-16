@@ -93,7 +93,7 @@ export class GitHubStorage extends AbstractStorage {
     revision?: string,
   ): Promise<PageData | undefined> {
     this.logger?.debug("GitHub Loading page", page);
-    const url = this.getPageRestURL(`${page}/page.json`, syntax, revision);
+    const url = this.getPageRestURL(`${page}.md`, syntax, revision);
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -211,7 +211,7 @@ export class GitHubStorage extends AbstractStorage {
   }
 
   async save(page: string, title: string, content: string): Promise<unknown> {
-    const pageRestUrl = this.getPageRestURL(`${page}/page.json`, "");
+    const pageRestUrl = this.getPageRestURL(`${page}.md`, "");
 
     const headResponse = await fetch(pageRestUrl, {
       method: "HEAD",

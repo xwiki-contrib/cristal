@@ -48,7 +48,7 @@ describe("NextcloudRemoteURLParser", () => {
       },
     } as CristalApp);
     const entityReference = nextcloudRemoteUrlParser.parse(
-      "http://localhost/remote.php/dav/files/testuser/.cristal/a/b/c/page.json",
+      "http://localhost/remote.php/dav/files/testuser/.cristal/a/b/c.md",
     );
     expect(entityReference).toEqual(
       new DocumentReference(
@@ -67,7 +67,7 @@ describe("NextcloudRemoteURLParser", () => {
       },
     } as CristalApp);
     const entityReference = nextcloudRemoteUrlParser.parse(
-      "http://localhost/public.php/webdav/.cristal/a/b/c/page.json",
+      "http://localhost/public.php/webdav/.cristal/a/b/c.md",
     );
     expect(entityReference).toEqual(
       new DocumentReference("c", new SpaceReference(undefined, "a", "b")),

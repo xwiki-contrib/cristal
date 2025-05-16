@@ -89,13 +89,10 @@ export class NextcloudStorage extends AbstractStorage {
 
     await this.initBaseContent(username!);
     try {
-      const response = await fetch(
-        `${this.getRootUrl(username!)}/${page}/page.json`,
-        {
-          method: "GET",
-          headers: await this.getCredentials(),
-        },
-      );
+      const response = await fetch(`${this.getRootUrl(username!)}/${page}.md`, {
+        method: "GET",
+        headers: await this.getCredentials(),
+      });
 
       if (response.status >= 200 && response.status < 300) {
         const { lastModificationDate, lastAuthor } =
@@ -129,10 +126,8 @@ export class NextcloudStorage extends AbstractStorage {
   ): Promise<{ lastModificationDate?: Date; lastAuthor?: UserDetails }> {
     let lastModificationDate: Date | undefined;
     let lastAuthor: UserDetails | undefined;
-    const response = await fetch(
-      `${this.getRootUrl(username!)}/${page}/page.json`,
-      {
-        body: `<?xml version="1.0" encoding="UTF-8"?>
+    const response = await fetch(`${this.getRootUrl(username!)}/${page}.md`, {
+      body: `<?xml version="1.0" encoding="UTF-8"?>
           <d:propfind xmlns:d="DAV:">
             <d:prop xmlns:oc="http://owncloud.org/ns">
               <d:getlastmodified />
@@ -140,13 +135,12 @@ export class NextcloudStorage extends AbstractStorage {
               <oc:owner-display-name />
             </d:prop>
           </d:propfind>`,
-        method: "PROPFIND",
-        headers: {
-          ...(await this.getCredentials()),
-          Accept: "application/json",
-        },
+      method: "PROPFIND",
+      headers: {
+        ...(await this.getCredentials()),
+        Accept: "application/json",
       },
-    );
+    });
     if (response.status >= 200 && response.status < 300) {
       // window.DOMParser can't be used because it is not available in web
       // workers.
@@ -262,7 +256,7 @@ export class NextcloudStorage extends AbstractStorage {
     const rootURL = this.getRootUrl(username!);
     await this.createIntermediateDirectories(rootURL, directories);
 
-    await fetch(`${rootURL}/${directories.join("/")}/page.json`, {
+    await fetch(`${rootURL}/${directories.join("/")}.md`, {
       method: "PUT",
       headers: await this.getCredentials(),
       body: JSON.stringify({
