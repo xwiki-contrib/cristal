@@ -18,6 +18,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+import CDocumentRefresher from "./c-document-refresher.vue";
 import { CristalApp } from "@xwiki/cristal-api";
 import { inject, markRaw } from "vue";
 
@@ -43,5 +44,7 @@ const component = markRaw(editComponent);
 </script>
 
 <template>
-  <component :is="component" />
+  <CDocumentRefresher>
+    <component :is="component" />
+  </CDocumentRefresher>
 </template>
