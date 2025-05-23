@@ -65,7 +65,7 @@ const {
 } = defineProps<{
   editorProps: Omit<
     ReactNonSlotProps<BlockNoteViewWrapperProps>,
-    "content" | "prefixDefaultFormattingToolbarFor"
+    "content" | "prefixDefaultFormattingToolbarFor" | "pendingSyncMessage"
   >;
   editorContent: UniAst | Error;
   realtimeServerURL?: string | undefined;
@@ -165,6 +165,10 @@ if (!realtimeServerURL && editorRef.value) {
   });
 }
 
+const { t } = useI18n({
+  messages,
+});
+
 // Build the properties object for the React BlockNoteView component
 const initializedEditorProps: Omit<
   ReactNonSlotProps<BlockNoteViewWrapperProps>,
@@ -172,6 +176,7 @@ const initializedEditorProps: Omit<
 > = {
   ...editorProps,
   editorRef,
+  pendingSyncMessage: t("blocknote.realtime.syncing"),
   prefixDefaultFormattingToolbarFor: [
     "paragraph",
     "quote",
@@ -215,10 +220,6 @@ const content =
   uniAst instanceof Error
     ? uniAst
     : uniAstToBlockNote.uniAstToBlockNote(uniAst);
-
-const { t } = useI18n({
-  messages,
-});
 </script>
 
 <template>

@@ -66,6 +66,11 @@ type BlockNoteViewWrapperProps = {
   editorRef?: ShallowRef<EditorType | null>;
 
   /**
+   * Message to display while syncing changes with other users
+   */
+  pendingSyncMessage: string;
+
+  /**
    * Prepend the default formatting toolbar for the provided block types
    * For all these blocks, the custom-provided `formattingToolbar` will be *appended* to the default toolbar instead of replacing it
    */
@@ -125,6 +130,7 @@ async function replaceContent(editor: EditorType, blocks: BlockType[]) {
 function BlockNoteViewWrapper({
   blockNoteOptions,
   theme,
+  pendingSyncMessage,
   formattingToolbar: CustomFormattingToolbar,
   prefixDefaultFormattingToolbarFor,
   linkToolbar: CustomLinkToolbar,
@@ -218,7 +224,7 @@ function BlockNoteViewWrapper({
   if (!ready) {
     return (
       <h3>
-        <em>Syncing changes with other realtime users...</em>
+        <em>{pendingSyncMessage}</em>
       </h3>
     );
   }
