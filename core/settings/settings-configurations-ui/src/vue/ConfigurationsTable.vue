@@ -21,20 +21,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <script lang="ts" setup>
 import ConfigurationEdit from "./ConfigurationEdit.vue";
 import messages from "../translations";
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { CIcon } from "@xwiki/cristal-icons";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
+import { CTemplate } from "@xwiki/cristal-skin";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
-import type {
-  CristalApp,
-  WikiConfig,
-  WikiConfigProxy,
-} from "@xwiki/cristal-api";
+import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
 import type {
   SettingsManager,
   SettingsStorage,
 } from "@xwiki/cristal-settings-api";
+import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
 import type { Ref } from "vue";
 
 const props = defineProps<{
@@ -88,6 +86,7 @@ async function submit() {
     );
     await settingsStorage.save(settingsManager);
     wikiConfigProxy.setAvailableConfigurations({ [newName.value]: newConfig });
+    preEditConfig(newName.value);
   }
 }
 
@@ -107,12 +106,13 @@ async function deleteConfig() {
     new ConfigurationsSettings(reactiveConfigurations.value.content),
   );
   await settingsStorage.save(settingsManager);
-  // TODO: Delete from available configurations as well.
+  wikiConfigProxy.deleteAvailableConfiguration(deleteName.value);
   deleteDialogOpen.value = false;
 }
 </script>
 
 <template>
+  <!-- TODO: Implement https://jira.xwiki.org/browse/CRISTAL-539
   <span v-if="reactiveConfigurations.content.size == 0">
     {{ t("settings.configurations.empty") }}
   </span>
@@ -157,6 +157,8 @@ async function deleteConfig() {
       </tr>
     </tbody>
   </table>
+  -->
+  <CTemplate name="config" @edit="preEditConfig" @delete="preDeleteConfig" />
   <x-form @form-submit="submit">
     <x-text-field
       v-model="newName"

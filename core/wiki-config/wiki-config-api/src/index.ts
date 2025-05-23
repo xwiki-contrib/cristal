@@ -18,10 +18,20 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { contextBridge, ipcRenderer } from "electron";
+import type { WikiConfig } from "@xwiki/cristal-api";
+import type { Configurations } from "@xwiki/cristal-configuration-api";
+import type { Ref } from "vue";
 
-contextBridge.exposeInMainWorld("configurationCristal", {
-  load: async () => {
-    return ipcRenderer.invoke("configuration:load");
-  },
-});
+/**
+ * Service that provides a reactive proxy to handle changes in available
+ * WikiConfigs.
+ *
+ * @since 0.18
+ */
+interface WikiConfigProxy {
+  getAvailableConfigurations(): Ref<Map<string, WikiConfig>>;
+  setAvailableConfigurations(config: Configurations): void;
+  deleteAvailableConfiguration(configName: string): void;
+}
+
+export type { WikiConfigProxy };

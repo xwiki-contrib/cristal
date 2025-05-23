@@ -52,6 +52,7 @@ import { ComponentInit as SettingsConfigurationsUIComponentInit } from "@xwiki/c
 import { ComponentInit as SettingsComponentInit } from "@xwiki/cristal-settings-default";
 import { ComponentInit as SkinComponentInit } from "@xwiki/cristal-skin";
 import { ComponentInit as UIExtensionDefaultComponentInit } from "@xwiki/cristal-uiextension-default";
+import { ComponentInit as WikiConfigComponentInit } from "@xwiki/cristal-wiki-config-default";
 import type { Container } from "inversify";
 
 /**
@@ -95,6 +96,7 @@ async function defaultComponentsList(container: Container): Promise<void> {
   new SettingsComponentInit(container);
   new SettingsConfigurationsComponentInit(container);
   new SettingsConfigurationsUIComponentInit(container);
+  new WikiConfigComponentInit(container);
 }
 
 /**

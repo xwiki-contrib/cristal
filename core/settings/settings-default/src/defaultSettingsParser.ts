@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { DefaultSettings } from "./defaultSettings";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type {
@@ -34,8 +35,8 @@ import type {
  */
 @injectable()
 class DefaultSettingsParser implements SettingsParser {
-  parse(serializedSettings: string): Settings {
-    return JSON.parse(serializedSettings) as Settings;
+  parse(serializedSettings: string, key: string): Settings {
+    return new DefaultSettings(key, JSON.parse(serializedSettings));
   }
 }
 
@@ -45,7 +46,7 @@ class DefaultSettingsParser implements SettingsParser {
  */
 @injectable()
 class DefaultSettingsParserProvider implements SettingsParserProvider {
-  constructor(@inject("CristalApp") private cristalApp: CristalApp) {}
+  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
   get(type?: string): SettingsParser {
     try {

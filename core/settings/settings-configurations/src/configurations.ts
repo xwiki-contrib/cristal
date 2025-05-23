@@ -26,7 +26,7 @@ import type { Settings } from "@xwiki/cristal-settings-api";
  * @since 0.18
  */
 export class ConfigurationsSettings implements Settings {
-  static SETTINGS_KEY: string = "configurations";
+  static SETTINGS_KEY: string = "configuration";
 
   key: string;
   content: Map<string, Configuration>;
@@ -38,5 +38,9 @@ export class ConfigurationsSettings implements Settings {
     if (configurations) {
       configurations!.forEach((v, k) => this.content.set(k, v));
     }
+  }
+
+  toJSON() {
+    return Object.fromEntries(this.content);
   }
 }

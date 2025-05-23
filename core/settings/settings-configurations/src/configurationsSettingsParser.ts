@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { ConfigurationsSettings } from "./configurations";
 import { injectable } from "inversify";
-import type { ConfigurationsSettings } from "./configurations";
 import type { Configuration } from "@xwiki/cristal-configuration-api";
 import type { SettingsParser } from "@xwiki/cristal-settings-api";
 
@@ -32,12 +32,8 @@ import type { SettingsParser } from "@xwiki/cristal-settings-api";
 export class ConfigurationsSettingsParser implements SettingsParser {
   parse(serializedSettings: string): ConfigurationsSettings {
     const parsed = JSON.parse(serializedSettings) as {
-      key: string;
-      content: [string: Configuration];
+      [configurationName: string]: Configuration;
     };
-    return {
-      key: parsed.key,
-      content: new Map(Object.entries(parsed.content)),
-    };
+    return new ConfigurationsSettings(new Map(Object.entries(parsed)));
   }
 }

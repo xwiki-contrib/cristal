@@ -107,7 +107,9 @@ class CristalAppLoader extends CristalLoader {
     loadConfig: ConfigurationLoader,
     isElectron: boolean,
     configName: string,
+    /** Method that initalizes additional components that are always loaded. */
     additionalComponents: (container: Container) => Promise<void>,
+    /** Method that initalizes components that depend on the loaded configuration. */
     conditionalComponents: (
       container: Container,
       config: Configuration,
@@ -148,6 +150,8 @@ class CristalAppLoader extends CristalLoader {
     Object.assign(config, additionalConfigs);
 
     const currentConfig = this.resolveCurrentConfiguration(isElectron, config);
+    // We load conditional components only after we have loaded user configs
+    // and resolved the current config to initialize.
     if (import.meta.env?.MODE == "development" || staticMode) {
       await conditionalComponents(this.container, config[currentConfig]);
     }
@@ -161,7 +165,9 @@ class CristalAppLoader extends CristalLoader {
     staticBuild: boolean,
     isElectron: boolean,
     configName: string,
+    /** Method that initalizes additional components that are always loaded. */
     additionalComponents: (container: Container) => Promise<void>,
+    /** Method that initalizes components that depend on the loaded configuration. */
     conditionalComponents: (
       container: Container,
       config: Configuration,

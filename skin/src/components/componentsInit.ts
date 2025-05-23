@@ -22,7 +22,7 @@ import { InformationExtraTab } from "./InformationTab";
 import { DefaultSkinManager } from "./defaultSkinManager";
 import { CommentsInfoAction } from "./info-actions/commentsInfoAction";
 import { LikesInfoAction } from "./info-actions/likesInfoAction";
-import { SettingsMenuUIExtension } from "./sidebar-actions/SettingsMenuUIExtension";
+import { ConfigMenuUIExtension } from "./sidebar-actions/ConfigMenuUIExtension";
 import { TemplateComponent } from "./templateTemplateProvider";
 import { UIXLoginTemplateProvider } from "./uixLoginTemplateProvider";
 import { UIXSearchTemplateProvider } from "./uixSearchTemplateProvider";
@@ -74,7 +74,7 @@ export default class ComponentInit {
       .inSingletonScope();
     container
       .bind<UIExtension>("UIExtension")
-      .to(SettingsMenuUIExtension)
+      .to(ConfigMenuUIExtension)
       .inSingletonScope();
     this.logger?.debug("Init Skin components end");
   }

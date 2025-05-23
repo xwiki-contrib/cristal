@@ -20,9 +20,9 @@
 
 import { inject, injectable } from "inversify";
 import { shallowRef, triggerRef } from "vue";
-import type { WikiConfig, WikiConfigProxy } from "../api/WikiConfig";
-import type { CristalApp } from "../api/cristalApp";
+import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
 import type { Configurations } from "@xwiki/cristal-configuration-api";
+import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
 import type { Ref } from "vue";
 
 /**
@@ -42,8 +42,14 @@ export class DefaultWikiConfigProxy implements WikiConfigProxy {
   getAvailableConfigurations(): Ref<Map<string, WikiConfig>> {
     return this.configurationsRef;
   }
+
   setAvailableConfigurations(config: Configurations): void {
     this.cristalApp.setAvailableConfigurations(config);
+    triggerRef(this.configurationsRef);
+  }
+
+  deleteAvailableConfiguration(configName: string): void {
+    this.cristalApp.deleteAvailableConfiguration(configName);
     triggerRef(this.configurationsRef);
   }
 }

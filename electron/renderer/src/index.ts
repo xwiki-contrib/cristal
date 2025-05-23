@@ -20,7 +20,6 @@
 
 import "reflect-metadata";
 import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-electron";
-import { loadConfig } from "@xwiki/cristal-configuration-electron-renderer";
 import { ComponentInit as GitHubAuthenticationComponentInit } from "@xwiki/cristal-electron-authentication-github-renderer";
 import { ComponentInit as NextcloudAuthenticationComponentInit } from "@xwiki/cristal-electron-authentication-nextcloud-renderer";
 import { ComponentInit as XWikiAuthenticationComponentInit } from "@xwiki/cristal-electron-authentication-xwiki-renderer";
@@ -49,7 +48,8 @@ CristalAppLoader.init(
     "extension-menubuttons",
     "sharedworker",
   ],
-  loadConfig,
+  // With Electron, configs are only loaded through user settings.
+  async () => ({}),
   true,
   true,
   "FileSystemSL",

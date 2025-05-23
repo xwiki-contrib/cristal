@@ -18,8 +18,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import localConfig from "./vite.config";
-import { mergeConfig } from "vitest/config";
-import defaultConfig from "@xwiki/cristal-dev-config/vitest-vue.config";
+import { injectable } from "inversify";
+import type { UIExtension } from "@xwiki/cristal-uiextension-api";
+import type { Component } from "vue";
 
-export default mergeConfig(defaultConfig, localConfig);
+@injectable()
+export class ConfigMenuUIExtension implements UIExtension {
+  id = "sidebar.actions.configMenu";
+  uixpName = "sidebar.actions";
+  order = 1000;
+  parameters = {};
+
+  async component(): Promise<Component> {
+    return (await import("../../vue/c-config-menu.vue")).default;
+  }
+
+  async enabled(): Promise<boolean> {
+    return true;
+  }
+}

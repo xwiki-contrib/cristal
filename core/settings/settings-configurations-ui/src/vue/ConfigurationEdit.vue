@@ -24,12 +24,13 @@ import { CIcon, Size } from "@xwiki/cristal-icons";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
 import { inject, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp, WikiConfigProxy } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/cristal-api";
 import type { Configuration } from "@xwiki/cristal-configuration-api";
 import type {
   SettingsManager,
   SettingsStorage,
 } from "@xwiki/cristal-settings-api";
+import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
 import type { Ref } from "vue";
 
 const props = defineProps<{
@@ -51,7 +52,12 @@ const settingsStorage = cristal
   .get<SettingsStorage>("SettingsStorage")!;
 
 // TODO: find a way to list available design systems automatically.
+// https://jira.xwiki.org/browse/CRISTAL-541
 const designSystems = ["shoelace", "vuetify"];
+
+// TODO: find a way to list available editors automatically.
+// https://jira.xwiki.org/browse/CRISTAL-541
+const editors = ["tiptap", "blocknote"];
 
 const configuration: Ref<Configuration | undefined> = ref(undefined);
 
@@ -62,6 +68,7 @@ const designSystem: Ref<string> = ref("");
 const storageRoot: Ref<string> = ref("");
 const realtimeUrl: Ref<string> = ref("");
 const authenticationBaseUrl: Ref<string> = ref("");
+const editor: Ref<string> = ref("");
 
 const { t } = useI18n({
   messages,
@@ -79,6 +86,7 @@ watch(
     realtimeUrl.value = (configuration.value!.realtimeURL ?? "") as string;
     authenticationBaseUrl.value = (configuration.value!.authenticationBaseURL ??
       "") as string;
+    editor.value = (configuration.value!.editor ?? "") as string;
   },
 );
 
@@ -91,6 +99,7 @@ async function submit() {
     storageRoot: storageRoot.value,
     realtimeURL: realtimeUrl.value,
     authenticationBaseURL: authenticationBaseUrl.value,
+    editor: editor.value,
   });
   settingsManager
     .get(ConfigurationsSettings)!
@@ -130,7 +139,6 @@ async function submit() {
           v-model="homePage"
           :label="t('settings.configurations.edit.homepage.label')"
           :help="t('settings.configurations.edit.homepage.help')"
-          required
         ></x-text-field>
         <x-select
           v-model="designSystem"
@@ -154,6 +162,13 @@ async function submit() {
           :label="t('settings.configurations.edit.authenticationbaseurl.label')"
           :help="t('settings.configurations.edit.authenticationbaseurl.help')"
         ></x-text-field>
+        <x-select
+          v-model="editor"
+          :label="t('settings.configurations.edit.editor.label')"
+          :help="t('settings.configurations.edit.editor.help')"
+          :items="editors"
+          required
+        ></x-select>
         <x-btn type="submit" variant="primary">
           <c-icon name="floppy" :size="Size.Small"></c-icon>
           {{ t("settings.configurations.edit.submit") }}</x-btn

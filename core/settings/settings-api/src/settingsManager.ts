@@ -34,10 +34,10 @@ export interface SettingsManager {
 
   /**
    * Retrieves the settings associated to a given type.
-   * @param t - the type of settings to retrieve.
+   * @param type - the type of settings to retrieve.
    * @returns the stored instance, or undefined if not found.
    */
-  get<T extends Settings>(t: new () => T): T | undefined;
+  get<T extends Settings>(type: new () => T): T | undefined;
 
   /**
    * Converts all the settings stored into a JSON representation.

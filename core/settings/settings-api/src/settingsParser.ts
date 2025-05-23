@@ -31,8 +31,9 @@ interface SettingsParser {
   /**
    * Parses a given JSON representation into an actual Settings instance.
    * @param serializedSettings - the JSON representation.
+   * @param key - the Settings key.
    */
-  parse(serializedSettings: string): Settings;
+  parse(serializedSettings: string, key: string): Settings;
 }
 
 /**

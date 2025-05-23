@@ -20,20 +20,11 @@
 
 import { ConfigurationsSettings } from "./configurations";
 import { ConfigurationsSettingsParser } from "./configurationsSettingsParser";
-import { ConfigurationsSettingsSerializer } from "./configurationsSettingsSerializer";
 import { Container } from "inversify";
-import type {
-  SettingsParser,
-  SettingsSerializer,
-} from "@xwiki/cristal-settings-api";
+import type { SettingsParser } from "@xwiki/cristal-settings-api";
 
 class ComponentInit {
   constructor(container: Container) {
-    container
-      .bind<SettingsSerializer>("SettingsSerializer")
-      .to(ConfigurationsSettingsSerializer)
-      .inSingletonScope()
-      .whenNamed(ConfigurationsSettings.SETTINGS_KEY);
     container
       .bind<SettingsParser>("SettingsParser")
       .to(ConfigurationsSettingsParser)

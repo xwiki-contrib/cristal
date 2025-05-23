@@ -23,17 +23,11 @@ import {
   DefaultSettingsParser,
   DefaultSettingsParserProvider,
 } from "./defaultSettingsParser";
-import {
-  DefaultSettingsSerializer,
-  DefaultSettingsSerializerProvider,
-} from "./defaultSettingsSerializer";
 import { Container } from "inversify";
 import type {
   SettingsManager,
   SettingsParser,
   SettingsParserProvider,
-  SettingsSerializer,
-  SettingsSerializerProvider,
 } from "@xwiki/cristal-settings-api";
 
 export class ComponentInit {
@@ -50,15 +44,6 @@ export class ComponentInit {
     container
       .bind<SettingsParserProvider>("SettingsParserProvider")
       .to(DefaultSettingsParserProvider)
-      .inSingletonScope();
-    container
-      .bind<SettingsSerializer>("SettingsSerializer")
-      .to(DefaultSettingsSerializer)
-      .inSingletonScope()
-      .whenDefault();
-    container
-      .bind<SettingsSerializerProvider>("SettingsSerializerProvider")
-      .to(DefaultSettingsSerializerProvider)
       .inSingletonScope();
   }
 }

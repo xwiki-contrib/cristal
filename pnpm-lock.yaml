@@ -2674,9 +2674,15 @@ importers:
       '@xwiki/cristal-settings-configurations':
         specifier: workspace:*
         version: link:../settings-configurations
+      '@xwiki/cristal-skin':
+        specifier: workspace:*
+        version: link:../../../skin
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../../uiextension/uiextension-api
+      '@xwiki/cristal-wiki-config-api':
+        specifier: workspace:*
+        version: link:../../wiki-config/wiki-config-api
       inversify:
         specifier: 7.5.1
         version: 7.5.1(reflect-metadata@0.2.2)
@@ -2989,6 +2995,56 @@ importers:
       vue-tsc:
         specifier: 2.2.10
         version: 2.2.10(typescript@5.8.3)
+
+  core/wiki-config/wiki-config-api:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-configuration-api':
+        specifier: workspace:*
+        version: link:../../configuration/configuration-api
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.8.3)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  core/wiki-config/wiki-config-default:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-configuration-api':
+        specifier: workspace:*
+        version: link:../../configuration/configuration-api
+      '@xwiki/cristal-wiki-config-api':
+        specifier: workspace:*
+        version: link:../wiki-config-api
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+      vue:
+        specifier: 3.5.13
+        version: 3.5.13(typescript@5.8.3)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.4
+        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
 
   core/xwiki/xwiki-utils:
     devDependencies:
@@ -3831,63 +3887,6 @@ importers:
         specifier: 6.3.4
         version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
 
-  electron/configuration/configuration-electron/configuration-electron-main:
-    dependencies:
-      '@xwiki/cristal-configuration-api':
-        specifier: workspace:*
-        version: link:../../../../core/configuration/configuration-api
-      electron:
-        specifier: 36.0.0
-        version: 36.0.0
-      electron-store:
-        specifier: 10.0.1
-        version: 10.0.1
-    devDependencies:
-      '@xwiki/cristal-dev-config':
-        specifier: workspace:*
-        version: link:../../../../dev/config
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
-      vite:
-        specifier: 6.3.4
-        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
-
-  electron/configuration/configuration-electron/configuration-electron-preload:
-    dependencies:
-      '@xwiki/cristal-configuration-api':
-        specifier: workspace:*
-        version: link:../../../../core/configuration/configuration-api
-      electron:
-        specifier: 36.0.0
-        version: 36.0.0
-    devDependencies:
-      '@xwiki/cristal-dev-config':
-        specifier: workspace:*
-        version: link:../../../../dev/config
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
-      vite:
-        specifier: 6.3.4
-        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
-
-  electron/configuration/configuration-electron/configuration-electron-renderer:
-    dependencies:
-      '@xwiki/cristal-configuration-api':
-        specifier: workspace:*
-        version: link:../../../../core/configuration/configuration-api
-    devDependencies:
-      '@xwiki/cristal-dev-config':
-        specifier: workspace:*
-        version: link:../../../../dev/config
-      typescript:
-        specifier: 5.8.3
-        version: 5.8.3
-      vite:
-        specifier: 6.3.4
-        version: 6.3.4(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
-
   electron/link-suggest/link-suggest-filesystem:
     dependencies:
       '@xwiki/cristal-api':
@@ -3927,9 +3926,6 @@ importers:
       '@xwiki/cristal-browser-electron':
         specifier: workspace:*
         version: link:../browser
-      '@xwiki/cristal-configuration-electron-main':
-        specifier: workspace:*
-        version: link:../configuration/configuration-electron/configuration-electron-main
       '@xwiki/cristal-electron-authentication-github-main':
         specifier: workspace:*
         version: link:../authentication/authentication-github/authentication-github-main
@@ -3964,9 +3960,6 @@ importers:
 
   electron/preload:
     dependencies:
-      '@xwiki/cristal-configuration-electron-preload':
-        specifier: workspace:*
-        version: link:../configuration/configuration-electron/configuration-electron-preload
       '@xwiki/cristal-electron-authentication-github-preload':
         specifier: workspace:*
         version: link:../authentication/authentication-github/authentication-github-preload
@@ -4001,9 +3994,6 @@ importers:
       '@xwiki/cristal-browser-electron':
         specifier: workspace:*
         version: link:../browser
-      '@xwiki/cristal-configuration-electron-renderer':
-        specifier: workspace:*
-        version: link:../configuration/configuration-electron/configuration-electron-renderer
       '@xwiki/cristal-electron-authentication-github-renderer':
         specifier: workspace:*
         version: link:../authentication/authentication-github/authentication-github-renderer
@@ -4071,6 +4061,9 @@ importers:
 
   electron/settings/settings-main:
     dependencies:
+      '@xwiki/cristal-configuration-api':
+        specifier: workspace:*
+        version: link:../../../core/configuration/configuration-api
       '@xwiki/cristal-settings-api':
         specifier: workspace:*
         version: link:../../../core/settings/settings-api
@@ -4446,6 +4439,9 @@ importers:
       '@xwiki/cristal-uiextension-default':
         specifier: workspace:*
         version: link:../core/uiextension/uiextension-default
+      '@xwiki/cristal-wiki-config-default':
+        specifier: workspace:*
+        version: link:../core/wiki-config/wiki-config-default
       inversify:
         specifier: 7.5.1
         version: 7.5.1(reflect-metadata@0.2.2)
@@ -4655,9 +4651,6 @@ importers:
       '@xwiki/cristal-configuration-api':
         specifier: workspace:*
         version: link:../../core/configuration/configuration-api
-      '@xwiki/cristal-configuration-electron-renderer':
-        specifier: workspace:*
-        version: link:../../electron/configuration/configuration-electron/configuration-electron-renderer
       '@xwiki/cristal-configuration-web':
         specifier: workspace:*
         version: link:../../core/configuration/configuration-web
@@ -4758,6 +4751,12 @@ importers:
       '@xwiki/cristal-page-actions-ui':
         specifier: workspace:*
         version: link:../core/page-actions/page-actions-ui
+      '@xwiki/cristal-settings-api':
+        specifier: workspace:*
+        version: link:../core/settings/settings-api
+      '@xwiki/cristal-settings-configurations':
+        specifier: workspace:*
+        version: link:../core/settings/settings-configurations
       '@xwiki/cristal-uiextension-api':
         specifier: workspace:*
         version: link:../core/uiextension/uiextension-api
@@ -4767,6 +4766,9 @@ importers:
       '@xwiki/cristal-user-ui':
         specifier: workspace:*
         version: link:../core/user/user-ui
+      '@xwiki/cristal-wiki-config-api':
+        specifier: workspace:*
+        version: link:../core/wiki-config/wiki-config-api
       inversify:
         specifier: 7.5.1
         version: 7.5.1(reflect-metadata@0.2.2)

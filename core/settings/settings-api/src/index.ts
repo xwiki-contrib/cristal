@@ -21,10 +21,6 @@
 import type { Settings } from "./settings";
 import type { SettingsManager } from "./settingsManager";
 import type { SettingsParser, SettingsParserProvider } from "./settingsParser";
-import type {
-  SettingsSerializer,
-  SettingsSerializerProvider,
-} from "./settingsSerializer";
 import type { SettingsStorage } from "./settingsStorage";
 
 export type {
@@ -32,7 +28,5 @@ export type {
   SettingsManager,
   SettingsParser,
   SettingsParserProvider,
-  SettingsSerializer,
-  SettingsSerializerProvider,
   SettingsStorage,
 };

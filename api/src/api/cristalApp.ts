@@ -49,6 +49,8 @@ export interface CristalApp {
 
   getAvailableConfigurations(): Map<string, WikiConfig>;
 
+  deleteAvailableConfiguration(configName: string): void;
+
   run(): Promise<void>;
 
   /**

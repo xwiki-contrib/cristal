@@ -18,20 +18,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import defaultSettings from "./defaultSettings.json";
+import { Configurations } from "@xwiki/cristal-configuration-api";
 import Store from "electron-store";
 
-const settingsKey = "settings";
+const configurationKey = "configuration";
+const settingsKey = "_raw";
 
 const schema = {
-  settings: {
+  _raw: {
     type: "string",
+  },
+  configuration: {
+    type: "object",
   },
 };
 
 const storeInstance: Store = new Store({
-  name: "settings-main",
+  name: "settings",
+  // Here, we want to keep in the store the raw string representation of the
+  // file, since it should be parsed and serialized by the SettingsManager
+  // service. We still include the deserialized object in case we want to check
+  // some settings values on Electron's main process.
+  serialize: (value: Record<string, unknown>) => value._raw as string,
+  deserialize: (value: string) => ({ _raw: value, ...JSON.parse(value) }),
   schema,
-  // TODO: add encryption key
 });
 
 function set<T>(key: string, value: T) {
@@ -54,6 +65,10 @@ function setSettings(value: string): void {
 }
 
 function getSettings(): string {
+  // @ts-expect-error type resolution failing because of electron-store library bug
+  if (storeInstance.size < 2) {
+    setSettings(JSON.stringify(defaultSettings, null, 2));
+  }
   return get(settingsKey);
 }
 
@@ -61,4 +76,8 @@ function deleteSettings(): void {
   rm(settingsKey);
 }
 
-export { deleteSettings, getSettings, setSettings };
+function getConfigurations(): Configurations {
+  return get(configurationKey);
+}
+
+export { deleteSettings, getConfigurations, getSettings, setSettings };

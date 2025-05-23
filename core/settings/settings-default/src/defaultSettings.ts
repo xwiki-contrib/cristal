@@ -18,20 +18,23 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { injectable } from "inversify";
-import type { ConfigurationsSettings } from "./configurations";
-import type { SettingsSerializer } from "@xwiki/cristal-settings-api";
+import type { Settings } from "@xwiki/cristal-settings-api";
 
 /**
- * Implementation of {@link SettingsSerializer} for {@link ConfigurationSettings}.
- * In particular, it will handle serializing Map instances used as content.
+ * Default imlementation of {@link Settings}.
+ * Mostly useful to have a default implementation for toJSON().
  * @since 0.18
  */
-@injectable()
-export class ConfigurationsSettingsSerializer implements SettingsSerializer {
-  serialize(settings: ConfigurationsSettings): string {
-    return `{"key":${JSON.stringify(settings.key)},"content":${JSON.stringify(
-      Object.fromEntries(settings.content),
-    )}}`;
+export class DefaultSettings implements Settings {
+  key: string;
+  content: unknown;
+
+  constructor(key: string, content: unknown) {
+    this.key = key;
+    this.content = content;
+  }
+
+  toJSON() {
+    return this.content;
   }
 }

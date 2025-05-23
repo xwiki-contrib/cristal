@@ -23,13 +23,12 @@ import type {
   Settings,
   SettingsManager,
   SettingsParserProvider,
-  SettingsSerializerProvider,
 } from "@xwiki/cristal-settings-api";
 
 /**
  * Default implementation for {@link SettingsManager}.
- * It will try to find the best {@link SettingsParser} and
- * {@link SettingsSerializer} instances for the settings it handles.
+ * It will try to find the best {@link SettingsParser} instance for the
+ * settings it handles.
  * @since 0.18
  */
 @injectable()
@@ -38,9 +37,7 @@ export class DefaultSettingsManager implements SettingsManager {
 
   constructor(
     @inject("SettingsParserProvider")
-    private parserProvider: SettingsParserProvider,
-    @inject("SettingsSerializerProvider")
-    private serializerProvider: SettingsSerializerProvider,
+    private readonly parserProvider: SettingsParserProvider,
   ) {
     this.settings = new Map();
   }
@@ -49,8 +46,8 @@ export class DefaultSettingsManager implements SettingsManager {
     this.settings.set(settings.key, settings);
   }
 
-  get<T extends Settings>(t: new () => T): T | undefined {
-    const key = new t().key;
+  get<T extends Settings>(type: new () => T): T | undefined {
+    const key = new type().key;
     if (this.settings.has(key)) {
       return this.settings.get(key) as T;
     } else {
@@ -59,27 +56,17 @@ export class DefaultSettingsManager implements SettingsManager {
   }
 
   toJSON(): string {
-    const settingsJson = [];
-    for (const [key, value] of this.settings) {
-      settingsJson.push(
-        this.serializerProvider?.get(key).serialize(value) ?? "",
-      );
-    }
-    return `[${settingsJson.join(",")}]`;
+    return JSON.stringify(Object.fromEntries(this.settings), null, 2);
   }
 
   fromJSON(json: string): void {
-    const settings = JSON.parse(json) as [
-      {
-        key: string;
-        content: unknown;
-      },
-    ];
-    for (const setting of settings) {
+    const settings = JSON.parse(json) as {
+      [key: string]: unknown;
+    };
+    for (const [key, setting] of Object.entries(settings)) {
       this.settings.set(
-        setting.key,
-        this.parserProvider?.get(setting.key).parse(JSON.stringify(setting)) ??
-          {},
+        key,
+        this.parserProvider?.get(key).parse(JSON.stringify(setting), key) ?? {},
       );
     }
   }

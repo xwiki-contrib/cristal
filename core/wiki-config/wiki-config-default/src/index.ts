@@ -18,22 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { injectable } from "inversify";
-import type { UIExtension } from "@xwiki/cristal-uiextension-api";
-import type { Component } from "vue";
+import { DefaultWikiConfigProxy } from "./defaultWikiConfigProxy";
+import { Container } from "inversify";
+import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
 
-@injectable()
-export class SettingsMenuUIExtension implements UIExtension {
-  id = "sidebar.actions.settingsMenu";
-  uixpName = "sidebar.actions";
-  order = 1000;
-  parameters = {};
-
-  async component(): Promise<Component> {
-    return (await import("../../vue/c-settings-menu.vue")).default;
-  }
-
-  async enabled(): Promise<boolean> {
-    return true;
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<WikiConfigProxy>("WikiConfigProxy")
+      .to(DefaultWikiConfigProxy)
+      .inSingletonScope();
   }
 }

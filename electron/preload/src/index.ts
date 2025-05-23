@@ -26,4 +26,3 @@ import "@xwiki/cristal-electron-authentication-github-preload";
 import "@xwiki/cristal-electron-authentication-nextcloud-preload";
 import "@xwiki/cristal-electron-authentication-xwiki-preload";
 import "@xwiki/cristal-electron-settings-preload";
-import "@xwiki/cristal-configuration-electron-preload";

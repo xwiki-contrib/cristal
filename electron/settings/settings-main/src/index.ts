@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { getSettings, setSettings } from "./storage";
+import { getConfigurations, getSettings, setSettings } from "./storage";
 import { ipcMain } from "electron";
 
 function saveSettings(settings: string): void {
@@ -29,7 +29,7 @@ function loadSettings(): string {
   return getSettings();
 }
 
-export function load(): void {
+function load(): void {
   ipcMain.handle(
     "settings:save",
     async (
@@ -48,3 +48,5 @@ export function load(): void {
     return loadSettings();
   });
 }
+
+export { getConfigurations, load };
