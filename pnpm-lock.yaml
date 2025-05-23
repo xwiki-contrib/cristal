@@ -86,8 +86,8 @@ importers:
         specifier: 3.5.2
         version: 3.5.2(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0))
       vite-plugin-dts:
-        specifier: 4.5.3
-        version: 4.5.3(@types/node@22.15.3)(rollup@4.40.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0))
+        specifier: 4.5.4
+        version: 4.5.4(@types/node@22.15.3)(rollup@4.40.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0))
       vitest:
         specifier: 3.1.2
         version: 3.1.2(@types/debug@4.1.12)(@types/node@22.15.3)(happy-dom@17.4.4)(tsx@4.19.4)(yaml@2.7.0)
@@ -4680,8 +4680,8 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
       vite-plugin-dts:
-        specifier: 4.5.3
-        version: 4.5.3(@types/node@22.15.3)(rollup@4.40.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0))
+        specifier: 4.5.4
+        version: 4.5.4(@types/node@22.15.3)(rollup@4.40.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0))
       vite-plugin-vuetify:
         specifier: 2.1.1
         version: 2.1.1(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.3))(vuetify@3.8.3)
@@ -5900,9 +5900,6 @@ packages:
   '@types/dompurify@3.2.0':
     resolution: {integrity: sha512-Fgg31wv9QbLDA0SpTOXO3MaxySc4DKGLi8sna4/Utjo4r3ZRPdCt4UQee8BWr+Q5z21yifghREPJGYaEOEIACg==}
     deprecated: This is a stub types definition. dompurify provides its own type definitions, so you do not need this installed.
-
-  '@types/estree@1.0.6':
-    resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
@@ -9905,8 +9902,8 @@ packages:
     peerDependencies:
       vite: '>2.0.0-0'
 
-  vite-plugin-dts@4.5.3:
-    resolution: {integrity: sha512-P64VnD00dR+e8S26ESoFELqc17+w7pKkwlBpgXteOljFyT0zDwD8hH4zXp49M/kciy//7ZbVXIwQCekBJjfWzA==}
+  vite-plugin-dts@4.5.4:
+    resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
     peerDependencies:
       typescript: '*'
       vite: '*'
@@ -11281,7 +11278,7 @@ snapshots:
 
   '@rollup/pluginutils@5.1.4(rollup@4.40.1)':
     dependencies:
-      '@types/estree': 1.0.6
+      '@types/estree': 1.0.7
       estree-walker: 2.0.2
       picomatch: 4.0.2
     optionalDependencies:
@@ -11703,8 +11700,6 @@ snapshots:
   '@types/dompurify@3.2.0':
     dependencies:
       dompurify: 3.2.5
-
-  '@types/estree@1.0.6': {}
 
   '@types/estree@1.0.7': {}
 
@@ -16527,7 +16522,7 @@ snapshots:
     dependencies:
       vite: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
 
-  vite-plugin-dts@4.5.3(@types/node@22.15.3)(rollup@4.40.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)):
+  vite-plugin-dts@4.5.4(@types/node@22.15.3)(rollup@4.40.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)):
     dependencies:
       '@microsoft/api-extractor': 7.51.1(@types/node@22.15.3)
       '@rollup/pluginutils': 5.1.4(rollup@4.40.1)
