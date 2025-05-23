@@ -308,6 +308,10 @@ const { t } = useI18n({
     font-size: var(--cr-font-size-medium);
   }
 
+  & [data-content-type="bulletListItem"] {
+    padding-inline-start: var(--cr-spacing-large);
+  }
+
   & blockquote {
     background-color: var(--cr-color-neutral-50);
     color: var(--cr-color-neutral-600);
@@ -318,10 +322,11 @@ const { t } = useI18n({
   }
 
   & [data-content-type="codeBlock"] {
-    background: var(--cr-color-neutral-100);
+    /* background: var(--cr-color-neutral-100); */
+    background: white;
     border-radius: var(--cr-border-radius-medium);
     font-family: var(--cr-font-mono);
-    padding: var(--cr-spacing-small);
+    /* padding: var(--cr-spacing-small); */
     color: var(--cr-base-text-color);
 
     & pre {
