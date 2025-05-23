@@ -308,6 +308,12 @@ const { t } = useI18n({
     font-size: var(--cr-font-size-medium);
   }
 
+  /* Remove left border on lists */
+  & .bn-block-group,
+  .bn-block-group .bn-block-outer:not([data-prev-depth-changed])::before {
+    border-left: none;
+  }
+
   & [data-content-type="bulletListItem"] {
     padding-inline-start: var(--cr-spacing-large);
   }
