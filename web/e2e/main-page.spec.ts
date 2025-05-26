@@ -229,6 +229,50 @@ configs.forEach(
       expect(page.url()).toMatch(/#\/Deep1\.WebHome\/view$/);
     });
 
+    test(`[${name}] allows creating a new configuration`, async ({ page }) => {
+      await page.goto(localDefaultPage);
+
+      const sidebar = new SidebarPageObject(page);
+      await sidebar.openSidebar();
+      await page.locator(".bi-gear").nth(0).click();
+
+      const configurationForm = page.locator("form").filter({ visible: true }).nth(0);
+
+      await expect(configurationForm).toBeVisible();
+      await configurationForm.getByText("Name").nth(0).focus();
+      await page.keyboard.type("Test Configuration");
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Space");
+      // Wait for Shoelace animation to end.
+      await page.waitForTimeout(100);
+      await page.keyboard.press("Home");
+      await page.keyboard.press("Enter");
+      // Wait for Shoelace animation to end.
+      await page.waitForTimeout(100);
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Enter");
+
+      await expect(page.getByText('Editing Test Configuration (XWiki)')).toBeVisible();
+      const configurationEditForm = page.locator("form").filter({ visible: true }).nth(1);
+      await configurationEditForm.getByText("Base URL").nth(0).focus();
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Space");
+      // Wait for Shoelace animation to end.
+      await page.waitForTimeout(100);
+      await page.keyboard.press("Home");
+      await page.keyboard.press("Enter");
+      // Wait for Shoelace animation to end.
+      await page.waitForTimeout(100);
+      await page.keyboard.press("Tab");
+      await page.keyboard.press("Enter");
+
+      const newConfiguration = page.locator(".grid-container >div").last();
+      await expect(newConfiguration.locator(".wiki-name")).toContainText("Test Configuration");
+      await expect(newConfiguration.locator(".ds-name")).toContainText("Design System: shoelace");
+    });
+
     if (offlineDefaultPage) {
       test(`[${name}] offline actually fetch updated versions`, async ({
         page,

@@ -23,10 +23,26 @@
  * @since 0.18
  */
 type SelectProps = {
+  /**
+   * Label to display.
+   */
   label: string;
+  /**
+   * List of items to select from.
+   */
   items: Array<string>;
+  /**
+   * Help message.
+   */
   help?: string;
+  /**
+   * Whether or not selecting an item from the list is mandatory.
+   * Default: false.
+   */
   required?: boolean;
+  /**
+   * The v-model value of the currently selected item.
+   */
   modelValue?: string;
 };
 

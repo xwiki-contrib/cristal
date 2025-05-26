@@ -57,6 +57,8 @@ const configTypes = cristal
   .getAll<WikiConfig>("WikiConfig")
   .map((c) => c.getType());
 
+const newConfigurationForm = ref();
+
 const reactiveConfigurations: Ref<ConfigurationsSettings> = ref(
   props.configurations,
 );
@@ -87,6 +89,7 @@ async function submit() {
     await settingsStorage.save(settingsManager);
     wikiConfigProxy.setAvailableConfigurations({ [newName.value]: newConfig });
     preEditConfig(newName.value);
+    await newConfigurationForm.value?.reset();
   }
 }
 
@@ -112,54 +115,9 @@ async function deleteConfig() {
 </script>
 
 <template>
-  <!-- TODO: Implement https://jira.xwiki.org/browse/CRISTAL-539
-  <span v-if="reactiveConfigurations.content.size == 0">
-    {{ t("settings.configurations.empty") }}
-  </span>
-  <table v-else class="mobile-transform">
-    <thead>
-      <tr>
-        <th>{{ t("settings.configurations.table.header.name") }}</th>
-        <th>{{ t("settings.configurations.table.header.type") }}</th>
-        <th>{{ t("settings.configurations.table.header.actions") }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        v-for="[key, configuration] in reactiveConfigurations.content"
-        :key="key"
-      >
-        <td>
-          <span class="mobile-column-name">
-            {{ t("settings.configurations.table.header.name") }}
-          </span>
-          {{ key }}
-        </td>
-        <td>
-          <span class="mobile-column-name">
-            {{ t("settings.configurations.table.header.type") }}
-          </span>
-          {{ configuration.configType }}
-        </td>
-        <td class="actions">
-          <span class="mobile-column-name">
-            {{ t("settings.configurations.table.header.actions") }}
-          </span>
-          <x-btn variant="primary" @click="preEditConfig(key)">
-            <c-icon name="pencil" :size="Size.Small"></c-icon>
-            {{ t("settings.configurations.table.actions.edit") }}
-          </x-btn>
-          <x-btn variant="danger" @click="preDeleteConfig(key)">
-            <c-icon name="trash" :size="Size.Small"></c-icon>
-            {{ t("settings.configurations.table.actions.delete") }}
-          </x-btn>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  -->
+  <!-- TODO: Implement https://jira.xwiki.org/browse/CRISTAL-539 -->
   <CTemplate name="config" @edit="preEditConfig" @delete="preDeleteConfig" />
-  <x-form @form-submit="submit">
+  <x-form ref="newConfigurationForm" @form-submit="submit">
     <x-text-field
       v-model="newName"
       :label="t('settings.configurations.table.new.name.label')"

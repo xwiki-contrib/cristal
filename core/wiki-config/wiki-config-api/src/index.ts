@@ -29,8 +29,27 @@ import type { Ref } from "vue";
  * @since 0.18
  */
 interface WikiConfigProxy {
+  /**
+   * Provide a reactive Map containing the currently available configurations.
+   *
+   * @returns the reactive Map
+   */
   getAvailableConfigurations(): Ref<Map<string, WikiConfig>>;
+
+  /**
+   * Add or replace configurations from the set of available configurations and
+   * trigger a change in the internal Map.
+   *
+   * @param config - the configurations to add or replace
+   */
   setAvailableConfigurations(config: Configurations): void;
+
+  /**
+   * Delete a configuration from the set of available configurations and
+   * trigger a change in the internal Map.
+   *
+   * @param configName - the name of the configuration to delete
+   */
   deleteAvailableConfiguration(configName: string): void;
 }
 

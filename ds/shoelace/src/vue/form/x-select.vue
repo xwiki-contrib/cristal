@@ -32,6 +32,7 @@ const selected = defineModel<string>();
     :help-text="help"
     :required="required"
     :value="selected"
+    :clearable="!required"
     @sl-change="selected = $event.target.value"
     @sl-hide.stop
   >

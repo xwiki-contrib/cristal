@@ -6,6 +6,14 @@ import type { Ref } from "vue";
 const form: Ref<VForm | undefined> = ref(undefined);
 const emits = defineEmits(["formSubmit"]);
 
+defineExpose({
+  reset,
+});
+
+async function reset() {
+  form.value?.reset();
+}
+
 async function submit() {
   const validation = await form.value?.validate();
   if (validation?.valid) {
