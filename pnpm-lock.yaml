@@ -871,8 +871,8 @@ importers:
         specifier: workspace:*
         version: link:../../../utils/inversify
       fast-xml-parser:
-        specifier: 5.2.1
-        version: 5.2.1
+        specifier: 5.2.3
+        version: 5.2.3
       inversify:
         specifier: 7.5.1
         version: 7.5.1(reflect-metadata@0.2.2)
@@ -7636,8 +7636,8 @@ packages:
   fast-uri@3.0.2:
     resolution: {integrity: sha512-GR6f0hD7XXyNJa25Tb9BuIdN0tdr+0BMi6/CJPH3wJO1JjNG3n/VsSw38AwRdKZABm8lGbPfakLRkYzx2V9row==}
 
-  fast-xml-parser@5.2.1:
-    resolution: {integrity: sha512-Kqq/ewnRACQ20e0BlQ5KqHRYWRBp7yv+jttK4Yj2yY+2ldgCoxJkrP1NHUhjypsJ+eQXlGJ/jebM3wa60s1rbQ==}
+  fast-xml-parser@5.2.3:
+    resolution: {integrity: sha512-OdCYfRqfpuLUFonTNjvd30rCBZUneHpSQkCqfaeWQ9qrKcl6XlWeDBNVwGb+INAIxRshuN2jF+BE0L6gbBO2mw==}
     hasBin: true
 
   fastq@1.18.0:
@@ -9773,8 +9773,8 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
 
-  strnum@2.0.5:
-    resolution: {integrity: sha512-YAT3K/sgpCUxhxNMrrdhtod3jckkpYwH6JAuwmUdXZsmzH1wUyzTMrrK2wYCEEqlKwrWDd35NeuUkbBy/1iK+Q==}
+  strnum@2.1.1:
+    resolution: {integrity: sha512-7ZvoFTiCnGxBtDqJ//Cu6fWtZtc7Y3x+QOirG15wztbdngGSkht27o2pyGWrVy0b4WAy3jbKmnoK6g5VlVNUUw==}
 
   stubborn-fs@1.2.5:
     resolution: {integrity: sha512-H2N9c26eXjzL/S/K+i/RHHcFanE74dptvvjM8iwzwbVcWY/zjBbgRqF3K0DY4+OD+uTTASTBvDoxPDaPN02D7g==}
@@ -13838,9 +13838,9 @@ snapshots:
 
   fast-uri@3.0.2: {}
 
-  fast-xml-parser@5.2.1:
+  fast-xml-parser@5.2.3:
     dependencies:
-      strnum: 2.0.5
+      strnum: 2.1.1
 
   fastq@1.18.0:
     dependencies:
@@ -16353,7 +16353,7 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  strnum@2.0.5: {}
+  strnum@2.1.1: {}
 
   stubborn-fs@1.2.5: {}
 
