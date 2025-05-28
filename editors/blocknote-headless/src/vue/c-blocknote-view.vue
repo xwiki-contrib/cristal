@@ -71,14 +71,21 @@ const editorRef = shallowRef<EditorType | null>(null);
 const providerRef = shallowRef<HocuspocusProvider | null>(null);
 
 const emit = defineEmits<{
+  // Emitted as soon as a user-triggered change happens into the editor
+  // The event won't be triggered when the editor is filled with its initial content,
+  // or when the editor's content changes due to modifications made by other players in the realtime session
   "instant-change": [];
+
+  // Emitted in the same context as "instant-change", but debounced
   "debounced-change": [content: UniAst];
+
+  // Emitted when the realtime provider is set up in the editor
   "setup-provider": [provider: HocuspocusProvider];
 }>();
 
 defineExpose({
+  // Get the editor's content
   getContent: (): UniAst | Error => extractEditorContent(),
-  providerRef,
 });
 
 /**
