@@ -2,12 +2,19 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",
-    "lib": ["dom", "ESNext"],
+    "lib": [
+      "dom", "ESNext"
+    ],
     "isolatedDeclarations": false,
     "jsx": "preserve",
-    "types": ["@xwiki/cristal-dsapi"]
+    "types": [
+      "@xwiki/cristal-dsapi"
+    ]
   },
   "extends": "./../../tsconfig.json",
   "include": ["src"],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
 }
