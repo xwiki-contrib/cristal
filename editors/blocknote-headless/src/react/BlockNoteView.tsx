@@ -47,7 +47,7 @@ import {
 import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import { ReactivueChild } from "@xwiki/cristal-reactivue";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ShallowRef } from "vue";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
