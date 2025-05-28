@@ -116,9 +116,6 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
  * Go to the view route
  */
 function navigateToView() {
-  // Destroy the editor instance.
-  editorInstance.value?.getContent();
-
   // editor.value?.destroy();
   // Navigate to view mode.
   const viewRouterParams = {
