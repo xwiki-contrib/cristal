@@ -25,10 +25,8 @@ import ParagraphToolbar from "./blocks/ParagraphToolbar.vue";
 import { EditorType } from "../blocknote";
 import { BlockNoteToUniAstConverter } from "../blocknote/bn-to-uniast";
 import { UniAstToBlockNoteConverter } from "../blocknote/uniast-to-bn";
-import { AutoSaver } from "../components/autoSaver";
 import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
-import { autoSaverRef, providerRef } from "../components/realtimeState";
 import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
@@ -70,13 +68,17 @@ const {
 }>();
 
 const editorRef = shallowRef<EditorType | null>(null);
+const providerRef = shallowRef<HocuspocusProvider | null>(null);
 
 const emit = defineEmits<{
-  "blocknote-save": [content: UniAst];
+  "instant-change": [];
+  "debounced-change": [content: UniAst];
+  "setup-provider": [provider: HocuspocusProvider];
 }>();
 
 defineExpose({
   getContent: (): UniAst | Error => extractEditorContent(),
+  providerRef,
 });
 
 /**
@@ -94,16 +96,17 @@ function notifyChanges(): void {
 
   // TODO: error reporting
   if (!(content instanceof Error)) {
-    emit("blocknote-save", content);
+    emit("debounced-change", content);
   }
 }
+
+const notifyChangesDebounced = debounce(notifyChanges, 500);
 
 /**
  * This function's purpose is to build the realtime provider that will be used throughout the app
  */
-// eslint-disable-next-line max-statements
-async function getRealtimeProvider(): Promise<
-  NonNullable<BlockNoteViewWrapperProps["blockNoteOptions"]>["collaboration"]
+async function getRealtimeOptions(): Promise<
+  BlockNoteViewWrapperProps["realtime"]
 > {
   const documentService = container.get<DocumentService>(documentServiceName);
   const authenticationManager = container
@@ -121,35 +124,16 @@ async function getRealtimeProvider(): Promise<
     throw new Error("Got no document reference!");
   }
 
-  const provider = new HocuspocusProvider({
-    url: realtimeServerURL,
-    // we distinguish from sessions from other editors with a ':blocknote' suffix.
-    name: `${documentReference}:blocknote`,
-  });
-
-  autoSaverRef.value = new AutoSaver(provider, async () => notifyChanges());
-
   const user = await computeCurrentUser(authenticationManager);
 
-  providerRef.value = provider;
-
   return {
-    provider,
-    fragment: provider.document.getXmlFragment("document-store"),
+    hocusPocus: {
+      url: realtimeServerURL,
+      // we distinguish from sessions from other editors with a ':blocknote' suffix.
+      name: `${documentReference}:blocknote`,
+    },
     user,
   };
-}
-
-const provider = await getRealtimeProvider();
-
-if (!realtimeServerURL && editorRef.value) {
-  watch(editorRef.value, (editor) => {
-    if (editor) {
-      const debouncedSave = debounce(notifyChanges, 500);
-
-      editor?.onChange(debouncedSave);
-    }
-  });
 }
 
 const { t } = useI18n({
@@ -162,7 +146,10 @@ const initializedEditorProps: Omit<
   "content"
 > = {
   ...editorProps,
-  editorRef,
+  onChange: () => {
+    emit("instant-change");
+    notifyChangesDebounced();
+  },
   pendingSyncMessage: t("blocknote.realtime.syncing"),
   prefixDefaultFormattingToolbarFor: [
     "paragraph",
@@ -179,9 +166,11 @@ const initializedEditorProps: Omit<
     "codeBlock",
     "table",
   ],
-  blockNoteOptions: {
-    ...editorProps.blockNoteOptions,
-    collaboration: provider,
+  blockNoteOptions: editorProps.blockNoteOptions,
+  realtime: await getRealtimeOptions(),
+  refs: {
+    editorRef,
+    providerRef,
   },
 };
 
@@ -206,6 +195,8 @@ const content =
   uniAst instanceof Error
     ? uniAst
     : uniAstToBlockNote.uniAstToBlockNote(uniAst);
+
+watch(providerRef, (provider) => provider && emit("setup-provider", provider));
 </script>
 
 <template>

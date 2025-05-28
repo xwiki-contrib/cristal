@@ -18,18 +18,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+import cRealtimeUsers from "./c-realtime-users.vue";
+import cSaveStatus, { SaveStatus } from "./c-save-status.vue";
 import messages from "../translations";
+import { HocuspocusProvider } from "@hocuspocus/provider";
 import { AlertsService } from "@xwiki/cristal-alerts-api";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
 import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
-import {
-  BlocknoteEditor as CBlockNoteView,
-  BlocknoteEditorRealtimeUsers,
-  BlocknoteRealtimeStatus,
-} from "@xwiki/cristal-editors-blocknote-headless";
+import { BlocknoteEditor as CBlockNoteView } from "@xwiki/cristal-editors-blocknote-headless";
 import { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
@@ -84,6 +83,9 @@ const converterContext = createConverterContext(container);
 const markdownToUniAst = new MarkdownToUniAstConverter(converterContext);
 const uniAstToMarkdown = new UniAstToMarkdownConverter(converterContext);
 
+// Saving status
+const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
+
 /**
  * Setup the editor and title input using the fetched page's content
  *
@@ -133,6 +135,8 @@ function navigateToView() {
  * @param content - The content to save
  */
 async function save(content: UniAst) {
+  saveStatus.value = SaveStatus.SAVING;
+
   try {
     const markdown = uniAstToMarkdown.toMarkdown(content);
 
@@ -147,10 +151,14 @@ async function save(content: UniAst) {
       markdown,
       "html",
     );
+
+    saveStatus.value = SaveStatus.SAVED;
   } catch (e) {
     // lastSaveSucceeded = false;
     console.error(e);
     alertsService.error(t("blocknote.editor.save.error"));
+
+    saveStatus.value = SaveStatus.UNSAVED;
   }
 }
 
@@ -201,6 +209,8 @@ watch(
     }
   }, 500),
 );
+
+const provider = shallowRef<HocuspocusProvider | null>(null);
 </script>
 
 <template>
@@ -238,15 +248,21 @@ watch(
                 :container
                 :skin-manager
                 :realtime-server-u-r-l
-                @blocknote-save="save"
+                @instant-change="saveStatus = SaveStatus.UNSAVED"
+                @debounced-change="save"
+                @setup-provider="
+                  (newProvider) => {
+                    provider = newProvider;
+                  }
+                "
               />
             </div>
           </div>
 
           <form class="pagemenu" @submit="submit">
             <div class="pagemenu-status">
-              <BlocknoteEditorRealtimeUsers />
-              <BlocknoteRealtimeStatus />
+              <c-realtime-users :provider="provider" />
+              <c-save-status :save-status />
             </div>
 
             <div class="pagemenu-actions">
