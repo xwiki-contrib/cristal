@@ -1,4 +1,16 @@
 {
+  "Docs": {
+    "name": "Docs",
+    "configType": "Docs",
+    "serverRendering": false,
+    "offline": false,
+    "baseURL": "https://cristal-backend.demo.xwiki.com/xwiki",
+    "baseRestURL": "/rest/cristal/page?media=json",
+    "homePage": "Main.WebHome",
+    "designSystem": "vuetify",
+    "editor": "blocknote",
+    "realtimeURL": "https://cristal.demo.xwiki.com:8093/collaboration"
+  },
   "XWiki": {
     "name": "XWiki",
     "configType": "XWiki",

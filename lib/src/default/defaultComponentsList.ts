@@ -24,6 +24,7 @@ import { ComponentInit as AttachmentsUIComponentInit } from "@xwiki/cristal-atta
 import { ComponentInit as AuthenticationDefaultComponentInit } from "@xwiki/cristal-authentication-default";
 import { ComponentInit as AuthenticationUIComponentInit } from "@xwiki/cristal-authentication-ui";
 import { ComponentInit as BackendAPIComponentInit } from "@xwiki/cristal-backend-api";
+import { ComponentInit as DocsBackendComponentInit } from "@xwiki/cristal-backend-docs";
 import { ComponentInit as GithubBackendComponentInit } from "@xwiki/cristal-backend-github";
 import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-backend-nextcloud";
 import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
@@ -67,6 +68,7 @@ async function defaultComponentsList(container: Container): Promise<void> {
   new MacrosComponentInit(container);
   new XWikiBackendComponentInit(container);
   new NextcloudBackendComponentInit(container);
+  new DocsBackendComponentInit(container);
   new RenderingComponentInit(container);
   new MenuButtonsComponentInit(container);
   new ExtraTabsComponentInit(container);

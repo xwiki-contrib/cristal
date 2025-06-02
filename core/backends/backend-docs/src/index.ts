@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { NextcloudWikiConfig } from "./NextcloudWikiConfig";
-import { NextcloudStorage } from "./nextcloudStorage";
+import { DocsWikiConfig } from "./DocsWikiConfig";
+import { DocsStorage } from "./docsStorage";
 import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
 import { Container } from "inversify";
 import type { Storage, WikiConfig } from "@xwiki/cristal-api";
@@ -28,11 +28,8 @@ export class ComponentInit {
   constructor(container: Container) {
     container
       .bind<WikiConfig>("WikiConfig")
-      .to(NextcloudWikiConfig)
-      .when(whenNamedOrDefault("Nextcloud"));
-    container
-      .bind<Storage>("Storage")
-      .to(NextcloudStorage)
-      .whenNamed("Nextcloud");
+      .to(DocsWikiConfig)
+      .when(whenNamedOrDefault("Docs"));
+    container.bind<Storage>("Storage").to(DocsStorage).whenNamed("Docs");
   }
 }

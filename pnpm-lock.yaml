@@ -428,6 +428,43 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
 
+  core/authentication/authentication-docs:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../authentication-api
+      axios:
+        specifier: 1.9.0
+        version: 1.9.0
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+      jose:
+        specifier: 6.0.11
+        version: 6.0.11
+      js-cookie:
+        specifier: 3.0.5
+        version: 3.0.5
+    devDependencies:
+      '@types/js-cookie':
+        specifier: 3.0.6
+        version: 3.0.6
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.5
+        version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
   core/authentication/authentication-github:
     dependencies:
       '@xwiki/cristal-api':
@@ -799,6 +836,34 @@ importers:
       dexie:
         specifier: 4.0.11
         version: 4.0.11
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.5
+        version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
+  core/backends/backend-docs:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-backend-api':
+        specifier: workspace:*
+        version: link:../backend-api
+      '@xwiki/cristal-utils-inversify':
+        specifier: workspace:*
+        version: link:../../../utils/inversify
       inversify:
         specifier: 7.5.1
         version: 7.5.1(reflect-metadata@0.2.2)
@@ -4286,6 +4351,9 @@ importers:
       '@xwiki/cristal-backend-dexie':
         specifier: workspace:*
         version: link:../core/backends/backend-dexie
+      '@xwiki/cristal-backend-docs':
+        specifier: workspace:*
+        version: link:../core/backends/backend-docs
       '@xwiki/cristal-backend-github':
         specifier: workspace:*
         version: link:../core/backends/backend-github
@@ -4871,6 +4939,9 @@ importers:
 
   web:
     dependencies:
+      '@xwiki/cristal-authentication-docs':
+        specifier: workspace:*
+        version: link:../core/authentication/authentication-docs
       '@xwiki/cristal-authentication-github':
         specifier: workspace:*
         version: link:../core/authentication/authentication-github
@@ -8299,6 +8370,9 @@ packages:
 
   jju@1.4.0:
     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
+
+  jose@6.0.11:
+    resolution: {integrity: sha512-QxG7EaliDARm1O1S8BGakqncGT9s25bKL1WSf6/oa17Tkqwi8D2ZNglqCF+DsYF88/rV66Q/Q2mFAy697E1DUg==}
 
   js-beautify@1.14.11:
     resolution: {integrity: sha512-rPogWqAfoYh1Ryqqh2agUpVfbxAhbjuN1SmU86dskQUKouRiggUTCO4+2ym9UPXllc2WAp0J+T5qxn7Um3lCdw==}
@@ -14592,6 +14666,8 @@ snapshots:
   jest-get-type@29.6.3: {}
 
   jju@1.4.0: {}
+
+  jose@6.0.11: {}
 
   js-beautify@1.14.11:
     dependencies:
