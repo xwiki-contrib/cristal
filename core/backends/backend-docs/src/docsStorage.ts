@@ -27,10 +27,15 @@ import {
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
 import { inject, injectable } from "inversify";
 import type { Logger } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 @injectable()
 export class DocsStorage extends AbstractStorage {
-  constructor(@inject("Logger") logger: Logger) {
+  constructor(
+    @inject("Logger") logger: Logger,
+    @inject("AuthenticationManagerProvider")
+    private readonly authenticationManagerProvider: AuthenticationManagerProvider,
+  ) {
     super(logger, "storage.components.docsStorage");
   }
 
@@ -42,15 +47,43 @@ export class DocsStorage extends AbstractStorage {
     // TODO: unsupported
     return "";
   }
-  override getPageContent(
+  override async getPageContent(
     page: string,
     syntax: string,
     revision?: string,
   ): Promise<PageData | undefined> {
-    console.log(page, syntax, revision);
-    throw new Error("Method not implemented.");
-    // TODO
+    console.log("getPageContent", page, syntax, revision);
+    const url = `http://localhost:8071/api/v1.0/documents/${page}/`;
+    const response = await fetch(url, {
+      headers: {
+        ...(await this.getCredentials()),
+      },
+    });
+
+    // TODO:
+    // Example of url http://localhost:5173/Docs/#/7fa9e527-1157-4fba-a6c9-5494706213d9/
+    // Most of the logic should be close to  XWikiStorage but with the endpoints documented in the cryptpad doc
+    const json = await response.json();
+    const defaultPageData = new DefaultPageData();
+    // TODO: the content is not using the right format, we need to decide where to make the conversion
+    defaultPageData.source = json.content;
+    // TODO: many additional metadata need to be initialized
+    // TODO: check if it's possible to share a document as readnly
+    defaultPageData.canEdit = true;
+    return defaultPageData;
   }
+
+  private async getCredentials(): Promise<{ Authorization?: string }> {
+    const authorizationHeader = await this.authenticationManagerProvider
+      .get()
+      ?.getAuthorizationHeader();
+    const headers: { Authorization?: string } = {};
+    if (authorizationHeader) {
+      headers["Authorization"] = authorizationHeader;
+    }
+    return headers;
+  }
+
   override getAttachments(page: string): Promise<AttachmentsData | undefined> {
     console.log(page);
     throw new Error("Method not implemented.");
