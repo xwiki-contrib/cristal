@@ -28,7 +28,10 @@ import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
-import { BlocknoteEditor as CBlockNoteView } from "@xwiki/cristal-editors-blocknote-headless";
+import {
+  BlocknoteEditor as CBlockNoteView,
+  UniAstToBlockNoteConverter,
+} from "@xwiki/cristal-editors-blocknote-headless";
 import { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
@@ -128,15 +131,28 @@ function navigateToView() {
 /**
  * Save a content into the current page document
  *
- * @param content - The content to save
+ * @param ast - The content to save
  */
-async function save(content: UniAst) {
+
+// eslint-disable-next-line max-statements
+async function save(
+  ast: UniAst,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fragment: any,
+) {
   saveStatus.value = SaveStatus.SAVING;
 
   try {
-    const markdown = uniAstToMarkdown.toMarkdown(content);
-
-    if (markdown instanceof Error) {
+    let content;
+    if (cristal.getWikiConfig().name == "Docs") {
+      const converterContext = createConverterContext(container);
+      content = JSON.stringify(
+        new UniAstToBlockNoteConverter(converterContext).uniAstToBlockNote(ast),
+      );
+    } else {
+      content = uniAstToMarkdown.toMarkdown(ast);
+    }
+    if (content instanceof Error) {
       throw error;
     }
 
@@ -144,13 +160,13 @@ async function save(content: UniAst) {
     await storage.save(
       currentPageName.value ?? "",
       title.value,
-      markdown,
+      content,
       "html",
+      fragment,
     );
 
     saveStatus.value = SaveStatus.SAVED;
   } catch (e) {
-    // lastSaveSucceeded = false;
     console.error(e);
     alertsService.error(t("blocknote.editor.save.error"));
 
@@ -164,13 +180,14 @@ async function save(content: UniAst) {
 async function saveContent() {
   const editor = editorInstance.value!;
   const content = editor.getContent();
+  const fragment = editor.getXmlFragment();
 
   if (content instanceof Error) {
     // TODO: error reporting
     return;
   }
 
-  await save(content);
+  await save(content, fragment);
 }
 
 /**

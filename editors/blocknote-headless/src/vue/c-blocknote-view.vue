@@ -77,7 +77,8 @@ const emit = defineEmits<{
   "instant-change": [];
 
   // Emitted in the same context as "instant-change", but debounced
-  "debounced-change": [content: UniAst];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  "debounced-change": [content: UniAst, fragment: any];
 
   // Emitted when the realtime provider is set up in the editor
   "setup-provider": [provider: HocuspocusProvider];
@@ -86,6 +87,8 @@ const emit = defineEmits<{
 defineExpose({
   // Get the editor's content
   getContent: (): UniAst | Error => extractEditorContent(),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getXmlFragment: (): any => providerRef.value?.document, //.getXmlFragment("document-store"),
 });
 
 /**
@@ -103,7 +106,11 @@ function notifyChanges(): void {
 
   // TODO: error reporting
   if (!(content instanceof Error)) {
-    emit("debounced-change", content);
+    emit(
+      "debounced-change",
+      content,
+      providerRef.value?.document, //.getXmlFragment("document-store"),
+    );
   }
 }
 

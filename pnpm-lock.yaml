@@ -11593,13 +11593,13 @@ snapshots:
 
   '@hocuspocus/common@2.15.2':
     dependencies:
-      lib0: 0.2.99
+      lib0: 0.2.104
 
   '@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)':
     dependencies:
       '@hocuspocus/common': 2.15.2
       '@lifeomic/attempt': 3.1.0
-      lib0: 0.2.99
+      lib0: 0.2.104
       ws: 8.18.0
       y-protocols: 1.0.6(yjs@13.6.26)
       yjs: 13.6.26
@@ -13578,6 +13578,10 @@ snapshots:
       mimic-function: 5.0.1
 
   debug@3.2.7:
+    dependencies:
+      ms: 2.1.3
+
+  debug@4.4.0:
     dependencies:
       ms: 2.1.3
 
@@ -15565,7 +15569,7 @@ snapshots:
   micromark@4.0.2:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.4.0(supports-color@5.5.0)
+      debug: 4.4.0
       decode-named-character-reference: 1.1.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.3

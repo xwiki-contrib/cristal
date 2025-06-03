@@ -98,6 +98,7 @@ export interface Storage {
     title: string,
     content: string,
     syntax: string,
+    xmlFramgment?: any,
   ): Promise<unknown>;
 
   /**

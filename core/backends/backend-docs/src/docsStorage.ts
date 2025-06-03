@@ -35,9 +35,10 @@ import {
   createConverterContext,
 } from "@xwiki/cristal-uniast";
 import { inject, injectable } from "inversify";
-import { Doc, applyUpdate } from "yjs";
+import { Doc, applyUpdate, encodeStateAsUpdate } from "yjs";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { XmlFragment } from "yjs";
 
 @injectable()
 export class DocsStorage extends AbstractStorage {
@@ -54,11 +55,17 @@ export class DocsStorage extends AbstractStorage {
     // TODO: unsupported
     return "";
   }
+
   override getImageURL(): string {
     // TODO: unsupported
     return "";
   }
-  override async getPageContent(page: string): Promise<PageData | undefined> {
+
+  // eslint-disable-next-line max-statements
+  override async getPageContent(
+    page: string,
+    syntax: string,
+  ): Promise<PageData | undefined> {
     if (page === "" || page === "home") {
       const data = new DefaultPageData(page, page, "", syntax);
       data.headline = "Home";
@@ -67,9 +74,13 @@ export class DocsStorage extends AbstractStorage {
     }
     if (page.startsWith("docs-")) {
       let title = page;
-      if (page === "docs-my") title = "My Docs";
-      else if (page === "docs-all") title = "All Docs";
-      else if (page === "docs-shared") title = "Shared Docs";
+      if (page === "docs-my") {
+        title = "My Docs";
+      } else if (page === "docs-all") {
+        title = "All Docs";
+      } else if (page === "docs-shared") {
+        title = "Shared Docs";
+      }
       const data = new DefaultPageData(page, page, "", syntax);
       data.headline = title;
       data.headlineRaw = title;
@@ -93,7 +104,9 @@ export class DocsStorage extends AbstractStorage {
   private convertToPageData(json: any) {
     const defaultPageData = new DefaultPageData();
     // TODO: the content is not using the right format, we need to decide where to make the conversion
-    defaultPageData.source = json.content ? this.convertToDocs(json.content) : "";
+    defaultPageData.source = json.content
+      ? this.convertToDocs(json.content)
+      : "";
     defaultPageData.syntax = "markdown/1.2";
     // TODO: many additional metadata need to be initialized
     // TODO: check if it's possible to share a document as readonly
@@ -149,6 +162,7 @@ export class DocsStorage extends AbstractStorage {
       count: attachments.length,
     };
   }
+
   override getAttachment(
     page: string,
     name: string,
@@ -156,27 +170,38 @@ export class DocsStorage extends AbstractStorage {
     console.log(page, name);
     throw new Error("Method not implemented.");
   }
+
   override getPageFromViewURL(): string | null {
     // FIXME: unused for many backends
     return null;
   }
+
   override getPageRestURL(): string {
     // FIXME: unused for many backends
     return "";
   }
+
   override async getPanelContent(): Promise<PageData> {
     // TODO: unsupported
     return new DefaultPageData();
   }
+
   override isStorageReady(): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
+
+  // @ts-expect-error blabla
   override async save(
     page: string,
     title: string,
-    content: string,
+    json: string,
+    syntax: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    fragment: any,
   ): Promise<unknown> {
+    console.log(page, title, json);
     const url = `${this.cristalApp.getWikiConfig().baseURL}${page}/`;
+    const content = this.toBase64(encodeStateAsUpdate(fragment));
     await fetch(url, {
       method: "PATCH",
       body: JSON.stringify({
@@ -191,14 +216,17 @@ export class DocsStorage extends AbstractStorage {
 
     return;
   }
+
   override saveAttachments(page: string, files: File[]): Promise<unknown> {
     console.log(page, files);
     throw new Error("Method not implemented.");
   }
+
   override delete(page: string): Promise<{ success: boolean; error?: string }> {
     console.log(page);
     throw new Error("Method not implemented.");
   }
+
   override move(
     page: string,
     newPage: string,
@@ -236,7 +264,14 @@ export class DocsStorage extends AbstractStorage {
     applyUpdate(doc, this.decodeBase64(content)!);
     const xmlFragment = doc.getXmlFragment("document-store");
     // Creates a headless editor and feed it with the yjs fragment from the backend
-    const blockNoteEditor = BlockNoteEditor.create({
+    const blockNoteEditor = this.instantiateEditor(xmlFragment);
+    // Mount the editor to a dangling element to trigger to document initialization.
+    blockNoteEditor.mount(document.createElement("div"));
+    return blockNoteEditor.document;
+  }
+
+  private instantiateEditor(xmlFragment: XmlFragment) {
+    return BlockNoteEditor.create({
       collaboration: {
         provider: undefined,
         user: {
@@ -247,9 +282,6 @@ export class DocsStorage extends AbstractStorage {
       },
       schema: createBlockNoteSchema(),
     });
-    // Mount the editor to a dangling element to trigger to document initialization.
-    blockNoteEditor.mount(document.createElement("div"));
-    return blockNoteEditor.document;
   }
 
   private decodeBase64(base64String: string) {
@@ -269,5 +301,12 @@ export class DocsStorage extends AbstractStorage {
       console.error("Invalid base64 string:", error);
       return undefined;
     }
+  }
+
+  private toBase64(uint8Array: Uint8Array) {
+    const binaryString = String.fromCharCode(...uint8Array);
+
+    // Encode to base64
+    return btoa(binaryString);
   }
 }
