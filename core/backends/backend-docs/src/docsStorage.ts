@@ -174,8 +174,10 @@ export class DocsStorage extends AbstractStorage {
     name: string,
   ): Promise<PageAttachment | undefined> {
     // WARNING: this is very bad
-    const atachments = await this.getAttachments(page);
-    return atachments!.attachments.filter((it) => (it.id = name))[0];
+    const attachments = await this.getAttachments(page);
+    return attachments!.attachments.filter(
+      (it) => it.id === `${page}/attachments/${name}`,
+    )[0];
   }
 
   override getPageFromViewURL(): string | null {
