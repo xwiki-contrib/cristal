@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { BlockNoteEditor } from "@blocknote/core";
 import {
   AttachmentsData,
   DefaultPageData,
@@ -25,8 +26,17 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import {
+  BlockNoteToUniAstConverter,
+  createBlockNoteSchema,
+} from "@xwiki/cristal-editors-blocknote-headless";
+import {
+  UniAstToMarkdownConverter,
+  createConverterContext,
+} from "@xwiki/cristal-uniast";
 import { inject, injectable } from "inversify";
-import type { Logger } from "@xwiki/cristal-api";
+import { Doc, applyUpdate } from "yjs";
+import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 @injectable()
@@ -35,6 +45,7 @@ export class DocsStorage extends AbstractStorage {
     @inject("Logger") logger: Logger,
     @inject("AuthenticationManagerProvider")
     private readonly authenticationManagerProvider: AuthenticationManagerProvider,
+    @inject("CristalApp") private readonly cristalApp: CristalApp,
   ) {
     super(logger, "storage.components.docsStorage");
   }
@@ -66,10 +77,13 @@ export class DocsStorage extends AbstractStorage {
     const json = await response.json();
     const defaultPageData = new DefaultPageData();
     // TODO: the content is not using the right format, we need to decide where to make the conversion
-    defaultPageData.source = json.content;
+    defaultPageData.source = this.convertToDocs(json.content);
     // TODO: many additional metadata need to be initialized
-    // TODO: check if it's possible to share a document as readnly
+    // TODO: check if it's possible to share a document as readonly
+    defaultPageData.id = json.id;
     defaultPageData.canEdit = true;
+    defaultPageData.headline = json.title;
+    defaultPageData.headlineRaw = json.title;
     return defaultPageData;
   }
 
@@ -154,5 +168,68 @@ export class DocsStorage extends AbstractStorage {
   ): Promise<{ success: boolean; error?: string }> {
     console.log(page, newPage, preserveChildren);
     throw new Error("Method not implemented.");
+  }
+
+  private convertToDocs(content: string): string {
+    const blocknoteDOM = this.yjsToBlocknoteDOM(content);
+    const converterContext = createConverterContext(
+      this.cristalApp.getContainer(),
+    );
+    const res = new BlockNoteToUniAstConverter(converterContext).blocksToUniAst(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      blocknoteDOM as any,
+    );
+    if (res instanceof Error) {
+      throw res;
+    }
+
+    const toMarkdown = new UniAstToMarkdownConverter(
+      converterContext,
+    ).toMarkdown(res);
+    if (toMarkdown instanceof Error) {
+      throw toMarkdown;
+    }
+
+    return toMarkdown;
+  }
+
+  private yjsToBlocknoteDOM(content: string) {
+    const doc = new Doc();
+    applyUpdate(doc, this.decodeBase64(content)!);
+    const xmlFragment = doc.getXmlFragment("document-store");
+    // Creates a headless editor and feed it with the yjs fragment from the backend
+    const blockNoteEditor = BlockNoteEditor.create({
+      collaboration: {
+        provider: undefined,
+        user: {
+          name: "converter",
+          color: "",
+        },
+        fragment: xmlFragment,
+      },
+      schema: createBlockNoteSchema(),
+    });
+    // Mount the editor to a dangling element to trigger to document initialization.
+    blockNoteEditor.mount(document.createElement("div"));
+    return blockNoteEditor.document;
+  }
+
+  private decodeBase64(base64String: string) {
+    try {
+      // Decode base64 to binary string
+      const binaryString = atob(base64String);
+
+      // Convert binary string to UTF-8
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+
+      // Decode as UTF-8
+      return bytes;
+    } catch (error) {
+      console.error("Invalid base64 string:", error);
+      return undefined;
+    }
   }
 }

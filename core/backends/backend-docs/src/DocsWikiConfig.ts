@@ -20,7 +20,7 @@ export class DocsWikiConfig extends DefaultWikiConfig {
 
   override isSupported(/*format: string*/): boolean {
     // TODO: improve is support
-    return true;
+    return false;
   }
 
   override defaultPageName(): string {
