@@ -65,6 +65,7 @@ export class DocsStorage extends AbstractStorage {
   override async getPageContent(
     page: string,
     syntax: string,
+    revision?: string
   ): Promise<PageData | undefined> {
     if (page === "" || page === "home") {
       const data = new DefaultPageData(page, page, "", syntax);
@@ -86,7 +87,8 @@ export class DocsStorage extends AbstractStorage {
       data.headlineRaw = title;
       return data;
     }
-    const url = `${this.cristalApp.getWikiConfig().baseURL}${page}`;
+
+    const url = `${this.cristalApp.getWikiConfig().baseURL}${page}${revision ? `/versions/${revision}` : ""}`;
     const response = await fetch(url, {
       headers: {
         ...(await this.getCredentials()),
