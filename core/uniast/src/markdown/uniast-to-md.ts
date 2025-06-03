@@ -58,6 +58,12 @@ export class UniAstToMarkdownConverter {
 
   private blockToMarkdown(block: Block): string {
     switch (block.type) {
+      case "audio":
+        return "(TODO: audio file)"; //TODO
+
+      case "video":
+        return "(TODO: video file)"; //TODO
+
       case "paragraph":
         return this.convertInlineContents(block.content);
 

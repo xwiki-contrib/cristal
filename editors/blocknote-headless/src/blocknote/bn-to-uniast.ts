@@ -104,6 +104,22 @@ export class BlockNoteToUniAstConverter {
     };
 
     switch (block.type) {
+      case "audio":
+        dontExpectChildren();
+
+        return {
+          type: "audio",
+          url: block.props.url,
+        };
+
+      case "video":
+        dontExpectChildren();
+
+        return {
+          type: "video",
+          url: block.props.url,
+        };
+
       case "paragraph":
         dontExpectChildren();
 

@@ -52,6 +52,38 @@ export class UniAstToBlockNoteConverter {
 
   private convertBlock(block: Block): BlockType | BlockType[] {
     switch (block.type) {
+      case "audio":
+        return {
+          type: "audio",
+          id: genId(),
+          props: {
+            url: block.url,
+            showPreview: true,
+            caption: "",
+            name: "",
+            backgroundColor: "default",
+          },
+          children: [],
+          content: undefined,
+        };
+
+      case "video":
+        return {
+          type: "video",
+          id: genId(),
+          props: {
+            url: block.url,
+            backgroundColor: "default",
+            caption: "",
+            name: "",
+            previewWidth: 0,
+            showPreview: true,
+            textAlignment: "left",
+          },
+          children: [],
+          content: undefined,
+        };
+
       case "paragraph":
         if (block.content.length === 1 && block.content[0].type === "image") {
           return this.convertImage(block.content[0]);
