@@ -58,12 +58,7 @@ export class DocsStorage extends AbstractStorage {
     // TODO: unsupported
     return "";
   }
-  override async getPageContent(
-    page: string,
-    syntax: string,
-    revision?: string,
-  ): Promise<PageData | undefined> {
-    console.log("getPageContent", page, syntax, revision);
+  override async getPageContent(page: string): Promise<PageData | undefined> {
     if (page === "" || page === "home") {
       const data = new DefaultPageData(page, page, "", syntax);
       data.headline = "Home";
@@ -91,9 +86,15 @@ export class DocsStorage extends AbstractStorage {
     // Example of url http://localhost:5173/Docs/#/7fa9e527-1157-4fba-a6c9-5494706213d9/
     // Most of the logic should be close to  XWikiStorage but with the endpoints documented in the cryptpad doc
     const json = await response.json();
+    return this.convertToPageData(json);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private convertToPageData(json: any) {
     const defaultPageData = new DefaultPageData();
     // TODO: the content is not using the right format, we need to decide where to make the conversion
     defaultPageData.source = json.content ? this.convertToDocs(json.content) : "";
+    defaultPageData.syntax = "markdown/1.2";
     // TODO: many additional metadata need to be initialized
     // TODO: check if it's possible to share a document as readonly
     defaultPageData.id = json.id;
@@ -114,7 +115,9 @@ export class DocsStorage extends AbstractStorage {
     return headers;
   }
 
-  override async getAttachments(page: string): Promise<AttachmentsData | undefined> {
+  override async getAttachments(
+    page: string,
+  ): Promise<AttachmentsData | undefined> {
     const url = `${this.cristalApp.getWikiConfig().baseURL}${page}/attachments_list`;
     const response = await fetch(url, {
       headers: {
@@ -122,7 +125,13 @@ export class DocsStorage extends AbstractStorage {
       },
     });
 
-    const attachments: Array<{id: string, name: string, size: number, mimetype: string, owner: string}> = await response.json()
+    const attachments: Array<{
+      id: string;
+      name: string;
+      size: number;
+      mimetype: string;
+      owner: string;
+    }> = await response.json();
 
     return {
       attachments: attachments.map(
@@ -162,14 +171,25 @@ export class DocsStorage extends AbstractStorage {
   override isStorageReady(): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  override save(
+  override async save(
     page: string,
     title: string,
     content: string,
-    syntax: string,
   ): Promise<unknown> {
-    console.log(page, title, content, syntax);
-    throw new Error("Method not implemented.");
+    const url = `${this.cristalApp.getWikiConfig().baseURL}${page}/`;
+    await fetch(url, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title,
+        content,
+      }),
+      headers: {
+        ...(await this.getCredentials()),
+        "Content-Type": "application/json",
+      },
+    });
+
+    return;
   }
   override saveAttachments(page: string, files: File[]): Promise<unknown> {
     console.log(page, files);

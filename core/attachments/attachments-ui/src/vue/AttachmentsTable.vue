@@ -79,7 +79,10 @@ function attachmentName(name: string) {
           <span class="mobile-column-name">
             {{ t("attachments.tab.table.header.name") }}
           </span>
-          <a :href="attachment.href" @click="attachmentPreview(attachment.href, $event)">
+          <a
+            :href="attachment.href"
+            @click="attachmentPreview(attachment.href, $event)"
+          >
             {{ attachmentName(attachment.name) }}
           </a>
         </td>
