@@ -1822,6 +1822,46 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
 
+  core/link-suggest/link-suggest-docs:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
+      '@xwiki/cristal-document-api':
+        specifier: workspace:*
+        version: link:../../document/document-api
+      '@xwiki/cristal-link-suggest-api':
+        specifier: workspace:*
+        version: link:../link-suggest-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+      xml-escape:
+        specifier: 1.1.0
+        version: 1.1.0
+    devDependencies:
+      '@types/xml-escape':
+        specifier: 1.1.3
+        version: 1.1.3
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.5
+        version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
   core/link-suggest/link-suggest-nextcloud:
     dependencies:
       '@xwiki/cristal-api':
@@ -4586,6 +4626,9 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-link-suggest-docs':
+        specifier: workspace:*
+        version: link:../core/link-suggest/link-suggest-docs
       '@xwiki/cristal-link-suggest-nextcloud':
         specifier: workspace:*
         version: link:../core/link-suggest/link-suggest-nextcloud
@@ -13615,10 +13658,6 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  debug@4.4.0:
-    dependencies:
-      ms: 2.1.3
-
   debug@4.4.0(supports-color@5.5.0):
     dependencies:
       ms: 2.1.3
@@ -15603,7 +15642,7 @@ snapshots:
   micromark@4.0.2:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@5.5.0)
       decode-named-character-reference: 1.1.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.3

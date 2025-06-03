@@ -230,7 +230,7 @@ export class DocsStorage extends AbstractStorage {
     }
 
     await fetch(
-      `http://localhost:8071/api/v1.0/documents/${page}/attachment-upload/`,
+      `${this.cristalApp.getWikiConfig().baseURL}${page}/attachment-upload/`,
       {
         method: "POST",
         body: fd,

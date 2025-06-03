@@ -17,17 +17,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { ComponentInit as ModelReferenceDocsComponentInit } from "@xwiki/cristal-model-reference-docs";
-import { ComponentInit as ModelRemoteURLDocsComponentInit } from "@xwiki/cristal-model-remote-url-docs";
-import { ComponentInit as DocsLinkSuggestComponentInit } from "@xwiki/cristal-link-suggest-docs";
-import { ComponentInit as DocsNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-docs";
-import { ComponentInit as DocsHistoryComponentInit } from "@xwiki/cristal-history-docs";
-import type { Container } from "inversify";
 
-export function load(container: Container) {
-  new ModelRemoteURLDocsComponentInit(container);
-  new DocsNavigationTreeComponentInit(container);
-  new DocsLinkSuggestComponentInit(container);
-  new DocsHistoryComponentInit(container);
-  new ModelReferenceDocsComponentInit(container);
+import { DocsLinkSuggestService } from "./DocsLinkSuggestService";
+import { name } from "@xwiki/cristal-link-suggest-api";
+import { Container } from "inversify";
+import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
+
+/**
+ * @since 0.11
+ */
+class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<LinkSuggestService>(name)
+      .to(DocsLinkSuggestService)
+      .inSingletonScope()
+      .whenNamed("Docs");
+  }
 }
+
+export { ComponentInit };
