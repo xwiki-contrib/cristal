@@ -87,6 +87,7 @@ export class DocsStorage extends AbstractStorage {
       data.headlineRaw = title;
       return data;
     }
+
     const url = `${this.cristalApp.getWikiConfig().baseURL}${page}${revision ? `/versions/${revision}` : ""}`;
     const response = await fetch(url, {
       headers: {

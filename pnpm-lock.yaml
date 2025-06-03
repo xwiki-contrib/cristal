@@ -1549,6 +1549,37 @@ importers:
         specifier: 6.3.5
         version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
 
+  core/history/history-docs:
+    dependencies:
+      '@xwiki/cristal-alerts-api':
+        specifier: workspace:*
+        version: link:../../alerts/alerts-api
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
+      '@xwiki/cristal-history-api':
+        specifier: workspace:*
+        version: link:../history-api
+      inversify:
+        specifier: 7.5.1
+        version: 7.5.1(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 6.3.5
+        version: 6.3.5(@types/node@22.15.3)(tsx@4.19.4)(yaml@2.7.0)
+
   core/history/history-github:
     dependencies:
       '@xwiki/cristal-alerts-api':
@@ -4537,6 +4568,9 @@ importers:
       '@xwiki/cristal-history-default':
         specifier: workspace:*
         version: link:../core/history/history-default
+      '@xwiki/cristal-history-docs':
+        specifier: workspace:*
+        version: link:../core/history/history-docs
       '@xwiki/cristal-history-github':
         specifier: workspace:*
         version: link:../core/history/history-github
