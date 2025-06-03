@@ -184,10 +184,10 @@ export class DefaultAttachmentsService implements AttachmentsService {
       }
     }
   }
-  async upload(page: string, files: File[]): Promise<void> {
+  async upload(page: string, files: File[]): Promise<any> {
     this.store.startUploading();
     try {
-      await this.storageProvider.get().saveAttachments(page, files);
+      return this.storageProvider.get().saveAttachments(page, files);
     } finally {
       this.store.stopUploading();
     }

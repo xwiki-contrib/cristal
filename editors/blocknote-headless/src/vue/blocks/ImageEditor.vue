@@ -112,13 +112,23 @@ async function fileSelected() {
   if (files && files.length > 0) {
     const fileItem = files.item(0)!;
     const currentPageName = getCurrentPageName();
-    await attachmentsService.upload(currentPageName, [fileItem]);
+    const response = await attachmentsService.upload(currentPageName, [
+      fileItem,
+    ]);
 
-    const parser = linkEditionCtx.modelReferenceParser?.parse(currentPageName);
-
-    const url = linkEditionCtx.remoteURLSerializer?.serialize(
-      new AttachmentReference(fileItem.name, parser as DocumentReference),
-    );
+    let attachmentReference: AttachmentReference;
+    if (response === undefined) {
+      const parser =
+        linkEditionCtx.modelReferenceParser?.parse(currentPageName);
+      attachmentReference = new AttachmentReference(
+        fileItem.name,
+        parser as DocumentReference,
+      );
+    } else {
+      attachmentReference = response[0];
+    }
+    const url =
+      linkEditionCtx.remoteURLSerializer?.serialize(attachmentReference);
 
     if (url) {
       emit("select", { url: url });

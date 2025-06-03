@@ -25,6 +25,7 @@ import {
   Storage,
   WikiConfig,
 } from "@xwiki/cristal-api";
+import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { injectable, unmanaged } from "inversify";
 import type { Logger } from "@xwiki/cristal-api";
 
@@ -111,9 +112,14 @@ export abstract class AbstractStorage implements Storage {
   ): Promise<unknown>;
 
   /**
+   * @returns (since hackdays) a list of resolved attachments references, corresponding to the reference of the newly
+   * uploaded files
    * @since 0.9
    */
-  abstract saveAttachments(page: string, files: File[]): Promise<unknown>;
+  abstract saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | AttachmentReference[]>;
 
   /**
    * Delete a page.

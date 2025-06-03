@@ -805,6 +805,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       inversify:
         specifier: 7.5.1
         version: 7.5.1(reflect-metadata@0.2.2)
@@ -870,6 +873,12 @@ importers:
       '@xwiki/cristal-editors-blocknote-headless':
         specifier: workspace:*
         version: link:../../../editors/blocknote-headless
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../model/model-remote-url/model-remote-url-api
       '@xwiki/cristal-uniast':
         specifier: workspace:*
         version: link:../../uniast
@@ -913,6 +922,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-utils-inversify':
         specifier: workspace:*
         version: link:../../../utils/inversify
@@ -950,6 +962,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-utils-inversify':
         specifier: workspace:*
         version: link:../../../utils/inversify
@@ -987,6 +1002,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       '@xwiki/cristal-utils-inversify':
         specifier: workspace:*
         version: link:../../../utils/inversify

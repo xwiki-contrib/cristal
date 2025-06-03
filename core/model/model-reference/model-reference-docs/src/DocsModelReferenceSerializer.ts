@@ -26,7 +26,7 @@ export class DocsModelReferenceSerializer implements ModelReferenceSerializer {
   serialize(reference?: EntityReference): string | undefined {
     switch (reference?.type) {
       case EntityType.ATTACHMENT:
-        return reference.name;
+        return `${this.serialize(reference.document)}@${reference.name}`;
       case EntityType.DOCUMENT:
         return reference.name;
       default:

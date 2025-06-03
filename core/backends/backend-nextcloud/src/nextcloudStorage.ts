@@ -25,6 +25,7 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
@@ -290,7 +291,10 @@ export class NextcloudStorage extends AbstractStorage {
     }
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | AttachmentReference[]> {
     const username = (
       await this.authenticationManagerProvider.get()?.getUserDetails()
     )?.username;
@@ -304,9 +308,10 @@ export class NextcloudStorage extends AbstractStorage {
       return undefined;
     }
 
-    return Promise.all(
+    await Promise.all(
       files.map((file) => this.saveAttachment(page, file, username!)),
     );
+    return undefined;
   }
 
   private async saveAttachment(

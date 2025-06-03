@@ -18,15 +18,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import {
+  AttachmentReference,
   DocumentReference,
   EntityReference,
   EntityType,
 } from "@xwiki/cristal-model-api";
 import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 
 @injectable()
 export class DocsModelReferenceParser implements ModelReferenceParser {
+  constructor(
+    @inject("DocumentService")
+    private readonly documentService: DocumentService,
+  ) {}
+
   parse(reference: string, type?: EntityType): EntityReference {
     if (/^https?:\/\//.test(reference)) {
       throw new Error(`[${reference}] is not a valid entity reference`);
@@ -35,9 +42,20 @@ export class DocsModelReferenceParser implements ModelReferenceParser {
   }
 
   private innerParse(reference: string, type: EntityType | undefined) {
-    if (type == EntityType.ATTACHMENT) {
-      throw new Error("not supported");
+    if (type == EntityType.ATTACHMENT || reference.includes("@")) {
+      const strings = reference.split("@");
+      if (strings.length == 1) {
+        const doc = this.getCurrentDocumentReference();
+        return new AttachmentReference(strings[0], doc);
+      } else {
+        const doc = this.parse(strings[0]);
+        return new AttachmentReference(strings[1], doc as DocumentReference);
+      }
     }
     return new DocumentReference(reference);
+  }
+
+  private getCurrentDocumentReference() {
+    return this.documentService.getCurrentDocumentReference().value!;
   }
 }

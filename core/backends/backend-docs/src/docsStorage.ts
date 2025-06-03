@@ -30,6 +30,7 @@ import {
   BlockNoteToUniAstConverter,
   createBlockNoteSchema,
 } from "@xwiki/cristal-editors-blocknote-headless";
+import { AttachmentReference } from "@xwiki/cristal-model-api";
 import {
   UniAstToMarkdownConverter,
   createConverterContext,
@@ -38,6 +39,7 @@ import { inject, injectable } from "inversify";
 import { Doc, applyUpdate, encodeStateAsUpdate } from "yjs";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { XmlFragment } from "yjs";
 
 @injectable()
@@ -47,6 +49,8 @@ export class DocsStorage extends AbstractStorage {
     @inject("AuthenticationManagerProvider")
     private readonly authenticationManagerProvider: AuthenticationManagerProvider,
     @inject("CristalApp") private readonly cristalApp: CristalApp,
+    @inject("RemoteURLParserProvider")
+    private readonly remoteURLParserProvider: RemoteURLParserProvider,
   ) {
     super(logger, "storage.components.docsStorage");
   }
@@ -222,15 +226,16 @@ export class DocsStorage extends AbstractStorage {
   override async saveAttachments(
     page: string,
     files: File[],
-  ): Promise<unknown> {
+  ): Promise<undefined | AttachmentReference[]> {
     const fd = new FormData();
 
     for (const file of files) {
       fd.append("file", file);
     }
 
-    await fetch(
-      `${this.cristalApp.getWikiConfig().baseURL}${page}/attachment-upload/`,
+    const baseUrlAPI = `http://localhost:8071`;
+    const response = await fetch(
+      `${baseUrlAPI}/api/v1.0/documents/${page}/attachment-upload/`,
       {
         method: "POST",
         body: fd,
@@ -238,7 +243,22 @@ export class DocsStorage extends AbstractStorage {
       },
     );
 
-    return undefined;
+    const json = await response.json();
+    // We assume a single file is uploaded at a time for now.
+    const fileUrl = json.file;
+
+    const mediaCheckResponse = await fetch(`${baseUrlAPI}${fileUrl}`, {
+      headers: {
+        ...(await this.getCredentials()),
+      },
+    });
+    const mediaCheckJson = await mediaCheckResponse.json();
+
+    const attachmentReference = this.remoteURLParserProvider
+      .get()
+      ?.parse(`http://localhost:8083${mediaCheckJson.file}`);
+
+    return [attachmentReference as AttachmentReference];
   }
 
   override delete(page: string): Promise<{ success: boolean; error?: string }> {

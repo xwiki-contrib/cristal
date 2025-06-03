@@ -18,17 +18,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DocumentReference, EntityReference } from "@xwiki/cristal-model-api";
-import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
+import {
+  AttachmentReference,
+  DocumentReference,
+  EntityReference,
+} from "@xwiki/cristal-model-api";
+import { injectable } from "inversify";
 import type { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
 
 @injectable()
 export class DocsRemoteURLParser implements RemoteURLParser {
-  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
-
+  // eslint-disable-next-line max-statements
   parse(urlStr: string): EntityReference | undefined {
-    const baseURLstr = this.cristalApp.getWikiConfig().baseURL;
+    const baseURLstr = "http://localhost:8083/";
     if (!urlStr.startsWith(baseURLstr)) {
       throw new Error(
         `[${urlStr}] does not start with base url [${baseURLstr}]`,
@@ -38,9 +40,16 @@ export class DocsRemoteURLParser implements RemoteURLParser {
     const url = new URL(urlStr);
     const endPath = decodeURI(url.pathname.replace(baseURL.pathname, ""));
 
-    const uuid = endPath.split("/").reverse()[0];
+    const reverseSegments = endPath.split("/").reverse();
 
-    // TODO: update once Docs supports nested pages
-    return new DocumentReference(uuid);
+    if (urlStr.includes("/attachments/")) {
+      const uuid = reverseSegments[0];
+      const docUuid = reverseSegments[2];
+      return new AttachmentReference(uuid, new DocumentReference(docUuid));
+    } else {
+      // TODO: update once Docs supports nested pages
+      const uuid = reverseSegments[0];
+      return new DocumentReference(uuid);
+    }
   }
 }

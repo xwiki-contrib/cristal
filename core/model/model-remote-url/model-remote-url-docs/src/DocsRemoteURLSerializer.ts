@@ -51,7 +51,7 @@ export class DocsRemoteURLSerializer implements RemoteURLSerializer {
   }
 
   serializeAttachment(reference: AttachmentReference): string | undefined {
-    return `http://localhost:8083/media/${reference.document.name}/${reference.name}`;
+    return `http://localhost:8083/media/${reference.document.name}/attachments/${reference.name}`;
   }
 
   private serializeDocument(reference: DocumentReference) {

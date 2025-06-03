@@ -27,6 +27,7 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
 import { inject, injectable } from "inversify";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
@@ -329,8 +330,12 @@ export class XWikiStorage extends AbstractStorage {
     return;
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
-    return Promise.all(files.map((file) => this.saveAttachment(page, file)));
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | AttachmentReference[]> {
+    await Promise.all(files.map((file) => this.saveAttachment(page, file)));
+    return undefined;
   }
 
   async saveAttachment(page: string, file: File): Promise<unknown> {

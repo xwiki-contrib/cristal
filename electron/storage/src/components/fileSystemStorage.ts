@@ -26,6 +26,7 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import type { Logger } from "@xwiki/cristal-api";
 
@@ -93,8 +94,12 @@ export default class FileSystemStorage extends AbstractStorage {
     await fileSystemStorage.savePage(path, content, title);
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
-    return Promise.all(files.map((file) => this.saveAttachment(page, file)));
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | AttachmentReference[]> {
+    await Promise.all(files.map((file) => this.saveAttachment(page, file)));
+    return undefined;
   }
 
   async delete(page: string): Promise<{ success: boolean; error?: string }> {

@@ -25,6 +25,7 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import { AttachmentReference } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import mime from "mime";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
@@ -256,8 +257,11 @@ export class GitHubStorage extends AbstractStorage {
     return;
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
-    return Promise.all(
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | AttachmentReference[]> {
+    await Promise.all(
       files.map(async (file) => {
         const fileUrl = `${this.getPageRestURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
 
@@ -301,6 +305,7 @@ export class GitHubStorage extends AbstractStorage {
         reader.readAsDataURL(file);
       }),
     );
+    return undefined;
   }
 
   async delete(page: string): Promise<{ success: boolean; error?: string }> {
