@@ -114,9 +114,9 @@ async function conditionalComponentsList(
   configuration: Configuration,
 ): Promise<void> {
   // Load only components that are required by the current configuration.
-  if (configuration.designSystem == "vuetify") {
+  if (configuration.designSystem === "vuetify") {
     (await import("./vuetify")).load(container);
-  } else if (configuration.designSystem == "shoelace") {
+  } else if (configuration.designSystem === "shoelace") {
     (await import("./shoelace")).load(container);
   } else if (configuration.designSystem === "dsfr") {
     (await import("./dsfr")).load(container);
@@ -126,13 +126,13 @@ async function conditionalComponentsList(
     (await import("./offline")).load(container);
   }
 
-  if (configuration.configType == "Nextcloud") {
+  if (configuration.configType === "Nextcloud") {
     (await import("./nextcloud")).load(container);
-  } else if (configuration.configType == "XWiki") {
+  } else if (configuration.configType === "XWiki") {
     (await import("./xwiki")).load(container);
-  } else if (configuration.configType == "GitHub") {
+  } else if (configuration.configType === "GitHub") {
     (await import("./github")).load(container);
-  } else if (configuration.configType == "Docs") {
+  } else if (configuration.configType === "Docs") {
     (await import("./docs")).load(container);
   }
 
