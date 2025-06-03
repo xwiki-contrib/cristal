@@ -18,12 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { sha256sum } from "./nodeCrypto";
-export { versions } from "./versions";
-import "@xwiki/cristal-electron-storage/preload";
-import "@xwiki/cristal-browser-electron/preload";
-import "@xwiki/cristal-electron-authentication-github-preload";
-import "@xwiki/cristal-electron-authentication-nextcloud-preload";
-import "@xwiki/cristal-electron-authentication-xwiki-preload";
-import "@xwiki/cristal-electron-authentication-docs-preload";
-import "@xwiki/cristal-electron-settings-preload";
+import { generateConfig } from "../../../../vite.config";
+
+export default generateConfig(import.meta.url);

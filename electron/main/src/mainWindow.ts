@@ -58,7 +58,7 @@ async function createWindow() {
   browserWindow.on("ready-to-show", () => {
     browserWindow?.show();
 
-    if (import.meta.env.DEV) {
+    if (import.meta.env.DEV || 1==1) {
       browserWindow?.webContents.openDevTools();
     }
   });

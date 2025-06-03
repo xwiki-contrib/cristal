@@ -47,6 +47,7 @@ const ALLOWED_ORIGINS_AND_PERMISSIONS: Map<string, Set<Permission>> = new Map<
 // TODO: CRISTAL-253 replace this hardcoded mapping with list of values drawn
 // from the configuration.
 ALLOWED_ORIGINS_AND_PERMISSIONS.set("http://localhost:15680", new Set());
+ALLOWED_ORIGINS_AND_PERMISSIONS.set("http://localhost:8083", new Set());
 
 /**
  * A list of origins that you allow open IN BROWSER.
@@ -58,8 +59,9 @@ ALLOWED_ORIGINS_AND_PERMISSIONS.set("http://localhost:15680", new Set());
  *   href="https://github.com/"
  * >
  */
-const ALLOWED_EXTERNAL_ORIGINS = new Set<`https://${string}`>([
+const ALLOWED_EXTERNAL_ORIGINS = new Set([
   "https://github.com",
+  "http://localhost:8083"
 ]);
 
 app.on("web-contents-created", (_, contents) => {

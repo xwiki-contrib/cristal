@@ -134,7 +134,7 @@ export class DocsAuthenticationManager implements AuthenticationManager {
   }
 
   async logout(): Promise<void> {
-    const logoutUrl = `${this.baseURL}/openid-connect/userinfo`;
+    const logoutUrl = `${this.baseURL}/openid-connect/logout`;
     const data = {
       headers: {
         Authorization: await this.getAuthorizationHeader(),

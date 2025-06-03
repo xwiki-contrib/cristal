@@ -18,12 +18,26 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { sha256sum } from "./nodeCrypto";
-export { versions } from "./versions";
-import "@xwiki/cristal-electron-storage/preload";
-import "@xwiki/cristal-browser-electron/preload";
-import "@xwiki/cristal-electron-authentication-github-preload";
-import "@xwiki/cristal-electron-authentication-nextcloud-preload";
-import "@xwiki/cristal-electron-authentication-xwiki-preload";
-import "@xwiki/cristal-electron-authentication-docs-preload";
-import "@xwiki/cristal-electron-settings-preload";
+import { UserDetails } from "@xwiki/cristal-authentication-api";
+import { contextBridge, ipcRenderer } from "electron";
+
+contextBridge.exposeInMainWorld("authenticationDocs", {
+  login: async (oidcUrl: string) => {
+    await ipcRenderer.invoke("authentication:docs:login", { oidcUrl });
+  },
+  isLoggedIn(): Promise<boolean> {
+    return ipcRenderer.invoke("authentication:docs:isLoggedIn");
+  },
+
+  getUserDetails(baseURL: string): Promise<UserDetails> {
+    return ipcRenderer.invoke("authentication:docs:userDetails", { baseURL });
+  },
+
+  getAuthorizationValue(): Promise<{ tokenType: string; accessToken: string }> {
+    return ipcRenderer.invoke("authentication:docs:authorizationValue");
+  },
+
+  async logout(): Promise<void> {
+    await ipcRenderer.invoke("authentication:docs:logout");
+  },
+});

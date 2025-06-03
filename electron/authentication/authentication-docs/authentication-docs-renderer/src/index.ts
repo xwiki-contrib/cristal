@@ -18,12 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { sha256sum } from "./nodeCrypto";
-export { versions } from "./versions";
-import "@xwiki/cristal-electron-storage/preload";
-import "@xwiki/cristal-browser-electron/preload";
-import "@xwiki/cristal-electron-authentication-github-preload";
-import "@xwiki/cristal-electron-authentication-nextcloud-preload";
-import "@xwiki/cristal-electron-authentication-xwiki-preload";
-import "@xwiki/cristal-electron-authentication-docs-preload";
-import "@xwiki/cristal-electron-settings-preload";
+import { DocsAuthenticationManager } from "./DocsAuthenticationManager";
+import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+import type { Container } from "inversify";
+
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<AuthenticationManager>("AuthenticationManager")
+      .to(DocsAuthenticationManager)
+      .inSingletonScope()
+      .whenNamed("Docs");
+  }
+}
