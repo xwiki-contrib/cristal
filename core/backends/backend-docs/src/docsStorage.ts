@@ -98,7 +98,9 @@ export class DocsStorage extends AbstractStorage {
     return headers;
   }
 
-  override async getAttachments(page: string): Promise<AttachmentsData | undefined> {
+  override async getAttachments(
+    page: string,
+  ): Promise<AttachmentsData | undefined> {
     const url = `http://localhost:8071/api/v1.0/documents/${page}/attachments_list`;
     const response = await fetch(url, {
       headers: {
@@ -106,21 +108,29 @@ export class DocsStorage extends AbstractStorage {
       },
     });
 
-    const attachments: Array<{id: string, name: string, size: number, mimetype: string, owner: string}> = await response.json()
+    const attachments: Array<{
+      id: string;
+      name: string;
+      size: number;
+      mimetype: string;
+      owner: string;
+    }> = await response.json();
 
     return {
-      attachments: attachments.map(({ id, name, size, mimetype, owner: author }) => ({
-        id,
-        name: `attachment:${name}`,
-        date: new Date(),
-        author,
-        href: `http://localhost:8083/media/${id}`,
-        mimetype,
-        reference: id,
-        size
-      })),
-      count: attachments.length
-    }
+      attachments: attachments.map(
+        ({ id, name, size, mimetype, owner: author }) => ({
+          id,
+          name: `attachment:${name}`,
+          date: new Date(),
+          author,
+          href: `http://localhost:8083/media/${id}`,
+          mimetype,
+          reference: id,
+          size,
+        }),
+      ),
+      count: attachments.length,
+    };
   }
   override getAttachment(
     page: string,
@@ -153,9 +163,26 @@ export class DocsStorage extends AbstractStorage {
     console.log(page, title, content, syntax);
     throw new Error("Method not implemented.");
   }
-  override saveAttachments(page: string, files: File[]): Promise<unknown> {
-    console.log(page, files);
-    throw new Error("Method not implemented.");
+  override async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<unknown> {
+    const fd = new FormData();
+
+    for (const file of files) {
+      fd.append("file", file);
+    }
+
+    await fetch(
+      `http://localhost:8071/api/v1.0/documents/${page}/attachment-upload/`,
+      {
+        method: "POST",
+        body: fd,
+        headers: await this.getCredentials(),
+      },
+    );
+
+    return undefined;
   }
   override delete(page: string): Promise<{ success: boolean; error?: string }> {
     console.log(page);
