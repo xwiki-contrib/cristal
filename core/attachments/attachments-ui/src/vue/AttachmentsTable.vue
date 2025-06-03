@@ -79,10 +79,7 @@ function attachmentName(name: string) {
           <span class="mobile-column-name">
             {{ t("attachments.tab.table.header.name") }}
           </span>
-          <a
-            :href="attachment.href"
-            @click="attachmentPreview(attachment.href, $event)"
-          >
+          <a :href="attachment.href" @click="attachmentPreview(attachment.href, $event)">
             {{ attachmentName(attachment.name) }}
           </a>
         </td>
@@ -130,6 +127,7 @@ function attachmentName(name: string) {
 .v-card-text .str-no-attachment {
   padding: 0 var(--cr-spacing-medium);
 }
+
 table {
   margin: 0 var(--cr-spacing-medium);
 }

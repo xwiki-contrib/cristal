@@ -84,9 +84,29 @@ export class DocsStorage extends AbstractStorage {
     return headers;
   }
 
-  override getAttachments(page: string): Promise<AttachmentsData | undefined> {
-    console.log(page);
-    throw new Error("Method not implemented.");
+  override async getAttachments(page: string): Promise<AttachmentsData | undefined> {
+    const url = `http://localhost:8071/api/v1.0/documents/${page}/attachments_list`;
+    const response = await fetch(url, {
+      headers: {
+        ...(await this.getCredentials()),
+      },
+    });
+
+    const attachments: Array<{id: string, name: string}> = await response.json()
+
+    return {
+      attachments: attachments.map(attachment => ({
+        id: attachment.id,
+        name: `attachment:${attachment.name}`,
+        date: new Date(),
+        author: '<unknown>',
+        href: `http://localhost:8083/media/${attachment.id}`,
+        mimetype: '<unknown>',
+        reference: attachment.id,
+        size: 0
+      })),
+      count: attachments.length
+    }
   }
   override getAttachment(
     page: string,
