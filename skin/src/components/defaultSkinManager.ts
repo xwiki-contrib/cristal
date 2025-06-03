@@ -85,10 +85,11 @@ export class DefaultSkinManager implements SkinManager {
         "DesignSystemLoader",
         { name: this.designSystem },
       );
-    } catch {
+    } catch (e) {
       console.error(
         "Exception while loading design system ",
         this.designSystem,
+        e,
       );
       if (DefaultSkinManager.DEFAULT_DESIGN_SYSTEM != "") {
         designSystemLoader = container.get<DesignSystemLoader>(

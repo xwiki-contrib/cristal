@@ -4713,6 +4713,9 @@ importers:
       '@xwiki/cristal-dsapi':
         specifier: workspace:*
         version: link:../ds/api
+      '@xwiki/cristal-dsfr':
+        specifier: workspace:*
+        version: link:../ds/dsfr
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -13615,10 +13618,6 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  debug@4.4.0:
-    dependencies:
-      ms: 2.1.3
-
   debug@4.4.0(supports-color@5.5.0):
     dependencies:
       ms: 2.1.3
@@ -15603,7 +15602,7 @@ snapshots:
   micromark@4.0.2:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@5.5.0)
       decode-named-character-reference: 1.1.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.3

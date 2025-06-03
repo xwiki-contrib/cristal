@@ -118,6 +118,8 @@ async function conditionalComponentsList(
     (await import("./vuetify")).load(container);
   } else if (configuration.designSystem == "shoelace") {
     (await import("./shoelace")).load(container);
+  } else if (configuration.designSystem === "dsfr") {
+    (await import("./dsfr")).load(container);
   }
 
   if (configuration.offline) {

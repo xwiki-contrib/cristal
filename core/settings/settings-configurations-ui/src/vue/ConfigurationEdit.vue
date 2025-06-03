@@ -53,7 +53,7 @@ const settingsStorage = cristal
 
 // TODO: find a way to list available design systems automatically.
 // https://jira.xwiki.org/browse/CRISTAL-541
-const designSystems = ["shoelace", "vuetify"];
+const designSystems = ["shoelace", "vuetify", "dsfr"];
 
 // TODO: find a way to list available editors automatically.
 // https://jira.xwiki.org/browse/CRISTAL-541
@@ -116,64 +116,32 @@ async function submit() {
 </script>
 
 <template>
-  <x-dialog
-    v-model="open"
-    width="auto"
-    :title="
-      t('settings.configurations.edit.title', {
-        config: `${configurationName} (${configuration?.configType})`,
-      })
-    "
-  >
+  <x-dialog v-model="open" width="auto" :title="t('settings.configurations.edit.title', {
+    config: `${configurationName} (${configuration?.configType})`,
+  })
+    ">
     <template #default>
       <x-form @form-submit="submit">
-        <x-text-field
-          v-model="baseUrl"
-          :label="t('settings.configurations.edit.baseurl.label')"
-          :help="t('settings.configurations.edit.baseurl.help')"
-        ></x-text-field>
-        <x-text-field
-          v-model="baseRestUrl"
-          :label="t('settings.configurations.edit.baseresturl.label')"
-          :help="t('settings.configurations.edit.baseresturl.help')"
-        ></x-text-field>
-        <x-text-field
-          v-model="homePage"
-          :label="t('settings.configurations.edit.homepage.label')"
-          :help="t('settings.configurations.edit.homepage.help')"
-        ></x-text-field>
-        <x-select
-          v-model="designSystem"
-          :label="t('settings.configurations.edit.designsystem.label')"
-          :help="t('settings.configurations.edit.designsystem.help')"
-          :items="designSystems"
-          required
-        ></x-select>
-        <x-text-field
-          v-model="storageRoot"
-          :label="t('settings.configurations.edit.storageroot.label')"
-          :help="t('settings.configurations.edit.storageroot.help')"
-        ></x-text-field>
-        <x-text-field
-          v-model="realtimeUrl"
-          :label="t('settings.configurations.edit.realtimeurl.label')"
-          :help="t('settings.configurations.edit.realtimeurl.help')"
-        ></x-text-field>
-        <x-text-field
-          v-model="authenticationBaseUrl"
+        <x-text-field v-model="baseUrl" :label="t('settings.configurations.edit.baseurl.label')"
+          :help="t('settings.configurations.edit.baseurl.help')"></x-text-field>
+        <x-text-field v-model="baseRestUrl" :label="t('settings.configurations.edit.baseresturl.label')"
+          :help="t('settings.configurations.edit.baseresturl.help')"></x-text-field>
+        <x-text-field v-model="homePage" :label="t('settings.configurations.edit.homepage.label')"
+          :help="t('settings.configurations.edit.homepage.help')"></x-text-field>
+        <x-select v-model="designSystem" :label="t('settings.configurations.edit.designsystem.label')"
+          :help="t('settings.configurations.edit.designsystem.help')" :items="designSystems" required></x-select>
+        <x-text-field v-model="storageRoot" :label="t('settings.configurations.edit.storageroot.label')"
+          :help="t('settings.configurations.edit.storageroot.help')"></x-text-field>
+        <x-text-field v-model="realtimeUrl" :label="t('settings.configurations.edit.realtimeurl.label')"
+          :help="t('settings.configurations.edit.realtimeurl.help')"></x-text-field>
+        <x-text-field v-model="authenticationBaseUrl"
           :label="t('settings.configurations.edit.authenticationbaseurl.label')"
-          :help="t('settings.configurations.edit.authenticationbaseurl.help')"
-        ></x-text-field>
-        <x-select
-          v-model="editor"
-          :label="t('settings.configurations.edit.editor.label')"
-          :help="t('settings.configurations.edit.editor.help')"
-          :items="editors"
-        ></x-select>
+          :help="t('settings.configurations.edit.authenticationbaseurl.help')"></x-text-field>
+        <x-select v-model="editor" :label="t('settings.configurations.edit.editor.label')"
+          :help="t('settings.configurations.edit.editor.help')" :items="editors"></x-select>
         <x-btn type="submit" variant="primary">
           <c-icon name="floppy" :size="Size.Small"></c-icon>
-          {{ t("settings.configurations.edit.submit") }}</x-btn
-        >
+          {{ t("settings.configurations.edit.submit") }}</x-btn>
       </x-form>
     </template>
   </x-dialog>
