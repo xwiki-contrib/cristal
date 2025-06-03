@@ -31,6 +31,6 @@ export class ComponentInit {
       .bind<NavigationTreeSource>(NavigationTreeSourceName)
       .to(DocsNavigationTreeSource)
       .inSingletonScope()
-      .whenNamed("XWiki");
+      .whenNamed("Docs");
   }
 }

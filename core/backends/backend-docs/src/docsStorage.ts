@@ -64,6 +64,22 @@ export class DocsStorage extends AbstractStorage {
     revision?: string,
   ): Promise<PageData | undefined> {
     console.log("getPageContent", page, syntax, revision);
+    if (page === "" || page === "home") {
+      const data = new DefaultPageData(page, page, "", syntax);
+      data.headline = "Home";
+      data.headlineRaw = "Home";
+      return data;
+    }
+    if (page.startsWith("docs-")) {
+      let title = page;
+      if (page === "docs-my") title = "My Docs";
+      else if (page === "docs-all") title = "All Docs";
+      else if (page === "docs-shared") title = "Shared Docs";
+      const data = new DefaultPageData(page, page, "", syntax);
+      data.headline = title;
+      data.headlineRaw = title;
+      return data;
+    }
     const url = `http://localhost:8071/api/v1.0/documents/${page}/`;
     const response = await fetch(url, {
       headers: {
