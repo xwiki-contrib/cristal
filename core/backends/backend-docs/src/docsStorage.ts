@@ -92,18 +92,18 @@ export class DocsStorage extends AbstractStorage {
       },
     });
 
-    const attachments: Array<{id: string, name: string}> = await response.json()
+    const attachments: Array<{id: string, name: string, size: number, mimetype: string, owner: string}> = await response.json()
 
     return {
-      attachments: attachments.map(attachment => ({
-        id: attachment.id,
-        name: `attachment:${attachment.name}`,
+      attachments: attachments.map(({ id, name, size, mimetype, owner: author }) => ({
+        id,
+        name: `attachment:${name}`,
         date: new Date(),
-        author: '<unknown>',
-        href: `http://localhost:8083/media/${attachment.id}`,
-        mimetype: '<unknown>',
-        reference: attachment.id,
-        size: 0
+        author,
+        href: `http://localhost:8083/media/${id}`,
+        mimetype,
+        reference: id,
+        size
       })),
       count: attachments.length
     }
