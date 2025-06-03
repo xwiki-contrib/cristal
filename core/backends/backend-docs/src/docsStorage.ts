@@ -80,7 +80,7 @@ export class DocsStorage extends AbstractStorage {
       data.headlineRaw = title;
       return data;
     }
-    const url = `http://localhost:8071/api/v1.0/documents/${page}/`;
+    const url = `${this.cristalApp.getWikiConfig().baseURL}${page}`;
     const response = await fetch(url, {
       headers: {
         ...(await this.getCredentials()),
@@ -115,7 +115,7 @@ export class DocsStorage extends AbstractStorage {
   }
 
   override async getAttachments(page: string): Promise<AttachmentsData | undefined> {
-    const url = `http://localhost:8071/api/v1.0/documents/${page}/attachments_list`;
+    const url = `${this.cristalApp.getWikiConfig().baseURL}${page}/attachments_list`;
     const response = await fetch(url, {
       headers: {
         ...(await this.getCredentials()),
@@ -125,18 +125,20 @@ export class DocsStorage extends AbstractStorage {
     const attachments: Array<{id: string, name: string, size: number, mimetype: string, owner: string}> = await response.json()
 
     return {
-      attachments: attachments.map(({ id, name, size, mimetype, owner: author }) => ({
-        id,
-        name: `attachment:${name}`,
-        date: new Date(),
-        author,
-        href: `http://localhost:8083/media/${id}`,
-        mimetype,
-        reference: id,
-        size
-      })),
-      count: attachments.length
-    }
+      attachments: attachments.map(
+        ({ id, name, size, mimetype, owner: author }) => ({
+          id,
+          name: `attachment:${name}`,
+          date: new Date(),
+          author,
+          href: `${this.cristalApp.getWikiConfig().baseURL}media/${id}`,
+          mimetype,
+          reference: id,
+          size,
+        }),
+      ),
+      count: attachments.length,
+    };
   }
   override getAttachment(
     page: string,

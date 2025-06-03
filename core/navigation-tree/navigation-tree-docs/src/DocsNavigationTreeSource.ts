@@ -19,11 +19,11 @@
  */
 
 // import { name as NavigationTreeSourceName } from "@xwiki/cristal-navigation-tree-api";
-import { inject, injectable, named } from "inversify";
-import type { Logger } from "@xwiki/cristal-api";
+import { inject, injectable } from "inversify";
+import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type { DocumentReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
+// import type { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
 // import type { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
 import {
   NavigationTreeNode,
@@ -35,7 +35,7 @@ import { SpaceReference } from "@xwiki/cristal-model-api";
 export class DocsNavigationTreeSource implements NavigationTreeSource {
   constructor(
     @inject("Logger") private readonly logger: Logger,
-    // @inject("CristalApp") private readonly cristalApp: CristalApp,
+    @inject("CristalApp") private readonly cristalApp: CristalApp,
     @inject("AuthenticationManagerProvider")
     private authenticationManagerProvider: AuthenticationManagerProvider,
     // @inject("RemoteURLParser") @named("XWiki") private readonly urlParser: RemoteURLParser,
@@ -139,8 +139,8 @@ export class DocsNavigationTreeSource implements NavigationTreeSource {
       ];
     }
     if (currentId === "docs-my" || currentId === "docs-shared" || currentId === "docs-all") {
-      const url = "http://localhost:8071";
-      let endpoint = "/api/v1.0/documents/?page=1";
+      const url = this.cristalApp.getWikiConfig().baseURL;
+      let endpoint = "?page=1";
       if (currentId === "docs-my") {
         endpoint += "&is_creator_me=true";
       } else if (currentId === "docs-shared") {
