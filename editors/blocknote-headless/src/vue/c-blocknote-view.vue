@@ -253,7 +253,11 @@ watch(providerRef, (provider) => provider && emit("setup-provider", provider));
     <!-- Custom (popover) file panel for editing file-like blocks -->
     <template #filePanel="{ editor, filePanelProps }">
       <ImageFilePanel
-        v-if="filePanelProps.block.type === 'image'"
+        v-if="
+          filePanelProps.block.type === 'image' ||
+          filePanelProps.block.type === 'video' ||
+          filePanelProps.block.type === 'audio'
+        "
         :editor
         :current-block="
           filePanelProps.block as any /* required as filePanelProps.block is not narrowed enough here */

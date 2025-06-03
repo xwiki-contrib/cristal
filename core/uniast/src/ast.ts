@@ -53,6 +53,8 @@ type Block =
       type: "image";
     } & Image)
   | { type: "break" }
+  | { type: "audio"; url: string }
+  | { type: "video"; url: string }
   | {
       type: "macro";
       name: string;
