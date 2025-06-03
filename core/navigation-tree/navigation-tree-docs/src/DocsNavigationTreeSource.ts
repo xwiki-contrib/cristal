@@ -17,32 +17,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { DocumentReference } from "@xwiki/cristal-model-api";
+import {
+  NavigationTreeNode,
+  NavigationTreeSource,
+} from "@xwiki/cristal-navigation-tree-api";
+import { injectable } from "inversify";
 
-import type { DocumentReference } from "@xwiki/cristal-model-api";
-
-/**
- * Returns the ids of the parents nodes for a path-like page id.
- *
- * @param pageData - the page
- * @returns the parents nodes ids
- * @since 0.15
- **/
-export function getParentNodesIdFromPath(
-  page?: DocumentReference,
-): Array<string> {
-  const result: Array<string> = [];
-  if (page) {
-    const parents = [
-      ...((page as DocumentReference).space?.names ?? []),
-      (page as DocumentReference).name,
-    ];
-    let currentParent = "";
-    let i;
-    for (i = 0; i < parents.length; i++) {
-      currentParent += parents[i];
-      result.push(currentParent);
-      currentParent += "/";
-    }
+@injectable()
+export class DocsNavigationTreeSource implements NavigationTreeSource {
+  getChildNodes(id?: string): Promise<Array<NavigationTreeNode>> {
+    console.log(id);
+    throw new Error("Method not implemented.");
   }
-  return result;
+  getParentNodesId(
+    page: DocumentReference,
+    includeTerminal?: boolean,
+  ): Array<string> {
+    console.log(name, includeTerminal);
+    throw new Error("Method not implemented.");
+  }
 }

@@ -130,6 +130,8 @@ async function conditionalComponentsList(
     (await import("./xwiki")).load(container);
   } else if (configuration.configType == "GitHub") {
     (await import("./github")).load(container);
+  } else if (configuration.configType == "Docs") {
+    (await import("./docs")).load(container);
   }
 
   if (configuration.editor === "tiptap" || configuration.editor === undefined) {

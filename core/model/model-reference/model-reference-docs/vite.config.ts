@@ -18,31 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { DocumentReference } from "@xwiki/cristal-model-api";
+import { generateConfig } from "../../../../vite.config";
 
-/**
- * Returns the ids of the parents nodes for a path-like page id.
- *
- * @param pageData - the page
- * @returns the parents nodes ids
- * @since 0.15
- **/
-export function getParentNodesIdFromPath(
-  page?: DocumentReference,
-): Array<string> {
-  const result: Array<string> = [];
-  if (page) {
-    const parents = [
-      ...((page as DocumentReference).space?.names ?? []),
-      (page as DocumentReference).name,
-    ];
-    let currentParent = "";
-    let i;
-    for (i = 0; i < parents.length; i++) {
-      currentParent += parents[i];
-      result.push(currentParent);
-      currentParent += "/";
-    }
-  }
-  return result;
-}
+export default generateConfig(import.meta.url);

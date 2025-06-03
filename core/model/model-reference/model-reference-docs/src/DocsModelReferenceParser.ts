@@ -17,32 +17,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import {
+  DocumentReference,
+  EntityReference,
+  EntityType,
+} from "@xwiki/cristal-model-api";
+import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import { injectable } from "inversify";
 
-import type { DocumentReference } from "@xwiki/cristal-model-api";
-
-/**
- * Returns the ids of the parents nodes for a path-like page id.
- *
- * @param pageData - the page
- * @returns the parents nodes ids
- * @since 0.15
- **/
-export function getParentNodesIdFromPath(
-  page?: DocumentReference,
-): Array<string> {
-  const result: Array<string> = [];
-  if (page) {
-    const parents = [
-      ...((page as DocumentReference).space?.names ?? []),
-      (page as DocumentReference).name,
-    ];
-    let currentParent = "";
-    let i;
-    for (i = 0; i < parents.length; i++) {
-      currentParent += parents[i];
-      result.push(currentParent);
-      currentParent += "/";
+@injectable()
+export class DocsModelReferenceParser implements ModelReferenceParser {
+  parse(reference: string, type?: EntityType): EntityReference {
+    if (/^https?:\/\//.test(reference)) {
+      throw new Error(`[${reference}] is not a valid entity reference`);
     }
+    return this.innerParse(reference, type);
   }
-  return result;
+
+  private innerParse(reference: string, type: EntityType | undefined) {
+    if (type == EntityType.ATTACHMENT) {
+      throw new Error("not supported");
+    }
+    return new DocumentReference(reference);
+  }
 }

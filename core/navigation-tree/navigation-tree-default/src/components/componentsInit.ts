@@ -46,6 +46,21 @@ class DefaultNavigationTreeSource implements NavigationTreeSource {
   }
 
   async getChildNodes(): Promise<Array<NavigationTreeNode>> {
+    // const authorization = await this.authenticationManagerProvider
+    //   .get()
+    //   ?.getAuthorizationHeader();
+    // const headers: { Accept: string; Authorization?: string } = {
+    //   Accept: "application/json",
+    // };
+    //
+    // if (authorization) {
+    //   headers.Authorization = authorization;
+    // }
+    // const res = await fetch("http://localhost:8071/api/v1.0/documents", {
+    //   headers,
+    // });
+    // const json = await res.json();
+    // console.log(json);
     return [];
   }
 

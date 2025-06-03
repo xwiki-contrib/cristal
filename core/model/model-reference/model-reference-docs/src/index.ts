@@ -17,32 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { DocsModelReferenceParser } from "./DocsModelReferenceParser";
+import { DocsModelReferenceSerializer } from "./DocsModelReferenceSerializer";
+import type {
+  ModelReferenceParser,
+  ModelReferenceSerializer,
+} from "@xwiki/cristal-model-reference-api";
+import type { Container } from "inversify";
 
-import type { DocumentReference } from "@xwiki/cristal-model-api";
-
-/**
- * Returns the ids of the parents nodes for a path-like page id.
- *
- * @param pageData - the page
- * @returns the parents nodes ids
- * @since 0.15
- **/
-export function getParentNodesIdFromPath(
-  page?: DocumentReference,
-): Array<string> {
-  const result: Array<string> = [];
-  if (page) {
-    const parents = [
-      ...((page as DocumentReference).space?.names ?? []),
-      (page as DocumentReference).name,
-    ];
-    let currentParent = "";
-    let i;
-    for (i = 0; i < parents.length; i++) {
-      currentParent += parents[i];
-      result.push(currentParent);
-      currentParent += "/";
-    }
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<ModelReferenceParser>("ModelReferenceParser")
+      .to(DocsModelReferenceParser)
+      .inSingletonScope()
+      .whenNamed("Docs");
+    container
+      .bind<ModelReferenceSerializer>("ModelReferenceSerializer")
+      .to(DocsModelReferenceSerializer)
+      .inSingletonScope()
+      .whenNamed("Docs");
   }
-  return result;
 }

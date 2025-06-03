@@ -17,32 +17,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { EntityReference, EntityType } from "@xwiki/cristal-model-api";
+import { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
+import { injectable } from "inversify";
 
-import type { DocumentReference } from "@xwiki/cristal-model-api";
-
-/**
- * Returns the ids of the parents nodes for a path-like page id.
- *
- * @param pageData - the page
- * @returns the parents nodes ids
- * @since 0.15
- **/
-export function getParentNodesIdFromPath(
-  page?: DocumentReference,
-): Array<string> {
-  const result: Array<string> = [];
-  if (page) {
-    const parents = [
-      ...((page as DocumentReference).space?.names ?? []),
-      (page as DocumentReference).name,
-    ];
-    let currentParent = "";
-    let i;
-    for (i = 0; i < parents.length; i++) {
-      currentParent += parents[i];
-      result.push(currentParent);
-      currentParent += "/";
+@injectable()
+export class DocsModelReferenceSerializer implements ModelReferenceSerializer {
+  serialize(reference?: EntityReference): string | undefined {
+    switch (reference?.type) {
+      case EntityType.ATTACHMENT:
+        return reference.name;
+      case EntityType.DOCUMENT:
+        return reference.name;
+      default:
+        throw new Error("not implemented");
     }
   }
-  return result;
 }

@@ -18,31 +18,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { DocumentReference } from "@xwiki/cristal-model-api";
+import { DocsNavigationTreeSource } from "./DocsNavigationTreeSource";
+import {
+  NavigationTreeSource,
+  name as NavigationTreeSourceName,
+} from "@xwiki/cristal-navigation-tree-api";
+import type { Container } from "inversify";
 
-/**
- * Returns the ids of the parents nodes for a path-like page id.
- *
- * @param pageData - the page
- * @returns the parents nodes ids
- * @since 0.15
- **/
-export function getParentNodesIdFromPath(
-  page?: DocumentReference,
-): Array<string> {
-  const result: Array<string> = [];
-  if (page) {
-    const parents = [
-      ...((page as DocumentReference).space?.names ?? []),
-      (page as DocumentReference).name,
-    ];
-    let currentParent = "";
-    let i;
-    for (i = 0; i < parents.length; i++) {
-      currentParent += parents[i];
-      result.push(currentParent);
-      currentParent += "/";
-    }
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<NavigationTreeSource>(NavigationTreeSourceName)
+      .to(DocsNavigationTreeSource)
+      .inSingletonScope()
+      .whenNamed("XWiki");
   }
-  return result;
 }
