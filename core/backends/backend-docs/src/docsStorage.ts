@@ -93,7 +93,7 @@ export class DocsStorage extends AbstractStorage {
     const json = await response.json();
     const defaultPageData = new DefaultPageData();
     // TODO: the content is not using the right format, we need to decide where to make the conversion
-    defaultPageData.source = this.convertToDocs(json.content);
+    defaultPageData.source = json.content ? this.convertToDocs(json.content) : "";
     // TODO: many additional metadata need to be initialized
     // TODO: check if it's possible to share a document as readonly
     defaultPageData.id = json.id;
