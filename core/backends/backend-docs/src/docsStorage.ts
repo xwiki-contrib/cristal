@@ -65,6 +65,7 @@ export class DocsStorage extends AbstractStorage {
   override async getPageContent(
     page: string,
     syntax: string,
+    revision?: string,
   ): Promise<PageData | undefined> {
     if (page === "" || page === "home") {
       const data = new DefaultPageData(page, page, "", syntax);
@@ -86,7 +87,7 @@ export class DocsStorage extends AbstractStorage {
       data.headlineRaw = title;
       return data;
     }
-    const url = `${this.cristalApp.getWikiConfig().baseURL}${page}`;
+    const url = `${this.cristalApp.getWikiConfig().baseURL}${page}${revision ? `/versions/${revision}` : ""}`;
     const response = await fetch(url, {
       headers: {
         ...(await this.getCredentials()),
@@ -217,9 +218,26 @@ export class DocsStorage extends AbstractStorage {
     return;
   }
 
-  override saveAttachments(page: string, files: File[]): Promise<unknown> {
-    console.log(page, files);
-    throw new Error("Method not implemented.");
+  override async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<unknown> {
+    const fd = new FormData();
+
+    for (const file of files) {
+      fd.append("file", file);
+    }
+
+    await fetch(
+      `http://localhost:8071/api/v1.0/documents/${page}/attachment-upload/`,
+      {
+        method: "POST",
+        body: fd,
+        headers: await this.getCredentials(),
+      },
+    );
+
+    return undefined;
   }
 
   override delete(page: string): Promise<{ success: boolean; error?: string }> {
