@@ -159,7 +159,7 @@ export class DocsStorage extends AbstractStorage {
           name: `attachment:${name}`,
           date: new Date(),
           author,
-          href: `${this.cristalApp.getWikiConfig().baseURL}media/${id}`,
+          href: `http://localhost:8083/media/${id}`,
           mimetype,
           reference: id,
           size,
@@ -169,12 +169,13 @@ export class DocsStorage extends AbstractStorage {
     };
   }
 
-  override getAttachment(
+  override async getAttachment(
     page: string,
     name: string,
   ): Promise<PageAttachment | undefined> {
-    console.log(page, name);
-    throw new Error("Method not implemented.");
+    // WARNING: this is very bad
+    const atachments = await this.getAttachments(page);
+    return atachments!.attachments.filter((it) => (it.id = name))[0];
   }
 
   override getPageFromViewURL(): string | null {
@@ -223,6 +224,7 @@ export class DocsStorage extends AbstractStorage {
     return;
   }
 
+  // eslint-disable-next-line max-statements
   override async saveAttachments(
     page: string,
     files: File[],
