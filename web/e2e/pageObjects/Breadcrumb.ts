@@ -57,6 +57,9 @@ export class BreadcrumbPageObject {
         return await this.findItemsVuetify();
       case DesignSystem.SHOELACE:
         return await this.findItemsShoelace();
+      case DesignSystem.DSFR:
+        console.log("TODO");
+        return [];
     }
   }
 
@@ -80,19 +83,22 @@ export class BreadcrumbPageObject {
   }
 
   private async findItemsVuetify(): Promise<BreadcrumbSegmentElement[]> {
-    return await this.findItemsInternal(".page-header .v-breadcrumbs li a", (element) => {
-      return {
-        getText() {
-          return element;
-        },
-        getLink() {
-          return element;
-        },
-        async getLinkTarget() {
-          return (await this.getLink().getAttribute("href"))!;
-        },
-      };
-    });
+    return await this.findItemsInternal(
+      ".page-header .v-breadcrumbs li a",
+      (element) => {
+        return {
+          getText() {
+            return element;
+          },
+          getLink() {
+            return element;
+          },
+          async getLinkTarget() {
+            return (await this.getLink().getAttribute("href"))!;
+          },
+        };
+      },
+    );
   }
 
   private async findItemsInternal(

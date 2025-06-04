@@ -67,6 +67,9 @@ export class NavigationTreePageObject {
         return await this.findItemsVuetify();
       case DesignSystem.SHOELACE:
         return await this.findItemsShoelace();
+      case DesignSystem.DSFR:
+        console.log("TODO");
+        return [];
     }
   }
 

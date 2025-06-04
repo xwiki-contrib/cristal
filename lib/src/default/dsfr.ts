@@ -18,16 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DSFRDesignSystemLoader } from "./dsfrDesignSystemLoader";
-import type { DesignSystemLoader } from "@xwiki/cristal-api";
+import { ComponentInit as VueDSComponentInit } from "@xwiki/cristal-dsfr";
 import type { Container } from "inversify";
 
-export default class ComponentInit {
-  constructor(container: Container) {
-    console.log("DEBUG:yoh");
-    container
-      .bind<DesignSystemLoader>("DesignSystemLoader")
-      .to(DSFRDesignSystemLoader)
-      .whenNamed("dsfr");
-  }
+export function load(container: Container) {
+  new VueDSComponentInit(container);
 }

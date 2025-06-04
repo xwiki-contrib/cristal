@@ -75,6 +75,10 @@ export class HistoryExtraTabPageObject {
           )
           .click();
         break;
+
+      case DesignSystem.DSFR:
+        console.log("TODO");
+        break;
     }
 
     // Then we wait for the history to be loaded.

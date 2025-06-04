@@ -5,4 +5,5 @@
 export enum DesignSystem {
   VUETIFY,
   SHOELACE,
+  DSFR,
 }
