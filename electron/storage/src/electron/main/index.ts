@@ -48,7 +48,7 @@ function resolvePath(page: string, ...lastSegments: string[]) {
 }
 
 function resolvePagePath(page: string): string {
-  return resolvePath(page + ".md");
+  return resolvePath(page, "index.md");
 }
 
 function resolveAttachmentsPath(page: string): string {
@@ -93,8 +93,11 @@ async function isAttachment(path: string, mimetype?: string) {
 }
 
 async function isPage(path: string) {
-  // TODO: make sure that checking for a file is enough, maybe check for a .md extension too.
-  return (await isFile(path)) == true;
+  if (!(await isFile(path))) {
+    return false;
+  }
+
+  return basename(path) == "index.md";
 }
 
 async function isDirectory(path: string) {
@@ -271,7 +274,7 @@ async function saveAttachment(path: string, filePath: string) {
  * @since 0.10
  */
 async function listChildren(page: string): Promise<Array<string>> {
-  const folderPath = resolvePath(page);
+  const folderPath = resolvePath(page).replace(/\/index.md$/, "");
 
   const children = [];
   if (await isDirectory(folderPath)) {
@@ -295,7 +298,7 @@ async function listChildren(page: string): Promise<Array<string>> {
  * @since 0.11
  */
 async function deletePage(path: string): Promise<void> {
-  await shell.trashItem(dirname(path));
+  await shell.trashItem(path.replace(/\/index.md$/, ""));
 }
 
 async function asyncFilter<T>(arr: T[], predicate: (i: T) => Promise<boolean>) {
@@ -359,7 +362,7 @@ async function search(
  */
 async function createMinimalContent() {
   await savePage(
-    join(getHomePathFull(), "index.json"),
+    join(getHomePathFull(), "index", "index.md"),
     "# Welcome\n" +
       "\n" +
       "This is a new **Cristal** wiki.\n" +

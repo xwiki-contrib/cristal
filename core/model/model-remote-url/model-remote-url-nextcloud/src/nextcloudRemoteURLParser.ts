@@ -67,8 +67,7 @@ class NextcloudRemoteURLParser implements RemoteURLParser {
       );
     } else if (
       segments.length >= 2 &&
-      // TODO: wrong condition
-      segments[segments.length - 1] == "page.json"
+      segments[segments.length - 1] == "index.md"
     ) {
       return this.buildDocumentReference(
         segments.slice(0, segments.length - 1),

@@ -43,7 +43,7 @@ class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
       case EntityType.SPACE:
         return this.serializeSpace(reference as SpaceReference);
       case EntityType.DOCUMENT:
-        return `${this.serializeDocument(reference as DocumentReference)}.md`;
+        return `${this.serializeDocument(reference as DocumentReference)}/index.md`;
       case EntityType.ATTACHMENT:
         return this.serializeAttachment(reference as AttachmentReference);
     }
