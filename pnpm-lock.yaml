@@ -3282,8 +3282,8 @@ importers:
   editors/blocknote:
     dependencies:
       '@hocuspocus/provider':
-        specifier: 2.15.2
-        version: 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
+        specifier: 3.1.1
+        version: 3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
       '@xwiki/cristal-alerts-api':
         specifier: workspace:*
         version: link:../../core/alerts/alerts-api
@@ -3359,19 +3359,19 @@ importers:
     dependencies:
       '@blocknote/core':
         specifier: 0.31.1
-        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
+        version: 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
       '@blocknote/mantine':
         specifier: 0.31.1
-        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@blocknote/react':
         specifier: 0.31.1
-        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@blocknote/xl-multi-column':
         specifier: 0.31.1
-        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@tiptap/pm@2.13.0)(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@tiptap/pm@2.13.0)(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hocuspocus/provider':
-        specifier: 2.15.2
-        version: 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
+        specifier: 3.1.1
+        version: 3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../api
@@ -3461,8 +3461,8 @@ importers:
   editors/tiptap:
     dependencies:
       '@hocuspocus/provider':
-        specifier: 2.15.2
-        version: 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
+        specifier: 3.1.1
+        version: 3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
       '@tiptap/core':
         specifier: 2.13.0
         version: 2.13.0(@tiptap/pm@2.13.0)
@@ -4529,8 +4529,8 @@ importers:
   realtime:
     dependencies:
       '@hocuspocus/server':
-        specifier: 2.15.2
-        version: 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
+        specifier: 3.1.1
+        version: 3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
       express:
         specifier: 5.1.0
         version: 5.1.0
@@ -5473,17 +5473,17 @@ packages:
       vue: ^3.4.21
       vue-router: ^4.3.0
 
-  '@hocuspocus/common@2.15.2':
-    resolution: {integrity: sha512-wU1wxXNnQQMXyeL3mdSDYiQsm/r/QyJVjjQhF7sUBrLnjdsN7bA1cvfcSvJBr1ymrMSeYRmUL3UlQmEHEOaP7w==}
+  '@hocuspocus/common@3.1.2':
+    resolution: {integrity: sha512-HGv6VOmSnzkkACnllHioo67V5MgTht9muyAjMxa4O8xiGrsGbiMFTWgRl5zqTWmQPbBHT6xdozTRE52Tirlu5g==}
 
-  '@hocuspocus/provider@2.15.2':
-    resolution: {integrity: sha512-mdBurviyaUd7bQx4vMIE39WqRJDTpfFelHOVXr7w/jA8G1E7K7lxQ9/DacSrbg+9o8s+1z1+SerZiUjaToaBJg==}
+  '@hocuspocus/provider@3.1.1':
+    resolution: {integrity: sha512-Tuqr+U8ihmF6ps/nb3acjffg+dTl/ayOCGt4UGP05Iz8COo2K0OwiPrBXl2hVPIOISY2vhYzrtlQr+3X2T/bAw==}
     peerDependencies:
       y-protocols: ^1.0.6
       yjs: ^13.6.8
 
-  '@hocuspocus/server@2.15.2':
-    resolution: {integrity: sha512-+fLRVswg+bkgfHqJ+wFgywivw3H08WMOtVvJF7dJzWT2ZR/Sc3nDMFh2KqMF6Ygh4z6mt23xr7SKIm3eP1zoLA==}
+  '@hocuspocus/server@3.1.1':
+    resolution: {integrity: sha512-JiOOeDqGrRCu2m9CfXRFilHts7HE9iw7z+M9cKPamI1n4LAaT1+mvrehAXPTZtIQ22WgRz5ui7Uf8fRJwn5qwA==}
     peerDependencies:
       y-protocols: ^1.0.6
       yjs: ^13.6.8
@@ -10562,7 +10562,7 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@blocknote/core@0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)':
+  '@blocknote/core@0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)':
     dependencies:
       '@emoji-mart/data': 1.2.1
       '@shikijs/types': 3.2.1
@@ -10604,7 +10604,7 @@ snapshots:
       y-protocols: 1.0.6(yjs@13.6.26)
       yjs: 13.6.26
     optionalDependencies:
-      '@hocuspocus/provider': 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
+      '@hocuspocus/provider': 3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
     transitivePeerDependencies:
       - '@types/hast'
       - highlight.js
@@ -10613,10 +10613,10 @@ snapshots:
       - sugar-high
       - supports-color
 
-  '@blocknote/mantine@0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@blocknote/mantine@0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@blocknote/core': 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
-      '@blocknote/react': 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@blocknote/core': 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
+      '@blocknote/react': 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@mantine/core': 7.17.8(@mantine/hooks@7.17.8(react@19.1.0))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@mantine/hooks': 7.17.8(react@19.1.0)
       '@mantine/utils': 6.0.22(react@19.1.0)
@@ -10633,9 +10633,9 @@ snapshots:
       - sugar-high
       - supports-color
 
-  '@blocknote/react@0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@blocknote/react@0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@blocknote/core': 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
+      '@blocknote/core': 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
       '@emoji-mart/data': 1.2.1
       '@floating-ui/react': 0.26.28(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
@@ -10655,10 +10655,10 @@ snapshots:
       - sugar-high
       - supports-color
 
-  '@blocknote/xl-multi-column@0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@tiptap/pm@2.13.0)(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@blocknote/xl-multi-column@0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@tiptap/pm@2.13.0)(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@blocknote/core': 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
-      '@blocknote/react': 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@blocknote/core': 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
+      '@blocknote/react': 0.31.1(@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
       prosemirror-model: 1.25.1
       prosemirror-state: 1.4.3
@@ -11115,13 +11115,13 @@ snapshots:
       vue: 3.5.13(typescript@5.8.3)
       vue-router: 4.5.1(vue@3.5.13(typescript@5.8.3))
 
-  '@hocuspocus/common@2.15.2':
+  '@hocuspocus/common@3.1.2':
     dependencies:
       lib0: 0.2.108
 
-  '@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)':
+  '@hocuspocus/provider@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)':
     dependencies:
-      '@hocuspocus/common': 2.15.2
+      '@hocuspocus/common': 3.1.2
       '@lifeomic/attempt': 3.1.0
       lib0: 0.2.108
       ws: 8.18.2
@@ -11131,9 +11131,9 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@hocuspocus/server@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)':
+  '@hocuspocus/server@3.1.1(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)':
     dependencies:
-      '@hocuspocus/common': 2.15.2
+      '@hocuspocus/common': 3.1.2
       async-lock: 1.4.1
       kleur: 4.1.5
       lib0: 0.2.108
