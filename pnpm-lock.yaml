@@ -3126,8 +3126,8 @@ importers:
   ds/dsfr:
     dependencies:
       '@gouvfr/dsfr':
-        specifier: 1.11.2
-        version: 1.11.2
+        specifier: 1.13.2
+        version: 1.13.2
       '@gouvminint/vue-dsfr':
         specifier: 5.11.0
         version: 5.11.0(oh-vue-icons@1.0.0-rc3(vue@3.5.13(typescript@5.8.3)))(vue-router@4.5.1(vue@3.5.13(typescript@5.8.3)))(vue@3.5.13(typescript@5.8.3))
@@ -5463,6 +5463,10 @@ packages:
 
   '@gouvfr/dsfr@1.11.2':
     resolution: {integrity: sha512-S7idT4rCCw6M1pqxJS8y4nUSq/Rus+Kucoifmv0CrZD/eoBA34HWqWYzR9GIxvtAX/TQ1XC7Hz+54THtVzMeqQ==}
+    engines: {node: '>=18.16.1'}
+
+  '@gouvfr/dsfr@1.13.2':
+    resolution: {integrity: sha512-4Q9ggFFzwD/KFr37sJO1hFH9PcqlZ7F3jMiFJXnBLJfkH1+s28vnQp/oXoY8TosWsLMSjdhNCrxvrUdm5XzBlg==}
     engines: {node: '>=18.16.1'}
 
   '@gouvminint/vue-dsfr@5.11.0':
@@ -11120,6 +11124,8 @@ snapshots:
   '@gar/promisify@1.1.3': {}
 
   '@gouvfr/dsfr@1.11.2': {}
+
+  '@gouvfr/dsfr@1.13.2': {}
 
   '@gouvminint/vue-dsfr@5.11.0(oh-vue-icons@1.0.0-rc3(vue@3.5.13(typescript@5.8.3)))(vue-router@4.5.1(vue@3.5.13(typescript@5.8.3)))(vue@3.5.13(typescript@5.8.3))':
     dependencies:
