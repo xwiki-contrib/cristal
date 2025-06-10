@@ -48,15 +48,30 @@ function resolvePath(page: string, ...lastSegments: string[]) {
 }
 
 function resolvePagePath(page: string): string {
-  return resolvePath(page, "index.md");
+  return resolvePath(`${page}.md`);
+}
+
+function makeLastSegmentHidden(page: string) {
+  const segments = page.split("/");
+  // Add a dot after the last segment of the page path
+  if (segments.length == 1) {
+    return `.${page}`;
+  } else {
+    const joined = segments.slice(0, segments.length - 1).join("/");
+    return `${joined}/.${segments[segments.length - 1]}`;
+  }
+}
+
+function resolveMetaDirectoryPath(page: string) {
+  return resolvePath(makeLastSegmentHidden(page));
 }
 
 function resolveAttachmentsPath(page: string): string {
-  return resolvePath(page, "attachments");
+  return join(resolveMetaDirectoryPath(page), "attachments");
 }
 
 function resolveAttachmentPath(page: string, filename: string): string {
-  return resolvePath(page, "attachments", filename);
+  return join(resolveAttachmentsPath(page), filename);
 }
 
 async function isFile(path: string) {
@@ -97,7 +112,12 @@ async function isPage(path: string) {
     return false;
   }
 
-  return basename(path) == "index.md";
+  const parentPath = dirname(path);
+  const grandParent = dirname(parentPath);
+  const parentName = basename(parentPath);
+  const grandParentName = basename(grandParent);
+
+  return !(parentName == "attachments" && grandParentName.startsWith("."));
 }
 
 async function isDirectory(path: string) {
@@ -143,7 +163,7 @@ async function readPage(
       type: EntityType.DOCUMENT,
       value: {
         ...data,
-        source: data.pageContent,
+        source: data.content,
         syntax: "markdown/1.2",
         lastAuthor: { name: os.userInfo().username },
         lastModificationDate: new Date(pageStats.mtimeMs),
@@ -187,14 +207,30 @@ async function readAttachment(
 
   if (await isFile(path)) {
     const stats = await fs.promises.stat(path);
-    const mimetype = mime.getType(path) || "";
+    const mimetype = mime.getType(path) ?? "";
+    const grandParentPath = dirname(dirname(path)); // .something
+    const grandParentName = basename(grandParentPath);
+    const grandGrandParentPath = dirname(grandParentPath); // space
+
+    const id = basename(path);
     return {
       type: EntityType.ATTACHMENT,
       value: {
-        id: basename(path),
+        id: id,
         mimetype,
-        reference: relative(homePathFull, path),
-        href: `${cristalFSProtocol}://${relative(homePathFull, path)}`,
+        reference: relative(
+          homePathFull,
+          join(
+            grandGrandParentPath,
+            grandParentName.slice(1),
+            "attachments",
+            id,
+          ),
+        ),
+        href: `${cristalFSProtocol}://${relative(
+          homePathFull,
+          join(grandGrandParentPath, grandParentName, "attachments", id),
+        )}`,
         date: stats.mtime,
         size: stats.size,
         author: undefined,
@@ -266,6 +302,13 @@ async function saveAttachment(path: string, filePath: string) {
   await fs.promises.copyFile(filePath, path);
 }
 
+function removeExtension(file: string): string {
+  if (!file.includes(".")) {
+    return file;
+  }
+  return file.slice(0, file.lastIndexOf("."));
+}
+
 /**
  * Get the ids of the children pages for a given page.
  *
@@ -274,31 +317,49 @@ async function saveAttachment(path: string, filePath: string) {
  * @since 0.10
  */
 async function listChildren(page: string): Promise<Array<string>> {
-  const folderPath = resolvePath(page).replace(/\/index.md$/, "");
+  const folderPath = resolvePath(page);
 
-  const children = [];
+  const children = new Set<string>();
   if (await isDirectory(folderPath)) {
     const files = await fs.promises.readdir(folderPath);
 
     for (const file of files) {
-      const path = `${folderPath}/${file}`;
-      if (await isDirectory(path)) {
-        children.push(file);
+      // Ignore all hidden files.
+      if (file.startsWith(".")) {
+        continue;
+      }
+      const path = join(folderPath, file);
+      if (await isFile(path)) {
+        children.add(removeExtension(file));
+      } else if (await isDirectory(path)) {
+        children.add(file);
       }
     }
   }
 
-  return children;
+  return Array.from(children);
 }
 
 /**
- * Delete a page.
+ * Delete a page and its attachments.
  *
- * @param path - the path to the page to delete
- * @since 0.11
+ * @param reference - the reference of the page to delete
+ * @since 0.19
  */
-async function deletePage(path: string): Promise<void> {
-  await shell.trashItem(path.replace(/\/index.md$/, ""));
+async function deletePage(reference: string): Promise<void> {
+  // Remove the page and its attachments
+  const values = [];
+
+  const path = `${resolvePath(reference)}.md`;
+  if (await isFile(path)) {
+    values.push(shell.trashItem(path));
+  }
+  const metaDirectoryPath = resolveMetaDirectoryPath(reference);
+  if (await isDirectory(metaDirectoryPath)) {
+    values.push(shell.trashItem(metaDirectoryPath));
+  }
+
+  await Promise.all(values);
 }
 
 async function asyncFilter<T>(arr: T[], predicate: (i: T) => Promise<boolean>) {
@@ -362,7 +423,7 @@ async function search(
  */
 async function createMinimalContent() {
   await savePage(
-    join(getHomePathFull(), "index", "index.md"),
+    join(getHomePathFull(), "index.md"),
     "# Welcome\n" +
       "\n" +
       "This is a new **Cristal** wiki.\n" +
@@ -376,105 +437,45 @@ async function createMinimalContent() {
   );
 }
 
+async function movePageSubSpaces(
+  reference: string,
+  newReference: string,
+  actions: Promise<void>[],
+) {
+  const pathSpace = `${resolvePath(reference)}`;
+  const newSpacePath = `${resolvePath(newReference)}`;
+
+  if (await isDirectory(pathSpace)) {
+    actions.push(fs.promises.rename(pathSpace, newSpacePath));
+  }
+}
+
+// eslint-disable-next-line max-statements
 async function movePage(
-  path: string,
-  newPath: string,
+  reference: string,
+  newReference: string,
   preserveChildren: boolean,
 ): Promise<void> {
+  const path = `${resolvePath(reference)}.md`;
+  const metaPath = resolveMetaDirectoryPath(reference);
+  const newPath = `${resolvePath(newReference)}.md`;
+  const newMetaPath = resolveMetaDirectoryPath(newReference);
+
+  const actions = [];
+
+  if (await isFile(path)) {
+    actions.push(fs.promises.rename(path, newPath));
+  }
+
+  if (await isDirectory(metaPath)) {
+    actions.push(fs.promises.rename(metaPath, newMetaPath));
+  }
+
   if (preserveChildren) {
-    const directory = dirname(path);
-    const newDirectory = dirname(newPath);
-
-    // TODO: Fix CRISTAL-437 instead of doing this check here.
-    const success: boolean = await movePageDeep(directory, newDirectory);
-    if (!success) {
-      throw "Some child pages were not moved because they overlapped with children of the target.";
-    }
-  } else {
-    await movePageSingle(path, newPath);
-  }
-}
-
-async function movePageDeep(
-  directory: string,
-  newDirectory: string,
-): Promise<boolean> {
-  let success = true;
-
-  // We start by removing the directory from the arborescence.
-  const tempPath = resolvePath(`temp-${Math.random().toString(16).slice(2)}`);
-  await fs.promises.rename(directory, tempPath);
-
-  await fs.promises.mkdir(dirname(newDirectory), { recursive: true });
-
-  if (await pathExists(newDirectory)) {
-    // If the target directory already exists, we move the content instead.
-    success = await movePageDeepRecursive(tempPath, newDirectory);
-    // We put the (possible) unmoved content back to where it was.
-    await fs.promises.rename(tempPath, directory);
-  } else {
-    await fs.promises.rename(tempPath, newDirectory);
-  }
-  await cleanEmptyArborescence(directory);
-
-  return success;
-}
-
-async function movePageDeepRecursive(
-  directory: string,
-  newDirectory: string,
-): Promise<boolean> {
-  let success: boolean = true;
-
-  for (const file of await fs.promises.readdir(directory)) {
-    const filePath = join(directory, file);
-    const newFilePath = join(newDirectory, file);
-    if (await isDirectory(filePath)) {
-      success =
-        (await movePageDeepRecursive(filePath, join(newDirectory, file))) &&
-        success;
-      await cleanEmptyArborescence(filePath);
-    } else if (!(await pathExists(newFilePath))) {
-      await fs.promises.rename(filePath, newFilePath);
-    } else {
-      success = false;
-    }
+    await movePageSubSpaces(reference, newReference, actions);
   }
 
-  return success;
-}
-
-async function movePageSingle(path: string, newPath: string) {
-  const directory = dirname(path);
-  const newDirectory = dirname(newPath);
-
-  await fs.promises.mkdir(newDirectory, { recursive: true });
-  await fs.promises.rename(path, newPath);
-
-  if (await isDirectory(`${directory}/attachments`)) {
-    await fs.promises.rename(
-      `${directory}/attachments`,
-      `${newDirectory}/attachments`,
-    );
-  }
-
-  await cleanEmptyArborescence(directory);
-}
-
-/**
- * Recursively delete empty directories, starting from the leaf.
- * @param directory - the starting leaf directory
- * @since 0.14
- */
-async function cleanEmptyArborescence(directory: string): Promise<void> {
-  if (await isWithin(getHomePathFull(), directory)) {
-    if (!(await pathExists(directory))) {
-      await cleanEmptyArborescence(dirname(directory));
-    } else if ((await isDirectory(directory)) && (await isEmpty(directory))) {
-      await fs.promises.rmdir(directory);
-      await cleanEmptyArborescence(dirname(directory));
-    }
-  }
+  await Promise.all(actions);
 }
 
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
@@ -531,13 +532,16 @@ export default async function load(): Promise<void> {
   ipcMain.handle("listChildren", (event, { page }) => {
     return listChildren(page);
   });
-  ipcMain.handle("deletePage", (event, { path }) => {
-    return deletePage(path);
+  ipcMain.handle("deletePage", (event, { path: reference }) => {
+    return deletePage(reference);
   });
   ipcMain.handle("search", (event, { query, type, mimetype }) => {
     return search(query, type, mimetype);
   });
-  ipcMain.handle("movePage", (event, { path, newPath, preserveChildren }) => {
-    return movePage(path, newPath, preserveChildren);
-  });
+  ipcMain.handle(
+    "movePage",
+    (event, { reference, newReference, preserveChildren }) => {
+      return movePage(reference, newReference, preserveChildren);
+    },
+  );
 }

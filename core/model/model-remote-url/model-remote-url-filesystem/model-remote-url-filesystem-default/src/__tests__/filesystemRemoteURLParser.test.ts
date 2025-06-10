@@ -17,7 +17,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { FileSystemRemoteURLSerializer } from "../filesystemRemoteURLSerializer";
+
+import { FileSystemRemoteURLParser } from "../filesystemRemoteURLParser";
 import {
   AttachmentReference,
   DocumentReference,
@@ -25,29 +26,36 @@ import {
 } from "@xwiki/cristal-model-api";
 import { describe, expect, it } from "vitest";
 
-describe("FileSystemRemoteURLSerializer", () => {
-  const fileSystemRemoteURLSerializer = new FileSystemRemoteURLSerializer();
-  it("serialize a simple document reference", () => {
-    const serialize = fileSystemRemoteURLSerializer.serialize(
+describe("FileSystemRemoteURLParser", () => {
+  const fileSystemRemoteURLParser = new FileSystemRemoteURLParser();
+
+  it("parse a simple document reference", () => {
+    const entityReference = fileSystemRemoteURLParser.parse(
+      "cristalfs://a/b/c.md",
+    );
+    expect(entityReference).toEqual(
       new DocumentReference("c", new SpaceReference(undefined, "a", "b")),
     );
-    expect(serialize).toEqual("cristalfs://a/b/c.md");
   });
 
-  it("serialize a document reference with special chars", () => {
-    const serialize = fileSystemRemoteURLSerializer.serialize(
+  it("parse a document reference with special chars", () => {
+    const entityReference = fileSystemRemoteURLParser.parse(
+      "cristalfs://a/b/c%2Fd.md",
+    );
+    expect(entityReference).toEqual(
       new DocumentReference("c/d", new SpaceReference(undefined, "a", "b")),
     );
-    expect(serialize).toEqual("cristalfs://a/b/c%2Fd.md");
   });
 
-  it("serialize an attachment reference ", () => {
-    const serialize = fileSystemRemoteURLSerializer.serialize(
+  it("parse an attachment reference ", () => {
+    const entityReference = fileSystemRemoteURLParser.parse(
+      "cristalfs://a/b/.c/attachments/file.pdf",
+    );
+    expect(entityReference).toEqual(
       new AttachmentReference(
         "file.pdf",
         new DocumentReference("c", new SpaceReference(undefined, "a", "b")),
       ),
     );
-    expect(serialize).toEqual("cristalfs://a/b/.c/attachments/file.pdf");
   });
 });

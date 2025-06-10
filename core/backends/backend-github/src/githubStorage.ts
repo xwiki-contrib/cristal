@@ -25,11 +25,14 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import mime from "mime";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
 import type { Logger } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 
 @injectable()
 export class GitHubStorage extends AbstractStorage {
@@ -41,6 +44,10 @@ export class GitHubStorage extends AbstractStorage {
     private readonly authenticationManagerProvider: AuthenticationManagerProvider,
     @inject("AlertsServiceProvider")
     private readonly alertsServiceProvider: AlertsServiceProvider,
+    @inject("ModelReferenceParserProvider")
+    private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
+    @inject("RemoteURLSerializerProvider")
+    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
   ) {
     super(logger, "storage.components.githubStorage");
   }
@@ -93,7 +100,12 @@ export class GitHubStorage extends AbstractStorage {
     revision?: string,
   ): Promise<PageData | undefined> {
     this.logger?.debug("GitHub Loading page", page);
-    const url = this.getPageRestURL(`${page}/index.md`, syntax, revision);
+
+    const url = this.getPageRestURL(
+      this.pageToRemoteURL(page),
+      syntax,
+      revision,
+    );
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -123,6 +135,19 @@ export class GitHubStorage extends AbstractStorage {
     } else {
       return undefined;
     }
+  }
+
+  private pageToRemoteURL(page: string) {
+    const entityReference = this.modelReferenceParserProvider
+      .get()
+      ?.parse(page, EntityType.DOCUMENT);
+    const remoteURL = this.remoteURLSerializerProvider
+      .get()
+      ?.serialize(entityReference);
+    if (!remoteURL) {
+      throw new Error(`Unable to resolve ${page} to a remote URL.`);
+    }
+    return remoteURL;
   }
 
   /**
@@ -211,7 +236,7 @@ export class GitHubStorage extends AbstractStorage {
   }
 
   async save(page: string, title: string, content: string): Promise<unknown> {
-    const pageRestUrl = this.getPageRestURL(`${page}/index.md`, "");
+    const pageRestUrl = this.getPageRestURL(this.pageToRemoteURL(page), "");
 
     const headResponse = await fetch(pageRestUrl, {
       method: "HEAD",
