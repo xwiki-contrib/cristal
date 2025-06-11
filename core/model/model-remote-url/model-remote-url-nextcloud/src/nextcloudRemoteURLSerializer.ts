@@ -41,11 +41,11 @@ class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
       case EntityType.WIKI:
         throw new Error("Not implemented");
       case EntityType.SPACE:
-        return this.serializeSpace(reference as SpaceReference);
+        return this.serializeSpace(reference);
       case EntityType.DOCUMENT:
-        return `${this.serializeDocument(reference as DocumentReference)}/index.md`;
+        return `${this.serializeDocument(reference)}.md`;
       case EntityType.ATTACHMENT:
-        return this.serializeAttachment(reference as AttachmentReference);
+        return this.serializeAttachment(reference);
     }
   }
 
@@ -58,8 +58,12 @@ class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
     return `${this.serializeSpace(documentReference.space!)}/${documentReference.name}`;
   }
 
+  private serializeMeta(documentReference: DocumentReference) {
+    return `${this.serializeSpace(documentReference.space!)}/.${documentReference.name}`;
+  }
+
   private serializeAttachment(attachmentReference: AttachmentReference) {
-    return `${this.serializeDocument(attachmentReference.document)}/attachments/${attachmentReference.name}`;
+    return `${this.serializeMeta(attachmentReference.document)}/attachments/${attachmentReference.name}`;
   }
 
   private getRootURL(username?: string) {

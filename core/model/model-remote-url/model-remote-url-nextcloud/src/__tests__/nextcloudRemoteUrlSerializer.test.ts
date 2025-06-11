@@ -54,7 +54,7 @@ describe("NextcloudRemoteURLSerializer", () => {
       ),
     );
     expect(entityReference).toEqual(
-      "http://localhost/remote.php/dav/files/testuser/.cristal/a/b/c/index.md",
+      "http://localhost/remote.php/dav/files/testuser/.cristal/a/b/c.md",
     );
   });
   it("serialize public root url", () => {
@@ -70,7 +70,7 @@ describe("NextcloudRemoteURLSerializer", () => {
       new DocumentReference("c", new SpaceReference(undefined, "a", "b")),
     );
     expect(entityReference).toEqual(
-      "http://localhost/public.php/webdav/.cristal/a/b/c/index.md",
+      "http://localhost/public.php/webdav/.cristal/a/b/c.md",
     );
   });
   it("serialize attachment", () => {
@@ -92,7 +92,7 @@ describe("NextcloudRemoteURLSerializer", () => {
       ),
     );
     expect(entityReference).toEqual(
-      "http://localhost/remote.php/dav/files/testuser/.cristal/a/b/c/attachments/image.jpg",
+      "http://localhost/remote.php/dav/files/testuser/.cristal/a/b/.c/attachments/image.jpg",
     );
   });
 });

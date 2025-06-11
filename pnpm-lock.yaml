@@ -876,6 +876,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../backend-api
+      '@xwiki/cristal-page-default':
+        specifier: workspace:*
+        version: link:../../page/page-default
       '@xwiki/cristal-utils-inversify':
         specifier: workspace:*
         version: link:../../../utils/inversify

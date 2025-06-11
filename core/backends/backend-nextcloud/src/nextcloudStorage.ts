@@ -25,6 +25,10 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import {
+  DefaultPageReader,
+  DefaultPageWriter,
+} from "@xwiki/cristal-page-default";
 import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
@@ -89,27 +93,27 @@ export class NextcloudStorage extends AbstractStorage {
 
     await this.initBaseContent(username!);
     try {
-      const response = await fetch(
-        `${this.getRootUrl(username!)}/${page}/index.md`,
-        {
-          method: "GET",
-          headers: await this.getCredentials(),
-        },
-      );
+      const response = await fetch(`${this.getRootUrl(username)}/${page}.md`, {
+        method: "GET",
+        headers: await this.getCredentials(),
+      });
 
       if (response.status >= 200 && response.status < 300) {
         const { lastModificationDate, lastAuthor } =
           await this.getLastEditDetails(page, username!);
 
-        const json = await response.json();
+        const parsedContent = new DefaultPageReader().readPage(
+          await response.text(),
+        );
 
         // A PageData instance must be returned as toObject is expected to be
         // available to serialize page data. For instance, for the offline
         // storage
         const pageData = new DefaultPageData();
-        pageData.fromObject(json);
-        pageData.headline = json.name;
-        pageData.headlineRaw = json.name;
+        pageData.source = parsedContent.content as string;
+        pageData.headline = parsedContent.name as string;
+        pageData.headlineRaw = parsedContent.name as string;
+        pageData.syntax = parsedContent.syntax as string;
         pageData.lastAuthor = lastAuthor;
         pageData.lastModificationDate = lastModificationDate;
         pageData.canEdit = true;
@@ -129,10 +133,8 @@ export class NextcloudStorage extends AbstractStorage {
   ): Promise<{ lastModificationDate?: Date; lastAuthor?: UserDetails }> {
     let lastModificationDate: Date | undefined;
     let lastAuthor: UserDetails | undefined;
-    const response = await fetch(
-      `${this.getRootUrl(username!)}/${page}/index.md`,
-      {
-        body: `<?xml version="1.0" encoding="UTF-8"?>
+    const response = await fetch(`${this.getRootUrl(username!)}/${page}.md`, {
+      body: `<?xml version="1.0" encoding="UTF-8"?>
           <d:propfind xmlns:d="DAV:">
             <d:prop xmlns:oc="http://owncloud.org/ns">
               <d:getlastmodified />
@@ -140,13 +142,12 @@ export class NextcloudStorage extends AbstractStorage {
               <oc:owner-display-name />
             </d:prop>
           </d:propfind>`,
-        method: "PROPFIND",
-        headers: {
-          ...(await this.getCredentials()),
-          Accept: "application/json",
-        },
+      method: "PROPFIND",
+      headers: {
+        ...(await this.getCredentials()),
+        Accept: "application/json",
       },
-    );
+    });
     if (response.status >= 200 && response.status < 300) {
       // window.DOMParser can't be used because it is not available in web
       // workers.
@@ -238,7 +239,8 @@ export class NextcloudStorage extends AbstractStorage {
   }
 
   private getAttachmentsBasePath(page: string, username: string) {
-    return `${this.getRootUrl(username!)}/${page}/${this.ATTACHMENTS}`;
+    const metaDirPath = this.convertToMetaSegments(page).join("/");
+    return `${this.getRootUrl(username!)}/${metaDirPath}/${this.ATTACHMENTS}`;
   }
 
   private getAttachmentBasePath(name: string, page: string, username: string) {
@@ -256,23 +258,32 @@ export class NextcloudStorage extends AbstractStorage {
     // Splits the page reference along the / and create intermediate directories
     // for each segment, expect the last one where the content and title are
     // persisted.
-    const directories = page.split("/");
+    const newDirectories = page.split("/");
 
     // Create the root directory. We also need to create all intermediate directories.
     const rootURL = this.getRootUrl(username!);
-    await this.createIntermediateDirectories(rootURL, directories);
+    await this.createIntermediateDirectories(rootURL, newDirectories);
 
-    await fetch(`${rootURL}/${directories.join("/")}/index.md`, {
+    const body = new DefaultPageWriter().writePage({
+      pageContent: content,
+      name: title,
+      syntax: "markdown/1.2",
+    });
+    await fetch(`${rootURL}/${newDirectories.join("/")}.md`, {
       method: "PUT",
       headers: await this.getCredentials(),
-      body: JSON.stringify({
-        source: content,
-        name: title,
-        syntax: "markdown/1.2",
-      }),
+      body,
     });
 
     return;
+  }
+
+  private convertToMetaSegments(page: string) {
+    const directories = page.split("/");
+    return [
+      ...directories.slice(0, directories.length - 1),
+      `.${directories[directories.length - 1]}`,
+    ];
   }
 
   private async createIntermediateDirectories(
@@ -314,7 +325,7 @@ export class NextcloudStorage extends AbstractStorage {
     file: File,
     username: string,
   ): Promise<unknown> {
-    const directories = page.split("/");
+    const directories = this.convertToMetaSegments(page);
 
     // Create the root directory. We also need to create all intermediate directories.
     const rootURL = this.getRootUrl(username!);
