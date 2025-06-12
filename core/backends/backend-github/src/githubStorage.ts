@@ -304,8 +304,10 @@ export class GitHubStorage extends AbstractStorage {
   }
 
   async delete(page: string): Promise<{ success: boolean; error?: string }> {
-    const splittedBaseURL = this.wikiConfig.baseURL.split("/");
-    const branch = splittedBaseURL[splittedBaseURL.length - 1];
+    // We only support the default branch in GitHubStorage right now.
+    // We can only get its name from the baseURL property, or by querying it.
+    // TODO: Support branches (https://jira.xwiki.org/browse/CRISTAL-563)
+    const branch = this.wikiConfig.baseURL.split("/").pop();
 
     // Get the current HEAD before doing anything.
     const headCommit = (
@@ -321,7 +323,9 @@ export class GitHubStorage extends AbstractStorage {
     ).object.sha;
 
     // Create a new tree without the page we want removed.
-    const { successTree, shaTree } = await fetch(
+    // Using the tree creation API with a base tree and a node with a null sha
+    // will clone the base tree with the node removed.
+    const treeResponse = await fetch(
       `${this.wikiConfig.baseRestURL}/git/trees`,
       {
         method: "POST",
@@ -341,26 +345,14 @@ export class GitHubStorage extends AbstractStorage {
           ],
         }),
       },
-    ).then(async (response) => {
-      if (response.ok) {
-        return {
-          successTree: { success: true },
-          shaTree: (await response.json()).sha,
-        };
-      } else {
-        return {
-          successTree: { success: false, error: await response.text() },
-          shaTree: undefined,
-        };
-      }
-    });
+    );
 
-    if (!successTree.success) {
-      return successTree;
+    if (!treeResponse.ok) {
+      return { success: false, error: await treeResponse.text() };
     }
 
     // Create a child commit to the HEAD commit, referencing the new tree.
-    const { successCommit, shaCommit } = await fetch(
+    const commitResponse = await fetch(
       `${this.wikiConfig.baseRestURL}/git/commits`,
       {
         method: "POST",
@@ -369,27 +361,15 @@ export class GitHubStorage extends AbstractStorage {
           ...(await this.getCredentials()),
         },
         body: JSON.stringify({
-          tree: shaTree,
+          tree: (await treeResponse.json()).sha,
           message: `Delete ${page}`,
           parents: [headCommit],
         }),
       },
-    ).then(async (response) => {
-      if (response.ok) {
-        return {
-          successCommit: { success: true },
-          shaCommit: (await response.json()).sha,
-        };
-      } else {
-        return {
-          successCommit: { success: false, error: await response.text() },
-          shaCommit: undefined,
-        };
-      }
-    });
+    );
 
-    if (!successCommit.success) {
-      return successCommit;
+    if (!commitResponse.ok) {
+      return { success: false, error: await commitResponse.text() };
     }
 
     // Finally, we update the branch ref to target the new commit.
@@ -403,7 +383,7 @@ export class GitHubStorage extends AbstractStorage {
           ...(await this.getCredentials()),
         },
         body: JSON.stringify({
-          sha: shaCommit,
+          sha: (await commitResponse.json()).sha,
         }),
       },
     ).then(async (response) => {
