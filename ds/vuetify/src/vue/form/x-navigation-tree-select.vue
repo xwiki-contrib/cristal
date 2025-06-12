@@ -69,15 +69,25 @@ onMounted(async () => {
   hierarchy.value = await hierarchyResolver.getPageHierarchy(
     props.currentPageReference!.space!,
   );
+  hierarchy.value.shift();
 });
 
 async function treeNodeClickAction(node: NavigationTreeNode) {
-  selectedPage = referenceHandler.createDocumentReference(
-    node.location.names[node.location.names.length - 1],
-    new SpaceReference(node.location.wiki, ...node.location.names.slice(0, -1)),
-  );
+  if (node.location.names.length > 0) {
+    selectedPage = referenceHandler.createDocumentReference(
+      node.location.names[node.location.names.length - 1],
+      new SpaceReference(
+        node.location.wiki,
+        ...node.location.names.slice(0, -1),
+      ),
+    );
+    hierarchy.value = await hierarchyResolver.getPageHierarchy(selectedPage);
+    hierarchy.value.shift();
+  } else {
+    selectedPage = undefined;
+    hierarchy.value = [{ label: node.label, pageId: "", url: node.url }];
+  }
   model.value = node.location;
-  hierarchy.value = await hierarchyResolver.getPageHierarchy(selectedPage);
 }
 </script>
 
@@ -108,6 +118,7 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
         :current-page-reference="selectedPage"
         :click-action="treeNodeClickAction"
         :include-terminals="includeTerminals"
+        show-root-node
       ></XNavigationTree>
     </template>
     <template #footer>

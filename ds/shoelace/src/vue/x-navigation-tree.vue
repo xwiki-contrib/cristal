@@ -34,6 +34,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  */
 import XNavigationTreeItem from "./x-navigation-tree-item.vue";
 import { navigationTreePropsDefaults } from "@xwiki/cristal-dsapi";
+import { SpaceReference } from "@xwiki/cristal-model-api";
 import { inject, onBeforeMount, ref, useTemplateRef, watch } from "vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
@@ -68,7 +69,18 @@ const props = withDefaults(
 );
 
 onBeforeMount(async () => {
-  rootNodes.value.push(...(await getChildNodes("")));
+  if (props.showRootNode) {
+    rootNodes.value.push({
+      id: "",
+      label: "Root",
+      location: new SpaceReference(),
+      url: ".",
+      has_children: true,
+      is_terminal: false,
+    });
+  } else {
+    rootNodes.value.push(...(await getChildNodes("")));
+  }
 
   documentService.registerDocumentChangeListener("delete", onDocumentDelete);
   documentService.registerDocumentChangeListener("update", onDocumentUpdate);
@@ -83,6 +95,9 @@ async function expandTree() {
       props.currentPageReference!,
       props.includeTerminals,
     );
+    if (props.showRootNode) {
+      nodesToExpand.unshift("");
+    }
     if (items.value) {
       await Promise.all(
         items.value!.map(async (it) => it.expandTree(nodesToExpand)),
@@ -111,6 +126,10 @@ function onSelectionChange(selection: SlTreeItem) {
 
 async function onDocumentDelete(page: DocumentReference) {
   const parents = treeSource.getParentNodesId(page, props.includeTerminals);
+  if (props.showRootNode) {
+    parents.unshift("");
+  }
+
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {
       if (parents.length == 1) {
@@ -128,6 +147,9 @@ async function onDocumentDelete(page: DocumentReference) {
 // eslint-disable-next-line max-statements
 async function onDocumentUpdate(page: DocumentReference) {
   const parents = treeSource.getParentNodesId(page, props.includeTerminals);
+  if (props.showRootNode) {
+    parents.unshift("");
+  }
 
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {

@@ -32,6 +32,11 @@ type NavigationTreeProps = {
    * @since 0.16
    */
   includeTerminals?: boolean;
+  /**
+   * Whether to display a root node (default: false).
+   * @since 0.19
+   */
+  showRootNode?: boolean;
 };
 
 /**
@@ -40,6 +45,7 @@ type NavigationTreeProps = {
  */
 const navigationTreePropsDefaults = {
   includeTerminals: true,
+  showRootNode: false,
 };
 
 export type { NavigationTreeProps };
