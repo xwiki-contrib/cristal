@@ -304,40 +304,115 @@ export class GitHubStorage extends AbstractStorage {
   }
 
   async delete(page: string): Promise<{ success: boolean; error?: string }> {
-    const pageRestUrl = this.getPageRestURL(page, "");
+    const splittedBaseURL = this.wikiConfig.baseURL.split("/");
+    const branch = splittedBaseURL[splittedBaseURL.length - 1];
 
-    const headResponse = await fetch(pageRestUrl, {
-      method: "HEAD",
-      cache: "no-store",
-      headers: {
-        ...(await this.getCredentials()),
-        Accept: "application/vnd.github.object+json",
+    // Get the current HEAD before doing anything.
+    const headCommit = (
+      await (
+        await fetch(`${this.wikiConfig.baseRestURL}/git/ref/heads/${branch}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/vnd.github+json",
+            ...(await this.getCredentials()),
+          },
+        })
+      ).json()
+    ).object.sha;
+
+    // Create a new tree without the page we want removed.
+    const { successTree, shaTree } = await fetch(
+      `${this.wikiConfig.baseRestURL}/git/trees`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/vnd.github+json",
+          ...(await this.getCredentials()),
+        },
+        body: JSON.stringify({
+          base_tree: branch,
+          tree: [
+            {
+              path: page,
+              mode: "040000",
+              type: "tree",
+              sha: null,
+            },
+          ],
+        }),
       },
+    ).then(async (response) => {
+      if (response.ok) {
+        return {
+          successTree: { success: true },
+          shaTree: (await response.json()).sha,
+        };
+      } else {
+        return {
+          successTree: { success: false, error: await response.text() },
+          shaTree: undefined,
+        };
+      }
     });
-    const sha =
-      headResponse.status >= 200 && headResponse.status < 300
-        ? headResponse.headers.get("ETag")!.slice(3, -1)
-        : undefined;
 
-    const success = await fetch(pageRestUrl, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/vnd.github+json",
-        ...(await this.getCredentials()),
+    if (!successTree.success) {
+      return successTree;
+    }
+
+    // Create a child commit to the HEAD commit, referencing the new tree.
+    const { successCommit, shaCommit } = await fetch(
+      `${this.wikiConfig.baseRestURL}/git/commits`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/vnd.github+json",
+          ...(await this.getCredentials()),
+        },
+        body: JSON.stringify({
+          tree: shaTree,
+          message: `Delete ${page}`,
+          parents: [headCommit],
+        }),
       },
-      body: JSON.stringify({
-        message: `Delete ${page}`,
-        sha: sha,
-      }),
-    }).then(async (response) => {
+    ).then(async (response) => {
+      if (response.ok) {
+        return {
+          successCommit: { success: true },
+          shaCommit: (await response.json()).sha,
+        };
+      } else {
+        return {
+          successCommit: { success: false, error: await response.text() },
+          shaCommit: undefined,
+        };
+      }
+    });
+
+    if (!successCommit.success) {
+      return successCommit;
+    }
+
+    // Finally, we update the branch ref to target the new commit.
+    // We don't use "force" to ensure fast-forward only.
+    return await fetch(
+      `${this.wikiConfig.baseRestURL}/git/refs/heads/${branch}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/vnd.github+json",
+          ...(await this.getCredentials()),
+        },
+        body: JSON.stringify({
+          sha: shaCommit,
+        }),
+      },
+    ).then(async (response) => {
       if (response.ok) {
         return { success: true };
       } else {
         return { success: false, error: await response.text() };
       }
     });
-
-    return success;
   }
 
   async move(): Promise<{ success: boolean; error?: string }> {
