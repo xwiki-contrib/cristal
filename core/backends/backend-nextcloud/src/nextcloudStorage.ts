@@ -262,7 +262,10 @@ export class NextcloudStorage extends AbstractStorage {
 
     // Create the root directory. We also need to create all intermediate directories.
     const rootURL = this.getRootUrl(username!);
-    await this.createIntermediateDirectories(rootURL, newDirectories);
+    await this.createIntermediateDirectories(
+      rootURL,
+      newDirectories.slice(0, newDirectories.length - 1),
+    );
 
     const body = new DefaultPageWriter().writePage({
       pageContent: content,
