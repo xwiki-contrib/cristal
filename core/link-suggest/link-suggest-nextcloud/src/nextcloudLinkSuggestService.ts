@@ -19,11 +19,14 @@
  */
 
 import { Link, LinkType } from "@xwiki/cristal-link-suggest-api";
+import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import xmlescape from "xml-escape";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
+import type { ModelReferenceSerializerProvider } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
 
 /**
  * @since 0.11
@@ -34,11 +37,15 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
     @inject("CristalApp") private readonly cristalApp: CristalApp,
     @inject("AuthenticationManagerProvider")
     private authenticationManagerProvider: AuthenticationManagerProvider,
+    @inject("RemoteURLParserProvider")
+    private readonly remoteURLParserProvider: RemoteURLParserProvider,
+    @inject("ModelReferenceSerializerProvider")
+    private readonly modelReferenceSerializerProvider: ModelReferenceSerializerProvider,
   ) {}
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
   // eslint-disable-next-line max-statements
-  async getLinks(query: string): Promise<Link[]> {
+  async getLinks(query: string, linkType?: LinkType): Promise<Link[]> {
     const username = (
       await this.authenticationManagerProvider.get()?.getUserDetails()
     )?.username;
@@ -111,12 +118,25 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
         if (!isAttachmentFolder) {
           const displayName =
             responseNode.querySelector("displayname")!.textContent!;
-          const reference = dHref.replace(/^.+\/\.cristal/, "");
+          // const reference = dHref.replace("/remote.php/dav", "");
+
           const url = `${this.cristalApp.getWikiConfig().baseURL}${dHref}`;
+          const parsed = this.remoteURLParserProvider.get()?.parse(url);
+          const reference = this.modelReferenceSerializerProvider
+            .get()
+            ?.serialize(parsed);
+
+          if (!reference) {
+            console.error(`Unable to resolve [${dHref}]`);
+            continue;
+          }
 
           if (isFolder) {
             // handle folder
-            if (!dHref.includes(attachmentsSegment)) {
+            if (
+              parsed?.type !== EntityType.ATTACHMENT &&
+              (linkType == undefined || linkType == LinkType.PAGE)
+            ) {
               // OK ADD as actual page
               links.push({
                 id: dHref,
@@ -129,7 +149,10 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
             }
           } else {
             // handle file
-            if (dHref.includes(attachmentsSegment)) {
+            if (
+              parsed?.type === EntityType.ATTACHMENT &&
+              (linkType == undefined || linkType == LinkType.ATTACHMENT)
+            ) {
               // ok ADD as actual attachment
               links.push({
                 id: dHref,
