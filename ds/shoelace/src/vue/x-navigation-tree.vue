@@ -96,6 +96,7 @@ async function expandTree() {
       props.includeTerminals,
     );
     if (props.showRootNode) {
+      // We add the root node to the list to keep the hierarchy accurate.
       nodesToExpand.unshift("");
     }
     if (items.value) {
@@ -127,6 +128,7 @@ function onSelectionChange(selection: SlTreeItem) {
 async function onDocumentDelete(page: DocumentReference) {
   const parents = treeSource.getParentNodesId(page, props.includeTerminals);
   if (props.showRootNode) {
+    // We add the root node to the list to keep the hierarchy accurate.
     parents.unshift("");
   }
 
@@ -148,6 +150,7 @@ async function onDocumentDelete(page: DocumentReference) {
 async function onDocumentUpdate(page: DocumentReference) {
   const parents = treeSource.getParentNodesId(page, props.includeTerminals);
   if (props.showRootNode) {
+    // We add the root node to the list to keep the hierarchy accurate.
     parents.unshift("");
   }
 

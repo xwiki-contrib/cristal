@@ -116,6 +116,7 @@ async function expandTree() {
     let i;
     let currentNodes = rootNodes.value;
     if (props.showRootNode) {
+      // We add the root node to the list to keep the hierarchy accurate.
       newExpandedNodes.unshift("");
     }
     for (i = 0; i < newExpandedNodes.length - 1; i++) {
@@ -193,6 +194,7 @@ async function onDocumentDelete(page: DocumentReference) {
   let notFound = false;
 
   if (props.showRootNode) {
+    // We add the root node to the list to keep the hierarchy accurate.
     parents.unshift("");
   }
 
@@ -227,6 +229,7 @@ async function onDocumentUpdate(page: DocumentReference) {
   let isRoot = true;
 
   if (props.showRootNode) {
+    // We add the root node to the list to keep the hierarchy accurate.
     parents.unshift("");
   }
 

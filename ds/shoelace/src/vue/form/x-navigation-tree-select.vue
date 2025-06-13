@@ -81,6 +81,8 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
       ),
     );
     hierarchy.value = await hierarchyResolver.getPageHierarchy(selectedPage);
+    // Since we use the hierarchy only to display the currently selected page,
+    // we do not want to include the homepage as well.
     hierarchy.value.shift();
   } else {
     selectedPage = undefined;
