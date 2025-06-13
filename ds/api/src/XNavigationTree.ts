@@ -45,7 +45,6 @@ type NavigationTreeProps = {
  */
 const navigationTreePropsDefaults = {
   includeTerminals: true,
-  showRootNode: false,
 };
 
 export type { NavigationTreeProps };
