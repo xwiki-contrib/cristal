@@ -24,7 +24,10 @@ import { EntityReference } from "@xwiki/cristal-model-api";
  * @since 0.12
  */
 interface RemoteURLSerializer {
-  serialize(reference?: EntityReference): string | undefined;
+  serialize(
+    reference?: EntityReference,
+    env?: { [key: string]: unknown },
+  ): string | undefined;
 }
 
 export { type RemoteURLSerializer };

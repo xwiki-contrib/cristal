@@ -28,6 +28,7 @@ import { PageActions } from "@xwiki/cristal-page-actions-ui";
 import { computed, inject, onUpdated, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { MarkdownRenderer } from "@xwiki/cristal-markdown-api";
 import type { ComputedRef, Ref } from "vue";
@@ -40,6 +41,12 @@ const cristal: CristalApp = inject<CristalApp>("cristal")!;
 const container = cristal.getContainer();
 const documentService = container.get<DocumentService>(documentServiceName);
 const markdownRenderer = container.get<MarkdownRenderer>("MarkdownRenderer");
+const authenticationManagerProvider =
+  container.get<AuthenticationManagerProvider>("AuthenticationManagerProvider");
+// TODO: replace with an asynchronous build env that is specific to a given backend
+// there is no need to resolve the user for most backends.
+const userDetails = await authenticationManagerProvider.get()?.getUserDetails();
+const username = userDetails?.username;
 
 const loading = documentService.isLoading();
 const error: Ref<Error | undefined> = documentService.getError();
@@ -59,7 +66,7 @@ const content: ComputedRef<string | undefined> = computed(() => {
     if (cpn.html && cpn.html.trim() !== "" && cpn.syntax != "markdown/1.2") {
       return cpn.html as string;
     } else if (cpn.source) {
-      return markdownRenderer.render(cpn.source);
+      return markdownRenderer.render(cpn.source, { username });
     } else {
       return "";
     }

@@ -59,7 +59,7 @@ export class DefaultMarkdownRenderer implements MarkdownRenderer {
     );
   }
 
-  render(markdown: string): string {
-    return this.md.render(markdown);
+  render(markdown: string, env?: { [key: string]: unknown }): string {
+    return this.md.render(markdown, env);
   }
 }
