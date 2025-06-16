@@ -112,13 +112,10 @@ async function expandTree() {
     const newExpandedNodes = treeSource.getParentNodesId(
       props.currentPageReference!,
       props.includeTerminals,
+      props.showRootNode,
     );
     let i;
     let currentNodes = rootNodes.value;
-    if (props.showRootNode) {
-      // We add the root node to the list to keep the hierarchy accurate.
-      newExpandedNodes.unshift("");
-    }
     for (i = 0; i < newExpandedNodes.length - 1; i++) {
       if (currentNodes) {
         for (const node of currentNodes) {
@@ -188,15 +185,14 @@ function clearSelection() {
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 async function onDocumentDelete(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
+  const parents = treeSource.getParentNodesId(
+    page,
+    props.includeTerminals,
+    props.showRootNode,
+  );
   let currentItem: TreeItem | undefined = undefined;
   let currentItemChildren: TreeItem[] | undefined = rootNodes.value;
   let notFound = false;
-
-  if (props.showRootNode) {
-    // We add the root node to the list to keep the hierarchy accurate.
-    parents.unshift("");
-  }
 
   currentItemsLoop: while (currentItemChildren && !notFound) {
     for (const i of currentItemChildren.keys()) {
@@ -222,16 +218,15 @@ async function onDocumentDelete(page: DocumentReference) {
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 async function onDocumentUpdate(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
+  const parents = treeSource.getParentNodesId(
+    page,
+    props.includeTerminals,
+    props.showRootNode,
+  );
   let currentParent: string | undefined = undefined;
   let currentItems: TreeItem[] | undefined = rootNodes.value;
   let notFound = false;
   let isRoot = true;
-
-  if (props.showRootNode) {
-    // We add the root node to the list to keep the hierarchy accurate.
-    parents.unshift("");
-  }
 
   currentItemsLoop: while (currentItems && !notFound) {
     for (const i of currentItems.keys()) {

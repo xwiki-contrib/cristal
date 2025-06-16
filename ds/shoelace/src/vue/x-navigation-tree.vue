@@ -94,11 +94,8 @@ async function expandTree() {
     const nodesToExpand = treeSource.getParentNodesId(
       props.currentPageReference!,
       props.includeTerminals,
+      props.showRootNode,
     );
-    if (props.showRootNode) {
-      // We add the root node to the list to keep the hierarchy accurate.
-      nodesToExpand.unshift("");
-    }
     if (items.value) {
       await Promise.all(
         items.value!.map(async (it) => it.expandTree(nodesToExpand)),
@@ -126,11 +123,11 @@ function onSelectionChange(selection: SlTreeItem) {
 }
 
 async function onDocumentDelete(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
-  if (props.showRootNode) {
-    // We add the root node to the list to keep the hierarchy accurate.
-    parents.unshift("");
-  }
+  const parents = treeSource.getParentNodesId(
+    page,
+    props.includeTerminals,
+    props.showRootNode,
+  );
 
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {
@@ -148,11 +145,11 @@ async function onDocumentDelete(page: DocumentReference) {
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 async function onDocumentUpdate(page: DocumentReference) {
-  const parents = treeSource.getParentNodesId(page, props.includeTerminals);
-  if (props.showRootNode) {
-    // We add the root node to the list to keep the hierarchy accurate.
-    parents.unshift("");
-  }
+  const parents = treeSource.getParentNodesId(
+    page,
+    props.includeTerminals,
+    props.showRootNode,
+  );
 
   for (const i of rootNodes.value.keys()) {
     if (rootNodes.value[i].id == parents[0]) {
