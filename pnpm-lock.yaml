@@ -3383,6 +3383,7 @@ importers:
 
   editors/blocknote-headless:
     dependencies:
+<<<<<<< HEAD
       '@blocknote/core':
         specifier: 0.31.3
         version: 0.31.3(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
@@ -3424,7 +3425,26 @@ importers:
         version: 11.14.0(@types/react@19.1.7)(react@19.1.0)
 =======
 >>>>>>> 517a0f4f (staging)
+<<<<<<< HEAD
 >>>>>>> b1dd9494 (staging)
+||||||| parent of 5cfd05ea (staging)
+=======
+||||||| parent of 2fbf31c2 (staging)
+      '@blocknote/core':
+        specifier: 0.31.1
+        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
+      '@blocknote/mantine':
+        specifier: 0.31.1
+        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(@types/react@19.1.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@blocknote/react':
+        specifier: 0.31.1
+        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@blocknote/xl-multi-column':
+        specifier: 0.31.1
+        version: 0.31.1(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@tiptap/pm@2.13.0)(@types/hast@3.0.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+=======
+>>>>>>> 2fbf31c2 (staging)
+>>>>>>> 5cfd05ea (staging)
       '@hocuspocus/provider':
         specifier: 2.15.2
         version: 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
