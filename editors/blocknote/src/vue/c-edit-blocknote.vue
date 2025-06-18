@@ -48,7 +48,6 @@ const { t } = useI18n({
 
 const cristal = inject<CristalApp>("cristal")!;
 const container = cristal.getContainer();
-const skinManager = cristal.getSkinManager();
 const documentService = container.get<DocumentService>(documentServiceName);
 const loading = documentService.isLoading();
 const error = documentService.getError();
@@ -242,7 +241,6 @@ const provider = shallowRef<HocuspocusProvider | null>(null);
                 :editor-props
                 :editor-content
                 :container
-                :skin-manager
                 :realtime-server-u-r-l
                 @instant-change="saveStatus = SaveStatus.UNSAVED"
                 @debounced-change="save"

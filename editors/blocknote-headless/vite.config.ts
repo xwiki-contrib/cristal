@@ -19,12 +19,21 @@
  */
 
 import { generateConfigVue } from "../../vite.config";
+// import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
 import react from "@vitejs/plugin-react";
-import { defineConfig, mergeConfig } from "vite";
+import { UserConfig, defineConfig, mergeConfig } from "vite";
 
-export default mergeConfig(
+const config: UserConfig = mergeConfig(
   generateConfigVue(import.meta.url),
   defineConfig({
-    plugins: [react()],
+    plugins: [
+      react(),
+      // vanillaExtractPlugin({
+      //   // Avoid clashing with Vue's own generated classes
+      //   identifiers: ({ hash }) => `vanilla_extract_${hash}`,
+      // }),
+    ],
   }),
 );
+
+export default config;
