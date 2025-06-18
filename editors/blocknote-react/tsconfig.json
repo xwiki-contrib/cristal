@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+
+    /* Bundler mode */
+    "jsx": "react-jsx",
+    "isolatedDeclarations": false,
+    "moduleResolution": "bundler",
+
+    /* Building */
+    "sourceMap": true,
+    "declarationMap": true,
+    "outDir": "dist/",
+    "rootDir": "src/"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

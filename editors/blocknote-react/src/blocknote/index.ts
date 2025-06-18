@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Heading4, Heading5, Heading6 } from "./blocks/Headings";
+import { Heading4, Heading5, Heading6 } from "./blocks/Headings.js";
 import {
   Block,
   BlockNoteEditor,
@@ -30,7 +30,6 @@ import {
   defaultBlockSpecs,
   filterSuggestionItems,
 } from "@blocknote/core";
-// @ts-expect-error can be removed once the moduleResolution for this module is moved to bundle
 import * as locales from "@blocknote/core/locales";
 import {
   DefaultReactSuggestionItem,

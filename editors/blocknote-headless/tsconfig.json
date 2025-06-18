@@ -5,7 +5,8 @@
     "lib": ["dom", "ESNext"],
     "isolatedDeclarations": false,
     "jsx": "preserve",
-    "types": ["@xwiki/cristal-dsapi"]
+    // "types": ["@xwiki/cristal-dsapi"],
+    "moduleResolution": "bundler"
   },
   "extends": "./../../tsconfig.json",
   "include": ["src"],

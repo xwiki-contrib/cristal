@@ -18,29 +18,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { LinkSuggestor, createLinkSuggestor } from "./linkSuggest";
+import { LinkEditionContext } from "@xwiki/cristal-editors-blocknote-react";
 import { Container } from "inversify";
 import type { LinkSuggestServiceProvider } from "@xwiki/cristal-link-suggest-api";
 import type {
-  ModelReferenceParser,
   ModelReferenceParserProvider,
-  ModelReferenceSerializer,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
 import type {
-  RemoteURLParser,
   RemoteURLParserProvider,
-  RemoteURLSerializer,
   RemoteURLSerializerProvider,
 } from "@xwiki/cristal-model-remote-url-api";
-
-export type LinkEditionContext = {
-  suggestLink: LinkSuggestor;
-  modelReferenceParser: ModelReferenceParser;
-  modelReferenceSerializer: ModelReferenceSerializer;
-  remoteURLParser: RemoteURLParser;
-  remoteURLSerializer: RemoteURLSerializer;
-};
 
 export function createLinkEditionContext(
   container: Container,
@@ -66,7 +54,7 @@ export function createLinkEditionContext(
     .get()!;
 
   return {
-    suggestLink: createLinkSuggestor(linkSuggestService, modelReferenceParser),
+    linkSuggestService,
     modelReferenceParser,
     modelReferenceSerializer,
     remoteURLParser,

@@ -24,7 +24,7 @@ import {
   EditorLink,
   EditorStyleSchema,
   EditorStyledText,
-} from ".";
+} from "@xwiki/cristal-editors-blocknote-react";
 import { TableCell } from "@blocknote/core";
 import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import {

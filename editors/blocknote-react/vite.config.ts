@@ -18,9 +18,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { generateConfigVue } from "../../vite.config";
-import { UserConfig } from "vite";
+import { generateConfig } from "../../vite.config";
+import { defineConfig } from "vite";
+import { mergeConfig } from "vitest/config";
 
-const config: UserConfig = generateConfigVue(import.meta.url);
-
-export default config;
+export default mergeConfig(
+  generateConfig(import.meta.url),
+  defineConfig({
+    build: {
+      lib: {
+        entry: "src/index.tsx",
+      },
+    },
+  }),
+);

@@ -3,7 +3,7 @@ import {
   EditorInlineContentSchema,
   EditorStyleSchema,
   EditorType,
-} from "../blocknote";
+} from "./blocknote/index.js";
 import { useBlockNoteEditor } from "@blocknote/react";
 
 export function useEditor(): EditorType {

@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { BlockType } from "../../blocknote";
-import { useEditor } from "../hooks";
+import { BlockType } from "../blocknote/index.js";
+import { useEditor } from "../hooks.js";
 import {
   AddCommentButton,
   AddTiptapCommentButton,
