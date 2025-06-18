@@ -1,7 +1,8 @@
 import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
-} from "./components/BlockNoteViewWrapper";
+  LinkEditionContext,
+} from "./components/BlockNoteViewWrapper.jsx";
 import { createRoot } from "react-dom/client";
 
 export function mountBlockNote(
@@ -25,3 +26,7 @@ export function mountBlockNote(
     },
   };
 }
+
+export type { BlockNoteViewWrapperProps, LinkEditionContext };
+
+export * from "./blocknote";

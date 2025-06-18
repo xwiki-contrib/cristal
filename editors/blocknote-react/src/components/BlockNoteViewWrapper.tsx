@@ -18,9 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { CustomFilePanel } from "./CustomFilePanel";
-import { CustomFormattingToolbar } from "./CustomFormattingToolbar";
-import { LinkToolbar } from "./links/LinkToolbar";
+import { CustomFilePanel } from "./CustomFilePanel.jsx";
+import { CustomFormattingToolbar } from "./CustomFormattingToolbar.jsx";
+import { LinkToolbar } from "./links/LinkToolbar.jsx";
 import {
   BlockType,
   EditorBlockSchema,
@@ -31,8 +31,7 @@ import {
   createBlockNoteSchema,
   createDictionary,
   querySuggestionsMenuItems,
-} from "../../blocknote";
-import { LinkEditionContext } from "../../components/linkEditionContext";
+} from "../blocknote/index.js";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
@@ -51,8 +50,16 @@ import {
   // eslint-disable-next-line import/named
   HocuspocusProviderConfiguration,
 } from "@hocuspocus/provider";
+import { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
 import { useEffect, useState } from "react";
-import { ShallowRef } from "vue";
+import type {
+  ModelReferenceParser,
+  ModelReferenceSerializer,
+} from "@xwiki/cristal-model-reference-api";
+import type {
+  RemoteURLParser,
+  RemoteURLSerializer,
+} from "@xwiki/cristal-model-remote-url-api";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -110,9 +117,17 @@ type BlockNoteViewWrapperProps = {
    * Make the wrapper forward some data through references
    */
   refs?: {
-    editorRef?: ShallowRef<EditorType | null>;
-    providerRef?: ShallowRef<HocuspocusProvider | null>;
+    setEditor?: (editor: EditorType) => void;
+    setProvider?: (provider: HocuspocusProvider) => void;
   };
+};
+
+type LinkEditionContext = {
+  linkSuggestService: LinkSuggestService;
+  modelReferenceParser: ModelReferenceParser;
+  modelReferenceSerializer: ModelReferenceSerializer;
+  remoteURLParser: RemoteURLParser;
+  remoteURLSerializer: RemoteURLSerializer;
 };
 
 /**
@@ -126,7 +141,7 @@ function BlockNoteViewWrapper({
   realtime,
   onChange,
   pendingSyncMessage,
-  refs: { editorRef, providerRef } = {},
+  refs: { setEditor, setProvider } = {},
 }: BlockNoteViewWrapperProps) {
   const schema = createBlockNoteSchema();
 
@@ -134,9 +149,11 @@ function BlockNoteViewWrapper({
     ? new HocuspocusProvider(realtime.hocusPocus)
     : undefined;
 
-  if (providerRef && provider) {
-    providerRef.value = provider;
-  }
+  useEffect(() => {
+    if (provider) {
+      setProvider?.(provider);
+    }
+  }, [provider, setProvider]);
 
   // Prevent changes in the editor until the provider has synced with other clients
   const [ready, setReady] = useState(!provider);
@@ -163,9 +180,9 @@ function BlockNoteViewWrapper({
     },
   });
 
-  if (editorRef) {
-    editorRef.value = editor;
-  }
+  useEffect(() => {
+    setEditor?.(editor);
+  }, [setEditor, editor]);
 
   // When realtime is activated, the first user to join the session sets the content for everybody.
   // The rest of the participants will just retrieve the editor content from the realtime server.
@@ -228,7 +245,7 @@ function BlockNoteViewWrapper({
 
       replaceContent(content);
     }
-  }, [provider]);
+  }, [provider, setProvider]);
 
   // Disconnect from the realtime provider when the component is unmounted
   // Otherwise, our user profile may be left over and still be displayed to other users
@@ -278,5 +295,5 @@ function BlockNoteViewWrapper({
   );
 }
 
-export type { BlockNoteViewWrapperProps, EditorSchema };
+export type { BlockNoteViewWrapperProps, EditorSchema, LinkEditionContext };
 export { BlockNoteViewWrapper };

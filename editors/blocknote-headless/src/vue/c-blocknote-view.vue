@@ -18,26 +18,28 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import { EditorType } from "../blocknote";
-import { BlockNoteToUniAstConverter } from "../blocknote/bn-to-uniast";
-import { UniAstToBlockNoteConverter } from "../blocknote/uniast-to-bn";
 import { computeCurrentUser } from "../components/currentUser";
 import { createLinkEditionContext } from "../components/linkEditionContext";
-import { BlockNoteViewWrapperProps } from "../react/components/BlockNoteViewWrapper";
-import { mountBlockNote } from "../react/mount";
 import messages from "../translations";
+import { BlockNoteToUniAstConverter } from "../uniast/bn-to-uniast";
+import { UniAstToBlockNoteConverter } from "../uniast/uniast-to-bn";
 import { HocuspocusProvider } from "@hocuspocus/provider";
 import {
   DocumentService,
   name as documentServiceName,
 } from "@xwiki/cristal-document-api";
+import {
+  BlockNoteViewWrapperProps,
+  EditorType,
+  mountBlockNote,
+} from "@xwiki/cristal-editors-blocknote-react";
 import { UniAst, createConverterContext } from "@xwiki/cristal-uniast";
 import { Container } from "inversify";
 
 import { debounce } from "lodash-es";
 import { onBeforeUnmount, onMounted, ref, shallowRef, useId, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api/dist";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 const {
   editorProps,
@@ -146,8 +148,12 @@ const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
   linkEditionCtx: createLinkEditionContext(container),
   realtime: await getRealtimeOptions(),
   refs: {
-    editorRef,
-    providerRef,
+    setEditor(editor) {
+      editorRef.value = editor;
+    },
+    setProvider(provider) {
+      providerRef.value = provider;
+    },
   },
 };
 
