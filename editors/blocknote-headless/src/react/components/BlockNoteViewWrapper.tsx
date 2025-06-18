@@ -18,7 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultFormattingToolbar } from "./DefaultFormattingToolbar";
+import { CustomFilePanel } from "./CustomFilePanel";
+import { CustomFormattingToolbar } from "./CustomFormattingToolbar";
+import { LinkToolbar } from "./links/LinkToolbar";
 import {
   BlockType,
   EditorBlockSchema,
@@ -29,18 +31,16 @@ import {
   createBlockNoteSchema,
   createDictionary,
   querySuggestionsMenuItems,
-} from "../blocknote";
+} from "../../blocknote";
+import { LinkEditionContext } from "../../components/linkEditionContext";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import {
   FilePanelController,
-  FilePanelProps,
-  FormattingToolbar,
   FormattingToolbarController,
   LinkToolbarController,
-  LinkToolbarProps,
   SuggestionMenuController,
   useCreateBlockNote,
 } from "@blocknote/react";
@@ -51,7 +51,6 @@ import {
   // eslint-disable-next-line import/named
   HocuspocusProviderConfiguration,
 } from "@hocuspocus/provider";
-import { ReactivueChild } from "@xwiki/cristal-reactivue";
 import { useEffect, useState } from "react";
 import { ShallowRef } from "vue";
 
@@ -103,38 +102,9 @@ type BlockNoteViewWrapperProps = {
   pendingSyncMessage: string;
 
   /**
-   * Prepend the default formatting toolbar for the provided block types
-   * For all these blocks, the custom-provided `formattingToolbar` will be *appended* to the default toolbar instead of replacing it
+   * Link edition utilities
    */
-  prefixDefaultFormattingToolbarFor: Array<BlockType["type"]>;
-
-  /**
-   * Replace BlockNote's default formatting toolbar with a custom one
-   * Can be used together with `prefixDefaultFormattingToolbarFor` to make this one be _appended_ to the default one
-   */
-  formattingToolbar: ReactivueChild<{
-    editor: EditorType;
-    currentBlock: BlockType;
-  }>;
-
-  /**
-   * Replace BlockNote's link toolbar with a custom one
-   */
-  linkToolbar: ReactivueChild<{
-    editor: EditorType;
-    linkToolbarProps: LinkToolbarProps;
-  }>;
-
-  /**
-   * Replace BlockNote's file/image panel with a custom one
-   */
-  filePanel: ReactivueChild<{
-    editor: EditorType;
-    filePanelProps: FilePanelProps<
-      EditorInlineContentSchema,
-      EditorStyleSchema
-    >;
-  }>;
+  linkEditionCtx: LinkEditionContext;
 
   /**
    * Make the wrapper forward some data through references
@@ -156,10 +126,6 @@ function BlockNoteViewWrapper({
   realtime,
   onChange,
   pendingSyncMessage,
-  formattingToolbar: CustomFormattingToolbar,
-  prefixDefaultFormattingToolbarFor,
-  linkToolbar: CustomLinkToolbar,
-  filePanel: CustomFilePanel,
   refs: { editorRef, providerRef } = {},
 }: BlockNoteViewWrapperProps) {
   const schema = createBlockNoteSchema();
@@ -302,42 +268,12 @@ function BlockNoteViewWrapper({
       />
 
       <FormattingToolbarController
-        formattingToolbar={() => {
-          const currentBlock = editor.getTextCursorPosition().block;
-
-          return (
-            <FormattingToolbar>
-              {
-                // Prepend the default formatting toolbar for blocks that require it
-                prefixDefaultFormattingToolbarFor.includes(
-                  currentBlock.type,
-                ) && (
-                  <DefaultFormattingToolbar
-                    disableButtons={{ createLink: true }}
-                  />
-                )
-              }
-
-              <CustomFormattingToolbar
-                editor={editor}
-                currentBlock={currentBlock}
-              />
-            </FormattingToolbar>
-          );
-        }}
+        formattingToolbar={CustomFormattingToolbar}
       />
 
-      <LinkToolbarController
-        linkToolbar={(props) => (
-          <CustomLinkToolbar editor={editor} linkToolbarProps={props} />
-        )}
-      />
+      <LinkToolbarController linkToolbar={LinkToolbar} />
 
-      <FilePanelController
-        filePanel={(props) => (
-          <CustomFilePanel editor={editor} filePanelProps={props} />
-        )}
-      />
+      <FilePanelController filePanel={CustomFilePanel} />
     </BlockNoteView>
   );
 }
