@@ -20,19 +20,11 @@
 
 import { LinkEditionContext } from "../components/links/LinkEditor";
 import { EntityType } from "@xwiki/cristal-model-api";
-import type { Link } from "@xwiki/cristal-link-suggest-api";
+import type { Link, LinkType } from "@xwiki/cristal-link-suggest-api";
 import type {
   AttachmentReference,
   DocumentReference,
 } from "@xwiki/cristal-model-api";
-
-/**
- * @since 0.16
- */
-enum LinkType {
-  PAGE,
-  ATTACHMENT,
-}
 
 /**
  * Describe a link suggestion action (i.e., a search result entry).
