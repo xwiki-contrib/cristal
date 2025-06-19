@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { CustomCreateLinkButton } from "./CustomCreateLinkButton.js";
 import { BlockType } from "../blocknote/index.js";
 import { useEditor } from "../hooks.js";
 import {
@@ -98,7 +99,7 @@ const getDefaultFormattingToolbarItems = (
   <ColorStyleButton key={"colorStyleButton"} />,
   <NestBlockButton key={"nestBlockButton"} />,
   <UnnestBlockButton key={"unnestBlockButton"} />,
-  // <CreateLinkButton key={"createLinkButton"} />, // TODO: reput
+  <CustomCreateLinkButton key={"createLinkButton"} />,
   <AddCommentButton key={"addCommentButton"} />,
   <AddTiptapCommentButton key={"addTiptapCommentButton"} />,
 ];

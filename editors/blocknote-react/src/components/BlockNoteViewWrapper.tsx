@@ -20,6 +20,7 @@
 
 import { CustomFilePanel } from "./CustomFilePanel.jsx";
 import { CustomFormattingToolbar } from "./CustomFormattingToolbar.jsx";
+import { LinkEditionContext } from "./links/LinkEditor.js";
 import { LinkToolbar } from "./links/LinkToolbar.jsx";
 import {
   BlockType,
@@ -50,16 +51,7 @@ import {
   // eslint-disable-next-line import/named
   HocuspocusProviderConfiguration,
 } from "@hocuspocus/provider";
-import { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
 import { useEffect, useState } from "react";
-import type {
-  ModelReferenceParser,
-  ModelReferenceSerializer,
-} from "@xwiki/cristal-model-reference-api";
-import type {
-  RemoteURLParser,
-  RemoteURLSerializer,
-} from "@xwiki/cristal-model-remote-url-api";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -120,14 +112,6 @@ type BlockNoteViewWrapperProps = {
     setEditor?: (editor: EditorType) => void;
     setProvider?: (provider: HocuspocusProvider) => void;
   };
-};
-
-type LinkEditionContext = {
-  linkSuggestService: LinkSuggestService;
-  modelReferenceParser: ModelReferenceParser;
-  modelReferenceSerializer: ModelReferenceSerializer;
-  remoteURLParser: RemoteURLParser;
-  remoteURLSerializer: RemoteURLSerializer;
 };
 
 /**
@@ -295,5 +279,5 @@ function BlockNoteViewWrapper({
   );
 }
 
-export type { BlockNoteViewWrapperProps, EditorSchema, LinkEditionContext };
+export type { BlockNoteViewWrapperProps, EditorSchema };
 export { BlockNoteViewWrapper };

@@ -1,8 +1,8 @@
 import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
-  LinkEditionContext,
 } from "./components/BlockNoteViewWrapper.jsx";
+import { LinkEditionContext } from "./components/links/LinkEditor.js";
 import { createRoot } from "react-dom/client";
 
 export function mountBlockNote(
