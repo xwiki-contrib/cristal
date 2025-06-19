@@ -285,9 +285,7 @@ export class UniAstToBlockNoteConverter {
         url,
         caption: image.caption ?? "",
         showPreview: true,
-        // NOTE: 512 is the default width applied by BlockNote when inserting images in the editor
-        //       or when converting from Markdown / HTML
-        previewWidth: image.widthPx ?? 512,
+        previewWidth: image.widthPx ?? (undefined as unknown as number),
         backgroundColor: "default",
         textAlignment: image.styles.alignment ?? "left",
         name: image.alt ?? "",
