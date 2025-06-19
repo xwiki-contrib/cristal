@@ -48,7 +48,6 @@ export const CustomLinkToolbar: React.FC<CustomLinkToolbarProps> = ({
               ),
               title: linkToolbarProps.text,
             }}
-            hideTitle
             updateLink={({ url, title }) =>
               linkToolbarProps.editLink(url, title)
             }
