@@ -88,7 +88,7 @@ class DocumentReference implements BaseEntityReference {
 class AttachmentReference implements BaseEntityReference {
   type: EntityType.ATTACHMENT = EntityType.ATTACHMENT;
   name: string;
-  document: DocumentReference;
+  document?: DocumentReference;
 
   constructor(name: string, document: DocumentReference) {
     this.name = name;

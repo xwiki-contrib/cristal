@@ -20,10 +20,7 @@
 
 import { EntityType } from "@xwiki/cristal-model-api";
 import type { Link, LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
-import type {
-  AttachmentReference,
-  DocumentReference,
-} from "@xwiki/cristal-model-api";
+import type { DocumentReference } from "@xwiki/cristal-model-api";
 import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 
 /**
@@ -96,13 +93,13 @@ function createLinkSuggestor(
 
         const documentReference =
           entityReference?.type == EntityType.ATTACHMENT
-            ? (entityReference as AttachmentReference).document
+            ? entityReference.document
             : (entityReference as DocumentReference);
 
-        const segments = documentReference.space?.names.slice(0) ?? [];
+        const segments = documentReference?.space?.names.slice(0) ?? [];
 
         // TODO: replace with an actual construction of segments from a reference
-        if (documentReference.terminal) {
+        if (documentReference?.terminal) {
           segments.push(documentReference.name);
         }
 

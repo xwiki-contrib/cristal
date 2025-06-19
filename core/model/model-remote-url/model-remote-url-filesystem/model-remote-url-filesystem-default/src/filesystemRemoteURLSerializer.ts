@@ -18,12 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import {
-  AttachmentReference,
-  DocumentReference,
-  EntityReference,
-  EntityType,
-} from "@xwiki/cristal-model-api";
+import { EntityReference, EntityType } from "@xwiki/cristal-model-api";
 import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import { protocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import { injectable } from "inversify";
@@ -40,19 +35,19 @@ class FileSystemRemoteURLSerializer implements RemoteURLSerializer {
       case EntityType.SPACE:
         throw new Error("Not implemented");
       case EntityType.DOCUMENT: {
-        const documentReference = reference as DocumentReference;
+        const documentReference = reference;
         const spaces = documentReference.space?.names
           .map(encodeURIComponent)
           .join("/");
         return `${protocol}://${spaces}/${encodeURIComponent(documentReference.name)}`;
       }
       case EntityType.ATTACHMENT: {
-        const attachmentReference = reference as AttachmentReference;
+        const attachmentReference = reference;
         const documentReference = attachmentReference.document;
-        const spaces = documentReference.space?.names
+        const spaces = documentReference!.space?.names
           .map(encodeURIComponent)
           .join("/");
-        return `${protocol}://${spaces}/${encodeURIComponent(documentReference.name)}/attachments/${encodeURIComponent(attachmentReference.name)}`;
+        return `${protocol}://${spaces}/${encodeURIComponent(documentReference!.name)}/attachments/${encodeURIComponent(attachmentReference.name)}`;
       }
     }
   }
