@@ -19,8 +19,12 @@
  */
 import "reflect-metadata";
 import CContent from "../c-content.vue";
-import { config, mount } from "@vue/test-utils";
+import { config, flushPromises, mount } from "@vue/test-utils";
 import { PageData } from "@xwiki/cristal-api";
+import {
+  AuthenticationManager,
+  AuthenticationManagerProvider,
+} from "@xwiki/cristal-authentication-api";
 import {
   makeInjectable,
   mockI18n,
@@ -37,12 +41,13 @@ import { ClickListener } from "@xwiki/cristal-model-click-listener";
 import { Container } from "inversify";
 import { DeepPartial } from "ts-essentials";
 import { beforeAll, describe, expect, it, vi } from "vitest";
+import { mock } from "vitest-mock-extended";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
-function mountCComponent(params: {
+async function mountCComponent(params: {
   isLoading?: boolean;
   error?: string;
   currentDocument?: PageData;
@@ -127,7 +132,20 @@ function mountCComponent(params: {
     .bind<MarkdownRenderer>("MarkdownRenderer")
     .to(makeInjectable(vi.fn().mockImplementation(() => MockMarkdownRenderer)));
 
-  return mount(wrapInSuspense(CContent, {}), {
+  class MockAuthenticationManagerProvider
+    implements DeepPartial<AuthenticationManagerProvider>
+  {
+    get(): AuthenticationManager | undefined {
+      return mock<AuthenticationManager>();
+    }
+  }
+
+  const type = makeInjectable(MockAuthenticationManagerProvider);
+  container
+    .bind<AuthenticationManagerProvider>("AuthenticationManagerProvider")
+    .to(type);
+
+  const vueWrapper = mount(wrapInSuspense(CContent, {}), {
     provide: {
       cristal: {
         getContainer() {
@@ -151,6 +169,9 @@ function mountCComponent(params: {
       },
     },
   });
+  // Wait for all the asynchronous operations to be terminated before starting to assert the rendered content.
+  await flushPromises();
+  return vueWrapper;
 }
 
 describe("c-context", () => {
@@ -166,8 +187,8 @@ describe("c-context", () => {
     config.global.renderStubDefaultSlot = true;
   });
 
-  it("display a message on missing page", () => {
-    const component = mountCComponent({});
+  it("display a message on missing page", async () => {
+    const component = await mountCComponent({});
 
     expect(component.find(".doc-content.unknown-page").text()).eq(
       "The requested page could not be found. You can edit the page to create it.",
@@ -178,21 +199,21 @@ describe("c-context", () => {
     ).eq(true);
   });
 
-  it("display a loading message", () => {
-    const component = mountCComponent({ isLoading: true });
+  it("display a loading message", async () => {
+    const component = await mountCComponent({ isLoading: true });
     expect(component.find("h3").text()).eq("article.loading");
   });
 
-  it("display an error message", () => {
+  it("display an error message", async () => {
     const errorMessage = "ErrorMessage";
-    const component = mountCComponent({ error: errorMessage });
+    const component = await mountCComponent({ error: errorMessage });
     expect(component.find(".content-error").text()).eq(
       `Error: ${errorMessage}`,
     );
   });
 
-  it("display page with empty content", () => {
-    const component = mountCComponent({
+  it("display page with empty content", async () => {
+    const component = await mountCComponent({
       currentDocument: new (vi.fn().mockImplementation(() => {
         return {};
       }))(),
@@ -201,8 +222,8 @@ describe("c-context", () => {
     expect(component.find(".doc-info-extra").exists()).eq(true);
   });
 
-  it("display page with html content", () => {
-    const component = mountCComponent({
+  it("display page with html content", async () => {
+    const component = await mountCComponent({
       currentDocument: new (vi.fn().mockImplementation(() => {
         return {
           html: "<strong>content</strong>",

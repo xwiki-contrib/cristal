@@ -266,17 +266,17 @@ async function savePage(
   if (!(await isWithin(homePathFull, path))) {
     throw new Error(`[${path}] is not in in [${homePathFull}]`);
   }
-  let page: { [key: string]: unknown };
+  let page: { content: string; [key: string]: unknown };
   if ((await pathExists(path)) && (await isFile(path))) {
     const fileContent = await fs.promises.readFile(path);
     const textDecoder = new TextDecoder("utf-8");
     page = new DefaultPageReader().readPage(textDecoder.decode(fileContent));
-    page.pageContent = content;
+    page.content = content;
     page.name = title;
   } else {
     page = {
       name: title,
-      pageContent: content,
+      content: content,
     };
   }
 

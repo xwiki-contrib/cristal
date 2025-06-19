@@ -18,13 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Link, LinkType } from "@xwiki/cristal-link-suggest-api";
+import {
+  Link,
+  LinkSuggestService,
+  LinkType,
+} from "@xwiki/cristal-link-suggest-api";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import xmlescape from "xml-escape";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
-import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
 import type { ModelReferenceSerializerProvider } from "@xwiki/cristal-model-reference-api";
 import type { RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
 
@@ -100,7 +103,6 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
 </d:searchrequest>`,
     };
 
-    const attachmentsSegment = "/attachments/";
     try {
       const response = await fetch(config.baseRestURL, options);
       const txt = await response.text();
@@ -112,57 +114,35 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
       for (let i = 0; i < responseNodes.length; i++) {
         const responseNode = responseNodes.item(i)!;
         const dHref = responseNode.querySelector("href")!.textContent!;
-        const isAttachmentFolder = dHref.endsWith(attachmentsSegment);
-        const isFolder: boolean =
-          responseNode.querySelector("getcontenttype")!.textContent == "";
-        if (!isAttachmentFolder) {
-          const displayName =
-            responseNode.querySelector("displayname")!.textContent!;
-          // const reference = dHref.replace("/remote.php/dav", "");
 
-          const url = `${this.cristalApp.getWikiConfig().baseURL}${dHref}`;
-          const parsed = this.remoteURLParserProvider.get()?.parse(url);
-          const reference = this.modelReferenceSerializerProvider
-            .get()
-            ?.serialize(parsed);
+        const url = `${this.cristalApp.getWikiConfig().baseURL}${dHref}`;
+        const parsed = this.remoteURLParserProvider.get()?.parse(url);
+        const reference = this.modelReferenceSerializerProvider
+          .get()
+          ?.serialize(parsed);
 
-          if (!reference) {
-            console.error(`Unable to resolve [${dHref}]`);
-            continue;
-          }
+        if (!reference) {
+          console.error(`Unable to resolve [${dHref}]`);
+          continue;
+        }
 
-          if (isFolder) {
-            // handle folder
-            if (
-              parsed?.type !== EntityType.ATTACHMENT &&
-              (linkType == undefined || linkType == LinkType.PAGE)
-            ) {
-              // OK ADD as actual page
-              links.push({
-                id: dHref,
-                url,
-                reference,
-                label: displayName,
-                hint: displayName,
-                type: LinkType.PAGE,
-              });
-            }
-          } else {
-            // handle file
-            if (
-              parsed?.type === EntityType.ATTACHMENT &&
-              (linkType == undefined || linkType == LinkType.ATTACHMENT)
-            ) {
-              // ok ADD as actual attachment
-              links.push({
-                id: dHref,
-                url,
-                reference,
-                label: displayName,
-                hint: displayName,
-                type: LinkType.ATTACHMENT,
-              });
-            }
+        if (
+          parsed?.type === EntityType.DOCUMENT ||
+          parsed?.type === EntityType.ATTACHMENT
+        ) {
+          const type =
+            parsed?.type === EntityType.DOCUMENT
+              ? LinkType.PAGE
+              : LinkType.ATTACHMENT;
+          if (type == linkType || linkType == undefined) {
+            links.push({
+              id: dHref,
+              url,
+              reference,
+              label: parsed.name,
+              hint: parsed.name,
+              type,
+            });
           }
         }
       }

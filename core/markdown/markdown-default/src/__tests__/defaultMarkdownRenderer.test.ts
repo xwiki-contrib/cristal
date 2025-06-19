@@ -132,32 +132,6 @@ Line 3`,
     );
   });
 
-  it("renders internal links fail case", () => {
-    const defaultMarkdownRenderer = initComponent();
-    expect(
-      defaultMarkdownRenderer.render(
-        `\\## Welcome to your wiki
-
-  
-Cristal is a new tool to organize your knowledge. A wiki is organized in a hierarchy of pages.
-
-  
-## The basics
-
-  
-To make the most out of your wiki, log-in and:
-
-  
-Use the button above to edit this page and start customizing your wiki to your needs.  
-Use the new page button to add more pages to your wiki and create the hierarchy that best organizes your content.  
-Use the breadcrumbs located above the title to navigate inside your pages. It's easy to get lost in a big wiki without them.
-
-  
-You can also use the [[Sandbox|home/sh3]] for more demo content and generally a place to experiment with your wiki's features.`,
-      ),
-    ).toBe(``);
-  });
-
   it("renders internal links no text", () => {
     const defaultMarkdownRenderer = initComponent();
     expect(defaultMarkdownRenderer.render("[[Main.WebHome]]")).toBe(

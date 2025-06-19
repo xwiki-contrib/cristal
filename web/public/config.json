@@ -135,12 +135,13 @@
     "configType": "GitHub",
     "serverRendering": false,
     "offline": false,
-    "baseURL": "https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH",
-    "baseRestURL": "https://api.github.com/repos/USERNAME/REPOSITORY",
+    "baseURL": "https://raw.githubusercontent.com/manuelleduc/cristaledittest/main",
+    "baseRestURL": "https://api.github.com/repos/manuelleduc/cristaledittest",
     "homePage": "home",
     "designSystem": "vuetify",
     "realtimeURL": "http://localhost:15681/collaboration",
-    "authenticationBaseURL": "http://localhost:15682/github"
+    "authenticationBaseURL": "http://localhost:15682/github",
+    "editor": "blocknote"
   },
   "GitHubSL": {
     "name": "GitHubSL",
@@ -180,6 +181,7 @@
     "homePage": "home",
     "realtimeURL": "http://localhost:15681/collaboration",
     "authenticationManager": "Nextcloud/basic",
-    "storageRoot": "/files/${username}/.cristal"
+    "storageRoot": "/files/${username}/.cristal",
+    "editor": "blocknote"
   }
 }

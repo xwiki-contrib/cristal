@@ -21,14 +21,14 @@ import { PageWriter } from "@xwiki/cristal-page-api";
 import { stringify } from "yaml";
 
 class DefaultPageWriter implements PageWriter {
-  writePage(page: { [key: string]: unknown }): string {
-    const { pageContent, ...metadata } = page;
+  writePage(page: { content: string; [key: string]: unknown }): string {
+    const { content, ...metadata } = page;
     if (metadata && Object.keys(metadata).length > 0) {
       return `---
 ${stringify(metadata)}---
-${pageContent ?? ""}`;
+${content ?? ""}`;
     } else {
-      return (pageContent ?? "") as string;
+      return (content ?? "") as string;
     }
   }
 }

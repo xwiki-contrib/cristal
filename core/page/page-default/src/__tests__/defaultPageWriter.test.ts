@@ -23,13 +23,13 @@ import { describe, expect, it } from "vitest";
 describe("defaultPageWriter", () => {
   it("writeEmptyObject", () => {
     const defaultPageWriter = new DefaultPageWriter();
-    const page = defaultPageWriter.writePage({});
+    const page = defaultPageWriter.writePage({ content: "" });
     expect(page).toBe("");
   });
 
   it("writeObjectNoPageContent", () => {
     const defaultPageWriter = new DefaultPageWriter();
-    const page = defaultPageWriter.writePage({ key: "value" });
+    const page = defaultPageWriter.writePage({ key: "value", content: "" });
     expect(page).toBe(`---
 key: value
 ---
@@ -38,13 +38,13 @@ key: value
 
   it("writeObjectOnlyContent", () => {
     const defaultPageWriter = new DefaultPageWriter();
-    const page = defaultPageWriter.writePage({ pageContent: "value" });
+    const page = defaultPageWriter.writePage({ content: "value" });
     expect(page).toBe("value");
   });
 
   it("writePageWithMetadata", () => {
     const defaultPageWriter = new DefaultPageWriter();
-    const page = defaultPageWriter.writePage({ pageContent: "value", a: 42 });
+    const page = defaultPageWriter.writePage({ content: "value", a: 42 });
     expect(page).toBe(`---
 a: 42
 ---

@@ -21,7 +21,7 @@ import { PageReader } from "@xwiki/cristal-page-api";
 import { parse } from "yaml";
 
 class DefaultPageReader implements PageReader {
-  readPage(pageContent: string): { [key: string]: unknown } {
+  readPage(pageContent: string): { content: string; [key: string]: unknown } {
     const lines = pageContent.split("\n");
     if (lines[0] == "---") {
       // Remove the first element

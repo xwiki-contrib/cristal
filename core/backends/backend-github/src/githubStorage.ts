@@ -25,14 +25,15 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
-import { EntityType } from "@xwiki/cristal-model-api";
+import {
+  DefaultPageReader,
+  DefaultPageWriter,
+} from "@xwiki/cristal-page-default";
 import { inject, injectable } from "inversify";
 import mime from "mime";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
 import type { Logger } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
-import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
-import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 
 @injectable()
 export class GitHubStorage extends AbstractStorage {
@@ -44,10 +45,6 @@ export class GitHubStorage extends AbstractStorage {
     private readonly authenticationManagerProvider: AuthenticationManagerProvider,
     @inject("AlertsServiceProvider")
     private readonly alertsServiceProvider: AlertsServiceProvider,
-    @inject("ModelReferenceParserProvider")
-    private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
-    @inject("RemoteURLSerializerProvider")
-    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
   ) {
     super(logger, "storage.components.githubStorage");
   }
@@ -59,6 +56,16 @@ export class GitHubStorage extends AbstractStorage {
   getPageRestURL(page: string, _syntax: string, revision?: string): string {
     this.logger?.debug("GitHub Loading page", page);
     let baseRestURL = `${this.wikiConfig.baseRestURL}/contents/${page}`;
+    if (revision) {
+      baseRestURL = `${baseRestURL}?ref=${revision}`;
+    }
+    return baseRestURL;
+  }
+
+  private getPageRestMetaURL(page: string, _syntax: string, revision?: string) {
+    const split = page.split("/");
+    split[split.length - 1] = `.${split[split.length - 1]}`;
+    let baseRestURL = `${this.wikiConfig.baseRestURL}/contents/${split.join("/")}`;
     if (revision) {
       baseRestURL = `${baseRestURL}?ref=${revision}`;
     }
@@ -101,11 +108,7 @@ export class GitHubStorage extends AbstractStorage {
   ): Promise<PageData | undefined> {
     this.logger?.debug("GitHub Loading page", page);
 
-    const url = this.getPageRestURL(
-      this.pageToRemoteURL(page),
-      syntax,
-      revision,
-    );
+    const url = this.getPageRestURL(`${page}.md`, syntax, revision);
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -115,13 +118,17 @@ export class GitHubStorage extends AbstractStorage {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      const json = await response.json();
+      const { content, ...json } = new DefaultPageReader().readPage(
+        await response.text(),
+      );
       const { date, name, username } = await this.getLastEditDetails(
         page,
         revision,
       );
 
       return Object.assign(new DefaultPageData(), {
+        source: content,
+        syntax: "markdown/1.2",
         ...json,
         id: page,
         headline: json.name,
@@ -137,24 +144,11 @@ export class GitHubStorage extends AbstractStorage {
     }
   }
 
-  private pageToRemoteURL(page: string) {
-    const entityReference = this.modelReferenceParserProvider
-      .get()
-      ?.parse(page, EntityType.DOCUMENT);
-    const remoteURL = this.remoteURLSerializerProvider
-      .get()
-      ?.serialize(entityReference);
-    if (!remoteURL) {
-      throw new Error(`Unable to resolve ${page} to a remote URL.`);
-    }
-    return remoteURL;
-  }
-
   /**
    * @since 0.9
    */
   async getAttachments(page: string): Promise<AttachmentsData | undefined> {
-    const url = this.getPageRestURL(`${page}/${this.ATTACHMENTS}`, "");
+    const url = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}`;
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -181,7 +175,7 @@ export class GitHubStorage extends AbstractStorage {
     page: string,
     name: string,
   ): Promise<PageAttachment | undefined> {
-    const url = this.getPageRestURL(`${page}/${this.ATTACHMENTS}/${name}`, "");
+    const url = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}/${name}`;
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -236,7 +230,7 @@ export class GitHubStorage extends AbstractStorage {
   }
 
   async save(page: string, title: string, content: string): Promise<unknown> {
-    const pageRestUrl = this.getPageRestURL(this.pageToRemoteURL(page), "");
+    const pageRestUrl = this.getPageRestURL(`${page}.md`, "");
 
     const headResponse = await fetch(pageRestUrl, {
       method: "HEAD",
@@ -251,6 +245,11 @@ export class GitHubStorage extends AbstractStorage {
         ? headResponse.headers.get("ETag")!.slice(3, -1)
         : undefined;
 
+    const pageContent = new DefaultPageWriter().writePage({
+      content,
+      name: title,
+      syntax: "markdown/1.2",
+    });
     const putResponse = await fetch(pageRestUrl, {
       method: "PUT",
       headers: {
@@ -258,13 +257,7 @@ export class GitHubStorage extends AbstractStorage {
         ...(await this.getCredentials()),
       },
       body: JSON.stringify({
-        content: btoa(
-          JSON.stringify({
-            source: content,
-            name: title,
-            syntax: "markdown/1.2",
-          }),
-        ),
+        content: btoa(pageContent),
         message: `Update ${page}`,
         sha: sha,
       }),
@@ -284,7 +277,7 @@ export class GitHubStorage extends AbstractStorage {
   async saveAttachments(page: string, files: File[]): Promise<unknown> {
     return Promise.all(
       files.map(async (file) => {
-        const fileUrl = `${this.getPageRestURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
+        const fileUrl = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
 
         const headResponse = await fetch(fileUrl, {
           method: "HEAD",
@@ -362,7 +355,7 @@ export class GitHubStorage extends AbstractStorage {
           base_tree: branch,
           tree: [
             {
-              path: page,
+              path: `${page}.md`,
               mode: "040000",
               type: "tree",
               sha: null,
@@ -463,7 +456,7 @@ export class GitHubStorage extends AbstractStorage {
     } else {
       const commitsUrl = new URL(`${this.wikiConfig.baseRestURL}/commits`);
       commitsUrl.search = new URLSearchParams([
-        ["path", page],
+        ["path", `${page}.md`],
         ["per_page", "1"],
       ]).toString();
       const commitsResponse = await fetch(commitsUrl, {

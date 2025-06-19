@@ -110,7 +110,7 @@ export class NextcloudStorage extends AbstractStorage {
         // available to serialize page data. For instance, for the offline
         // storage
         const pageData = new DefaultPageData();
-        pageData.source = parsedContent.content as string;
+        pageData.source = parsedContent.content;
         pageData.headline = parsedContent.name as string;
         pageData.headlineRaw = parsedContent.name as string;
         pageData.syntax = parsedContent.syntax as string;
@@ -268,7 +268,7 @@ export class NextcloudStorage extends AbstractStorage {
     );
 
     const body = new DefaultPageWriter().writePage({
-      pageContent: content,
+      content,
       name: title,
       syntax: "markdown/1.2",
     });
@@ -369,7 +369,24 @@ export class NextcloudStorage extends AbstractStorage {
     }
 
     const rootURL = this.getRootUrl(username!);
-    const success = await fetch(`${rootURL}/${page}`, {
+    const results = await Promise.all([
+      await this.deletePageFile(rootURL, page),
+      await this.deletePageFolder(rootURL, page),
+    ]);
+
+    const errors = results
+      .filter((it) => !it.success)
+      .map((it) => it.error)
+      .filter((it) => it !== undefined);
+    if (errors.length > 0) {
+      return { success: false, error: errors.join(", ") };
+    } else {
+      return { success: true };
+    }
+  }
+
+  private async deletePageFile(rootURL: string, page: string) {
+    return await fetch(`${rootURL}/${page}.md`, {
       method: "DELETE",
       headers: await this.getCredentials(),
     }).then(async (response) => {
@@ -379,7 +396,22 @@ export class NextcloudStorage extends AbstractStorage {
         return { success: false, error: await response.text() };
       }
     });
-    return success;
+  }
+
+  private async deletePageFolder(rootURL: string, page: string) {
+    return await fetch(
+      `${rootURL}/${this.convertToMetaSegments(page).join("/")}`,
+      {
+        method: "DELETE",
+        headers: await this.getCredentials(),
+      },
+    ).then(async (response) => {
+      if (response.ok) {
+        return { success: true };
+      } else {
+        return { success: false, error: await response.text() };
+      }
+    });
   }
 
   async move(): Promise<{ success: boolean; error?: string }> {
