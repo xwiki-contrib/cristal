@@ -18,7 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { CustomCreateLinkButton } from "./CustomCreateLinkButton.js";
+import { CustomCreateLinkButton } from "./links/CustomCreateLinkButton.js";
+import { LinkEditionContext } from "./links/LinkEditor.js";
 import { BlockType } from "../blocknote/index.js";
 import { useEditor } from "../hooks.js";
 import {
@@ -59,7 +60,14 @@ const PREFIX_DEFAULT_TOOLBAR_FOR_ITEM_TYPES: Array<BlockType["type"]> = [
   "table",
 ];
 
-export function CustomFormattingToolbar(props: FormattingToolbarProps) {
+export type CustomFormattingToolbarProps = {
+  formattingToolbarProps: FormattingToolbarProps;
+  linkEditionCtx: LinkEditionContext;
+};
+
+export const CustomFormattingToolbar: React.FC<
+  CustomFormattingToolbarProps
+> = ({ formattingToolbarProps, linkEditionCtx }) => {
   const Components = useComponentsContext()!;
 
   const editor = useEditor();
@@ -70,13 +78,18 @@ export function CustomFormattingToolbar(props: FormattingToolbarProps) {
     >
       {PREFIX_DEFAULT_TOOLBAR_FOR_ITEM_TYPES.includes(
         editor.getTextCursorPosition().block.type,
-      ) && getDefaultFormattingToolbarItems(props.blockTypeSelectItems)}
+      ) &&
+        getDefaultFormattingToolbarItems(
+          formattingToolbarProps.blockTypeSelectItems,
+          linkEditionCtx,
+        )}
     </Components.FormattingToolbar.Root>
   );
-}
+};
 
 const getDefaultFormattingToolbarItems = (
-  blockTypeSelectItems?: BlockTypeSelectItem[],
+  blockTypeSelectItems: BlockTypeSelectItem[] | undefined,
+  linkEditionCtx: LinkEditionContext,
 ): JSX.Element[] => [
   <BlockTypeSelect key={"blockTypeSelect"} items={blockTypeSelectItems} />,
   <TableCellMergeButton key={"tableCellMergeButton"} />,
@@ -99,7 +112,10 @@ const getDefaultFormattingToolbarItems = (
   <ColorStyleButton key={"colorStyleButton"} />,
   <NestBlockButton key={"nestBlockButton"} />,
   <UnnestBlockButton key={"unnestBlockButton"} />,
-  <CustomCreateLinkButton key={"createLinkButton"} />,
+  <CustomCreateLinkButton
+    key={"createLinkButton"}
+    linkEditionCtx={linkEditionCtx}
+  />,
   <AddCommentButton key={"addCommentButton"} />,
   <AddTiptapCommentButton key={"addTiptapCommentButton"} />,
 ];

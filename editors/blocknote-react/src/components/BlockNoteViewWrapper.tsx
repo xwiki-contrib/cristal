@@ -20,8 +20,8 @@
 
 import { CustomFilePanel } from "./CustomFilePanel.jsx";
 import { CustomFormattingToolbar } from "./CustomFormattingToolbar.jsx";
+import { CustomLinkToolbar } from "./links/CustomLinkToolbar.js";
 import { LinkEditionContext } from "./links/LinkEditor.js";
-import { LinkToolbar } from "./links/LinkToolbar.jsx";
 import {
   BlockType,
   EditorBlockSchema,
@@ -39,6 +39,7 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import {
   FilePanelController,
+  FormattingToolbar,
   FormattingToolbarController,
   LinkToolbarController,
   SuggestionMenuController,
@@ -125,6 +126,7 @@ function BlockNoteViewWrapper({
   realtime,
   onChange,
   pendingSyncMessage,
+  linkEditionCtx,
   refs: { setEditor, setProvider } = {},
 }: BlockNoteViewWrapperProps) {
   const schema = createBlockNoteSchema();
@@ -269,10 +271,24 @@ function BlockNoteViewWrapper({
       />
 
       <FormattingToolbarController
-        formattingToolbar={CustomFormattingToolbar}
+        formattingToolbar={(props) => (
+          <CustomFormattingToolbar
+            formattingToolbarProps={props}
+            linkEditionCtx={linkEditionCtx}
+          />
+        )}
       />
 
-      <LinkToolbarController linkToolbar={LinkToolbar} />
+      <LinkToolbarController
+        linkToolbar={(props) => (
+          <FormattingToolbar>
+            <CustomLinkToolbar
+              linkToolbarProps={props}
+              linkEditionCtx={linkEditionCtx}
+            />
+          </FormattingToolbar>
+        )}
+      />
 
       <FilePanelController filePanel={CustomFilePanel} />
     </BlockNoteView>

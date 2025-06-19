@@ -1,7 +1,5 @@
-import {
-  BlockNoteViewWrapper,
-  BlockNoteViewWrapperProps,
-} from "./components/BlockNoteViewWrapper.jsx";
+import { App } from "./App.js";
+import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper.jsx";
 import { LinkEditionContext } from "./components/links/LinkEditor.js";
 import { createRoot } from "react-dom/client";
 
@@ -11,7 +9,7 @@ export function mountBlockNote(
 ): { unmount: () => void } {
   const root = createRoot(containerEl);
 
-  root.render(<BlockNoteViewWrapper {...props} />);
+  root.render(<App {...props} />);
 
   let unmounted = false;
 
