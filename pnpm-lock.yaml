@@ -4322,6 +4322,9 @@ importers:
       '@types/react-dom':
         specifier: 19.1.6
         version: 19.1.6(@types/react@19.1.7)
+      '@xwiki/cristal-attachments-api':
+        specifier: workspace:*
+        version: link:../../core/attachments/attachments-api
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../../core/document/document-api

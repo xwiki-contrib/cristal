@@ -18,6 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { AttachmentsService } from "@xwiki/cristal-attachments-api";
+import { DocumentService } from "@xwiki/cristal-document-api";
 import { LinkEditionContext } from "@xwiki/cristal-editors-blocknote-react";
 import { Container } from "inversify";
 import type { LinkSuggestServiceProvider } from "@xwiki/cristal-link-suggest-api";
@@ -53,11 +55,18 @@ export function createLinkEditionContext(
     .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
     .get()!;
 
+  const attachmentsService =
+    container.get<AttachmentsService>("AttachmentsService");
+
+  const documentService = container.get<DocumentService>("DocumentService")!;
+
   return {
     linkSuggestService,
     modelReferenceParser,
     modelReferenceSerializer,
     remoteURLParser,
     remoteURLSerializer,
+    attachmentsService,
+    documentService,
   };
 }

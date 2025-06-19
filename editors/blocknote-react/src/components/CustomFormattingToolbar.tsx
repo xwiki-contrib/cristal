@@ -18,10 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { CustomImageToolbar } from "./images/CustomImageToolbar.js";
 import { CustomCreateLinkButton } from "./links/CustomCreateLinkButton.js";
-import { LinkEditionContext } from "./links/LinkEditor.js";
-import { BlockType } from "../blocknote/index.js";
 import { useEditor } from "../hooks.js";
+import { LinkEditionContext } from "../misc/linkSuggest.js";
 import {
   AddCommentButton,
   AddTiptapCommentButton,
@@ -44,22 +44,6 @@ import {
 } from "@blocknote/react";
 import { JSX } from "react";
 
-const PREFIX_DEFAULT_TOOLBAR_FOR_ITEM_TYPES: Array<BlockType["type"]> = [
-  "paragraph",
-  "quote",
-  "heading",
-  "Heading4",
-  "Heading5",
-  "Heading6",
-  "bulletListItem",
-  "checkListItem",
-  "numberedListItem",
-  "column",
-  "columnList",
-  "codeBlock",
-  "table",
-];
-
 export type CustomFormattingToolbarProps = {
   formattingToolbarProps: FormattingToolbarProps;
   linkEditionCtx: LinkEditionContext;
@@ -72,17 +56,24 @@ export const CustomFormattingToolbar: React.FC<
 
   const editor = useEditor();
 
+  // TODO: update in realtime
+  const currentBlock = editor.getTextCursorPosition().block;
+
   return (
     <Components.FormattingToolbar.Root
       className={"bn-toolbar bn-formatting-toolbar"}
     >
-      {PREFIX_DEFAULT_TOOLBAR_FOR_ITEM_TYPES.includes(
-        editor.getTextCursorPosition().block.type,
-      ) &&
+      {currentBlock.type === "image" ? (
+        <CustomImageToolbar
+          currentBlock={currentBlock}
+          linkEditionCtx={linkEditionCtx}
+        />
+      ) : (
         getDefaultFormattingToolbarItems(
           formattingToolbarProps.blockTypeSelectItems,
           linkEditionCtx,
-        )}
+        )
+      )}
     </Components.FormattingToolbar.Root>
   );
 };

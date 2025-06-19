@@ -1,4 +1,8 @@
-import { LinkSuggestion, createLinkSuggestor } from "../../misc/linkSuggest";
+import {
+  LinkEditionContext,
+  LinkSuggestion,
+  createLinkSuggestor,
+} from "../../misc/linkSuggest";
 import {
   Autocomplete,
   Button,
@@ -7,26 +11,10 @@ import {
   Stack,
 } from "@mantine/core";
 import { debounce } from "@xwiki/cristal-fn-utils";
-import { LinkSuggestService, LinkType } from "@xwiki/cristal-link-suggest-api";
+import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { EntityReference } from "@xwiki/cristal-model-api";
-import {
-  ModelReferenceParser,
-  ModelReferenceSerializer,
-} from "@xwiki/cristal-model-reference-api";
-import {
-  RemoteURLParser,
-  RemoteURLSerializer,
-} from "@xwiki/cristal-model-remote-url-api";
 import { useCallback, useState } from "react";
 import { RiLink, RiText } from "react-icons/ri";
-
-type LinkEditionContext = {
-  linkSuggestService: LinkSuggestService;
-  modelReferenceParser: ModelReferenceParser;
-  modelReferenceSerializer: ModelReferenceSerializer;
-  remoteURLParser: RemoteURLParser;
-  remoteURLSerializer: RemoteURLSerializer;
-};
 
 type LinkData = {
   title: string;
@@ -136,4 +124,4 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
   );
 };
 
-export type { LinkData, LinkEditionContext, LinkEditorProps };
+export type { LinkData, LinkEditorProps };

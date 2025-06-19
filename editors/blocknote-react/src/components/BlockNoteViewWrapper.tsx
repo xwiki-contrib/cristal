@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { CustomFilePanel } from "./CustomFilePanel.jsx";
 import { CustomFormattingToolbar } from "./CustomFormattingToolbar.jsx";
+import { ImageFilePanel } from "./images/ImageFilePanel.js";
 import { CustomLinkToolbar } from "./links/CustomLinkToolbar.js";
 import { LinkEditionContext } from "./links/LinkEditor.js";
 import {
@@ -290,7 +290,20 @@ function BlockNoteViewWrapper({
         )}
       />
 
-      <FilePanelController filePanel={CustomFilePanel} />
+      <FilePanelController
+        filePanel={(props) => {
+          const block = props.block as BlockType;
+
+          return block.type === "image" ? (
+            <ImageFilePanel
+              linkEditionCtx={linkEditionCtx}
+              currentBlock={block}
+            />
+          ) : (
+            <>Unknown block type: {block.type}</>
+          );
+        }}
+      />
     </BlockNoteView>
   );
 }
