@@ -1,87 +1,104 @@
-// import { LinkEditionContext } from "../../../components/linkEditionContext";
-// import { LinkSuggestion } from "../../../components/linkSuggest";
-// import { LinkType } from "@xwiki/cristal-link-suggest-api";
-// import { EntityReference } from "@xwiki/cristal-model-api";
-// import { debounce } from "lodash-es";
-// import { useCallback, useState } from "react";
+import { debounce } from "@xwiki/cristal-fn-utils";
+import { createLinkSuggestor, LinkSuggestion } from "../../misc/linkSuggest";
+import { LinkSuggestService, LinkType } from "@xwiki/cristal-link-suggest-api";
+import { EntityReference } from "@xwiki/cristal-model-api";
+import {
+  ModelReferenceParser,
+  ModelReferenceSerializer,
+} from "@xwiki/cristal-model-reference-api";
+import {
+  RemoteURLParser,
+  RemoteURLSerializer,
+} from "@xwiki/cristal-model-remote-url-api";
+import { useCallback, useState } from "react";
 
-// type LinkData = {
-//   title: string;
-//   reference: EntityReference | null;
-//   url: string;
-// };
+type LinkEditionContext = {
+  linkSuggestService: LinkSuggestService;
+  modelReferenceParser: ModelReferenceParser;
+  modelReferenceSerializer: ModelReferenceSerializer;
+  remoteURLParser: RemoteURLParser;
+  remoteURLSerializer: RemoteURLSerializer;
+};
 
-// type LinkEditorProps = {
-//   linkEditionCtx: LinkEditionContext;
-//   current: LinkData | null;
-//   updateLink: (linkData: LinkData) => void;
-//   hideTitle?: boolean;
-// };
+type LinkData = {
+  title: string;
+  reference: EntityReference | null;
+  url: string;
+};
 
-// export const LinkEditor: React.FC<LinkEditorProps> = ({
-//   linkEditionCtx,
-//   current,
-//   updateLink,
-//   hideTitle,
-// }) => {
-//   const [target, setTarget] = useState({
-//     url: current?.url ?? "",
-//     reference: current?.reference ?? null,
-//   });
+type LinkEditorProps = {
+  linkEditionCtx: LinkEditionContext;
+  current: LinkData | null;
+  updateLink: (linkData: LinkData) => void;
+  hideTitle?: boolean;
+};
 
-//   const [title, setTitle] = useState(current?.title ?? "");
-//   const [results, setResults] = useState<LinkSuggestion[]>([]);
+export const LinkEditor: React.FC<LinkEditorProps> = ({
+  linkEditionCtx,
+  current,
+  updateLink,
+  hideTitle,
+}) => {
+  const suggestLink = createLinkSuggestor(linkEditionCtx);
 
-//   const [query, setQuery] = useState(
-//     (current?.reference
-//       ? linkEditionCtx.modelReferenceSerializer.serialize(current.reference)
-//       : current?.url) ?? "",
-//   );
+  const [target, setTarget] = useState({
+    url: current?.url ?? "",
+    reference: current?.reference ?? null,
+  });
 
-//   const search = useCallback(
-//     debounce(async (query: string) => {
-//       setTarget({ url: query, reference: null });
+  const [title, setTitle] = useState(current?.title ?? "");
+  const [results, setResults] = useState<LinkSuggestion[]>([]);
 
-//       if (query.startsWith("http://") || query.startsWith("https://")) {
-//         setResults([]);
-//         return;
-//       }
+  const [query, setQuery] = useState(
+    (current?.reference
+      ? linkEditionCtx.modelReferenceSerializer.serialize(current.reference)
+      : current?.url) ?? "",
+  );
 
-//       const suggestions = await linkEditionCtx.suggestLink({ query });
+  const search = useCallback(
+    debounce(async (query: string) => {
+      setTarget({ url: query, reference: null });
 
-//       setResults(
-//         suggestions.filter((suggestion) => suggestion.type === LinkType.PAGE),
-//       );
-//     }),
-//     [setTarget, setResults],
-//   );
+      if (query.startsWith("http://") || query.startsWith("https://")) {
+        setResults([]);
+        return;
+      }
 
-//   const select = useCallback(
-//     (result: LinkSuggestion) => {
-//       const reference = linkEditionCtx.modelReferenceParser.parse(
-//         result.reference,
-//       );
+      const suggestions = await suggestLink({ query });
 
-//       setTitle(title || result.title);
-//       setQuery(linkEditionCtx.modelReferenceSerializer.serialize(reference)!);
-//       setTarget({
-//         url: result.url,
-//         reference,
-//       });
-//       setResults([]);
-//     },
-//     [setTitle, setQuery, setTarget, setResults],
-//   );
+      setResults(
+        suggestions.filter((suggestion) => suggestion.type === LinkType.PAGE),
+      );
+    }),
+    [setTarget, setResults],
+  );
 
-//   const submit = useCallback(() => {
-//     updateLink({
-//       title,
-//       url: target.url,
-//       reference: target.reference,
-//     });
-//   }, [updateLink]);
+  const select = useCallback(
+    (result: LinkSuggestion) => {
+      const reference = linkEditionCtx.modelReferenceParser.parse(
+        result.reference,
+      );
 
-//   return <>TODO</>;
-// };
+      setTitle(title || result.title);
+      setQuery(linkEditionCtx.modelReferenceSerializer.serialize(reference)!);
+      setTarget({
+        url: result.url,
+        reference,
+      });
+      setResults([]);
+    },
+    [setTitle, setQuery, setTarget, setResults],
+  );
 
-// export type { LinkData, LinkEditorProps };
+  const submit = useCallback(() => {
+    updateLink({
+      title,
+      url: target.url,
+      reference: target.reference,
+    });
+  }, [updateLink]);
+
+  return <>TODO</>;
+};
+
+export type { LinkData, LinkEditionContext, LinkEditorProps };
