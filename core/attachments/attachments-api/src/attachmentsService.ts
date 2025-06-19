@@ -47,8 +47,12 @@ interface AttachmentsService {
    * Upload the provided list of files to a given page
    * @param page - the page where to save the files
    * @param files - the list of files to upload
+   * @returns TODO
    */
-  upload(page: string, files: File[]): Promise<void>;
+  upload(
+    page: string,
+    files: File[],
+  ): Promise<(string | undefined)[] | undefined>;
 }
 
 export { type AttachmentsService };

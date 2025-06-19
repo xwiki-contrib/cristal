@@ -304,7 +304,10 @@ export class NextcloudStorage extends AbstractStorage {
     }
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | (undefined | string)[]> {
     const username = (
       await this.authenticationManagerProvider.get()?.getUserDetails()
     )?.username;
@@ -327,7 +330,7 @@ export class NextcloudStorage extends AbstractStorage {
     page: string,
     file: File,
     username: string,
-  ): Promise<unknown> {
+  ): Promise<string | undefined> {
     const directories = this.convertToMetaSegments(page);
 
     // Create the root directory. We also need to create all intermediate directories.

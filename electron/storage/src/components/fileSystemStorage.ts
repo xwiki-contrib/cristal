@@ -93,8 +93,12 @@ export default class FileSystemStorage extends AbstractStorage {
     await fileSystemStorage.savePage(path, content, title);
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
-    return Promise.all(files.map((file) => this.saveAttachment(page, file)));
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | (undefined | string)[]> {
+    await Promise.all(files.map((file) => this.saveAttachment(page, file)));
+    return undefined;
   }
 
   async delete(page: string): Promise<{ success: boolean; error?: string }> {

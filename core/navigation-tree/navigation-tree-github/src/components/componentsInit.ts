@@ -112,7 +112,7 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
                   const currentPageData = await this.cristalApp.getPage(page);
                   return {
                     id: page,
-                    label: currentPageData?.name ?? parse.name ?? treeNode.name,
+                    label: this.computeLabel(currentPageData, parse, treeNode),
                     location: parse,
                     url: this.cristalApp.getRouter().resolve({
                       name: "view",
@@ -138,6 +138,23 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
     }
     // TODO: remains an issue when unfoling nodes to list children
     return navigationTree;
+  }
+
+  /**
+   * @param names - a list of objects with a name property
+   * @returns the first element that is not undefined with a name that is not undefined or the empty string
+   */
+  private computeLabel(
+    ...names: (
+      | {
+          name: string | undefined;
+        }
+      | undefined
+    )[]
+  ) {
+    return names
+      .filter((it) => it?.name !== undefined && it.name !== "")
+      .map((it) => it!.name)[0];
   }
 
   getParentNodesId(page: DocumentReference): Array<string> {

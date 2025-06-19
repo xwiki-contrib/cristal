@@ -274,51 +274,71 @@ export class GitHubStorage extends AbstractStorage {
     return;
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
-    return Promise.all(
-      files.map(async (file) => {
-        const fileUrl = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | (string | undefined)[]> {
+    const urls: Promise<string | undefined>[] = [];
 
-        const headResponse = await fetch(fileUrl, {
-          method: "HEAD",
-          cache: "no-store",
+    for (const file of files) {
+      const fileUrl = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
+      const sha = await this.computeAttachmentSHA(fileUrl);
+
+      urls.push(this.uploadAttachment(fileUrl, file, sha, page));
+    }
+    return Promise.all(urls);
+  }
+
+  private async computeAttachmentSHA(fileUrl: string) {
+    const headResponse = await fetch(fileUrl, {
+      method: "HEAD",
+      cache: "no-store",
+      headers: {
+        ...(await this.getCredentials()),
+        Accept: "application/vnd.github.object+json",
+      },
+    });
+    return headResponse.status >= 200 && headResponse.status < 300
+      ? headResponse.headers.get("ETag")!.slice(3, -1)
+      : undefined;
+  }
+
+  private uploadAttachment(
+    fileUrl: string,
+    file: File,
+    sha: string | undefined,
+    page: string,
+  ): Promise<string | undefined> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const putResponse = await fetch(fileUrl, {
+          method: "PUT",
           headers: {
+            "Content-Type": "application/vnd.github+json",
             ...(await this.getCredentials()),
-            Accept: "application/vnd.github.object+json",
           },
+          body: JSON.stringify({
+            content: (reader.result! as string).split(",")[1],
+            message: `Upload ${file.name}`,
+            sha: sha,
+          }),
         });
-        const sha =
-          headResponse.status >= 200 && headResponse.status < 300
-            ? headResponse.headers.get("ETag")!.slice(3, -1)
-            : undefined;
-
-        const reader = new FileReader();
-        reader.onload = async () => {
-          const putResponse = await fetch(fileUrl, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/vnd.github+json",
-              ...(await this.getCredentials()),
-            },
-            body: JSON.stringify({
-              content: (reader.result! as string).split(",")[1],
-              message: `Upload ${file.name}`,
-              sha: sha,
-            }),
-          });
-          if (!putResponse.ok) {
-            const errorMessage = await putResponse.text();
-            // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
-            this.alertsServiceProvider
-              .get()
-              .error(
-                `Could not upload attachment ${file.name} for page ${page}. Reason: ${errorMessage}`,
-              );
-          }
-        };
-        reader.readAsDataURL(file);
-      }),
-    );
+        if (!putResponse.ok) {
+          const errorMessage = await putResponse.text();
+          // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
+          this.alertsServiceProvider
+            .get()
+            .error(
+              `Could not upload attachment ${file.name} for page ${page}. Reason: ${errorMessage}`,
+            );
+          resolve(undefined);
+        } else {
+          resolve((await putResponse.json()).content.download_url as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
   async delete(page: string): Promise<{ success: boolean; error?: string }> {
