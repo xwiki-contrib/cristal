@@ -19,12 +19,36 @@
  */
 
 import { LinkEditionContext } from "../components/links/LinkEditor";
+import { AttachmentsService } from "@xwiki/cristal-attachments-api";
+import { DocumentService } from "@xwiki/cristal-document-api";
 import { EntityType } from "@xwiki/cristal-model-api";
-import type { Link, LinkType } from "@xwiki/cristal-link-suggest-api";
+import {
+  ModelReferenceParser,
+  ModelReferenceSerializer,
+} from "@xwiki/cristal-model-reference-api";
+import {
+  RemoteURLParser,
+  RemoteURLSerializer,
+} from "@xwiki/cristal-model-remote-url-api";
+import type {
+  Link,
+  LinkSuggestService,
+  LinkType,
+} from "@xwiki/cristal-link-suggest-api";
 import type {
   AttachmentReference,
   DocumentReference,
 } from "@xwiki/cristal-model-api";
+
+type LinkEditionContext = {
+  linkSuggestService: LinkSuggestService;
+  modelReferenceParser: ModelReferenceParser;
+  modelReferenceSerializer: ModelReferenceSerializer;
+  remoteURLParser: RemoteURLParser;
+  remoteURLSerializer: RemoteURLSerializer;
+  attachmentsService: AttachmentsService;
+  documentService: DocumentService;
+};
 
 /**
  * Describe a link suggestion action (i.e., a search result entry).
@@ -111,4 +135,4 @@ function queryEqualityOperator(query: string) {
 }
 
 export { createLinkSuggestor };
-export type { LinkSuggestion, LinkSuggestor, LinkType };
+export type { LinkEditionContext, LinkSuggestion, LinkSuggestor, LinkType };

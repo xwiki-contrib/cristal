@@ -1,6 +1,6 @@
 import { App } from "./App.js";
 import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper.jsx";
-import { LinkEditionContext } from "./components/links/LinkEditor.js";
+import { LinkEditionContext } from "./misc/linkSuggest.js";
 import { createRoot } from "react-dom/client";
 
 export function mountBlockNote(
