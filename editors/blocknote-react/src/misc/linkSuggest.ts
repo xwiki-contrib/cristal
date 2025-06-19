@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { LinkEditionContext } from "../components/links/LinkEditor";
 import { AttachmentsService } from "@xwiki/cristal-attachments-api";
 import { DocumentService } from "@xwiki/cristal-document-api";
 import { EntityType } from "@xwiki/cristal-model-api";

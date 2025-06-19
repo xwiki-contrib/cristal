@@ -21,7 +21,6 @@
 import { CustomFormattingToolbar } from "./CustomFormattingToolbar.jsx";
 import { ImageFilePanel } from "./images/ImageFilePanel.js";
 import { CustomLinkToolbar } from "./links/CustomLinkToolbar.js";
-import { LinkEditionContext } from "./links/LinkEditor.js";
 import {
   BlockType,
   EditorBlockSchema,
@@ -33,6 +32,7 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote/index.js";
+import { LinkEditionContext } from "../misc/linkSuggest.js";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
