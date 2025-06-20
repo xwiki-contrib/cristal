@@ -46,7 +46,7 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
     [editor],
   );
 
-  // TODO: update in realtime
+  // TODO: check if we need to update in realtime when the selection change?
   const selected = editor.getSelectedText();
 
   return (

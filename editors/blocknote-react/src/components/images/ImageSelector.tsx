@@ -94,7 +94,6 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
         const documentReference = attachmentReference.document;
         const segments = documentReference.space?.names.slice(0) ?? [];
 
-        // TODO: replace with an actual construction of segments from a reference
         if (documentReference.terminal) {
           segments.push(documentReference.name);
         }
