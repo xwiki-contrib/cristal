@@ -99,7 +99,7 @@ async function waitFor<T>(value: () => T | undefined): Promise<T> {
       return got;
     }
 
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
 
