@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { ImageEditor } from "./ImageEditor";
+import { ImageSelector } from "./ImageSelector";
 import { BlockOfType } from "../../blocknote";
 import { useEditor } from "../../hooks";
 import { LinkEditionContext } from "../../misc/linkSuggest";
@@ -46,7 +46,7 @@ export const ImageFilePanel: React.FC<ImageFilePanelProps> = ({
 
   return (
     <Box bg="white" p="sm" bd="1px solid black">
-      <ImageEditor linkEditionCtx={linkEditionCtx} onSelected={updateImage} />
+      <ImageSelector linkEditionCtx={linkEditionCtx} onSelected={updateImage} />
     </Box>
   );
 };
