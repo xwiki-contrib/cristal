@@ -17,6 +17,7 @@
     ".": "./src/index.ts"
   },
   "main": "./src/index.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "pnpm compile",
     "clean": "rimraf dist",
@@ -25,7 +26,6 @@
     "prepack": "pnpm build",
     "test": "vitest --run"
   },
-  "types": "dist/index.d.ts",
   "dependencies": {
     "@blocknote/core": "0.31.2",
     "@hocuspocus/provider": "2.15.2",

@@ -17,6 +17,7 @@
     ".": "./src/index.ts"
   },
   "main": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
