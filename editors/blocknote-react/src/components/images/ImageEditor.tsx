@@ -87,7 +87,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
     [setResults],
   );
 
-  // Start a first empty search on the first load, to not let the content empty.
+  // Start a first empty search on the first load, to not let the results empty.
   useEffect(() => {
     searchAttachments("");
   }, []);
@@ -111,6 +111,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
       <Select
         leftSection={<RiLink />}
         rightSection=" "
+        searchable
         data={results.map((result) => ({
           value: result.url,
           label: result.label,
@@ -119,7 +120,6 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
         renderOption={({ option }) => (
           <img style={{ maxWidth: "100%" }} src={option.value} />
         )}
-        searchable
         comboboxProps={{ zIndex: 10000 }}
       />
     </Box>

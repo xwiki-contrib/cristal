@@ -128,6 +128,13 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
             value: result.title,
           }),
         )}
+        defaultValue={
+          current?.reference
+            ? (linkEditionCtx.modelReferenceSerializer.serialize(
+                current.reference,
+              ) ?? current.url)
+            : ""
+        }
         onInput={(e) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           search((e.target as any).value);
