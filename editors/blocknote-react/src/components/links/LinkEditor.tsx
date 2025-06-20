@@ -50,7 +50,7 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
 }) => {
   const suggestLink = createLinkSuggestor(linkEditionCtx);
 
-  const [title, setTitle] = useState(current?.title ?? "");
+  const [customTitle, setCustomTitle] = useState(current?.title ?? "");
   const [results, setResults] = useState<
     (LinkSuggestion | { type: "url"; title: string; url: string })[]
   >([]);
@@ -71,8 +71,16 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
     [setResults],
   );
 
-  const select = useCallback(
-    (title: string) => {
+  const submit = useCallback(
+    ({
+      title,
+      url,
+      reference,
+    }: {
+      title: string;
+      url: string;
+      reference: EntityReference | null;
+    }) => {
       const result = results.find((result) => result.title === title);
 
       if (!result) {
@@ -80,15 +88,28 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
       }
 
       updateLink({
-        title: title || result.title,
+        title,
+        url,
+        reference,
+      });
+    },
+    [results, setResults],
+  );
+
+  const selectFromTitle = useCallback(
+    (title: string) => {
+      const result = results.find((result) => result.title === title)!;
+
+      submit({
+        title: customTitle || title,
         url: result.url,
         reference:
           result.type === "url"
             ? null
-            : linkEditionCtx.modelReferenceParser.parse(result.reference),
+            : linkEditionCtx.remoteURLParser.parse(result.reference)!,
       });
     },
-    [results, setResults],
+    [results, customTitle, submit],
   );
 
   return (
@@ -96,8 +117,17 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
       {!hideTitle && (
         <Input
           leftSection={<RiText />}
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={customTitle}
+          onChange={(e) => setCustomTitle(e.target.value)}
+          onKeyDown={(e) =>
+            current &&
+            e.key === "Enter" &&
+            submit({
+              title: customTitle,
+              url: current.url,
+              reference: current.reference,
+            })
+          }
         />
       )}
 
@@ -117,7 +147,9 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           search((e.target as any).value);
         }}
-        onChange={select}
+        onChange={(e) => {
+          selectFromTitle(e);
+        }}
         comboboxProps={{ zIndex: 10000 }}
       />
     </Stack>
