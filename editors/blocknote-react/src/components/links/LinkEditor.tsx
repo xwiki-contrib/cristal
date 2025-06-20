@@ -22,7 +22,7 @@ import {
   LinkSuggestion,
   createLinkSuggestor,
 } from "../../misc/linkSuggest";
-import { Autocomplete, Input, Stack } from "@mantine/core";
+import { Input, Select, Stack } from "@mantine/core";
 import { debounce } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { EntityReference } from "@xwiki/cristal-model-api";
@@ -131,24 +131,30 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
         />
       )}
 
-      <Autocomplete
+      <Select
         leftSection={<RiLink />}
+        rightSection=" "
+        searchable
         data={results.map((result) => ({
-          value: result.title,
+          value: result.url,
+          label: result.title,
         }))}
         defaultValue={
-          current?.reference
-            ? (linkEditionCtx.modelReferenceSerializer.serialize(
-                current.reference,
-              ) ?? current.url)
-            : ""
+          "TODO"
+
+          // current?.reference
+          //   ? (linkEditionCtx.modelReferenceSerializer.serialize(
+          //       current.reference,
+          //     ) ?? current.url)
+          //   : ""
         }
         onInput={(e) => {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           search((e.target as any).value);
         }}
-        onChange={(e) => {
-          selectFromTitle(e);
+        onChange={(value, option) => {
+          console.log({ option });
+          // selectFromTitle
         }}
         comboboxProps={{ zIndex: 10000 }}
       />
