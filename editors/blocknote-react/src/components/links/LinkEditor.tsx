@@ -47,6 +47,7 @@ type LinkEditorProps = {
   creationMode?: boolean;
 };
 
+// eslint-disable-next-line max-statements
 export const LinkEditor: React.FC<LinkEditorProps> = ({
   linkEditionCtx,
   current,
@@ -98,6 +99,27 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
     [updateLink, title, url],
   );
 
+  const selectUrlResult = useCallback(
+    (url: string) => {
+      const reference = tryFallible(() =>
+        linkEditionCtx.remoteURLParser.parse(url),
+      );
+
+      setSearch(
+        reference
+          ? linkEditionCtx.modelReferenceHandler.getTitle(reference)
+          : url,
+      );
+
+      if (creationMode) {
+        submit({ url });
+      } else {
+        setUrl(url);
+      }
+    },
+    [setSearch, linkEditionCtx, creationMode, submit],
+  );
+
   return (
     <Stack>
       {!creationMode && (
@@ -111,14 +133,11 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
 
       <Combobox
         store={combobox}
+        // We don't use a portal as BlockNote's toolbar closes on interaction with an element that isn't part of it in the DOM
+        withinPortal={false}
         onOptionSubmit={(url) => {
           combobox.closeDropdown();
-
-          setUrl(url);
-
-          if (creationMode) {
-            submit({ url });
-          }
+          selectUrlResult(url);
         }}
       >
         <Combobox.Target>
@@ -139,7 +158,14 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
           />
         </Combobox.Target>
 
-        <Combobox.Dropdown style={{ zIndex: 10000 }}>
+        <Combobox.Dropdown
+          style={{
+            zIndex: 10000,
+            // These options are required due to not using a portal (see above)
+            background: "white",
+            border: "1px solid black",
+          }}
+        >
           <Combobox.Options>
             {suggestionsList.length > 0 ? (
               suggestionsList
