@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { TableCell } from "@blocknote/core";
 import {
   BlockType,
   EditorInlineContentSchema,
@@ -25,7 +26,6 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from "@xwiki/cristal-editors-blocknote-react";
-import { TableCell } from "@blocknote/core";
 import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import {
   Block,
