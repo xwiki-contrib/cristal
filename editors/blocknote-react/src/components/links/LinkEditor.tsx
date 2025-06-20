@@ -100,7 +100,7 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
       });
       setResults([]);
     },
-    [results, setTitle /*, setQuery*/, setTarget, setResults],
+    [results, setTitle, setTarget, setResults],
   );
 
   const submit = useCallback(() => {
