@@ -17,23 +17,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { LinkEditionContext } from "../../misc/linkSuggest";
+import { LinkEditionContext, LinkSuggestion } from "../../misc/linkSuggest";
 import {
   Box,
+  Breadcrumbs,
   Button,
   FileInput,
+  Flex,
+  Group,
   Select,
   Space,
+  Stack,
+  Text,
   VisuallyHidden,
 } from "@mantine/core";
 import { debounce } from "@xwiki/cristal-fn-utils";
-import { Link, LinkType } from "@xwiki/cristal-link-suggest-api";
+import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import {
   AttachmentReference,
   DocumentReference,
 } from "@xwiki/cristal-model-api";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { RiLink } from "react-icons/ri";
+import { RiAttachmentLine, RiLink } from "react-icons/ri";
 
 export type ImageEditorProps = {
   linkEditionCtx: LinkEditionContext;
@@ -72,7 +77,7 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
     [onSelected],
   );
 
-  const [results, setResults] = useState<Link[]>([]);
+  const [results, setResults] = useState<LinkSuggestion[]>([]);
 
   const searchAttachments = useCallback(
     debounce(async (query: string) => {
@@ -82,7 +87,29 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
         "image/*",
       );
 
-      setResults(results);
+      const suggestions = results.map((link): LinkSuggestion => {
+        const attachmentReference = linkEditionCtx.modelReferenceParser?.parse(
+          link.reference,
+        ) as AttachmentReference;
+
+        const documentReference = attachmentReference.document;
+        const segments = documentReference.space?.names.slice(0) ?? [];
+
+        // TODO: replace with an actual construction of segments from a reference
+        if (documentReference.terminal) {
+          segments.push(documentReference.name);
+        }
+
+        return {
+          type: link.type,
+          title: link.label,
+          reference: link.reference,
+          url: link.url,
+          segments,
+        };
+      });
+
+      setResults(suggestions);
     }),
     [setResults],
   );
@@ -114,13 +141,29 @@ export const ImageEditor: React.FC<ImageEditorProps> = ({
         searchable
         data={results.map((result) => ({
           value: result.url,
-          label: result.label,
+          label: result.title,
         }))}
         onChange={(value) => value && onSelected(value)}
-        renderOption={({ option }) => (
-          <img style={{ maxWidth: "100%" }} src={option.value} />
-        )}
-        comboboxProps={{ zIndex: 10000 }}
+        renderOption={({ option }) => {
+          const link = results.find((result) => result.url === option.value)!;
+
+          return (
+            <Flex gap="sm">
+              <img src={option.value} style={{ maxWidth: "200px" }} />
+              <Stack justify="center">
+                <Text>
+                  <RiAttachmentLine /> {link.title}
+                </Text>
+                <Breadcrumbs c="gray">
+                  {link.segments.map((segment, i) => (
+                    <Text key={`${i}${segment}`}>{segment}</Text>
+                  ))}
+                </Breadcrumbs>
+              </Stack>
+            </Flex>
+          );
+        }}
+        comboboxProps={{ zIndex: 10000, width: "auto" }}
       />
     </Box>
   );
