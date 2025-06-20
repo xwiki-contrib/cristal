@@ -41,7 +41,8 @@ export const CustomImageToolbar: React.FC<CustomImageToolbarProps> = ({
     <>
       <Components.Generic.Popover.Root opened={showLinkEditor}>
         <Components.Generic.Popover.Trigger>
-          {/* TODO: hide tooltip on click */}
+          {/* TODO: hide tooltip on click
+              (note: this comment is from BlockNote's source code but may remain relevant here) */}
           <Components.FormattingToolbar.Button
             className="bn-button"
             label="Change image"
@@ -66,13 +67,6 @@ export const CustomImageToolbar: React.FC<CustomImageToolbarProps> = ({
         icon={<RiExternalLinkLine />}
         onClick={() => window.open(currentBlock.props.url)}
       />
-
-      {/* <Components.FormattingToolbar.Button
-        className="bn-button"
-        label="Delete link"
-        icon={<RiDeleteBin6Line />}
-        onClick={() => linkToolbarProps.deleteLink()}
-      /> */}
     </>
   );
 };

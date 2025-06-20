@@ -44,7 +44,8 @@ export const CustomLinkToolbar: React.FC<CustomLinkToolbarProps> = ({
     <>
       <Components.Generic.Popover.Root opened={showLinkEditor}>
         <Components.Generic.Popover.Trigger>
-          {/* TODO: hide tooltip on click */}
+          {/* TODO: hide tooltip on click
+              (note: this comment is from BlockNote's source code but may remain relevant here) */}
           <Components.FormattingToolbar.Button
             className="bn-button"
             label="Edit link"

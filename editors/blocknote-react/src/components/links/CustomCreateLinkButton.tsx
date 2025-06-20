@@ -52,7 +52,8 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
   return (
     <Components.Generic.Popover.Root opened={opened}>
       <Components.Generic.Popover.Trigger>
-        {/* TODO: hide tooltip on click */}
+        {/* TODO: hide tooltip on click
+              (note: this comment is from BlockNote's source code but may remain relevant here) */}
         <Components.FormattingToolbar.Button
           className={"bn-button"}
           data-test="createLink"
