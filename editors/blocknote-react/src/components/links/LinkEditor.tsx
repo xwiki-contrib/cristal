@@ -22,7 +22,7 @@ import {
   LinkSuggestion,
   createLinkSuggestor,
 } from "../../misc/linkSuggest";
-import { Autocomplete, Button, Input, Stack } from "@mantine/core";
+import { Autocomplete, Input, Stack } from "@mantine/core";
 import { debounce } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { EntityReference } from "@xwiki/cristal-model-api";
@@ -50,11 +50,6 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
 }) => {
   const suggestLink = createLinkSuggestor(linkEditionCtx);
 
-  const [target, setTarget] = useState({
-    url: current?.url ?? "",
-    reference: current?.reference ?? null,
-  });
-
   const [title, setTitle] = useState(current?.title ?? "");
   const [results, setResults] = useState<
     (LinkSuggestion | { type: "url"; title: string; url: string })[]
@@ -73,7 +68,7 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
         suggestions.filter((suggestion) => suggestion.type === LinkType.PAGE),
       );
     }),
-    [setTarget, setResults],
+    [setResults],
   );
 
   const select = useCallback(
@@ -84,26 +79,17 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
         return;
       }
 
-      setTitle(title || result.title);
-      setTarget({
+      updateLink({
+        title: title || result.title,
         url: result.url,
         reference:
           result.type === "url"
             ? null
             : linkEditionCtx.modelReferenceParser.parse(result.reference),
       });
-      setResults([]);
     },
-    [results, setTitle, setTarget, setResults],
+    [results, setResults],
   );
-
-  const submit = useCallback(() => {
-    updateLink({
-      title,
-      url: target.url,
-      reference: target.reference,
-    });
-  }, [updateLink, title, target]);
 
   return (
     <Stack>
@@ -134,10 +120,6 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
         onChange={select}
         comboboxProps={{ zIndex: 10000 }}
       />
-
-      <Button type="submit" onClick={submit}>
-        Submit
-      </Button>
     </Stack>
   );
 };
