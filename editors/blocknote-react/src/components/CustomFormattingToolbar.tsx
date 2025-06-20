@@ -18,10 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { CustomImageToolbar } from "./images/CustomImageToolbar.js";
-import { CustomCreateLinkButton } from "./links/CustomCreateLinkButton.js";
-import { useEditor } from "../hooks.js";
-import { LinkEditionContext } from "../misc/linkSuggest.js";
+import { CustomImageToolbar } from "./images/CustomImageToolbar";
+import { CustomCreateLinkButton } from "./links/CustomCreateLinkButton";
+import { useEditor } from "../hooks";
+import { LinkEditionContext } from "../misc/linkSuggest";
 import {
   AddCommentButton,
   AddTiptapCommentButton,

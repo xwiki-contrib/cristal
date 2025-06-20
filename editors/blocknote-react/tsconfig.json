@@ -2,18 +2,17 @@
   "extends": "../../tsconfig.json",
 
   "compilerOptions": {
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-
     /* Bundler mode */
     "jsx": "react-jsx",
-    "isolatedDeclarations": false,
     "moduleResolution": "bundler",
+
+    // Required as we use tons of generics between modules, so even though we **could**
+    // use isolated declarations, it would make the code much, MUCH less readable
+    "isolatedDeclarations": false,
 
     /* Building */
     "sourceMap": true,
-    "declarationMap": true,
-    "outDir": "dist/",
-    "rootDir": "src/"
+    "declarationMap": true
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -22,7 +22,7 @@ import {
   EditorInlineContentSchema,
   EditorStyleSchema,
   EditorType,
-} from "./blocknote/index.js";
+} from "./blocknote";
 import { useBlockNoteEditor } from "@blocknote/react";
 
 export function useEditor(): EditorType {

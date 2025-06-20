@@ -17,9 +17,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { App } from "./App.js";
-import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper.jsx";
-import { LinkEditionContext } from "./misc/linkSuggest.js";
+import { App } from "./App";
+import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
+import { LinkEditionContext } from "./misc/linkSuggest";
 import { createRoot } from "react-dom/client";
 
 export function mountBlockNote(

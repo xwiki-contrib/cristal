@@ -24,7 +24,7 @@ import {
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.layer.css";
 
-export const App = (props: BlockNoteViewWrapperProps) => {
+export const App: React.FC<BlockNoteViewWrapperProps> = (props) => {
   return (
     <MantineProvider>
       <BlockNoteViewWrapper {...props} />

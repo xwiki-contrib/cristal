@@ -18,9 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { CustomFormattingToolbar } from "./CustomFormattingToolbar.jsx";
-import { ImageFilePanel } from "./images/ImageFilePanel.js";
-import { CustomLinkToolbar } from "./links/CustomLinkToolbar.js";
+import { CustomFormattingToolbar } from "./CustomFormattingToolbar";
+import { ImageFilePanel } from "./images/ImageFilePanel";
+import { CustomLinkToolbar } from "./links/CustomLinkToolbar";
 import {
   BlockType,
   EditorBlockSchema,
@@ -31,8 +31,8 @@ import {
   createBlockNoteSchema,
   createDictionary,
   querySuggestionsMenuItems,
-} from "../blocknote/index.js";
-import { LinkEditionContext } from "../misc/linkSuggest.js";
+} from "../blocknote";
+import { LinkEditionContext } from "../misc/linkSuggest";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
@@ -119,7 +119,7 @@ type BlockNoteViewWrapperProps = {
  * BlockNote editor wrapper
  */
 // eslint-disable-next-line max-statements
-function BlockNoteViewWrapper({
+const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   blockNoteOptions,
   theme,
   content,
@@ -128,7 +128,7 @@ function BlockNoteViewWrapper({
   pendingSyncMessage,
   linkEditionCtx,
   refs: { setEditor, setProvider } = {},
-}: BlockNoteViewWrapperProps) {
+}: BlockNoteViewWrapperProps) => {
   const schema = createBlockNoteSchema();
 
   const provider = realtime?.hocusPocus
@@ -306,7 +306,7 @@ function BlockNoteViewWrapper({
       />
     </BlockNoteView>
   );
-}
+};
 
 export type { BlockNoteViewWrapperProps, EditorSchema };
 export { BlockNoteViewWrapper };
