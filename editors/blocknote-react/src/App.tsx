@@ -17,10 +17,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import {
+  BlockNoteViewWrapper,
+  BlockNoteViewWrapperProps,
+} from "./components/BlockNoteViewWrapper";
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.layer.css";
 
-import { generateConfigVue } from "../../vite.config";
-import { UserConfig } from "vite";
-
-const config: UserConfig = generateConfigVue(import.meta.url);
-
-export default config;
+export const App: React.FC<BlockNoteViewWrapperProps> = (props) => {
+  return (
+    <MantineProvider>
+      <BlockNoteViewWrapper {...props} />
+    </MantineProvider>
+  );
+};

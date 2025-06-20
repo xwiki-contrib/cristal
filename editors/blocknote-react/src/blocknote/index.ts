@@ -30,7 +30,6 @@ import {
   defaultBlockSpecs,
   filterSuggestionItems,
 } from "@blocknote/core";
-// @ts-expect-error can be removed once the moduleResolution for this module is moved to bundle
 import * as locales from "@blocknote/core/locales";
 import {
   DefaultReactSuggestionItem,

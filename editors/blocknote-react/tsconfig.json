@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+
+  "compilerOptions": {
+    /* Bundler mode */
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+
+    // Required as we use tons of generics between modules, so even though we **could**
+    // use isolated declarations, it would make the code much, MUCH less readable
+    "isolatedDeclarations": false,
+
+    /* Building */
+    "sourceMap": true,
+    "declarationMap": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}
