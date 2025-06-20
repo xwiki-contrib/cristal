@@ -131,6 +131,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
           ref={fileUploadRef}
           accept="image/*"
           onChange={(file) => file && fileSelected(file)}
+          placeholder="Image name"
         />
       </VisuallyHidden>
 
@@ -148,7 +149,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
           return (
             <Flex gap="sm">
-              <img src={option.value} style={{ maxWidth: "200px" }} />
+              <img src={option.value} style={{ maxWidth: "100px" }} />
               <Stack justify="center">
                 <Text>
                   <RiAttachmentLine /> {link.title}
