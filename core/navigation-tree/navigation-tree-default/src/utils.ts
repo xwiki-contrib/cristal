@@ -24,21 +24,22 @@ import type { DocumentReference } from "@xwiki/cristal-model-api";
  * Returns the ids of the parents nodes for a path-like page id.
  *
  * @param pageData - the page
+ * @param includeRootNode - whether to include a root node with empty id (default: false)
  * @returns the parents nodes ids
- * @since 0.15
+ * @since 0.19
  **/
 export function getParentNodesIdFromPath(
   page?: DocumentReference,
+  includeRootNode?: boolean,
 ): Array<string> {
-  const result: Array<string> = [];
+  const result: Array<string> = includeRootNode ? [""] : [];
   if (page) {
     const parents = [
       ...(page as DocumentReference).space!.names,
       (page as DocumentReference).name,
     ];
     let currentParent = "";
-    let i;
-    for (i = 0; i < parents.length; i++) {
+    for (let i = 0; i < parents.length; i++) {
       currentParent += parents[i];
       result.push(currentParent);
       currentParent += "/";
