@@ -30,12 +30,12 @@ import {
   Text,
   VisuallyHidden,
 } from "@mantine/core";
-import { debounce } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import {
   AttachmentReference,
   DocumentReference,
 } from "@xwiki/cristal-model-api";
+import { debounce } from "lodash-es";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RiAttachmentLine, RiLink } from "react-icons/ri";
 

@@ -3481,6 +3481,9 @@ importers:
       '@xwiki/cristal-uniast':
         specifier: workspace:*
         version: link:../../core/uniast
+      lodash-es:
+        specifier: 4.17.21
+        version: 4.17.21
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -3491,6 +3494,9 @@ importers:
         specifier: 5.5.0
         version: 5.5.0(react@19.1.0)
     devDependencies:
+      '@types/lodash-es':
+        specifier: 4.17.12
+        version: 4.17.12
       '@types/react':
         specifier: 19.1.7
         version: 19.1.7

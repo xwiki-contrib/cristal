@@ -111,31 +111,4 @@ function tryFallibleOrError<T>(func: () => T): T | Error {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function debounce<F extends (...args: any[]) => any>(
-  func: F,
-): (...args: Parameters<F>) => ReturnType<F> | void {
-  let running = false;
-
-  return ((...args: unknown[]) => {
-    if (running) {
-      return;
-    }
-
-    running = true;
-
-    try {
-      func(...args);
-    } finally {
-      running = false;
-    }
-  }) as F;
-}
-
-export {
-  assertInArray,
-  assertUnreachable,
-  debounce,
-  tryFallible,
-  tryFallibleOrError,
-};
+export { assertInArray, assertUnreachable, tryFallible, tryFallibleOrError };
