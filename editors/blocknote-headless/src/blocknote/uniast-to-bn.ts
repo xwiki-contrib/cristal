@@ -285,6 +285,8 @@ export class UniAstToBlockNoteConverter {
         url,
         caption: image.caption ?? "",
         showPreview: true,
+        // TODO: BlockNote specifies an invalid type for previewWidth property on image blocks, which forces us to
+        // perform a cast. Remove the cast after https://github.com/TypeCellOS/BlockNote/issues/1765 is fixed.
         previewWidth: image.widthPx ?? (undefined as unknown as number),
         backgroundColor: "default",
         textAlignment: image.styles.alignment ?? "left",
