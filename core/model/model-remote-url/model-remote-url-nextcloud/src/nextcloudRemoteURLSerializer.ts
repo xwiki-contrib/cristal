@@ -59,7 +59,7 @@ class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
   }
 
   private serializeAttachment(attachmentReference: AttachmentReference) {
-    return `${this.serializeDocument(attachmentReference.document)}/attachments/${attachmentReference.name}`;
+    return `${this.serializeDocument(attachmentReference.document!)}/attachments/${attachmentReference.name}`;
   }
 
   private getRootURL(username?: string) {

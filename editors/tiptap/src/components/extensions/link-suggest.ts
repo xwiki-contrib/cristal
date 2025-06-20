@@ -29,11 +29,7 @@ import Suggestion from "@tiptap/suggestion";
 import { Editor, Extension, Range } from "@tiptap/vue-3";
 import { SkinManager } from "@xwiki/cristal-api";
 import { Link } from "@xwiki/cristal-link-suggest-api";
-import {
-  AttachmentReference,
-  DocumentReference,
-  EntityType,
-} from "@xwiki/cristal-model-api";
+import { DocumentReference, EntityType } from "@xwiki/cristal-model-api";
 import { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 import { Container } from "inversify";
 import { createPinia } from "pinia";
@@ -143,13 +139,13 @@ function initSuggestionsService(
 
         let documentReference;
         if (entityReference?.type == EntityType.ATTACHMENT) {
-          documentReference = (entityReference as AttachmentReference).document;
+          documentReference = entityReference.document;
         } else {
           documentReference = entityReference as DocumentReference;
         }
-        const segments = documentReference.space?.names.slice(0) ?? [];
+        const segments = documentReference?.space?.names.slice(0) ?? [];
         // TODO: replace with an actual construction of segments from a reference
-        if (documentReference.terminal) {
+        if (documentReference?.terminal) {
           segments.push(documentReference.name);
         }
         return {

@@ -54,8 +54,8 @@ class XWikiRemoteURLSerializer implements RemoteURLSerializer {
     const baseURL = this.cristalApp.getWikiConfig().baseURL;
     const attachmentReference = reference as AttachmentReference;
     const documentReference = attachmentReference.document;
-    const spaces = documentReference.space?.names.map(encodeURI).join("/");
-    return `${baseURL}/bin/download/${spaces}/${encodeURI(documentReference.name)}/${encodeURI(
+    const spaces = documentReference!.space?.names.map(encodeURI).join("/");
+    return `${baseURL}/bin/download/${spaces}/${encodeURI(documentReference!.name)}/${encodeURI(
       attachmentReference.name,
     )}`;
   }

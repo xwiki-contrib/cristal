@@ -61,8 +61,8 @@ class GitHubRemoteURLSerializer implements RemoteURLSerializer {
   private serializeAttachmentReference(
     attachmentReference: AttachmentReference,
   ) {
-    const spaces = attachmentReference.document.space?.names.join("/");
-    return `${this.getBaseURL()}/${spaces}/${attachmentReference.document.name}/${attachmentReference.name}`;
+    const spaces = attachmentReference.document?.space?.names.join("/");
+    return `${this.getBaseURL()}/${spaces}/${attachmentReference.document?.name}/${attachmentReference.name}`;
   }
 
   private getBaseURL() {
