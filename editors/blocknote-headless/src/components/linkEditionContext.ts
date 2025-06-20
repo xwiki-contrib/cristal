@@ -24,6 +24,7 @@ import { LinkEditionContext } from "@xwiki/cristal-editors-blocknote-react";
 import { Container } from "inversify";
 import type { LinkSuggestServiceProvider } from "@xwiki/cristal-link-suggest-api";
 import type {
+  ModelReferenceHandlerProvider,
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
@@ -47,6 +48,10 @@ export function createLinkEditionContext(
     .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")
     .get()!;
 
+  const modelReferenceHandler = container
+    .get<ModelReferenceHandlerProvider>("ModelReferenceHandlerProvider")
+    .get()!;
+
   const remoteURLParser = container
     .get<RemoteURLParserProvider>("RemoteURLParserProvider")
     .get()!;
@@ -64,6 +69,7 @@ export function createLinkEditionContext(
     linkSuggestService,
     modelReferenceParser,
     modelReferenceSerializer,
+    modelReferenceHandler,
     remoteURLParser,
     remoteURLSerializer,
     attachmentsService,

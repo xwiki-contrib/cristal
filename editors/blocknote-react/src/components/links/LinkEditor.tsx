@@ -22,16 +22,21 @@ import {
   LinkSuggestion,
   createLinkSuggestor,
 } from "../../misc/linkSuggest";
-import { Input, Select, Stack } from "@mantine/core";
-import { debounce } from "@xwiki/cristal-fn-utils";
+import {
+  Button,
+  Combobox,
+  Input,
+  InputBase,
+  Stack,
+  useCombobox,
+} from "@mantine/core";
+import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
-import { EntityReference } from "@xwiki/cristal-model-api";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { RiLink, RiText } from "react-icons/ri";
 
 type LinkData = {
   title: string;
-  reference: EntityReference | null;
   url: string;
 };
 
@@ -39,127 +44,132 @@ type LinkEditorProps = {
   linkEditionCtx: LinkEditionContext;
   current: LinkData | null;
   updateLink: (linkData: LinkData) => void;
-  hideTitle?: boolean;
+  creationMode?: boolean;
 };
 
 export const LinkEditor: React.FC<LinkEditorProps> = ({
   linkEditionCtx,
   current,
   updateLink,
-  hideTitle,
+  creationMode,
 }) => {
   const suggestLink = createLinkSuggestor(linkEditionCtx);
 
-  const [customTitle, setCustomTitle] = useState(current?.title ?? "");
-  const [results, setResults] = useState<
+  const [title, setTitle] = useState(current?.title ?? "");
+  const [url, setUrl] = useState(current?.url ?? "");
+  const [search, setSearch] = useState(
+    current?.url ? getTitleFromRefUrl(current.url, linkEditionCtx) : "",
+  );
+
+  const [suggestions, setSuggestions] = useState<
     (LinkSuggestion | { type: "url"; title: string; url: string })[]
   >([]);
 
-  const search = useCallback(
-    debounce(async (query: string) => {
-      if (query.startsWith("http://") || query.startsWith("https://")) {
-        setResults([{ type: "url", title: query, url: query }]);
-        return;
-      }
+  useEffect(() => {
+    if (search.startsWith("http://") || search.startsWith("https://")) {
+      setSuggestions([{ type: "url", title: search, url: search }]);
+      return;
+    }
 
-      const suggestions = await suggestLink({ query });
-
-      setResults(
+    suggestLink({ query: search }).then((suggestions) =>
+      setSuggestions(
         suggestions.filter((suggestion) => suggestion.type === LinkType.PAGE),
-      );
-    }),
-    [setResults],
-  );
+      ),
+    );
+  }, [search, setSuggestions]);
+
+  const suggestionsList = suggestions.map((suggestion) => (
+    <Combobox.Option value={suggestion.url} key={suggestion.url}>
+      {suggestion.title}
+    </Combobox.Option>
+  ));
+
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
 
   const submit = useCallback(
-    ({
-      title,
-      url,
-      reference,
-    }: {
-      title: string;
-      url: string;
-      reference: EntityReference | null;
-    }) => {
-      const result = results.find((result) => result.title === title);
-
-      if (!result) {
-        return;
-      }
-
+    (overrides?: { title?: string; url?: string }) => {
       updateLink({
-        title,
-        url,
-        reference,
+        title: overrides?.title ?? title,
+        url: overrides?.url ?? url,
       });
     },
-    [results, setResults],
-  );
-
-  const selectFromTitle = useCallback(
-    (title: string) => {
-      const result = results.find((result) => result.title === title)!;
-
-      submit({
-        title: customTitle || title,
-        url: result.url,
-        reference:
-          result.type === "url"
-            ? null
-            : linkEditionCtx.remoteURLParser.parse(result.reference)!,
-      });
-    },
-    [results, customTitle, submit],
+    [updateLink, title, url],
   );
 
   return (
     <Stack>
-      {!hideTitle && (
+      {!creationMode && (
         <Input
           leftSection={<RiText />}
-          value={customTitle}
-          onChange={(e) => setCustomTitle(e.target.value)}
-          onKeyDown={(e) =>
-            current &&
-            e.key === "Enter" &&
-            submit({
-              title: customTitle,
-              url: current.url,
-              reference: current.reference,
-            })
-          }
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          onKeyDown={(e) => current && e.key === "Enter" && submit()}
         />
       )}
 
-      <Select
-        leftSection={<RiLink />}
-        rightSection=" "
-        searchable
-        data={results.map((result) => ({
-          value: result.url,
-          label: result.title,
-        }))}
-        defaultValue={
-          "TODO"
+      <Combobox
+        store={combobox}
+        onOptionSubmit={(url) => {
+          combobox.closeDropdown();
 
-          // current?.reference
-          //   ? (linkEditionCtx.modelReferenceSerializer.serialize(
-          //       current.reference,
-          //     ) ?? current.url)
-          //   : ""
-        }
-        onInput={(e) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          search((e.target as any).value);
+          setUrl(url);
+
+          if (creationMode) {
+            submit({ url });
+          }
         }}
-        onChange={(value, option) => {
-          console.log({ option });
-          // selectFromTitle
-        }}
-        comboboxProps={{ zIndex: 10000 }}
-      />
+      >
+        <Combobox.Target>
+          <InputBase
+            leftSection={<RiLink />}
+            rightSection=" "
+            value={search}
+            onChange={(event) => {
+              combobox.openDropdown();
+              combobox.updateSelectedOptionIndex();
+              setSearch(event.currentTarget.value);
+            }}
+            onClick={() => combobox.openDropdown()}
+            onFocus={() => combobox.openDropdown()}
+            onBlur={() => {
+              combobox.closeDropdown();
+            }}
+          />
+        </Combobox.Target>
+
+        <Combobox.Dropdown style={{ zIndex: 10000 }}>
+          <Combobox.Options>
+            {suggestionsList.length > 0 ? (
+              suggestionsList
+            ) : (
+              <Combobox.Empty>No result found</Combobox.Empty>
+            )}
+          </Combobox.Options>
+        </Combobox.Dropdown>
+      </Combobox>
+
+      {!creationMode && (
+        <Button fullWidth type="submit" onClick={() => submit()}>
+          Submit
+        </Button>
+      )}
     </Stack>
   );
 };
+
+function getTitleFromRefUrl(
+  url: string,
+  linkEditionCtx: LinkEditionContext,
+): string {
+  const reference = tryFallible(() =>
+    linkEditionCtx.remoteURLParser.parse(url),
+  );
+
+  return reference
+    ? linkEditionCtx.modelReferenceHandler.getTitle(reference)
+    : url;
+}
 
 export type { LinkData, LinkEditorProps };
