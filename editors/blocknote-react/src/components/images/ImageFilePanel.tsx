@@ -45,6 +45,8 @@ export const ImageFilePanel: React.FC<ImageFilePanelProps> = ({
   );
 
   return (
+    // By default file panels don't have any styling and just "float", unstyled, above the editor
+    // So we put some white background and borders to make it stand out from the editor's content
     <Box bg="white" p="sm" bd="1px solid black">
       <ImageSelector linkEditionCtx={linkEditionCtx} onSelected={updateImage} />
     </Box>

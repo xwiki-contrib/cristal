@@ -32,6 +32,7 @@ import {
 } from "@mantine/core";
 import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
+import { debounce } from "lodash-es";
 import { useCallback, useEffect, useState } from "react";
 import { RiLink, RiText } from "react-icons/ri";
 
@@ -47,7 +48,6 @@ type LinkEditorProps = {
   creationMode?: boolean;
 };
 
-// eslint-disable-next-line max-statements
 export const LinkEditor: React.FC<LinkEditorProps> = ({
   linkEditionCtx,
   current,
@@ -63,31 +63,28 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
   );
 
   const [suggestions, setSuggestions] = useState<
-    (LinkSuggestion | { type: "url"; title: string; url: string })[]
+    (
+      | LinkSuggestion // A link suggestion returned by the relevant service, contains an entity reference
+      | { type: "url"; title: string; url: string } // Just an URL
+    )[]
   >([]);
 
-  useEffect(() => {
-    if (search.startsWith("http://") || search.startsWith("https://")) {
-      setSuggestions([{ type: "url", title: search, url: search }]);
-      return;
-    }
+  // Automatically perform a new search when the query changes
+  useEffect(
+    debounce(() => {
+      if (search.startsWith("http://") || search.startsWith("https://")) {
+        setSuggestions([{ type: "url", title: search, url: search }]);
+        return;
+      }
 
-    suggestLink({ query: search }).then((suggestions) =>
-      setSuggestions(
-        suggestions.filter((suggestion) => suggestion.type === LinkType.PAGE),
-      ),
-    );
-  }, [search, setSuggestions]);
-
-  const suggestionsList = suggestions.map((suggestion) => (
-    <Combobox.Option value={suggestion.url} key={suggestion.url}>
-      {suggestion.title}
-    </Combobox.Option>
-  ));
-
-  const combobox = useCombobox({
-    onDropdownClose: () => combobox.resetSelectedOption(),
-  });
+      suggestLink({ query: search }).then((suggestions) =>
+        setSuggestions(
+          suggestions.filter((suggestion) => suggestion.type === LinkType.PAGE),
+        ),
+      );
+    }),
+    [search, setSuggestions],
+  );
 
   const submit = useCallback(
     (overrides?: { title?: string; url?: string }) => {
@@ -119,6 +116,10 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
     },
     [setSearch, linkEditionCtx, creationMode, submit],
   );
+
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
 
   return (
     <Stack>
@@ -167,8 +168,12 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
           }}
         >
           <Combobox.Options>
-            {suggestionsList.length > 0 ? (
-              suggestionsList
+            {suggestions.length > 0 ? (
+              suggestions.map((suggestion) => (
+                <Combobox.Option value={suggestion.url} key={suggestion.url}>
+                  {suggestion.title}
+                </Combobox.Option>
+              ))
             ) : (
               <Combobox.Empty>No result found</Combobox.Empty>
             )}
