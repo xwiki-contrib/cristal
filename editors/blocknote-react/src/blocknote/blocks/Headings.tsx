@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { createCustomBlockSpec } from "../utils.js";
+import { createCustomBlockSpec } from "../utils";
 
 function createCustomHeading(level: 4 | 5 | 6) {
   return createCustomBlockSpec({
