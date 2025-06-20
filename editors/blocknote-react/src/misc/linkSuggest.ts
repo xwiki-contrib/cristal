@@ -22,6 +22,7 @@ import { AttachmentsService } from "@xwiki/cristal-attachments-api";
 import { DocumentService } from "@xwiki/cristal-document-api";
 import { EntityType } from "@xwiki/cristal-model-api";
 import {
+  ModelReferenceHandler,
   ModelReferenceParser,
   ModelReferenceSerializer,
 } from "@xwiki/cristal-model-reference-api";
@@ -43,6 +44,7 @@ type LinkEditionContext = {
   linkSuggestService: LinkSuggestService;
   modelReferenceParser: ModelReferenceParser;
   modelReferenceSerializer: ModelReferenceSerializer;
+  modelReferenceHandler: ModelReferenceHandler;
   remoteURLParser: RemoteURLParser;
   remoteURLSerializer: RemoteURLSerializer;
   attachmentsService: AttachmentsService;

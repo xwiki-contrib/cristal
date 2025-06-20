@@ -20,7 +20,6 @@
 import { LinkEditor } from "./LinkEditor";
 import { LinkEditionContext } from "../../misc/linkSuggest";
 import { LinkToolbarProps, useComponentsContext } from "@blocknote/react";
-import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { useState } from "react";
 import {
   RiDeleteBin6Line,
@@ -61,11 +60,6 @@ export const CustomLinkToolbar: React.FC<CustomLinkToolbarProps> = ({
             linkEditionCtx={linkEditionCtx}
             current={{
               url: linkToolbarProps.url,
-              reference: tryFallible(
-                () =>
-                  linkEditionCtx.remoteURLParser.parse(linkToolbarProps.url) ??
-                  null,
-              ),
               title: linkToolbarProps.text,
             }}
             updateLink={({ url, title }) =>

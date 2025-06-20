@@ -71,13 +71,12 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
         variant={"form-popover"}
       >
         <LinkEditor
+          creationMode
           linkEditionCtx={linkEditionCtx}
           current={{
             title: selected,
-            reference: null,
             url: "",
           }}
-          hideTitle
           updateLink={({ url }) => insertLink(url)}
         />
       </Components.Generic.Popover.Content>
