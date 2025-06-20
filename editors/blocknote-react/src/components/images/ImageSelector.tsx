@@ -39,12 +39,12 @@ import { debounce } from "lodash-es";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { RiAttachmentLine, RiLink } from "react-icons/ri";
 
-export type ImageEditorProps = {
+export type ImageSelectorProps = {
   linkEditionCtx: LinkEditionContext;
   onSelected: (url: string) => void;
 };
 
-export const ImageEditor: React.FC<ImageEditorProps> = ({
+export const ImageSelector: React.FC<ImageSelectorProps> = ({
   linkEditionCtx,
   onSelected,
 }) => {
