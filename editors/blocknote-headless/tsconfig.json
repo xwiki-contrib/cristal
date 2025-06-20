@@ -7,6 +7,8 @@
     "jsx": "preserve",
     // TODO: this doesn't work for now due to changing `moduleResolution` to `bundler`
     // "types": ["@xwiki/cristal-dsapi"],
+
+    // Required to integrate the React part (blocknote-react)
     "moduleResolution": "bundler"
   },
   "extends": "./../../tsconfig.json",
