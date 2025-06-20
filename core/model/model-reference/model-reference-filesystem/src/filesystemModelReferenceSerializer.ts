@@ -18,13 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import {
-  AttachmentReference,
-  DocumentReference,
-  EntityReference,
-  EntityType,
-  SpaceReference,
-} from "@xwiki/cristal-model-api";
+import { EntityReference, EntityType } from "@xwiki/cristal-model-api";
 
 import { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
 import { injectable } from "inversify";
@@ -45,13 +39,11 @@ export class FileSystemModelReferenceSerializer
       case WIKI:
         throw new Error("Wiki currently not supported from FileSystem");
       case SPACE: {
-        const spaceReference = reference as SpaceReference;
-        return spaceReference.names.map(this.escapeSegment).join("/");
+        return reference.names.map(this.escapeSegment).join("/");
       }
       case DOCUMENT: {
-        const documentReference = reference as DocumentReference;
-        const spaces = this.serialize(documentReference.space);
-        const name = documentReference.name;
+        const spaces = this.serialize(reference.space);
+        const name = reference.name;
         if (spaces === undefined || spaces == "") {
           return this.escapeSegment(name);
         } else {
@@ -59,10 +51,9 @@ export class FileSystemModelReferenceSerializer
         }
       }
       case ATTACHMENT: {
-        const attachmentReference = reference as AttachmentReference;
-        const document = this.serialize(attachmentReference.document);
-        const name = attachmentReference.name;
-        return `${document}/attachments/${this.escapeSegment(name)}`;
+        const document = this.serialize(reference.document);
+        const name = reference.name;
+        return `${document}@${this.escapeSegment(name)}`;
       }
       default:
         throw new Error(`Unknown reference type [${type}]`);

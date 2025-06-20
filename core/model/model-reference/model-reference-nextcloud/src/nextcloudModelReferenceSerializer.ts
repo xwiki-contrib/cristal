@@ -19,8 +19,6 @@
  */
 
 import {
-  AttachmentReference,
-  DocumentReference,
   EntityReference,
   EntityType,
   SpaceReference,
@@ -49,9 +47,8 @@ export class NextcloudModelReferenceSerializer
         return spaceReference.names.join("/");
       }
       case DOCUMENT: {
-        const documentReference = reference as DocumentReference;
-        const spaces = this.serialize(documentReference.space);
-        const name = documentReference.name;
+        const spaces = this.serialize(reference.space);
+        const name = reference.name;
         if (spaces === undefined || spaces == "") {
           return name;
         } else {
@@ -59,10 +56,9 @@ export class NextcloudModelReferenceSerializer
         }
       }
       case ATTACHMENT: {
-        const attachmentReference = reference as AttachmentReference;
-        const document = this.serialize(attachmentReference.document);
-        const name = attachmentReference.name;
-        return `${document}/attachments/${name}`;
+        const document = this.serialize(reference.document);
+        const name = reference.name;
+        return `${document}@${name}`;
       }
       default:
         throw new Error(`Unknown reference type [${type}]`);
