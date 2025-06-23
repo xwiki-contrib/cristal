@@ -104,6 +104,8 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
 
   editorProps.value = {
     theme: "light",
+    // TODO: make this customizable
+    lang: "en",
   };
 
   editorContent.value = markdownToUniAst.parseMarkdown(currentPage.source);

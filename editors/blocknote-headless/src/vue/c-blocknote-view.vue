@@ -47,10 +47,7 @@ const {
   realtimeServerURL = undefined,
   container,
 } = defineProps<{
-  editorProps: Omit<
-    BlockNoteViewWrapperProps,
-    "content" | "pendingSyncMessage" | "linkEditionCtx"
-  >;
+  editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
   editorContent: UniAst | Error;
   realtimeServerURL?: string | undefined;
   container: Container;
@@ -143,7 +140,6 @@ const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
     emit("instant-change");
     notifyChangesDebounced();
   },
-  pendingSyncMessage: t("blocknote.realtime.syncing"),
   blockNoteOptions: editorProps.blockNoteOptions,
   linkEditionCtx: createLinkEditionContext(container),
   realtime: await getRealtimeOptions(),

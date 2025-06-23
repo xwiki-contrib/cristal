@@ -164,7 +164,8 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
             zIndex: 10000,
             // These options are required due to not using a portal (see above)
             background: "white",
-            border: "1px solid black",
+            borderRadius: "5px",
+            boxShadow: "#CFCFCF 0px 4px 12px 0px",
           }}
         >
           <Combobox.Options>

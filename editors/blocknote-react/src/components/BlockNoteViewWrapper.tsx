@@ -25,6 +25,7 @@ import {
   BlockType,
   EditorBlockSchema,
   EditorInlineContentSchema,
+  EditorLanguage,
   EditorSchema,
   EditorStyleSchema,
   EditorType,
@@ -77,6 +78,11 @@ type BlockNoteViewWrapperProps = {
   theme?: "light" | "dark";
 
   /**
+   * The editor's language
+   */
+  lang: EditorLanguage;
+
+  /**
    * The editor's initial content
    * If realtime is enabled, this content may be replaced by the other users' own editor content
    */
@@ -95,11 +101,6 @@ type BlockNoteViewWrapperProps = {
    * WARN: this function may be fired at a rapid rate if the user types rapidly. Debouncing may be required on your end.
    */
   onChange?: (editor: EditorType) => void;
-
-  /**
-   * Message to display while syncing changes with other users
-   */
-  pendingSyncMessage: string;
 
   /**
    * Link edition utilities
@@ -125,7 +126,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   content,
   realtime,
   onChange,
-  pendingSyncMessage,
+  lang,
   linkEditionCtx,
   refs: { setEditor, setProvider } = {},
 }: BlockNoteViewWrapperProps) => {
@@ -144,6 +145,9 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   // Prevent changes in the editor until the provider has synced with other clients
   const [ready, setReady] = useState(!provider);
 
+  // Create the translated dictionary
+  const dict = createDictionary(lang);
+
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
     ...blockNoteOptions,
@@ -157,8 +161,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
     // Editor's schema, with custom blocks definition
     schema,
     dropCursor: multiColumnDropCursor,
-    // Merges the default dictionary with the multi-column dictionary.
-    dictionary: createDictionary(),
+    dictionary: dict,
     // The default drop cursor only shows up above and below blocks - we replace
     // it with the multi-column one that also shows up on the sides of blocks.
     tables: {
@@ -248,7 +251,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   if (!ready) {
     return (
       <h3>
-        <em>{pendingSyncMessage}</em>
+        <em>{dict.custom.realtime.pendingSync}</em>
       </h3>
     );
   }
