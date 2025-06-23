@@ -54,6 +54,7 @@ import {
   HocuspocusProviderConfiguration,
 } from "@hocuspocus/provider";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -130,6 +131,8 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   linkEditionCtx,
   refs: { setEditor, setProvider } = {},
 }: BlockNoteViewWrapperProps) => {
+  const { t } = useTranslation();
+
   const schema = createBlockNoteSchema();
 
   const provider = realtime?.hocusPocus
@@ -145,9 +148,6 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   // Prevent changes in the editor until the provider has synced with other clients
   const [ready, setReady] = useState(!provider);
 
-  // Create the translated dictionary
-  const dict = createDictionary(lang);
-
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
     ...blockNoteOptions,
@@ -161,7 +161,8 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
     // Editor's schema, with custom blocks definition
     schema,
     dropCursor: multiColumnDropCursor,
-    dictionary: dict,
+    // Use the provided language for the dictionary
+    dictionary: createDictionary(lang),
     // The default drop cursor only shows up above and below blocks - we replace
     // it with the multi-column one that also shows up on the sides of blocks.
     tables: {
@@ -251,7 +252,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   if (!ready) {
     return (
       <h3>
-        <em>{dict.custom.realtime.pendingSync}</em>
+        <em>{t("blocknote.realtime.pendingSync")}</em>
       </h3>
     );
   }

@@ -17,7 +17,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { useCustomDictionary } from "../../hooks";
 import {
   LinkEditionContext,
   LinkSuggestion,
@@ -35,6 +34,7 @@ import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import { debounce } from "lodash-es";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { RiLink, RiText } from "react-icons/ri";
 
 type LinkData = {
@@ -56,7 +56,7 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
   updateLink,
   creationMode,
 }) => {
-  const dict = useCustomDictionary();
+  const { t } = useTranslation();
   const suggestLink = createLinkSuggestor(linkEditionCtx);
 
   const [title, setTitle] = useState(current?.title ?? "");
@@ -179,7 +179,9 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
                 </Combobox.Option>
               ))
             ) : (
-              <Combobox.Empty>{dict.linkEditor.noResultFound}</Combobox.Empty>
+              <Combobox.Empty>
+                {t("blocknote.linkEditor.noResultFound")}
+              </Combobox.Empty>
             )}
           </Combobox.Options>
         </Combobox.Dropdown>
@@ -187,7 +189,7 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
 
       {!creationMode && (
         <Button fullWidth type="submit" onClick={() => submit()}>
-          {dict.linkEditor.submit}
+          {t("blocknote.linkEditor.submit")}
         </Button>
       )}
     </Stack>

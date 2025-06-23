@@ -19,7 +19,7 @@
  */
 
 import { Heading4, Heading5, Heading6 } from "./blocks/Headings";
-import { customDictionaries } from "./dictionary";
+import translations from "../translations";
 import {
   Block,
   BlockNoteEditor,
@@ -86,14 +86,12 @@ function createDictionary(lang: EditorLanguage) {
 
     // First-party extensions
     multi_column: multiColumnLocales[lang],
-
-    // Custom messages
-    custom: customDictionaries[lang],
   };
 }
 
-type EditorLanguage = keyof typeof locales & keyof typeof customDictionaries;
-type EditorDictionary = ReturnType<typeof createDictionary>;
+type EditorLanguage = keyof typeof locales &
+  keyof typeof multiColumnLocales &
+  keyof typeof translations;
 
 function querySuggestionsMenuItems(
   editor: EditorType,
@@ -171,7 +169,6 @@ export type {
   BlockOfType,
   BlockType,
   EditorBlockSchema,
-  EditorDictionary,
   EditorInlineContentSchema,
   EditorLanguage,
   EditorLink,

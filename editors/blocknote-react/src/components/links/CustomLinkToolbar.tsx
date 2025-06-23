@@ -18,10 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { LinkEditor } from "./LinkEditor";
-import { useCustomDictionary } from "../../hooks";
 import { LinkEditionContext } from "../../misc/linkSuggest";
 import { LinkToolbarProps, useComponentsContext } from "@blocknote/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   RiDeleteBin6Line,
   RiExternalLinkLine,
@@ -38,7 +38,7 @@ export const CustomLinkToolbar: React.FC<CustomLinkToolbarProps> = ({
   linkEditionCtx,
 }) => {
   const Components = useComponentsContext()!;
-  const dict = useCustomDictionary();
+  const { t } = useTranslation();
 
   const [showLinkEditor, setShowLinkEditor] = useState(false);
 
@@ -50,7 +50,7 @@ export const CustomLinkToolbar: React.FC<CustomLinkToolbarProps> = ({
               (note: this comment is from BlockNote's source code but may remain relevant here) */}
           <Components.FormattingToolbar.Button
             className="bn-button"
-            label={dict.toolbars.link.buttons.edit}
+            label={t("blocknote.linkToolbar.buttons.edit")}
             icon={<RiPencilLine />}
             onClick={() => setShowLinkEditor(true)}
           />
@@ -74,14 +74,14 @@ export const CustomLinkToolbar: React.FC<CustomLinkToolbarProps> = ({
 
       <Components.FormattingToolbar.Button
         className="bn-button"
-        label={dict.toolbars.link.buttons.open}
+        label={t("blocknote.linkToolbar.buttons.open")}
         icon={<RiExternalLinkLine />}
         onClick={() => window.open(linkToolbarProps.url)}
       />
 
       <Components.FormattingToolbar.Button
         className="bn-button"
-        label={dict.toolbars.link.buttons.delete}
+        label={t("blocknote.linkToolbar.buttons.delete")}
         icon={<RiDeleteBin6Line />}
         onClick={() => linkToolbarProps.deleteLink()}
       />

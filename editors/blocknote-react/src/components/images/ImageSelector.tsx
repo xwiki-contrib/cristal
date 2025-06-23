@@ -17,7 +17,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { useCustomDictionary } from "../../hooks";
 import { LinkEditionContext, LinkSuggestion } from "../../misc/linkSuggest";
 import {
   Box,
@@ -38,6 +37,7 @@ import {
 } from "@xwiki/cristal-model-api";
 import { debounce } from "lodash-es";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { RiAttachmentLine, RiLink } from "react-icons/ri";
 
 export type ImageSelectorProps = {
@@ -49,7 +49,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
   linkEditionCtx,
   onSelected,
 }) => {
-  const dict = useCustomDictionary();
+  const { t } = useTranslation();
 
   const fileUploadRef = useRef<HTMLButtonElement>(null);
 
@@ -123,7 +123,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
   return (
     <Box>
       <Button variant="default" onClick={triggerUpload}>
-        {dict.imageSelector.uploadButton}
+        {t("blocknote.imageSelector.uploadButton")}
       </Button>
 
       <Space h="sm" />
