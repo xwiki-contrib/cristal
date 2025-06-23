@@ -37,7 +37,14 @@ import { UniAst, createConverterContext } from "@xwiki/cristal-uniast";
 import { Container } from "inversify";
 
 import { debounce } from "lodash-es";
-import { onBeforeUnmount, onMounted, ref, shallowRef, useId, watch } from "vue";
+import {
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  shallowRef,
+  useTemplateRef,
+  watch,
+} from "vue";
 import { useI18n } from "vue-i18n";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
@@ -166,7 +173,7 @@ const content =
 
 watch(providerRef, (provider) => provider && emit("setup-provider", provider));
 
-const blockNoteDomId = useId();
+const blockNoteContainer = useTemplateRef<HTMLElement>("blocknote-container");
 
 const mountedBlockNote = ref<{ unmount: () => void }>();
 
@@ -175,13 +182,11 @@ onMounted(() => {
     throw content;
   }
 
-  const container = document.getElementById(blockNoteDomId);
-
-  if (!container) {
+  if (!blockNoteContainer.value) {
     throw new Error("Missing DOM container for BlockNote!");
   }
 
-  mountedBlockNote.value = mountBlockNote(container, {
+  mountedBlockNote.value = mountBlockNote(blockNoteContainer.value, {
     ...initializedEditorProps,
     content,
   });
@@ -201,7 +206,7 @@ onBeforeUnmount(() => {
     {{ t("blocknote.document.parsingError", { reason: content }) }}
   </h1>
 
-  <div :id="blockNoteDomId" />
+  <div ref="blocknote-container" />
 </template>
 
 <style scoped>
