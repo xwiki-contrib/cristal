@@ -6,14 +6,54 @@ import { ReactElement, useEffect, useState } from "react";
 import { RiLink } from "react-icons/ri";
 
 export type SearchBoxProps = {
+  /**
+   * The search box's initial value
+   */
   initialValue?: string;
+
+  /**
+   * The search box's placeholder (when empty)
+   */
   placeholder: string;
+
+  /**
+   * Perform a search
+   *
+   * @param query - A user query (text)
+   *
+   * @returns Suggestions matching the provided query
+   */
   getSuggestions: (query: string) => Promise<LinkSuggestion[]>;
+
+  /**
+   * Render a single suggestion
+   *
+   * @param suggestion -
+   *
+   * @returns A JSX element
+   */
   renderSuggestion: (suggestion: LinkSuggestion) => ReactElement;
+
+  /**
+   * Triggered when a result is selected in the list of suggestions
+   */
   onSelect: (url: string) => void;
+
+  /**
+   * Triggered when a result is submitted by the user
+   *
+   * e.g. when the user uses the `<Enter>` key on an URL
+   */
   onSubmit: (url: string) => void;
 };
 
+/**
+ * This component provides a search (text) field with a dropdown for the results
+ *
+ * Raw URLs input is supported.
+ *
+ * @see SearchBoxProps
+ */
 export const SearchBox: React.FC<SearchBoxProps> = ({
   initialValue,
   placeholder,
