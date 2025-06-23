@@ -18,13 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { LinkEditionContext, LinkSuggestion } from "../../misc/linkSuggest";
+import { SearchBox } from "../SearchBox";
 import {
   Box,
   Breadcrumbs,
   Button,
   FileInput,
   Flex,
-  Select,
   Space,
   Stack,
   Text,
@@ -35,10 +35,9 @@ import {
   AttachmentReference,
   DocumentReference,
 } from "@xwiki/cristal-model-api";
-import { debounce } from "lodash-es";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { RiAttachmentLine, RiLink } from "react-icons/ri";
+import { RiAttachmentLine } from "react-icons/ri";
 
 export type ImageSelectorProps = {
   linkEditionCtx: LinkEditionContext;
@@ -79,10 +78,8 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
     [onSelected],
   );
 
-  const [results, setResults] = useState<LinkSuggestion[]>([]);
-
   const searchAttachments = useCallback(
-    debounce(async (query: string) => {
+    async (query: string) => {
       const results = await linkEditionCtx.linkSuggestService.getLinks(
         query,
         LinkType.ATTACHMENT,
@@ -110,9 +107,9 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
         };
       });
 
-      setResults(suggestions);
-    }),
-    [setResults],
+      return suggestions;
+    },
+    [linkEditionCtx],
   );
 
   // Start a first empty search on the first load, to not let the results empty.
@@ -136,35 +133,26 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
         />
       </VisuallyHidden>
 
-      <Select
-        leftSection={<RiLink />}
-        rightSection=" "
-        searchable
-        data={results.map((result) => ({
-          value: result.url,
-          label: result.title,
-        }))}
-        onChange={(value) => value && onSelected(value)}
-        renderOption={({ option }) => {
-          const link = results.find((result) => result.url === option.value)!;
-
-          return (
-            <Flex gap="sm">
-              <img src={option.value} style={{ maxWidth: "100px" }} />
-              <Stack justify="center">
-                <Text>
-                  <RiAttachmentLine /> {link.title}
-                </Text>
-                <Breadcrumbs c="gray">
-                  {link.segments.map((segment, i) => (
-                    <Text key={`${i}${segment}`}>{segment}</Text>
-                  ))}
-                </Breadcrumbs>
-              </Stack>
-            </Flex>
-          );
-        }}
-        comboboxProps={{ zIndex: 10000, width: "auto" }}
+      <SearchBox
+        placeholder={t("blocknote.imageSelector.placeholder")}
+        getSuggestions={searchAttachments}
+        renderSuggestion={(suggestion) => (
+          <Flex gap="sm">
+            <img src={suggestion.url} style={{ maxWidth: "100px" }} />
+            <Stack justify="center">
+              <Text>
+                <RiAttachmentLine /> {suggestion.title}
+              </Text>
+              <Breadcrumbs c="gray">
+                {suggestion.segments.map((segment, i) => (
+                  <Text key={`${i}${segment}`}>{segment}</Text>
+                ))}
+              </Breadcrumbs>
+            </Stack>
+          </Flex>
+        )}
+        onSelect={onSelected}
+        onSubmit={onSelected}
       />
     </Box>
   );

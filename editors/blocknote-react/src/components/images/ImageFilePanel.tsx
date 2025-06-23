@@ -37,7 +37,6 @@ export const ImageFilePanel: React.FC<ImageFilePanelProps> = ({
 
   const updateImage = useCallback(
     (url: string) => {
-      console.log({ url });
       editor.updateBlock({ id: image.id }, { props: { url } });
       editor.focus();
     },
