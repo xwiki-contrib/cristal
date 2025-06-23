@@ -21,24 +21,21 @@ import {
   BlockNoteViewWrapper,
   BlockNoteViewWrapperProps,
 } from "./components/BlockNoteViewWrapper";
-import translations from "./translations";
+import i18n from "./i18n";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.layer.css";
-import i18next from "i18next";
-import { useMemo } from "react";
-import { I18nextProvider } from "react-i18next";
+import { useEffect } from "react";
 
 export const App: React.FC<BlockNoteViewWrapperProps> = (props) => {
-  const i18n = useMemo(
-    () => i18next.createInstance({ lng: props.lang, resources: translations }),
-    [props.lang],
-  );
+  useEffect(() => {
+    if (props.lang !== i18n.language) {
+      i18n.changeLanguage(props.lang);
+    }
+  }, [props.lang]);
 
   return (
     <MantineProvider>
-      <I18nextProvider i18n={i18n}>
-        <BlockNoteViewWrapper {...props} />
-      </I18nextProvider>
+      <BlockNoteViewWrapper {...props} />
     </MantineProvider>
   );
 };
