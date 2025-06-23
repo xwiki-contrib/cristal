@@ -19,16 +19,23 @@
  */
 import {
   EditorBlockSchema,
+  EditorDictionary,
   EditorInlineContentSchema,
   EditorStyleSchema,
   EditorType,
 } from "./blocknote";
-import { useBlockNoteEditor } from "@blocknote/react";
+import { useBlockNoteEditor, useDictionary } from "@blocknote/react";
 
-export function useEditor(): EditorType {
+function useEditor(): EditorType {
   return useBlockNoteEditor<
     EditorBlockSchema,
     EditorInlineContentSchema,
     EditorStyleSchema
   >();
 }
+
+function useCustomDictionary(): EditorDictionary["custom"] {
+  return (useDictionary() as EditorDictionary).custom;
+}
+
+export { useCustomDictionary, useEditor };

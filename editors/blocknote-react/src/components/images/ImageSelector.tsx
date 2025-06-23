@@ -17,6 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { useCustomDictionary } from "../../hooks";
 import { LinkEditionContext, LinkSuggestion } from "../../misc/linkSuggest";
 import {
   Box,
@@ -48,6 +49,8 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
   linkEditionCtx,
   onSelected,
 }) => {
+  const dict = useCustomDictionary();
+
   const fileUploadRef = useRef<HTMLButtonElement>(null);
 
   const triggerUpload = useCallback(() => {
@@ -120,7 +123,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
   return (
     <Box>
       <Button variant="default" onClick={triggerUpload}>
-        Upload
+        {dict.imageSelector.uploadButton}
       </Button>
 
       <Space h="sm" />
@@ -130,7 +133,6 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
           ref={fileUploadRef}
           accept="image/*"
           onChange={(file) => file && fileSelected(file)}
-          placeholder="Image name"
         />
       </VisuallyHidden>
 

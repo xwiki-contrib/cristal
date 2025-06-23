@@ -19,6 +19,7 @@
  */
 import { ImageFilePanel } from "./ImageFilePanel";
 import { BlockOfType } from "../../blocknote";
+import { useCustomDictionary } from "../../hooks";
 import { LinkEditionContext } from "../../misc/linkSuggest";
 import { useComponentsContext } from "@blocknote/react";
 import { useState } from "react";
@@ -34,6 +35,7 @@ export const CustomImageToolbar: React.FC<CustomImageToolbarProps> = ({
   linkEditionCtx,
 }) => {
   const Components = useComponentsContext()!;
+  const dict = useCustomDictionary();
 
   const [showLinkEditor, setShowLinkEditor] = useState(false);
 
@@ -45,7 +47,7 @@ export const CustomImageToolbar: React.FC<CustomImageToolbarProps> = ({
               (note: this comment is from BlockNote's source code but may remain relevant here) */}
           <Components.FormattingToolbar.Button
             className="bn-button"
-            label="Change image"
+            label={dict.toolbars.image.buttons.edit}
             icon={<RiPencilLine />}
             onClick={() => setShowLinkEditor(true)}
           />
@@ -63,7 +65,7 @@ export const CustomImageToolbar: React.FC<CustomImageToolbarProps> = ({
 
       <Components.FormattingToolbar.Button
         className="bn-button"
-        label="Open target"
+        label={dict.toolbars.image.buttons.open}
         icon={<RiExternalLinkLine />}
         onClick={() => window.open(currentBlock.props.url)}
       />

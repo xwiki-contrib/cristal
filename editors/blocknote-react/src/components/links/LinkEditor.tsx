@@ -17,6 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { useCustomDictionary } from "../../hooks";
 import {
   LinkEditionContext,
   LinkSuggestion,
@@ -48,12 +49,14 @@ type LinkEditorProps = {
   creationMode?: boolean;
 };
 
+// eslint-disable-next-line max-statements
 export const LinkEditor: React.FC<LinkEditorProps> = ({
   linkEditionCtx,
   current,
   updateLink,
   creationMode,
 }) => {
+  const dict = useCustomDictionary();
   const suggestLink = createLinkSuggestor(linkEditionCtx);
 
   const [title, setTitle] = useState(current?.title ?? "");
@@ -176,7 +179,7 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
                 </Combobox.Option>
               ))
             ) : (
-              <Combobox.Empty>No result found</Combobox.Empty>
+              <Combobox.Empty>{dict.linkEditor.noResultFound}</Combobox.Empty>
             )}
           </Combobox.Options>
         </Combobox.Dropdown>
@@ -184,7 +187,7 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
 
       {!creationMode && (
         <Button fullWidth type="submit" onClick={() => submit()}>
-          Submit
+          {dict.linkEditor.submit}
         </Button>
       )}
     </Stack>
