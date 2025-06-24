@@ -164,40 +164,44 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         />
       </Combobox.Target>
 
-      {!isUrl(query) &&
-        (query.length > 0 ||
-          suggestions.status === "loading" ||
-          (suggestions.status === "resolved" &&
-            suggestions.suggestions.length > 0)) && (
-          <Combobox.Dropdown
-            style={{
-              zIndex: 10000,
-            }}
-          >
-            <Paper shadow="md" p="sm">
-              <Combobox.Options>
-                {suggestions.status === "loading" ? (
-                  <Combobox.Empty>
-                    {t("blocknote.combobox.loadingSuggestions")}
-                  </Combobox.Empty>
-                ) : suggestions.suggestions.length > 0 ? (
-                  suggestions.suggestions.map((suggestion) => (
-                    <Combobox.Option
-                      value={suggestion.url}
-                      key={suggestion.url}
-                    >
-                      {renderSuggestion(suggestion)}
-                    </Combobox.Option>
-                  ))
-                ) : (
-                  <Combobox.Empty>
-                    {t("blocknote.combobox.noResultFound")}
-                  </Combobox.Empty>
-                )}
-              </Combobox.Options>
-            </Paper>
-          </Combobox.Dropdown>
-        )}
+      {
+        // Don't display results for URLs
+        !isUrl(query) &&
+          // Don't display results if the query is empty and we have no results
+          (query.length > 0 ||
+            suggestions.status === "loading" ||
+            (suggestions.status === "resolved" &&
+              suggestions.suggestions.length > 0)) && (
+            <Combobox.Dropdown
+              style={{
+                zIndex: 10000,
+              }}
+            >
+              <Paper shadow="md" p="sm">
+                <Combobox.Options>
+                  {suggestions.status === "loading" ? (
+                    <Combobox.Empty>
+                      {t("blocknote.combobox.loadingSuggestions")}
+                    </Combobox.Empty>
+                  ) : suggestions.suggestions.length > 0 ? (
+                    suggestions.suggestions.map((suggestion) => (
+                      <Combobox.Option
+                        value={suggestion.url}
+                        key={suggestion.url}
+                      >
+                        {renderSuggestion(suggestion)}
+                      </Combobox.Option>
+                    ))
+                  ) : (
+                    <Combobox.Empty>
+                      {t("blocknote.combobox.noResultFound")}
+                    </Combobox.Empty>
+                  )}
+                </Combobox.Options>
+              </Paper>
+            </Combobox.Dropdown>
+          )
+      }
     </Combobox>
   );
 };
