@@ -140,27 +140,29 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         />
       </Combobox.Target>
 
-      <Combobox.Dropdown
-        style={{
-          zIndex: 10000,
-        }}
-      >
-        <Paper shadow="md" p="sm">
-          <Combobox.Options>
-            {suggestions.length > 0
-              ? suggestions.map((suggestion) => (
+      {!isUrl(search) && (
+        <Combobox.Dropdown
+          style={{
+            zIndex: 10000,
+          }}
+        >
+          <Paper shadow="md" p="sm">
+            <Combobox.Options>
+              {suggestions.length > 0 ? (
+                suggestions.map((suggestion) => (
                   <Combobox.Option value={suggestion.url} key={suggestion.url}>
                     {renderSuggestion(suggestion)}
                   </Combobox.Option>
                 ))
-              : !isUrl(search) && (
-                  <Combobox.Empty>
-                    {t("blocknote.combobox.noResultFound")}
-                  </Combobox.Empty>
-                )}
-          </Combobox.Options>
-        </Paper>
-      </Combobox.Dropdown>
+              ) : (
+                <Combobox.Empty>
+                  {t("blocknote.combobox.noResultFound")}
+                </Combobox.Empty>
+              )}
+            </Combobox.Options>
+          </Paper>
+        </Combobox.Dropdown>
+      )}
     </Combobox>
   );
 };
