@@ -21,7 +21,7 @@ import { LinkSuggestion } from "../misc/linkSuggest";
 import { Combobox, InputBase, Paper, useCombobox } from "@mantine/core";
 import { t } from "i18next";
 import { debounce } from "lodash-es";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import { RiLink } from "react-icons/ri";
 
 export type SearchBoxProps = {
@@ -85,7 +85,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
-  const [search, setSearch] = useState(initialValue ?? "");
+  const [query, setQuery] = useState(initialValue ?? "");
   const [suggestions, setSuggestions] = useState<
     | { status: "loading" }
     | {
@@ -97,8 +97,8 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   const isUrl = (value: string) =>
     value.startsWith("http://") || value.startsWith("https://");
 
-  useEffect(
-    debounce(() => {
+  const performSearch = useCallback(
+    debounce((search: string) => {
       if (isUrl(search)) {
         setSuggestions({ status: "resolved", suggestions: [] });
         return;
@@ -110,8 +110,14 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         setSuggestions({ status: "resolved", suggestions });
       });
     }),
-    [search, getSuggestions, setSuggestions],
+    [setSuggestions, getSuggestions],
   );
+
+  // Automatically perform a search when the query changes
+  useEffect(() => performSearch(query), [query, performSearch]);
+
+  // Perform a search at the opening
+  useEffect(() => performSearch(""), []);
 
   return (
     <Combobox
@@ -130,7 +136,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         }
 
         combobox.closeDropdown();
-        setSearch(result.title);
+        setQuery(result.title);
         onSelect(url);
       }}
     >
@@ -139,11 +145,11 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
           leftSection={<RiLink />}
           rightSection=" "
           placeholder={placeholder}
-          value={search}
+          value={query}
           onChange={(event) => {
             combobox.openDropdown();
             combobox.updateSelectedOptionIndex();
-            setSearch(event.currentTarget.value);
+            setQuery(event.currentTarget.value);
           }}
           onClick={() => combobox.openDropdown()}
           onFocus={() => combobox.openDropdown()}
@@ -158,33 +164,40 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         />
       </Combobox.Target>
 
-      {search.length > 0 && !isUrl(search) && (
-        <Combobox.Dropdown
-          style={{
-            zIndex: 10000,
-          }}
-        >
-          <Paper shadow="md" p="sm">
-            <Combobox.Options>
-              {suggestions.status === "loading" ? (
-                <Combobox.Empty>
-                  {t("blocknote.combobox.loadingSuggestions")}
-                </Combobox.Empty>
-              ) : suggestions.suggestions.length > 0 ? (
-                suggestions.suggestions.map((suggestion) => (
-                  <Combobox.Option value={suggestion.url} key={suggestion.url}>
-                    {renderSuggestion(suggestion)}
-                  </Combobox.Option>
-                ))
-              ) : (
-                <Combobox.Empty>
-                  {t("blocknote.combobox.noResultFound")}
-                </Combobox.Empty>
-              )}
-            </Combobox.Options>
-          </Paper>
-        </Combobox.Dropdown>
-      )}
+      {!isUrl(query) &&
+        (query.length > 0 ||
+          suggestions.status === "loading" ||
+          (suggestions.status === "resolved" &&
+            suggestions.suggestions.length > 0)) && (
+          <Combobox.Dropdown
+            style={{
+              zIndex: 10000,
+            }}
+          >
+            <Paper shadow="md" p="sm">
+              <Combobox.Options>
+                {suggestions.status === "loading" ? (
+                  <Combobox.Empty>
+                    {t("blocknote.combobox.loadingSuggestions")}
+                  </Combobox.Empty>
+                ) : suggestions.suggestions.length > 0 ? (
+                  suggestions.suggestions.map((suggestion) => (
+                    <Combobox.Option
+                      value={suggestion.url}
+                      key={suggestion.url}
+                    >
+                      {renderSuggestion(suggestion)}
+                    </Combobox.Option>
+                  ))
+                ) : (
+                  <Combobox.Empty>
+                    {t("blocknote.combobox.noResultFound")}
+                  </Combobox.Empty>
+                )}
+              </Combobox.Options>
+            </Paper>
+          </Combobox.Dropdown>
+        )}
     </Combobox>
   );
 };
