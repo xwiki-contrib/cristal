@@ -212,10 +212,22 @@ const provider = shallowRef<HocuspocusProvider | null>(null);
 </script>
 
 <template>
-  <c-article :loading :error :current-page :current-page-reference page-exist before-u-i-x-p-id="edit.before"
-    after-u-i-x-p-id="edit.after">
+  <c-article
+    :loading
+    :error
+    :current-page
+    :current-page-reference
+    page-exist
+    before-u-i-x-p-id="edit.before"
+    after-u-i-x-p-id="edit.after"
+  >
     <template #title>
-      <input v-model="title" type="text" :placeholder="titlePlaceholder" class="doc-title" />
+      <input
+        v-model="title"
+        type="text"
+        :placeholder="titlePlaceholder"
+        class="doc-title"
+      />
     </template>
 
     <template #default>
@@ -227,12 +239,20 @@ const provider = shallowRef<HocuspocusProvider | null>(null);
         <template v-else>
           <div class="editor-centerer">
             <div class="editor">
-              <CBlockNoteView ref="editorInstance" :editor-props :editor-content :container :realtime-server-u-r-l
-                @instant-change="saveStatus = SaveStatus.UNSAVED" @debounced-change="save" @setup-provider="
+              <CBlockNoteView
+                ref="editorInstance"
+                :editor-props
+                :editor-content
+                :container
+                :realtime-server-u-r-l
+                @instant-change="saveStatus = SaveStatus.UNSAVED"
+                @debounced-change="save"
+                @setup-provider="
                   (newProvider) => {
                     provider = newProvider;
                   }
-                " />
+                "
+              />
             </div>
           </div>
 
@@ -277,7 +297,7 @@ const provider = shallowRef<HocuspocusProvider | null>(null);
   flex-grow: 1;
 }
 
-.pagemenu-status>* {
+.pagemenu-status > * {
   /* Match the action button padding, which seems to be hard-coded.  */
   padding: 0 12px;
 }
