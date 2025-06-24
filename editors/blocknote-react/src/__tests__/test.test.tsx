@@ -1,25 +1,35 @@
+import { SearchBox } from "../components/SearchBox";
 import { expect, test } from "@playwright/experimental-ct-react";
+import { LinkType } from "@xwiki/cristal-link-suggest-api";
 
 test("event should work", async ({ mount }) => {
-  let clicked = false;
+  let selected = null;
+  let submitted = null;
 
-  // Mount a component. Returns locator pointing to the component.
   const component = await mount(
-    <button
-      onClick={() => {
-        clicked = true;
+    <SearchBox
+      initialValue="Some great initial value"
+      placeholder="Some super placeholder"
+      getSuggestions={async (query) => [
+        {
+          type: LinkType.PAGE,
+          reference: "",
+          segments: [],
+          title: "Some great suggestion title starting with " + query,
+          url: "https://picsum.photos/",
+        },
+      ]}
+      renderSuggestion={(suggestion) => (
+        <span>Suggestion title: {suggestion.title}</span>
+      )}
+      onSelect={(url) => {
+        selected = url;
       }}
-    >
-      Submit
-    </button>,
+      onSubmit={(url) => {
+        submitted = url;
+      }}
+    />,
   );
 
-  // As with any Playwright test, assert locator text.
-  await expect(component).toContainText("Submit");
-
-  // Perform locator click. This will trigger the event.
-  await component.click();
-
-  // Assert that respective events have been fired.
-  expect(clicked).toBeTruthy();
+  await expect(component).toContainClass("Some great initial value");
 });
