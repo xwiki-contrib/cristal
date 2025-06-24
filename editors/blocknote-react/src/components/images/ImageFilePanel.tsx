@@ -21,7 +21,7 @@ import { ImageSelector } from "./ImageSelector";
 import { BlockOfType } from "../../blocknote";
 import { useEditor } from "../../hooks";
 import { LinkEditionContext } from "../../misc/linkSuggest";
-import { Box } from "@mantine/core";
+import { Paper } from "@mantine/core";
 import { useCallback } from "react";
 
 export type ImageFilePanelProps = {
@@ -45,9 +45,9 @@ export const ImageFilePanel: React.FC<ImageFilePanelProps> = ({
 
   return (
     // By default file panels don't have any styling and just "float", unstyled, above the editor
-    // So we put some white background and borders to make it stand out from the editor's content
-    <Box bg="white" p="sm" bd="1px solid black">
+    // So we put some container to make it stand out from the editor's content
+    <Paper shadow="md" p="sm">
       <ImageSelector linkEditionCtx={linkEditionCtx} onSelected={updateImage} />
-    </Box>
+    </Paper>
   );
 };

@@ -1,5 +1,5 @@
 import { LinkSuggestion } from "../misc/linkSuggest";
-import { Combobox, InputBase, useCombobox } from "@mantine/core";
+import { Combobox, InputBase, Paper, useCombobox } from "@mantine/core";
 import { t } from "i18next";
 import { debounce } from "lodash-es";
 import { ReactElement, useEffect, useState } from "react";
@@ -124,25 +124,23 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
       <Combobox.Dropdown
         style={{
           zIndex: 10000,
-          // These options are required due to not using a portal (see above)
-          background: "white",
-          borderRadius: "5px",
-          boxShadow: "#CFCFCF 0px 4px 12px 0px",
         }}
       >
-        <Combobox.Options>
-          {suggestions.length > 0
-            ? suggestions.map((suggestion) => (
-                <Combobox.Option value={suggestion.url} key={suggestion.url}>
-                  {renderSuggestion(suggestion)}
-                </Combobox.Option>
-              ))
-            : !isUrl(search) && (
-                <Combobox.Empty>
-                  {t("blocknote.combobox.noResultFound")}
-                </Combobox.Empty>
-              )}
-        </Combobox.Options>
+        <Paper shadow="md" p="sm">
+          <Combobox.Options>
+            {suggestions.length > 0
+              ? suggestions.map((suggestion) => (
+                  <Combobox.Option value={suggestion.url} key={suggestion.url}>
+                    {renderSuggestion(suggestion)}
+                  </Combobox.Option>
+                ))
+              : !isUrl(search) && (
+                  <Combobox.Empty>
+                    {t("blocknote.combobox.noResultFound")}
+                  </Combobox.Empty>
+                )}
+          </Combobox.Options>
+        </Paper>
       </Combobox.Dropdown>
     </Combobox>
   );
