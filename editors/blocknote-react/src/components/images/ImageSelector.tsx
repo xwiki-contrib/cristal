@@ -140,7 +140,11 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
           <Flex gap="sm">
             <img
               src={suggestion.url}
-              style={{ maxWidth: "100px", maxHeight: "100px" }}
+              style={{
+                maxWidth: "100px",
+                maxHeight: "100px",
+                objectFit: "contain",
+              }}
             />
             <Stack justify="center">
               <Text>

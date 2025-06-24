@@ -86,7 +86,13 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   });
 
   const [search, setSearch] = useState(initialValue ?? "");
-  const [suggestions, setSuggestions] = useState<LinkSuggestion[]>([]);
+  const [suggestions, setSuggestions] = useState<
+    | { status: "loading" }
+    | {
+        status: "resolved";
+        suggestions: LinkSuggestion[];
+      }
+  >({ status: "resolved", suggestions: [] });
 
   const isUrl = (value: string) =>
     value.startsWith("http://") || value.startsWith("https://");
@@ -94,12 +100,14 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   useEffect(
     debounce(() => {
       if (isUrl(search)) {
-        setSuggestions([]);
+        setSuggestions({ status: "resolved", suggestions: [] });
         return;
       }
 
+      setSuggestions({ status: "loading" });
+
       getSuggestions(search).then((suggestions) => {
-        setSuggestions(suggestions);
+        setSuggestions({ status: "resolved", suggestions });
       });
     }),
     [search, getSuggestions, setSuggestions],
@@ -111,8 +119,18 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
       // We don't use a portal as BlockNote's toolbar closes on interaction with an element that isn't part of it in the DOM
       withinPortal={false}
       onOptionSubmit={(url) => {
+        if (suggestions.status === "loading") {
+          return;
+        }
+
+        const result = suggestions.suggestions.find((s) => s.url === url);
+
+        if (!result) {
+          return;
+        }
+
         combobox.closeDropdown();
-        setSearch(suggestions.find((s) => s.url === url)?.title ?? url);
+        setSearch(result.title);
         onSelect(url);
       }}
     >
@@ -140,7 +158,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         />
       </Combobox.Target>
 
-      {!isUrl(search) && (
+      {search.length > 0 && !isUrl(search) && (
         <Combobox.Dropdown
           style={{
             zIndex: 10000,
@@ -148,8 +166,12 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         >
           <Paper shadow="md" p="sm">
             <Combobox.Options>
-              {suggestions.length > 0 ? (
-                suggestions.map((suggestion) => (
+              {suggestions.status === "loading" ? (
+                <Combobox.Empty>
+                  {t("blocknote.combobox.loadingSuggestions")}
+                </Combobox.Empty>
+              ) : suggestions.suggestions.length > 0 ? (
+                suggestions.suggestions.map((suggestion) => (
                   <Combobox.Option value={suggestion.url} key={suggestion.url}>
                     {renderSuggestion(suggestion)}
                   </Combobox.Option>
