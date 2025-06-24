@@ -3684,9 +3684,15 @@ importers:
         specifier: 5.5.0
         version: 5.5.0(react@19.1.0)
     devDependencies:
+      '@playwright/experimental-ct-react':
+        specifier: 1.53.1
+        version: 1.53.1(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(vite@6.3.5(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(yaml@2.8.0))(yaml@2.8.0)
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
+      '@types/node':
+        specifier: 22.15.30
+        version: 22.15.30
       '@types/react':
         specifier: 19.1.8
         version: 19.1.8
@@ -5968,8 +5974,25 @@ packages:
     resolution: {integrity: sha512-YLT9Zo3oNPJoBjBc4q8G2mjU4tqIbf5CEOORbUUr48dCD9q3umJ3IPlVqOqDakPfd2HuwccBaqlGhN4Gmr5OWg==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
+<<<<<<< HEAD
   '@playwright/test@1.53.1':
     resolution: {integrity: sha512-Z4c23LHV0muZ8hfv4jw6HngPJkbbtZxTkxPNIg7cJcTc9C28N/p2q7g3JZS2SiKBBHJ3uM1dgDye66bB7LEk5w==}
+||||||| parent of 29dee6c8 (Add basic tests)
+  '@playwright/test@1.53.0':
+    resolution: {integrity: sha512-15hjKreZDcp7t6TL/7jkAo6Df5STZN09jGiv5dbP9A6vMVncXRqE7/B2SncsyOwrkZRBH2i6/TPOL8BVmm3c7w==}
+=======
+  '@playwright/experimental-ct-core@1.53.1':
+    resolution: {integrity: sha512-3edf/JF1Fnziq+++XJpH20nbU26yQfGBDT2KfTlYoPdEcVWBf3JIHfRNKsF9KXIFmrzYsBtFnJ/Tkzm7dWLzeA==}
+    engines: {node: '>=18'}
+
+  '@playwright/experimental-ct-react@1.53.1':
+    resolution: {integrity: sha512-4u0JLdIVDRIynkhP1KkfqTAjG5FoQ/w7s1KqgViuVoWzlCqYVtwBchxl6Le9g3T25a+vXWgFhWO35ddL3BeVLQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  '@playwright/test@1.53.0':
+    resolution: {integrity: sha512-15hjKreZDcp7t6TL/7jkAo6Df5STZN09jGiv5dbP9A6vMVncXRqE7/B2SncsyOwrkZRBH2i6/TPOL8BVmm3c7w==}
+>>>>>>> 29dee6c8 (Add basic tests)
     engines: {node: '>=18'}
     hasBin: true
 
@@ -9332,6 +9355,24 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+<<<<<<< HEAD
+  playwright@1.53.1:
+    resolution: {integrity: sha512-LJ13YLr/ocweuwxyGf1XNFWIU4M2zUSo149Qbp+A4cpwDjsxRPj7k6H25LBrEHiEwxvRbD8HdwvQmRMSvquhYw==}
+||||||| parent of 29dee6c8 (Add basic tests)
+  playwright@1.53.0:
+    resolution: {integrity: sha512-ghGNnIEYZC4E+YtclRn4/p6oYbdPiASELBIYkBXfaTVKreQUYbMUYQDwS12a8F0/HtIjr/CkGjtwABeFPGcS4Q==}
+=======
+  playwright-core@1.53.1:
+    resolution: {integrity: sha512-Z46Oq7tLAyT0lGoFx4DOuB1IA9D1TPj0QkYxpPVUnGDqHHvDpCftu1J2hM2PiWsNMoZh8+LQaarAWcDfPBc6zg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.53.0:
+    resolution: {integrity: sha512-ghGNnIEYZC4E+YtclRn4/p6oYbdPiASELBIYkBXfaTVKreQUYbMUYQDwS12a8F0/HtIjr/CkGjtwABeFPGcS4Q==}
+>>>>>>> 29dee6c8 (Add basic tests)
+    engines: {node: '>=18'}
+    hasBin: true
+
   playwright@1.53.1:
     resolution: {integrity: sha512-LJ13YLr/ocweuwxyGf1XNFWIU4M2zUSo149Qbp+A4cpwDjsxRPj7k6H25LBrEHiEwxvRbD8HdwvQmRMSvquhYw==}
     engines: {node: '>=18'}
@@ -11790,7 +11831,50 @@ snapshots:
 
   '@pkgr/core@0.2.7': {}
 
+<<<<<<< HEAD
   '@playwright/test@1.53.1':
+||||||| parent of 29dee6c8 (Add basic tests)
+  '@playwright/test@1.53.0':
+=======
+  '@playwright/experimental-ct-core@1.53.1(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(yaml@2.8.0)':
+    dependencies:
+      playwright: 1.53.1
+      playwright-core: 1.53.1
+      vite: 6.3.5(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(yaml@2.8.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - jiti
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - yaml
+
+  '@playwright/experimental-ct-react@1.53.1(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(vite@6.3.5(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(yaml@2.8.0))(yaml@2.8.0)':
+    dependencies:
+      '@playwright/experimental-ct-core': 1.53.1(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(yaml@2.8.0)
+      '@vitejs/plugin-react': 4.5.1(vite@6.3.5(@types/node@22.15.30)(sugarss@4.0.1(postcss@8.5.6))(tsx@4.20.2)(yaml@2.8.0))
+    transitivePeerDependencies:
+      - '@types/node'
+      - jiti
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - vite
+      - yaml
+
+  '@playwright/test@1.53.0':
+>>>>>>> 29dee6c8 (Add basic tests)
     dependencies:
       playwright: 1.53.1
 
@@ -12313,10 +12397,25 @@ snapshots:
       undici-types: 6.21.0
 
   '@types/node@22.15.30':
+<<<<<<< HEAD
     dependencies:
       undici-types: 6.21.0
 
+<<<<<<< HEAD
   '@types/node@22.16.5':
+||||||| parent of 304350a6 (Add basic tests)
+  '@types/node@22.15.32':
+=======
+  '@types/node@22.15.32':
+||||||| parent of 29dee6c8 (Add basic tests)
+  '@types/node@22.15.28':
+    dependencies:
+      undici-types: 6.21.0
+
+  '@types/node@22.15.30':
+=======
+>>>>>>> 29dee6c8 (Add basic tests)
+>>>>>>> 304350a6 (Add basic tests)
     dependencies:
       undici-types: 6.21.0
 
@@ -15791,6 +15890,20 @@ snapshots:
       pathe: 2.0.3
 
   playwright-core@1.53.1: {}
+
+<<<<<<< HEAD
+  playwright@1.53.1:
+||||||| parent of 29dee6c8 (Add basic tests)
+  playwright@1.53.0:
+=======
+  playwright-core@1.53.1: {}
+
+  playwright@1.53.0:
+>>>>>>> 29dee6c8 (Add basic tests)
+    dependencies:
+      playwright-core: 1.53.1
+    optionalDependencies:
+      fsevents: 2.3.2
 
   playwright@1.53.1:
     dependencies:
