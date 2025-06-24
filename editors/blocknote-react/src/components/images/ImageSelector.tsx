@@ -138,7 +138,10 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
         getSuggestions={searchAttachments}
         renderSuggestion={(suggestion) => (
           <Flex gap="sm">
-            <img src={suggestion.url} style={{ maxWidth: "100px" }} />
+            <img
+              src={suggestion.url}
+              style={{ maxWidth: "100px", maxHeight: "100px" }}
+            />
             <Stack justify="center">
               <Text>
                 <RiAttachmentLine /> {suggestion.title}
