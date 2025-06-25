@@ -40,3 +40,24 @@ test("Content can be input", async ({ page }) => {
   await blocknote.fill("Hello world!");
   await expect(blocknote).toHaveText("Hello world!");
 });
+
+test("Content can be saved", async ({ page }) => {
+  const blocknote = page.locator(".bn-editor");
+
+  const str = `Randomized message ${Math.random()}`;
+
+  await blocknote.clear();
+  await blocknote.fill(str);
+  await expect(blocknote).toHaveText(str);
+
+  const saveBtn = page.locator(".pagemenu button:last-child");
+  await expect(saveBtn).toBeVisible();
+  await saveBtn.click();
+
+  await page.waitForURL("/XWikiBlocknoteNoRealtime/#/Main.WebHome/view");
+  await page.waitForLoadState("networkidle");
+
+  const content = page.locator("#xwikicontent");
+  await expect(content).toBeVisible();
+  await expect(content).toHaveText(str);
+});
