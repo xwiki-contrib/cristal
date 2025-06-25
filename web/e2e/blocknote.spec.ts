@@ -29,14 +29,14 @@ test.afterEach(async ({ page }, testInfo) => {
 });
 
 test("BlockNote shows up", async ({ page }) => {
-  expect(page.locator(".bn-container")).toBeVisible();
-  expect(page.locator(".bn-editor")).toBeVisible();
-  expect(page.locator(".bn-editor")).toContainClass("ProseMirror");
+  await expect(page.locator(".bn-container")).toBeVisible();
+  await expect(page.locator(".bn-editor")).toBeVisible();
+  await expect(page.locator(".bn-editor")).toContainClass("ProseMirror");
 });
 
 test("Content can be input", async ({ page }) => {
   const blocknote = page.locator(".bn-editor");
 
-  blocknote.fill("Hello world!");
-  expect(blocknote).toContainText("Hello world!");
+  await blocknote.fill("Hello world!");
+  await expect(blocknote).toHaveText("Hello world!");
 });
