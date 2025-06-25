@@ -1,7 +1,7 @@
 import test, { expect } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/XWikiBlocknote/#/Main.WebHome/edit");
+  await page.goto("/XWikiBlocknoteNoRealtime/#/Main.WebHome/edit");
   await page.waitForLoadState("networkidle");
 
   await expect(page).toHaveTitle(/Cristal Wiki/);
