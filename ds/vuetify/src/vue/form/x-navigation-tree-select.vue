@@ -68,8 +68,8 @@ onMounted(async () => {
   model.value = props.currentPageReference!.space;
   hierarchy.value = await hierarchyResolver.getPageHierarchy(
     props.currentPageReference!.space!,
+    false,
   );
-  hierarchy.value.shift();
 });
 
 async function treeNodeClickAction(node: NavigationTreeNode) {
@@ -81,10 +81,10 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
         ...node.location.names.slice(0, -1),
       ),
     );
-    hierarchy.value = await hierarchyResolver.getPageHierarchy(selectedPage);
-    // Since we use the hierarchy only to display the currently selected page,
-    // we do not want to include the homepage as well.
-    hierarchy.value.shift();
+    hierarchy.value = await hierarchyResolver.getPageHierarchy(
+      selectedPage,
+      false,
+    );
   } else {
     selectedPage = undefined;
     hierarchy.value = [{ label: node.label, pageId: "", url: node.url }];

@@ -26,7 +26,7 @@ import type { DocumentReference } from "@xwiki/cristal-model-api";
  * @param pageData - the page
  * @param includeRootNode - whether to include a root node with empty id (default: false)
  * @returns the parents nodes ids
- * @since 0.19
+ * @since 0.20
  **/
 export function getParentNodesIdFromPath(
   page?: DocumentReference,

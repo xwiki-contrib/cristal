@@ -34,7 +34,7 @@ type NavigationTreeProps = {
   includeTerminals?: boolean;
   /**
    * Whether to display a root node (default: false).
-   * @since 0.19
+   * @since 0.20
    */
   showRootNode?: boolean;
 };

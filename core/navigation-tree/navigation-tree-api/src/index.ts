@@ -64,7 +64,7 @@ interface NavigationTreeSource {
    * @param includeTerminal - whether to include the final terminal page (default: true)
    * @param includeRootNode - whether to include a root node with empty id (default: false)
    * @returns the parents nodes ids
-   * @since 0.19
+   * @since 0.20
    **/
   getParentNodesId(
     page: DocumentReference,
