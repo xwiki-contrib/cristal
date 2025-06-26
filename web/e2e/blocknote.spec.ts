@@ -54,6 +54,7 @@ test("Content can be saved", async ({ page }) => {
   await expect(saveBtn).toBeVisible();
 
   // TODO: storage mocking to enable saving
+  // This code is left here as a reference as it should work perfectly once we have storage mocking
 
   // await saveBtn.click();
 
