@@ -23,6 +23,31 @@ test("Options should appear", async ({ mount }) => {
   );
 });
 
+test("Options should update depending on the input value", async ({
+  mount,
+}) => {
+  const component = await mount(<SearchBoxForTest />);
+
+  await component.locator("input").clear();
+  await component.locator("input").fill("Test input");
+
+  await expect(
+    component.locator(
+      ".mantine-Popover-dropdown .mantine-Combobox-option:nth-child(1)",
+    ),
+  ).toHaveText(
+    "Suggestion title: Some great suggestion title starting with Test input",
+  );
+
+  await expect(
+    component.locator(
+      ".mantine-Popover-dropdown .mantine-Combobox-option:nth-child(2)",
+    ),
+  ).toHaveText(
+    "Suggestion title: Another great suggestion title starting with Test input",
+  );
+});
+
 // eslint-disable-next-line max-statements
 test("Options should be selectable", async ({ mount }) => {
   let selected = null;
