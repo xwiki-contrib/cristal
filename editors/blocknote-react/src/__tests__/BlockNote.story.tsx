@@ -22,7 +22,7 @@ export const BlockNoteForTest: React.FC<BlockNoteForTestProps> = ({
     <BlockNoteViewWrapper
       content={content}
       lang="en"
-      linkEditionCtx={linkEditionCtxMock()}
+      linkEditionCtx={linkEditionCtx}
     />
   );
 };
@@ -97,19 +97,3 @@ function linkEditionCtxMock(): LinkEditionContext {
     remoteURLSerializer: null as any,
   };
 }
-
-// const cristalMock = mock<CristalApp>();
-//   const containerMock = mock<Container>();
-//   containerMock.get
-//     .calledWith("ClickListener")
-//     .mockReturnValue(mock<ClickListener>());
-//   const modelReferenceParserProviderMock = mock<ModelReferenceParserProvider>();
-//   const modelReferenceParserMock = mock<ModelReferenceParser>();
-//   modelReferenceParserMock.parse
-//     .calledWith("test.jpg", EntityType.ATTACHMENT)
-//     .mockReturnValue(
-//       new AttachmentReference("test.jpg", new DocumentReference("A")),
-//     );
-//   modelReferenceParserProviderMock.get.mockReturnValue(
-//     modelReferenceParserMock,
-//   );
