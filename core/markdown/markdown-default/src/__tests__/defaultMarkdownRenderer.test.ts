@@ -78,6 +78,7 @@ function initComponent() {
   );
 }
 
+// eslint-disable-next-line max-statements
 describe("DefaultMarkdownRenderer", () => {
   it("renders content without markup unchanged", () => {
     const defaultMarkdownRenderer = initComponent();

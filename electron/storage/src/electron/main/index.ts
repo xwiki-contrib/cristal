@@ -197,6 +197,7 @@ async function readAttachments(
   }
 }
 
+// eslint-disable-next-line max-statements
 async function readAttachment(
   path: string,
 ): Promise<{ type: EntityType.ATTACHMENT; value: PageAttachment } | undefined> {
@@ -309,6 +310,23 @@ function removeExtension(file: string): string {
   return file.slice(0, file.lastIndexOf("."));
 }
 
+async function listSingleChild(folderPath: string, children: Set<string>) {
+  const files = await fs.promises.readdir(folderPath);
+
+  for (const file of files) {
+    // Ignore all hidden files.
+    if (file.startsWith(".")) {
+      continue;
+    }
+    const path = join(folderPath, file);
+    if (await isFile(path)) {
+      children.add(removeExtension(file));
+    } else if (await isDirectory(path)) {
+      children.add(file);
+    }
+  }
+}
+
 /**
  * Get the ids of the children pages for a given page.
  *
@@ -321,20 +339,7 @@ async function listChildren(page: string): Promise<Array<string>> {
 
   const children = new Set<string>();
   if (await isDirectory(folderPath)) {
-    const files = await fs.promises.readdir(folderPath);
-
-    for (const file of files) {
-      // Ignore all hidden files.
-      if (file.startsWith(".")) {
-        continue;
-      }
-      const path = join(folderPath, file);
-      if (await isFile(path)) {
-        children.add(removeExtension(file));
-      } else if (await isDirectory(path)) {
-        children.add(file);
-      }
-    }
+    await listSingleChild(folderPath, children);
   }
 
   return Array.from(children);

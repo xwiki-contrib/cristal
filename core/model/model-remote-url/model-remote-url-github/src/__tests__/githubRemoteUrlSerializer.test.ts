@@ -41,14 +41,16 @@ describe("GithubRemoteUrlSerializer", () => {
       new AttachmentReference("file.ext", new DocumentReference("name")),
     );
     expect(serialize).toEqual(
-      "https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/name/file.ext",
+      "https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/.name/attachments/file.ext",
     );
   });
 
-  const serialize = githubRemoteUrlSerializer.serialize(
-    new AttachmentReference("file .ext", new DocumentReference("na me")),
-  );
-  expect(serialize).toEqual(
-    "https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/name/file.ext",
-  );
+  it("serialize remote attachment with space", () => {
+    const serialize = githubRemoteUrlSerializer.serialize(
+      new AttachmentReference("file .ext", new DocumentReference("na me")),
+    );
+    expect(serialize).toEqual(
+      "https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/.na%20me/attachments/file%20.ext",
+    );
+  });
 });
