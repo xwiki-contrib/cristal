@@ -51,7 +51,7 @@ export class GitHubModelReferenceSerializer
         }
       }
       case ATTACHMENT: {
-        return this.serialize(reference.document) + "@" + reference.name;
+        return this.serialize(reference.document) + "/" + reference.name;
       }
       default:
         throw new Error(`Unknown reference type [${type}]`);
