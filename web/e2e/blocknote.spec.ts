@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/XWikiBlocknoteNoRealtime/#/Main.WebHome/edit");
   await page.waitForLoadState("networkidle");
 
-  await expect(page).toHaveTitle(/Cristal Wiki/);
+  await expect(page).toHaveTitle("Cristal Wiki");
 
   await page.waitForSelector(".bn-container");
   expect(page.locator(".bn-container")).toBeVisible();

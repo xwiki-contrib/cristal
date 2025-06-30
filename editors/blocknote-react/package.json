@@ -21,7 +21,7 @@
     "build": "tsc --project tsconfig.json && vite build",
     "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
-    "test-ct": "playwright test -c playwright-ct.config.ts"
+    "test": "playwright test -c playwright-ct.config.ts"
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
