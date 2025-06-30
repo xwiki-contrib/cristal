@@ -138,9 +138,7 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
             urlFragments[urlFragments.length - 1],
           );
 
-          // if (urlFragments.length == 1) {
           subdirectories.push(urlFragments.join("/"));
-          // }
         }
       }
     } catch (error) {

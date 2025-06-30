@@ -70,7 +70,7 @@ export interface APITypes {
    * @param newReference - the new reference of the page
    * @param preserveChildren - whether to move children
    *
-   * @since 0.19
+   * @since 0.20
    */
   movePage(
     reference: string,

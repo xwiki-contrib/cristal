@@ -103,7 +103,7 @@ export interface Storage {
   /**
    * @param page - the serialized reference of the page
    * @param files - the list of files to upload
-   * @returns (since 0.19) an optional list of resolved attachments URL (in the same order as the provided files). This
+   * @returns (since 0.20) an optional list of resolved attachments URL (in the same order as the provided files). This
    *   is useful in the case where the url cannot be resolved from the name of the file and its document reference
    *   alone.
    * @since 0.9

@@ -24,6 +24,11 @@ import { EntityReference } from "@xwiki/cristal-model-api";
  * @since 0.12
  */
 interface RemoteURLSerializer {
+  /**
+   * @param reference - the reference to serialize
+   * @param env - an optional environment with a context used to serialize urls
+   * @since 0.20
+   */
   serialize(
     reference?: EntityReference,
     env?: { [key: string]: unknown },

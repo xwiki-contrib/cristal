@@ -107,7 +107,6 @@ export class GitHubStorage extends AbstractStorage {
     revision?: string,
   ): Promise<PageData | undefined> {
     this.logger?.debug("GitHub Loading page", page);
-
     const url = this.getPageRestURL(`${page}.md`, syntax, revision);
     const response = await fetch(url, {
       cache: "no-store",

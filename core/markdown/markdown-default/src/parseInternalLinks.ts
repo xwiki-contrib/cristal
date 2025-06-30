@@ -63,7 +63,6 @@ function hasLink(internalTokens: (string | InternalLink)[]) {
  * Parse a string in look for internal links. Returns a array of string or InternalLink types.
  * @param content - a string to parse
  */
-// FIXME: badly parse internal links???
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 function parseStringForInternalLinks(

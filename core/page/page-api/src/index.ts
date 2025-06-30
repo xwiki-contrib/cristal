@@ -19,7 +19,7 @@
  */
 /**
  * Provide the operations to read a page content
- * @since 0.18
+ * @since 0.20
  */
 interface PageReader {
   /**
@@ -32,7 +32,7 @@ interface PageReader {
 }
 
 /**
- * @since 0.18
+ * @since 0.20
  */
 interface PageWriter {
   writePage(pageContent: { [key: string]: unknown }): string;

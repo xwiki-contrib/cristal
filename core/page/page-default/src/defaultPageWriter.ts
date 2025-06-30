@@ -20,6 +20,9 @@
 import { PageWriter } from "@xwiki/cristal-page-api";
 import { stringify } from "yaml";
 
+/**
+ * @since 0.20
+ */
 class DefaultPageWriter implements PageWriter {
   writePage(page: { content: string; [key: string]: unknown }): string {
     const { content, ...metadata } = page;

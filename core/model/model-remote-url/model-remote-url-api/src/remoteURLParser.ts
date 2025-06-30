@@ -26,10 +26,9 @@ import type { EntityReference, EntityType } from "@xwiki/cristal-model-api";
  */
 interface RemoteURLParser {
   /**
-   *
    * @param url - the url to parse
    * @param type - an optional expected type of the parsed url
-   * @since 0.19
+   * @since 0.20
    */
   parse(url: string, type?: EntityType): EntityReference | undefined;
 }

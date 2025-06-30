@@ -80,7 +80,6 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
         headers: headers,
       });
       const jsonResponse = await response.json();
-      // TODO: add parsing
       navigationTree.push(
         ...(
           await Promise.all(
@@ -136,7 +135,6 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
       this.logger.error(error);
       this.logger.debug("Could not load navigation tree.");
     }
-    // TODO: remains an issue when unfoling nodes to list children
     return navigationTree;
   }
 

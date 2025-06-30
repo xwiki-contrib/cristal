@@ -189,14 +189,16 @@ export class DefaultAttachmentsService implements AttachmentsService {
     files: File[],
   ): Promise<(string | undefined)[] | undefined> {
     this.store.startUploading();
-    let res = undefined;
+    let resolvedAttachments = undefined;
     try {
-      res = this.storageProvider.get().saveAttachments(page, files);
+      resolvedAttachments = this.storageProvider
+        .get()
+        .saveAttachments(page, files);
     } finally {
       this.store.stopUploading();
     }
 
     await this.refresh(page);
-    return res;
+    return resolvedAttachments;
   }
 }

@@ -20,6 +20,9 @@
 import { PageReader } from "@xwiki/cristal-page-api";
 import { parse } from "yaml";
 
+/**
+ * @since 0.20
+ */
 class DefaultPageReader implements PageReader {
   readPage(pageContent: string): { content: string; [key: string]: unknown } {
     const lines = pageContent.split("\n");

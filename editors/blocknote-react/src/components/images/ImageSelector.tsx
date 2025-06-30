@@ -68,7 +68,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
       );
 
       let url: string | undefined;
-      if (uploadedFilesUrls) {
+      if (uploadedFilesUrls && uploadedFilesUrls[0]) {
         url = uploadedFilesUrls[0];
       } else {
         const parser =
