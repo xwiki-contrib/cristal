@@ -107,17 +107,25 @@ async function isAttachment(path: string, mimetype?: string) {
   return isInAttachmentsDirectory;
 }
 
-async function isPage(path: string) {
-  if (!(await isFile(path))) {
+async function isPage(pathFull: string) {
+  if (!(await isFile(pathFull))) {
     return false;
   }
 
-  const parentPath = dirname(path);
-  const grandParent = dirname(parentPath);
-  const parentName = basename(parentPath);
-  const grandParentName = basename(grandParent);
+  const homePathFull = getHomePathFull();
+  const path = relative(homePathFull, pathFull);
 
-  return !(parentName == "attachments" && grandParentName.startsWith("."));
+  const parentPath = dirname(path);
+  const grandParentPath = dirname(parentPath);
+  const parentName = basename(parentPath);
+  const grandParentName = basename(grandParentPath);
+
+  return (
+    parentName != "attachments" &&
+    (!grandParentName.startsWith(".") ||
+      parentName === "." ||
+      grandParentName === ".")
+  );
 }
 
 async function isDirectory(path: string) {
@@ -144,6 +152,7 @@ async function pathExists(path: string) {
   return true;
 }
 
+// eslint-disable-next-line max-statements
 async function readPage(
   path: string,
 ): Promise<{ type: EntityType.DOCUMENT; value: PageData } | undefined> {
@@ -159,6 +168,7 @@ async function readPage(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data = new DefaultPageReader().readPage(content) as any;
 
+    const id = relative(homePathFull, path).replace(/.md$/, "");
     return {
       type: EntityType.DOCUMENT,
       value: {
@@ -167,7 +177,7 @@ async function readPage(
         syntax: "markdown/1.2",
         lastAuthor: { name: os.userInfo().username },
         lastModificationDate: new Date(pageStats.mtimeMs),
-        id: relative(homePathFull, dirname(path)),
+        id: id,
         canEdit: true,
       },
     };
@@ -540,8 +550,9 @@ export default async function load(): Promise<void> {
   ipcMain.handle("deletePage", (event, { path: reference }) => {
     return deletePage(reference);
   });
-  ipcMain.handle("search", (event, { query, type, mimetype }) => {
-    return search(query, type, mimetype);
+  ipcMain.handle("search", async (event, { query, type, mimetype }) => {
+    const promise = await search(query, type, mimetype);
+    return promise;
   });
   ipcMain.handle(
     "movePage",
