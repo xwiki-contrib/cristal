@@ -102,7 +102,6 @@ function handleImageLink(
     "src",
     remoteURLSerializer.serialize(
       modelReferenceParser.parse(reference, EntityType.ATTACHMENT),
-      { username: state.env.username },
     ) ?? "",
   );
   if (text) {

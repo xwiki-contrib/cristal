@@ -143,6 +143,19 @@
     "authenticationBaseURL": "http://localhost:15682/github",
     "editor": "blocknote"
   },
+  "GitHubTiptap": {
+    "name": "GitHubTiptap",
+    "configType": "GitHub",
+    "serverRendering": false,
+    "offline": false,
+    "baseURL": "https://raw.githubusercontent.com/manuelleduc/cristaledittest/main",
+    "baseRestURL": "https://api.github.com/repos/manuelleduc/cristaledittest",
+    "homePage": "home",
+    "designSystem": "vuetify",
+    "realtimeURL": "http://localhost:15681/collaboration",
+    "authenticationBaseURL": "http://localhost:15682/github",
+    "editor": "tiptap"
+  },
   "GitHubSL": {
     "name": "GitHubSL",
     "configType": "GitHub",

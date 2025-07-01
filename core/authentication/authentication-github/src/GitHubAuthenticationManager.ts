@@ -184,6 +184,10 @@ export class GitHubAuthenticationManager implements AuthenticationManager {
     );
   }
 
+  getUserId(): string | undefined {
+    throw new Error("Method not implemented.");
+  }
+
   private getTokenType() {
     return Cookies.get(this.getTokenTypeCookieKey());
   }

@@ -56,6 +56,12 @@ interface AuthenticationManager {
    * Logs out the current user.
    */
   logout(): Promise<void>;
+
+  /**
+   * @returns the id of the currently connected user, or undefined if not authenticated
+   * @since 0.20
+   */
+  getUserId?(): string | undefined;
 }
 
 export { type AuthenticationManager };

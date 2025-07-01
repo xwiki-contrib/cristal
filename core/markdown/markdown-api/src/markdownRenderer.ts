@@ -28,7 +28,6 @@ export interface MarkdownRenderer {
    * Converts the provided Markdown into an HTML 5.0 string.
    *
    * @param markdown - the Markdown string
-   * @param env - additional environment variables that can be used during the rendering (e.g., the current user name)
    */
-  render(markdown: string, env?: { [key: string]: unknown }): string;
+  render(markdown: string): string;
 }

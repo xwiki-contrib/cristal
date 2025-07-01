@@ -92,29 +92,21 @@ function referenceToURL(
   remoteURLSerializer: RemoteURLSerializer,
   modelReferenceParser: ModelReferenceParser,
   reference: string,
-  state: StateCore,
 ) {
-  return remoteURLSerializer.serialize(modelReferenceParser.parse(reference), {
-    username: state.env.username,
-  });
+  return remoteURLSerializer.serialize(modelReferenceParser.parse(reference));
 }
 
 function parseReference(
   v: InternalLink,
   remoteURLSerializer: RemoteURLSerializer,
   modelReferenceParser: ModelReferenceParser,
-  state: StateCore,
 ) {
   const { text, reference } = v;
   let href: string;
   try {
     href =
-      referenceToURL(
-        remoteURLSerializer,
-        modelReferenceParser,
-        reference,
-        state,
-      ) ?? "";
+      referenceToURL(remoteURLSerializer, modelReferenceParser, reference) ??
+      "";
   } catch {
     // Prevent the parser from failing in case of bad reference (e.g., an url in an internal link).
     href = reference;
@@ -132,7 +124,6 @@ function handleLink(
     v,
     remoteURLSerializer,
     modelReferenceParser,
-    state,
   );
 
   const openToken = new state.Token("link_open", "a", 1);

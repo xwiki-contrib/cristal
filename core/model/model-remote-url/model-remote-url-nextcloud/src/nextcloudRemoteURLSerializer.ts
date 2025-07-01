@@ -28,15 +28,17 @@ import {
 import { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 
 @injectable()
 class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
-  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
+  constructor(
+    @inject("CristalApp") private readonly cristalApp: CristalApp,
+    @inject("AuthenticationManagerProvider")
+    private readonly authenticationManager: AuthenticationManagerProvider,
+  ) {}
 
-  serialize(
-    reference?: EntityReference,
-    env?: { [key: string]: unknown },
-  ): string | undefined {
+  serialize(reference?: EntityReference): string | undefined {
     if (!reference) {
       return undefined;
     }
@@ -44,41 +46,30 @@ class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
       case EntityType.WIKI:
         throw new Error("Not implemented");
       case EntityType.SPACE:
-        return this.serializeSpace(reference, env ?? {});
+        return this.serializeSpace(reference);
       case EntityType.DOCUMENT:
-        return `${this.serializeDocument(reference, env ?? {})}.md`;
+        return `${this.serializeDocument(reference)}.md`;
       case EntityType.ATTACHMENT:
-        return this.serializeAttachment(reference, env ?? {});
+        return this.serializeAttachment(reference);
     }
   }
 
-  private serializeSpace(
-    spaceReference: SpaceReference,
-    env: { [key: string]: unknown },
-  ) {
+  private serializeSpace(spaceReference: SpaceReference) {
     const spaces = spaceReference.names.join("/");
-    return `${this.getRootURL(spaceReference.wiki?.name ?? (env.username as string) ?? "")}/${spaces}`;
+    const userId = this.authenticationManager.get()?.getUserId();
+    return `${this.getRootURL(spaceReference.wiki?.name ?? userId ?? "")}/${spaces}`;
   }
 
-  private serializeDocument(
-    documentReference: DocumentReference,
-    env: { [key: string]: unknown },
-  ) {
-    return `${this.serializeSpace(documentReference.space!, env)}/${documentReference.name}`;
+  private serializeDocument(documentReference: DocumentReference) {
+    return `${this.serializeSpace(documentReference.space!)}/${documentReference.name}`;
   }
 
-  private serializeMeta(
-    documentReference: DocumentReference,
-    env: { [key: string]: unknown },
-  ) {
-    return `${this.serializeSpace(documentReference.space!, env)}/.${documentReference.name}`;
+  private serializeMeta(documentReference: DocumentReference) {
+    return `${this.serializeSpace(documentReference.space!)}/.${documentReference.name}`;
   }
 
-  private serializeAttachment(
-    attachmentReference: AttachmentReference,
-    env: { [key: string]: unknown },
-  ) {
-    return `${this.serializeMeta(attachmentReference.document, env)}/attachments/${attachmentReference.name}`;
+  private serializeAttachment(attachmentReference: AttachmentReference) {
+    return `${this.serializeMeta(attachmentReference.document)}/attachments/${attachmentReference.name}`;
   }
 
   private getRootURL(username: string) {

@@ -44,6 +44,7 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
   private readonly accessTokenCookieKeyPrefix = "accessToken";
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
+
   // eslint-disable-next-line max-statements
   async start(): Promise<void> {
     const config = this.cristalApp.getWikiConfig();
@@ -70,8 +71,8 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     authorizationUrl.searchParams.set("redirect_uri", redirectUri);
     window.location.href = authorizationUrl.toString();
   }
-
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
+
   // eslint-disable-next-line max-statements
   async callback(): Promise<void> {
     const href = new URL(window.location.href);
@@ -116,7 +117,6 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
       this.localStorageOriginKey,
     )!;
   }
-
   async getUserDetails(): Promise<UserDetails> {
     const config = this.cristalApp.getWikiConfig();
     const userinfoUrl = `${config.baseURL}/oidc/userinfo`;
@@ -162,6 +162,10 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     return (
       this.getTokenType() !== undefined && this.getAccessToken() !== undefined
     );
+  }
+
+  getUserId(): string | undefined {
+    throw new Error("Method not implemented.");
   }
 
   private getTokenType() {

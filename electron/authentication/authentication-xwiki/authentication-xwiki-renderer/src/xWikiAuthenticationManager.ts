@@ -79,6 +79,10 @@ class XWikiAuthenticationManager implements AuthenticationManager {
   async logout(): Promise<void> {
     await window.authenticationXWiki.logout();
   }
+
+  getUserId(): string | undefined {
+    throw new Error("Method not implemented.");
+  }
 }
 
 // eslint-disable-next-line import/group-exports
