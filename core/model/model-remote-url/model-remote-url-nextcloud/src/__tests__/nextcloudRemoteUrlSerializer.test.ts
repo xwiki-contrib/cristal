@@ -58,6 +58,25 @@ describe("NextcloudRemoteURLSerializer", () => {
       "http://localhost/remote.php/dav/files/testuser/.cristal/home",
     );
   });
+
+  it("serialize default root url with no explicit wiki", () => {
+    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer(
+      {
+        getWikiConfig() {
+          return {
+            baseRestURL: "http://localhost/remote.php/dav",
+          } as WikiConfig;
+        },
+      } as CristalApp,
+      mockAuthenticationManagerProvider,
+    );
+    const entityReference = nextcloudRemoteUrlSerializer.serialize(
+      new SpaceReference(undefined, "home"),
+    );
+    expect(entityReference).toEqual(
+      "http://localhost/remote.php/dav/files/testuser2/.cristal/home",
+    );
+  });
   it("serialize default root url with spaces", () => {
     const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer(
       {
