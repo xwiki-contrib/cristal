@@ -26,7 +26,7 @@ const config = {
      * Client ID of the GitHub app to use for log-in.
      * See https://docs.github.com/en/apps
      */
-    APP_CLIENT_ID: "Iv23litwTw0SLS2fFVSk", // TODO: do not version
+    APP_CLIENT_ID: "",
   },
   nextcloud: {
     OAUTH2_AUTHORIZE_PATH: "/index.php/apps/oauth2/authorize",

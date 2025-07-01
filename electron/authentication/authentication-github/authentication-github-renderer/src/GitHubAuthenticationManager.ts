@@ -124,10 +124,6 @@ class GitHubAuthenticationManager implements AuthenticationManager {
   async logout(): Promise<void> {
     await window.authenticationGitHub.logout();
   }
-
-  getUserId(): string | undefined {
-    throw new Error("Method not implemented.");
-  }
 }
 
 export { GitHubAuthenticationManager };

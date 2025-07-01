@@ -58,6 +58,8 @@ interface AuthenticationManager {
   logout(): Promise<void>;
 
   /**
+   * Optional method returning the currently connected user id.
+   *
    * @returns the id of the currently connected user, or undefined if not authenticated
    * @since 0.20
    */

@@ -19,21 +19,38 @@
  */
 import { NextcloudRemoteURLSerializer } from "../nextcloudRemoteURLSerializer";
 import {
+  AuthenticationManager,
+  AuthenticationManagerProvider,
+} from "@xwiki/cristal-authentication-api";
+import {
   AttachmentReference,
   DocumentReference,
   SpaceReference,
   WikiReference,
 } from "@xwiki/cristal-model-api";
 import { describe, expect, it } from "vitest";
+import { mock } from "vitest-mock-extended";
 import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
 
 describe("NextcloudRemoteURLSerializer", () => {
+  const mockAuthenticationManagerProvider =
+    mock<AuthenticationManagerProvider>();
+  const mockAuthenticationManager = mock<AuthenticationManager>();
+  mockAuthenticationManager.getUserId.mockReturnValue("testuser2");
+  mockAuthenticationManagerProvider.get.mockReturnValue(
+    mockAuthenticationManager,
+  );
   it("serialize default root url", () => {
-    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer({
-      getWikiConfig() {
-        return { baseRestURL: "http://localhost/remote.php/dav" } as WikiConfig;
-      },
-    } as CristalApp);
+    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer(
+      {
+        getWikiConfig() {
+          return {
+            baseRestURL: "http://localhost/remote.php/dav",
+          } as WikiConfig;
+        },
+      } as CristalApp,
+      mockAuthenticationManagerProvider,
+    );
     const entityReference = nextcloudRemoteUrlSerializer.serialize(
       new SpaceReference(new WikiReference("testuser"), "home"),
     );
@@ -42,11 +59,16 @@ describe("NextcloudRemoteURLSerializer", () => {
     );
   });
   it("serialize default root url with spaces", () => {
-    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer({
-      getWikiConfig() {
-        return { baseRestURL: "http://localhost/remote.php/dav" } as WikiConfig;
-      },
-    } as CristalApp);
+    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer(
+      {
+        getWikiConfig() {
+          return {
+            baseRestURL: "http://localhost/remote.php/dav",
+          } as WikiConfig;
+        },
+      } as CristalApp,
+      mockAuthenticationManagerProvider,
+    );
     const entityReference = nextcloudRemoteUrlSerializer.serialize(
       new DocumentReference(
         "c",
@@ -58,14 +80,17 @@ describe("NextcloudRemoteURLSerializer", () => {
     );
   });
   it("serialize public root url", () => {
-    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer({
-      getWikiConfig() {
-        return {
-          baseRestURL: "http://localhost/public.php/webdav",
-          storageRoot: "/.cristal",
-        } as WikiConfig;
-      },
-    } as CristalApp);
+    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer(
+      {
+        getWikiConfig() {
+          return {
+            baseRestURL: "http://localhost/public.php/webdav",
+            storageRoot: "/.cristal",
+          } as WikiConfig;
+        },
+      } as CristalApp,
+      mockAuthenticationManagerProvider,
+    );
     const entityReference = nextcloudRemoteUrlSerializer.serialize(
       new DocumentReference("c", new SpaceReference(undefined, "a", "b")),
     );
@@ -74,14 +99,17 @@ describe("NextcloudRemoteURLSerializer", () => {
     );
   });
   it("serialize attachment", () => {
-    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer({
-      getWikiConfig() {
-        return {
-          baseRestURL: "http://localhost/remote.php/dav",
-          storageRoot: "/files/${username}/.cristal",
-        } as WikiConfig;
-      },
-    } as CristalApp);
+    const nextcloudRemoteUrlSerializer = new NextcloudRemoteURLSerializer(
+      {
+        getWikiConfig() {
+          return {
+            baseRestURL: "http://localhost/remote.php/dav",
+            storageRoot: "/files/${username}/.cristal",
+          } as WikiConfig;
+        },
+      } as CristalApp,
+      mockAuthenticationManagerProvider,
+    );
     const entityReference = nextcloudRemoteUrlSerializer.serialize(
       new AttachmentReference(
         "image.jpg",

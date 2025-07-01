@@ -35,7 +35,7 @@ class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
   constructor(
     @inject("CristalApp") private readonly cristalApp: CristalApp,
     @inject("AuthenticationManagerProvider")
-    private readonly authenticationManager: AuthenticationManagerProvider,
+    private readonly authenticationManagerProvider: AuthenticationManagerProvider,
   ) {}
 
   serialize(reference?: EntityReference): string | undefined {
@@ -56,7 +56,7 @@ class NextcloudRemoteURLSerializer implements RemoteURLSerializer {
 
   private serializeSpace(spaceReference: SpaceReference) {
     const spaces = spaceReference.names.join("/");
-    const userId = this.authenticationManager.get()?.getUserId();
+    const userId = this.authenticationManagerProvider.get()?.getUserId?.();
     return `${this.getRootURL(spaceReference.wiki?.name ?? userId ?? "")}/${spaces}`;
   }
 

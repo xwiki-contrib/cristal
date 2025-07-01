@@ -550,9 +550,8 @@ export default async function load(): Promise<void> {
   ipcMain.handle("deletePage", (event, { path: reference }) => {
     return deletePage(reference);
   });
-  ipcMain.handle("search", async (event, { query, type, mimetype }) => {
-    const promise = await search(query, type, mimetype);
-    return promise;
+  ipcMain.handle("search", (event, { query, type, mimetype }) => {
+    return search(query, type, mimetype);
   });
   ipcMain.handle(
     "movePage",

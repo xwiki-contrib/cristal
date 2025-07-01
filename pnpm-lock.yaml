@@ -2214,6 +2214,9 @@ importers:
       vite:
         specifier: 7.0.0
         version: 7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0)
+      vitest-mock-extended:
+        specifier: 3.1.0
+        version: 3.1.0(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.15.32)(happy-dom@18.0.1)(tsx@4.20.3)(yaml@2.8.0))
 
   core/model/model-remote-url/model-remote-url-xwiki:
     dependencies:
@@ -10071,14 +10074,6 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
-  ts-essentials@10.0.4:
-    resolution: {integrity: sha512-lwYdz28+S4nicm+jFi6V58LaAIpxzhg9rLdgNC1VsdP/xiFBseGhF1M/shwCk6zMmwahBZdXcl34LVHrEang3A==}
-    peerDependencies:
-      typescript: '>=4.5.0'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   ts-essentials@10.1.1:
     resolution: {integrity: sha512-4aTB7KLHKmUvkjNj8V+EdnmuVTiECzn3K+zIbRthumvHu+j44x3w63xpfs0JL3NGIzGXqoQ7AV591xHO+XrOTw==}
     peerDependencies:
@@ -16604,10 +16599,6 @@ snapshots:
     dependencies:
       typescript: 5.8.3
 
-  ts-essentials@10.0.4(typescript@5.8.3):
-    optionalDependencies:
-      typescript: 5.8.3
-
   ts-essentials@10.1.1(typescript@5.8.3):
     optionalDependencies:
       typescript: 5.8.3
@@ -16971,7 +16962,7 @@ snapshots:
 
   vitest-mock-extended@3.1.0(typescript@5.8.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@22.15.32)(happy-dom@18.0.1)(tsx@4.20.3)(yaml@2.8.0)):
     dependencies:
-      ts-essentials: 10.0.4(typescript@5.8.3)
+      ts-essentials: 10.1.1(typescript@5.8.3)
       typescript: 5.8.3
       vitest: 3.2.4(@types/debug@4.1.12)(@types/node@22.15.32)(happy-dom@18.0.1)(tsx@4.20.3)(yaml@2.8.0)
 
