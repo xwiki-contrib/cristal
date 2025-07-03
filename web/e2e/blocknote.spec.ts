@@ -1,4 +1,5 @@
 import test, { expect } from "@playwright/test";
+import { screenshotIfTestFailed } from "./screenshot-failures";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/XWikiBlocknoteNoRealtime/#/Main.WebHome/edit");
@@ -14,18 +15,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.afterEach(async ({ page }, testInfo) => {
-  if (testInfo.status !== testInfo.expectedStatus) {
-    // Get a unique place for the screenshot.
-    const screenshotPath = testInfo.outputPath(`failure.png`);
-    // Add it to the report.
-    testInfo.attachments.push({
-      name: "screenshot",
-      path: screenshotPath,
-      contentType: "image/png",
-    });
-    // Take the screenshot itself.
-    await page.screenshot({ path: screenshotPath, timeout: 5000 });
-  }
+  await screenshotIfTestFailed(page, testInfo);
 });
 
 test("BlockNote shows up", async ({ page }) => {
