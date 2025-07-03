@@ -43,7 +43,8 @@ test("Content can be saved", async ({ page }) => {
   const saveBtn = page.locator(".pagemenu button:last-child");
   await expect(saveBtn).toBeVisible();
 
-  // TODO: storage mocking to enable saving
+  // TODO: storage mocking to enable saving (https://jira.xwiki.org/browse/CRISTAL-579)
+
   // This code is left here as a reference as it should work perfectly once we have storage mocking
 
   // await saveBtn.click();
