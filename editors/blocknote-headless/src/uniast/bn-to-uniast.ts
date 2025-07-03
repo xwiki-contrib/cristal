@@ -26,7 +26,7 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from "@xwiki/cristal-editors-blocknote-react";
-import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
+import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import {
   Block,
   BlockStyles,
@@ -235,21 +235,33 @@ export class BlockNoteToUniAstConverter {
       case "bulletListItem":
       case "numberedListItem":
       case "checkListItem":
+      case "toggleListItem":
         throw new Error(
           "Block should have been handled elsewhere in BlockNote to UniAst converter: " +
             block.type,
         );
+
+      default:
+        assertUnreachable(block);
     }
   }
 
   private convertListItem(
     block: Extract<
       BlockType,
-      { type: "bulletListItem" | "numberedListItem" | "checkListItem" }
+      {
+        type:
+          | "bulletListItem"
+          | "numberedListItem"
+          | "checkListItem"
+          | "toggleListItem";
+      }
     >,
     currentList: Extract<Block, { type: "list" }> | null,
   ): ListItem {
     switch (block.type) {
+      // TODO: convert toggle items differently?
+      case "toggleListItem":
       case "bulletListItem":
         return {
           content: [
