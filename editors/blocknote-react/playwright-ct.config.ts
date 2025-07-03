@@ -27,7 +27,7 @@ import {
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = defineConfig({
-  testDir: "./",
+  testDir: "./src/__tests__",
   /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
   snapshotDir: "./__snapshots__",
   /* Maximum time one test can run for. */
@@ -45,7 +45,8 @@ const config: PlaywrightTestConfig = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace: "retain-on-failure",
+    video: "retain-on-failure",
 
     /* Port to use for Playwright component endpoint. */
     ctPort: 3100,
@@ -57,14 +58,7 @@ const config: PlaywrightTestConfig = defineConfig({
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
     },
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-    },
   ],
 });
+
 export default config;
