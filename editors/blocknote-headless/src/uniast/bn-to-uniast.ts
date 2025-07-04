@@ -136,36 +136,6 @@ export class BlockNoteToUniAstConverter {
           styles: this.convertBlockStyles(block.props),
         };
 
-      case "Heading4":
-        dontExpectChildren();
-
-        return {
-          type: "heading",
-          level: 4,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          styles: {}, // TODO
-        };
-
-      case "Heading5":
-        dontExpectChildren();
-
-        return {
-          type: "heading",
-          level: 4,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          styles: {}, // TODO
-        };
-
-      case "Heading6":
-        dontExpectChildren();
-
-        return {
-          type: "heading",
-          level: 4,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          styles: {}, // TODO
-        };
-
       case "codeBlock":
         dontExpectChildren();
 

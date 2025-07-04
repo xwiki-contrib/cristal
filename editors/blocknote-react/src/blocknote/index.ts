@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Heading4, Heading5, Heading6 } from "./blocks/Headings";
 import translations from "../translations";
 import {
   Block,
@@ -62,11 +61,6 @@ function createBlockNoteSchema() {
       // First-party extension blocks
       column: ColumnBlock,
       columnList: ColumnListBlock,
-
-      // Custom blocks
-      Heading4: Heading4.block,
-      Heading5: Heading5.block,
-      Heading6: Heading6.block,
     },
   });
 
@@ -103,11 +97,6 @@ function querySuggestionsMenuItems(
 
       // // First-party extension blocks
       getMultiColumnSlashMenuItems(editor),
-
-      // Custom blocks
-      [Heading4, Heading5, Heading6].map((custom) =>
-        custom.slashMenuEntry(editor),
-      ),
     ),
     query,
   );
