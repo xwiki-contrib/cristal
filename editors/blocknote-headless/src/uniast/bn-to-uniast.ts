@@ -65,7 +65,8 @@ export class BlockNoteToUniAstConverter {
       if (
         block.type !== "bulletListItem" &&
         block.type !== "numberedListItem" &&
-        block.type !== "checkListItem"
+        block.type !== "checkListItem" &&
+        block.type !== "toggleListItem"
       ) {
         const converted = this.convertBlock(block);
 
@@ -95,7 +96,18 @@ export class BlockNoteToUniAstConverter {
     return out;
   }
 
-  private convertBlock(block: BlockType): Block | null {
+  private convertBlock(
+    block: Exclude<
+      BlockType,
+      {
+        type:
+          | "bulletListItem"
+          | "numberedListItem"
+          | "checkListItem"
+          | "toggleListItem";
+      }
+    >,
+  ): Block | null {
     const dontExpectChildren = () => {
       if (block.children.length > 0) {
         console.error({ unexpextedChildrenInBlock: block });
@@ -232,15 +244,6 @@ export class BlockNoteToUniAstConverter {
           styles: {},
         };
 
-      case "bulletListItem":
-      case "numberedListItem":
-      case "checkListItem":
-      case "toggleListItem":
-        throw new Error(
-          "Block should have been handled elsewhere in BlockNote to UniAst converter: " +
-            block.type,
-        );
-
       default:
         assertUnreachable(block);
     }
@@ -316,6 +319,9 @@ export class BlockNoteToUniAstConverter {
           ],
           styles: this.convertBlockStyles(block.props),
         };
+
+      default:
+        assertUnreachable(block);
     }
   }
 
