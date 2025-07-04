@@ -26,7 +26,11 @@ import {
   EditorStyleSchema,
   EditorStyledText,
 } from "@xwiki/cristal-editors-blocknote-react";
-import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
+import {
+  assertUnreachable,
+  provideTypeInference,
+  tryFallibleOrError,
+} from "@xwiki/cristal-fn-utils";
 import {
   Block,
   BlockStyles,
@@ -70,7 +74,7 @@ export class BlockNoteToUniAstConverter {
         const converted = this.convertBlock(block);
 
         if (converted !== null) {
-          out.push(converted);
+          out.push(...(Array.isArray(converted) ? converted : [converted]));
         }
 
         continue;
@@ -103,7 +107,7 @@ export class BlockNoteToUniAstConverter {
         type: "bulletListItem" | "numberedListItem" | "checkListItem";
       }
     >,
-  ): Block | null {
+  ): Block | Block[] | null {
     const dontExpectChildren = () => {
       if (block.children.length > 0) {
         console.error({ unexpextedChildrenInBlock: block });
@@ -122,14 +126,16 @@ export class BlockNoteToUniAstConverter {
         };
 
       case "heading":
-        dontExpectChildren();
-
-        return {
-          type: "heading",
-          level: block.props.level,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          styles: this.convertBlockStyles(block.props),
-        };
+        return [
+          provideTypeInference<Block>({
+            type: "heading",
+            level: block.props.level,
+            content: block.content.map((item) =>
+              this.convertInlineContent(item),
+            ),
+            styles: this.convertBlockStyles(block.props),
+          }),
+        ].concat(this.convertBlocks(block.children));
 
       case "Heading4":
         dontExpectChildren();
