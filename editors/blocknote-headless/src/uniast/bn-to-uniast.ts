@@ -65,8 +65,7 @@ export class BlockNoteToUniAstConverter {
       if (
         block.type !== "bulletListItem" &&
         block.type !== "numberedListItem" &&
-        block.type !== "checkListItem" &&
-        block.type !== "toggleListItem"
+        block.type !== "checkListItem"
       ) {
         const converted = this.convertBlock(block);
 
@@ -101,11 +100,7 @@ export class BlockNoteToUniAstConverter {
       BlockType,
       {
         // List items are to be handled through the `convertListItem` method
-        type:
-          | "bulletListItem"
-          | "numberedListItem"
-          | "checkListItem"
-          | "toggleListItem";
+        type: "bulletListItem" | "numberedListItem" | "checkListItem";
       }
     >,
   ): Block | null {
@@ -254,19 +249,12 @@ export class BlockNoteToUniAstConverter {
     block: Extract<
       BlockType,
       {
-        type:
-          | "bulletListItem"
-          | "numberedListItem"
-          | "checkListItem"
-          | "toggleListItem";
+        type: "bulletListItem" | "numberedListItem" | "checkListItem";
       }
     >,
     currentList: Extract<Block, { type: "list" }> | null,
   ): ListItem {
     switch (block.type) {
-      // TODO: togglable list items are not supported by Markdown, so we convert it as raw here
-      // Should we convert them differently?
-      case "toggleListItem":
       case "bulletListItem":
         return {
           content: [
