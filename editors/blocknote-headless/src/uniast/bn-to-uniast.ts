@@ -100,6 +100,7 @@ export class BlockNoteToUniAstConverter {
     block: Exclude<
       BlockType,
       {
+        // List items are to be handled through the `convertListItem` method
         type:
           | "bulletListItem"
           | "numberedListItem"
@@ -263,7 +264,8 @@ export class BlockNoteToUniAstConverter {
     currentList: Extract<Block, { type: "list" }> | null,
   ): ListItem {
     switch (block.type) {
-      // TODO: convert toggle items differently?
+      // TODO: togglable list items are not supported by Markdown, so we convert it as raw here
+      // Should we convert them differently?
       case "toggleListItem":
       case "bulletListItem":
         return {
