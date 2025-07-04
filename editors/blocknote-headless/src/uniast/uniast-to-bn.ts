@@ -66,59 +66,17 @@ export class UniAstToBlockNoteConverter {
         };
 
       case "heading":
-        switch (block.level) {
-          case 1:
-          case 2:
-          case 3:
-            return {
-              type: "heading",
-              id: genId(),
-              children: [],
-              content: block.content.map((item) =>
-                this.convertInlineContent(item),
-              ),
-              props: {
-                ...this.convertBlockStyles(block.styles),
-                level: block.level,
-                isToggleable: false,
-              },
-            };
-
-          case 4:
-            return {
-              type: "Heading4",
-              id: genId(),
-              children: [],
-              content: block.content.map((item) =>
-                this.convertInlineContent(item),
-              ),
-              props: this.convertBlockStyles(block.styles),
-            };
-
-          case 5:
-            return {
-              type: "Heading5",
-              id: genId(),
-              children: [],
-              content: block.content.map((item) =>
-                this.convertInlineContent(item),
-              ),
-              props: this.convertBlockStyles(block.styles),
-            };
-
-          case 6:
-            return {
-              type: "Heading6",
-              id: genId(),
-              children: [],
-              content: block.content.map((item) =>
-                this.convertInlineContent(item),
-              ),
-              props: this.convertBlockStyles(block.styles),
-            };
-        }
-
-        break;
+        return {
+          type: "heading",
+          id: genId(),
+          children: [],
+          content: block.content.map((item) => this.convertInlineContent(item)),
+          props: {
+            ...this.convertBlockStyles(block.styles),
+            level: block.level,
+            isToggleable: false,
+          },
+        };
 
       case "quote":
         return {
