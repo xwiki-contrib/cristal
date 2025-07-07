@@ -78,6 +78,7 @@ function initComponent() {
   );
 }
 
+// eslint-disable-next-line max-statements
 describe("DefaultMarkdownRenderer", () => {
   it("renders content without markup unchanged", () => {
     const defaultMarkdownRenderer = initComponent();
@@ -105,6 +106,33 @@ describe("DefaultMarkdownRenderer", () => {
     );
   });
 
+  it("renders internal links in a sentence", () => {
+    const defaultMarkdownRenderer = initComponent();
+    expect(
+      defaultMarkdownRenderer.render("Hello [[Cristal|Main.WebHome]] World"),
+    ).toBe(
+      '<p>Hello <a href="https://cristal.xwiki.org" class="internal-link">Cristal</a> World</p>\n',
+    );
+  });
+
+  it("renders internal links in a sentence, in a paragraph", () => {
+    const defaultMarkdownRenderer = initComponent();
+    expect(
+      defaultMarkdownRenderer.render(
+        `Line 1
+
+Hello [[Cristal|Main.WebHome]] World
+
+Line 3`,
+      ),
+    ).toBe(
+      `<p>Line 1</p>
+<p>Hello <a href="https://cristal.xwiki.org" class="internal-link">Cristal</a> World</p>
+<p>Line 3</p>
+`,
+    );
+  });
+
   it("renders internal links no text", () => {
     const defaultMarkdownRenderer = initComponent();
     expect(defaultMarkdownRenderer.render("[[Main.WebHome]]")).toBe(
@@ -128,14 +156,14 @@ describe("DefaultMarkdownRenderer", () => {
     expect(
       defaultMarkdownRenderer.render("![[Cristal|Main.WebHome@image.png]]"),
     ).toBe(
-      '<p><img src="https://cristal.xwiki.org/image.png" alt="Cristal"></a></p>\n',
+      '<p><img src="https://cristal.xwiki.org/image.png" alt="Cristal"></p>\n',
     );
   });
 
   it("renders internal image no text", () => {
     const defaultMarkdownRenderer = initComponent();
     expect(defaultMarkdownRenderer.render("![[Main.WebHome@image.png]]")).toBe(
-      '<p><img src="https://cristal.xwiki.org/image.png"></a></p>\n',
+      '<p><img src="https://cristal.xwiki.org/image.png" alt=""></p>\n',
     );
   });
 
@@ -159,7 +187,32 @@ describe("DefaultMarkdownRenderer", () => {
         "**before ![[Main.WebHome@image.png]] after**",
       ),
     ).toBe(
-      '<p><strong>before <img src="https://cristal.xwiki.org/image.png"></a> after</strong></p>\n',
+      '<p><strong>before <img src="https://cristal.xwiki.org/image.png" alt=""> after</strong></p>\n',
+    );
+  });
+
+  it("renders link with italic", () => {
+    const defaultMarkdownRenderer = initComponent();
+    expect(defaultMarkdownRenderer.render(`[[*italic*|Main.WebHome]]`)).toBe(
+      '<p><a href="https://cristal.xwiki.org" class="internal-link"><em>italic</em></a></p>\n',
+    );
+  });
+
+  it("renders link with bold outside link", () => {
+    const defaultMarkdownRenderer = initComponent();
+    expect(
+      defaultMarkdownRenderer.render(`[[*italic*|Main.WebHome]] **bold**`),
+    ).toBe(
+      '<p><a href="https://cristal.xwiki.org" class="internal-link"><em>italic</em></a> <strong>bold</strong></p>\n',
+    );
+  });
+
+  it("renders link with double closing brackets inside link", () => {
+    const defaultMarkdownRenderer = initComponent();
+    expect(
+      defaultMarkdownRenderer.render(`[[some content \`]]\`|Main.WebHome]]`),
+    ).toBe(
+      '<p><a href="https://cristal.xwiki.org" class="internal-link">some content <code>]]</code></a></p>\n',
     );
   });
 });
