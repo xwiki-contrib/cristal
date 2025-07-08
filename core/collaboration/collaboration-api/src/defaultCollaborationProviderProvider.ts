@@ -17,35 +17,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { App } from "./App";
-import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
-import { LinkEditionContext } from "./misc/linkSuggest";
-import { createRoot } from "react-dom/client";
 
-export function mountBlockNote(
-  containerEl: HTMLElement,
-  props: BlockNoteViewWrapperProps,
-): { unmount: () => void } {
-  const root = createRoot(containerEl);
+import { collaborationProviderName } from "./index";
+import { inject, injectable } from "inversify";
+import type { CollaborationProvider } from "./collaborationProvider";
+import type { CollaborationProviderProvider } from "./collaborationProviderProvider";
+import type { CristalApp } from "@xwiki/cristal-api";
 
-  console.log("mountBlockNote", props);
+@injectable()
+export class DefaultCollaborationProviderProvider
+  implements CollaborationProviderProvider
+{
+  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
-  root.render(<App {...props} />);
-
-  let unmounted = false;
-
-  return {
-    unmount() {
-      if (unmounted) {
-        throw new Error("BlockNote is already unmounted!");
-      }
-
-      unmounted = true;
-      root.unmount();
-    },
-  };
+  get(): Promise<CollaborationProvider> {
+    const type = this.cristalApp.getWikiConfig().getType();
+    const container = this.cristalApp.getContainer();
+    if (container.isBound(collaborationProviderName, { name: type })) {
+      return container.get(collaborationProviderName, { name: type });
+    } else {
+      return container.get(collaborationProviderName);
+    }
+  }
 }
-
-export type { BlockNoteViewWrapperProps, LinkEditionContext };
-
-export * from "./blocknote";

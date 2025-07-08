@@ -21,9 +21,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import cRealtimeUsers from "./c-realtime-users.vue";
 import cSaveStatus, { SaveStatus } from "./c-save-status.vue";
 import messages from "../translations";
-import { HocuspocusProvider } from "@hocuspocus/provider";
 import { AlertsService } from "@xwiki/cristal-alerts-api";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
+import { collaborationProviderProviderName } from "@xwiki/cristal-collaboration-api";
 import {
   DocumentService,
   name as documentServiceName,
@@ -41,6 +41,7 @@ import { debounce } from "lodash-es";
 import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
+import type { CollaborationProviderProvider } from "@xwiki/cristal-collaboration-api";
 
 const { t } = useI18n({
   messages,
@@ -60,6 +61,9 @@ const modelReferenceHandler = container
   .get();
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
+const collaborationProviderProvider = container
+  .get<CollaborationProviderProvider>(collaborationProviderProviderName)
+  .get();
 
 const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
 
@@ -208,7 +212,7 @@ watch(
   }, 500),
 );
 
-const provider = shallowRef<HocuspocusProvider | null>(null);
+const provider = collaborationProviderProvider.get();
 </script>
 
 <template>
@@ -247,18 +251,13 @@ const provider = shallowRef<HocuspocusProvider | null>(null);
                 :realtime-server-u-r-l
                 @instant-change="saveStatus = SaveStatus.UNSAVED"
                 @debounced-change="save"
-                @setup-provider="
-                  (newProvider) => {
-                    provider = newProvider;
-                  }
-                "
               />
             </div>
           </div>
 
           <form class="pagemenu" @submit="submit">
             <div class="pagemenu-status">
-              <c-realtime-users :provider="provider" />
+              <c-realtime-users v-if="provider" :status="provider.get" />
               <c-save-status :save-status />
             </div>
 

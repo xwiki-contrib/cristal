@@ -17,35 +17,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { App } from "./App";
-import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
-import { LinkEditionContext } from "./misc/linkSuggest";
-import { createRoot } from "react-dom/client";
 
-export function mountBlockNote(
-  containerEl: HTMLElement,
-  props: BlockNoteViewWrapperProps,
-): { unmount: () => void } {
-  const root = createRoot(containerEl);
+import localConfig from "./vite.config";
+import { mergeConfig } from "vitest/config";
+import defaultConfig from "@xwiki/cristal-dev-config/vitest-vue.config";
 
-  console.log("mountBlockNote", props);
-
-  root.render(<App {...props} />);
-
-  let unmounted = false;
-
-  return {
-    unmount() {
-      if (unmounted) {
-        throw new Error("BlockNote is already unmounted!");
-      }
-
-      unmounted = true;
-      root.unmount();
-    },
-  };
-}
-
-export type { BlockNoteViewWrapperProps, LinkEditionContext };
-
-export * from "./blocknote";
+export default mergeConfig(defaultConfig, localConfig);

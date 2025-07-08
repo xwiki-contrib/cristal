@@ -17,35 +17,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { App } from "./App";
-import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
-import { LinkEditionContext } from "./misc/linkSuggest";
-import { createRoot } from "react-dom/client";
+import { Status } from "@xwiki/cristal-collaboration-api";
+import { injectable } from "inversify";
+import { Ref } from "vue";
+import type { CollaborationProvider } from "@xwiki/cristal-collaboration-api";
 
-export function mountBlockNote(
-  containerEl: HTMLElement,
-  props: BlockNoteViewWrapperProps,
-): { unmount: () => void } {
-  const root = createRoot(containerEl);
-
-  console.log("mountBlockNote", props);
-
-  root.render(<App {...props} />);
-
-  let unmounted = false;
-
-  return {
-    unmount() {
-      if (unmounted) {
-        throw new Error("BlockNote is already unmounted!");
-      }
-
-      unmounted = true;
-      root.unmount();
-    },
-  };
+@injectable()
+export class HocuspocusCollaborationProvider implements CollaborationProvider {
+  status(): Ref<Status> {
+    throw new Error("Method not implemented.");
+  }
+  get(): unknown {
+    // TODO...
+    return undefined;
+  }
 }
-
-export type { BlockNoteViewWrapperProps, LinkEditionContext };
-
-export * from "./blocknote";

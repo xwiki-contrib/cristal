@@ -17,35 +17,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { App } from "./App";
-import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
-import { LinkEditionContext } from "./misc/linkSuggest";
-import { createRoot } from "react-dom/client";
 
-export function mountBlockNote(
-  containerEl: HTMLElement,
-  props: BlockNoteViewWrapperProps,
-): { unmount: () => void } {
-  const root = createRoot(containerEl);
+const collaborationProviderName: string = "collaborationProvider";
+const collaborationProviderProviderName: string =
+  "collaborationProviderProvider";
+import { CollaborationProvider } from "./collaborationProvider";
+import { CollaborationProviderProvider } from "./collaborationProviderProvider";
+import { ComponentInit } from "./componentInit";
+import { Status } from "./status";
 
-  console.log("mountBlockNote", props);
+export {
+  ComponentInit,
+  Status,
+  collaborationProviderName,
+  collaborationProviderProviderName,
+};
 
-  root.render(<App {...props} />);
-
-  let unmounted = false;
-
-  return {
-    unmount() {
-      if (unmounted) {
-        throw new Error("BlockNote is already unmounted!");
-      }
-
-      unmounted = true;
-      root.unmount();
-    },
-  };
-}
-
-export type { BlockNoteViewWrapperProps, LinkEditionContext };
-
-export * from "./blocknote";
+export type { CollaborationProvider, CollaborationProviderProvider };

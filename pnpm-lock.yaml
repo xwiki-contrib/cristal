@@ -989,6 +989,56 @@ importers:
         specifier: 3.5.17
         version: 3.5.17(typescript@5.8.3)
 
+  core/collaboration/collaboration-api:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      inversify:
+        specifier: 7.5.4
+        version: 7.5.4(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 7.0.0
+        version: 7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0)
+      vue:
+        specifier: 3.5.17
+        version: 3.5.17(typescript@5.8.3)
+
+  core/collaboration/collaboration-hocuspocus:
+    dependencies:
+      '@xwiki/cristal-collaboration-api':
+        specifier: workspace:*
+        version: link:../collaboration-api
+      inversify:
+        specifier: 7.5.4
+        version: 7.5.4(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      reflect-metadata:
+        specifier: 0.2.2
+        version: 0.2.2
+      typescript:
+        specifier: 5.8.3
+        version: 5.8.3
+      vite:
+        specifier: 7.0.0
+        version: 7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0)
+      vue:
+        specifier: 3.5.17
+        version: 3.5.17(typescript@5.8.3)
+
   core/configuration/configuration-api:
     dependencies:
       utility-types:
@@ -3366,9 +3416,6 @@ importers:
 
   editors/blocknote:
     dependencies:
-      '@hocuspocus/provider':
-        specifier: 2.15.2
-        version: 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
       '@xwiki/cristal-alerts-api':
         specifier: workspace:*
         version: link:../../core/alerts/alerts-api
@@ -3378,6 +3425,9 @@ importers:
       '@xwiki/cristal-backend-api':
         specifier: workspace:*
         version: link:../../core/backends/backend-api
+      '@xwiki/cristal-collaboration-api':
+        specifier: workspace:*
+        version: link:../../core/collaboration/collaboration-api
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../../core/document/document-api
@@ -3442,15 +3492,15 @@ importers:
       '@blocknote/core':
         specifier: 0.33.0
         version: 0.33.0(@hocuspocus/provider@2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26))(@types/hast@3.0.4)
-      '@hocuspocus/provider':
-        specifier: 2.15.2
-        version: 2.15.2(y-protocols@1.0.6(yjs@13.6.26))(yjs@13.6.26)
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../../core/attachments/attachments-api
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../../core/authentication/authentication-api
+      '@xwiki/cristal-collaboration-api':
+        specifier: workspace:*
+        version: link:../../core/collaboration/collaboration-api
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../../core/document/document-api
@@ -3545,6 +3595,9 @@ importers:
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
         version: link:../../core/attachments/attachments-api
+      '@xwiki/cristal-collaboration-api':
+        specifier: workspace:*
+        version: link:../../core/collaboration/collaboration-api
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../../core/document/document-api

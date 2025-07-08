@@ -47,12 +47,8 @@ import {
   useCreateBlockNote,
 } from "@blocknote/react";
 import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
-import {
-  HocuspocusProvider,
-  // BUG: ESLint incorrectly reports this as an error even though it's not (TODO: investigate)
-  // eslint-disable-next-line import/named
-  HocuspocusProviderConfiguration,
-} from "@hocuspocus/provider";
+import { HocuspocusProvider } from "@hocuspocus/provider";
+import { CollaborationProvider } from "@xwiki/cristal-collaboration-api";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -93,7 +89,8 @@ type BlockNoteViewWrapperProps = {
    * Realtime options
    */
   realtime?: {
-    hocusPocus: HocuspocusProviderConfiguration;
+    collaborationProvider: CollaborationProvider;
+    realtimeUrl: string;
     user: { name: string; color: string };
   };
 
@@ -135,9 +132,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
 
   const schema = createBlockNoteSchema();
 
-  const provider = realtime?.hocusPocus
-    ? new HocuspocusProvider(realtime.hocusPocus)
-    : undefined;
+  const provider = (realtime?.collaborationProvider?.get() as any) ?? undefined;
 
   useEffect(() => {
     if (provider) {

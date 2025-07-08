@@ -23,7 +23,6 @@ import { createLinkEditionContext } from "../components/linkEditionContext";
 import messages from "../translations";
 import { BlockNoteToUniAstConverter } from "../uniast/bn-to-uniast";
 import { UniAstToBlockNoteConverter } from "../uniast/uniast-to-bn";
-import { HocuspocusProvider } from "@hocuspocus/provider";
 import {
   DocumentService,
   name as documentServiceName,
@@ -43,25 +42,26 @@ import {
   ref,
   shallowRef,
   useTemplateRef,
-  watch,
 } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { CollaborationProvider } from "@xwiki/cristal-collaboration-api";
 
 const {
   editorProps,
   editorContent: uniAst,
   realtimeServerURL = undefined,
+  collaborationProvider,
   container,
 } = defineProps<{
   editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
   editorContent: UniAst | Error;
   realtimeServerURL?: string | undefined;
+  collaborationProvider: CollaborationProvider;
   container: Container;
 }>();
 
 const editorRef = shallowRef<EditorType | null>(null);
-const providerRef = shallowRef<HocuspocusProvider | null>(null);
 
 const emit = defineEmits<{
   // Emitted as soon as a user-triggered change happens into the editor
@@ -71,9 +71,6 @@ const emit = defineEmits<{
 
   // Emitted in the same context as "instant-change", but debounced
   "debounced-change": [content: UniAst];
-
-  // Emitted when the realtime provider is set up in the editor
-  "setup-provider": [provider: HocuspocusProvider];
 }>();
 
 defineExpose({
@@ -129,11 +126,8 @@ async function getRealtimeOptions(): Promise<
   const user = await computeCurrentUser(authenticationManager);
 
   return {
-    hocusPocus: {
-      url: realtimeServerURL,
-      // we distinguish from sessions from other editors with a ':blocknote' suffix.
-      name: `${documentReference}:blocknote`,
-    },
+    collaborationProvider,
+    realtimeUrl: realtimeServerURL,
     user,
   };
 }
@@ -156,9 +150,6 @@ const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
     setEditor(editor) {
       editorRef.value = editor;
     },
-    setProvider(provider) {
-      providerRef.value = provider;
-    },
   },
 };
 
@@ -172,8 +163,6 @@ const content =
   uniAst instanceof Error
     ? uniAst
     : uniAstToBlockNote.uniAstToBlockNote(uniAst);
-
-watch(providerRef, (provider) => provider && emit("setup-provider", provider));
 
 const blockNoteContainer = useTemplateRef<HTMLElement>("blocknote-container");
 
