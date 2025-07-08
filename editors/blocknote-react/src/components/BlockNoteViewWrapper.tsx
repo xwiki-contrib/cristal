@@ -47,8 +47,6 @@ import {
   useCreateBlockNote,
 } from "@blocknote/react";
 import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
-import { HocuspocusProvider } from "@hocuspocus/provider";
-import { CollaborationProvider } from "@xwiki/cristal-collaboration-api";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -89,8 +87,7 @@ type BlockNoteViewWrapperProps = {
    * Realtime options
    */
   realtime?: {
-    collaborationProvider: CollaborationProvider;
-    realtimeUrl: string;
+    collaborationProvider: () => any;
     user: { name: string; color: string };
   };
 
@@ -110,14 +107,13 @@ type BlockNoteViewWrapperProps = {
    */
   refs?: {
     setEditor?: (editor: EditorType) => void;
-    setProvider?: (provider: HocuspocusProvider) => void;
   };
 };
 
 /**
  * BlockNote editor wrapper
  */
-// eslint-disable-next-line max-statements
+
 const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   blockNoteOptions,
   theme,
@@ -126,19 +122,14 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   onChange,
   lang,
   linkEditionCtx,
-  refs: { setEditor, setProvider } = {},
+  refs: { setEditor } = {},
 }: BlockNoteViewWrapperProps) => {
   const { t } = useTranslation();
+  const collaborationProvider = realtime?.collaborationProvider;
 
   const schema = createBlockNoteSchema();
 
-  const provider = (realtime?.collaborationProvider?.get() as any) ?? undefined;
-
-  useEffect(() => {
-    if (provider) {
-      setProvider?.(provider);
-    }
-  }, [provider, setProvider]);
+  const provider = collaborationProvider ? collaborationProvider() : undefined;
 
   // Prevent changes in the editor until the provider has synced with other clients
   const [ready, setReady] = useState(!provider);
@@ -230,7 +221,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
 
       replaceContent(content);
     }
-  }, [provider, setProvider]);
+  }, [provider]);
 
   // Disconnect from the realtime provider when the component is unmounted
   // Otherwise, our user profile may be left over and still be displayed to other users

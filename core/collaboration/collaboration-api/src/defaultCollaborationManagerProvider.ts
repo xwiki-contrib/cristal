@@ -18,19 +18,25 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-const collaborationManagerName: string = "collaborationManager";
-const collaborationManagerProviderName: string = "collaborationManagerProvider";
-import { CollaborationManager } from "./collaborationManager";
-import { CollaborationManagerProvider } from "./collaborationManagerProvider";
-import { ComponentInit } from "./componentInit";
-import { Status } from "./status";
-import type { User } from "./user";
+import { collaborationManagerName } from "./index";
+import { inject, injectable } from "inversify";
+import type { CollaborationManager } from "./collaborationManager";
+import type { CollaborationManagerProvider } from "./collaborationManagerProvider";
+import type { CristalApp } from "@xwiki/cristal-api";
 
-export {
-  ComponentInit,
-  Status,
-  collaborationManagerName,
-  collaborationManagerProviderName,
-};
+@injectable()
+export class DefaultCollaborationManagerProvider
+  implements CollaborationManagerProvider
+{
+  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
-export type { CollaborationManager, CollaborationManagerProvider, User };
+  get(): CollaborationManager {
+    const type = this.cristalApp.getWikiConfig().getType();
+    const container = this.cristalApp.getContainer();
+    if (container.isBound(collaborationManagerName, { name: type })) {
+      return container.get(collaborationManagerName, { name: type });
+    } else {
+      return container.get(collaborationManagerName);
+    }
+  }
+}

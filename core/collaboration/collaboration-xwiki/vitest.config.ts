@@ -18,25 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { collaborationProviderName } from "./index";
-import { inject, injectable } from "inversify";
-import type { CollaborationProvider } from "./collaborationProvider";
-import type { CollaborationProviderProvider } from "./collaborationProviderProvider";
-import type { CristalApp } from "@xwiki/cristal-api";
+import localConfig from "./vite.config";
+import { mergeConfig } from "vitest/config";
+import defaultConfig from "@xwiki/cristal-dev-config/vitest-vue.config";
 
-@injectable()
-export class DefaultCollaborationProviderProvider
-  implements CollaborationProviderProvider
-{
-  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
-
-  get(): Promise<CollaborationProvider> {
-    const type = this.cristalApp.getWikiConfig().getType();
-    const container = this.cristalApp.getContainer();
-    if (container.isBound(collaborationProviderName, { name: type })) {
-      return container.get(collaborationProviderName, { name: type });
-    } else {
-      return container.get(collaborationProviderName);
-    }
-  }
-}
+export default mergeConfig(defaultConfig, localConfig);

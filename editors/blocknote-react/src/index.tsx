@@ -28,8 +28,6 @@ export function mountBlockNote(
 ): { unmount: () => void } {
   const root = createRoot(containerEl);
 
-  console.log("mountBlockNote", props);
-
   root.render(<App {...props} />);
 
   let unmounted = false;

@@ -23,7 +23,10 @@ import cSaveStatus, { SaveStatus } from "./c-save-status.vue";
 import messages from "../translations";
 import { AlertsService } from "@xwiki/cristal-alerts-api";
 import { CristalApp, PageData } from "@xwiki/cristal-api";
-import { collaborationProviderProviderName } from "@xwiki/cristal-collaboration-api";
+import {
+  Status,
+  collaborationManagerProviderName,
+} from "@xwiki/cristal-collaboration-api";
 import {
   DocumentService,
   name as documentServiceName,
@@ -41,7 +44,11 @@ import { debounce } from "lodash-es";
 import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
-import type { CollaborationProviderProvider } from "@xwiki/cristal-collaboration-api";
+import type {
+  CollaborationManagerProvider,
+  User,
+} from "@xwiki/cristal-collaboration-api";
+import type { Ref } from "vue";
 
 const { t } = useI18n({
   messages,
@@ -61,11 +68,19 @@ const modelReferenceHandler = container
   .get();
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
-const collaborationProviderProvider = container
-  .get<CollaborationProviderProvider>(collaborationProviderProviderName)
-  .get();
 
 const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
+let collaborationProvider: () => any;
+let status: Ref<Status> | undefined;
+let users: Ref<User[]> | undefined;
+if (realtimeServerURL) {
+  const collaborationManager = container
+    .get<CollaborationManagerProvider>(collaborationManagerProviderName)
+    .get();
+  status = collaborationManager.status();
+  users = collaborationManager.users();
+  collaborationProvider = await collaborationManager.get();
+}
 
 const title = ref("");
 const titlePlaceholder = modelReferenceHandler?.getTitle(
@@ -211,8 +226,6 @@ watch(
     }
   }, 500),
 );
-
-const provider = collaborationProviderProvider.get();
 </script>
 
 <template>
@@ -248,7 +261,7 @@ const provider = collaborationProviderProvider.get();
                 :editor-props
                 :editor-content
                 :container
-                :realtime-server-u-r-l
+                :collaboration-provider
                 @instant-change="saveStatus = SaveStatus.UNSAVED"
                 @debounced-change="save"
               />
@@ -257,7 +270,7 @@ const provider = collaborationProviderProvider.get();
 
           <form class="pagemenu" @submit="submit">
             <div class="pagemenu-status">
-              <c-realtime-users v-if="provider" :status="provider.get" />
+              <c-realtime-users v-if="status && users" :status :users />
               <c-save-status :save-status />
             </div>
 

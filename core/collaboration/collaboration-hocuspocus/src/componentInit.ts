@@ -20,8 +20,8 @@
 
 import { HocuspocusCollaborationProvider } from "./hocuspocusCollaborationProvider";
 import {
-  CollaborationProvider,
-  collaborationProviderName,
+  CollaborationManager,
+  collaborationManagerName,
 } from "@xwiki/cristal-collaboration-api";
 import type { Container } from "inversify";
 
@@ -29,7 +29,7 @@ class ComponentInit {
   constructor(container: Container) {
     // Register the hocuspocus collaboration provider as the default for legacy reason.
     container
-      .bind<CollaborationProvider>(collaborationProviderName)
+      .bind<CollaborationManager>(collaborationManagerName)
       .to(HocuspocusCollaborationProvider)
       .inSingletonScope();
   }

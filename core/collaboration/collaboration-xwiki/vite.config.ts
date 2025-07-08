@@ -18,8 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { CollaborationProvider } from "./collaborationProvider";
+import { generateConfig } from "../../../vite.config";
 
-export interface CollaborationProviderProvider {
-  get(): Promise<CollaborationProvider>;
-}
+export default generateConfig(import.meta.url);

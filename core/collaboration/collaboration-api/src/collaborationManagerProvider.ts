@@ -18,19 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-const collaborationManagerName: string = "collaborationManager";
-const collaborationManagerProviderName: string = "collaborationManagerProvider";
 import { CollaborationManager } from "./collaborationManager";
-import { CollaborationManagerProvider } from "./collaborationManagerProvider";
-import { ComponentInit } from "./componentInit";
-import { Status } from "./status";
-import type { User } from "./user";
 
-export {
-  ComponentInit,
-  Status,
-  collaborationManagerName,
-  collaborationManagerProviderName,
-};
-
-export type { CollaborationManager, CollaborationManagerProvider, User };
+export interface CollaborationManagerProvider {
+  get(): CollaborationManager;
+}

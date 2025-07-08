@@ -17,15 +17,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import type { Status } from "./status";
+import { Status } from "./status";
+import { User } from "./user";
 import type { Ref } from "vue";
 
-export interface CollaborationProvider {
-  // TODO: maybe make async to be able to lazy laod the provider?
-  get(): unknown;
+export interface CollaborationManager {
+  get<T>(): Promise<() => T>;
 
   /**
    * The current status
    */
   status(): Ref<Status>;
+
+  /**
+   * The current connected users.
+   */
+  users(): Ref<User[]>;
 }

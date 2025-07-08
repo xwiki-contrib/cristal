@@ -26,6 +26,10 @@
     "@xwiki/cristal-api": "workspace:*",
     "inversify": "7.5.4"
   },
+  "peerDependencies": {
+    "reflect-metadata": "0.x",
+    "vue": "3.x"
+  },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
     "reflect-metadata": "0.2.2",
@@ -48,9 +52,5 @@
     },
     "main": "./dist/index.es.js",
     "types": "./dist/index.d.ts"
-  },
-  "peerDependencies": {
-    "reflect-metadata": "0.x",
-    "vue": "3.x"
   }
 }

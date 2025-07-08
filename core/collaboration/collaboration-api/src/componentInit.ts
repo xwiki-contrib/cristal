@@ -18,16 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { collaborationProviderProviderName } from "./index";
-import { DefaultCollaborationProviderProvider } from "./defaultCollaborationProviderProvider";
-import type { CollaborationProviderProvider } from "./collaborationProviderProvider";
+import { collaborationManagerProviderName } from "./index";
+import { DefaultCollaborationManagerProvider } from "./defaultCollaborationManagerProvider";
+import type { CollaborationManagerProvider } from "./collaborationManagerProvider";
 import type { Container } from "inversify";
 
 class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<CollaborationProviderProvider>(collaborationProviderProviderName)
-      .to(DefaultCollaborationProviderProvider)
+      .bind<CollaborationManagerProvider>(collaborationManagerProviderName)
+      .to(DefaultCollaborationManagerProvider)
       .inSingletonScope();
   }
 }

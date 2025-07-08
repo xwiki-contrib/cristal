@@ -24,10 +24,6 @@ import messages from "../translations";
 import { BlockNoteToUniAstConverter } from "../uniast/bn-to-uniast";
 import { UniAstToBlockNoteConverter } from "../uniast/uniast-to-bn";
 import {
-  DocumentService,
-  name as documentServiceName,
-} from "@xwiki/cristal-document-api";
-import {
   BlockNoteViewWrapperProps,
   EditorType,
   mountBlockNote,
@@ -45,19 +41,16 @@ import {
 } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
-import type { CollaborationProvider } from "@xwiki/cristal-collaboration-api";
 
 const {
   editorProps,
   editorContent: uniAst,
-  realtimeServerURL = undefined,
   collaborationProvider,
   container,
 } = defineProps<{
   editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
   editorContent: UniAst | Error;
-  realtimeServerURL?: string | undefined;
-  collaborationProvider: CollaborationProvider;
+  collaborationProvider?: () => any;
   container: Container;
 }>();
 
@@ -107,27 +100,18 @@ const notifyChangesDebounced = debounce(notifyChanges, 500);
 async function getRealtimeOptions(): Promise<
   BlockNoteViewWrapperProps["realtime"]
 > {
-  const documentService = container.get<DocumentService>(documentServiceName);
   const authenticationManager = container
     .get<AuthenticationManagerProvider>("AuthenticationManagerProvider")
     .get()!;
 
-  if (!realtimeServerURL) {
+  if (!collaborationProvider) {
     return undefined;
-  }
-
-  const documentReference =
-    documentService.getCurrentDocumentReferenceString().value;
-
-  if (!documentReference) {
-    throw new Error("Got no document reference!");
   }
 
   const user = await computeCurrentUser(authenticationManager);
 
   return {
     collaborationProvider,
-    realtimeUrl: realtimeServerURL,
     user,
   };
 }

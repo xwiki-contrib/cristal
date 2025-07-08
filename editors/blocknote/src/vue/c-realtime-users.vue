@@ -21,15 +21,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import NoAvatar from "../../images/noavatar.png";
 import { Status } from "@xwiki/cristal-collaboration-api";
 import { CIcon, Size } from "@xwiki/cristal-icons";
-import { ref } from "vue";
+import type { User } from "@xwiki/cristal-collaboration-api";
 
-const { status } = defineProps<{
+const { status, users } = defineProps<{
   status: Status;
+  users: User[];
 }>();
-
-const users = ref<
-  { user: { name: string; color: string }; clientId: string }[]
->([]);
 </script>
 
 <template>
