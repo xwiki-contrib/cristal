@@ -54,9 +54,11 @@ type Block =
     } & Image)
   | { type: "break" }
   | {
-      type: "macro";
+      /** @since 0.20 */
+      type: "macroBlock";
       name: string;
       props: Record<string, boolean | number | string>;
+      content?: Block[];
     };
 
 /**
@@ -120,6 +122,13 @@ type InlineContent =
       type: "link";
       target: LinkTarget;
       content: Exclude<InlineContent, { type: "link" }>[];
+    }
+  | {
+      /** @since 0.20 */
+      type: "inlineMacro";
+      name: string;
+      props: Record<string, boolean | number | string>;
+      content?: InlineContent[];
     };
 
 /**

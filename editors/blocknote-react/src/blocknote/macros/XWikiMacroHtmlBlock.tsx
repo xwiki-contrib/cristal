@@ -12,6 +12,7 @@ export const XWikiMacroHtmlBlockMacro = createMacro({
     metadata: "",
   },
   renderType: "block",
+  hasChildren: false,
   render(parameters) {
     return <div dangerouslySetInnerHTML={{ __html: parameters.html }} />;
   },

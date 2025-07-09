@@ -25,8 +25,9 @@ import {
   EditorLink,
   EditorStyleSchema,
   EditorStyledText,
+  MACRO_NAME_PREFIX,
 } from "@xwiki/cristal-editors-blocknote-react";
-import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
+import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import {
   Block,
   BlockStyles,
@@ -182,8 +183,21 @@ export class UniAstToBlockNoteConverter {
         return this.convertImage(block);
 
       case "break":
-      case "macro":
         throw new Error("TODO: handle block of type " + block.type);
+
+      case "macroBlock":
+        return {
+          // @ts-expect-error: macros are dynamically added to the AST
+          type: `${MACRO_NAME_PREFIX}${block.name}`,
+          id: genId(),
+          props: block.props,
+          children:
+            block.content?.flatMap((item) => this.convertBlock(item)) ?? [],
+          content: undefined,
+        };
+
+      default:
+        assertUnreachable(block);
     }
   }
 
@@ -351,6 +365,12 @@ export class UniAstToBlockNoteConverter {
 
       case "image":
         throw new Error("Inline images are currently unsupported in blocknote");
+
+      case "inlineMacro":
+        return {
+          // f@ts-expect-error: macros are dynamically added to the AST
+          type: "yoh",
+        };
     }
   }
 }

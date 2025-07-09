@@ -21,31 +21,36 @@
 import {
   BlockNoteEditor,
   CustomBlockConfig,
+  CustomInlineContentConfig,
   InlineContentSchema,
   PartialBlock,
+  PartialInlineContent,
+  PropSchema,
   StyleSchema,
   insertOrUpdateBlock,
 } from "@blocknote/core";
 import {
   ReactCustomBlockImplementation,
+  ReactInlineContentImplementation,
   createReactBlockSpec,
+  createReactInlineContentSpec,
 } from "@blocknote/react";
 import { assertUnreachable } from "@xwiki/cristal-fn-utils";
 import { ReactNode } from "react";
 
 function createCustomBlockSpec<
-  const T extends CustomBlockConfig,
+  const B extends CustomBlockConfig,
   const I extends InlineContentSchema,
   const S extends StyleSchema,
 >(block: {
-  config: T;
-  implementation: ReactCustomBlockImplementation<T, I, S>;
+  config: B;
+  implementation: ReactCustomBlockImplementation<B, I, S>;
   slashMenu: {
     title: string;
     aliases?: string[];
     group: string;
     icon: ReactNode;
-    default: PartialBlock<Record<T["type"], T>>;
+    default: PartialBlock<Record<B["type"], B>>;
   };
   toolbar: () => ReactNode | null;
 }) {
@@ -65,6 +70,43 @@ function createCustomBlockSpec<
   };
 }
 
+function createCustomInlineContentSpec<
+  const I extends CustomInlineContentConfig,
+  const S extends StyleSchema,
+>(inlineContent: {
+  config: I;
+  implementation: ReactInlineContentImplementation<I, S>;
+  slashMenu: {
+    title: string;
+    aliases?: string[];
+    group: string;
+    icon: ReactNode;
+    default: PartialInlineContent<Record<I["type"], I>, S>;
+  };
+  toolbar: () => ReactNode | null;
+}) {
+  return {
+    inlineContent: createReactInlineContentSpec(
+      inlineContent.config,
+      inlineContent.implementation,
+    ),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    slashMenuEntry: (editor: BlockNoteEditor<any>) => ({
+      title: inlineContent.slashMenu.title,
+      aliases: inlineContent.slashMenu.aliases,
+      group: inlineContent.slashMenu.group,
+      icon: inlineContent.slashMenu.icon,
+      onItemClick: () => {
+        editor.insertInlineContent([
+          // @ts-expect-error: TODO
+          inlineContent.slashMenu.default,
+        ]);
+      },
+    }),
+    toolbar,
+  };
+}
+
 /**
  * Description of a macro
  *
@@ -75,40 +117,67 @@ type Macro = {
   description: string;
   parameters: Record<string, MacroParameterType>;
   renderType: "inline" | "block";
-  block: ReturnType<typeof createCustomBlockSpec>;
+
   hidden: boolean;
-};
+  hasChildren: boolean;
+} & MacroConcrete;
+
+/**
+ * Description of a macro's inner content
+ *
+ * @since 0.20
+ */
+type MacroConcrete =
+  | { type: "block"; block: ReturnType<typeof createCustomBlockSpec> }
+  | {
+      type: "inline";
+      inlineContent: ReturnType<typeof createCustomInlineContentSpec>;
+    };
 
 /**
  * Description of a macro type
  *
  * @since 0.20
  */
-type MacroParameterType =
+type MacroParameterType = (
   | { type: "boolean" }
   // | { type: "int" }
   | { type: "float" }
   | { type: "string" }
-  | { type: "stringEnum"; possibleValues: string[] };
+  | { type: "stringEnum"; possibleValues: string[] }
+) & { optional?: true };
 
-type GetConcreteMacroParameterType<T extends MacroParameterType> = T extends {
-  type: "boolean";
-}
-  ? boolean
-  : // : T extends { type: "int" }
-    //   ? number
-    T extends { type: "float" }
-    ? number
-    : T extends { type: "string" }
-      ? string
-      : T extends { type: "stringEnum" }
-        ? T["possibleValues"][number]
-        : never;
+type GetConcreteMacroParameterType<T extends MacroParameterType> =
+  | (T extends {
+      type: "boolean";
+    }
+      ? boolean
+      : // : T extends { type: "int" }
+        //   ? number
+        T extends { type: "float" }
+        ? number
+        : T extends { type: "string" }
+          ? string
+          : T extends { type: "stringEnum" }
+            ? T["possibleValues"][number]
+            : never)
+  | (T["optional"] extends true ? undefined : never);
+
+type UndefinableToOptional<T> = {
+  [K in keyof T as undefined extends T[K] ? K : never]?: Exclude<
+    T[K],
+    undefined
+  >;
+} & { [K in keyof T as undefined extends T[K] ? never : K]: T[K] };
 
 type GetConcreteMacroParametersType<
   T extends Record<string, MacroParameterType>,
-> = {
+> = UndefinableToOptional<{
   [Param in keyof T]: GetConcreteMacroParameterType<T[Param]>;
+}>;
+
+type FilterUndefined<T> = {
+  [K in keyof T as undefined extends T[K] ? never : K]: T[K];
 };
 
 type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
@@ -117,7 +186,10 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
     description: string;
     renderType: "inline" | "block";
     parameters: Parameters;
-    defaultParameters: GetConcreteMacroParametersType<Parameters>;
+    defaultParameters: FilterUndefined<
+      GetConcreteMacroParametersType<Parameters>
+    >;
+    hasChildren: boolean;
     hidden?: boolean;
     render: (
       parameters: GetConcreteMacroParametersType<Parameters>,
@@ -132,60 +204,106 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
   description,
   parameters,
   defaultParameters,
+  hasChildren,
   hidden,
   render,
   renderType,
 }: MacroCreationArgs<Parameters>): Macro {
+  const type = `${MACRO_NAME_PREFIX}${name}` as string;
+
+  const propSchema: PropSchema = Object.fromEntries(
+    Object.entries(parameters).map(([name, param]) => [
+      name,
+      {
+        type:
+          param.type === "string" || param.type === "stringEnum"
+            ? "string"
+            : param.type === "float"
+              ? "number"
+              : param.type === "boolean"
+                ? "boolean"
+                : assertUnreachable(param),
+        default:
+          name in defaultParameters
+            ? // TODO: comment typecast
+              (defaultParameters as Record<string, string>)[name]
+            : undefined,
+        optional: param.optional,
+        values: param.type === "stringEnum" ? param.possibleValues : undefined,
+      },
+    ]),
+  );
+
+  const slashMenu = {
+    title: description,
+    group: "Macros",
+    icon: "M",
+    aliases: [],
+  };
+
+  const defaultValue = {
+    // TODO: using the 'type' property in parameters will make it disappear
+    ...defaultParameters,
+    type: `${MACRO_NAME_PREFIX}${name}`,
+  };
+
+  const concreteMacro: MacroConcrete =
+    renderType === "block"
+      ? {
+          type: "block",
+          block: createCustomBlockSpec({
+            config: {
+              type,
+              content: hasChildren ? "inline" : "none",
+              propSchema,
+            },
+            implementation: {
+              render: ({ contentRef, block }) =>
+                render(
+                  block.props as GetConcreteMacroParametersType<Parameters>,
+                  contentRef,
+                ),
+            },
+            slashMenu: {
+              ...slashMenu,
+              default: defaultValue,
+            },
+            // TODO
+            toolbar: () => null,
+          }),
+        }
+      : {
+          type: "inline",
+          inlineContent: createCustomInlineContentSpec({
+            config: {
+              type,
+              content: hasChildren ? "styled" : "none",
+              propSchema,
+            },
+            implementation: {
+              render: ({ contentRef, inlineContent }) =>
+                render(
+                  inlineContent.props as GetConcreteMacroParametersType<Parameters>,
+                  contentRef,
+                ),
+            },
+            slashMenu: {
+              ...slashMenu,
+              default: [defaultValue],
+            },
+            // TODO
+            toolbar: () => null,
+          }),
+        };
+
   return {
     name,
     description,
     parameters,
+    hasChildren,
     hidden: hidden ?? false,
     renderType,
-    block: createCustomBlockSpec({
-      config: {
-        type: `${MACRO_NAME_PREFIX}${name}` as string,
-        content: renderType === "inline" ? "none" : "inline",
-        propSchema: Object.fromEntries(
-          Object.entries(parameters).map(([name, param]) => [
-            name,
-            {
-              type:
-                param.type === "string" || param.type === "stringEnum"
-                  ? "string"
-                  : param.type === "float"
-                    ? "number"
-                    : param.type === "boolean"
-                      ? "boolean"
-                      : assertUnreachable(param),
-              default: defaultParameters[name],
-              values:
-                param.type === "stringEnum" ? param.possibleValues : undefined,
-            },
-          ]),
-        ),
-      },
-      implementation: {
-        render: ({ contentRef, block }) =>
-          render(
-            block.props as GetConcreteMacroParametersType<Parameters>,
-            contentRef,
-          ),
-      },
-      slashMenu: {
-        title: description,
-        group: "Macros",
-        icon: "M",
-        aliases: [],
-        default: {
-          // TODO: using the 'type' property in parameters will make it disappear
-          ...defaultParameters,
-          type: `${MACRO_NAME_PREFIX}${name}`,
-        },
-      },
-      // TODO
-      toolbar: () => null,
-    }),
+    ...concreteMacro,
   };
 }
 
