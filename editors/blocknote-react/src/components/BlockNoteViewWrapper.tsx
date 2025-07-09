@@ -33,6 +33,7 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote";
+import { Macro } from "../blocknote/utils";
 import { LinkEditionContext } from "../misc/linkSuggest";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
@@ -90,6 +91,11 @@ type BlockNoteViewWrapperProps = {
   content: BlockType[];
 
   /**
+   * Macros to show in the editor
+   */
+  macros: Macro[];
+
+  /**
    * Realtime options
    */
   realtime?: {
@@ -125,6 +131,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   blockNoteOptions,
   theme,
   content,
+  macros,
   realtime,
   onChange,
   lang,
@@ -133,7 +140,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
 }: BlockNoteViewWrapperProps) => {
   const { t } = useTranslation();
 
-  const schema = createBlockNoteSchema();
+  const schema = createBlockNoteSchema(macros);
 
   const provider = realtime?.hocusPocus
     ? new HocuspocusProvider(realtime.hocusPocus)
@@ -271,7 +278,9 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
     >
       <SuggestionMenuController
         triggerCharacter={"/"}
-        getItems={async (query) => querySuggestionsMenuItems(editor, query)}
+        getItems={async (query) =>
+          querySuggestionsMenuItems(editor, query, macros)
+        }
       />
 
       <FormattingToolbarController

@@ -18,11 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { App } from "./App";
+import { RawHtmlBlockMacro } from "./blocknote/macros/RawHtmlBlock";
+import { RawInlineHtmlMacro } from "./blocknote/macros/RawInlineHtml";
 import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
 import { LinkEditionContext } from "./misc/linkSuggest";
 import { createRoot } from "react-dom/client";
 
-export function mountBlockNote(
+function mountBlockNote(
   containerEl: HTMLElement,
   props: BlockNoteViewWrapperProps,
 ): { unmount: () => void } {
@@ -44,6 +46,11 @@ export function mountBlockNote(
   };
 }
 
-export type { BlockNoteViewWrapperProps, LinkEditionContext };
+const DEFAULT_MACROS = {
+  RawHtmlBlock: RawHtmlBlockMacro,
+  RawInlineHtml: RawInlineHtmlMacro,
+};
 
+export { DEFAULT_MACROS, mountBlockNote };
+export type { BlockNoteViewWrapperProps, LinkEditionContext };
 export * from "./blocknote";

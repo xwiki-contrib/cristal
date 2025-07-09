@@ -19,6 +19,7 @@
  */
 
 import { Heading4, Heading5, Heading6 } from "./blocks/Headings";
+import { MACRO_NAME_PREFIX, Macro } from "./utils";
 import translations from "../translations";
 import {
   Block,
@@ -50,7 +51,7 @@ import {
  *
  * @returns The created schema
  */
-function createBlockNoteSchema() {
+function createBlockNoteSchema(macros: Macro[]) {
   // Get rid of some block types
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { audio, video, file, toggleListItem, ...remainingBlockSpecs } =
@@ -68,6 +69,14 @@ function createBlockNoteSchema() {
       Heading4: Heading4.block,
       Heading5: Heading5.block,
       Heading6: Heading6.block,
+
+      // Macros
+      ...Object.fromEntries(
+        macros.map((macro) => [
+          `${MACRO_NAME_PREFIX}${macro.name}`,
+          macro.block.block,
+        ]),
+      ),
     },
   });
 
@@ -97,6 +106,8 @@ type EditorLanguage = keyof typeof locales &
 function querySuggestionsMenuItems(
   editor: EditorType,
   query: string,
+  // TODO: move this elsewhere
+  macros: Macro[],
 ): DefaultReactSuggestionItem[] {
   return filterSuggestionItems(
     combineByGroup(
@@ -109,6 +120,11 @@ function querySuggestionsMenuItems(
       [Heading4, Heading5, Heading6].map((custom) =>
         custom.slashMenuEntry(editor),
       ),
+
+      // Macros
+      macros
+        .filter((macro) => !macro.hidden)
+        .map((macro) => macro.block.slashMenuEntry(editor)),
     ),
     query,
   );
