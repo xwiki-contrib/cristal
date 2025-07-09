@@ -167,7 +167,9 @@ export class UniAstToMarkdownConverter {
       case "inlineMacro":
         // TODO: keep ordering of properties
         // TODO: escape double quotes in values
-        return `{{${inlineContent.name}${Object.entries(inlineContent.props).map(([name, value]) => ` ${name}="${value}"`)} /}}`;
+        return `{{${inlineContent.name}${Object.entries(inlineContent.props)
+          .map(([name, value]) => ` ${name}="${value}"`)
+          .join(" ")} /}}`;
     }
   }
 
