@@ -58,7 +58,6 @@ type Block =
       type: "macroBlock";
       name: string;
       props: Record<string, boolean | number | string>;
-      content?: Block[];
     };
 
 /**
@@ -128,7 +127,6 @@ type InlineContent =
       type: "inlineMacro";
       name: string;
       props: Record<string, boolean | number | string>;
-      content?: InlineContent[];
     };
 
 /**

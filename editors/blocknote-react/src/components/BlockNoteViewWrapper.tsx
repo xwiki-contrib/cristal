@@ -283,6 +283,8 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
         }
       />
 
+      {/* TODO: suggestions menu for inline macros */}
+
       <FormattingToolbarController
         formattingToolbar={(props) => (
           <CustomFormattingToolbar

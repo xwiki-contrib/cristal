@@ -87,8 +87,10 @@ export class UniAstToMarkdownConverter {
       case "break":
         return "---";
 
-      case "macro":
-        throw new Error("TODO: handle macros");
+      case "macroBlock":
+        // TODO: keep ordering of properties
+        // TODO: escape double quotes in values
+        return `{{${block.name}${Object.entries(block.props).map(([name, value]) => ` ${name}="${value}"`)} /}}`;
     }
   }
 
@@ -159,6 +161,13 @@ export class UniAstToMarkdownConverter {
           case "internal":
             return `[[${this.convertInlineContents(inlineContent.content)}|${this.context.serializeReference(inlineContent.target.reference)}]]`;
         }
+
+        break;
+
+      case "inlineMacro":
+        // TODO: keep ordering of properties
+        // TODO: escape double quotes in values
+        return `{{${inlineContent.name}${Object.entries(inlineContent.props).map(([name, value]) => ` ${name}="${value}"`)} /}}`;
     }
   }
 

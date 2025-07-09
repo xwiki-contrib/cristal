@@ -29,6 +29,7 @@ import {
   StyledText,
   combineByGroup,
   defaultBlockSpecs,
+  defaultInlineContentSpecs,
   filterSuggestionItems,
 } from "@blocknote/core";
 import * as locales from "@blocknote/core/locales";
@@ -72,10 +73,26 @@ function createBlockNoteSchema(macros: Macro[]) {
 
       // Macros
       ...Object.fromEntries(
-        macros.map((macro) => [
-          `${MACRO_NAME_PREFIX}${macro.name}`,
-          macro.block.block,
-        ]),
+        macros
+          .filter((macro) => macro.type === "block")
+          .map((macro) => [
+            `${MACRO_NAME_PREFIX}${macro.name}`,
+            macro.block.block,
+          ]),
+      ),
+    },
+
+    inlineContentSpecs: {
+      ...defaultInlineContentSpecs,
+
+      // Macros
+      ...Object.fromEntries(
+        macros
+          .filter((macro) => macro.type === "inline")
+          .map((macro) => [
+            `${MACRO_NAME_PREFIX}${macro.name}`,
+            macro.inlineContent.inlineContent,
+          ]),
       ),
     },
   });
@@ -124,6 +141,8 @@ function querySuggestionsMenuItems(
       // Macros
       macros
         .filter((macro) => !macro.hidden)
+        // Second filter is on a separate line to enable TypeScript's type predicate inference
+        .filter((macro) => macro.type === "block")
         .map((macro) => macro.block.slashMenuEntry(editor)),
     ),
     query,

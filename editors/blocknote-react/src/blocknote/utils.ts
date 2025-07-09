@@ -117,9 +117,7 @@ type Macro = {
   description: string;
   parameters: Record<string, MacroParameterType>;
   renderType: "inline" | "block";
-
   hidden: boolean;
-  hasChildren: boolean;
 } & MacroConcrete;
 
 /**
@@ -189,7 +187,6 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
     defaultParameters: FilterUndefined<
       GetConcreteMacroParametersType<Parameters>
     >;
-    hasChildren: boolean;
     hidden?: boolean;
     render: (
       parameters: GetConcreteMacroParametersType<Parameters>,
@@ -204,7 +201,6 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
   description,
   parameters,
   defaultParameters,
-  hasChildren,
   hidden,
   render,
   renderType,
@@ -254,7 +250,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
           block: createCustomBlockSpec({
             config: {
               type,
-              content: hasChildren ? "inline" : "none",
+              content: "none", // TODO: "inline" if hasChildren
               propSchema,
             },
             implementation: {
@@ -277,7 +273,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
           inlineContent: createCustomInlineContentSpec({
             config: {
               type,
-              content: hasChildren ? "styled" : "none",
+              content: "none", // TODO: "styled" if hasChildren
               propSchema,
             },
             implementation: {
@@ -300,7 +296,6 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
     name,
     description,
     parameters,
-    hasChildren,
     hidden: hidden ?? false,
     renderType,
     ...concreteMacro,

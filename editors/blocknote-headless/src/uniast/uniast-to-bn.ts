@@ -190,10 +190,8 @@ export class UniAstToBlockNoteConverter {
           // @ts-expect-error: macros are dynamically added to the AST
           type: `${MACRO_NAME_PREFIX}${block.name}`,
           id: genId(),
+          // @ts-expect-error: macros are dynamically added to the AST so the properties are not typed properly
           props: block.props,
-          children:
-            block.content?.flatMap((item) => this.convertBlock(item)) ?? [],
-          content: undefined,
         };
 
       default:
@@ -368,8 +366,9 @@ export class UniAstToBlockNoteConverter {
 
       case "inlineMacro":
         return {
-          // f@ts-expect-error: macros are dynamically added to the AST
-          type: "yoh",
+          // @ts-expect-error: macros are dynamically added to the AST
+          type: `${MACRO_NAME_PREFIX}${inlineContent.name}`,
+          props: inlineContent.props,
         };
     }
   }
