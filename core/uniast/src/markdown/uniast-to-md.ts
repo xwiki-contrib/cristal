@@ -35,8 +35,6 @@ import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
  * @since 0.16
  */
 export class UniAstToMarkdownConverter {
-  constructor() {}
-
   toMarkdown(uniAst: UniAst): string | Error {
     const { blocks } = uniAst;
 
