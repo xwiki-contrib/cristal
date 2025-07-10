@@ -419,7 +419,12 @@ export class BlockNoteToUniAstConverter {
     const reference = this.context.parseReferenceFromUrl(url);
 
     return reference
-      ? { type: "internal", reference }
+      ? {
+          type: "internal",
+          parsedReference: reference,
+          // TODO: preserve the raw reference from the original UniAst
+          rawReference: this.context.serializeReference(reference),
+        }
       : { type: "external", url };
   }
 }

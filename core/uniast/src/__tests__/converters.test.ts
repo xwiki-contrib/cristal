@@ -77,7 +77,7 @@ describe("MarkdownToUniAstConverter", () => {
   const converterContext = getConverterContext();
 
   const mdToUniAst = new MarkdownToUniAstConverter(converterContext);
-  const uniAstToMd = new UniAstToMarkdownConverter(converterContext);
+  const uniAstToMd = new UniAstToMarkdownConverter();
 
   function testTwoWayConversion(expected: {
     startingFrom: string;
@@ -932,4 +932,115 @@ describe("MarkdownToUniAstConverter", () => {
       },
     });
   });
+
+  test("parse XWiki-specific syntax elements", () => {
+    testTwoWayConversion({
+      startingFrom: [
+        "A [[title|documentReference]] B",
+        "C ![[title|imageReference]] D",
+        "E {{macro /}} F",
+      ].join("\n"),
+      convertsBackTo: [
+        "A [[title|documentReference]] B",
+        "C ![[title|imageReference]] D",
+        "E {{macro /}} F",
+      ].join("\n"),
+      withUniAst: {
+        blocks: [
+          {
+            content: [
+              {
+                content: "A ",
+                styles: {},
+                type: "text",
+              },
+              {
+                content: [
+                  {
+                    content: "title",
+                    styles: {},
+                    type: "text",
+                  },
+                ],
+                target: {
+                  type: "internal",
+                  parsedReference: null,
+                  rawReference: "documentReference",
+                },
+                type: "link",
+              },
+              {
+                content: " B\nC ",
+                styles: {},
+                type: "text",
+              },
+              {
+                alt: "title",
+                styles: {
+                  alignment: "left",
+                },
+                target: {
+                  type: "internal",
+                  parsedReference: null,
+                  rawReference: "imageReference",
+                },
+                type: "image",
+              },
+              {
+                content: " D\nE ",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {},
+                type: "inlineMacro",
+              },
+              {
+                content: " F",
+                styles: {},
+                type: "text",
+              },
+            ],
+            styles: {},
+            type: "paragraph",
+          },
+        ],
+      },
+    });
+
+    testTwoWayConversion({
+      startingFrom: [
+        "{{macro/}}",
+        "{{ macro/}}",
+        "{{macro /}}",
+        "{{  macro  / }}",
+        "{{macro param1=1/}}",
+        '{{macro param1="1"/}}',
+        "{{macro param1=1 /}}",
+        '{{macro param1="1" /}}',
+        '{{macro param1="1" param2="2" /}}',
+        '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+      ].join("\n"),
+      convertsBackTo: [
+        "{{macro /}}",
+        "{{macro /}}",
+        "{{macro /}}",
+        "{{macro /}}",
+        '{{macro param1="1" /}}',
+        '{{macro param1="1" /}}',
+        '{{macro param1="1" /}}',
+        '{{macro param1="1" /}}',
+        '{{macro param1="1" param2="2" /}}',
+        '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+      ].join("\n"),
+      withUniAst: {
+        blocks: [],
+      },
+    });
+  });
+
+  // TODO: test a lot of macro syntaxes
 });

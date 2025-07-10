@@ -293,137 +293,269 @@ export class MarkdownToUniAstConverter {
     const out: InlineContent[] = [];
 
     let treated = 0;
-    let match: number;
-    let previousMatch = 0;
 
-    while ((match = text.substring(treated).indexOf("[")) !== -1) {
-      match += treated;
-      treated += 2;
+    while (true) {
+      const firstItem = findFirstMatchIn(text.substring(treated), [
+        { name: "image", match: "![[" },
+        { name: "link", match: "[[" },
+        { name: "macro", match: "{{" },
+      ]);
 
-      const previous = match > 0 ? text.charAt(match - 1) : null;
-
-      if (text.charAt(match + 1) !== "[") {
-        continue;
-      }
-
-      // TODO: ensure we're not just after an escaped backslash
-      // => count preceding backslashes
-      if (previous === "\\") {
-        continue;
-      }
-
-      const isImage = previous === "!";
-
-      let i;
-      let escaping = false;
-      let closing = false;
-      let closed = false;
-
-      for (i = match + 1; i < text.length; i++) {
-        if (escaping) {
-          escaping = false;
-          continue;
-        }
-
-        const char = text.charAt(i);
-
-        if (char === "\\") {
-          escaping = true;
-          continue;
-        }
-
-        if (char === "]") {
-          if (closing) {
-            closed = true;
-            break;
-          }
-
-          closing = true;
-          continue;
-        }
-      }
-
-      if (!closed) {
+      if (!firstItem) {
         break;
       }
 
-      treated = i + 1;
+      const match = treated + firstItem.offset;
 
-      const substr = text.substring(match + 2, i - 1);
-
-      let title: string | null;
-      let targetStr: string;
-
-      const pipeCharPos = substr.indexOf("|");
-
-      if (pipeCharPos !== -1) {
-        title = substr.substring(0, pipeCharPos);
-        targetStr = substr.substring(pipeCharPos + 1);
-      } else {
-        title = null;
-        targetStr = substr;
-      }
-
-      const precedingContent = text.substring(
-        previousMatch,
-        match - (isImage ? 1 : 0),
-      );
-
-      if (precedingContent.length > 0) {
+      if (text.substring(treated, match).length > 0) {
         out.push({
           type: "text",
-          content: precedingContent,
+          content: text.substring(treated, match),
           styles,
         });
       }
 
-      previousMatch = i + 1;
+      const precedingBackslashes = text.substring(0, match).match(/\\+/);
 
-      const reference = this.context.parseReference(
-        targetStr,
-        isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT,
-      );
+      if (precedingBackslashes && precedingBackslashes[0].length % 2 !== 0) {
+        continue;
+      }
 
-      const target: LinkTarget =
-        reference !== null
-          ? { type: "internal", reference }
-          : {
-              type: "external",
-              // NOTE: If reference is invalid, fall back to a URL
-              // Probably not the best way to do it
-              url: targetStr,
-            };
+      switch (firstItem.name) {
+        case "image":
+        case "link": {
+          const isImage = firstItem.name === "image";
 
-      title ??= reference
-        ? this.context.getDisplayName(reference)
-        : "<invalid reference>";
+          let i;
+          let escaping = false;
+          let closing = false;
+          let closed = false;
 
-      out.push(
-        isImage
-          ? {
-              type: "image",
-              target,
-              styles: { alignment: "left" },
-              alt: title,
+          for (i = match + firstItem.match.length; i < text.length; i++) {
+            if (escaping) {
+              escaping = false;
+              continue;
             }
-          : {
-              type: "link",
-              target,
-              content: [{ type: "text", content: title, styles }],
-            },
-      );
+
+            const char = text.charAt(i);
+
+            if (char === "\\") {
+              escaping = true;
+              continue;
+            }
+
+            if (char === "]") {
+              if (closing) {
+                closed = true;
+                break;
+              }
+
+              closing = true;
+              continue;
+            }
+          }
+
+          if (!closed) {
+            break;
+          }
+
+          treated = i + 1;
+
+          const substr = text.substring(match + firstItem.match.length, i - 1);
+
+          let title: string | null;
+          let targetStr: string;
+
+          const pipeCharPos = substr.indexOf("|");
+
+          if (pipeCharPos !== -1) {
+            title = substr.substring(0, pipeCharPos);
+            targetStr = substr.substring(pipeCharPos + 1);
+          } else {
+            title = null;
+            targetStr = substr;
+          }
+
+          const reference = this.context.parseReference(
+            targetStr,
+            isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT,
+          );
+
+          const target: LinkTarget = {
+            type: "internal",
+            rawReference: targetStr,
+            parsedReference: reference,
+          };
+
+          title ??= reference
+            ? this.context.getDisplayName(reference)
+            : "<invalid reference>";
+
+          out.push(
+            isImage
+              ? {
+                  type: "image",
+                  target,
+                  styles: { alignment: "left" },
+                  alt: title,
+                }
+              : {
+                  type: "link",
+                  target,
+                  content: [{ type: "text", content: title, styles }],
+                },
+          );
+
+          break;
+        }
+
+        case "macro": {
+          const macroNameMatch = text
+            .substring(match + firstItem.match.length)
+            .match(
+              /\s*([A-Za-zÀ-ÖØ-öø-ÿ\d]+)(\s+(?=[A-Za-zÀ-ÖØ-öø-ÿ\d/])|(?=\/))/,
+            );
+
+          if (!macroNameMatch) {
+            treated = match + firstItem.match.length;
+            out.push({ type: "text", content: firstItem.match, styles: {} });
+            break;
+          }
+
+          const macroName = macroNameMatch[1];
+
+          let i;
+          let escaping = false;
+
+          let buildingParameter: { name: string; value: string | null } | null =
+            null;
+
+          const parameters: Record<string, string> = {};
+
+          let closingMacro = false;
+
+          for (
+            i = match + firstItem.match.length + macroNameMatch[0].length;
+            i < text.length;
+            i++
+          ) {
+            if (escaping) {
+              escaping = false;
+              continue;
+            }
+
+            if (!buildingParameter) {
+              if (text[i] === " ") {
+                continue;
+              }
+
+              if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ\d]/)) {
+                buildingParameter = { name: text[i], value: null };
+                continue;
+              }
+
+              if (text[i] === "/") {
+                closingMacro = true;
+                break;
+              }
+
+              // Invalid character, stop building macro here
+              break;
+            }
+
+            if (buildingParameter.value === null) {
+              if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ\d]/)) {
+                buildingParameter.name += text[i];
+                continue;
+              }
+
+              if (text[i] === "=") {
+                if (text[i + 1] === '"') {
+                  i += 1;
+                  buildingParameter.value = "";
+                  continue;
+                }
+
+                const number = text
+                  .substring(i + 1)
+                  .match(/\d+(?:[^A-Za-zÀ-ÖØ-öø-ÿ\d])/);
+
+                if (!number) {
+                  // Invalid character, stop building macro here
+                  break;
+                }
+
+                parameters[buildingParameter.name] = number[0];
+
+                buildingParameter = null;
+                continue;
+              }
+
+              // Invalid character, stop building macro here
+              break;
+            }
+
+            if (text[i] === '"') {
+              parameters[buildingParameter.name] = buildingParameter.value;
+              buildingParameter = null;
+            } else {
+              buildingParameter.value += text[i];
+            }
+
+            continue;
+          }
+
+          const closingBraces = text.substring(i).match(/\s*}}/);
+
+          if (!closingMacro || !closingBraces) {
+            // Macro is invalid
+            treated = match + firstItem.match.length;
+            out.push({ type: "text", content: firstItem.match, styles: {} });
+          } else {
+            treated = i + 1 + closingBraces[0].length;
+            // TODO: macro blocks
+            out.push({
+              type: "inlineMacro",
+              name: macroName,
+              props: parameters,
+            });
+          }
+
+          break;
+        }
+
+        default:
+          assertUnreachable(firstItem.name);
+      }
     }
 
-    if (text.substring(previousMatch).length > 0) {
+    if (text.substring(treated).length > 0) {
       out.push({
         type: "text",
-        content: text.substring(previousMatch),
+        content: text.substring(treated),
         styles,
       });
     }
 
     return out;
   }
+}
+
+function findFirstMatchIn<K extends string>(
+  subject: string,
+  candidates: Array<{ name: K; match: string }>,
+): { name: K; match: string; offset: number } | null {
+  let first: { name: K; match: string; offset: number } | null = null;
+
+  for (const { name, match } of candidates) {
+    const offset = subject.indexOf(match);
+
+    if (offset !== -1 && (first === null || first.offset > offset)) {
+      first = { name, match, offset };
+    }
+  }
+
+  return first;
 }
 
 /**

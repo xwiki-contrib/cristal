@@ -287,7 +287,10 @@ export class UniAstToBlockNoteConverter {
     const url =
       image.target.type === "external"
         ? image.target.url
-        : this.context.getUrlFromReference(image.target.reference);
+        : image.target.parsedReference
+          ? this.context.getUrlFromReference(image.target.parsedReference)
+          : // TODO: error handling, attach metadata to indicate the reference is invalid, ...?
+            "about:blank";
 
     return {
       type: "image",
@@ -342,7 +345,12 @@ export class UniAstToBlockNoteConverter {
         const href =
           inlineContent.target.type === "external"
             ? inlineContent.target.url
-            : this.context.getUrlFromReference(inlineContent.target.reference);
+            : inlineContent.target.parsedReference
+              ? this.context.getUrlFromReference(
+                  inlineContent.target.parsedReference,
+                )
+              : // TODO: error handling, attach metadata to indicate the reference is invalid, ...?
+                "about:blank";
 
         return {
           type: "link",

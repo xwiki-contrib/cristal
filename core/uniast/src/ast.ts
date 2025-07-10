@@ -154,7 +154,19 @@ type TextStyles = {
  * @since 0.16
  */
 type LinkTarget =
-  | { type: "internal"; reference: EntityReference }
+  | {
+      type: "internal";
+
+      /** @since 0.20 */
+      rawReference: string;
+
+      /**
+       * Will be `null` if the raw reference is invalid and can't be parsed
+       *
+       * @since 0.20
+       */
+      parsedReference: EntityReference | null;
+    }
   | { type: "external"; url: string };
 
 export type {

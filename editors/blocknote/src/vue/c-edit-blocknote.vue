@@ -83,7 +83,7 @@ const editorInstance =
 // Tools for UniAst handling
 const converterContext = createConverterContext(container);
 const markdownToUniAst = new MarkdownToUniAstConverter(converterContext);
-const uniAstToMarkdown = new UniAstToMarkdownConverter(converterContext);
+const uniAstToMarkdown = new UniAstToMarkdownConverter();
 
 // Saving status
 const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
