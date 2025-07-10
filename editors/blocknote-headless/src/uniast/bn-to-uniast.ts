@@ -364,7 +364,7 @@ export class BlockNoteToUniAstConverter {
         type: "inlineMacro",
         name: inlineContent.type.substring(MACRO_NAME_PREFIX.length),
         props:
-          // @ts-expect-error: TODO
+          // @ts-expect-error: the AST is dynamically-typed with macros, so the types are incorrect here
           inlineContent.props,
       };
     }
@@ -423,6 +423,10 @@ export class BlockNoteToUniAstConverter {
           type: "internal",
           parsedReference: reference,
           // TODO: preserve the raw reference from the original UniAst
+          //
+          // Waiting for solved issue in BlockNote:
+          // > https://github.com/TypeCellOS/BlockNote/issues/1840
+          //
           rawReference: this.context.serializeReference(reference),
         }
       : { type: "external", url };

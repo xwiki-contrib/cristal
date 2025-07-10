@@ -567,7 +567,9 @@ export class MarkdownToUniAstConverter {
           // Otherwise, we can properly build the macro
           else {
             treated = i + 1 + closingBraces[0].length;
-            // TODO: macro blocks
+
+            // NOTE: If a paragraph only contains an inline macro, it will be converted to a macro block instead
+            //       by the calling function
             out.push({
               type: "inlineMacro",
               name: macroName,

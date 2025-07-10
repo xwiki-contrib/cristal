@@ -44,6 +44,7 @@ import {
   locales as multiColumnLocales,
   withMultiColumn,
 } from "@blocknote/xl-multi-column";
+import { filterMap } from "@xwiki/cristal-fn-utils";
 
 /**
  * Create the BlockNote editor's schema
@@ -73,12 +74,11 @@ function createBlockNoteSchema(macros: Macro[]) {
 
       // Macros
       ...Object.fromEntries(
-        macros
-          .filter((macro) => macro.type === "block")
-          .map((macro) => [
-            `${MACRO_NAME_PREFIX}${macro.name}`,
-            macro.block.block,
-          ]),
+        filterMap(macros, (macro) =>
+          macro.blockNote.type === "block"
+            ? [`${MACRO_NAME_PREFIX}${macro.name}`, macro.blockNote.block]
+            : null,
+        ),
       ),
     },
 
@@ -87,12 +87,14 @@ function createBlockNoteSchema(macros: Macro[]) {
 
       // Macros
       ...Object.fromEntries(
-        macros
-          .filter((macro) => macro.type === "inline")
-          .map((macro) => [
-            `${MACRO_NAME_PREFIX}${macro.name}`,
-            macro.inlineContent.inlineContent,
-          ]),
+        filterMap(macros, (macro) =>
+          macro.blockNote.type === "inline"
+            ? [
+                `${MACRO_NAME_PREFIX}${macro.name}`,
+                macro.blockNote.inlineContent,
+              ]
+            : null,
+        ),
       ),
     },
   });
@@ -123,14 +125,13 @@ type EditorLanguage = keyof typeof locales &
 function querySuggestionsMenuItems(
   editor: EditorType,
   query: string,
-  // TODO: move this elsewhere
   macros: Macro[],
 ): DefaultReactSuggestionItem[] {
   return filterSuggestionItems(
     combineByGroup(
       getDefaultReactSlashMenuItems(editor),
 
-      // // First-party extension blocks
+      // First-party extension blocks
       getMultiColumnSlashMenuItems(editor),
 
       // Custom blocks
@@ -139,11 +140,12 @@ function querySuggestionsMenuItems(
       ),
 
       // Macros
-      macros
-        .filter((macro) => !macro.hidden)
-        // Second filter is on a separate line to enable TypeScript's type predicate inference
-        .filter((macro) => macro.type === "block")
-        .map((macro) => macro.block.slashMenuEntry(editor)),
+      // TODO: decide how to show inline macros as the menu is only shown for block suggestions
+      filterMap(macros, (macro) =>
+        !macro.hidden && macro.blockNote.type === "block"
+          ? macro.blockNote.block.slashMenuEntry(editor)
+          : null,
+      ),
     ),
     query,
   );
