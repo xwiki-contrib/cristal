@@ -938,12 +938,12 @@ describe("MarkdownToUniAstConverter", () => {
       startingFrom: [
         "A [[title|documentReference]] B",
         "C ![[title|imageReference]] D",
-        "E {{inlineMacro /}} F",
+        "E {{someInlineMacro /}} F",
       ].join("\n"),
       convertsBackTo: [
         "A [[title|documentReference]] B",
         "C ![[title|imageReference]] D",
-        "E {{inlineMacro /}} F",
+        "E {{someInlineMacro /}} F",
       ].join("\n"),
       withUniAst: {
         blocks: [
@@ -992,7 +992,7 @@ describe("MarkdownToUniAstConverter", () => {
                 type: "text",
               },
               {
-                name: "macro",
+                name: "someInlineMacro",
                 params: {},
                 type: "inlineMacro",
               },
