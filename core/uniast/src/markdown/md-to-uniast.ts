@@ -291,18 +291,30 @@ export class MarkdownToUniAstConverter {
     let treated = 0;
 
     while (true) {
+      // Try to find the first XWiki-specific-element syntax in the text (precedence order)
       const firstItem = findFirstMatchIn(text.substring(treated), [
         { name: "image", match: "![[" },
         { name: "link", match: "[[" },
         { name: "macro", match: "{{" },
       ]);
 
+      // If none is found, exit immediately
+      // This also means texts that don't contain any specific syntax will have a very low conversion cost
       if (!firstItem) {
         break;
       }
 
       const match = treated + firstItem.offset;
 
+      // Ensure the current element is not being escaped with backslashes
+      const precedingBackslashes = text.substring(0, match).match(/\\+/);
+
+      // Backslashes are counted as pairs, as two consecutive backslashes are not escaping the next character
+      if (precedingBackslashes && precedingBackslashes[0].length % 2 !== 0) {
+        continue;
+      }
+
+      // Push the text between the last match and the current one as plain text
       if (text.substring(treated, match).length > 0) {
         out.push({
           type: "text",
@@ -311,20 +323,18 @@ export class MarkdownToUniAstConverter {
         });
       }
 
-      const precedingBackslashes = text.substring(0, match).match(/\\+/);
-
-      if (precedingBackslashes && precedingBackslashes[0].length % 2 !== 0) {
-        continue;
-      }
-
       switch (firstItem.name) {
         case "image":
         case "link": {
           const isImage = firstItem.name === "image";
 
           let i;
+
+          // Is the next character being escaped?
           let escaping = false;
+          // Is the link or image being closed?
           let closing = false;
+          // Has the link or image been closed properly?
           let closed = false;
 
           for (i = match + firstItem.match.length; i < text.length; i++) {
@@ -407,9 +417,11 @@ export class MarkdownToUniAstConverter {
         }
 
         case "macro": {
+          // Find the macro's name
           const macroNameMatch = text
             .substring(match + firstItem.match.length)
             .match(
+              // This weird group matches valid accentuated Unicode letters
               /\s*([A-Za-zÀ-ÖØ-öø-ÿ\d]+)(\s+(?=[A-Za-zÀ-ÖØ-öø-ÿ\d/])|(?=\/))/,
             );
 
@@ -422,13 +434,19 @@ export class MarkdownToUniAstConverter {
           const macroName = macroNameMatch[1];
 
           let i;
+
+          // Is the next character being escaped?
           let escaping = false;
 
+          // Parameters are built character by character
+          // First the name is parsed from the source, then the value
           let buildingParameter: { name: string; value: string | null } | null =
             null;
 
+          // The list of parsed parameters
           const parameters: Record<string, string> = {};
 
+          // Is the macro being closed?
           let closingMacro = false;
 
           for (
@@ -436,6 +454,7 @@ export class MarkdownToUniAstConverter {
             i < text.length;
             i++
           ) {
+            // Escaping is possible only inside parameter values
             if (escaping) {
               if (!buildingParameter || buildingParameter.value === null) {
                 throw new Error("Unexpected");
@@ -447,16 +466,20 @@ export class MarkdownToUniAstConverter {
               continue;
             }
 
+            // If we're not building a parameter, we are expecting one thing between...
             if (!buildingParameter) {
+              // ...a space (no particular meaning)
               if (text[i] === " ") {
                 continue;
               }
 
-              if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ\d]/)) {
+              // ...a valid identifier character which will begin the parameter's name
+              if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ_\d]/)) {
                 buildingParameter = { name: text[i], value: null };
                 continue;
               }
 
+              // ...or a closing slash which indicates the macro has no more parameter
               if (text[i] === "/") {
                 closingMacro = true;
                 break;
@@ -466,19 +489,24 @@ export class MarkdownToUniAstConverter {
               break;
             }
 
+            // If we're building a parameter's name, we are expecting one thing between...
             if (buildingParameter.value === null) {
-              if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ\d]/)) {
+              // ...a valid identifier character which will continue the parameter's name
+              if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ_\d]/)) {
                 buildingParameter.name += text[i];
                 continue;
               }
 
+              // ...or an '=' operator sign which indicates we are going to assign a value to the parameter
               if (text[i] === "=") {
+                // Usually parameters start with a double quote to indicate they have a string-like value
                 if (text[i + 1] === '"') {
                   i += 1;
                   buildingParameter.value = "";
                   continue;
                 }
 
+                // But unquoted integers are also accepted
                 const number = text
                   .substring(i + 1)
                   .match(/\d+(?=[^A-Za-zÀ-ÖØ-öø-ÿ\d])/);
@@ -499,23 +527,33 @@ export class MarkdownToUniAstConverter {
               break;
             }
 
+            // If we reach this point, we are building the parameter's value.
+            // Which means we are expecting either:
+            // ...an escaping character
             if (text[i] === "\\") {
               escaping = true;
-            } else if (text[i] === '"') {
+            }
+            // ...a closing double quote to indicate the parameter's value's end
+            else if (text[i] === '"') {
               parameters[buildingParameter.name] = buildingParameter.value;
               buildingParameter = null;
-            } else {
+            }
+            // ...or any other character that will continue the parameter's value
+            else {
               buildingParameter.value += text[i];
             }
           }
 
+          // When the macro closes, we expect double braces afterwards
           const closingBraces = text.substring(i).match(/\s*}}/);
 
+          // If the macro has not been closed properly (with a '/') or doesn't have the closing braces, it's invalid
           if (!closingMacro || !closingBraces) {
-            // Macro is invalid
             treated = match + firstItem.match.length;
             out.push({ type: "text", content: firstItem.match, styles: {} });
-          } else {
+          }
+          // Otherwise, we can properly build the macro
+          else {
             treated = i + 1 + closingBraces[0].length;
             // TODO: macro blocks
             out.push({
@@ -533,6 +571,7 @@ export class MarkdownToUniAstConverter {
       }
     }
 
+    // Push the leftover text after the last XWiki-specific element as plain text
     if (text.substring(treated).length > 0) {
       out.push({
         type: "text",
