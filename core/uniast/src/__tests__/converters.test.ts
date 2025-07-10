@@ -1008,7 +1008,9 @@ describe("MarkdownToUniAstConverter", () => {
         ],
       },
     });
+  });
 
+  test("parse various macros syntaxes", () => {
     testTwoWayConversion({
       startingFrom: [
         "{{macro/}}",
@@ -1021,7 +1023,7 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" /}}',
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{macro param1="some \\\\" escaped quote and }} closing braces and \\\\\\ escaped backslashes" /}}',
       ].join("\n"),
       convertsBackTo: [
         "{{macro /}}",
@@ -1034,10 +1036,140 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" /}}',
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{macro param1="some \\\\" escaped quote and }} closing braces and \\\\\\ escaped backslashes" /}}',
       ].join("\n"),
       withUniAst: {
-        blocks: [],
+        blocks: [
+          {
+            content: [
+              {
+                name: "macro",
+                props: {},
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {},
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {},
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {},
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {
+                  param1: "1",
+                },
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {
+                  param1: "1",
+                },
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {
+                  param1: "1",
+                },
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {
+                  param1: "1",
+                },
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {
+                  param1: "1",
+                  param2: "2",
+                },
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {
+                  param1: "param1Value",
+                  param2: "param2Value",
+                  param3: "param3Value",
+                },
+                type: "inlineMacro",
+              },
+              {
+                content: "\n",
+                styles: {},
+                type: "text",
+              },
+              {
+                name: "macro",
+                props: {
+                  param1:
+                    'some " escaped quote and }} closing braces and \\ escaped backslashes',
+                },
+                type: "inlineMacro",
+              },
+            ],
+            styles: {},
+            type: "paragraph",
+          },
+        ],
       },
     });
   });

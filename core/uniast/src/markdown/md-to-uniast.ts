@@ -286,10 +286,6 @@ export class MarkdownToUniAstConverter {
 
   // eslint-disable-next-line max-statements
   private convertText(text: string, styles: TextStyles): InlineContent[] {
-    if (!text.includes("[")) {
-      return [{ type: "text", content: text, styles }];
-    }
-
     const out: InlineContent[] = [];
 
     let treated = 0;
@@ -334,6 +330,7 @@ export class MarkdownToUniAstConverter {
           for (i = match + firstItem.match.length; i < text.length; i++) {
             if (escaping) {
               escaping = false;
+
               continue;
             }
 
@@ -440,7 +437,13 @@ export class MarkdownToUniAstConverter {
             i++
           ) {
             if (escaping) {
+              if (!buildingParameter || buildingParameter.value === null) {
+                throw new Error("Unexpected");
+              }
+
               escaping = false;
+              buildingParameter.value += text[i];
+
               continue;
             }
 
@@ -478,7 +481,7 @@ export class MarkdownToUniAstConverter {
 
                 const number = text
                   .substring(i + 1)
-                  .match(/\d+(?:[^A-Za-zÀ-ÖØ-öø-ÿ\d])/);
+                  .match(/\d+(?=[^A-Za-zÀ-ÖØ-öø-ÿ\d])/);
 
                 if (!number) {
                   // Invalid character, stop building macro here
@@ -486,8 +489,9 @@ export class MarkdownToUniAstConverter {
                 }
 
                 parameters[buildingParameter.name] = number[0];
-
                 buildingParameter = null;
+
+                i += number[0].length;
                 continue;
               }
 
@@ -495,14 +499,14 @@ export class MarkdownToUniAstConverter {
               break;
             }
 
-            if (text[i] === '"') {
+            if (text[i] === "\\") {
+              escaping = true;
+            } else if (text[i] === '"') {
               parameters[buildingParameter.name] = buildingParameter.value;
               buildingParameter = null;
             } else {
               buildingParameter.value += text[i];
             }
-
-            continue;
           }
 
           const closingBraces = text.substring(i).match(/\s*}}/);

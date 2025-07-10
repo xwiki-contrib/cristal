@@ -167,8 +167,11 @@ export class UniAstToMarkdownConverter {
         // TODO: keep ordering of properties
         // TODO: escape double quotes in values
         return `{{${inlineContent.name}${Object.entries(inlineContent.props)
-          .map(([name, value]) => ` ${name}="${value}"`)
-          .join(" ")} /}}`;
+          .map(
+            ([name, value]) =>
+              ` ${name}="${value.toString().replace(/\\/g, "\\\\\\").replace(/"/g, '\\\\"')}"`,
+          )
+          .join("")} /}}`;
     }
   }
 
