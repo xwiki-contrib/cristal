@@ -3,6 +3,11 @@ import * as encoding from "lib0/encoding";
 import { WebsocketProvider } from "y-websocket";
 import { Doc } from "yjs";
 
+/**
+ * Send the current client id to the server.
+ *
+ * @param websocketProvider - the websocket provider to register
+ */
 function registerClient(websocketProvider: WebsocketProvider) {
   // Put a messagetype of value 3, then the clientId
   // readVarUint for both values
@@ -16,6 +21,11 @@ function registerClient(websocketProvider: WebsocketProvider) {
   websocketProvider.ws?.send(buf);
 }
 
+/**
+ * Decode the client id from a message handler of index 4.
+ *
+ * @param handlerDecoder - the decoder, usually provided by the hander
+ */
 function readClientId(handlerDecoder: decoding.Decoder) {
   const decoder = decoding.createDecoder(handlerDecoder.arr);
   // Read and ignore the first uint value (message type).
@@ -23,16 +33,32 @@ function readClientId(handlerDecoder: decoding.Decoder) {
   return decoding.readVarUint(decoder);
 }
 
+/**
+ * Initialize a websocket provider for a XWiki yjs endpoint.
+ *
+ * @param url - the url of the websocket endpoint
+ * @param room - the string serialization of the room
+ * @since 0.20
+ */
 export function createXWikiWebsocketProvider(
   url: string,
-  roomname: string,
-  params: { [p: string]: string },
+  room: string,
 ): WebsocketProvider {
+  const splits = url.split("/");
+  const roomname = splits[splits.length - 1];
   const doc = new Doc();
   // Creates a new editor instance.
-  const websocketProvider = new WebsocketProvider(url, roomname, doc, {
-    params,
-  });
+  const websocketProvider = new WebsocketProvider(
+    // Since Websocket provider force having a roomname that is concatenated to the url with a '/'.
+    // Therefore, we have to artificially split out the last segment to have it concatenated back by Websocket
+    // provider later.
+    splits.slice(0, splits.length - 1).join("/"),
+    roomname,
+    doc,
+    {
+      params: { room },
+    },
+  );
 
   websocketProvider.messageHandlers[4] = (
     encoder,

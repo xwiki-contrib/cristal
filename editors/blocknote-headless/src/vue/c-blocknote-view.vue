@@ -41,6 +41,7 @@ import {
 } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
 
 const {
   editorProps,
@@ -50,7 +51,7 @@ const {
 } = defineProps<{
   editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
   editorContent: UniAst | Error;
-  collaborationProvider?: () => any;
+  collaborationProvider?: () => CollaborationInitializer;
   container: Container;
 }>();
 

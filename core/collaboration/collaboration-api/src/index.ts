@@ -20,10 +20,11 @@
 
 const collaborationManagerName: string = "collaborationManager";
 const collaborationManagerProviderName: string = "collaborationManagerProvider";
-import { CollaborationManager } from "./collaborationManager";
-import { CollaborationManagerProvider } from "./collaborationManagerProvider";
 import { ComponentInit } from "./componentInit";
 import { Status } from "./status";
+import type { CollaborationInitializer } from "./collaborationInitializer";
+import type { CollaborationManager } from "./collaborationManager";
+import type { CollaborationManagerProvider } from "./collaborationManagerProvider";
 import type { User } from "./user";
 
 export {
@@ -33,4 +34,9 @@ export {
   collaborationManagerProviderName,
 };
 
-export type { CollaborationManager, CollaborationManagerProvider, User };
+export type {
+  CollaborationInitializer,
+  CollaborationManager,
+  CollaborationManagerProvider,
+  User,
+};

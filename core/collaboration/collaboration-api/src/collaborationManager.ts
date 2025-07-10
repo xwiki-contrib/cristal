@@ -19,19 +19,30 @@
  */
 import { Status } from "./status";
 import { User } from "./user";
+import type { CollaborationInitializer } from "./collaborationInitializer";
 import type { Ref } from "vue";
-import type { Doc } from "yjs";
 
-export interface CollaborationManager {
-  get<T>(): Promise<() => [T, Doc, Promise<unknown>]>;
+/**
+ * The manager for a given collaboration provider (e.g., hocuspocus, or y-websocket).
+ * @since 0.20
+ */
+interface CollaborationManager {
+  /**
+   * A lazy initializer for a collaboration initializer. We proceed that way to allow the collaboration provider to
+   * be resolved and assigned outside the editor, but to be effectively initialized inside the editor, where
+   * access to the internal editor structure is available.
+   */
+  get(): Promise<() => CollaborationInitializer>;
 
   /**
-   * The current status
+   * The current status.
    */
   status(): Ref<Status>;
 
   /**
-   * The current connected users.
+   * The list of currently connected users.
    */
   users(): Ref<User[]>;
 }
+
+export type { CollaborationManager };

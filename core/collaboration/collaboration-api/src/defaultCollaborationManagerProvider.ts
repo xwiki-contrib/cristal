@@ -24,6 +24,9 @@ import type { CollaborationManager } from "./collaborationManager";
 import type { CollaborationManagerProvider } from "./collaborationManagerProvider";
 import type { CristalApp } from "@xwiki/cristal-api";
 
+/**
+ * @since 0.20
+ */
 @injectable()
 export class DefaultCollaborationManagerProvider
   implements CollaborationManagerProvider

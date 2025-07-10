@@ -17,17 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { Status, User } from "@xwiki/cristal-collaboration-api";
+import {
+  CollaborationInitializer,
+  Status,
+  User,
+} from "@xwiki/cristal-collaboration-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import { inject, injectable } from "inversify";
 import { Ref, ref } from "vue";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { CollaborationManager } from "@xwiki/cristal-collaboration-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { Doc } from "yjs";
 
+/**
+ * A collaboration provider for the websocket endpoint provided by xwiki for realtime editing with yjs based editors.
+ * Technically, this is a wrapper on top of y-websocket.
+ * @since 0.20
+ */
 @injectable()
-export class XwikiCollaborationProvider implements CollaborationManager {
+export class XWikiCollaborationProvider implements CollaborationManager {
   private readonly statusRef: Ref<Status> = ref(Status.Connected);
   private readonly usersRef: Ref<User[]> = ref([]);
 
@@ -41,7 +49,7 @@ export class XwikiCollaborationProvider implements CollaborationManager {
     return this.statusRef;
   }
 
-  async get<T>(): Promise<() => [T, Doc, Promise<unknown>]> {
+  async get(): Promise<() => CollaborationInitializer> {
     const { createXWikiWebsocketProvider } = await import(
       "./xwikiProviderWebsocket"
     );
@@ -49,10 +57,7 @@ export class XwikiCollaborationProvider implements CollaborationManager {
     return () => {
       const provider = createXWikiWebsocketProvider(
         this.cristalApp.getWikiConfig().realtimeURL!,
-        "yjs",
-        {
-          room: this.documentService.getCurrentDocumentReferenceString().value!,
-        },
+        this.documentService.getCurrentDocumentReferenceString().value!,
       );
 
       provider.awareness.on("change", () => {
@@ -78,7 +83,7 @@ export class XwikiCollaborationProvider implements CollaborationManager {
         });
       });
 
-      return [provider as T, provider.doc, promise];
+      return { provider, doc: provider.doc, initialized: promise };
     };
   }
 

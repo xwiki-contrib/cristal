@@ -49,6 +49,7 @@ import {
 import { multiColumnDropCursor } from "@blocknote/xl-multi-column";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -87,7 +88,7 @@ type BlockNoteViewWrapperProps = {
    * Realtime options
    */
   realtime?: {
-    collaborationProvider: () => any;
+    collaborationProvider: () => CollaborationInitializer;
     user: { name: string; color: string };
   };
 
@@ -113,7 +114,7 @@ type BlockNoteViewWrapperProps = {
 /**
  * BlockNote editor wrapper
  */
-
+// eslint-disable-next-line max-statements
 const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   blockNoteOptions,
   theme,
@@ -129,20 +130,19 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
 
   const schema = createBlockNoteSchema();
 
-  const [provider, doc, readyPromise] = collaborationProvider
-    ? collaborationProvider()
-    : undefined;
+  const initializer: CollaborationInitializer | undefined =
+    collaborationProvider ? collaborationProvider() : undefined;
 
   // Prevent changes in the editor until the provider has synced with other clients
-  const [ready, setReady] = useState(!provider);
+  const [ready, setReady] = useState(!initializer);
 
   // Creates a new editor instance.
   const editor = useCreateBlockNote({
     ...blockNoteOptions,
-    collaboration: provider
+    collaboration: initializer?.provider
       ? {
-          provider,
-          fragment: doc.getXmlFragment("document-store"),
+          provider: initializer.provider,
+          fragment: initializer.doc.getXmlFragment("document-store"),
           user: realtime!.user,
         }
       : undefined,
@@ -187,18 +187,20 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
       }, 1);
     };
 
-    if (provider && readyPromise) {
+    if (initializer?.provider) {
       console.debug("Trying to connect to realtime server...");
 
-      readyPromise.then(() => {
+      initializer.initialized.then(() => {
         console.debug("Connected to realtime server and synced!");
 
-        const initialContentLoaded = doc
+        const initialContentLoaded = initializer.doc
           .getMap("configuration")
           .get("initialContentLoaded");
 
         if (!initialContentLoaded) {
-          doc.getMap("configuration").set("initialContentLoaded", true);
+          initializer.doc
+            .getMap("configuration")
+            .set("initialContentLoaded", true);
 
           console.debug("Setting initial content for realtime first player", {
             content,
@@ -210,8 +212,8 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
         setReady(true);
       });
 
-      provider.on("destroy", () => {
-        provider.destroy();
+      initializer.provider.on("destroy", () => {
+        initializer.provider.destroy();
       });
     } else {
       // If we don't have a provider, we can simply load the content directly
@@ -221,7 +223,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
 
       replaceContent(content);
     }
-  }, [provider]);
+  }, [initializer]);
 
   // Disconnect from the realtime provider when the component is unmounted
   // Otherwise, our user profile may be left over and still be displayed to other users
@@ -231,7 +233,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
         "BlockNoteView is being unmounted, disconnecting from the realtime provider...",
       );
 
-      provider?.disconnect();
+      initializer?.provider?.disconnect();
     };
   }, []);
 

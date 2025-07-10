@@ -17,14 +17,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import type { Doc } from "yjs";
 
 /**
- * Set of allowed provider states.
- *
+ * Holds properties of an collaboration. It's provider, the document held by the provider, and a provide resolved on
+ * the initialized is ready.
  * @since 0.20
  */
-export enum Status {
-  Disconnected,
-  Connecting,
-  Connected,
-}
+type CollaborationInitializer = {
+  /**
+   * The provider, can be of arbitrary type.
+   */
+  provider: any;
+  /**
+   * The yjs document held by the provider.
+   */
+  doc: Doc;
+  /**
+   * The promise must be resolved once the provider is connected and ready.
+   */
+  initialized: Promise<unknown>;
+};
+
+export { type CollaborationInitializer };

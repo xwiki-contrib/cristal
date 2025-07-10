@@ -23,6 +23,9 @@ import { DefaultCollaborationManagerProvider } from "./defaultCollaborationManag
 import type { CollaborationManagerProvider } from "./collaborationManagerProvider";
 import type { Container } from "inversify";
 
+/**
+ * @since 0.20
+ */
 class ComponentInit {
   constructor(container: Container) {
     container

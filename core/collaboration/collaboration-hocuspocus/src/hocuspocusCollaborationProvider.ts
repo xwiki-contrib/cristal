@@ -17,7 +17,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { Status, User } from "@xwiki/cristal-collaboration-api";
+import {
+  CollaborationInitializer,
+  Status,
+  User,
+} from "@xwiki/cristal-collaboration-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import { inject, injectable } from "inversify";
 import { Ref, ref } from "vue";
@@ -28,8 +32,12 @@ import type {
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { CollaborationManager } from "@xwiki/cristal-collaboration-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { Doc } from "yjs";
 
+/**
+ * Collaboration provider for Hocus Pocus.
+ * This is the default provider.
+ * @since 0.20
+ */
 @injectable()
 export class HocuspocusCollaborationProvider implements CollaborationManager {
   private readonly statusRef: Ref<Status> = ref(Status.Connecting);
@@ -45,7 +53,7 @@ export class HocuspocusCollaborationProvider implements CollaborationManager {
     return this.statusRef;
   }
 
-  async get<T>(): Promise<() => [T, Doc, Promise<unknown>]> {
+  async get(): Promise<() => CollaborationInitializer> {
     const { HocuspocusProvider, WebSocketStatus } = await import(
       "@hocuspocus/provider"
     );
@@ -81,13 +89,13 @@ export class HocuspocusCollaborationProvider implements CollaborationManager {
         this.usersRef.value = Array.from(event.states.values() as any);
       });
 
-      return [
-        provider as T,
-        provider.document,
-        new Promise((resolve) => {
+      return {
+        provider,
+        doc: provider.document,
+        initialized: new Promise((resolve) => {
           provider.on("synced", () => resolve(undefined));
         }),
-      ];
+      };
     };
   }
 

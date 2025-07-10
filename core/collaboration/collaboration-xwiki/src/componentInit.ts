@@ -18,20 +18,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { XwikiCollaborationProvider } from "./xwikiCollaborationProvider";
+import { XWikiCollaborationProvider } from "./XWikiCollaborationProvider";
 import {
   CollaborationManager,
   collaborationManagerName,
 } from "@xwiki/cristal-collaboration-api";
 import type { Container } from "inversify";
 
+/**
+ * @since 0.20
+ */
 class ComponentInit {
   constructor(container: Container) {
     // Register the hocuspocus collaboration provider as the default for legacy reason.
     container
       .bind<CollaborationManager>(collaborationManagerName)
-
-      .to(XwikiCollaborationProvider)
+      .to(XWikiCollaborationProvider)
       .inSingletonScope()
       .whenNamed("xwiki");
   }

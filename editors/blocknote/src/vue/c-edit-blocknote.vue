@@ -45,6 +45,7 @@ import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type {
+  CollaborationInitializer,
   CollaborationManagerProvider,
   User,
 } from "@xwiki/cristal-collaboration-api";
@@ -70,7 +71,7 @@ const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
 const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
-let collaborationProvider: () => any;
+let collaborationProvider: () => CollaborationInitializer;
 let status: Ref<Status> | undefined;
 let users: Ref<User[]> | undefined;
 if (realtimeServerURL) {
