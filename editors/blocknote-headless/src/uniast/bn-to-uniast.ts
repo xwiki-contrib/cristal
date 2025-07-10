@@ -121,7 +121,7 @@ export class BlockNoteToUniAstConverter {
       return {
         type: "macroBlock",
         name: block.type.substring(MACRO_NAME_PREFIX.length),
-        props: block.props,
+        params: block.props,
       };
     }
 
@@ -363,7 +363,7 @@ export class BlockNoteToUniAstConverter {
       return {
         type: "inlineMacro",
         name: inlineContent.type.substring(MACRO_NAME_PREFIX.length),
-        props:
+        params:
           // @ts-expect-error: the AST is dynamically-typed with macros, so the types are incorrect here
           inlineContent.props,
       };
