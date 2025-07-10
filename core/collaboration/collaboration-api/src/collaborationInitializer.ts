@@ -28,6 +28,7 @@ type CollaborationInitializer = {
   /**
    * The provider, can be of arbitrary type.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   provider: any;
   /**
    * The yjs document held by the provider.

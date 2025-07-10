@@ -46,7 +46,7 @@ import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api"
 const {
   editorProps,
   editorContent: uniAst,
-  collaborationProvider,
+  collaborationProvider = undefined,
   container,
 } = defineProps<{
   editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
