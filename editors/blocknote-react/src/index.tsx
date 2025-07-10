@@ -30,6 +30,16 @@ import { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
 import { LinkEditionContext } from "./misc/linkSuggest";
 import { createRoot } from "react-dom/client";
 
+/**
+ * Mount a BlockNote editor inside a DOM container
+ *
+ * @param containerEl - The container to put BlockNote in (must be empty and be a block type component, e.g. `<div>`)
+ * @param props - Properties to setup the editor with
+ *
+ * @returns - An unmount function to properly dispose of the editor
+ *
+ * @since 0.19
+ */
 function mountBlockNote(
   containerEl: HTMLElement,
   props: BlockNoteViewWrapperProps,
@@ -52,6 +62,14 @@ function mountBlockNote(
   };
 }
 
+/**
+ * A set of default macros to use in BlockNote
+ *
+ * These are not enabled by default as some integrations may want to fully disable macros support.
+ * In such case, simply ignore this.
+ *
+ * Otherwise, you can provide this object's values entirely or select only a few macros and pass them to the setup function.
+ */
 const DEFAULT_MACROS = {
   XWikiMacroHtmlBlock: XWikiMacroHtmlBlockMacro,
   XWikiMacroInlineHtml: XWikiMacroInlineHtmlMacro,
