@@ -29,7 +29,6 @@ import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-b
 import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
 import { ComponentInit as CollaborationAPIComponentInit } from "@xwiki/cristal-collaboration-api";
 import { ComponentInit as CollaborationHocusPocusComponentInit } from "@xwiki/cristal-collaboration-hocuspocus";
-import { ComponentInit as CollaborationXWikiComponentInit } from "@xwiki/cristal-collaboration-xwiki";
 import { Configuration } from "@xwiki/cristal-configuration-api";
 import { ComponentInit as DateAPIComponentInit } from "@xwiki/cristal-date-api";
 import { ComponentInit as DocumentComponentInit } from "@xwiki/cristal-document-default";
@@ -102,7 +101,6 @@ async function defaultComponentsList(container: Container): Promise<void> {
   new WikiConfigComponentInit(container);
   new CollaborationAPIComponentInit(container);
   new CollaborationHocusPocusComponentInit(container);
-  new CollaborationXWikiComponentInit(container);
 }
 
 /**
