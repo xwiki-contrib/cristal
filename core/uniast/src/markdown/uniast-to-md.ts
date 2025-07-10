@@ -168,7 +168,7 @@ export class UniAstToMarkdownConverter {
 
   private convertMacro(
     name: string,
-    parameters: Record<string, number | string>,
+    parameters: Record<string, boolean | number | string>,
   ): string {
     return `{{${name}${Object.entries(parameters)
       .map(
