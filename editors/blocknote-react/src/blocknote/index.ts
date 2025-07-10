@@ -76,7 +76,7 @@ function createBlockNoteSchema(macros: Macro[]) {
       ...Object.fromEntries(
         filterMap(macros, (macro) =>
           macro.blockNote.type === "block"
-            ? [`${MACRO_NAME_PREFIX}${macro.name}`, macro.blockNote.block]
+            ? [`${MACRO_NAME_PREFIX}${macro.name}`, macro.blockNote.block.block]
             : null,
         ),
       ),
@@ -91,7 +91,7 @@ function createBlockNoteSchema(macros: Macro[]) {
           macro.blockNote.type === "inline"
             ? [
                 `${MACRO_NAME_PREFIX}${macro.name}`,
-                macro.blockNote.inlineContent,
+                macro.blockNote.inlineContent.inlineContent,
               ]
             : null,
         ),
