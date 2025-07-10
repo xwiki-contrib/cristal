@@ -87,9 +87,7 @@ export class UniAstToMarkdownConverter {
         return "---";
 
       case "macroBlock":
-        // TODO: keep ordering of properties
-        // TODO: escape double quotes in values
-        return `{{${block.name}${Object.entries(block.props).map(([name, value]) => ` ${name}="${value}"`)} /}}`;
+        return this.convertMacro(block.name, block.params);
     }
   }
 
@@ -164,15 +162,20 @@ export class UniAstToMarkdownConverter {
         break;
 
       case "inlineMacro":
-        // TODO: keep ordering of properties
-        // TODO: escape double quotes in values
-        return `{{${inlineContent.name}${Object.entries(inlineContent.props)
-          .map(
-            ([name, value]) =>
-              ` ${name}="${value.toString().replace(/\\/g, "\\\\\\").replace(/"/g, '\\\\"')}"`,
-          )
-          .join("")} /}}`;
+        return this.convertMacro(inlineContent.name, inlineContent.params);
     }
+  }
+
+  private convertMacro(
+    name: string,
+    parameters: Record<string, number | string>,
+  ): string {
+    return `{{${name}${Object.entries(parameters)
+      .map(
+        ([name, value]) =>
+          ` ${name}="${value.toString().replace(/\\/g, "\\\\\\").replace(/"/g, '\\\\"')}"`,
+      )
+      .join("")} /}}`;
   }
 
   // eslint-disable-next-line max-statements

@@ -57,7 +57,7 @@ type Block =
       /** @since 0.20 */
       type: "macroBlock";
       name: string;
-      props: Record<string, boolean | number | string>;
+      params: Record<string, number | string>;
     };
 
 /**
@@ -126,7 +126,7 @@ type InlineContent =
       /** @since 0.20 */
       type: "inlineMacro";
       name: string;
-      props: Record<string, boolean | number | string>;
+      params: Record<string, number | string>;
     };
 
 /**

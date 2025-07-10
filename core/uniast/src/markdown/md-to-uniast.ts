@@ -81,14 +81,26 @@ export class MarkdownToUniAstConverter {
 
   private convertBlock(block: RootContent): Block {
     switch (block.type) {
-      case "paragraph":
+      case "paragraph": {
+        const content = block.children.flatMap((item) =>
+          this.convertInline(item, {}),
+        );
+
+        // Paragraphs only made of a single inline macro are actually block macros
+        if (content.length === 1 && content[0].type === "inlineMacro") {
+          return {
+            type: "macroBlock",
+            name: content[0].name,
+            params: content[0].params,
+          };
+        }
+
         return {
           type: "paragraph",
-          content: block.children.flatMap((item) =>
-            this.convertInline(item, {}),
-          ),
+          content,
           styles: {},
         };
+      }
 
       case "heading":
         return {
@@ -559,7 +571,7 @@ export class MarkdownToUniAstConverter {
             out.push({
               type: "inlineMacro",
               name: macroName,
-              props: parameters,
+              params: parameters,
             });
           }
 

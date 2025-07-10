@@ -993,7 +993,7 @@ describe("MarkdownToUniAstConverter", () => {
               },
               {
                 name: "macro",
-                props: {},
+                params: {},
                 type: "inlineMacro",
               },
               {
@@ -1024,7 +1024,7 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
         '{{macro param1="some \\\\" escaped quote and }} closing braces and \\\\\\ escaped backslashes" /}}',
-      ].join("\n"),
+      ].join("\n\n"),
       convertsBackTo: [
         "{{macro /}}",
         "{{macro /}}",
@@ -1037,142 +1037,86 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
         '{{macro param1="some \\\\" escaped quote and }} closing braces and \\\\\\ escaped backslashes" /}}',
-      ].join("\n"),
+      ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
-            content: [
-              {
-                name: "macro",
-                props: {},
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {},
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {},
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {},
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {
-                  param1: "1",
-                },
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {
-                  param1: "1",
-                },
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {
-                  param1: "1",
-                },
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {
-                  param1: "1",
-                },
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {
-                  param1: "1",
-                  param2: "2",
-                },
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {
-                  param1: "param1Value",
-                  param2: "param2Value",
-                  param3: "param3Value",
-                },
-                type: "inlineMacro",
-              },
-              {
-                content: "\n",
-                styles: {},
-                type: "text",
-              },
-              {
-                name: "macro",
-                props: {
-                  param1:
-                    'some " escaped quote and }} closing braces and \\ escaped backslashes',
-                },
-                type: "inlineMacro",
-              },
-            ],
-            styles: {},
-            type: "paragraph",
+            name: "macro",
+            params: {},
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {},
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {},
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {},
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {
+              param1: "1",
+            },
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {
+              param1: "1",
+            },
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {
+              param1: "1",
+            },
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {
+              param1: "1",
+            },
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {
+              param1: "1",
+              param2: "2",
+            },
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {
+              param1: "param1Value",
+              param2: "param2Value",
+              param3: "param3Value",
+            },
+            type: "macroBlock",
+          },
+          {
+            name: "macro",
+            params: {
+              param1:
+                'some " escaped quote and }} closing braces and \\ escaped backslashes',
+            },
+            type: "macroBlock",
           },
         ],
       },
     });
-  });
 
-  // TODO: test a lot of macro syntaxes
+    // TODO: inline macros test
+  });
 });
