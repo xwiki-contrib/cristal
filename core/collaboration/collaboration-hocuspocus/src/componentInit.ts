@@ -31,7 +31,8 @@ class ComponentInit {
     container
       .bind<CollaborationManager>(collaborationManagerName)
       .to(HocuspocusCollaborationProvider)
-      .inSingletonScope();
+      .inSingletonScope()
+      .whenDefault();
   }
 }
 

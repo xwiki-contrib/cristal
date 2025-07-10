@@ -31,10 +31,10 @@ export class DefaultCollaborationManagerProvider
   constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
   get(): CollaborationManager {
-    const type = this.cristalApp.getWikiConfig().getType();
+    const hint = this.cristalApp.getWikiConfig().realtimeHint;
     const container = this.cristalApp.getContainer();
-    if (container.isBound(collaborationManagerName, { name: type })) {
-      return container.get(collaborationManagerName, { name: type });
+    if (hint && container.isBound(collaborationManagerName, { name: hint })) {
+      return container.get(collaborationManagerName, { name: hint });
     } else {
       return container.get(collaborationManagerName);
     }

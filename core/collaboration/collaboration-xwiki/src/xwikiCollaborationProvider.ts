@@ -21,18 +21,14 @@ import { Status, User } from "@xwiki/cristal-collaboration-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import { inject, injectable } from "inversify";
 import { Ref, ref } from "vue";
-import type {
-  onAwarenessChangeParameters,
-  onStatusParameters,
-} from "@hocuspocus/provider";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { CollaborationManager } from "@xwiki/cristal-collaboration-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { Doc } from "yjs";
 
 @injectable()
-export class HocuspocusCollaborationProvider implements CollaborationManager {
-  private readonly statusRef: Ref<Status> = ref(Status.Connecting);
+export class XwikiCollaborationProvider implements CollaborationManager {
+  private readonly statusRef: Ref<Status> = ref(Status.Connected);
   private readonly usersRef: Ref<User[]> = ref([]);
 
   constructor(
@@ -46,48 +42,43 @@ export class HocuspocusCollaborationProvider implements CollaborationManager {
   }
 
   async get<T>(): Promise<() => [T, Doc, Promise<unknown>]> {
-    const { HocuspocusProvider, WebSocketStatus } = await import(
-      "@hocuspocus/provider"
+    const { createXWikiWebsocketProvider } = await import(
+      "./xwikiProviderWebsocket"
     );
 
     return () => {
-      const provider = new HocuspocusProvider({
-        url: this.cristalApp.getWikiConfig().realtimeURL!,
-        // we distinguish from sessions from other editors by suffixing the session with the editor id
-        name: `${this.documentService.getCurrentDocumentReferenceString().value}:${
-          this.cristalApp.getWikiConfig().editor ?? "tiptap"
-        }`,
-      });
-      // As soon as the provider's status changes, update it
-      provider.on("status", (event: onStatusParameters) => {
-        let status;
-        switch (event.status) {
-          case WebSocketStatus.Connecting:
-            status = Status.Connecting;
-            break;
-          case WebSocketStatus.Connected:
-            status = Status.Connected;
-            break;
-          case WebSocketStatus.Disconnected:
-            status = Status.Disconnected;
-            break;
-        }
+      const provider = createXWikiWebsocketProvider(
+        this.cristalApp.getWikiConfig().realtimeURL!,
+        "yjs",
+        {
+          room: this.documentService.getCurrentDocumentReferenceString().value!,
+        },
+      );
 
-        this.statusRef.value = status;
+      provider.awareness.on("change", () => {
+        const users: User[] = [];
+        provider.awareness
+          .getStates()
+          .forEach(({ user: { name, color } = {} }, clientId) => {
+            if (name && color) {
+              users.push({
+                clientId: `${clientId}`,
+                user: { name, color },
+              });
+            }
+          });
+        this.usersRef.value = users;
       });
 
-      provider.on("awarenessChange", (event: onAwarenessChangeParameters) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.usersRef.value = Array.from(event.states.values() as any);
+      const promise = new Promise((resolve) => {
+        provider.on("status", ({ status }) => {
+          if (status === "connected") {
+            resolve(undefined);
+          }
+        });
       });
 
-      return [
-        provider as T,
-        provider.document,
-        new Promise((resolve) => {
-          provider.on("synced", () => resolve(undefined));
-        }),
-      ];
+      return [provider as T, provider.doc, promise];
     };
   }
 

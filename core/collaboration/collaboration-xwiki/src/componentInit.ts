@@ -17,21 +17,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { Status } from "./status";
-import { User } from "./user";
-import type { Ref } from "vue";
-import type { Doc } from "yjs";
 
-export interface CollaborationManager {
-  get<T>(): Promise<() => [T, Doc, Promise<unknown>]>;
+import { XwikiCollaborationProvider } from "./xwikiCollaborationProvider";
+import {
+  CollaborationManager,
+  collaborationManagerName,
+} from "@xwiki/cristal-collaboration-api";
+import type { Container } from "inversify";
 
-  /**
-   * The current status
-   */
-  status(): Ref<Status>;
+class ComponentInit {
+  constructor(container: Container) {
+    // Register the hocuspocus collaboration provider as the default for legacy reason.
+    container
+      .bind<CollaborationManager>(collaborationManagerName)
 
-  /**
-   * The current connected users.
-   */
-  users(): Ref<User[]>;
+      .to(XwikiCollaborationProvider)
+      .inSingletonScope()
+      .whenNamed("xwiki");
+  }
 }
+
+export { ComponentInit };

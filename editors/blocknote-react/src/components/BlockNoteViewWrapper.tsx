@@ -129,7 +129,9 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
 
   const schema = createBlockNoteSchema();
 
-  const provider = collaborationProvider ? collaborationProvider() : undefined;
+  const [provider, doc, readyPromise] = collaborationProvider
+    ? collaborationProvider()
+    : undefined;
 
   // Prevent changes in the editor until the provider has synced with other clients
   const [ready, setReady] = useState(!provider);
@@ -140,7 +142,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
     collaboration: provider
       ? {
           provider,
-          fragment: provider.document.getXmlFragment("document-store"),
+          fragment: doc.getXmlFragment("document-store"),
           user: realtime!.user,
         }
       : undefined,
@@ -185,20 +187,18 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
       }, 1);
     };
 
-    if (provider) {
+    if (provider && readyPromise) {
       console.debug("Trying to connect to realtime server...");
 
-      provider.on("synced", () => {
+      readyPromise.then(() => {
         console.debug("Connected to realtime server and synced!");
 
-        const initialContentLoaded = provider.document
+        const initialContentLoaded = doc
           .getMap("configuration")
           .get("initialContentLoaded");
 
         if (!initialContentLoaded) {
-          provider.document
-            .getMap("configuration")
-            .set("initialContentLoaded", true);
+          doc.getMap("configuration").set("initialContentLoaded", true);
 
           console.debug("Setting initial content for realtime first player", {
             content,
