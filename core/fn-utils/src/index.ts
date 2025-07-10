@@ -135,6 +135,8 @@ function provideTypeInference<T>(value: T): T {
  *
  * @since 0.20
  *
+ * @example `filterMap([1, 2, 3], value => value >= 2 ? value.toString() : null) // ['2', '3']`
+ *
  * @param array - The array to map
  * @param filterMap - The function performing the mapping and filtering. Returning `null` or `undefined` corresponds to filter values out.
  *
