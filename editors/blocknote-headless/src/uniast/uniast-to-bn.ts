@@ -376,7 +376,7 @@ export class UniAstToBlockNoteConverter {
         return {
           // @ts-expect-error: macros are dynamically added to the AST
           type: `${MACRO_NAME_PREFIX}${inlineContent.name}`,
-          props: inlineContent.props,
+          props: inlineContent.params,
         };
     }
   }
