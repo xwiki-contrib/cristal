@@ -4449,8 +4449,8 @@ importers:
         specifier: 7.0.0
         version: 7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0)
       vite-plugin-node:
-        specifier: 5.0.1
-        version: 5.0.1(vite@7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0))
+        specifier: 7.0.0
+        version: 7.0.0(vite@7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0))
 
   extension-manager:
     dependencies:
@@ -7349,6 +7349,10 @@ packages:
 
   debounce-fn@6.0.0:
     resolution: {integrity: sha512-rBMW+F2TXryBwB54Q0d8drNEI+TfoS9JpNTAoVpukbWEhjXQq4rySFYLaqXMFXwdv61Zb2OHtj5bviSoimqxRQ==}
+    engines: {node: '>=18'}
+
+  debounce@2.2.0:
+    resolution: {integrity: sha512-Xks6RUDLZFdz8LIdR6q0MTH44k7FikOmnh5xkSjMig6ch45afc8sjTjRQf3P6ax8dMgcQrYO/AR2RGWURrruqw==}
     engines: {node: '>=18'}
 
   debug@3.2.7:
@@ -10458,11 +10462,11 @@ packages:
       vite:
         optional: true
 
-  vite-plugin-node@5.0.1:
-    resolution: {integrity: sha512-xdR4UW1h2ZM1wBf4pjwzuty/mX6F/GViB8h1iqOpxr81pa5OuWb3IJghl66v4e7Srsi2p5o22n9G7G46FeZK9Q==}
+  vite-plugin-node@7.0.0:
+    resolution: {integrity: sha512-FZqTHvCXUu+U8i6qMtlZCrEvlelUioEf6J4S77XHpZk73frveqKVot60W0hpbffv5OMECXYwP/LAiTGAOLN4/g==}
     peerDependencies:
       '@swc/core': ^1.7.26
-      vite: ^6.2.2
+      vite: ^7.0.0
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -13349,6 +13353,8 @@ snapshots:
   debounce-fn@6.0.0:
     dependencies:
       mimic-function: 5.0.1
+
+  debounce@2.2.0: {}
 
   debug@3.2.7:
     dependencies:
@@ -17048,10 +17054,11 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-node@5.0.1(vite@7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0)):
+  vite-plugin-node@7.0.0(vite@7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0)):
     dependencies:
       '@rollup/pluginutils': 4.2.1
       chalk: 4.1.2
+      debounce: 2.2.0
       debug: 4.4.1(supports-color@5.5.0)
       vite: 7.0.0(@types/node@22.15.32)(tsx@4.20.3)(yaml@2.8.0)
     transitivePeerDependencies:
