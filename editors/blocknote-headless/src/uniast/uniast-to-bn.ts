@@ -191,7 +191,7 @@ export class UniAstToBlockNoteConverter {
           type: `${MACRO_NAME_PREFIX}${block.name}`,
           id: genId(),
           // @ts-expect-error: macros are dynamically added to the AST so the properties are not typed properly
-          props: block.props,
+          props: block.params,
         };
 
       default:
