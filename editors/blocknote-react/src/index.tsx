@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { App } from "./App";
-import { XWikiMacroHtmlBlockMacro } from "./blocknote/macros/XWikiMacroHtmlBlock";
-import { XWikiMacroInlineHtmlMacro } from "./blocknote/macros/XWikiMacroInlineHtml";
+import { XWikiMacroHTMLBlockMacro } from "./blocknote/macros/XWikiMacroHtmlBlock";
+import { XWikiMacroInlineHTMLMacro } from "./blocknote/macros/XWikiMacroInlineHtml";
 import {
   MACRO_NAME_PREFIX,
   Macro,
@@ -71,8 +71,8 @@ function mountBlockNote(
  * Otherwise, you can provide this object's values entirely or select only a few macros and pass them to the setup function.
  */
 const DEFAULT_MACROS = {
-  XWikiMacroHtmlBlock: XWikiMacroHtmlBlockMacro,
-  XWikiMacroInlineHtml: XWikiMacroInlineHtmlMacro,
+  XWikiMacroHTMLBlockMacro,
+  XWikiMacroInlineHTMLMacro,
 };
 
 export { DEFAULT_MACROS, MACRO_NAME_PREFIX, createMacro, mountBlockNote };

@@ -19,7 +19,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 */
 import { createMacro } from "../utils";
 
-export const XWikiMacroInlineHtmlMacro = createMacro({
+export const XWikiMacroInlineHTMLMacro = createMacro({
   name: "XWikiMacroInlineHtml",
   description: "",
   parameters: {
