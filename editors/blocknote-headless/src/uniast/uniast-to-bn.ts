@@ -290,7 +290,7 @@ export class UniAstToBlockNoteConverter {
         : image.target.parsedReference
           ? this.context.getUrlFromReference(image.target.parsedReference)
           : // TODO: think about what to do in case of invalid reference - let it as it is, show an error, replace by a fallback, ...?
-            "about:blank";
+            image.target.rawReference;
 
     return {
       type: "image",
@@ -350,7 +350,7 @@ export class UniAstToBlockNoteConverter {
                   inlineContent.target.parsedReference,
                 )
               : // TODO: think about what to do in case of invalid reference - let it as it is, show an error, replace by a fallback, ...?
-                "about:blank";
+                inlineContent.target.rawReference;
 
         return {
           type: "link",
