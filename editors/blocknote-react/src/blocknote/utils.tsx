@@ -293,6 +293,7 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
      *
      * @param parameters - The macro's parameters ; optional fields may be absent or equal to `undefined`
      * @param contentRef - The editable section of the block, handled by BlockNote
+     * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
      * @param id - The macro's unique identifier inside the editor. Unique even for instances of the same macro.
      *
      * @returns The React node to render the macro as
@@ -300,6 +301,7 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
     render(
       parameters: GetConcreteMacroParametersType<Parameters>,
       contentRef: (node: HTMLElement | null) => void,
+      openParamsEditor: () => void,
       id: string,
     ): React.ReactNode;
   };
@@ -401,7 +403,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
       return render(
         params as GetConcreteMacroParametersType<Parameters>,
         contentRef,
-        // () => ctx.openParamsEditor(macro, macroId, params),
+        () => ctx.openParamsEditor(macro, macroId, params),
         macroId,
       );
     };
