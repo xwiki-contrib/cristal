@@ -31,6 +31,7 @@ export const XWikiMacroInlineHTMLMacro = createMacro({
     metadata: "",
   },
   renderType: "inline",
+  hidden: true,
   render(parameters) {
     return <span dangerouslySetInnerHTML={{ __html: parameters.html }} />;
   },
