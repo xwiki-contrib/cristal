@@ -37,7 +37,7 @@ import {
 } from "./storage.js";
 import { UserDetails } from "@xwiki/cristal-authentication-api";
 import axios from "axios";
-import { BrowserWindow, ipcMain } from "electron";
+import { BrowserWindow, ipcMain, shell } from "electron";
 
 const callbackUrl = "http://callback/";
 
@@ -98,6 +98,7 @@ async function createWindow(url: string) {
   });
 
   win.setMenu(null);
+  win.webContents.openDevTools();
 
   await win.loadURL(url);
 
@@ -154,6 +155,56 @@ export function load(
       setUserId(username, "basic");
       // We reload the content on successful login.
       reload(browserWindow);
+    },
+  );
+
+  ipcMain.handle(
+    "authentication:nextcloud:loginFlow",
+    async (
+      _event,
+      {
+        baseUrl,
+      }: {
+        baseUrl: string;
+      },
+    ): Promise<void> => {
+      const loginFlowUrl = `${baseUrl}/index.php/login/v2`;
+
+      const loginFlowResponse = await fetch(loginFlowUrl, { method: "POST" });
+      const jsonLoginFlowResponse: {
+        poll: { token: string; endpoint: string };
+        login: string;
+      } = await loginFlowResponse.json();
+
+      shell.openExternal(jsonLoginFlowResponse.login);
+
+      // This interval handles polling Nextcloud for the access token.
+      // It will return a 404 error until the login process has succeeded.
+      const intervalId = setInterval(async () => {
+        const response = await fetch(jsonLoginFlowResponse.poll.endpoint, {
+          method: "POST",
+          body: `token=${jsonLoginFlowResponse.poll.token}`,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        });
+        if (response.ok) {
+          const jsonResponse: {
+            loginName: string;
+            appPassword: string;
+          } = await response.json();
+          setAccessToken(
+            btoa(`${jsonResponse.loginName}:${jsonResponse.appPassword}`),
+            "login-flow",
+          );
+          setTokenType("Basic", "login-flow");
+          setUserId(jsonResponse.loginName, "login-flow");
+          clearInterval(intervalId);
+          // We reload the content on successful login.
+          reload(browserWindow);
+          authWin?.close();
+        }
+      }, 3000);
     },
   );
 

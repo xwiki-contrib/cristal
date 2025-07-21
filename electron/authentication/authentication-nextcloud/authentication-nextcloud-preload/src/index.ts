@@ -41,6 +41,12 @@ contextBridge.exposeInMainWorld("authenticationNextcloud", {
     });
   },
 
+  async loginFlow(baseUrl: string): Promise<void> {
+    return ipcRenderer.invoke("authentication:nextcloud:loginFlow", {
+      baseUrl,
+    });
+  },
+
   async isLoggedIn(mode: string): Promise<boolean> {
     return ipcRenderer.invoke("authentication:nextcloud:isLoggedIn", {
       mode,
