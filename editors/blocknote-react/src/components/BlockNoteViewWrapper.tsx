@@ -154,7 +154,6 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
       : undefined,
     // Editor's schema, with custom blocks definition
     schema,
-    // dropCursor: multiColumnDropCursor,
     // Use the provided language for the dictionary
     dictionary: createDictionary(lang),
     // The default drop cursor only shows up above and below blocks - we replace
