@@ -89,7 +89,6 @@ function createBlockNoteSchema(macros: Macro[]) {
   });
 
   return blockNoteSchema;
-  // return withMultiColumn(blockNoteSchema);
 }
 
 /**
