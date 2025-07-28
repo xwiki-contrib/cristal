@@ -98,7 +98,6 @@ async function createWindow(url: string) {
   });
 
   win.setMenu(null);
-  win.webContents.openDevTools();
 
   await win.loadURL(url);
 
@@ -202,7 +201,6 @@ export function load(
           clearInterval(intervalId);
           // We reload the content on successful login.
           reload(browserWindow);
-          authWin?.close();
         }
       }, 3000);
     },
