@@ -29,7 +29,7 @@ interface AuthenticationWindow extends Window {
 
     isLoggedIn(mode: string): Promise<boolean>;
 
-    getUserDetails(mode: string): Promise<UserDetails>;
+    getUserDetails(baseUrl: string, mode: string): Promise<UserDetails>;
 
     getAuthorizationValue(mode: string): Promise<{
       tokenType: string;
@@ -80,7 +80,11 @@ export class NextcloudLoginFlowAuthenticationManager
   }
 
   async getUserDetails(): Promise<UserDetails> {
-    return window.authenticationNextcloud.getUserDetails("login-flow");
+    const config = this.cristalApp.getWikiConfig();
+    return window.authenticationNextcloud.getUserDetails(
+      config.baseURL,
+      "login-flow",
+    );
   }
 
   async logout(): Promise<void> {

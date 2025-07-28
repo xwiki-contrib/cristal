@@ -83,8 +83,8 @@ export class NextcloudBasicAuthenticationManager
     return {
       profile: `${config.baseURL}/u/${userId}`,
       username: userId,
-      name: userId!, // TODO: Find a way to get the display name.
-      avatar: `${config.baseURL}/avatar/${userId}/64`,
+      name: userId!, // TODO: Find a way to get the display name (CRISTAL-589).
+      avatar: `${config.baseURL}/avatar/${userId}/64`, // We want the 64x64 avatar.
     };
   }
 

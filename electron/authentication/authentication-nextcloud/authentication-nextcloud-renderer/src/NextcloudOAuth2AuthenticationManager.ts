@@ -33,7 +33,7 @@ interface AuthenticationWindow extends Window {
 
     isLoggedIn(mode: string): Promise<boolean>;
 
-    getUserDetails(mode: string): Promise<UserDetails>;
+    getUserDetails(baseUrl: string, mode: string): Promise<UserDetails>;
 
     getAuthorizationValue(mode: string): Promise<{
       tokenType: string;
@@ -95,7 +95,11 @@ export class NextcloudOAuth2AuthenticationManager
   }
 
   async getUserDetails(): Promise<UserDetails> {
-    return window.authenticationNextcloud.getUserDetails("oauth2");
+    const config = this.cristalApp.getWikiConfig();
+    return window.authenticationNextcloud.getUserDetails(
+      config.baseURL,
+      "oauth2",
+    );
   }
 
   async logout(): Promise<void> {

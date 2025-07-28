@@ -182,7 +182,9 @@ export function load(
       const intervalId = setInterval(async () => {
         const response = await fetch(jsonLoginFlowResponse.poll.endpoint, {
           method: "POST",
-          body: `token=${jsonLoginFlowResponse.poll.token}`,
+          body: new URLSearchParams({
+            token: jsonLoginFlowResponse.poll.token,
+          }),
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
@@ -225,8 +227,8 @@ export function load(
       return {
         profile: `${baseUrl}/u/${userId}`,
         username: userId,
-        name: userId!, // TODO: Find a way to get the display name.
-        avatar: `${baseUrl}/avatar/${userId}/64`,
+        name: userId!, // TODO: Find a way to get the display name (CRISTAL-589).
+        avatar: `${baseUrl}/avatar/${userId}/64`, // We want the 64x64 avatar.
       };
     },
   );

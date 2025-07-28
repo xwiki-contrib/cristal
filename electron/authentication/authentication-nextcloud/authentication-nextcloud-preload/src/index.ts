@@ -53,10 +53,11 @@ contextBridge.exposeInMainWorld("authenticationNextcloud", {
     });
   },
 
-  async getUserDetails(mode: string): Promise<UserDetails> {
+  async getUserDetails(baseUrl: string, mode: string): Promise<UserDetails> {
     const userDetails: UserDetails = await ipcRenderer.invoke(
       "authentication:nextcloud:userDetails",
       {
+        baseUrl,
         mode,
       },
     );
