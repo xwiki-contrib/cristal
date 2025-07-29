@@ -17,6 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { DEFAULT_MACROS } from "..";
 import { BlockType } from "../blocknote";
 import { BlockNoteViewWrapper } from "../components/BlockNoteViewWrapper";
 import { LinkEditionContext } from "../misc/linkSuggest";
@@ -42,6 +43,7 @@ export const BlockNoteForTest: React.FC<BlockNoteForTestProps> = ({
       content={content}
       lang="en"
       linkEditionCtx={linkEditionCtx}
+      macros={Object.values(DEFAULT_MACROS)}
     />
   );
 };
