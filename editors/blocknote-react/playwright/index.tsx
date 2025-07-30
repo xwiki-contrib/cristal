@@ -19,6 +19,3 @@
  */
 
 // This file is required as it is the base import for Playwright
-
-// Import styles, initialize component theme here.
-// import '../src/common.css';
