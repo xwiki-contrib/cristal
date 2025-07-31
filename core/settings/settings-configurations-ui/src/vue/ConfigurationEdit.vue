@@ -101,8 +101,18 @@ async function submit() {
     storageRoot: storageRoot.value,
     realtimeURL: realtimeUrl.value,
     authenticationBaseURL: authenticationBaseUrl.value,
-    editor: editor.value ? editor.value : undefined,
+    editor: editor.value,
   });
+
+  // Clean up all empty and null properties.
+  Object.keys(configuration.value!).forEach(
+    (k) =>
+      (configuration.value![k] =
+        configuration.value![k] || configuration.value![k] === false
+          ? configuration.value![k]
+          : undefined),
+  );
+
   settingsManager
     .get(ConfigurationsSettings)!
     .content.set(props.configurationName, configuration.value!);
