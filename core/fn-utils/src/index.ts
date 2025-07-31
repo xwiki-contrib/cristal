@@ -157,6 +157,15 @@ function filterMap<T, U>(
     .filter((value) => value !== null && value !== undefined);
 }
 
+/**
+ * Generic tree structure type.
+ * @since 0.23
+ * @beta
+ */
+type TreeNode<T> = T & {
+  children?: TreeNode<T>[];
+};
+
 export {
   assertInArray,
   assertUnreachable,
@@ -165,3 +174,5 @@ export {
   tryFallible,
   tryFallibleOrError,
 };
+
+export type { TreeNode };

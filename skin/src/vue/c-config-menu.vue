@@ -18,22 +18,63 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import logo from "../images/xwiki-logo-color.svg";
-import { CIcon } from "@xwiki/cristal-icons";
-import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
+import { CIcon, Size } from "@xwiki/cristal-icons";
+import { inject } from "vue";
+import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
+import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
+import type { Ref } from "vue";
+
+const cristal: CristalApp = inject<CristalApp>("cristal")!;
+const wikiConfigProxy = cristal
+  .getContainer()
+  .get<WikiConfigProxy>("WikiConfigProxy")!;
+const configs: Ref<Map<string, WikiConfig>> =
+  wikiConfigProxy.getAvailableConfigurations();
 </script>
 
 <template>
-  <x-dialog width="auto" :logo="logo" title="Configuration">
-    <template #activator="{ props }">
-      <c-icon name="gear" v-bind="props"></c-icon>
-    </template>
-    <template #default>
-      <suspense>
-        <u-i-extensions uix-name="settings.categories"></u-i-extensions>
-      </suspense>
-    </template>
-  </x-dialog>
+  <div class="config-container">
+    <x-menu class="config-selector">
+      <template #activator="{}">
+        <c-icon name="chevron-expand" :size="Size.Small"></c-icon>
+        {{ cristal.getWikiConfig().name }}
+      </template>
+      <x-menu-item
+        v-for="[key, wikiConfig] in configs"
+        :value="key"
+        @click="
+          if (key !== cristal.getWikiConfig().name) {
+            cristal?.switchConfig(key);
+          }
+        "
+        :disabled="key === cristal.getWikiConfig().name"
+        :key="key"
+      >
+        {{ wikiConfig.name }}
+      </x-menu-item>
+    </x-menu>
+    <a
+      :href="
+        cristal.getRouter().resolve({ name: 'admin', params: { page: 'home' } })
+          .href
+      "
+      ><c-icon :size="Size.Small" name="gear"></c-icon
+    ></a>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.config-container {
+  display: flex;
+}
+
+.config-container > *:first-child {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
