@@ -126,17 +126,19 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
 
       for (let i = 1; i < responses.length; i++) {
         const response = responses[i];
-        if (response.getElementsByTagName("d:collection").length > 0) {
-          const urlFragments = response
+        if (response.getElementsByTagName("d:collection").length === 0) {
+          let urlFragments = response
             .getElementsByTagName("d:href")[0]
             .textContent!.replace(rootUrl.pathname, "")
             .split("/");
-          const subdirectory = urlFragments[urlFragments.length - 2];
-
-          // Remove attachments folders
-          if (subdirectory !== "attachments") {
-            subdirectories.push(urlFragments.slice(1, -1).join("/"));
+          if (urlFragments[0] == "") {
+            urlFragments = urlFragments.slice(1);
           }
+          urlFragments[urlFragments.length - 1] = this.removeExtension(
+            urlFragments[urlFragments.length - 1],
+          );
+
+          subdirectories.push(urlFragments.join("/"));
         }
       }
     } catch (error) {
@@ -147,8 +149,20 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
     return subdirectories;
   }
 
-  getParentNodesId(page: DocumentReference): Array<string> {
-    return getParentNodesIdFromPath(page);
+  getParentNodesId(
+    page: DocumentReference,
+    _includeTerminal?: boolean,
+    includeRootNode?: boolean,
+  ): Array<string> {
+    // Nextcloud implementation does not handle terminal pages.
+    return getParentNodesIdFromPath(page, includeRootNode);
+  }
+
+  private removeExtension(file: string): string {
+    if (!file.includes(".")) {
+      return file;
+    }
+    return file.slice(0, file.lastIndexOf("."));
   }
 }
 

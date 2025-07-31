@@ -79,12 +79,12 @@ export class NextcloudBasicAuthenticationManager
   async getUserDetails(): Promise<UserDetails> {
     const config = this.cristalApp.getWikiConfig();
 
-    const userId = Cookies.get(this.getUserIdCookieKey());
+    const userId = this.getUserIdFromCookie();
     return {
       profile: `${config.baseURL}/u/${userId}`,
       username: userId,
-      name: userId!, // TODO: Find a way to get the display name.
-      avatar: `${config.baseURL}/avatar/${userId}/64`,
+      name: userId!, // TODO: Find a way to get the display name (CRISTAL-589).
+      avatar: `${config.baseURL}/avatar/${userId}/64`, // We want the 64x64 avatar.
     };
   }
 
@@ -102,6 +102,10 @@ export class NextcloudBasicAuthenticationManager
 
   async isAuthenticated(): Promise<boolean> {
     return this.getAccessToken() !== undefined;
+  }
+
+  getUserId(): string | undefined {
+    return this.getUserIdFromCookie();
   }
 
   private getAccessToken() {
@@ -124,5 +128,9 @@ export class NextcloudBasicAuthenticationManager
     } else {
       return this.cristalApp.getWikiConfig();
     }
+  }
+
+  private getUserIdFromCookie() {
+    return Cookies.get(this.getUserIdCookieKey());
   }
 }

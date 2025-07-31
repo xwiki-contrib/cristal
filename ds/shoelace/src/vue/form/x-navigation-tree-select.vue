@@ -21,7 +21,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 import messages from "../../translations";
 import "@shoelace-style/shoelace/dist/components/input/input";
 import { navigationTreeSelectPropsDefaults } from "@xwiki/cristal-dsapi";
-import { SpaceReference } from "@xwiki/cristal-model-api";
+import { EntityType, SpaceReference } from "@xwiki/cristal-model-api";
 import { inject, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { CristalApp } from "@xwiki/cristal-api";
@@ -56,7 +56,7 @@ const props = withDefaults(
   defineProps<NavigationTreeSelectProps>(),
   navigationTreeSelectPropsDefaults,
 );
-const model = defineModel<SpaceReference>();
+const model = defineModel<SpaceReference | DocumentReference>();
 
 const openedLocationDialog: Ref<boolean> = ref(false);
 const hierarchy: Ref<Array<PageHierarchyItem>> = ref([]);
@@ -67,16 +67,36 @@ onMounted(async () => {
   model.value = props.currentPageReference!.space;
   hierarchy.value = await hierarchyResolver.getPageHierarchy(
     props.currentPageReference!.space!,
+    false,
   );
 });
 
 async function treeNodeClickAction(node: NavigationTreeNode) {
-  selectedPage = referenceHandler.createDocumentReference(
-    node.location.names[node.location.names.length - 1],
-    new SpaceReference(node.location.wiki, ...node.location.names.slice(0, -1)),
-  );
+  if (node.location.type == EntityType.SPACE) {
+    if (node.location.names.length > 0) {
+      selectedPage = referenceHandler.createDocumentReference(
+        node.location.names[node.location.names.length - 1],
+        new SpaceReference(
+          node.location.wiki,
+          ...node.location.names.slice(0, -1),
+        ),
+      );
+      hierarchy.value = await hierarchyResolver.getPageHierarchy(
+        selectedPage,
+        false,
+      );
+    } else {
+      selectedPage = undefined;
+      hierarchy.value = [{ label: node.label, pageId: "", url: node.url }];
+    }
+  } else {
+    selectedPage = node.location;
+    hierarchy.value = await hierarchyResolver.getPageHierarchy(
+      selectedPage,
+      false,
+    );
+  }
   model.value = node.location;
-  hierarchy.value = await hierarchyResolver.getPageHierarchy(selectedPage);
 }
 </script>
 
@@ -103,6 +123,7 @@ async function treeNodeClickAction(node: NavigationTreeNode) {
         :current-page-reference="currentPageReference"
         :click-action="treeNodeClickAction"
         :include-terminals="includeTerminals"
+        show-root-node
       ></XNavigationTree>
     </template>
     <template #footer>

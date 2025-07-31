@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-electron-storage",
-  "version": "0.18.0",
+  "version": "0.20.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -34,20 +34,21 @@
     "@xwiki/cristal-link-suggest-api": "workspace:*",
     "@xwiki/cristal-model-api": "workspace:*",
     "@xwiki/cristal-model-remote-url-filesystem-api": "workspace:*",
+    "@xwiki/cristal-page-default": "workspace:*",
     "@xwiki/cristal-utils-inversify": "workspace:*",
-    "inversify": "7.5.2",
+    "inversify": "7.5.4",
     "mime": "4.0.7"
   },
   "peerDependencies": {
-    "electron": "36.4.0",
-    "reflect-metadata": "0.2.2"
+    "electron": "37.1.0",
+    "reflect-metadata": "0.x"
   },
   "devDependencies": {
-    "@types/node": "22.15.30",
+    "@types/node": "22.16.5",
     "@xwiki/cristal-dev-config": "workspace:*",
     "reflect-metadata": "0.2.2",
     "typescript": "5.8.3",
-    "vite": "6.3.5",
+    "vite": "7.0.0",
     "vite-plugin-node": "5.0.1"
   },
   "publishConfig": {

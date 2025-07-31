@@ -25,6 +25,10 @@ import {
   PageData,
 } from "@xwiki/cristal-api";
 import { AbstractStorage } from "@xwiki/cristal-backend-api";
+import {
+  DefaultPageReader,
+  DefaultPageWriter,
+} from "@xwiki/cristal-page-default";
 import { inject, injectable } from "inversify";
 import mime from "mime";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
@@ -52,6 +56,16 @@ export class GitHubStorage extends AbstractStorage {
   getPageRestURL(page: string, _syntax: string, revision?: string): string {
     this.logger?.debug("GitHub Loading page", page);
     let baseRestURL = `${this.wikiConfig.baseRestURL}/contents/${page}`;
+    if (revision) {
+      baseRestURL = `${baseRestURL}?ref=${revision}`;
+    }
+    return baseRestURL;
+  }
+
+  private getPageRestMetaURL(page: string, _syntax: string, revision?: string) {
+    const split = page.split("/");
+    split[split.length - 1] = `.${split[split.length - 1]}`;
+    let baseRestURL = `${this.wikiConfig.baseRestURL}/contents/${split.join("/")}`;
     if (revision) {
       baseRestURL = `${baseRestURL}?ref=${revision}`;
     }
@@ -93,7 +107,7 @@ export class GitHubStorage extends AbstractStorage {
     revision?: string,
   ): Promise<PageData | undefined> {
     this.logger?.debug("GitHub Loading page", page);
-    const url = this.getPageRestURL(`${page}/page.json`, syntax, revision);
+    const url = this.getPageRestURL(`${page}.md`, syntax, revision);
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -103,13 +117,17 @@ export class GitHubStorage extends AbstractStorage {
     });
 
     if (response.status >= 200 && response.status < 300) {
-      const json = await response.json();
+      const { content, ...json } = new DefaultPageReader().readPage(
+        await response.text(),
+      );
       const { date, name, username } = await this.getLastEditDetails(
         page,
         revision,
       );
 
       return Object.assign(new DefaultPageData(), {
+        source: content,
+        syntax: "markdown/1.2",
         ...json,
         id: page,
         headline: json.name,
@@ -129,7 +147,7 @@ export class GitHubStorage extends AbstractStorage {
    * @since 0.9
    */
   async getAttachments(page: string): Promise<AttachmentsData | undefined> {
-    const url = this.getPageRestURL(`${page}/${this.ATTACHMENTS}`, "");
+    const url = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}`;
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -156,7 +174,7 @@ export class GitHubStorage extends AbstractStorage {
     page: string,
     name: string,
   ): Promise<PageAttachment | undefined> {
-    const url = this.getPageRestURL(`${page}/${this.ATTACHMENTS}/${name}`, "");
+    const url = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}/${name}`;
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -211,7 +229,7 @@ export class GitHubStorage extends AbstractStorage {
   }
 
   async save(page: string, title: string, content: string): Promise<unknown> {
-    const pageRestUrl = this.getPageRestURL(`${page}/page.json`, "");
+    const pageRestUrl = this.getPageRestURL(`${page}.md`, "");
 
     const headResponse = await fetch(pageRestUrl, {
       method: "HEAD",
@@ -226,6 +244,11 @@ export class GitHubStorage extends AbstractStorage {
         ? headResponse.headers.get("ETag")!.slice(3, -1)
         : undefined;
 
+    const pageContent = new DefaultPageWriter().writePage({
+      content,
+      name: title,
+      syntax: "markdown/1.2",
+    });
     const putResponse = await fetch(pageRestUrl, {
       method: "PUT",
       headers: {
@@ -233,13 +256,7 @@ export class GitHubStorage extends AbstractStorage {
         ...(await this.getCredentials()),
       },
       body: JSON.stringify({
-        content: btoa(
-          JSON.stringify({
-            source: content,
-            name: title,
-            syntax: "markdown/1.2",
-          }),
-        ),
+        content: btoa(pageContent),
         message: `Update ${page}`,
         sha: sha,
       }),
@@ -256,57 +273,23 @@ export class GitHubStorage extends AbstractStorage {
     return;
   }
 
-  async saveAttachments(page: string, files: File[]): Promise<unknown> {
-    return Promise.all(
-      files.map(async (file) => {
-        const fileUrl = `${this.getPageRestURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
+  async saveAttachments(
+    page: string,
+    files: File[],
+  ): Promise<undefined | (string | undefined)[]> {
+    const urls: Promise<string | undefined>[] = [];
 
-        const headResponse = await fetch(fileUrl, {
-          method: "HEAD",
-          cache: "no-store",
-          headers: {
-            ...(await this.getCredentials()),
-            Accept: "application/vnd.github.object+json",
-          },
-        });
-        const sha =
-          headResponse.status >= 200 && headResponse.status < 300
-            ? headResponse.headers.get("ETag")!.slice(3, -1)
-            : undefined;
+    for (const file of files) {
+      const fileUrl = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
+      const sha = await this.computeAttachmentSHA(fileUrl);
 
-        const reader = new FileReader();
-        reader.onload = async () => {
-          const putResponse = await fetch(fileUrl, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/vnd.github+json",
-              ...(await this.getCredentials()),
-            },
-            body: JSON.stringify({
-              content: (reader.result! as string).split(",")[1],
-              message: `Upload ${file.name}`,
-              sha: sha,
-            }),
-          });
-          if (!putResponse.ok) {
-            const errorMessage = await putResponse.text();
-            // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
-            this.alertsServiceProvider
-              .get()
-              .error(
-                `Could not upload attachment ${file.name} for page ${page}. Reason: ${errorMessage}`,
-              );
-          }
-        };
-        reader.readAsDataURL(file);
-      }),
-    );
+      urls.push(this.uploadAttachment(fileUrl, file, sha, page));
+    }
+    return Promise.all(urls);
   }
 
-  async delete(page: string): Promise<{ success: boolean; error?: string }> {
-    const pageRestUrl = this.getPageRestURL(page, "");
-
-    const headResponse = await fetch(pageRestUrl, {
+  private async computeAttachmentSHA(fileUrl: string) {
+    const headResponse = await fetch(fileUrl, {
       method: "HEAD",
       cache: "no-store",
       headers: {
@@ -314,30 +297,139 @@ export class GitHubStorage extends AbstractStorage {
         Accept: "application/vnd.github.object+json",
       },
     });
-    const sha =
-      headResponse.status >= 200 && headResponse.status < 300
-        ? headResponse.headers.get("ETag")!.slice(3, -1)
-        : undefined;
+    return headResponse.status >= 200 && headResponse.status < 300
+      ? headResponse.headers.get("ETag")!.slice(3, -1)
+      : undefined;
+  }
 
-    const success = await fetch(pageRestUrl, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/vnd.github+json",
-        ...(await this.getCredentials()),
+  private uploadAttachment(
+    fileUrl: string,
+    file: File,
+    sha: string | undefined,
+    page: string,
+  ): Promise<string | undefined> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const putResponse = await fetch(fileUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/vnd.github+json",
+            ...(await this.getCredentials()),
+          },
+          body: JSON.stringify({
+            content: (reader.result! as string).split(",")[1],
+            message: `Upload ${file.name}`,
+            sha: sha,
+          }),
+        });
+        if (!putResponse.ok) {
+          const errorMessage = await putResponse.text();
+          // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
+          this.alertsServiceProvider
+            .get()
+            .error(
+              `Could not upload attachment ${file.name} for page ${page}. Reason: ${errorMessage}`,
+            );
+          resolve(undefined);
+        } else {
+          resolve((await putResponse.json()).content.download_url as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async delete(page: string): Promise<{ success: boolean; error?: string }> {
+    // We only support the default branch in GitHubStorage right now.
+    // We can only get its name from the baseURL property, or by querying it.
+    // TODO: Support branches (https://jira.xwiki.org/browse/CRISTAL-563)
+    const branch = this.wikiConfig.baseURL.split("/").pop();
+
+    // Get the current HEAD before doing anything.
+    const headCommit = (
+      await (
+        await fetch(`${this.wikiConfig.baseRestURL}/git/ref/heads/${branch}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/vnd.github+json",
+            ...(await this.getCredentials()),
+          },
+        })
+      ).json()
+    ).object.sha;
+
+    // Create a new tree without the page we want removed.
+    // Using the tree creation API with a base tree and a node with a null sha
+    // will clone the base tree with the node removed.
+    const treeResponse = await fetch(
+      `${this.wikiConfig.baseRestURL}/git/trees`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/vnd.github+json",
+          ...(await this.getCredentials()),
+        },
+        body: JSON.stringify({
+          base_tree: branch,
+          tree: [
+            {
+              path: `${page}.md`,
+              mode: "040000",
+              type: "tree",
+              sha: null,
+            },
+          ],
+        }),
       },
-      body: JSON.stringify({
-        message: `Delete ${page}`,
-        sha: sha,
-      }),
-    }).then(async (response) => {
+    );
+
+    if (!treeResponse.ok) {
+      return { success: false, error: await treeResponse.text() };
+    }
+
+    // Create a child commit to the HEAD commit, referencing the new tree.
+    const commitResponse = await fetch(
+      `${this.wikiConfig.baseRestURL}/git/commits`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/vnd.github+json",
+          ...(await this.getCredentials()),
+        },
+        body: JSON.stringify({
+          tree: (await treeResponse.json()).sha,
+          message: `Delete ${page}`,
+          parents: [headCommit],
+        }),
+      },
+    );
+
+    if (!commitResponse.ok) {
+      return { success: false, error: await commitResponse.text() };
+    }
+
+    // Finally, we update the branch ref to target the new commit.
+    // We don't use "force" to ensure fast-forward only.
+    return await fetch(
+      `${this.wikiConfig.baseRestURL}/git/refs/heads/${branch}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/vnd.github+json",
+          ...(await this.getCredentials()),
+        },
+        body: JSON.stringify({
+          sha: (await commitResponse.json()).sha,
+        }),
+      },
+    ).then(async (response) => {
       if (response.ok) {
         return { success: true };
       } else {
         return { success: false, error: await response.text() };
       }
     });
-
-    return success;
   }
 
   async move(): Promise<{ success: boolean; error?: string }> {
@@ -383,7 +475,7 @@ export class GitHubStorage extends AbstractStorage {
     } else {
       const commitsUrl = new URL(`${this.wikiConfig.baseRestURL}/commits`);
       commitsUrl.search = new URLSearchParams([
-        ["path", page],
+        ["path", `${page}.md`],
         ["per_page", "1"],
       ]).toString();
       const commitsResponse = await fetch(commitsUrl, {

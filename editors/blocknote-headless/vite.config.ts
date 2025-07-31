@@ -19,12 +19,8 @@
  */
 
 import { generateConfigVue } from "../../vite.config";
-import react from "@vitejs/plugin-react";
-import { defineConfig, mergeConfig } from "vite";
+import { UserConfig } from "vite";
 
-export default mergeConfig(
-  generateConfigVue(import.meta.url),
-  defineConfig({
-    plugins: [react()],
-  }),
-);
+const config: UserConfig = generateConfigVue(import.meta.url);
+
+export default config;
