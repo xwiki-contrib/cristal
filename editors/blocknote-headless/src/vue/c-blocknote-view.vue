@@ -49,7 +49,10 @@ const {
   collaborationProvider = undefined,
   container,
 } = defineProps<{
-  editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
+  editorProps: Omit<
+    BlockNoteViewWrapperProps,
+    "content" | "linkEditionCtx" | "realtime"
+  >;
   editorContent: UniAst | Error;
   collaborationProvider?: () => CollaborationInitializer;
   container: Container;
