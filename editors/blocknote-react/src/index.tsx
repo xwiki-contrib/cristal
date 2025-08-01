@@ -21,6 +21,9 @@ import { App } from "./App";
 import { XWikiMacroHTMLBlockMacro } from "./blocknote/macros/XWikiMacroHtmlBlock";
 import { XWikiMacroInlineHTMLMacro } from "./blocknote/macros/XWikiMacroInlineHtml";
 import {
+  BuildableMacro,
+  ContextForMacros,
+  MACRO_ID_PROP_NAME,
   MACRO_NAME_PREFIX,
   Macro,
   MacroCreationArgs,
@@ -75,11 +78,21 @@ const DEFAULT_MACROS = {
   XWikiMacroInlineHTMLMacro,
 };
 
-export { DEFAULT_MACROS, MACRO_NAME_PREFIX, createMacro, mountBlockNote };
+export {
+  DEFAULT_MACROS,
+  MACRO_ID_PROP_NAME,
+  MACRO_NAME_PREFIX,
+  createMacro,
+  mountBlockNote,
+};
+
 export type {
   BlockNoteViewWrapperProps,
+  BuildableMacro,
+  ContextForMacros,
   LinkEditionContext,
   Macro,
   MacroCreationArgs,
 };
+
 export * from "./blocknote";
