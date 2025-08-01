@@ -53,11 +53,37 @@ export class NextcloudBasicAuthenticationManager
   ) {}
 
   async start(): Promise<void> {
-    this.authenticationState.callback.value = async () => {
-      await window.authenticationNextcloud.loginBasic(
-        this.authenticationState.username.value,
-        this.authenticationState.password.value,
+    const config = this.cristalApp.getWikiConfig();
+    this.authenticationState.callback.value = async (): Promise<{
+      success: boolean;
+      status?: number;
+    }> => {
+      const token = btoa(
+        `${this.authenticationState.username.value}:${this.authenticationState.password.value}`,
       );
+
+      // We try to access the root folder to check if the login was succesful.
+      const testLoginResponse = await fetch(
+        `${config.baseRestURL}${(
+          config.storageRoot ?? "/files/${username}/.cristal"
+        ).replace("${username}", this.authenticationState.username.value)}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Basic ${token}`,
+          },
+        },
+      );
+
+      if (testLoginResponse.ok) {
+        await window.authenticationNextcloud.loginBasic(
+          this.authenticationState.username.value,
+          this.authenticationState.password.value,
+        );
+        return { success: true };
+      } else {
+        return { success: false, status: testLoginResponse.status };
+      }
     };
     this.authenticationState.modalOpened.value = true;
   }
