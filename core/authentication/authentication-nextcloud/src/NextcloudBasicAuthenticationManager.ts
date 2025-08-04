@@ -62,17 +62,12 @@ export class NextcloudBasicAuthenticationManager
       );
 
       // We try to access the root folder to check if the login was succesful.
-      const testLoginResponse = await fetch(
-        `${config.baseRestURL}${(
-          config.storageRoot ?? "/files/${username}/.cristal"
-        ).replace("${username}", this.authenticationState.username.value)}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Basic ${token}`,
-          },
+      const testLoginResponse = await fetch(config.baseRestURL, {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${token}`,
         },
-      );
+      });
 
       if (testLoginResponse.ok) {
         Cookies.set(
