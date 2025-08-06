@@ -33,7 +33,7 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote";
-import { Macro } from "../blocknote/utils";
+import { BuildableMacro, ContextForMacros } from "../blocknote/utils";
 import { LinkEditionContext } from "../misc/linkSuggest";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
@@ -87,7 +87,7 @@ type BlockNoteViewWrapperProps = {
   /**
    * Macros to show in the editor
    */
-  macros: Macro[];
+  macros: BuildableMacro[];
 
   /**
    * Realtime options
@@ -102,6 +102,13 @@ type BlockNoteViewWrapperProps = {
    * WARN: this function may be fired at a rapid rate if the user types rapidly. Debouncing may be required on your end.
    */
   onChange?: (editor: EditorType) => void;
+
+  /**
+   * Open the macros parameters editor
+   *
+   * @since 0.20
+   */
+  openMacroParamsEditor: ContextForMacros["openParamsEditor"];
 
   /**
    * Link edition utilities
@@ -124,15 +131,20 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   blockNoteOptions,
   theme,
   content,
-  macros,
+  macros: buildableMacros,
   realtime,
   onChange,
+  openMacroParamsEditor,
   lang,
   linkEditionCtx,
   refs: { setEditor } = {},
 }: BlockNoteViewWrapperProps) => {
   const { t } = useTranslation();
   const collaborationProvider = realtime?.collaborationProvider;
+
+  const macros = buildableMacros.map((builder) =>
+    builder({ openParamsEditor: openMacroParamsEditor }),
+  );
 
   const schema = createBlockNoteSchema(macros);
 

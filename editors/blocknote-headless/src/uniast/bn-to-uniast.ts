@@ -25,6 +25,7 @@ import {
   EditorLink,
   EditorStyleSchema,
   EditorStyledText,
+  MACRO_ID_PROP_NAME,
   MACRO_NAME_PREFIX,
 } from "@xwiki/cristal-editors-blocknote-react";
 import {
@@ -118,10 +119,15 @@ export class BlockNoteToUniAstConverter {
 
     // Convert macros
     if (block.type.startsWith(MACRO_NAME_PREFIX)) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { [MACRO_ID_PROP_NAME]: _, ...params } =
+        // Conversion is required as the AST is dynamically typed
+        block.props as Record<string, boolean | number | string>;
+
       return {
         type: "macroBlock",
         name: block.type.substring(MACRO_NAME_PREFIX.length),
-        params: block.props,
+        params,
       };
     }
 
@@ -351,12 +357,19 @@ export class BlockNoteToUniAstConverter {
   ): InlineContent {
     // Handle macros
     if (inlineContent.type.startsWith(MACRO_NAME_PREFIX)) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { [MACRO_ID_PROP_NAME]: _, ...params } =
+        // Conversion is required because the AST is dynamically typed
+        (
+          inlineContent as unknown as {
+            props: Record<string, boolean | number | string>;
+          }
+        ).props;
+
       return {
         type: "inlineMacro",
         name: inlineContent.type.substring(MACRO_NAME_PREFIX.length),
-        params:
-          // @ts-expect-error: the AST is dynamically-typed with macros, so the types are incorrect here
-          inlineContent.props,
+        params,
       };
     }
 

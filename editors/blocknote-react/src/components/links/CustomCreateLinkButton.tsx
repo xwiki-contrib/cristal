@@ -20,15 +20,20 @@
 import { LinkEditor } from "./LinkEditor";
 import { useEditor } from "../../hooks";
 import { LinkEditionContext } from "../../misc/linkSuggest";
-import { formatKeyboardShortcut } from "@blocknote/core";
-import { useComponentsContext, useDictionary } from "@blocknote/react";
-import { useCallback, useState } from "react";
+import { formatKeyboardShortcut, isTableCellSelection } from "@blocknote/core";
+import {
+  useComponentsContext,
+  useDictionary,
+  useSelectedBlocks,
+} from "@blocknote/react";
+import { useCallback, useMemo, useState } from "react";
 import { RiLink } from "react-icons/ri";
 
 export type CustomCreateLinkButtonProps = {
   linkEditionCtx: LinkEditionContext;
 };
 
+// eslint-disable-next-line max-statements
 export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
   linkEditionCtx,
 }) => {
@@ -45,6 +50,26 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
     },
     [editor],
   );
+
+  const selectedBlocks = useSelectedBlocks(editor);
+
+  const isTableSelection = editor.transact((tr) =>
+    isTableCellSelection(tr.selection),
+  );
+
+  const show = useMemo(() => {
+    for (const block of selectedBlocks) {
+      if (block.content === undefined) {
+        return false;
+      }
+    }
+
+    return !isTableSelection;
+  }, [selectedBlocks, isTableSelection]);
+
+  if (!show) {
+    return null;
+  }
 
   // TODO: check if we need to update in realtime when the selection change?
   const selected = editor.getSelectedText();
