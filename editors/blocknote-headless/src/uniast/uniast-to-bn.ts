@@ -28,14 +28,14 @@ import {
   MACRO_NAME_PREFIX,
 } from "@xwiki/cristal-editors-blocknote-react";
 import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
-import {
+import type {
   Block,
   BlockStyles,
   ConverterContext,
   Image,
   InlineContent,
   UniAst,
-} from "@xwiki/cristal-uniast";
+} from "@xwiki/cristal-uniast-api";
 
 /**
  * Converts the Universal AS to the internal format of Blocknote.

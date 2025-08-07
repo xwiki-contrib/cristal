@@ -47,7 +47,6 @@ import type { BrowserApi } from "@xwiki/cristal-browser-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { ExtensionManager } from "@xwiki/cristal-extension-manager";
 import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
-import type { Renderer } from "@xwiki/cristal-rendering";
 import type {
   UIXTemplateProvider,
   VueTemplateProvider,
@@ -195,37 +194,6 @@ export class DefaultCristalApp implements CristalApp {
     return this.container.get<LoggerConfig>("LoggerConfig");
   }
 
-  async renderContent(
-    source: string,
-    sourceSyntax: string,
-    targetSyntax: string,
-    wikiConfig: WikiConfig,
-  ): Promise<string> {
-    // Protection from rendering errors
-    if (source == undefined) {
-      return "";
-    }
-
-    this.logger.debug("Loading rendering module");
-    try {
-      const renderer = this.container.get<Renderer>("Renderer");
-      return renderer.convert(source, sourceSyntax, targetSyntax, wikiConfig);
-    } catch {
-      this.logger.error("Could not find a rendering module");
-      return source;
-    }
-  }
-
-  async preloadConverters(): Promise<void> {
-    this.logger.debug("Loading rendering module");
-    try {
-      const renderer = this.container.get<Renderer>("Renderer");
-      await renderer.preloadConverters();
-    } catch {
-      this.logger.error("Could not find a rendering module");
-    }
-  }
-
   /**
    * Load the current page content.
    * @param options - an optional set of parameters. When a requeue key is
@@ -266,18 +234,6 @@ export class DefaultCristalApp implements CristalApp {
         }
         this.page.document = pageData.document;
         this.page.source = pageData.document.get("text");
-        if (pageData.html == "") {
-          this.page.html = await this.renderContent(
-            this.page.source,
-            pageData.syntax,
-            "html",
-            this.getWikiConfig(),
-          );
-          // Update JSON-LD format also
-          this.page.document.set("html", this.page.html);
-        } else {
-          this.page.html = pageData.html;
-        }
 
         if (this.currentContentRef != null) {
           this.currentContentRef.value = this.page;
@@ -305,18 +261,6 @@ export class DefaultCristalApp implements CristalApp {
 
         this.page.source = pageData.source;
         this.page.html = pageData.html;
-        if (pageData.html == "") {
-          this.page.html = await this.renderContent(
-            this.page.source,
-            pageData.syntax,
-            "html",
-            this.getWikiConfig(),
-          );
-          // Update JSON-LD format also
-          this.page.document.set("html", this.page.html);
-        } else {
-          this.page.html = pageData.html;
-        }
         if (this.currentContentRef != null) {
           this.currentContentRef.value = this.page;
           this.logger?.debug("Page content ", this.page.html);
@@ -518,9 +462,6 @@ export class DefaultCristalApp implements CristalApp {
       "",
       "/" + this.wikiConfig.name + "/#/" + this.getCurrentPage() + "/view",
     );
-
-    // WikiModel ready
-    await this.preloadConverters();
   }
 
   getMenuEntries(): Array<string> {

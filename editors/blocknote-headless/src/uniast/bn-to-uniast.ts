@@ -32,7 +32,7 @@ import {
   provideTypeInference,
   tryFallibleOrError,
 } from "@xwiki/cristal-fn-utils";
-import {
+import type {
   Block,
   BlockStyles,
   ConverterContext,
@@ -41,7 +41,7 @@ import {
   ListItem,
   TableCell,
   UniAst,
-} from "@xwiki/cristal-uniast";
+} from "@xwiki/cristal-uniast-api";
 
 // TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
 
