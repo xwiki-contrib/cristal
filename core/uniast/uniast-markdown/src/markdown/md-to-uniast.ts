@@ -147,10 +147,11 @@ export class MarkdownToUniAstConverter {
           language: block.lang ?? undefined,
         };
 
-      case "table":
+      case "table": {
+        const [head, ...rows] = block.children;
         return {
           type: "table",
-          columns: block.children[0]?.children.map(
+          columns: head?.children.map(
             (cell): TableColumn => ({
               headerCell: {
                 content: cell.children.flatMap((item) =>
@@ -160,7 +161,8 @@ export class MarkdownToUniAstConverter {
               },
             }),
           ),
-          rows: block.children.map((row) =>
+          // TOOD: bug?
+          rows: rows.map((row) =>
             row.children.map(
               (cell): TableCell => ({
                 content: cell.children.flatMap((item) =>
@@ -172,6 +174,7 @@ export class MarkdownToUniAstConverter {
           ),
           styles: {},
         };
+      }
 
       case "image":
         return {

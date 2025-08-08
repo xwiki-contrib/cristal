@@ -151,6 +151,19 @@ export class UniAstToBlockNoteConverter {
         return this.convertList(block);
 
       case "table":
+        /*
+
+          type: "table",
+          columns: header.cells.map((cell, i) => ({
+            headerCell: this.convertTableCell(cell),
+            widthPx: block.content.columnWidths[i],
+          })),
+          rows: rows.map((row) =>
+            row.cells.map((item) => this.convertTableCell(item)),
+          ),
+          styles: this.convertBlockStyles(block.props),
+        };
+         */
         return {
           type: "table",
           id: genId(),
