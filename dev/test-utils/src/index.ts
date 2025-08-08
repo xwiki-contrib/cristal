@@ -47,14 +47,16 @@ function wrapInSuspense(
  * @param clazz - the class to decorate with an injectable
  * @since 0.11
  */
-function makeInjectable(clazz: object): object {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+function makeInjectable(clazz: Function): object {
   decorate(injectable(), clazz);
   return clazz;
 }
 
 function mockI18n() {
+  // @ts-expect-error mockReturnValue is provided externally
   useI18n.mockReturnValue({
-    t: (tKey) => tKey,
+    t: (tKey: string) => tKey,
   });
 }
 
