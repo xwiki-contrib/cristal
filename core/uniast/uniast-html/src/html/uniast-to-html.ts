@@ -57,7 +57,7 @@ export class UniAstToHTMLConverter {
   private blockToHTML(block: Block): string {
     switch (block.type) {
       case "paragraph":
-        return this.convertInlineContents(block.content);
+        return `<p>${this.convertInlineContents(block.content)}</p>`;
 
       case "heading":
         return `<h${block.level}>${this.convertInlineContents(block.content)}</h${block.level}>`;
@@ -223,6 +223,6 @@ export class UniAstToHTMLConverter {
 
   private convertReference(rawReference: string, type: EntityType) {
     const parseReference = this.context.parseReference(rawReference, type);
-    return this.context.serializeReference(parseReference!);
+    return this.context.getUrlFromReference(parseReference!);
   }
 }
