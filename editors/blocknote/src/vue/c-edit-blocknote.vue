@@ -132,13 +132,8 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     lang: "en",
     macros: {
       buildable: Object.values(DEFAULT_MACROS),
-      openMacroParamsEditor(macro, params, update) {
+      openMacroParamsEditor(/*macro, params, update*/) {
         alert("TODO: params editor for macros in Cristal");
-
-        setTimeout(() => {
-          console.log("UPDATED!");
-          update({ textContent: "Yeah!!!" });
-        }, 1000);
       },
     },
   };
