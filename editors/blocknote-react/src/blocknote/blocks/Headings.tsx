@@ -45,7 +45,7 @@ function createCustomHeading(level: 4 | 5 | 6) {
         type: `Heading${level}`,
       }),
     },
-    toolbar: () => null,
+    customToolbar: null,
   });
 }
 

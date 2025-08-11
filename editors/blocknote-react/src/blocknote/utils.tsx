@@ -53,31 +53,42 @@ function createCustomBlockSpec<
   const B extends CustomBlockConfig,
   const I extends InlineContentSchema,
   const S extends StyleSchema,
->(block: {
+>({
+  config,
+  implementation,
+  slashMenu,
+  customToolbar,
+}: {
   config: B;
   implementation: ReactCustomBlockImplementation<B, I, S>;
-  slashMenu: {
-    title: string;
-    aliases?: string[];
-    group: string;
-    icon: ReactNode;
-    default: () => PartialBlock<Record<B["type"], B>>;
-  };
-  toolbar: () => ReactNode | null;
+  slashMenu:
+    | false
+    | {
+        title: string;
+        aliases?: string[];
+        group: string;
+        icon: ReactNode;
+        default: () => PartialBlock<Record<B["type"], B>>;
+      };
+  customToolbar: (() => ReactNode) | null;
 }) {
   return {
-    block: createReactBlockSpec(block.config, block.implementation),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    slashMenuEntry: (editor: BlockNoteEditor<any>) => ({
-      title: block.slashMenu.title,
-      aliases: block.slashMenu.aliases,
-      group: block.slashMenu.group,
-      icon: block.slashMenu.icon,
-      onItemClick: () => {
-        insertOrUpdateBlock(editor, block.slashMenu.default());
-      },
-    }),
-    toolbar,
+    block: createReactBlockSpec(config, implementation),
+
+    slashMenuEntry: !slashMenu
+      ? (false as const)
+      : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (editor: BlockNoteEditor<any>) => ({
+          title: slashMenu.title,
+          aliases: slashMenu.aliases,
+          group: slashMenu.group,
+          icon: slashMenu.icon,
+          onItemClick: () => {
+            insertOrUpdateBlock(editor, slashMenu.default());
+          },
+        }),
+
+    customToolbar,
   };
 }
 
@@ -94,39 +105,54 @@ function createCustomBlockSpec<
 function createCustomInlineContentSpec<
   const I extends CustomInlineContentConfig,
   const S extends StyleSchema,
->(inlineContent: {
+>({
+  config,
+  implementation,
+  slashMenu,
+  customToolbar,
+}: {
   config: I;
   implementation: ReactInlineContentImplementation<I, S>;
-  slashMenu: {
-    title: string;
-    aliases?: string[];
-    group: string;
-    icon: ReactNode;
-    default: () => PartialInlineContent<Record<I["type"], I>, S>;
-  };
-  toolbar: () => ReactNode | null;
+  slashMenu:
+    | false
+    | {
+        title: string;
+        aliases?: string[];
+        group: string;
+        icon: ReactNode;
+        default: () => PartialInlineContent<Record<I["type"], I>, S>;
+      };
+  customToolbar: (() => ReactNode) | null;
 }) {
   return {
-    inlineContent: createReactInlineContentSpec(
-      inlineContent.config,
-      inlineContent.implementation,
-    ),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    slashMenuEntry: (editor: BlockNoteEditor<any>) => ({
-      title: inlineContent.slashMenu.title,
-      aliases: inlineContent.slashMenu.aliases,
-      group: inlineContent.slashMenu.group,
-      icon: inlineContent.slashMenu.icon,
-      onItemClick: () => {
-        editor.insertInlineContent([
-          // @ts-expect-error: the AST is dynamically-typed with macros, so the types are incorrect here
-          inlineContent.slashMenu.default(),
-        ]);
-      },
-    }),
-    toolbar,
+    inlineContent: createReactInlineContentSpec(config, implementation),
+
+    slashMenuEntry: !slashMenu
+      ? (false as const)
+      : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (editor: BlockNoteEditor<any>) => ({
+          title: slashMenu.title,
+          aliases: slashMenu.aliases,
+          group: slashMenu.group,
+          icon: slashMenu.icon,
+          onItemClick: () => {
+            editor.insertInlineContent([
+              // @ts-expect-error: the AST is dynamically-typed with macros, so the types are incorrect here
+              slashMenu.default(),
+            ]);
+          },
+        }),
+
+    customToolbar,
   };
 }
+
+/**
+ * Function building a macro using the required context
+ *
+ * @since 0.20
+ */
+type BuildableMacro = (ctx: ContextForMacros) => Macro;
 
 /**
  * Internal context required for macros execution
@@ -139,18 +165,10 @@ type ContextForMacros = {
    */
   openParamsEditor: (
     macro: Macro,
-    id: string,
     params: Record<string, boolean | number | string>,
     update: (newProps: Record<string, boolean | number | string>) => void,
   ) => void;
 };
-
-/**
- * Function building a macro using the required context
- *
- * @since 0.20
- */
-type BuildableMacro = (ctx: ContextForMacros) => Macro;
 
 /**
  * Description of a macro
@@ -160,10 +178,6 @@ type BuildableMacro = (ctx: ContextForMacros) => Macro;
 type Macro = {
   /** Name of the macro */
   name: string;
-
-  // TODO: add translations support? or let the part providing the macros take care of it?
-  /** Description of the macro */
-  description: string;
 
   /** Description of the macro's parameters */
   parameters: Record<string, MacroParameterType>;
@@ -175,9 +189,6 @@ type Macro = {
    * `inline`: only usable inside other blocks such as paragraphs
    */
   renderType: "block" | "inline";
-
-  /** Should the macro be hidden from the slash menu? */
-  hidden: boolean;
 
   /** The concrete implementation to use in BlockNote */
   blockNote: MacroForBlockNote;
@@ -269,9 +280,6 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
     /** The macro's name */
     name: string;
 
-    /** The macro's description */
-    description: string;
-
     /** The macro's render type (block or inline content) */
     renderType: "block" | "inline";
 
@@ -279,32 +287,39 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
     parameters: Parameters;
 
     /**
-     * Default value of every required parameter
+     * Show an entry in the slash menu
      *
-     * Optional parameters will be omitted from the default object
+     * @since 0.21
      */
-    defaultParameters: FilterUndefined<
-      GetConcreteMacroParametersType<Parameters>
-    >;
+    slashMenu:
+      | {
+          /** The macro's description */
+          description: string;
 
-    /** Should the macro be hidden from the slash menu? */
-    hidden?: boolean;
+          /**
+           * Default value of every required parameter
+           *
+           * Optional parameters will be omitted from the default object
+           */
+          defaultParameters: FilterUndefined<
+            GetConcreteMacroParametersType<Parameters>
+          >;
+        }
+      | false;
 
     /**
      * React render function
      *
-     * @param parameters - The macro's parameters ; optional fields may be absent or equal to `undefined`
+     * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
      * @param contentRef - The editable section of the block, handled by BlockNote
      * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
-     * @param id - The macro's unique identifier inside the editor. Unique even for instances of the same macro.
      *
      * @returns The React node to render the macro as
      */
     render(
-      parameters: GetConcreteMacroParametersType<Parameters>,
+      params: GetConcreteMacroParametersType<Parameters>,
       contentRef: (node: HTMLElement | null) => void,
       openParamsEditor: () => void,
-      id: string,
     ): React.ReactNode;
   };
 
@@ -314,13 +329,6 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
  * @since 0.20
  */
 const MACRO_NAME_PREFIX = "Macro_";
-
-/**
- * The property used in macro objects to store their unique volatile identifier
- *
- * @since 0.20
- */
-const MACRO_ID_PROP_NAME = "_macroId";
 
 /**
  * Create a macro.
@@ -335,10 +343,8 @@ const MACRO_ID_PROP_NAME = "_macroId";
  */
 function createMacro<Parameters extends Record<string, MacroParameterType>>({
   name,
-  description,
   parameters,
-  defaultParameters,
-  hidden,
+  slashMenu,
   render,
   renderType,
 }: MacroCreationArgs<Parameters>): BuildableMacro {
@@ -349,9 +355,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
     const propSchema: Record<
       string,
       PropSpec<boolean | number | string> & { optional?: true }
-    > = {
-      [MACRO_ID_PROP_NAME]: { type: "string", default: undefined },
-    };
+    > = {};
 
     for (const [name, param] of Object.entries(parameters)) {
       propSchema[name] = {
@@ -369,26 +373,21 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
       } as any;
     }
 
-    // Define the common slash menu properties
-    const slashMenu = {
-      title: description,
-      group: "Macros",
-      icon: "M",
-      aliases: [],
-    };
-
-    // Define the common default value properties
-    const defaultValue = () => ({
-      // TODO: statically type parameters so that the `type` name cannot be used,
-      //       as it would be shadowed here otherwise
-      type: `${MACRO_NAME_PREFIX}${name}`,
-      props: {
-        ...defaultParameters,
-        // TODO: statically type parameters so that the [MACRO_ID_PROP_NAME] name cannot be used,
-        //       as it would be shadowed here otherwise
-        [MACRO_ID_PROP_NAME]: Math.random().toString().substring(2),
-      },
-    });
+    const getSlashMenu = <T,>(opts: (defaultValue: () => unknown) => T) =>
+      slashMenu
+        ? {
+            title: slashMenu.description,
+            group: "Macros",
+            icon: "M",
+            aliases: [],
+            ...opts(() => ({
+              // TODO: statically type parameters so that the `type` name cannot be used,
+              //       as it would be shadowed here otherwise
+              type: `${MACRO_NAME_PREFIX}${name}`,
+              props: slashMenu.defaultParameters,
+            })),
+          }
+        : false;
 
     // The rendering function
     const renderMacro = (
@@ -396,20 +395,12 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
       props: Props<PropSchema>,
       update: (newParams: Props<PropSchema>) => void,
     ) => {
-      if (!Object.prototype.hasOwnProperty.call(props, MACRO_ID_PROP_NAME)) {
-        throw new Error("Missing macro ID in block/inlineContent properties");
-      }
-
-      const { [MACRO_ID_PROP_NAME]: macroId, ...params } = props;
-
       return render(
-        params as GetConcreteMacroParametersType<Parameters>,
+        props as GetConcreteMacroParametersType<Parameters>,
         contentRef,
-        () => {
+        () =>
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ctx.openParamsEditor(macro, macroId, params, update as any);
-        },
-        macroId,
+          ctx.openParamsEditor(macro, props, update as any),
       );
     };
 
@@ -433,13 +424,12 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
                     editor.updateBlock(block.id, { props: newProps });
                   }),
               },
-              slashMenu: {
-                ...slashMenu,
+              slashMenu: getSlashMenu((getDefaultValue) => ({
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                default: () => defaultValue() as any,
-              },
+                default: () => getDefaultValue() as any,
+              })),
               // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
-              toolbar: () => null,
+              customToolbar: null,
             }),
           }
         : {
@@ -463,23 +453,20 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
                     });
                   }),
               },
-              slashMenu: {
-                ...slashMenu,
+              slashMenu: getSlashMenu((getDefaultValue) => ({
                 default: () => [
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  defaultValue() as any,
+                  getDefaultValue() as any,
                 ],
-              },
+              })),
               // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
-              toolbar: () => null,
+              customToolbar: null,
             }),
           };
 
     const macro = {
       name,
-      description,
       parameters,
-      hidden: hidden ?? false,
       renderType,
       blockNote: concreteMacro,
     };
@@ -488,12 +475,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
   };
 }
 
-export {
-  MACRO_ID_PROP_NAME,
-  MACRO_NAME_PREFIX,
-  createCustomBlockSpec,
-  createMacro,
-};
+export { MACRO_NAME_PREFIX, createCustomBlockSpec, createMacro };
 
 export type {
   BuildableMacro,

@@ -25,7 +25,6 @@ import {
   EditorLink,
   EditorStyleSchema,
   EditorStyledText,
-  MACRO_ID_PROP_NAME,
   MACRO_NAME_PREFIX,
 } from "@xwiki/cristal-editors-blocknote-react";
 import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
@@ -191,12 +190,8 @@ export class UniAstToBlockNoteConverter {
           // @ts-expect-error: macros are dynamically added to the AST
           type: `${MACRO_NAME_PREFIX}${block.name}`,
           id: genId(),
-          props: {
-            ...block.params,
-            // TODO: factorize
-            // @ts-expect-error: macros are dynamically added to the AST so the properties are not typed properly
-            [MACRO_ID_PROP_NAME]: Math.random().toString().substring(2),
-          },
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          props: block.params as any,
         };
 
       default:

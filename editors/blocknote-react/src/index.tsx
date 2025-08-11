@@ -23,7 +23,6 @@ import { XWikiMacroInlineHTMLMacro } from "./blocknote/macros/XWikiMacroInlineHt
 import {
   BuildableMacro,
   ContextForMacros,
-  MACRO_ID_PROP_NAME,
   MACRO_NAME_PREFIX,
   Macro,
   MacroCreationArgs,
@@ -78,13 +77,7 @@ const DEFAULT_MACROS = {
   XWikiMacroInlineHTMLMacro,
 };
 
-export {
-  DEFAULT_MACROS,
-  MACRO_ID_PROP_NAME,
-  MACRO_NAME_PREFIX,
-  createMacro,
-  mountBlockNote,
-};
+export { DEFAULT_MACROS, MACRO_NAME_PREFIX, createMacro, mountBlockNote };
 
 export type {
   BlockNoteViewWrapperProps,
