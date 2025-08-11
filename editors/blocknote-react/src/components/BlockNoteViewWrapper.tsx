@@ -33,7 +33,7 @@ import {
   createDictionary,
   querySuggestionsMenuItems,
 } from "../blocknote";
-import { Macro } from "../blocknote/utils";
+import { BuildableMacro, ContextForMacros } from "../blocknote/utils";
 import { LinkEditionContext } from "../misc/linkSuggest";
 import { BlockNoteEditorOptions } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
@@ -86,8 +86,20 @@ type BlockNoteViewWrapperProps = {
 
   /**
    * Macros to show in the editor
+   *
+   * @since 0.21
    */
-  macros: Macro[];
+  macros: null | {
+    /**
+     * List of buildable macros
+     */
+    buildable: BuildableMacro[];
+
+    /**
+     * Open the macros parameters editor
+     */
+    openMacroParamsEditor: ContextForMacros["openParamsEditor"];
+  };
 
   /**
    * Realtime options
@@ -124,7 +136,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   blockNoteOptions,
   theme,
   content,
-  macros,
+  macros: macrosInit,
   realtime,
   onChange,
   lang,
@@ -134,7 +146,13 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   const { t } = useTranslation();
   const collaborationProvider = realtime?.collaborationProvider;
 
-  const schema = createBlockNoteSchema(macros);
+  const macros = macrosInit
+    ? macrosInit.buildable.map((builder) =>
+        builder({ openParamsEditor: macrosInit.openMacroParamsEditor }),
+      )
+    : null;
+
+  const schema = createBlockNoteSchema(macros ?? []);
 
   const initializer: CollaborationInitializer | undefined =
     collaborationProvider ? collaborationProvider() : undefined;
@@ -267,7 +285,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
       <SuggestionMenuController
         triggerCharacter={"/"}
         getItems={async (query) =>
-          querySuggestionsMenuItems(editor, query, macros)
+          querySuggestionsMenuItems(editor, query, macros ?? [])
         }
       />
 

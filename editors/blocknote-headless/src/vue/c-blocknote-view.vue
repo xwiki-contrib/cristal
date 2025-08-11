@@ -23,6 +23,7 @@ import { createLinkEditionContext } from "../components/linkEditionContext";
 import messages from "../translations";
 import { BlockNoteToUniAstConverter } from "../uniast/bn-to-uniast";
 import { UniAstToBlockNoteConverter } from "../uniast/uniast-to-bn";
+import { updateMacroParams } from "../utils";
 import {
   BlockNoteViewWrapperProps,
   EditorType,
@@ -70,6 +71,20 @@ const emit = defineEmits<{
 defineExpose({
   // Get the editor's content
   getContent: (): UniAst | Error => extractEditorContent(),
+
+  // Edit a macro's parameters
+  updateMacroParams(
+    macroId: string,
+    newParams: Record<string, boolean | number | string>,
+  ): void {
+    if (!editorRef.value) {
+      throw new Error(
+        "Cannot edit macro parameters as the editor instance is not ready yet",
+      );
+    }
+
+    updateMacroParams(editorRef.value, macroId, newParams);
+  },
 });
 
 /**

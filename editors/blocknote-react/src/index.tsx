@@ -18,9 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { App } from "./App";
+import { TestMacro } from "./blocknote/macros/TestMacro";
 import { XWikiMacroHTMLBlockMacro } from "./blocknote/macros/XWikiMacroHtmlBlock";
 import { XWikiMacroInlineHTMLMacro } from "./blocknote/macros/XWikiMacroInlineHtml";
 import {
+  BuildableMacro,
+  ContextForMacros,
+  MACRO_ID_PROP_NAME,
   MACRO_NAME_PREFIX,
   Macro,
   MacroCreationArgs,
@@ -73,13 +77,24 @@ function mountBlockNote(
 const DEFAULT_MACROS = {
   XWikiMacroHTMLBlockMacro,
   XWikiMacroInlineHTMLMacro,
+  TestMacro,
 };
 
-export { DEFAULT_MACROS, MACRO_NAME_PREFIX, createMacro, mountBlockNote };
+export {
+  DEFAULT_MACROS,
+  MACRO_ID_PROP_NAME,
+  MACRO_NAME_PREFIX,
+  createMacro,
+  mountBlockNote,
+};
+
 export type {
   BlockNoteViewWrapperProps,
+  BuildableMacro,
+  ContextForMacros,
   LinkEditionContext,
   Macro,
   MacroCreationArgs,
 };
+
 export * from "./blocknote";

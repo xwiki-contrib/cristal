@@ -17,22 +17,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 import { createMacro } from "../utils";
 
-export const XWikiMacroInlineHTMLMacro = createMacro({
-  name: "XWikiMacroInlineHtml",
-  description: "",
+export const TestMacro = createMacro({
+  name: "Test",
+  renderType: "block",
   parameters: {
-    html: { type: "string" },
-    metadata: { type: "string" },
+    content: {
+      type: "string",
+    },
   },
+  description: "Some test macro",
   defaultParameters: {
-    html: "",
-    metadata: "",
+    content: "YOH",
   },
-  renderType: "inline",
-  hidden: true,
-  render(parameters) {
-    return <span dangerouslySetInnerHTML={{ __html: parameters.html }} />;
+  render(parameters, contentRef, openParamsEditor, id) {
+    return (
+      <strong>
+        Content: <em ref={contentRef} /> (ID: <em>{id}</em>)
+      </strong>
+    );
   },
 });
