@@ -18,13 +18,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
+import { TableCell as BlockNoteTableCell } from "@blocknote/core";
 import {
   BlockType,
   EditorInlineContentSchema,
-  EditorLink,
   EditorStyleSchema,
-  EditorStyledText,
+  InlineContentType,
   MACRO_NAME_PREFIX,
 } from "@xwiki/cristal-editors-blocknote-react";
 import {
@@ -330,7 +329,7 @@ export class BlockNoteToUniAstConverter {
 
   private convertTableCell(
     cell:
-      | Array<EditorStyledText | EditorLink>
+      | InlineContentType[]
       | BlockNoteTableCell<EditorInlineContentSchema, EditorStyleSchema>,
   ): TableCell {
     return Array.isArray(cell)
@@ -347,7 +346,7 @@ export class BlockNoteToUniAstConverter {
   }
 
   private convertInlineContent(
-    inlineContent: EditorStyledText | Link<EditorStyleSchema>,
+    inlineContent: InlineContentType,
   ): InlineContent {
     // Handle macros
     if (inlineContent.type.startsWith(MACRO_NAME_PREFIX)) {
@@ -401,7 +400,34 @@ export class BlockNoteToUniAstConverter {
 
             return converted;
           }),
-          target: this.parseTarget(inlineContent.href),
+          target: {
+            type: "external",
+            url: inlineContent.href,
+          },
+        };
+
+      case "InternalLink":
+        return {
+          type: "link",
+          content: inlineContent.content.map((item) => {
+            const converted = this.convertInlineContent(item);
+
+            if (converted.type === "link") {
+              throw new Error(
+                "Nested links are not supported inside BlockNote",
+              );
+            }
+
+            return converted;
+          }),
+          target: {
+            type: "internal",
+            parsedReference: this.context.parseReference(
+              inlineContent.props.reference,
+              null,
+            ),
+            rawReference: inlineContent.props.reference,
+          },
         };
     }
   }

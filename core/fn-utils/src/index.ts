@@ -151,9 +151,37 @@ function filterMap<T, U>(
     .filter((value) => value !== null && value !== undefined);
 }
 
+/**
+ * Ensure a given array is of the provided type
+ *
+ * @param array - The array to evaluate
+ * @param predicate - The type predicate
+ *
+ * @returns - The correctly-typed array, or `false` if the predicate failed on at least one value
+ *
+ * @since 0.21
+ */
+function ensureArrayType<T, U extends T>(
+  array: T[],
+  predicate: (value: T) => value is U,
+): U[] | false {
+  const out: U[] = [];
+
+  for (const value of array) {
+    if (!predicate(value)) {
+      return false;
+    }
+
+    out.push(value);
+  }
+
+  return out;
+}
+
 export {
   assertInArray,
   assertUnreachable,
+  ensureArrayType,
   filterMap,
   provideTypeInference,
   tryFallible,

@@ -22,9 +22,8 @@ import { TableCell } from "@blocknote/core";
 import {
   BlockType,
   EditorInlineContentSchema,
-  EditorLink,
   EditorStyleSchema,
-  EditorStyledText,
+  InlineContentType,
   MACRO_NAME_PREFIX,
 } from "@xwiki/cristal-editors-blocknote-react";
 import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
@@ -199,9 +198,7 @@ export class UniAstToBlockNoteConverter {
     }
   }
 
-  private convertCustomBlockContent(
-    content: Block[],
-  ): Array<EditorStyledText | EditorLink> {
+  private convertCustomBlockContent(content: Block[]): InlineContentType[] {
     if (content.length > 1 || content[0].type !== "paragraph") {
       throw new Error("Expected a single paragraph inside custom block");
     }
@@ -313,7 +310,7 @@ export class UniAstToBlockNoteConverter {
 
   private convertInlineContent(
     inlineContent: InlineContent,
-  ): EditorStyledText | EditorLink {
+  ): InlineContentType {
     switch (inlineContent.type) {
       case "text": {
         const {
@@ -376,7 +373,10 @@ export class UniAstToBlockNoteConverter {
         return {
           // @ts-expect-error: macros are dynamically added to the AST
           type: `${MACRO_NAME_PREFIX}${inlineContent.name}`,
-          props: inlineContent.params,
+
+          // macros are dynamically added to the AST
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          props: inlineContent.params as any,
         };
     }
   }

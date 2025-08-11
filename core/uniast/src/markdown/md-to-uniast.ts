@@ -252,6 +252,9 @@ export class MarkdownToUniAstConverter {
         ];
 
       case "text":
+        // TODO: this approach is incorrect
+        // If we have e.g. `[[**hello** world]](link)`, this method will receive `[[`, `hello` and `world]]` separately
+        // Fix that!
         return this.convertText(inline.value, styles);
 
       case "html":
@@ -323,6 +326,15 @@ export class MarkdownToUniAstConverter {
 
       // Backslashes are counted as pairs, as two consecutive backslashes are not escaping the next character
       if (precedingBackslashes && precedingBackslashes[0].length % 2 !== 0) {
+        // Push the text up until this point, and continue
+        out.push({
+          type: "text",
+          content: text.substring(treated, match + firstItem.match.length),
+          styles,
+        });
+
+        treated = match + firstItem.match.length;
+
         continue;
       }
 
@@ -375,6 +387,15 @@ export class MarkdownToUniAstConverter {
           }
 
           if (!closed) {
+            // Push the text up until this point, and continue
+            out.push({
+              type: "text",
+              content: text.substring(treated, match + firstItem.match.length),
+              styles,
+            });
+
+            treated = match + firstItem.match.length;
+
             break;
           }
 

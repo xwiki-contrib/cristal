@@ -51,7 +51,12 @@ function createCustomBlockSpec<
   const B extends CustomBlockConfig,
   const I extends InlineContentSchema,
   const S extends StyleSchema,
->(block: {
+>({
+  config,
+  implementation,
+  slashMenu,
+  customToolbar,
+}: {
   config: B;
   implementation: ReactCustomBlockImplementation<B, I, S>;
   slashMenu: {
@@ -61,21 +66,21 @@ function createCustomBlockSpec<
     icon: ReactNode;
     default: PartialBlock<Record<B["type"], B>>;
   };
-  toolbar: () => ReactNode | null;
+  customToolbar: (() => ReactNode) | null;
 }) {
   return {
-    block: createReactBlockSpec(block.config, block.implementation),
+    block: createReactBlockSpec(config, implementation),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    slashMenuEntry: (editor: BlockNoteEditor<any>) => ({
-      title: block.slashMenu.title,
-      aliases: block.slashMenu.aliases,
-      group: block.slashMenu.group,
-      icon: block.slashMenu.icon,
+    slashMenuEntry: (editor: BlockNoteEditor<any, any>) => ({
+      title: slashMenu.title,
+      aliases: slashMenu.aliases,
+      group: slashMenu.group,
+      icon: slashMenu.icon,
       onItemClick: () => {
-        insertOrUpdateBlock(editor, block.slashMenu.default);
+        insertOrUpdateBlock(editor, slashMenu.default);
       },
     }),
-    toolbar,
+    customToolbar,
   };
 }
 
@@ -91,37 +96,44 @@ function createCustomBlockSpec<
 function createCustomInlineContentSpec<
   const I extends CustomInlineContentConfig,
   const S extends StyleSchema,
->(inlineContent: {
+>({
+  config,
+  implementation,
+  slashMenu,
+  customToolbar,
+}: {
   config: I;
   implementation: ReactInlineContentImplementation<I, S>;
-  slashMenu: {
-    title: string;
-    aliases?: string[];
-    group: string;
-    icon: ReactNode;
-    default: PartialInlineContent<Record<I["type"], I>, S>;
-  };
-  toolbar: () => ReactNode | null;
+  slashMenu:
+    | {
+        title: string;
+        aliases?: string[];
+        group: string;
+        icon: ReactNode;
+        default: PartialInlineContent<Record<I["type"], I>, S>;
+      }
+    | false;
+  customToolbar: (() => ReactNode) | null;
 }) {
   return {
-    inlineContent: createReactInlineContentSpec(
-      inlineContent.config,
-      inlineContent.implementation,
-    ),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    slashMenuEntry: (editor: BlockNoteEditor<any>) => ({
-      title: inlineContent.slashMenu.title,
-      aliases: inlineContent.slashMenu.aliases,
-      group: inlineContent.slashMenu.group,
-      icon: inlineContent.slashMenu.icon,
-      onItemClick: () => {
-        editor.insertInlineContent([
-          // @ts-expect-error: the AST is dynamically-typed with macros, so the types are incorrect here
-          inlineContent.slashMenu.default,
-        ]);
-      },
-    }),
-    toolbar,
+    inlineContent: createReactInlineContentSpec(config, implementation),
+
+    slashMenuEntry: !slashMenu
+      ? false
+      : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (editor: BlockNoteEditor<any>) => ({
+          title: slashMenu.title,
+          aliases: slashMenu.aliases,
+          group: slashMenu.group,
+          icon: slashMenu.icon,
+          onItemClick: () => {
+            editor.insertInlineContent([
+              // @ts-expect-error: the AST is dynamically-typed with macros, so the types are incorrect here
+              slashMenu.default,
+            ]);
+          },
+        }),
+    customToolbar,
   };
 }
 
@@ -282,7 +294,7 @@ type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
  *
  * @since 0.20
  * */
-const MACRO_NAME_PREFIX = "Macro.";
+const MACRO_NAME_PREFIX = "Macro_";
 
 /**
  * Create a macro.
@@ -374,7 +386,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
               default: defaultValue,
             },
             // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
-            toolbar: () => null,
+            customToolbar: null,
           }),
         }
       : {
@@ -399,7 +411,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
               default: [defaultValue],
             },
             // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
-            toolbar: () => null,
+            customToolbar: null,
           }),
         };
 
@@ -413,5 +425,11 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
   };
 }
 
-export { MACRO_NAME_PREFIX, createCustomBlockSpec, createMacro };
+export {
+  MACRO_NAME_PREFIX,
+  createCustomBlockSpec,
+  createCustomInlineContentSpec,
+  createMacro,
+};
+
 export type { Macro, MacroCreationArgs, MacroParameterType };

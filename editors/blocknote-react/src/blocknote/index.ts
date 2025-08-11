@@ -19,14 +19,14 @@
  */
 
 import { Heading4, Heading5, Heading6 } from "./blocks/Headings";
+import { InternalLink } from "./inlineContents/InternalLink";
 import { MACRO_NAME_PREFIX, Macro } from "./utils";
 import translations from "../translations";
 import {
   Block,
   BlockNoteEditor,
   BlockNoteSchema,
-  Link,
-  StyledText,
+  InlineContent,
   combineByGroup,
   defaultBlockSpecs,
   defaultInlineContentSpecs,
@@ -73,6 +73,9 @@ function createBlockNoteSchema(macros: Macro[]) {
 
     inlineContentSpecs: {
       ...defaultInlineContentSpecs,
+
+      // Custom inline contents
+      InternalLink: InternalLink.inlineContent,
 
       // Macros
       ...Object.fromEntries(
@@ -171,11 +174,13 @@ type EditorType = BlockNoteEditor<
   EditorStyleSchema
 >;
 
-type EditorStyledText = StyledText<EditorStyleSchema>;
-type EditorLink = Link<EditorStyleSchema>;
-
 type BlockType = Block<
   EditorBlockSchema,
+  EditorInlineContentSchema,
+  EditorStyleSchema
+>;
+
+type InlineContentType = InlineContent<
   EditorInlineContentSchema,
   EditorStyleSchema
 >;
@@ -188,11 +193,10 @@ export type {
   EditorBlockSchema,
   EditorInlineContentSchema,
   EditorLanguage,
-  EditorLink,
   EditorSchema,
   EditorStyleSchema,
-  EditorStyledText,
   EditorType,
+  InlineContentType,
 };
 
 export { createBlockNoteSchema, createDictionary, querySuggestionsMenuItems };

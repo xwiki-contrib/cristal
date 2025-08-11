@@ -18,17 +18,25 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { LinkEditor } from "./LinkEditor";
+import { BlockType, EditorType, InlineContentType } from "../../blocknote";
 import { useEditor } from "../../hooks";
 import { LinkEditionContext } from "../../misc/linkSuggest";
 import { formatKeyboardShortcut } from "@blocknote/core";
-import { useComponentsContext, useDictionary } from "@blocknote/react";
-import { useCallback, useState } from "react";
+import {
+  useComponentsContext,
+  useDictionary,
+  useEditorContentOrSelectionChange,
+} from "@blocknote/react";
+import { ensureArrayType, tryFallible } from "@xwiki/cristal-fn-utils";
+import { useCallback, useEffect, useState } from "react";
 import { RiLink } from "react-icons/ri";
 
 export type CustomCreateLinkButtonProps = {
   linkEditionCtx: LinkEditionContext;
 };
 
+// TODO: don't show this button if inside an internal or external link
+// eslint-disable-next-line max-statements
 export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
   linkEditionCtx,
 }) => {
@@ -36,21 +44,71 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
   const Components = useComponentsContext()!;
   const dict = useDictionary();
 
-  const [opened, setOpened] = useState(false);
+  const [selection, setSelection] =
+    useState<ReturnType<typeof extractSelectedInlineContents>>(false);
+
+  const [selectedText, setSelectedText] = useState(editor.getSelectedText());
+
+  useEffect(() => {
+    console.log(extractSelectedInlineContents(editor));
+    setSelection(extractSelectedInlineContents(editor));
+    setSelectedText(editor.getSelectedText());
+  }, []);
+
+  useEditorContentOrSelectionChange(() => {
+    console.log(extractSelectedInlineContents(editor));
+    setSelection(extractSelectedInlineContents(editor));
+    setSelectedText(editor.getSelectedText());
+  }, editor);
+
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const insertLink = useCallback(
     (url: string) => {
-      editor.createLink(url);
+      if (selection === false) {
+        return;
+      }
+
+      const reference = tryFallible(() =>
+        linkEditionCtx.remoteURLParser.parse(url),
+      );
+
+      if (reference) {
+        console.log({ selection });
+        editor.insertInlineContent([
+          {
+            type: "InternalLink",
+            props: {
+              reference:
+                linkEditionCtx.modelReferenceSerializer.serialize(reference)!,
+            },
+            content: selection,
+          },
+        ]);
+      } else {
+        editor.insertInlineContent(
+          [
+            {
+              type: "link",
+              href: url,
+              content: selection,
+            },
+          ],
+          { updateSelection: true },
+        );
+      }
+
       editor.focus();
     },
-    [editor],
+    [editor, selection],
   );
 
-  // TODO: check if we need to update in realtime when the selection change?
-  const selected = editor.getSelectedText();
+  if (selection === false) {
+    return null;
+  }
 
   return (
-    <Components.Generic.Popover.Root opened={opened}>
+    <Components.Generic.Popover.Root opened={showDropdown}>
       <Components.Generic.Popover.Trigger>
         {/* TODO: hide tooltip on click
               (note: this comment is from BlockNote's source code but may remain relevant here) */}
@@ -64,7 +122,7 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
             dict.generic.ctrl_shortcut,
           )}
           icon={<RiLink />}
-          onClick={() => setOpened(true)}
+          onClick={() => setShowDropdown(true)}
         />
       </Components.Generic.Popover.Trigger>
       <Components.Generic.Popover.Content
@@ -75,7 +133,7 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
           creationMode
           linkEditionCtx={linkEditionCtx}
           current={{
-            title: selected,
+            title: selectedText,
             url: "",
           }}
           updateLink={({ url }) => insertLink(url)}
@@ -84,3 +142,77 @@ export const CustomCreateLinkButton: React.FC<CustomCreateLinkButtonProps> = ({
     </Components.Generic.Popover.Root>
   );
 };
+
+/**
+ * Extracted the selected inline contents. Ensures no full block or link is selected.
+ *
+ * @param editor - The editor instance
+ *
+ * @returns - The selected inline contents, or `false` if blocks are selected
+ */
+
+function extractSelectedInlineContents(
+  editor: EditorType,
+):
+  | Array<
+      Exclude<InlineContentType, { type: "link" } | { type: "InternalLink" }>
+    >
+  | false {
+  // Get the portion of the blocks that are currently selected
+  // This also allows to check if the selection is inside a link, as links cannot contain blocks themselves
+  const selection = editor.getSelectionCutBlocks();
+
+  if (selection.blocks.length !== 1) {
+    return false;
+  }
+
+  // Required as this is wrongly typed as a generic block (doesn't consider the custom BlockNote schema)
+  const block = selection.blocks[0] as BlockType;
+
+  // Don't consider blocks containing nested blocks
+  if (block.children.length > 0) {
+    return false;
+  }
+
+  const validateInlineContent = (inlineContents: InlineContentType[]) =>
+    ensureArrayType(
+      inlineContents,
+      (content) => content.type !== "link" && content.type !== "InternalLink",
+    );
+
+  switch (block.type) {
+    case "heading":
+    case "Heading4":
+    case "Heading5":
+    case "Heading6":
+    case "quote":
+    case "paragraph":
+    case "codeBlock":
+    case "bulletListItem":
+    case "numberedListItem":
+    case "checkListItem":
+      if (block.children.length > 0) {
+        return false;
+      }
+
+      return validateInlineContent(block.content);
+
+    case "image":
+      return false;
+
+    case "table": {
+      // TODO: make this work once https://github.com/TypeCellOS/BlockNote/issues/1922 is solved
+      return false;
+
+      // if (block.content.rows.length !== 1) {
+      //   return false;
+      // }
+      // const row = block.content.rows[0];
+      // if (row.cells.length !== 1) {
+      //   return false;
+      // }
+      // const cell = row.cells[0];
+      // return validateInlineContent(Array.isArray(cell) ? cell : cell.content);
+    }
+  }
+}
