@@ -141,6 +141,7 @@ type ContextForMacros = {
     macro: Macro,
     id: string,
     params: Record<string, boolean | number | string>,
+    update: (newProps: Record<string, boolean | number | string>) => void,
   ) => void;
 };
 
@@ -341,7 +342,6 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
   render,
   renderType,
 }: MacroCreationArgs<Parameters>): BuildableMacro {
-  // eslint-disable-next-line max-statements
   return (ctx) => {
     // Compute the macro name
     const blockNoteName = `${MACRO_NAME_PREFIX}${name}`;
@@ -394,6 +394,7 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
     const renderMacro = (
       contentRef: (node: HTMLElement | null) => void,
       props: Props<PropSchema>,
+      update: (newParams: Props<PropSchema>) => void,
     ) => {
       if (!Object.prototype.hasOwnProperty.call(props, MACRO_ID_PROP_NAME)) {
         throw new Error("Missing macro ID in block/inlineContent properties");
@@ -404,20 +405,12 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
       return render(
         params as GetConcreteMacroParametersType<Parameters>,
         contentRef,
-        () => ctx.openParamsEditor(macro, macroId, params),
+        () => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ctx.openParamsEditor(macro, macroId, params, update as any);
+        },
         macroId,
       );
-    };
-
-    // Open the parameters editor
-    const openParamsEditor = (props: Props<PropSchema>) => {
-      if (!Object.prototype.hasOwnProperty.call(props, MACRO_ID_PROP_NAME)) {
-        throw new Error("Missing macro ID in block/inlineContent properties");
-      }
-
-      const { [MACRO_ID_PROP_NAME]: macroId, ...params } = props;
-
-      ctx.openParamsEditor(macro, macroId, params);
     };
 
     // Block and inline macros are defined pretty differently, so a bit of logic was computed ahead of time
@@ -435,11 +428,10 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
                 propSchema,
               },
               implementation: {
-                render: ({ contentRef, block }) => (
-                  <div onDoubleClick={() => openParamsEditor(block.props)}>
-                    {renderMacro(contentRef, block.props)}
-                  </div>
-                ),
+                render: ({ contentRef, block, editor }) =>
+                  renderMacro(contentRef, block.props, (newProps) => {
+                    editor.updateBlock(block.id, { props: newProps });
+                  }),
               },
               slashMenu: {
                 ...slashMenu,
@@ -461,13 +453,15 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
                 propSchema,
               },
               implementation: {
-                render: ({ contentRef, inlineContent }) => (
-                  <span
-                    onDoubleClick={() => openParamsEditor(inlineContent.props)}
-                  >
-                    {renderMacro(contentRef, inlineContent.props)}
-                  </span>
-                ),
+                render: ({ contentRef, inlineContent, updateInlineContent }) =>
+                  renderMacro(contentRef, inlineContent.props, (newProps) => {
+                    updateInlineContent({
+                      type: inlineContent.type,
+                      props: newProps,
+                      // TODO: make it editable!
+                      content: inlineContent.content,
+                    });
+                  }),
               },
               slashMenu: {
                 ...slashMenu,

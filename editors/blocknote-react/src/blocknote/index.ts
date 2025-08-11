@@ -119,11 +119,17 @@ function querySuggestionsMenuItems(
         custom.slashMenuEntry(editor),
       ),
 
-      // Macros
-      // TODO: decide how to show inline macros as the menu is only shown for block suggestions
+      // Block macros
       filterMap(macros, (macro) =>
         !macro.hidden && macro.blockNote.type === "block"
           ? macro.blockNote.block.slashMenuEntry(editor)
+          : null,
+      ),
+
+      // Inline macros
+      filterMap(macros, (macro) =>
+        !macro.hidden && macro.blockNote.type === "inline"
+          ? macro.blockNote.inlineContent.slashMenuEntry(editor)
           : null,
       ),
     ),
