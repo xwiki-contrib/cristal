@@ -18,12 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import {
-  BlockType,
-  EditorType,
-  MACRO_NAME_PREFIX,
-} from "@xwiki/cristal-editors-blocknote-react";
-
 /**
  * Convert a string to a color. * Similar to a hash, changing the input string slightly will result in a totally
  * different color. Colors should be expected to be nice-looking and different enough from one another.
@@ -66,55 +60,4 @@ function stringToColor(str: string, prc?: number): string {
   return `#${comp.toString(16).slice(1)}`;
 }
 
-/**
- * Update a macro's parameters using its unique ID
- *
- * @param editor - The BlockNote editor
- * @param macroId - The macro's unique identifier
- * @param params - The new macro's parameters
- *
- * @since 0.20
- */
-function updateMacroParams(
-  editor: EditorType,
-  macroId: string,
-  params: Record<string, boolean | number | string>,
-): void {
-  const findMacro = (
-    macroId: string,
-    blocks: BlockType[],
-  ): BlockType | null => {
-    for (const block of blocks) {
-      if (
-        block.type.startsWith(MACRO_NAME_PREFIX) &&
-        // Typecast is required as the AST is dynamically typed
-        (block.props as Record<string, boolean | number | string>)[
-          MACRO_NAME_PREFIX
-        ] === macroId
-      ) {
-        return block;
-      }
-
-      const child = findMacro(macroId, block.children);
-
-      if (child) {
-        return child;
-      }
-    }
-
-    return null;
-  };
-
-  const macro = findMacro(macroId, editor.document);
-
-  if (!macro) {
-    throw new Error(
-      `Cannot update macro with ID "${macroId}" as it was not found in the document`,
-    );
-  }
-
-  // TODO (use ID to update block)
-  // => if so, we don't need findMacro, we don't need macro IDs either
-}
-
-export { stringToColor, updateMacroParams };
+export { stringToColor };
