@@ -395,12 +395,24 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
       props: Props<PropSchema>,
       update: (newParams: Props<PropSchema>) => void,
     ) => {
-      return render(
+      const openParamsEditor = () =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ctx.openParamsEditor(macro, props, update as any);
+
+      const rendered = render(
         props as GetConcreteMacroParametersType<Parameters>,
         contentRef,
-        () =>
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          ctx.openParamsEditor(macro, props, update as any),
+        openParamsEditor,
+      );
+
+      return renderType === "inline" ? (
+        <span style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
+          {rendered}
+        </span>
+      ) : (
+        <div style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
+          {rendered}
+        </div>
       );
     };
 
