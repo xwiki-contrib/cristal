@@ -136,7 +136,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   blockNoteOptions,
   theme,
   content,
-  macros: macrosInit,
+  macros,
   realtime,
   onChange,
   lang,
@@ -146,13 +146,13 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   const { t } = useTranslation();
   const collaborationProvider = realtime?.collaborationProvider;
 
-  const macros = macrosInit
-    ? macrosInit.buildable.map((builder) =>
-        builder({ openParamsEditor: macrosInit.openMacroParamsEditor }),
+  const builtMacros = macros
+    ? macros.buildable.map((builder) =>
+        builder({ openParamsEditor: macros.openMacroParamsEditor }),
       )
-    : null;
+    : [];
 
-  const schema = createBlockNoteSchema(macros ?? []);
+  const schema = createBlockNoteSchema(builtMacros);
 
   const initializer: CollaborationInitializer | undefined =
     collaborationProvider ? collaborationProvider() : undefined;
@@ -285,7 +285,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
       <SuggestionMenuController
         triggerCharacter={"/"}
         getItems={async (query) =>
-          querySuggestionsMenuItems(editor, query, macros ?? [])
+          querySuggestionsMenuItems(editor, query, builtMacros)
         }
       />
 
