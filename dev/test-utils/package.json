@@ -18,9 +18,9 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
+  "types": "./src/index.ts",
   "dependencies": {
     "vue-i18n": "11.1.11"
   },
