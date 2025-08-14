@@ -162,12 +162,16 @@ type BuildableMacro = (ctx: ContextForMacros) => Macro;
 type ContextForMacros = {
   /**
    * Request the opening of an UI to edit the macro's parameters (e.g. a modal)
+   *
+   * @param macro - Description of the macro being edited
+   * @param params - Current parameters of the macro
+   * @param update - Calling this function will replace the existing macro's parameters with the provided ones
    */
-  openParamsEditor: (
+  openParamsEditor(
     macro: Macro,
     params: Record<string, boolean | number | string>,
     update: (newProps: Record<string, boolean | number | string>) => void,
-  ) => void;
+  ): void;
 };
 
 /**
