@@ -53,7 +53,7 @@ export class NextcloudBasicAuthenticationManager
   async start(): Promise<void> {
     const config = this.cristalApp.getWikiConfig();
 
-    this.authenticationState.callback.value = async (): Promise<{
+    this.authenticationState.callback = async (): Promise<{
       success: boolean;
       status?: number;
     }> => {

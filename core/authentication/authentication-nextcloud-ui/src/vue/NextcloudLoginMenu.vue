@@ -41,7 +41,7 @@ const password: Ref<string> = authenticationState.password;
 const errorStatus: Ref<number | undefined> = ref(undefined);
 
 async function callback() {
-  const response = await authenticationState.callback.value();
+  const response = await authenticationState.callback();
   if (!response.success) {
     errorStatus.value = response.status;
   }
