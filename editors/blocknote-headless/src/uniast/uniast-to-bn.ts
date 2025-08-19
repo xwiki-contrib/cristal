@@ -34,6 +34,7 @@ import type {
   ConverterContext,
   Image,
   InlineContent,
+  TableCell as TableCellUniast,
   UniAst,
 } from "@xwiki/cristal-uniast-api";
 
@@ -150,47 +151,38 @@ export class UniAstToBlockNoteConverter {
       case "list":
         return this.convertList(block);
 
-      case "table":
-        /*
-
-          type: "table",
-          columns: header.cells.map((cell, i) => ({
-            headerCell: this.convertTableCell(cell),
-            widthPx: block.content.columnWidths[i],
-          })),
-          rows: rows.map((row) =>
-            row.cells.map((item) => this.convertTableCell(item)),
-          ),
-          styles: this.convertBlockStyles(block.props),
-        };
-         */
+      case "table": {
+        // TODO: fix the issue with empty header cell, seems to be making the editor crash
+        // or the output format is not ok, maybe because we force headerRows to 1 now
+        const newVar: {
+          cells: TableCell<EditorInlineContentSchema, EditorStyleSchema>[];
+        }[] = block.columns.some((c) => c.headerCell === undefined)
+          ? []
+          : [
+              {
+                cells: block.columns.map((c) =>
+                  this.convertCellOK(c.headerCell!),
+                ),
+              },
+            ];
+        const map: {
+          cells: TableCell<EditorInlineContentSchema, EditorStyleSchema>[];
+        }[] = block.rows.map((cells) => ({
+          cells: cells.map(this.convertCellOK),
+        }));
         return {
           type: "table",
           id: genId(),
           content: {
             type: "tableContent",
+            headerRows: 1,
             columnWidths: block.columns.map((col) => col.widthPx),
-            rows: block.rows.map((cells) => ({
-              cells: cells.map(
-                (
-                  cell,
-                ): TableCell<EditorInlineContentSchema, EditorStyleSchema> => ({
-                  type: "tableCell",
-                  content: cell.content.map((item) =>
-                    this.convertInlineContent(item),
-                  ),
-                  props: {
-                    ...this.convertBlockStyles(cell.styles),
-                    colspan: cell.colSpan,
-                    rowspan: cell.rowSpan,
-                  },
-                }),
-              ),
-            })),
+            rows: [...newVar, ...map],
           },
           children: [],
           props: this.convertBlockStyles(block.styles),
         };
+      }
 
       case "image":
         return this.convertImage(block);
@@ -210,6 +202,20 @@ export class UniAstToBlockNoteConverter {
       default:
         assertUnreachable(block);
     }
+  }
+
+  private convertCellOK(
+    cell: TableCellUniast,
+  ): TableCell<EditorInlineContentSchema, EditorStyleSchema> {
+    return {
+      type: "tableCell",
+      content: cell.content.map((item) => this.convertInlineContent(item)),
+      props: {
+        ...this.convertBlockStyles(cell.styles),
+        colspan: cell.colSpan,
+        rowspan: cell.rowSpan,
+      },
+    };
   }
 
   private convertCustomBlockContent(
