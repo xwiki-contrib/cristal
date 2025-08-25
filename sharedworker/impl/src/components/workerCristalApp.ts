@@ -19,16 +19,16 @@
  */
 
 import { DefaultLogger } from "@xwiki/cristal-api";
-import { Configurations } from "@xwiki/cristal-configuration-api";
 import { injectable } from "inversify";
 import type {
-  CristalApp as CristalApp,
+  CristalApp,
   Logger,
   LoggerConfig,
   PageData,
   SkinManager,
   WikiConfig,
 } from "@xwiki/cristal-api";
+import type { Configurations } from "@xwiki/cristal-configuration-api";
 import type { Container } from "inversify";
 import type { App, Component } from "vue";
 import type { Router } from "vue-router";
@@ -152,10 +152,6 @@ export class WorkerCristalApp implements CristalApp {
   }
 
   getLoggerConfig(): LoggerConfig {
-    throw new Error("Method not implemented.");
-  }
-
-  renderContent(): Promise<string> {
     throw new Error("Method not implemented.");
   }
 }

@@ -15,7 +15,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -23,7 +23,7 @@
     "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "comlink": "4.4.2"
   },
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
     "typescript": "5.9.2",
-    "vue": "3.5.18"
+    "vue": "3.5.20"
   },
   "publishConfig": {
     "exports": {

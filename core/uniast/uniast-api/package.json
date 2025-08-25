@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-uniast-api",
-  "version": "0.20.0",
+  "version": "0.21.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -15,15 +15,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsc --project tsconfig.json",
+    "build": "rimraf dist && tsc",
     "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-model-api": "workspace:*"
   },

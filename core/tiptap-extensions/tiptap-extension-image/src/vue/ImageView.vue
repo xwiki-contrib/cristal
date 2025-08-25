@@ -1,8 +1,28 @@
+<!--
+  See the LICENSE file distributed with this work for additional
+  information regarding copyright ownership.
+
+  This is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Lesser General Public License as
+  published by the Free Software Foundation; either version 2.1 of
+  the License, or (at your option) any later version.
+
+  This software is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this software; if not, write to the Free
+  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
 <script setup lang="ts">
 import { NodeViewWrapper } from "@tiptap/vue-3";
-import { Ref, computed, ref } from "vue";
+import { computed, ref } from "vue";
 import Vue3DraggableResizable from "vue3-draggable-resizable";
 import type { NodeViewProps } from "@tiptap/vue-3";
+import type { Ref } from "vue";
 
 const { node, updateAttributes } = defineProps<NodeViewProps>();
 
@@ -22,6 +42,7 @@ async function computeImageSize(src: string): Promise<ImageDimensions> {
   let resolve;
   let reject;
 
+  // eslint-disable-next-line promise/param-names
   const p: Promise<ImageDimensions> = new Promise((res, rej) => {
     resolve = res;
     reject = rej;
@@ -46,7 +67,9 @@ const originalImageDimensions: Ref<ImageDimensions | undefined> =
   ref(undefined);
 const hasChanged = ref(false);
 
+// eslint-disable-next-line promise/catch-or-return
 computeImageSize(node.attrs.src)
+  // eslint-disable-next-line promise/always-return
   .then((dimensions) => {
     originalImageDimensions.value = recompute(dimensions);
   })

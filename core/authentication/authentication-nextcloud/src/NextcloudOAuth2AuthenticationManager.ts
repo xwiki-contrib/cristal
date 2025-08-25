@@ -18,14 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import AsyncLock from "async-lock";
 import axios from "axios";
 import { inject, injectable } from "inversify";
 import Cookies from "js-cookie";
 import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
-import type { UserDetails } from "@xwiki/cristal-authentication-api";
-import type { CookieAttributes } from "js-cookie";
+import type {
+  AuthenticationManager,
+  UserDetails,
+} from "@xwiki/cristal-authentication-api";
 
 /**
  * {@link AuthenticationManager} for the Nextcloud backend, using OAuth2.
@@ -62,7 +63,7 @@ export class NextcloudOAuth2AuthenticationManager
 
   private readonly lock = new AsyncLock();
 
-  private readonly cookiesOptions: CookieAttributes = {
+  private readonly cookiesOptions: Cookies.CookieAttributes = {
     secure: true,
     sameSite: "strict",
   };

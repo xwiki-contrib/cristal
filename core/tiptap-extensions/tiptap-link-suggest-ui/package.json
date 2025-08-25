@@ -14,15 +14,20 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./dist/index.d.ts"
+    }
   },
   "main": "./src/index.ts",
   "scripts": {
-    "build": "vue-tsc --project tsconfig.json && vite build",
+    "build": "vite build",
     "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
-    "test": "vitest --run"
+    "test": "vitest --run",
+    "typecheck": "vue-tsc"
   },
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-icons": "workspace:*",
     "@xwiki/cristal-link-suggest-api": "workspace:*"
@@ -35,7 +40,7 @@
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
     "@xwiki/cristal-dsapi": "workspace:*",
-    "vue": "3.5.18",
+    "vue": "3.5.20",
     "vue-tsc": "2.2.12"
   },
   "publishConfig": {

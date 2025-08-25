@@ -18,16 +18,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { tryFallible } from "@xwiki/cristal-fn-utils";
-import {
+import { Container } from "inversify";
+import type {
   ModelReferenceHandlerProvider,
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
-import {
+import type {
   RemoteURLParserProvider,
   RemoteURLSerializerProvider,
 } from "@xwiki/cristal-model-remote-url-api";
-import { Container } from "inversify";
 import type { ConverterContext } from "@xwiki/cristal-uniast-api";
 
 /**

@@ -15,22 +15,22 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./src/index.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
-    "build": "rimraf dist && tsc --project tsconfig.json",
+    "build": "rimraf dist && tsc",
     "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
   "peerDependencies": {
     "inversify": "7.x",
     "reflect-metadata": "0.x"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "inversify": "7.7.0",
+    "inversify": "7.9.0",
     "reflect-metadata": "0.2.2",
     "typescript": "5.9.2"
   },

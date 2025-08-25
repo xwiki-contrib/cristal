@@ -14,18 +14,20 @@
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./src/index.ts"
+    }
   },
   "main": "./src/index.ts",
   "scripts": {
-    "build": "pnpm compile",
+    "build": "vite build",
     "clean": "rimraf dist",
-    "compile": "vue-tsc --project tsconfig.json && vite build",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
-    "prepack": "pnpm build",
-    "test": "vitest --run"
+    "test": "vitest --run",
+    "typecheck": "vue-tsc"
   },
-  "types": "dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-alerts-api": "workspace:*",
     "@xwiki/cristal-alerts-ui": "workspace:*",
@@ -33,6 +35,7 @@
     "@xwiki/cristal-backend-api": "workspace:*",
     "@xwiki/cristal-date-ui": "workspace:*",
     "@xwiki/cristal-document-api": "workspace:*",
+    "@xwiki/cristal-dsapi": "workspace:*",
     "@xwiki/cristal-extra-tabs-api": "workspace:*",
     "@xwiki/cristal-extra-tabs-ui": "workspace:*",
     "@xwiki/cristal-hierarchy-api": "workspace:*",
@@ -66,14 +69,13 @@
     "@vue/test-utils": "2.4.6",
     "@xwiki/cristal-dev-config": "workspace:*",
     "@xwiki/cristal-dev-test-utils": "workspace:*",
-    "@xwiki/cristal-dsapi": "workspace:*",
-    "inversify": "7.7.0",
+    "inversify": "7.9.0",
     "ts-essentials": "10.1.1",
     "typescript": "5.9.2",
-    "vite": "7.0.6",
+    "vite": "7.1.3",
     "vitest": "3.2.4",
     "vitest-mock-extended": "3.1.0",
-    "vue": "3.5.18",
+    "vue": "3.5.20",
     "vue-tsc": "2.2.12"
   },
   "publishConfig": {

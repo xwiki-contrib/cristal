@@ -18,14 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import { GitHubAuthenticationState } from "@xwiki/cristal-authentication-github-state";
 import axios from "axios";
 import { inject, injectable } from "inversify";
 import Cookies from "js-cookie";
 import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
-import type { UserDetails } from "@xwiki/cristal-authentication-api";
-import type { CookieAttributes } from "js-cookie";
+import type {
+  AuthenticationManager,
+  UserDetails,
+} from "@xwiki/cristal-authentication-api";
 
 /**
  * {@link AuthenticationManager} for the GitHub backend.
@@ -103,10 +104,6 @@ export class GitHubAuthenticationManager implements AuthenticationManager {
     const configName = window.localStorage.getItem(
       this.localStorageConfigName,
     )!;
-    const cookiesOptions: CookieAttributes = {
-      secure: true,
-      sameSite: "strict",
-    };
 
     // This converts the interval polling time and expiration time provided by
     // GitHub to milliseconds.
@@ -130,15 +127,19 @@ export class GitHubAuthenticationManager implements AuthenticationManager {
         token_type?: string;
       } = await response.json();
       if (!jsonResponse.error) {
+        const options: Cookies.CookieAttributes = {
+          secure: true,
+          sameSite: "strict",
+        };
         Cookies.set(
           this.getAccessTokenCookieKey(configName),
           jsonResponse.access_token!,
-          cookiesOptions,
+          options,
         );
         Cookies.set(
           this.getTokenTypeCookieKey(configName),
           jsonResponse.token_type!,
-          cookiesOptions,
+          options,
         );
         clearInterval(intervalId);
         // We reload the content on successful login.

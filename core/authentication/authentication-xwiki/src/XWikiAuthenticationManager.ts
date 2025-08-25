@@ -18,13 +18,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { AuthenticationManager } from "@xwiki/cristal-authentication-api";
 import axios from "axios";
 import { inject, injectable } from "inversify";
 import Cookies from "js-cookie";
 import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
-import type { UserDetails } from "@xwiki/cristal-authentication-api";
-import type { CookieAttributes } from "js-cookie";
+import type {
+  AuthenticationManager,
+  UserDetails,
+} from "@xwiki/cristal-authentication-api";
 
 /**
  * @since 0.11
@@ -94,7 +95,7 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
     };
     const { data: tokenData } = await axios.post(tokenUrl, data, config);
     const { access_token: accessToken, token_type: tokenType } = tokenData;
-    const cookiesOptions: CookieAttributes = {
+    const cookiesOptions: Cookies.CookieAttributes = {
       secure: true,
       sameSite: "strict",
     };
