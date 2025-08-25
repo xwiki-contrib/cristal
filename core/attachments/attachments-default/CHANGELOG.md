@@ -1,5 +1,18 @@
 # @xwiki/cristal-attachments-default
 
+## 0.21.1
+
+### Patch Changes
+
+- Cristal 0.21.1 Release
+- Updated dependencies
+  - @xwiki/cristal-attachments-api@0.21.1
+  - @xwiki/cristal-authentication-api@0.21.1
+  - @xwiki/cristal-backend-api@0.21.1
+  - @xwiki/cristal-model-api@0.21.1
+  - @xwiki/cristal-model-reference-api@0.21.1
+  - @xwiki/cristal-model-remote-url-api@0.21.1
+
 ## 0.21.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @xwiki/cristal-extra-tabs-default
 
+## 0.21.1
+
+### Patch Changes
+
+- Cristal 0.21.1 Release
+- Updated dependencies
+  - @xwiki/cristal-extra-tabs-api@0.21.1
+
 ## 0.21.0
 
 ### Minor Changes

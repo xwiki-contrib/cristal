@@ -1,5 +1,24 @@
 # @xwiki/cristal-editors-blocknote
 
+## 0.21.1
+
+### Patch Changes
+
+- Cristal 0.21.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.21.1
+  - @xwiki/cristal-alerts-api@0.21.1
+  - @xwiki/cristal-backend-api@0.21.1
+  - @xwiki/cristal-collaboration-api@0.21.1
+  - @xwiki/cristal-document-api@0.21.1
+  - @xwiki/cristal-icons@0.21.1
+  - @xwiki/cristal-model-api@0.21.1
+  - @xwiki/cristal-model-reference-api@0.21.1
+  - @xwiki/cristal-uniast@0.21.1
+  - @xwiki/cristal-dsapi@0.21.1
+  - @xwiki/cristal-editors-blocknote-headless@0.21.1
+  - @xwiki/cristal-skin@0.21.1
+
 ## 0.21.0
 
 ### Minor Changes
