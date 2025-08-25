@@ -17,28 +17,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { UniAstToHTMLConverter } from "@xwiki/cristal-uniast-html";
+import {
+  MarkdownToUniAstConverter,
+  createConverterContext,
+} from "@xwiki/cristal-uniast-markdown";
+import { Container } from "inversify";
 
-import { defineConfig } from "vite";
-import Vue from "@vitejs/plugin-vue";
-import { resolve } from "path";
+export function renderMarkdown(source: string, container: Container): string {
+  // Mardown to uniast to html
+  const md = new MarkdownToUniAstConverter(createConverterContext(container));
+  const html = new UniAstToHTMLConverter(createConverterContext(container));
 
-export default defineConfig({
-  build: {
-    sourcemap: true,
-    input: {
-      main: resolve(__dirname, "index.html"),
-    },
-  },
-  plugins: [
-    Vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith("sl-"),
-        },
-      },
-    }),
-  ],
-  worker: {
-    format: "es",
-  },
-});
+  const uniAst = md.parseMarkdown(source);
+  if (uniAst instanceof Error) {
+    throw uniAst;
+  }
+  const toHtml = html.toHtml(uniAst);
+  if (toHtml instanceof Error) {
+    throw toHtml;
+  }
+  return toHtml;
+}

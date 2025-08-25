@@ -41,7 +41,7 @@ import type {
   ListItem,
   TableCell,
   UniAst,
-} from "@xwiki/cristal-uniast";
+} from "@xwiki/cristal-uniast-api";
 
 // TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
 
@@ -53,6 +53,7 @@ export class BlockNoteToUniAstConverter {
   constructor(public context: ConverterContext) {}
 
   blocksToUniAst(blocks: BlockType[]): UniAst | Error {
+    console.log("BlockNoteToUniAstConverter", JSON.stringify(blocks));
     const uniAstBlocks = tryFallibleOrError(() => this.convertBlocks(blocks));
 
     return uniAstBlocks instanceof Error

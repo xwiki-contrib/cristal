@@ -35,7 +35,7 @@ import {
   MarkdownToUniAstConverter,
   UniAstToMarkdownConverter,
   createConverterContext,
-} from "@xwiki/cristal-uniast";
+} from "@xwiki/cristal-uniast-markdown";
 import { debounce } from "lodash-es";
 import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";
@@ -49,7 +49,7 @@ import type {
 } from "@xwiki/cristal-collaboration-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
-import type { UniAst } from "@xwiki/cristal-uniast";
+import type { UniAst } from "@xwiki/cristal-uniast-api";
 import type { Ref } from "vue";
 
 const { t } = useI18n({
