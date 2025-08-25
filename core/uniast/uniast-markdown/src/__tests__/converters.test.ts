@@ -21,10 +21,6 @@
 import { createConverterContext } from "../interface";
 import { MarkdownToUniAstConverter } from "../markdown/md-to-uniast";
 import { UniAstToMarkdownConverter } from "../markdown/uniast-to-md";
-import {
-  RemoteURLParserProvider,
-  RemoteURLSerializerProvider,
-} from "@xwiki/cristal-model-remote-url-api";
 import { Container } from "inversify";
 import { describe, expect, test } from "vitest";
 import { mock } from "vitest-mock-extended";
@@ -33,6 +29,10 @@ import type {
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
+import type {
+  RemoteURLParserProvider,
+  RemoteURLSerializerProvider,
+} from "@xwiki/cristal-model-remote-url-api";
 import type { ConverterContext, UniAst } from "@xwiki/cristal-uniast-api";
 
 // eslint-disable-next-line max-statements
@@ -86,7 +86,7 @@ describe("MarkdownToUniAstConverter", () => {
   }): void {
     const uniAst = mdToUniAst.parseMarkdown(expected.startingFrom);
 
-    // expect(uniAst).toStrictEqual(expected.withUniAst);
+    expect(uniAst).toStrictEqual(expected.withUniAst);
 
     if (uniAst instanceof Error) {
       throw new Error("Unreachable");

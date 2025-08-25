@@ -162,7 +162,6 @@ export class MarkdownToUniAstConverter {
               },
             }),
           ),
-          // TOOD: bug?
           rows: rows.map((row) =>
             row.children.map(
               (cell): TableCell => ({
