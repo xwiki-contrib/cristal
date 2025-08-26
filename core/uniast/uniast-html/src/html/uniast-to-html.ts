@@ -129,10 +129,7 @@ export class UniAstToHTMLConverter {
       .map((row) => `<tr>${row}</tr>`)
       .join("");
 
-    return `<table>
-<thead><th>${ths}</th></thead>
-<tbody>${trs}</tbody>
-</table>`;
+    return `<table><thead>${ths}</thead><tbody>${trs}</tbody></table>`;
   }
 
   private convertTableCell(cell: TableCell): string {

@@ -154,21 +154,21 @@ export class UniAstToBlockNoteConverter {
       case "table": {
         // TODO: fix the issue with empty header cell, seems to be making the editor crash
         // or the output format is not ok, maybe because we force headerRows to 1 now
-        const newVar: {
+        const headerRow: {
           cells: TableCell<EditorInlineContentSchema, EditorStyleSchema>[];
         }[] = block.columns.some((c) => c.headerCell === undefined)
           ? []
           : [
               {
                 cells: block.columns.map((c) =>
-                  this.convertCellOK(c.headerCell!),
+                  this.convertCell(c.headerCell!),
                 ),
               },
             ];
-        const map: {
+        const contentRows: {
           cells: TableCell<EditorInlineContentSchema, EditorStyleSchema>[];
         }[] = block.rows.map((cells) => ({
-          cells: cells.map(this.convertCellOK),
+          cells: cells.map((c) => this.convertCell(c)),
         }));
         return {
           type: "table",
@@ -177,7 +177,7 @@ export class UniAstToBlockNoteConverter {
             type: "tableContent",
             headerRows: 1,
             columnWidths: block.columns.map((col) => col.widthPx),
-            rows: [...newVar, ...map],
+            rows: [...headerRow, ...contentRows],
           },
           children: [],
           props: this.convertBlockStyles(block.styles),
@@ -204,7 +204,7 @@ export class UniAstToBlockNoteConverter {
     }
   }
 
-  private convertCellOK(
+  private convertCell(
     cell: TableCellUniast,
   ): TableCell<EditorInlineContentSchema, EditorStyleSchema> {
     return {
