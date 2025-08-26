@@ -17,19 +17,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { EntityType } from "@xwiki/cristal-model-api";
-import { Container } from "inversify";
 import type { EntityReference } from "@xwiki/cristal-model-api";
-import type {
-  ModelReferenceHandlerProvider,
-  ModelReferenceParserProvider,
-  ModelReferenceSerializerProvider,
-} from "@xwiki/cristal-model-reference-api";
-import type {
-  RemoteURLParserProvider,
-  RemoteURLSerializerProvider,
-} from "@xwiki/cristal-model-remote-url-api";
 
 /**
  * Set of tools used by converters
@@ -99,53 +88,3 @@ export type ConverterContext = {
    */
   getDisplayName(reference: EntityReference): string;
 };
-
-/**
- * Automatically create a converter context from a container
- * This works by extracting the required providers from the container
- *
- * @since 0.16
- *
- * @param container - Cristal application's Inversify container
- *
- * @returns The container containing everything required by the various converters
- */
-export function createConverterContext(container: Container): ConverterContext {
-  const modelReferenceParser = container
-    .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
-    .get()!;
-
-  const modelReferenceSerializer = container
-    .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")
-    .get()!;
-
-  const remoteURLParser = container
-    .get<RemoteURLParserProvider>("RemoteURLParserProvider")
-    .get()!;
-
-  const remoteURLSerializer = container
-    .get<RemoteURLSerializerProvider>("RemoteURLSerializerProvider")
-    .get()!;
-
-  const modelReferenceHandler = container
-    .get<ModelReferenceHandlerProvider>("ModelReferenceHandlerProvider")
-    .get()!;
-
-  return {
-    parseReference: (reference, type) =>
-      tryFallible(() =>
-        modelReferenceParser.parse(reference, type ?? undefined),
-      ),
-
-    serializeReference: (reference) =>
-      modelReferenceSerializer.serialize(reference)!,
-
-    parseReferenceFromUrl: (url) =>
-      tryFallible(() => remoteURLParser.parse(url)) ?? null,
-
-    getUrlFromReference: (reference) =>
-      remoteURLSerializer.serialize(reference)!,
-
-    getDisplayName: (reference) => modelReferenceHandler.getTitle(reference),
-  };
-}
