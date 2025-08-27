@@ -31,8 +31,6 @@
   "dependencies": {
     "@xwiki/cristal-fn-utils": "workspace:*",
     "@xwiki/cristal-model-api": "workspace:*",
-    "@xwiki/cristal-model-reference-api": "workspace:*",
-    "@xwiki/cristal-model-remote-url-api": "workspace:*",
     "@xwiki/cristal-uniast-api": "workspace:*",
     "mdast-util-gfm-strikethrough": "2.0.0",
     "mdast-util-gfm-table": "2.0.0",
@@ -49,6 +47,9 @@
   "devDependencies": {
     "@types/mdast": "4.0.4",
     "@xwiki/cristal-dev-config": "workspace:*",
+    "@xwiki/cristal-model-reference-api": "workspace:*",
+    "@xwiki/cristal-model-remote-url-api": "workspace:*",
+    "@xwiki/cristal-uniast-utils": "workspace:*",
     "inversify": "7.9.0",
     "typescript": "5.9.2",
     "vite": "7.1.3",

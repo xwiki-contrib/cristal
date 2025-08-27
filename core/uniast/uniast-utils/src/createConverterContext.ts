@@ -41,9 +41,9 @@ import type { ConverterContext } from "@xwiki/cristal-uniast-api";
  * @returns The container containing everything required by the various converters
  */
 export function createConverterContext(container: Container): ConverterContext {
-  const modelReferenceParser = container
-    .get<ModelReferenceParserProvider>("ModelReferenceParserProvider")
-    .get()!;
+  const modelReferenceParserProvider =
+    container.get<ModelReferenceParserProvider>("ModelReferenceParserProvider");
+  const modelReferenceParser = modelReferenceParserProvider.get()!;
 
   const modelReferenceSerializer = container
     .get<ModelReferenceSerializerProvider>("ModelReferenceSerializerProvider")

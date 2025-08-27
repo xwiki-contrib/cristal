@@ -1,12 +1,12 @@
 {
-  "name": "@xwiki/cristal-uniast-html",
+  "name": "@xwiki/cristal-uniast-utils",
   "version": "0.21.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
     "type": "git",
-    "directory": "core/uniast/uniast-html",
+    "directory": "core/uniast/uniast-utils",
     "url": "git+https://github.com/xwiki-contrib/cristal.git"
   },
   "bugs": {
@@ -29,23 +29,19 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-model-api": "workspace:*",
-    "@xwiki/cristal-uniast-api": "workspace:*",
-    "lodash-es": "4.17.21"
+    "@xwiki/cristal-fn-utils": "workspace:*",
+    "@xwiki/cristal-model-reference-api": "workspace:*",
+    "@xwiki/cristal-model-remote-url-api": "workspace:*",
+    "@xwiki/cristal-uniast-api": "workspace:*"
   },
   "peerDependencies": {
     "inversify": "7.x"
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.12",
     "@xwiki/cristal-dev-config": "workspace:*",
-    "@xwiki/cristal-model-reference-api": "workspace:*",
-    "@xwiki/cristal-model-remote-url-api": "workspace:*",
-    "@xwiki/cristal-uniast-utils": "workspace:*",
     "inversify": "7.9.0",
     "typescript": "5.9.2",
-    "vite": "7.1.3",
-    "vitest-mock-extended": "3.1.0"
+    "vite": "7.1.3"
   },
   "publishConfig": {
     "exports": {

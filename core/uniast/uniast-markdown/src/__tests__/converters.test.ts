@@ -18,9 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { createConverterContext } from "../interface";
 import { MarkdownToUniAstConverter } from "../markdown/md-to-uniast";
 import { UniAstToMarkdownConverter } from "../markdown/uniast-to-md";
+import { createConverterContext } from "@xwiki/cristal-uniast-utils";
 import { Container } from "inversify";
 import { describe, expect, test } from "vitest";
 import { mock } from "vitest-mock-extended";
