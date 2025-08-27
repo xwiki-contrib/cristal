@@ -152,8 +152,6 @@ export class UniAstToBlockNoteConverter {
         return this.convertList(block);
 
       case "table": {
-        // TODO: fix the issue with empty header cell, seems to be making the editor crash
-        // or the output format is not ok, maybe because we force headerRows to 1 now
         const headerRow: {
           cells: TableCell<EditorInlineContentSchema, EditorStyleSchema>[];
         }[] = block.columns.some((c) => c.headerCell === undefined)

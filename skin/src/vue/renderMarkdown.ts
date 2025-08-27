@@ -18,12 +18,18 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { UniAstToHTMLConverter } from "@xwiki/cristal-uniast-html";
-import {
-  MarkdownToUniAstConverter,
-  createConverterContext,
-} from "@xwiki/cristal-uniast-markdown";
+import { MarkdownToUniAstConverter } from "@xwiki/cristal-uniast-markdown";
+import { createConverterContext } from "@xwiki/cristal-uniast-utils";
 import { Container } from "inversify";
 
+/**
+ * Converts a markdown source into html.
+ *
+ * @param source - the markdown content
+ * @param container - the inversify container
+ *
+ * @since 0.22
+ */
 export function renderMarkdown(source: string, container: Container): string {
   // Mardown to uniast to html
   const md = new MarkdownToUniAstConverter(createConverterContext(container));

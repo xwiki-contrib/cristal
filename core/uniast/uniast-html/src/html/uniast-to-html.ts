@@ -33,7 +33,7 @@ import type {
 /**
  * Converts Universal AST trees to HTML.
  *
- * @since 0.21
+ * @since 0.22
  */
 export class UniAstToHTMLConverter {
   constructor(private readonly context: ConverterContext) {}
@@ -46,7 +46,6 @@ export class UniAstToHTMLConverter {
       try {
         out.push(this.blockToHTML(block));
       } catch (e) {
-        // TODO: improve error management
         console.error(e);
       }
     }
@@ -100,14 +99,14 @@ export class UniAstToHTMLConverter {
   }
 
   private convertImage(image: Image): string {
-    // TODO: alt text
     const target = image.target;
     const srcValue: string = escape(
       target.type === "external"
         ? target.url
-        : this.convertReference(target.rawReference, EntityType.ATTACHMENT),
+        : target.parsedReference !== null
+          ? this.context.getUrlFromReference(target.parsedReference)
+          : this.convertReference(target.rawReference, EntityType.ATTACHMENT),
     );
-    // TODO: resolve reference?
     const altValue: string = escape(image.alt) ?? "";
     return `<img src="${srcValue}" alt="${altValue}">`;
   }

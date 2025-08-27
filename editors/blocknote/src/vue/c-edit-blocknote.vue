@@ -34,8 +34,8 @@ import { CArticle } from "@xwiki/cristal-skin";
 import {
   MarkdownToUniAstConverter,
   UniAstToMarkdownConverter,
-  createConverterContext,
 } from "@xwiki/cristal-uniast-markdown";
+import { createConverterContext } from "@xwiki/cristal-uniast-utils";
 import { debounce } from "lodash-es";
 import { inject, ref, shallowRef, useTemplateRef, watch } from "vue";
 import { useI18n } from "vue-i18n";

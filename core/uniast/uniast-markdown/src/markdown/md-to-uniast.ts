@@ -149,10 +149,10 @@ export class MarkdownToUniAstConverter {
         };
 
       case "table": {
-        const [head, ...rows] = block.children;
+        const [headers, ...rows] = block.children;
         return {
           type: "table",
-          columns: head?.children.map(
+          columns: headers?.children.map(
             (cell): TableColumn => ({
               headerCell: {
                 content: cell.children.flatMap((item) =>

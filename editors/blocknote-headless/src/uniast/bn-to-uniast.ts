@@ -53,7 +53,6 @@ export class BlockNoteToUniAstConverter {
   constructor(public context: ConverterContext) {}
 
   blocksToUniAst(blocks: BlockType[]): UniAst | Error {
-    console.log("BlockNoteToUniAstConverter", JSON.stringify(blocks));
     const uniAstBlocks = tryFallibleOrError(() => this.convertBlocks(blocks));
 
     return uniAstBlocks instanceof Error

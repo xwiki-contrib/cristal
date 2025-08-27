@@ -24,7 +24,7 @@ import messages from "../translations";
 import { BlockNoteToUniAstConverter } from "../uniast/bn-to-uniast";
 import { UniAstToBlockNoteConverter } from "../uniast/uniast-to-bn";
 import { mountBlockNote } from "@xwiki/cristal-editors-blocknote-react";
-import { createConverterContext } from "@xwiki/cristal-uniast-markdown";
+import { createConverterContext } from "@xwiki/cristal-uniast-utils";
 import { Container } from "inversify";
 
 import { debounce } from "lodash-es";

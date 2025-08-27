@@ -3585,6 +3585,9 @@ importers:
       '@xwiki/cristal-uniast-markdown':
         specifier: workspace:*
         version: link:../../core/uniast/uniast-markdown
+      '@xwiki/cristal-uniast-utils':
+        specifier: workspace:*
+        version: link:../../core/uniast/uniast-utils
       lodash-es:
         specifier: 4.17.21
         version: 4.17.21
@@ -3664,9 +3667,9 @@ importers:
       '@xwiki/cristal-uniast-api':
         specifier: workspace:*
         version: link:../../core/uniast/uniast-api
-      '@xwiki/cristal-uniast-markdown':
+      '@xwiki/cristal-uniast-utils':
         specifier: workspace:*
-        version: link:../../core/uniast/uniast-markdown
+        version: link:../../core/uniast/uniast-utils
       eventemitter3:
         specifier: 5.0.1
         version: 5.0.1
@@ -5024,6 +5027,9 @@ importers:
       '@xwiki/cristal-uniast-markdown':
         specifier: workspace:*
         version: link:../core/uniast/uniast-markdown
+      '@xwiki/cristal-uniast-utils':
+        specifier: workspace:*
+        version: link:../core/uniast/uniast-utils
       '@xwiki/cristal-user-ui':
         specifier: workspace:*
         version: link:../core/user/user-ui
