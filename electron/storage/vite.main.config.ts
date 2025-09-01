@@ -25,7 +25,14 @@ export default mergeConfig(
   generateConfig(import.meta.url, "dist/main"),
   defineConfig({
     build: {
+      target: `node22`,
+      lib: {
+        entry: "./src/electron/main/index.ts",
+      },
       outDir: "dist/main",
+      rollupOptions: {
+        external: ["node:path", "node:fs/promises", "node:fs", "node:os"],
+      },
     },
   }),
 );

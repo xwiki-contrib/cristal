@@ -20,7 +20,6 @@
     }
   },
   "scripts": {
-    "api-extractor:local": "api-extractor run --local",
     "clean": "rimraf dist",
     "dev": "nodemon src/index.ts",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"

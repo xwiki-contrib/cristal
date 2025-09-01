@@ -25,6 +25,9 @@ export default mergeConfig(
   generateConfig(import.meta.url, "dist/preload"),
   defineConfig({
     build: {
+      lib: {
+        entry: "./src/electron/preload/index.ts",
+      },
       outDir: "dist/preload",
     },
   }),

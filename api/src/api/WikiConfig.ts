@@ -20,9 +20,6 @@
 
 import type { Storage } from "./storage";
 
-/**
- * @beta
- */
 interface WikiConfig {
   name: string;
   // The base url of the backend endpoint

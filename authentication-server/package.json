@@ -14,7 +14,6 @@
   },
   "type": "module",
   "scripts": {
-    "api-extractor:local": "api-extractor run --local",
     "build": "esbuild ./src/index.ts --bundle --outfile=dist/index.cjs --platform=node",
     "clean": "rimraf dist",
     "dev": "tsx src/index.ts",
