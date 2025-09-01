@@ -107,6 +107,7 @@ type EntityReference =
 
 export {
   AttachmentReference,
+  type BaseEntityReference,
   DocumentReference,
   type EntityReference,
   EntityType,

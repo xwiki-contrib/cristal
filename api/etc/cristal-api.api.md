@@ -27,12 +27,26 @@ export class ComponentInit {
 }
 
 // @public (undocumented)
+export type ConfigObjectType = {
+    name: string;
+    baseURL: string;
+    baseRestURL: string;
+    homePage: string;
+    serverRendering: boolean;
+    designSystem: string;
+    offline: boolean;
+    realtimeURL?: string;
+    authenticationBaseURL?: string;
+    authenticationManager?: string;
+    storageRoot?: string;
+    editor?: string;
+};
+
+// @public (undocumented)
 export interface CristalApp {
     deleteAvailableConfiguration(configName: string): void;
     // (undocumented)
     getApp(): App;
-    // Warning: (ae-incompatible-release-tags) The symbol "getAvailableConfigurations" is marked as @public, but its signature references "WikiConfig" which is marked as @beta
-    //
     // (undocumented)
     getAvailableConfigurations(): Map<string, WikiConfig>;
     // (undocumented)
@@ -50,7 +64,6 @@ export interface CristalApp {
     getLoggerConfig(): LoggerConfig;
     // (undocumented)
     getMenuEntries(): Array<string>;
-    // Warning: (ae-incompatible-release-tags) The symbol "getPage" is marked as @public, but its signature references "PageData" which is marked as @beta
     getPage(page: string, options?: {
         requeue?: boolean;
         revision?: string;
@@ -60,8 +73,6 @@ export interface CristalApp {
     // (undocumented)
     getSkinManager(): SkinManager;
     getUIXTemplates(extensionPoint: string): Promise<Array<Component>>;
-    // Warning: (ae-incompatible-release-tags) The symbol "getWikiConfig" is marked as @public, but its signature references "WikiConfig" which is marked as @beta
-    //
     // (undocumented)
     getWikiConfig(): WikiConfig;
     // (undocumented)
@@ -80,8 +91,6 @@ export interface CristalApp {
     setContentRef(ref: Ref): void;
     // (undocumented)
     setCurrentPage(page: string, mode?: string): Promise<void>;
-    // Warning: (ae-incompatible-release-tags) The symbol "setWikiConfig" is marked as @public, but its signature references "WikiConfig" which is marked as @beta
-    //
     // (undocumented)
     setWikiConfig(wikiConfig: WikiConfig): void;
     // (undocumented)
@@ -140,8 +149,6 @@ export class DefaultLoggerConfig implements LoggerConfig {
     setDefaultLevel(level: string): void;
 }
 
-// Warning: (ae-incompatible-release-tags) The symbol "DefaultPageData" is marked as @public, but its signature references "PageData" which is marked as @beta
-//
 // @public (undocumented)
 export class DefaultPageData implements PageData {
     constructor(id?: string, name?: string, source?: string, syntax?: string);
@@ -181,8 +188,6 @@ export class DefaultPageData implements PageData {
     version: string;
 }
 
-// Warning: (ae-incompatible-release-tags) The symbol "DefaultWikiConfig" is marked as @public, but its signature references "WikiConfig" which is marked as @beta
-//
 // @public (undocumented)
 export class DefaultWikiConfig implements WikiConfig {
     constructor(logger: Logger);
@@ -228,12 +233,12 @@ export class DefaultWikiConfig implements WikiConfig {
         authenticationManager?: string;
         storageRoot?: string;
     }): void;
-    // Warning: (ae-forgotten-export) The symbol "ConfigObjectType" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
     setConfigFromObject(configObject: ConfigObjectType): void;
     // (undocumented)
     setupOfflineStorage(): void;
+    // Warning: (ae-incompatible-release-tags) The symbol "storage" is marked as @public, but its signature references "Storage_2" which is marked as @internal
+    //
     // (undocumented)
     storage: Storage_2;
     storageRoot?: string;
@@ -343,7 +348,7 @@ export interface PageAttachment {
     size: number;
 }
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface PageData {
     canEdit: boolean;
     // (undocumented)
@@ -395,7 +400,7 @@ export interface SkinManager {
     setDesignSystem(designSystem: string): void;
 }
 
-// @public (undocumented)
+// @internal (undocumented)
 interface Storage_2 {
     delete(page: string): Promise<{
         success: boolean;
@@ -409,20 +414,14 @@ interface Storage_2 {
     getEditField(jsonArticle: object, fieldName: string): Promise<string>;
     // (undocumented)
     getImageURL(page: string, image: string): string;
-    // Warning: (ae-incompatible-release-tags) The symbol "getPageContent" is marked as @public, but its signature references "PageData" which is marked as @beta
-    //
     // (undocumented)
     getPageContent(page: string, syntax: string, revision?: string, requeue?: boolean): Promise<PageData | undefined>;
     // (undocumented)
     getPageFromViewURL(url: string): string | null;
     // (undocumented)
     getPageRestURL(page: string, syntax: string, revision?: string): string;
-    // Warning: (ae-incompatible-release-tags) The symbol "getPanelContent" is marked as @public, but its signature references "PageData" which is marked as @beta
-    //
     // (undocumented)
     getPanelContent(panel: string, contextPage: string, syntax: string): Promise<PageData>;
-    // Warning: (ae-incompatible-release-tags) The symbol "getWikiConfig" is marked as @public, but its signature references "WikiConfig" which is marked as @beta
-    //
     // (undocumented)
     getWikiConfig(): WikiConfig;
     // (undocumented)
@@ -434,14 +433,14 @@ interface Storage_2 {
     save(page: string, title: string, content: string, syntax: string): Promise<unknown>;
     // (undocumented)
     saveAttachments(page: string, files: File[]): Promise<undefined | (undefined | string)[]>;
-    // Warning: (ae-incompatible-release-tags) The symbol "setWikiConfig" is marked as @public, but its signature references "WikiConfig" which is marked as @beta
-    //
     // (undocumented)
     setWikiConfig(config: WikiConfig): void;
 }
+
+// Warning: (ae-internal-missing-underscore) The name "Storage" should be prefixed with an underscore because the declaration is marked as @internal
 export { Storage_2 as Storage }
 
-// @beta (undocumented)
+// @public (undocumented)
 export interface WikiConfig {
     authenticationBaseURL?: string;
     authenticationManager?: string;
@@ -473,11 +472,15 @@ export interface WikiConfig {
     setConfig(name: string, baseURL: string, baseRestURL: string, homePage: string, serverRendering: boolean, designSystem: string, offline: boolean, editor: string): void;
     // (undocumented)
     setConfigFromObject(configObject: any): void;
+    // Warning: (ae-incompatible-release-tags) The symbol "storage" is marked as @public, but its signature references "Storage_2" which is marked as @internal
+    //
     // (undocumented)
     storage: Storage_2;
     storageRoot?: string;
 }
 
+// Warning: (ae-incompatible-release-tags) The symbol "WrappingStorage" is marked as @public, but its signature references "Storage_2" which is marked as @internal
+//
 // @public (undocumented)
 export interface WrappingStorage extends Storage_2 {
     // (undocumented)

@@ -4,8 +4,6 @@
 
 ```ts
 
-// Warning: (ae-forgotten-export) The symbol "BaseEntityReference" needs to be exported by the entry point index.d.ts
-//
 // @public (undocumented)
 export class AttachmentReference implements BaseEntityReference {
     constructor(name: string, document: DocumentReference);
@@ -15,6 +13,12 @@ export class AttachmentReference implements BaseEntityReference {
     name: string;
     // (undocumented)
     type: EntityType.ATTACHMENT;
+}
+
+// @public (undocumented)
+export interface BaseEntityReference {
+    // (undocumented)
+    type: EntityType;
 }
 
 // @public (undocumented)

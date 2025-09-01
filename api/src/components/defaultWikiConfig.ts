@@ -25,7 +25,7 @@ import type { Logger } from "../api/logger";
 import type { Storage } from "../api/storage";
 import type { WrappingStorage } from "../api/wrappingStorage";
 
-type ConfigObjectType = {
+export type ConfigObjectType = {
   name: string;
   baseURL: string;
   baseRestURL: string;

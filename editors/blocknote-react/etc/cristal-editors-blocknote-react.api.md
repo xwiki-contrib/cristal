@@ -836,8 +836,6 @@ export function createDictionary(lang: EditorLanguage): {
     };
 };
 
-// Warning: (ae-forgotten-export) The symbol "MacroParameterType" needs to be exported by the entry point index.d.ts
-//
 // @public
 export function createMacro<Parameters extends Record<string, MacroParameterType>>({ name, parameters, slashMenu, render, renderType, }: MacroCreationArgs<Parameters>): BuildableMacro;
 
@@ -906,6 +904,20 @@ export type MacroCreationArgs<Parameters extends Record<string, MacroParameterTy
         defaultParameters: FilterUndefined<GetConcreteMacroParametersType<Parameters>>;
     } | false;
     render(params: GetConcreteMacroParametersType<Parameters>, contentRef: (node: HTMLElement | null) => void, openParamsEditor: () => void): React.ReactNode;
+};
+
+// @public
+export type MacroParameterType = ({
+    type: "boolean";
+} | {
+    type: "float";
+} | {
+    type: "string";
+} | {
+    type: "stringEnum";
+    possibleValues: string[];
+}) & {
+    optional?: true;
 };
 
 // @public

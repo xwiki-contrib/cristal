@@ -27,6 +27,7 @@ import type {
   ContextForMacros,
   Macro,
   MacroCreationArgs,
+  MacroParameterType,
 } from "./blocknote/utils";
 import type { BlockNoteViewWrapperProps } from "./components/BlockNoteViewWrapper";
 import type { LinkEditionContext } from "./misc/linkSuggest";
@@ -85,6 +86,7 @@ export type {
   LinkEditionContext,
   Macro,
   MacroCreationArgs,
+  MacroParameterType,
 };
 
 export * from "./blocknote";
