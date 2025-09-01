@@ -15,11 +15,11 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.umd.js"
     }
   },
-  "main": "./src/index.ts",
+  "main": "./dist/index.umd.js",
   "scripts": {
     "api-extractor:local": "api-extractor run --local",
     "build": "vite build",
@@ -39,15 +39,5 @@
     "@xwiki/cristal-dev-config": "workspace:*",
     "typescript": "5.9.2",
     "vite": "7.1.3"
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "types": "./dist/index.d.ts",
-        "require": "./dist/index.umd.js"
-      }
-    },
-    "main": "./dist/index.umd.js",
-    "types": "./dist/index.d.ts"
   }
 }

@@ -15,11 +15,17 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.es.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.umd.js"
+      }
     }
   },
-  "main": "./src/index.ts",
+  "main": "./dist/index.es.js",
   "scripts": {
     "api-extractor:local": "api-extractor run --local",
     "build": "vite build",
@@ -37,21 +43,5 @@
     "@xwiki/cristal-dev-config": "workspace:*",
     "typescript": "5.9.2",
     "vite": "7.1.3"
-  },
-  "publishConfig": {
-    "exports": {
-      ".": {
-        "import": {
-          "types": "./dist/index.d.ts",
-          "default": "./dist/index.es.js"
-        },
-        "require": {
-          "types": "./dist/index.d.cts",
-          "default": "./dist/index.umd.js"
-        }
-      }
-    },
-    "main": "./dist/index.es.js",
-    "types": "./dist/index.d.ts"
   }
 }
