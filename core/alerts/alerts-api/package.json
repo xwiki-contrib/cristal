@@ -19,6 +19,7 @@
     }
   },
   "scripts": {
+    "api-extractor:local": "api-extractor run --local",
     "build": "rimraf dist && tsc",
     "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"

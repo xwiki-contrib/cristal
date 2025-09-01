@@ -21,6 +21,9 @@
 import type { Document } from "./document";
 import type { UserDetails } from "@xwiki/cristal-authentication-api";
 
+/**
+ * @beta
+ */
 export interface PageData {
   id: string;
   name: string;

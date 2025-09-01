@@ -15,6 +15,7 @@
   },
   "type": "module",
   "scripts": {
+    "api-extractor:local": "api-extractor run --local",
     "build": "vite build",
     "clean": "rimraf dist",
     "dev": "vite dev",

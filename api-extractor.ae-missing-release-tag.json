@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "extends": "./api-extractor.json",
+  "messages": {
+    "extractorMessageReporting": {
+      /**
+      Disable to error message when an entity is missing an explicit release level annotation.
+      This should only be used on modules introduced before api-extractor was deployed.
+      When possible, the best is to fix the missing release level. The default value is "@beta".
+      */
+      "ae-missing-release-tag": {
+        "logLevel": "none"
+      }
+    }
+  }
+}
