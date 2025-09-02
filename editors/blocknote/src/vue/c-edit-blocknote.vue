@@ -101,7 +101,10 @@ const editorInstance =
 // Tools for UniAst handling
 const converterContext = createConverterContext(container);
 const markdownToUniAst = new MarkdownToUniAstConverter(converterContext);
-const uniAstToMarkdown = new UniAstToMarkdownConverter();
+const uniAstToMarkdown = new UniAstToMarkdownConverter(
+  cristal.getWikiConfig().getType(),
+  converterContext,
+);
 
 // Saving status
 const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
@@ -163,7 +166,7 @@ async function save(content: UniAst) {
   saveStatus.value = SaveStatus.SAVING;
 
   try {
-    const markdown = uniAstToMarkdown.toMarkdown(content);
+    const markdown = await uniAstToMarkdown.toMarkdown(content);
 
     if (markdown instanceof Error) {
       throw error;

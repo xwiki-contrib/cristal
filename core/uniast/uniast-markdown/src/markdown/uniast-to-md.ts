@@ -21,8 +21,10 @@
 import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import type {
   Block,
+  ConverterContext,
   Image,
   InlineContent,
+  Link,
   ListItem,
   TableCell,
   Text,
@@ -35,13 +37,28 @@ import type {
  * @since 0.16
  */
 export class UniAstToMarkdownConverter {
-  toMarkdown(uniAst: UniAst): string | Error {
+  /**
+   * @param type - the type of backend (e.g., XWiki, Nextcloud...) TODO: this is a temporary parameter to better
+   */
+  constructor(
+    private readonly type: string,
+    private readonly context: ConverterContext,
+  ) {}
+
+  /**
+   * Converts the provided AST to Markdown.
+   *
+   * @param uniAst - the AST to convert to markdown
+   *
+   * understand the impacts
+   */
+  async toMarkdown(uniAst: UniAst): Promise<string | Error> {
     const { blocks } = uniAst;
 
-    const out: string[] = [];
+    const out: Promise<string>[] = [];
 
-    for (let i = 0; i < blocks.length; i++) {
-      const md = tryFallibleOrError(() => this.blockToMarkdown(blocks[i]));
+    for (const element of blocks) {
+      const md = tryFallibleOrError(() => this.blockToMarkdown(element));
 
       if (md instanceof Error) {
         return md;
@@ -50,27 +67,35 @@ export class UniAstToMarkdownConverter {
       out.push(md);
     }
 
-    return out.join("\n\n");
+    return (await Promise.all(out)).join("\n\n");
   }
 
-  private blockToMarkdown(block: Block): string {
+  private async blockToMarkdown(block: Block): Promise<string> {
     switch (block.type) {
       case "paragraph":
         return this.convertInlineContents(block.content);
 
       case "heading":
-        return `${"#".repeat(block.level)} ${this.convertInlineContents(block.content)}`;
+        return `${"#".repeat(block.level)} ${await this.convertInlineContents(block.content)}`;
 
       case "list": {
-        return block.items.map((item) => this.convertListItem(item)).join("\n");
+        return (
+          await Promise.all(
+            block.items.map((item) => this.convertListItem(item)),
+          )
+        ).join("\n");
       }
 
-      case "quote":
-        return block.content
+      case "quote": {
+        const values = block.content
           .map((item) => this.blockToMarkdown(item))
-          .flatMap((item) => item.split("\n"))
-          .map((line) => `> ${line}`)
-          .join("\n");
+          .flatMap(async (item) => (await item).split("\n"))
+          .flatMap(async (line) => {
+            const strings = await line;
+            return strings.map((s) => `> ${s}`).join("\n");
+          });
+        return (await Promise.all(values)).join("\n");
+      }
 
       case "code":
         return `\`\`\`${block.language ?? ""}\n${block.content}\n\`\`\``;
@@ -89,19 +114,24 @@ export class UniAstToMarkdownConverter {
     }
   }
 
-  private convertListItem(listItem: ListItem): string {
+  private async convertListItem(listItem: ListItem): Promise<string> {
     let prefix = listItem.number !== undefined ? `${listItem.number}. ` : "* ";
 
     if (listItem.checked !== undefined) {
       prefix += `[${listItem.checked ? "x" : " "}] `;
     }
 
-    const content = listItem.content
-      .flatMap((item) => this.blockToMarkdown(item).split("\n"))
-      .map((line, i) => (i > 0 ? " ".repeat(prefix.length) : "") + line)
-      .join("\n");
-
-    return `${prefix}${content}`;
+    const contents: string[] = [];
+    for (const item of listItem.content) {
+      const md = await this.blockToMarkdown(item);
+      const lines = md.split("\n");
+      contents.push(
+        lines
+          .map((line, i) => (i > 0 ? " ".repeat(prefix.length) : "") + line)
+          .join("\n"),
+      );
+    }
+    return `${prefix}${contents.join("\n")}`;
   }
 
   private convertImage(image: Image): string {
@@ -111,56 +141,103 @@ export class UniAstToMarkdownConverter {
       : `![[${image.alt}|${image.target.rawReference}]]`;
   }
 
-  private convertTable(table: Extract<Block, { type: "table" }>): string {
+  private async convertTable(
+    table: Extract<Block, { type: "table" }>,
+  ): Promise<string> {
     const { columns, rows } = table;
 
     const out = [
-      columns
-        .map((column) =>
-          column.headerCell ? this.convertTableCell(column.headerCell) : "",
+      (
+        await Promise.all(
+          columns.map((column) =>
+            column.headerCell ? this.convertTableCell(column.headerCell) : "",
+          ),
         )
-        .join(" | "),
+      ).join(" | "),
       columns.map(() => " - ").join(" | "),
     ];
 
     for (const cell of rows) {
-      out.push(cell.map((item) => this.convertTableCell(item)).join(" | "));
+      out.push(
+        (
+          await Promise.all(cell.map((item) => this.convertTableCell(item)))
+        ).join(" | "),
+      );
     }
 
     return out.map((line) => `| ${line} |`).join("\n");
   }
 
-  private convertTableCell(cell: TableCell): string {
+  private convertTableCell(cell: TableCell): Promise<string> {
     return this.convertInlineContents(cell.content);
   }
 
-  private convertInlineContents(inlineContents: InlineContent[]): string {
-    return inlineContents
-      .map((item) => this.convertInlineContent(item))
-      .join("");
+  private async convertInlineContents(
+    inlineContents: InlineContent[],
+  ): Promise<string> {
+    return (
+      await Promise.all(
+        inlineContents.map((item) => this.convertInlineContent(item)),
+      )
+    ).join("");
   }
 
-  private convertInlineContent(inlineContent: InlineContent): string {
+  async convertInlineContent(inlineContent: InlineContent): Promise<string> {
     switch (inlineContent.type) {
       case "text":
         return this.convertText(inlineContent);
-
       case "image":
         return this.convertImage(inlineContent);
-
       case "link":
-        switch (inlineContent.target.type) {
-          case "external":
-            return `[${this.convertInlineContents(inlineContent.content)}](${inlineContent.target.url})`;
-
-          case "internal":
-            return `[[${this.convertInlineContents(inlineContent.content)}|${inlineContent.target.rawReference}]]`;
-        }
-
-        break;
-
+        return this.convertLink(inlineContent);
       case "inlineMacro":
         return this.convertMacro(inlineContent.name, inlineContent.params);
+    }
+  }
+
+  private async convertLink(inlineContent: Link): Promise<string> {
+    switch (inlineContent.target.type) {
+      case "external":
+        return `[${await this.convertInlineContents(inlineContent.content)}](${inlineContent.target.url})`;
+
+      case "internal":
+        switch (this.type) {
+          case "Nextcloud": {
+            console.log("internal link", inlineContent);
+            const label = await this.convertInlineContents(
+              inlineContent.content,
+            );
+            const urlFromReference = this.context.getUrlFromReference(
+              inlineContent.target.parsedReference!,
+            );
+            const response = await fetch(urlFromReference, {
+              method: "PROPFIND",
+              body: `<?xml version="1.0" encoding="UTF-8"?>
+ <d:propfind xmlns:d="DAV:">
+   <d:prop xmlns:oc="http://owncloud.org/ns">
+    <oc:fileid/>
+   </d:prop>
+ </d:propfind>`,
+              headers: {
+                Authorization: `Basic ${btoa("admin:admin")}`,
+              },
+            });
+            // TODO: not portable, use fast-xml-parser instead.
+            const xml = new DOMParser().parseFromString(
+              await response.text(),
+              "text/xml",
+            );
+            // TODO: error handling?
+            const fileId = xml.getElementsByTagName("oc:fileid")[0].textContent;
+            //TODO: replace with a nextcloud configuration
+            const url = `http://localhost:9292/f/${fileId}`;
+            return `[${label}](${url})`;
+          }
+          case "GitHub":
+            return "TODO GitHub link";
+          default:
+            return `[[${await this.convertInlineContents(inlineContent.content)}|${inlineContent.target.rawReference}]]`;
+        }
     }
   }
 

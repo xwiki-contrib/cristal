@@ -23,6 +23,7 @@ export type {
   BlockStyles,
   Image,
   InlineContent,
+  Link,
   LinkTarget,
   ListItem,
   TableCell,

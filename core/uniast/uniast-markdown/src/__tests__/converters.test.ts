@@ -77,13 +77,13 @@ describe("MarkdownToUniAstConverter", () => {
   const converterContext = getConverterContext();
 
   const mdToUniAst = new MarkdownToUniAstConverter(converterContext);
-  const uniAstToMd = new UniAstToMarkdownConverter();
+  const uniAstToMd = new UniAstToMarkdownConverter("XWiki", converterContext);
 
-  function testTwoWayConversion(expected: {
+  async function testTwoWayConversion(expected: {
     startingFrom: string;
     convertsBackTo: string;
     withUniAst: UniAst;
-  }): void {
+  }) {
     const uniAst = mdToUniAst.parseMarkdown(expected.startingFrom);
 
     expect(uniAst).toStrictEqual(expected.withUniAst);
@@ -92,12 +92,14 @@ describe("MarkdownToUniAstConverter", () => {
       throw new Error("Unreachable");
     }
 
-    expect(uniAstToMd.toMarkdown(uniAst)).toEqual(expected.convertsBackTo);
+    expect(await uniAstToMd.toMarkdown(uniAst)).toEqual(
+      expected.convertsBackTo,
+    );
   }
 
   // TODO: test inline images + links
-  test("parse some text styling", () => {
-    testTwoWayConversion({
+  test("parse some text styling", async () => {
+    await testTwoWayConversion({
       startingFrom:
         "Normal **Bold** *Italic1* _Italic2_ ~~Strikethrough~~ __Underline__ `Code` **_~~wow!~~_**",
       convertsBackTo:
@@ -199,8 +201,8 @@ describe("MarkdownToUniAstConverter", () => {
     });
   });
 
-  test("parse tables", () => {
-    testTwoWayConversion({
+  test("parse tables", async () => {
+    await testTwoWayConversion({
       startingFrom: `| Heading 1| Heading 2| Heading **3**|
 | ---------|--------- |-------------|
 | Row 1 cell 1 | Row 1 cell 2 | Row 1 cell **3** 
@@ -386,8 +388,8 @@ describe("MarkdownToUniAstConverter", () => {
     });
   });
 
-  test("parse some simple blocks", () => {
-    testTwoWayConversion({
+  test("parse some simple blocks", async () => {
+    await testTwoWayConversion({
       startingFrom: [
         "Paragraph line 1",
         "Paragraph line 2",
@@ -900,8 +902,8 @@ describe("MarkdownToUniAstConverter", () => {
     });
   });
 
-  test("parse XWiki-specific syntax elements", () => {
-    testTwoWayConversion({
+  test("parse XWiki-specific syntax elements", async () => {
+    await testTwoWayConversion({
       startingFrom: [
         "A [[title|documentReference]] B",
         "C ![[title|imageReference]] D",
@@ -977,8 +979,8 @@ describe("MarkdownToUniAstConverter", () => {
     });
   });
 
-  test("parse various macros syntaxes", () => {
-    testTwoWayConversion({
+  test("parse various macros syntaxes", async () => {
+    await testTwoWayConversion({
       startingFrom: [
         "{{macro/}}",
         "{{ macro/}}",

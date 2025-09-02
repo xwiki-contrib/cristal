@@ -79,7 +79,6 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
                  <d:getcontenttype/>
                  <d:getetag/>
                  <oc:size/>
-                 <oc:fileid />
              </d:prop>
          </d:select>
          <d:from>
