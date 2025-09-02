@@ -265,28 +265,33 @@ export class MarkdownToUniAstConverter {
         throw new Error("TODO: handle inlines of type " + inline.type);
 
       case "link": {
-        return [
-          {
-            type: "link",
-            content: inline.children
-              .flatMap((item) => this.convertInline(item, styles))
-              .map((token) => {
-                if (token.type !== "text") {
-                  throw new Error(
-                    "Unexpected link inside link in markdown parser",
-                  );
-                }
-
-                return token;
-              }),
-            target: { type: "external", url: inline.url },
-          },
-        ];
+        return this.convertLink(inline, styles);
       }
 
       default:
         assertUnreachable(inline);
     }
+  }
+
+  private convertLink(
+    inline: PhrasingContent & { type: "link" },
+    styles: TextStyles,
+  ): InlineContent[] {
+    return [
+      {
+        type: "link",
+        content: inline.children
+          .flatMap((item) => this.convertInline(item, styles))
+          .map((token) => {
+            if (token.type !== "text") {
+              throw new Error("Unexpected link inside link in markdown parser");
+            }
+
+            return token;
+          }),
+        target: { type: "external", url: inline.url },
+      },
+    ];
   }
 
   private convertImage(image: MdImage): Image {
@@ -621,7 +626,8 @@ function findFirstMatchIn<K extends string>(
 /**
  * Extension to *partially* support Github's Front Matter (Markdown) syntax flavor
  *
- * Does **NOT** include some of GFM features like autolinks or footnotes, which are implemented differently in another part of the code
+ * Does **NOT** include some of GFM features like autolinks or footnotes, which are implemented differently in another
+ * part of the code
  */
 function remarkPartialGfm(this: Processor) {
   const data = this.data();
