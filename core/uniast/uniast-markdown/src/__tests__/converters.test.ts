@@ -76,8 +76,8 @@ function getConverterContext(): ConverterContext {
 describe("MarkdownToUniAstConverter", () => {
   const converterContext = getConverterContext();
 
-  const mdToUniAst = new MarkdownToUniAstConverter(converterContext);
-  const uniAstToMd = new UniAstToMarkdownConverter("XWiki", converterContext);
+  const mdToUniAst = new MarkdownToUniAstConverter(converterContext, "XWiki");
+  const uniAstToMd = new UniAstToMarkdownConverter(converterContext, "XWiki");
 
   async function testTwoWayConversion(expected: {
     startingFrom: string;

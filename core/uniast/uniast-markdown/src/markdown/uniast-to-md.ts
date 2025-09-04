@@ -41,8 +41,8 @@ export class UniAstToMarkdownConverter {
    * @param type - the type of backend (e.g., XWiki, Nextcloud...) TODO: this is a temporary parameter to better
    */
   constructor(
-    private readonly type: string,
     private readonly context: ConverterContext,
+    private readonly type: string,
   ) {}
 
   /**

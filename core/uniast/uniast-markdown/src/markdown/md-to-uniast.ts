@@ -53,7 +53,10 @@ import type { Processor } from "unified";
  * @since 0.16
  */
 export class MarkdownToUniAstConverter {
-  constructor(public context: ConverterContext) {}
+  constructor(
+    private readonly context: ConverterContext,
+    private readonly type: string,
+  ) {}
 
   /**
    * Parse a markdown document to a universal AST
@@ -277,6 +280,10 @@ export class MarkdownToUniAstConverter {
     inline: PhrasingContent & { type: "link" },
     styles: TextStyles,
   ): InlineContent[] {
+    // TODO: change here for Github and nextcloud + resolve the entity reference in case the link can be resolved as
+    //  internal.
+    // For Nextcloud, resolve based on the note on AnyType (from docid to url)
+    // TODO: the same must be done for attachments!
     return [
       {
         type: "link",
@@ -310,6 +317,8 @@ export class MarkdownToUniAstConverter {
 
     let treated = 0;
 
+    // TODO: disable special links parsing when not supported by the backend.
+    // TODO: the is likely a better approach than this using unified!
     while (true) {
       // Try to find the first XWiki-specific-element syntax in the text (precedence order)
       const firstItem = findFirstMatchIn(text.substring(treated), [
