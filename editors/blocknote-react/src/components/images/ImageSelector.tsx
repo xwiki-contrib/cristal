@@ -34,7 +34,7 @@ import {
   AttachmentReference,
   DocumentReference,
 } from "@xwiki/cristal-model-api";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { RiAttachmentLine } from "react-icons/ri";
 import type {
@@ -44,13 +44,27 @@ import type {
 
 export type ImageSelectorProps = {
   linkEditionCtx: LinkEditionContext;
+  currentSelection?: string;
   onSelected: (url: string) => void;
 };
 
 export const ImageSelector: React.FC<ImageSelectorProps> = ({
   linkEditionCtx,
+  currentSelection,
   onSelected,
 }) => {
+  const initialQuery = useMemo(() => {
+    if (!currentSelection) {
+      return null;
+    }
+
+    const entityRef = linkEditionCtx.remoteURLParser.parse(currentSelection);
+
+    return entityRef
+      ? linkEditionCtx.modelReferenceHandler.getTitle(entityRef)
+      : currentSelection;
+  }, [currentSelection]);
+
   const { t } = useTranslation();
 
   const fileUploadRef = useRef<HTMLButtonElement>(null);
@@ -125,7 +139,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
   // Start a first empty search on the first load, to not let the results empty.
   useEffect(() => {
-    searchAttachments("");
+    searchAttachments(initialQuery ?? "");
   }, []);
 
   return (
@@ -146,6 +160,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
       <SearchBox
         placeholder={t("blocknote.imageSelector.placeholder")}
+        initialValue={initialQuery ?? ""}
         getSuggestions={searchAttachments}
         renderSuggestion={(suggestion) => (
           <Flex gap="sm">
