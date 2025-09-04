@@ -14,6 +14,7 @@
   },
   "type": "module",
   "scripts": {
+    "api-extractor:local": "nx run-many -t api-extractor:local",
     "build": "nx run-many -t build --nxBail=true",
     "clean": "nx run-many -t clean",
     "dev": "nx build @xwiki/cristal-web && concurrently --kill-others 'pnpm run dev:cristal-web' 'pnpm run dev:cristal-realtime' 'pnpm run dev:cristal-authentication-server'",

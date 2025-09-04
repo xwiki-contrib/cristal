@@ -237,8 +237,6 @@ export class DefaultWikiConfig implements WikiConfig {
     setConfigFromObject(configObject: ConfigObjectType): void;
     // (undocumented)
     setupOfflineStorage(): void;
-    // Warning: (ae-incompatible-release-tags) The symbol "storage" is marked as @public, but its signature references "Storage_2" which is marked as @internal
-    //
     // (undocumented)
     storage: Storage_2;
     storageRoot?: string;
@@ -400,7 +398,7 @@ export interface SkinManager {
     setDesignSystem(designSystem: string): void;
 }
 
-// @internal (undocumented)
+// @public (undocumented)
 interface Storage_2 {
     delete(page: string): Promise<{
         success: boolean;
@@ -436,8 +434,6 @@ interface Storage_2 {
     // (undocumented)
     setWikiConfig(config: WikiConfig): void;
 }
-
-// Warning: (ae-internal-missing-underscore) The name "Storage" should be prefixed with an underscore because the declaration is marked as @internal
 export { Storage_2 as Storage }
 
 // @public (undocumented)
@@ -472,15 +468,11 @@ export interface WikiConfig {
     setConfig(name: string, baseURL: string, baseRestURL: string, homePage: string, serverRendering: boolean, designSystem: string, offline: boolean, editor: string): void;
     // (undocumented)
     setConfigFromObject(configObject: any): void;
-    // Warning: (ae-incompatible-release-tags) The symbol "storage" is marked as @public, but its signature references "Storage_2" which is marked as @internal
-    //
     // (undocumented)
     storage: Storage_2;
     storageRoot?: string;
 }
 
-// Warning: (ae-incompatible-release-tags) The symbol "WrappingStorage" is marked as @public, but its signature references "Storage_2" which is marked as @internal
-//
 // @public (undocumented)
 export interface WrappingStorage extends Storage_2 {
     // (undocumented)
