@@ -23,6 +23,10 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.umd.js"
       }
+    },
+    "./dist/*.css": {
+      "import": "./dist/*.css",
+      "require": "./dist/*.css"
     }
   },
   "main": "./dist/index.es.js",
