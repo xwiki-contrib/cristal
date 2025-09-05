@@ -7,7 +7,7 @@
 import { Container } from 'inversify';
 import { ConverterContext } from '@xwiki/cristal-uniast-api';
 
-// @public
+// @beta
 export function createConverterContext(container: Container): ConverterContext;
 
 // (No @packageDocumentation comment for this package)

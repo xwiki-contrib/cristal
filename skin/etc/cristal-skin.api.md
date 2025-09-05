@@ -4,34 +4,82 @@
 
 ```ts
 
+import { AllowedComponentProps } from 'vue';
 import { App } from 'vue';
 import { Component } from 'vue';
+import { ComponentCustomProps } from 'vue';
+import { ComponentOptionsBase } from 'vue';
 import { ComponentOptionsMixin } from 'vue';
 import { ComponentProvideOptions } from 'vue';
 import { Container } from 'inversify';
+import { CreateComponentPublicInstanceWithMixins } from 'vue';
 import { CristalApp } from '@xwiki/cristal-api';
 import { DefineComponent } from 'vue';
 import { DocumentReference } from '@xwiki/cristal-model-api';
+import { GlobalComponents } from 'vue';
+import { GlobalDirectives } from 'vue';
 import { Logger } from '@xwiki/cristal-api';
 import { PageData } from '@xwiki/cristal-api';
 import { PublicProps } from 'vue';
 import { SkinManager } from '@xwiki/cristal-api';
+import { VNodeProps } from 'vue';
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_WithTemplateSlots" needs to be exported by the entry point index.d.ts
-// Warning: (ae-forgotten-export) The symbol "__VLS_component" needs to be exported by the entry point index.d.ts
-// Warning: (ae-forgotten-export) The symbol "__VLS_TemplateResult" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const CArticle: __VLS_WithTemplateSlots<typeof __VLS_component, __VLS_TemplateResult["slots"]>;
+// @beta (undocumented)
+export const CArticle: {
+    new (...args: any[]): CreateComponentPublicInstanceWithMixins<Readonly<{
+    loading: boolean;
+    error: Error | undefined;
+    currentPage: PageData | undefined;
+    currentPageReference: DocumentReference | undefined;
+    pageExist: boolean;
+    beforeUIXPId: string;
+    afterUIXPId: string;
+    }> & Readonly<{}>, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, PublicProps, {}, false, {}, {}, GlobalComponents, GlobalDirectives, string, {
+    root: HTMLElement;
+    }, any, ComponentProvideOptions, {
+    P: {};
+    B: {};
+    D: {};
+    C: {};
+    M: {};
+    Defaults: {};
+    }, Readonly<{
+    loading: boolean;
+    error: Error | undefined;
+    currentPage: PageData | undefined;
+    currentPageReference: DocumentReference | undefined;
+    pageExist: boolean;
+    beforeUIXPId: string;
+    afterUIXPId: string;
+    }> & Readonly<{}>, {}, {}, {}, {}, {}>;
+    __isFragment?: never;
+    __isTeleport?: never;
+    __isSuspense?: never;
+} & ComponentOptionsBase<Readonly<{
+loading: boolean;
+error: Error | undefined;
+currentPage: PageData | undefined;
+currentPageReference: DocumentReference | undefined;
+pageExist: boolean;
+beforeUIXPId: string;
+afterUIXPId: string;
+}> & Readonly<{}>, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, {}, {}, string, {}, GlobalComponents, GlobalDirectives, string, ComponentProvideOptions> & VNodeProps & AllowedComponentProps & ComponentCustomProps & (new () => {
+    $slots: {
+        title?(_: {}): any;
+        'doc-page-actions'?(_: {}): any;
+        'doc-header-alerts'?(_: {}): any;
+        default?(_: {}): any;
+    };
+});
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
     // (undocumented)
     logger: Logger;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ContentTools {
     // (undocumented)
     static init(cristal: CristalApp): void;
@@ -51,12 +99,14 @@ export class ContentTools {
     static urlToLoad(html: string): string | null;
 }
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props_2" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const CTemplate: DefineComponent<__VLS_Props_2, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<__VLS_Props_2> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
+// @beta (undocumented)
+export const CTemplate: DefineComponent<    {
+name: string;
+}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
+name: string;
+}> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultMacroData implements MacroData {
     // (undocumented)
     getMacroContent(): string;
@@ -72,7 +122,7 @@ export class DefaultMacroData implements MacroData {
     setMacroContent(content: string): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultSkinManager implements SkinManager {
     constructor();
     // (undocumented)
@@ -101,7 +151,7 @@ export class DefaultSkinManager implements SkinManager {
     templates: Map<string, Component>;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultUIXTemplateProvider extends DefaultVueTemplateProvider implements VueTemplateProvider {
     constructor();
     // (undocumented)
@@ -114,7 +164,7 @@ export class DefaultUIXTemplateProvider extends DefaultVueTemplateProvider imple
     static singleton: boolean;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultVueTemplateProvider implements VueTemplateProvider {
     // (undocumented)
     static cname: string;
@@ -134,7 +184,7 @@ export class DefaultVueTemplateProvider implements VueTemplateProvider {
     static singleton: boolean;
 }
 
-// @public
+// @beta (undocumented)
 export interface MacroData {
     // (undocumented)
     getMacroContent(): string;
@@ -146,7 +196,7 @@ export interface MacroData {
     setMacroContent(content: string): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface MacroProvider extends VueTemplateProvider {
     // (undocumented)
     getMacroName(): string;
@@ -158,10 +208,10 @@ export interface MacroProvider extends VueTemplateProvider {
     renderMacroAsHTML(macroData: MacroData): string;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export type UIXTemplateProvider = VueTemplateProvider;
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface VueTemplateProvider {
     // (undocumented)
     getVueComponent(): Promise<Component>;

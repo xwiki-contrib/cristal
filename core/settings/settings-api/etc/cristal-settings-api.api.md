@@ -4,7 +4,7 @@
 
 ```ts
 
-// @public
+// @beta
 export interface Settings {
     // (undocumented)
     content: unknown;
@@ -12,7 +12,7 @@ export interface Settings {
     key: string;
 }
 
-// @public
+// @beta
 export interface SettingsManager {
     fromJSON(json: string): void;
     get<T extends Settings>(type: new () => T): T | undefined;
@@ -20,17 +20,17 @@ export interface SettingsManager {
     toJSON(): string;
 }
 
-// @public
+// @beta
 export interface SettingsParser {
     parse(serializedSettings: string, key: string): Settings;
 }
 
-// @public
+// @beta
 export interface SettingsParserProvider {
     get(type?: string): SettingsParser;
 }
 
-// @public
+// @beta
 export interface SettingsStorage {
     load(settingsManager: SettingsManager): Promise<void>;
     save(settingsManager: SettingsManager): Promise<void>;

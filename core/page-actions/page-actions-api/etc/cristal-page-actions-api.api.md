@@ -7,7 +7,7 @@
 import { Component } from 'vue';
 import { ComposerTranslation } from 'vue-i18n';
 
-// @public
+// @beta
 export abstract class AbstractPageActionCategory implements PageActionCategory {
     constructor(messages: Record<string, Record<string, string>>);
     // (undocumented)
@@ -20,7 +20,7 @@ export abstract class AbstractPageActionCategory implements PageActionCategory {
     abstract title: string;
 }
 
-// @public
+// @beta
 export interface PageAction {
     categoryId: string;
     component(): Promise<Component>;
@@ -29,19 +29,19 @@ export interface PageAction {
     order: number;
 }
 
-// @public
+// @beta
 export interface PageActionCategory {
     id: string;
     order: number;
     title: string;
 }
 
-// @public
+// @beta
 export interface PageActionCategoryService {
     list(): PageActionCategory[];
 }
 
-// @public
+// @beta
 export interface PageActionService {
     list(categoryId: string): Promise<PageAction[]>;
 }

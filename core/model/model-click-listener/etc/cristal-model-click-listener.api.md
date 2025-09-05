@@ -6,13 +6,13 @@
 
 import { Container } from 'inversify';
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface ClickListener {
     handleHTMLElement(element: HTMLElement): void;
     handleURL(url: string): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }

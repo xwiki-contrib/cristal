@@ -7,7 +7,7 @@
 import { PageReader } from '@xwiki/cristal-page-api';
 import { PageWriter } from '@xwiki/cristal-page-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultPageReader implements PageReader {
     // (undocumented)
     readPage(pageContent: string): {
@@ -16,7 +16,7 @@ export class DefaultPageReader implements PageReader {
     };
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultPageWriter implements PageWriter {
     // (undocumented)
     writePage(page: {

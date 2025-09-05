@@ -7,10 +7,10 @@
 import type { EntityReference } from '@xwiki/cristal-model-api';
 import { EntityType } from '@xwiki/cristal-model-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export type Alignment = "left" | "center" | "right" | "justify";
 
-// @public (undocumented)
+// @beta (undocumented)
 export type Block = {
     type: "paragraph";
     styles: BlockStyles;
@@ -47,14 +47,14 @@ export type Block = {
     params: Record<string, boolean | number | string>;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type BlockStyles = {
     textColor?: string;
     backgroundColor?: string;
     textAlignment?: Alignment;
 };
 
-// @public
+// @beta
 export type ConverterContext = {
     parseReference(reference: string, type: EntityType | null): EntityReference | null;
     serializeReference(reference: EntityReference): string;
@@ -63,7 +63,7 @@ export type ConverterContext = {
     getDisplayName(reference: EntityReference): string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 type Image_2 = {
     target: LinkTarget;
     caption?: string;
@@ -76,7 +76,7 @@ type Image_2 = {
 };
 export { Image_2 as Image }
 
-// @public (undocumented)
+// @beta (undocumented)
 export type InlineContent = ({
     type: "text";
 } & Text_2) | ({
@@ -93,7 +93,7 @@ export type InlineContent = ({
     params: Record<string, boolean | number | string>;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type LinkTarget = {
     type: "internal";
     rawReference: string;
@@ -103,7 +103,7 @@ export type LinkTarget = {
     url: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type ListItem = {
     number?: number;
     checked?: boolean;
@@ -111,7 +111,7 @@ export type ListItem = {
     styles: BlockStyles;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type TableCell = {
     content: InlineContent[];
     styles: BlockStyles;
@@ -119,20 +119,20 @@ export type TableCell = {
     colSpan?: number;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type TableColumn = {
     headerCell?: TableCell;
     widthPx?: number;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 type Text_2 = {
     content: string;
     styles: TextStyles;
 };
 export { Text_2 as Text }
 
-// @public (undocumented)
+// @beta (undocumented)
 export type TextStyles = {
     bold?: boolean;
     italic?: boolean;
@@ -143,7 +143,7 @@ export type TextStyles = {
     backgroundColor?: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type UniAst = {
     blocks: Block[];
 };

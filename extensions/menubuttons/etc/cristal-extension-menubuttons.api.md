@@ -7,14 +7,14 @@
 import { Container } from 'inversify';
 import { Logger } from '@xwiki/cristal-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
     // (undocumented)
     logger: Logger;
 }
 
-// @public
+// @beta (undocumented)
 export interface MenuEntry {
     // (undocumented)
     getMenuEntry(): string;

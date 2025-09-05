@@ -8,7 +8,7 @@ import type { Configurations } from '@xwiki/cristal-configuration-api';
 import type { Ref } from 'vue';
 import type { WikiConfig } from '@xwiki/cristal-api';
 
-// @public
+// @beta
 export interface WikiConfigProxy {
     deleteAvailableConfiguration(configName: string): void;
     getAvailableConfigurations(): Ref<Map<string, WikiConfig>>;

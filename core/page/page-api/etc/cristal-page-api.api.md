@@ -4,14 +4,14 @@
 
 ```ts
 
-// @public
+// @beta
 export interface PageReader {
     readPage(pageContent: string): {
         [key: string]: unknown;
     };
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface PageWriter {
     // (undocumented)
     writePage(pageContent: {

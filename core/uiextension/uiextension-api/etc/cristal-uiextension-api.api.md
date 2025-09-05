@@ -6,7 +6,7 @@
 
 import type { Component } from 'vue';
 
-// @public
+// @beta
 export interface UIExtension {
     component(): Promise<Component>;
     enabled(): Promise<boolean>;
@@ -18,7 +18,7 @@ export interface UIExtension {
     uixpName: string;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface UIExtensionsManager {
     // (undocumented)
     list(name: string): Promise<UIExtension[]>;

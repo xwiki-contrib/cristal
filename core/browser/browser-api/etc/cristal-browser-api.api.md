@@ -6,7 +6,7 @@
 
 import { WikiConfig } from '@xwiki/cristal-api';
 
-// @public
+// @beta
 export interface BrowserApi {
     onClose(callback: () => boolean): void;
     reload(): void;
@@ -14,7 +14,7 @@ export interface BrowserApi {
     switchLocation(wikiConfig: WikiConfig): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 const name_2 = "BrowserApi";
 export { name_2 as name }
 

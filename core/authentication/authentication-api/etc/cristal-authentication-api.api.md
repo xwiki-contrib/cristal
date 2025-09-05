@@ -4,7 +4,7 @@
 
 ```ts
 
-// @public
+// @beta
 export interface AuthenticationManager {
     callback(): Promise<void>;
     getAuthorizationHeader(): Promise<string | undefined>;
@@ -16,13 +16,13 @@ export interface AuthenticationManager {
     start(): Promise<void>;
 }
 
-// @public
+// @beta
 export interface AuthenticationManagerProvider {
     // (undocumented)
     get(type?: string): AuthenticationManager | undefined;
 }
 
-// @public
+// @beta
 export interface UserDetails {
     avatar?: string;
     // (undocumented)

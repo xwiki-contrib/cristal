@@ -7,7 +7,7 @@
 import { BindingConstraints } from 'inversify';
 import { MetadataName } from 'inversify';
 
-// @public
+// @beta
 export function whenNamedOrDefault(name: MetadataName): (constraints: BindingConstraints) => boolean;
 
 // (No @packageDocumentation comment for this package)

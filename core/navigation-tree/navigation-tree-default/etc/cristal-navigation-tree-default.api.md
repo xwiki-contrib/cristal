@@ -7,12 +7,12 @@
 import { Container } from 'inversify';
 import { DocumentReference } from '@xwiki/cristal-model-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta
 export function getParentNodesIdFromPath(page?: DocumentReference, includeRootNode?: boolean): Array<string>;
 
 // (No @packageDocumentation comment for this package)

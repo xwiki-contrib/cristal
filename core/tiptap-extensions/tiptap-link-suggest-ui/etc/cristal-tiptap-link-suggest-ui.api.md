@@ -10,10 +10,22 @@ import { DefineComponent } from 'vue';
 import { LinkType } from '@xwiki/cristal-link-suggest-api';
 import { PublicProps } from 'vue';
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const LinkSuggestItem: DefineComponent<__VLS_Props, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<__VLS_Props> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLDivElement>;
+// @beta (undocumented)
+export const LinkSuggestItem: DefineComponent<    {
+link: {
+type: LinkType;
+title: string;
+segments: string[];
+imageURL?: string;
+};
+}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
+link: {
+type: LinkType;
+title: string;
+segments: string[];
+imageURL?: string;
+};
+}> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLDivElement>;
 
 // (No @packageDocumentation comment for this package)
 

@@ -7,14 +7,14 @@
 import { Container } from 'inversify';
 import { Logger } from '@xwiki/cristal-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
     // (undocumented)
     logger: Logger;
 }
 
-// @public
+// @beta (undocumented)
 export interface CristalComponent {
     // (undocumented)
     getHint(): string;
@@ -26,7 +26,7 @@ export interface CristalComponent {
     isSingleton(): boolean;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class CristalLoader {
     constructor(extensionList: Array<string>);
     // (undocumented)
@@ -47,7 +47,7 @@ export class CristalLoader {
     logger: Logger;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultComponent implements CristalComponent {
     constructor();
     // (undocumented)
@@ -68,7 +68,7 @@ export class DefaultComponent implements CristalComponent {
     singleton: boolean;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultExtensionConfig implements ExtensionConfig {
     constructor(name: string, entryFile: string | null, staticModule: boolean | false);
     // (undocumented)
@@ -79,7 +79,7 @@ export class DefaultExtensionConfig implements ExtensionConfig {
     staticModule: boolean | false;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultExtensionManager extends DefaultComponent implements ExtensionManager {
     constructor(logger: Logger);
     // (undocumented)
@@ -100,7 +100,7 @@ export class DefaultExtensionManager extends DefaultComponent implements Extensi
     setRemoteExtensionsConfig(remoteExtensionDefaultURL: string, remoteExtensionDefaultEntryFile: string): void;
 }
 
-// @public
+// @beta (undocumented)
 export interface ExtensionConfig {
     // (undocumented)
     entryFile: string | null;
@@ -110,7 +110,7 @@ export interface ExtensionConfig {
     staticModule: boolean | false;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface ExtensionManager extends CristalComponent {
     // (undocumented)
     addRemoteExtension(name: string, customEntryFile?: string | null, staticModule?: boolean | false): void;

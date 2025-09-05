@@ -7,7 +7,7 @@
 import { Container } from 'inversify';
 import { NextcloudAuthenticationState } from '@xwiki/cristal-authentication-nextcloud-state';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }

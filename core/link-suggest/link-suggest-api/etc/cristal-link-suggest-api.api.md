@@ -6,12 +6,12 @@
 
 import { Container } from 'inversify';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta
 export type Link = {
     id: string;
     url: string;
@@ -21,17 +21,17 @@ export type Link = {
     type: LinkType;
 };
 
-// @public
+// @beta
 export interface LinkSuggestService {
     getLinks(query: string, linkType?: LinkType, mimetype?: string): Promise<Link[]>;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface LinkSuggestServiceProvider {
     get(type?: string): LinkSuggestService | undefined;
 }
 
-// @public
+// @beta
 export enum LinkType {
     // (undocumented)
     ATTACHMENT = 1,
@@ -39,7 +39,7 @@ export enum LinkType {
     PAGE = 0
 }
 
-// @public
+// @beta
 const name_2 = "LinkSuggestService";
 export { name_2 as name }
 

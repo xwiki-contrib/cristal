@@ -7,7 +7,7 @@
 import { ConverterContext } from '@xwiki/cristal-uniast-api';
 import { UniAst } from '@xwiki/cristal-uniast-api';
 
-// @public
+// @beta
 export class MarkdownToUniAstConverter {
     constructor(context: ConverterContext);
     // (undocumented)
@@ -15,7 +15,7 @@ export class MarkdownToUniAstConverter {
     parseMarkdown(markdown: string): UniAst | Error;
 }
 
-// @public
+// @beta
 export class UniAstToMarkdownConverter {
     // (undocumented)
     toMarkdown(uniAst: UniAst): string | Error;

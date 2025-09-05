@@ -37,7 +37,7 @@ import { StyleSchema } from '@blocknote/core';
 import { StyleSchemaFromSpecs } from '@blocknote/core';
 import { TiptapBlockImplementation } from '@blocknote/core';
 
-// @public
+// @beta
 export type BlockNoteViewWrapperProps = {
     blockNoteOptions?: Partial<Omit<DefaultEditorOptionsType, "schema" | "collaboration">>;
     theme?: "light" | "dark";
@@ -61,23 +61,23 @@ export type BlockNoteViewWrapperProps = {
     };
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type BlockOfType<B extends BlockType["type"]> = Extract<BlockType, {
     type: B;
 }>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type BlockType = Block<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
 
-// @public
+// @beta
 export type BuildableMacro = (ctx: ContextForMacros) => Macro;
 
-// @public
+// @beta
 export type ContextForMacros = {
     openParamsEditor(macro: Macro, params: Record<string, boolean | number | string>, update: (newProps: Record<string, boolean | number | string>) => void): void;
 };
 
-// @public
+// @beta
 export function createBlockNoteSchema(macros: Macro[]): BlockNoteSchema<BlockSchemaFromSpecs<    {
 Heading4: {
 config: {
@@ -512,7 +512,7 @@ implementation: StyleImplementation;
 };
 }>>;
 
-// @public
+// @beta
 export function createDictionary(lang: EditorLanguage): {
     slash_menu: {
         heading: {
@@ -836,42 +836,42 @@ export function createDictionary(lang: EditorLanguage): {
     };
 };
 
-// @public
+// @beta
 export function createMacro<Parameters extends Record<string, MacroParameterType>>({ name, parameters, slashMenu, render, renderType, }: MacroCreationArgs<Parameters>): BuildableMacro;
 
-// @public
+// @beta
 export const DEFAULT_MACROS: {
     XWikiMacroHTMLBlockMacro: BuildableMacro;
     XWikiMacroInlineHTMLMacro: BuildableMacro;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorBlockSchema = EditorSchema extends BlockNoteSchema<infer BlockSchema, infer _, infer __> ? BlockSchema : never;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorInlineContentSchema = EditorSchema extends BlockNoteSchema<infer _, infer InlineContentSchema, infer __> ? InlineContentSchema : never;
 
 // Warning: (ae-forgotten-export) The symbol "_default" needs to be exported by the entry point index.d.ts
 //
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorLanguage = keyof typeof locales & keyof typeof _default;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorLink = Link<EditorStyleSchema>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorSchema = ReturnType<typeof createBlockNoteSchema>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorStyledText = StyledText<EditorStyleSchema>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorStyleSchema = EditorSchema extends BlockNoteSchema<infer _, infer __, infer StyleSchema> ? StyleSchema : never;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EditorType = BlockNoteEditor<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type LinkEditionContext = {
     linkSuggestService: LinkSuggestService;
     modelReferenceParser: ModelReferenceParser;
@@ -883,7 +883,7 @@ export type LinkEditionContext = {
     documentService: DocumentService;
 };
 
-// @public
+// @beta
 export type Macro = {
     name: string;
     parameters: Record<string, MacroParameterType>;
@@ -891,10 +891,10 @@ export type Macro = {
     blockNote: MacroForBlockNote;
 };
 
-// @public
+// @beta
 export const MACRO_NAME_PREFIX = "Macro_";
 
-// @public
+// @beta
 export type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> = {
     name: string;
     renderType: "block" | "inline";
@@ -906,7 +906,7 @@ export type MacroCreationArgs<Parameters extends Record<string, MacroParameterTy
     render(params: GetConcreteMacroParametersType<Parameters>, contentRef: (node: HTMLElement | null) => void, openParamsEditor: () => void): React.ReactNode;
 };
 
-// @public
+// @beta
 export type MacroParameterType = ({
     type: "boolean";
 } | {
@@ -920,20 +920,20 @@ export type MacroParameterType = ({
     optional?: true;
 };
 
-// @public
+// @beta
 export function mountBlockNote(containerEl: HTMLElement, props: BlockNoteViewWrapperProps): {
     unmount: () => void;
 };
 
-// @public (undocumented)
+// @beta
 export function querySuggestionsMenuItems(editor: EditorType, query: string, macros: Macro[]): DefaultReactSuggestionItem[];
 
 // Warnings were encountered during analysis:
 //
-// dist/blocknote/utils.d.ts:111:5 - (ae-forgotten-export) The symbol "MacroForBlockNote" needs to be exported by the entry point index.d.ts
-// dist/blocknote/utils.d.ts:197:9 - (ae-forgotten-export) The symbol "FilterUndefined" needs to be exported by the entry point index.d.ts
-// dist/blocknote/utils.d.ts:197:9 - (ae-forgotten-export) The symbol "GetConcreteMacroParametersType" needs to be exported by the entry point index.d.ts
-// dist/components/BlockNoteViewWrapper.d.ts:14:5 - (ae-forgotten-export) The symbol "DefaultEditorOptionsType" needs to be exported by the entry point index.d.ts
+// dist/blocknote/utils.d.ts:116:5 - (ae-forgotten-export) The symbol "MacroForBlockNote" needs to be exported by the entry point index.d.ts
+// dist/blocknote/utils.d.ts:206:9 - (ae-forgotten-export) The symbol "FilterUndefined" needs to be exported by the entry point index.d.ts
+// dist/blocknote/utils.d.ts:206:9 - (ae-forgotten-export) The symbol "GetConcreteMacroParametersType" needs to be exported by the entry point index.d.ts
+// dist/components/BlockNoteViewWrapper.d.ts:16:5 - (ae-forgotten-export) The symbol "DefaultEditorOptionsType" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

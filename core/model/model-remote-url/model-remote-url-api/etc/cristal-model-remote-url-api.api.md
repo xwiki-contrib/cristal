@@ -8,30 +8,30 @@ import { Container } from 'inversify';
 import { EntityReference } from '@xwiki/cristal-model-api';
 import { EntityType } from '@xwiki/cristal-model-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface RemoteURLParser {
     // (undocumented)
     parse(url: string, type?: EntityType): EntityReference | undefined;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface RemoteURLParserProvider {
     // (undocumented)
     get(type?: string): RemoteURLParser | undefined;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface RemoteURLSerializer {
     // (undocumented)
     serialize(reference?: EntityReference): string | undefined;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface RemoteURLSerializerProvider {
     // (undocumented)
     get(type?: string): RemoteURLSerializer | undefined;

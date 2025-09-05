@@ -6,12 +6,12 @@
 
 import { Container } from 'inversify';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta (undocumented)
 export interface DateService {
     // (undocumented)
     format(date: Date): string;

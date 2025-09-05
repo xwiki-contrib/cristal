@@ -4,7 +4,7 @@
 
 ```ts
 
-// @public
+// @beta
 export const protocol: string;
 
 // (No @packageDocumentation comment for this package)

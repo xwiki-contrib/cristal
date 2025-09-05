@@ -8,12 +8,12 @@ import { Configuration } from '@xwiki/cristal-configuration-api';
 import { Container } from 'inversify';
 import { Settings } from '@xwiki/cristal-settings-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta
 export class ConfigurationsSettings implements Settings {
     constructor(configurations?: Map<string, Configuration>);
     // (undocumented)

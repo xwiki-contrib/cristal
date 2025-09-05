@@ -12,15 +12,23 @@ import { DocumentReference } from '@xwiki/cristal-model-api';
 import { PageData } from '@xwiki/cristal-api';
 import { PublicProps } from 'vue';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const PageActions: DefineComponent<__VLS_Props, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<__VLS_Props> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
+// @beta (undocumented)
+export const PageActions: DefineComponent<    {
+currentPage: PageData | undefined;
+currentPageName: string;
+currentPageReference: DocumentReference;
+disabled: boolean;
+}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
+currentPage: PageData | undefined;
+currentPageName: string;
+currentPageReference: DocumentReference;
+disabled: boolean;
+}> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
 
 // (No @packageDocumentation comment for this package)
 

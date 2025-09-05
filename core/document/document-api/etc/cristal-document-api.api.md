@@ -8,10 +8,10 @@ import { DocumentReference } from '@xwiki/cristal-model-api';
 import { PageData } from '@xwiki/cristal-api';
 import { Ref } from 'vue';
 
-// @public (undocumented)
+// @beta (undocumented)
 export type DocumentChange = "update" | "delete";
 
-// @public
+// @beta
 export interface DocumentService {
     // (undocumented)
     getCurrentDocument(): Ref<PageData | undefined>;
@@ -31,7 +31,7 @@ export interface DocumentService {
     setCurrentDocument(documentReference: string, revision?: string): Promise<void>;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 const name_2: string;
 export { name_2 as name }
 

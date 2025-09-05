@@ -7,11 +7,11 @@
 import { PageData } from '@xwiki/cristal-api';
 import { UserDetails } from '@xwiki/cristal-authentication-api';
 
-// @public
+// @beta
 const name_2 = "PageRevisionManager";
 export { name_2 as name }
 
-// @public
+// @beta
 export type PageRevision = {
     version: string;
     date: Date;
@@ -20,12 +20,12 @@ export type PageRevision = {
     url: string;
 };
 
-// @public
+// @beta
 export interface PageRevisionManager {
     getRevisions(pageData: PageData, limit?: number, offset?: number): Promise<Array<PageRevision>>;
 }
 
-// @public
+// @beta
 export interface PageRevisionManagerProvider {
     get(): PageRevisionManager;
     has(): boolean;

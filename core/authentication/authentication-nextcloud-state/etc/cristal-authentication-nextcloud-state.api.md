@@ -6,7 +6,7 @@
 
 import { Ref } from 'vue';
 
-// @public
+// @beta
 export class NextcloudAuthenticationState {
     // (undocumented)
     callback: () => Promise<{

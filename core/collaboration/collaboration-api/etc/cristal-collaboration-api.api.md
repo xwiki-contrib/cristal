@@ -8,38 +8,38 @@ import { Container } from 'inversify';
 import { Doc } from 'yjs';
 import { Ref } from 'vue';
 
-// @public
+// @beta
 export type CollaborationInitializer = {
     provider: any;
     doc: Doc;
     initialized: Promise<unknown>;
 };
 
-// @public
+// @beta
 export interface CollaborationManager {
     get(): Promise<() => CollaborationInitializer>;
     status(): Ref<Status>;
     users(): Ref<User[]>;
 }
 
-// @public
+// @beta (undocumented)
 export const collaborationManagerName: string;
 
-// @public
+// @beta
 export interface CollaborationManagerProvider {
     // (undocumented)
     get(): CollaborationManager;
 }
 
-// @public
+// @beta (undocumented)
 export const collaborationManagerProviderName: string;
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta
 export enum Status {
     // (undocumented)
     Connected = 2,
@@ -49,7 +49,7 @@ export enum Status {
     Disconnected = 0
 }
 
-// @public
+// @beta
 export type User = {
     user: {
         name: string;

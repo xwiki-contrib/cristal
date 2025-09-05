@@ -6,7 +6,7 @@
 
 import { BrowserWindow } from 'electron';
 
-// @public (undocumented)
+// @beta (undocumented)
 export function load(browserWindow: BrowserWindow, reload: (win: BrowserWindow) => void): void;
 
 // (No @packageDocumentation comment for this package)

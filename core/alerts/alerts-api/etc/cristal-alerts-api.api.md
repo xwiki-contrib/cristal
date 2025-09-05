@@ -7,13 +7,13 @@
 import type { AlertActions } from '@xwiki/cristal-dsapi';
 import type { Ref } from 'vue';
 
-// @public (undocumented)
+// @beta (undocumented)
 export type Action = {
     name: string;
     callback: () => void;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface Alert {
     // (undocumented)
     actions?: AlertActions;
@@ -26,7 +26,7 @@ export interface Alert {
     type: Type;
 }
 
-// @public
+// @beta
 export interface AlertsService {
     dismiss(id: number): void;
     error(message: string, actions?: Action[]): void;
@@ -36,12 +36,12 @@ export interface AlertsService {
     warning(message: string, actions?: Action[]): void;
 }
 
-// @public
+// @beta
 export interface AlertsServiceProvider {
     get(): AlertsService;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export type Type = "info" | "success" | "warning" | "error";
 
 // (No @packageDocumentation comment for this package)

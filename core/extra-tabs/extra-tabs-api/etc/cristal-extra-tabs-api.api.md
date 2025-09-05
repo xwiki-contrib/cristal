@@ -7,7 +7,7 @@
 import { Component } from 'vue';
 import { ComposerTranslation } from 'vue-i18n';
 
-// @public
+// @beta
 export abstract class AbstractExtraTab implements ExtraTab {
     constructor(messages: Record<string, Record<string, string>>);
     // (undocumented)
@@ -24,7 +24,7 @@ export abstract class AbstractExtraTab implements ExtraTab {
     abstract title: string;
 }
 
-// @public
+// @beta
 export interface ExtraTab {
     enabled(): Promise<boolean>;
     id: string;
@@ -33,7 +33,7 @@ export interface ExtraTab {
     title: string;
 }
 
-// @public
+// @beta
 export interface ExtraTabsService {
     list(): Promise<ExtraTab[]>;
 }

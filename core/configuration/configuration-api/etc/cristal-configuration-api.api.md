@@ -6,16 +6,16 @@
 
 import type { Primitive } from 'utility-types';
 
-// @public
+// @beta
 export type Configuration = {
     configType: string;
     [key: string]: Primitive;
 };
 
-// @public
+// @beta
 export type ConfigurationLoader = () => Promise<Configurations>;
 
-// @public
+// @beta
 export type Configurations = {
     [key: string]: Configuration;
 };

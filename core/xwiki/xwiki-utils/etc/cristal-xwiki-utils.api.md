@@ -6,7 +6,7 @@
 
 import { WikiConfig } from '@xwiki/cristal-api';
 
-// @public
+// @beta
 export function getRestSpacesApiUrl(wikiConfig: WikiConfig, documentId: string): string;
 
 // (No @packageDocumentation comment for this package)

@@ -4,10 +4,10 @@
 
 ```ts
 
-// @public
+// @beta
 export function getStorageRoot(): string | undefined;
 
-// @public
+// @beta
 export function setStorageRoot(storageRoot?: string): void;
 
 // (No @packageDocumentation comment for this package)

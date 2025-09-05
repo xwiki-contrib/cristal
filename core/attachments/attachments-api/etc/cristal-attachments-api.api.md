@@ -8,7 +8,7 @@ import { AttachmentReference } from '@xwiki/cristal-model-api';
 import type { Ref } from 'vue';
 import type { UserDetails } from '@xwiki/cristal-authentication-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface Attachment {
     // (undocumented)
     author: UserDetails | undefined;
@@ -26,7 +26,7 @@ export interface Attachment {
     size: number;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface AttachmentPreview {
     // (undocumented)
     attachment(): Ref<Attachment | undefined>;
@@ -38,7 +38,7 @@ export interface AttachmentPreview {
     preview(attachment: AttachmentReference): Promise<void>;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface AttachmentsService {
     // (undocumented)
     count(): Ref<number>;

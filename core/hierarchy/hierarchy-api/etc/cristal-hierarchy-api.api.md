@@ -7,23 +7,23 @@
 import { DocumentReference } from '@xwiki/cristal-model-api';
 import { SpaceReference } from '@xwiki/cristal-model-api';
 
-// @public
+// @beta
 const name_2 = "PageHierarchyResolver";
 export { name_2 as name }
 
-// @public
+// @beta
 export type PageHierarchyItem = {
     label: string;
     pageId: string;
     url: string;
 };
 
-// @public
+// @beta
 export interface PageHierarchyResolver {
     getPageHierarchy(page: DocumentReference | SpaceReference, includeHomePage?: boolean): Promise<Array<PageHierarchyItem>>;
 }
 
-// @public
+// @beta
 export interface PageHierarchyResolverProvider {
     get(): PageHierarchyResolver;
 }

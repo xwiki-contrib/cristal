@@ -9,7 +9,7 @@ import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';
 import { PublicProps } from 'vue';
 
-// @public (undocumented)
+// @beta (undocumented)
 export const AlertsToasts: DefineComponent<    {}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{}> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, true, {}, HTMLDivElement>;
 
 // (No @packageDocumentation comment for this package)

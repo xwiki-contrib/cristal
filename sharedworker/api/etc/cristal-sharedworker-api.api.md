@@ -4,7 +4,7 @@
 
 ```ts
 
-// @public
+// @beta (undocumented)
 export interface MyWorker {
     // (undocumented)
     add(a: number): number;
@@ -16,7 +16,7 @@ export interface MyWorker {
     setPageLoadedCallback(fct: (a: string) => void): void;
 }
 
-// @public
+// @beta (undocumented)
 export interface QueueWorker {
     // (undocumented)
     addToQueue(page: string): Promise<void>;

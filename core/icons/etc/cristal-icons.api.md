@@ -9,14 +9,18 @@ import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';
 import { PublicProps } from 'vue';
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const CIcon: DefineComponent<__VLS_Props, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<__VLS_Props> & Readonly<{}>, {
+// @beta (undocumented)
+export const CIcon: DefineComponent<    {
+name: string;
+size?: Size;
+}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
+name: string;
+size?: Size;
+}> & Readonly<{}>, {
 size: Size;
 }, {}, {}, {}, string, ComponentProvideOptions, false, {}, HTMLSpanElement>;
 
-// @public
+// @beta (undocumented)
 export enum Size {
     // (undocumented)
     Big = 2,

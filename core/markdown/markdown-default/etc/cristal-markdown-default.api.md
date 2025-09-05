@@ -9,15 +9,15 @@ import { ModelReferenceParser } from '@xwiki/cristal-model-reference-api';
 import { RemoteURLSerializer } from '@xwiki/cristal-model-remote-url-api';
 import { RuleInline } from 'markdown-it/lib/parser_inline.mjs';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export function parseInternalImages(modelReferenceParser: ModelReferenceParser, remoteURLSerializer: RemoteURLSerializer): RuleInline;
 
-// @public (undocumented)
+// @beta (undocumented)
 export function parseInternalLinks(modelReferenceParser: ModelReferenceParser, remoteURLSerializer: RemoteURLSerializer): RuleInline;
 
 // (No @packageDocumentation comment for this package)

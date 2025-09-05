@@ -23,10 +23,10 @@ import { SkinManager } from '@xwiki/cristal-api';
 import { VueTemplateProvider } from '@xwiki/cristal-skin';
 import { WikiConfig } from '@xwiki/cristal-api';
 
-// @public
+// @beta
 export function conditionalComponentsList(container: Container, configuration: Configuration): Promise<void>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export class CristalAppLoader extends CristalLoader {
     constructor(extensionList: Array<string>);
     // (undocumented)
@@ -43,10 +43,10 @@ export class CristalAppLoader extends CristalLoader {
     loadApp(config: Configurations, isElectron: boolean, configName: string): Promise<void>;
 }
 
-// @public
+// @beta
 export function defaultComponentsList(container: Container): Promise<void>;
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultCristalApp implements CristalApp {
     constructor(extensionManager: ExtensionManager, skinManager: SkinManager, vueTemplateProviders: VueTemplateProvider[], logger: Logger, browserApi: BrowserApi);
     // (undocumented)

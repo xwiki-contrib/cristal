@@ -41,6 +41,7 @@ import type { LinkEditionContext } from "./misc/linkSuggest";
  * @returns - An unmount function to properly dispose of the editor
  *
  * @since 0.19
+ * @beta
  */
 function mountBlockNote(
   containerEl: HTMLElement,
@@ -71,6 +72,8 @@ function mountBlockNote(
  * In such case, simply ignore this.
  *
  * Otherwise, you can provide this object's values entirely or select only a few macros and pass them to the setup function.
+ * @since 0.20
+ * @beta
  */
 const DEFAULT_MACROS = {
   XWikiMacroHTMLBlockMacro,

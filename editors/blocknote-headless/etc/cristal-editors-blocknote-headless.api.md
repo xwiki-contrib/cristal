@@ -15,15 +15,23 @@ import { EditorType } from '@xwiki/cristal-editors-blocknote-react';
 import { PublicProps } from 'vue';
 import { UniAst } from '@xwiki/cristal-uniast-api';
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const BlocknoteEditor: DefineComponent<__VLS_Props, {
+// @beta (undocumented)
+export const BlocknoteEditor: DefineComponent<    {
+editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
+editorContent: UniAst | Error;
+collaborationProvider?: () => CollaborationInitializer;
+container: Container;
+}, {
 getContent: () => UniAst | Error;
 }, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {
 "instant-change": () => any;
 "debounced-change": (content: UniAst) => any;
-}, string, PublicProps, Readonly<__VLS_Props> & Readonly<{
+}, string, PublicProps, Readonly<{
+editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
+editorContent: UniAst | Error;
+collaborationProvider?: () => CollaborationInitializer;
+container: Container;
+}> & Readonly<{
 "onInstant-change"?: (() => any) | undefined;
 "onDebounced-change"?: ((content: UniAst) => any) | undefined;
 }>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {

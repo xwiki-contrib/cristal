@@ -7,7 +7,7 @@
 import { Container } from 'inversify';
 import { QueueWorker } from '@xwiki/cristal-sharedworker-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }

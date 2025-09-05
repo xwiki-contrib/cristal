@@ -7,11 +7,11 @@
 import { DocumentReference } from '@xwiki/cristal-model-api';
 import { SpaceReference } from '@xwiki/cristal-model-api';
 
-// @public
+// @beta
 const name_2 = "NavigationTreeSource";
 export { name_2 as name }
 
-// @public
+// @beta
 export type NavigationTreeNode = {
     id: string;
     label: string;
@@ -21,13 +21,13 @@ export type NavigationTreeNode = {
     is_terminal: boolean;
 };
 
-// @public
+// @beta
 export interface NavigationTreeSource {
     getChildNodes(id?: string): Promise<Array<NavigationTreeNode>>;
     getParentNodesId(page: DocumentReference, includeTerminal?: boolean, includeRootNode?: boolean): Array<string>;
 }
 
-// @public
+// @beta
 export interface NavigationTreeSourceProvider {
     get(): NavigationTreeSource;
 }

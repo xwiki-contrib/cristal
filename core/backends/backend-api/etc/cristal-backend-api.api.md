@@ -12,7 +12,7 @@ import { PageData } from '@xwiki/cristal-api';
 import { Storage as Storage_2 } from '@xwiki/cristal-api';
 import { WikiConfig } from '@xwiki/cristal-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export abstract class AbstractStorage implements Storage_2 {
     constructor(logger: Logger, module: string);
     abstract delete(page: string): Promise<{
@@ -53,12 +53,12 @@ export abstract class AbstractStorage implements Storage_2 {
     protected wikiConfig: WikiConfig;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface OfflineStorage {
     // (undocumented)
     getPage(wikiName: string, id: string): Promise<PageData | undefined>;
@@ -68,7 +68,7 @@ export interface OfflineStorage {
     updatePage(wikiName: string, id: string, page: PageData): void;
 }
 
-// @public
+// @beta
 export interface StorageProvider {
     // (undocumented)
     get(): Storage_2;

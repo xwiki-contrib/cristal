@@ -6,7 +6,7 @@
 
 import { Configurations } from '@xwiki/cristal-configuration-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export function loadConfig(input: string): () => Promise<Configurations>;
 
 // (No @packageDocumentation comment for this package)

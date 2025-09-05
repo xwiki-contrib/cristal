@@ -10,41 +10,41 @@ import { EntityReference } from '@xwiki/cristal-model-api';
 import { EntityType } from '@xwiki/cristal-model-api';
 import { SpaceReference } from '@xwiki/cristal-model-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta
 export interface ModelReferenceHandler {
     createDocumentReference(name: string, space: SpaceReference): DocumentReference;
     getTitle(reference: EntityReference): string;
 }
 
-// @public
+// @beta
 export interface ModelReferenceHandlerProvider {
     get(type?: string): ModelReferenceHandler | undefined;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface ModelReferenceParser {
     // (undocumented)
     parse(reference: string, type?: EntityType): EntityReference;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface ModelReferenceParserProvider {
     // (undocumented)
     get(type?: string): ModelReferenceParser | undefined;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface ModelReferenceSerializer {
     // (undocumented)
     serialize(reference?: EntityReference): string | undefined;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface ModelReferenceSerializerProvider {
     // (undocumented)
     get(type?: string): ModelReferenceSerializer | undefined;

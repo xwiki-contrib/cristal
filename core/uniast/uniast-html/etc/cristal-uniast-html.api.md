@@ -7,7 +7,7 @@
 import { ConverterContext } from '@xwiki/cristal-uniast-api';
 import { UniAst } from '@xwiki/cristal-uniast-api';
 
-// @public
+// @beta
 export class UniAstToHTMLConverter {
     constructor(context: ConverterContext);
     // (undocumented)

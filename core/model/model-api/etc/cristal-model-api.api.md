@@ -4,7 +4,7 @@
 
 ```ts
 
-// @public (undocumented)
+// @beta (undocumented)
 export class AttachmentReference implements BaseEntityReference {
     constructor(name: string, document: DocumentReference);
     // (undocumented)
@@ -15,13 +15,13 @@ export class AttachmentReference implements BaseEntityReference {
     type: EntityType.ATTACHMENT;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface BaseEntityReference {
     // (undocumented)
     type: EntityType;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DocumentReference implements BaseEntityReference {
     constructor(name: string, space?: SpaceReference, terminal?: boolean);
     // (undocumented)
@@ -33,10 +33,10 @@ export class DocumentReference implements BaseEntityReference {
     type: EntityType.DOCUMENT;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export type EntityReference = AttachmentReference | DocumentReference | SpaceReference | WikiReference;
 
-// @public (undocumented)
+// @beta (undocumented)
 export enum EntityType {
     // (undocumented)
     ATTACHMENT = 3,
@@ -48,7 +48,7 @@ export enum EntityType {
     WIKI = 0
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class SpaceReference implements BaseEntityReference {
     constructor(wiki?: WikiReference, ...names: string[]);
     // (undocumented)
@@ -59,7 +59,7 @@ export class SpaceReference implements BaseEntityReference {
     wiki?: WikiReference;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class WikiReference implements BaseEntityReference {
     constructor(name: string);
     // (undocumented)

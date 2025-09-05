@@ -7,12 +7,12 @@
 import { Container } from 'inversify';
 import { WebsocketProvider } from 'y-websocket';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta
 export function createXWikiWebSocketProvider(url: string, room: string): WebsocketProvider;
 
 // (No @packageDocumentation comment for this package)

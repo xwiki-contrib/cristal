@@ -9,10 +9,12 @@ import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';
 import { PublicProps } from 'vue';
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const UIExtensions: DefineComponent<__VLS_Props, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<__VLS_Props> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
+// @beta
+export const UIExtensions: DefineComponent<    {
+uixName: string;
+}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
+uixName: string;
+}> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
 
 // (No @packageDocumentation comment for this package)
 

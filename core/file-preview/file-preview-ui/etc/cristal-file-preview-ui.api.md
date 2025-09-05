@@ -10,15 +10,19 @@ import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';
 import { PublicProps } from 'vue';
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const FilePreview: DefineComponent<__VLS_Props, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<__VLS_Props> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
+// @beta (undocumented)
+export const FilePreview: DefineComponent<    {
+attachment: Attachment;
+}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
+attachment: Attachment;
+}> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
 
-// Warning: (ae-forgotten-export) The symbol "__VLS_Props_2" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export const FileSize: DefineComponent<__VLS_Props_2, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<__VLS_Props_2> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
+// @beta (undocumented)
+export const FileSize: DefineComponent<    {
+size: number;
+}, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
+size: number;
+}> & Readonly<{}>, {}, {}, {}, {}, string, ComponentProvideOptions, false, {}, any>;
 
 // (No @packageDocumentation comment for this package)
 

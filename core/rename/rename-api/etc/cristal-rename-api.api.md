@@ -6,11 +6,11 @@
 
 import { PageData } from '@xwiki/cristal-api';
 
-// @public
+// @beta
 const name_2 = "PageRenameManager";
 export { name_2 as name }
 
-// @public
+// @beta
 export interface PageRenameManager {
     updateReference(page: PageData, newReference: string, preserveChildren: boolean): Promise<{
         success: boolean;
@@ -18,7 +18,7 @@ export interface PageRenameManager {
     }>;
 }
 
-// @public
+// @beta
 export interface PageRenameManagerProvider {
     get(): PageRenameManager;
     has(): boolean;

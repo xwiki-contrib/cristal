@@ -26,6 +26,9 @@ import type {
   AttachmentsService,
 } from "@xwiki/cristal-attachments-api";
 
+/**
+ * @beta
+ */
 export class ComponentInit {
   constructor(container: Container) {
     container

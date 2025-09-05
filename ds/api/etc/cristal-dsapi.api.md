@@ -14,7 +14,7 @@ import { InputHTMLAttributes } from 'vue';
 import { NavigationTreeNode } from '@xwiki/cristal-navigation-tree-api';
 import { SpaceReference } from '@xwiki/cristal-model-api';
 
-// @public
+// @beta
 export type AbstractElements = {
     XAlert: DefineComponent<AlertProps & HTMLAttributes>;
     XAvatar: DefineComponent<AvatarProps & HTMLAttributes>;
@@ -40,10 +40,10 @@ export type AbstractElements = {
     XTextField: DefineComponent<TextFieldProps & ImgHTMLAttributes>;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type AlertActions = AlterAction[];
 
-// @public
+// @beta
 export type AlertProps = {
     title?: string;
     type: "success" | "warning" | "error" | "info";
@@ -53,96 +53,96 @@ export type AlertProps = {
     details?: string;
 };
 
-// @public
+// @beta (undocumented)
 export type AlterAction = {
     name: string;
     callback: () => void;
 };
 
-// @public
+// @beta
 export type AvatarProps = {
     image?: string;
     size?: string;
     name?: string;
 };
 
-// @public
+// @beta (undocumented)
 export type BreadcrumbItem = {
     label: string;
     url?: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type BreadcrumbItems = BreadcrumbItem[];
 
-// @public
+// @beta
 export type BreadcrumbProps = {
     items: BreadcrumbItems;
 };
 
-// @public
+// @beta
 export type BtnProps = {
     variant?: "default" | "primary" | "success" | "neutral" | "warning" | "danger" | "text";
     size?: "small";
     pill?: boolean;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type CardProps = {
     title?: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type CheckboxProps = {
     label: string;
     help?: string;
     modelValue?: boolean;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type DialogProps = {
     width?: "auto";
     modelValue?: boolean;
     logo?: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type DividerProps = unknown;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type FileInputModel = File | File[] | null | undefined;
 
-// @public
+// @beta
 export type FileInputProps = {
     modelValue: FileInputModel;
     label: string;
 };
 
-// @public
+// @beta
 export type FormProps = {
     onFormSubmit?: () => void;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type ImgProps = unknown;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type LoadProps = unknown;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type MenuItemProps = {
     value: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type MenuLabelProps = unknown;
 
-// @public (undocumented)
+// @beta (undocumented)
 export type MenuProps = {
     disabled?: boolean;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type NavigationTreeProps = {
     clickAction?: (node: NavigationTreeNode) => void;
     currentPageReference?: DocumentReference;
@@ -150,12 +150,12 @@ export type NavigationTreeProps = {
     showRootNode?: boolean;
 };
 
-// @public
+// @beta
 export const navigationTreePropsDefaults: {
     includeTerminals: boolean;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type NavigationTreeSelectProps = {
     label: string;
     help?: string;
@@ -164,12 +164,12 @@ export type NavigationTreeSelectProps = {
     includeTerminals?: boolean;
 };
 
-// @public
+// @beta
 export const navigationTreeSelectPropsDefaults: {
     includeTerminals: boolean;
 };
 
-// @public
+// @beta
 export type SelectProps = {
     label: string;
     items: Array<string>;
@@ -178,22 +178,22 @@ export type SelectProps = {
     modelValue?: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export type TabGroupProps = {
     onTabChange: (tabId: string) => void;
 };
 
-// @public
+// @beta
 export type TabPanelProps = {
     tabId: string;
 };
 
-// @public
+// @beta
 export type TabProps = {
     tabId: string;
 };
 
-// @public
+// @beta
 export type TextFieldProps = {
     name?: string;
     label: string;

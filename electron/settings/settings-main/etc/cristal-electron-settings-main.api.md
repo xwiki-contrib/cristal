@@ -6,10 +6,10 @@
 
 import { Configurations } from '@xwiki/cristal-configuration-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export function getConfigurations(): Configurations;
 
-// @public (undocumented)
+// @beta (undocumented)
 export function load(): void;
 
 // (No @packageDocumentation comment for this package)

@@ -23,6 +23,10 @@ import type { LinkSuggestServiceProvider } from "./LinkSuggestServiceProvider";
 
 /**
  * @since 0.11
+ * @beta
+ */
+/**
+ * @beta
  */
 class ComponentInit {
   constructor(container: Container) {

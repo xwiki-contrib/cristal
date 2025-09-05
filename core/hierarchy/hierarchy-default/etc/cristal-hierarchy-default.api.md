@@ -10,12 +10,12 @@ import { DocumentReference } from '@xwiki/cristal-model-api';
 import { PageHierarchyItem } from '@xwiki/cristal-hierarchy-api';
 import { SpaceReference } from '@xwiki/cristal-model-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }
 
-// @public
+// @beta
 export function getPageHierarchyFromPath(page: DocumentReference | SpaceReference, cristalApp: CristalApp): Promise<Array<PageHierarchyItem>>;
 
 // (No @packageDocumentation comment for this package)

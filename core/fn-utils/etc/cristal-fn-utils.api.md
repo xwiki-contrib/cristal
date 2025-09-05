@@ -4,22 +4,22 @@
 
 ```ts
 
-// @public
+// @beta
 export function assertInArray<T, U extends T>(value: T, array: U[], message: string): U;
 
-// @public
+// @beta
 export function assertUnreachable(value: never): never;
 
-// @public
+// @beta
 export function filterMap<T, U>(array: T[], filterMap: (value: T, index: number) => U | null | undefined): U[];
 
-// @public
+// @beta
 export function provideTypeInference<T>(value: T): T;
 
-// @public
+// @beta
 export function tryFallible<T>(func: () => T): T | null;
 
-// @public
+// @beta
 export function tryFallibleOrError<T>(func: () => T): T | Error;
 
 // (No @packageDocumentation comment for this package)

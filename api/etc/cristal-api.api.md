@@ -15,18 +15,18 @@ import { Ref } from 'vue';
 import { Router } from 'vue-router';
 import { UserDetails } from '@xwiki/cristal-authentication-api';
 
-// @public
+// @beta
 export type AttachmentsData = {
     attachments: PageAttachment[];
     count?: number;
 };
 
-// @public
+// @beta (undocumented)
 export class ComponentInit {
     constructor();
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export type ConfigObjectType = {
     name: string;
     baseURL: string;
@@ -42,7 +42,7 @@ export type ConfigObjectType = {
     editor?: string;
 };
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface CristalApp {
     deleteAvailableConfiguration(configName: string): void;
     // (undocumented)
@@ -97,7 +97,7 @@ export interface CristalApp {
     switchConfig(configName: string): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultLogger implements Logger {
     constructor(loggerConfig?: LoggerConfig | undefined);
     // (undocumented)
@@ -116,7 +116,7 @@ export class DefaultLogger implements Logger {
     warn(...data: any[]): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultLoggerConfig implements LoggerConfig {
     constructor(defaultLevel?: string);
     // (undocumented)
@@ -149,7 +149,7 @@ export class DefaultLoggerConfig implements LoggerConfig {
     setDefaultLevel(level: string): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultPageData implements PageData {
     constructor(id?: string, name?: string, source?: string, syntax?: string);
     // (undocumented)
@@ -188,7 +188,7 @@ export class DefaultPageData implements PageData {
     version: string;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class DefaultWikiConfig implements WikiConfig {
     constructor(logger: Logger);
     authenticationBaseURL?: string;
@@ -242,13 +242,13 @@ export class DefaultWikiConfig implements WikiConfig {
     storageRoot?: string;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface DesignSystemLoader {
     // (undocumented)
     loadDesignSystem(app: App): void;
 }
 
-// @public
+// @beta (undocumented)
 interface Document_2 {
     // (undocumented)
     get(fieldName: string): any;
@@ -271,7 +271,7 @@ interface Document_2 {
 }
 export { Document_2 as Document }
 
-// @public (undocumented)
+// @beta (undocumented)
 export class JSONLDDocument implements Document_2 {
     constructor(jsonld: any);
     // (undocumented)
@@ -296,7 +296,7 @@ export class JSONLDDocument implements Document_2 {
     setText(text: string): void;
 }
 
-// @public
+// @beta (undocumented)
 export interface Logger {
     // (undocumented)
     debug(...data: any[]): void;
@@ -312,7 +312,7 @@ export interface Logger {
     warn(...data: any[]): void;
 }
 
-// @public
+// @beta (undocumented)
 export interface LoggerConfig {
     // (undocumented)
     addLevel(module: string, level: string): void;
@@ -328,7 +328,7 @@ export interface LoggerConfig {
     setDefaultLevel(level: string): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface PageAttachment {
     // (undocumented)
     author: string | undefined;
@@ -346,7 +346,7 @@ export interface PageAttachment {
     size: number;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface PageData {
     canEdit: boolean;
     // (undocumented)
@@ -379,12 +379,12 @@ export interface PageData {
     version: string | undefined;
 }
 
-// @public
+// @beta
 export function registerAsyncComponent<T extends Component = {
     new (): ComponentPublicInstance;
 }>(app: App, name: string, source: AsyncComponentLoader<T> | AsyncComponentOptions<T>): void;
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface SkinManager {
     // (undocumented)
     getDefaultTemplate(name: string): Component | null;
@@ -398,7 +398,7 @@ export interface SkinManager {
     setDesignSystem(designSystem: string): void;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 interface Storage_2 {
     delete(page: string): Promise<{
         success: boolean;
@@ -436,7 +436,7 @@ interface Storage_2 {
 }
 export { Storage_2 as Storage }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface WikiConfig {
     authenticationBaseURL?: string;
     authenticationManager?: string;
@@ -473,7 +473,7 @@ export interface WikiConfig {
     storageRoot?: string;
 }
 
-// @public (undocumented)
+// @beta (undocumented)
 export interface WrappingStorage extends Storage_2 {
     // (undocumented)
     getStorage(): Storage_2;

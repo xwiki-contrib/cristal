@@ -9,10 +9,10 @@ import { ModelReferenceSerializer } from '@xwiki/cristal-model-reference-api';
 import { Node as Node_2 } from '@tiptap/core';
 import { RemoteURLParser } from '@xwiki/cristal-model-remote-url-api';
 
-// @public (undocumented)
+// @beta (undocumented)
 export const ImageInsertNode: Node_2<any, any>;
 
-// @public
+// @beta
 export const initTiptapImage: (serializer: ModelReferenceSerializer, parser: RemoteURLParser) => Node_2<ImageOptions, any>;
 
 // (No @packageDocumentation comment for this package)

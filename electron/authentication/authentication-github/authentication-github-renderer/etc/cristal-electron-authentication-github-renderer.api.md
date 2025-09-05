@@ -7,7 +7,7 @@
 import { Container } from 'inversify';
 import { GitHubAuthenticationState } from '@xwiki/cristal-authentication-github-state';
 
-// @public (undocumented)
+// @beta (undocumented)
 export class ComponentInit {
     constructor(container: Container);
 }

@@ -6,7 +6,7 @@
 
 import { Ref } from 'vue';
 
-// @public
+// @beta
 export class GitHubAuthenticationState {
     // (undocumented)
     readonly modalOpened: Ref<boolean>;

@@ -6,7 +6,7 @@
 
 import type { Ref } from 'vue';
 
-// @public
+// @beta
 export interface InfoAction {
     // (undocumented)
     counter(): Promise<Ref<number>>;
@@ -20,7 +20,7 @@ export interface InfoAction {
     refresh?(page?: string): Promise<void>;
 }
 
-// @public
+// @beta
 export interface InfoActionsService {
     // (undocumented)
     list(): Promise<InfoAction[]>;
