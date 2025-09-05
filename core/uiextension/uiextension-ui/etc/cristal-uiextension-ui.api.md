@@ -9,7 +9,7 @@ import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';
 import { PublicProps } from 'vue';
 
-// @beta
+// @beta (undocumented)
 export const UIExtensions: DefineComponent<    {
 uixName: string;
 }, {}, {}, {}, {}, ComponentOptionsMixin, ComponentOptionsMixin, {}, string, PublicProps, Readonly<{
