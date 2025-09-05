@@ -27,8 +27,6 @@ export interface QueueWorker {
 
   getStatus(): boolean;
 
-  increment(): Promise<number>;
-
   addToQueue(page: string): Promise<void>;
 
   getQueueSize(): Promise<number>;

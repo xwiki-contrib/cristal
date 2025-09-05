@@ -25,16 +25,11 @@
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "types": "./dist/index.d.ts",
-  "dependencies": {
-    "comlink": "4.4.2"
-  },
   "peerDependencies": {
-    "reflect-metadata": "0.x",
-    "vue": "3.x"
+    "reflect-metadata": "0.x"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "typescript": "5.9.2",
-    "vue": "3.5.20"
+    "typescript": "5.9.2"
   }
 }

@@ -27,6 +27,7 @@ import { ComponentInit as DexieBackendComponentInit } from "@xwiki/cristal-backe
 import { ComponentInit as GithubBackendComponentInit } from "@xwiki/cristal-backend-github";
 import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-backend-nextcloud";
 import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
+import { loadConfig as loaderConfigWeb } from "@xwiki/cristal-configuration-web";
 import { CristalLoader } from "@xwiki/cristal-extension-manager";
 import * as Comlink from "comlink";
 import type {
@@ -34,18 +35,13 @@ import type {
   WikiConfig,
   WrappingStorage,
 } from "@xwiki/cristal-api";
-import type {
-  ConfigurationLoader,
-  Configurations,
-} from "@xwiki/cristal-configuration-api";
+import type { Configurations } from "@xwiki/cristal-configuration-api";
 import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
 import type { Container } from "inversify";
 
 async function loadConfigWeb() {
-  const loadConfig: ConfigurationLoader = (
-    await import("@xwiki/cristal-configuration-web")
-  ).loadConfig("/config.json");
-  return await loadConfig();
+  const config = loaderConfigWeb("/config.json");
+  return await config();
 }
 
 /**
@@ -67,7 +63,6 @@ async function loadConfig(): Promise<Configurations> {
 }
 
 export class Worker implements MyWorker {
-  private currentNumber: number = 0;
   private queue: Array<string> = [];
   // @ts-expect-error container is temporarily undefined during class
   // initialization
@@ -156,12 +151,6 @@ export class Worker implements MyWorker {
     } catch (e) {
       console.log("Exception while trying to load", page, e);
     }
-  }
-
-  public add(a: number): number {
-    console.log("Worker in add");
-    this.currentNumber += a;
-    return this.currentNumber;
   }
 
   public addToQueue(page: string): void {
@@ -264,13 +253,16 @@ export class Worker implements MyWorker {
   }
 }
 
-const worker = new Worker();
-worker.start();
-
-// @ts-expect-error ignore
 // TODO remove use of any
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-onconnect = (e: any) => {
-  Comlink.expose(worker, e.ports[0]);
+onconnect = async (e: any) => {
+  console.log("on connect");
+  if (e.ports) {
+    console.log("has ports");
+    const worker = new Worker();
+    console.log("build");
+    await worker.start();
+    console.log("started");
+    Comlink.expose(worker, e.ports[0]);
+  }
 };
-console.log("Worker code loaded");

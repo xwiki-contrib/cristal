@@ -23,8 +23,6 @@
  * @beta
  */
 export interface MyWorker {
-  add(a: number): number;
-
   addToQueue(page: string): void;
 
   getQueueSize(): number;

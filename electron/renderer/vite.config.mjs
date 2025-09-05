@@ -61,9 +61,6 @@ const config = {
   test: {
     environment: "happy-dom",
   },
-  worker: {
-    format: "es",
-  },
   plugins: [vue(), injectAppVersion()],
 };
 
