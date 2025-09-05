@@ -42,6 +42,17 @@ pipeline {
                 sh 'pnpm lint'
             }
         }
+        stage('API Extractor') {
+            steps {
+                sh 'pnpm run api-extractor:local'
+                script {
+                    def gitStatus = sh(script: 'git status --porcelain', returnStdout: true).trim()
+                    if (gitStatus) {
+                        error("Git working directory is not clean after command execution. Changes detected:\n${gitStatus}")
+                    }
+                }
+            }
+        }
         stage('PubLint') {
             steps {
                 sh 'pnpm -r exec publint --pack pnpm --strict'
