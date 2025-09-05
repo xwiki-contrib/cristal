@@ -19,12 +19,13 @@
  */
 
 import vue from "@vitejs/plugin-vue";
-import { UserConfig, defineConfig, mergeConfig } from "vite";
+import { defineConfig, mergeConfig } from "vite";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import dts from "vite-plugin-dts";
 import { copyFileSync, existsSync, readFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import type { UserConfig } from "vite";
 
 function pathsComputation(path: string) {
   const dir = dirname(fileURLToPath(path));
