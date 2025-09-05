@@ -27,6 +27,7 @@ import type {
 } from "@xwiki/cristal-attachments-api";
 
 /**
+ * @since 0.9
  * @beta
  */
 export class ComponentInit {

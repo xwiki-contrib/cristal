@@ -27,9 +27,6 @@ import type { Container } from "inversify";
  * @since 0.20
  * @beta
  */
-/**
- * @beta
- */
 class ComponentInit {
   constructor(container: Container) {
     // Register the hocuspocus collaboration provider as the default for legacy reason.

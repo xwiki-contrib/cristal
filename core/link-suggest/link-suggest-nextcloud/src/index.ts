@@ -27,9 +27,6 @@ import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
  * @since 0.11
  * @beta
  */
-/**
- * @beta
- */
 class ComponentInit {
   constructor(container: Container) {
     container
