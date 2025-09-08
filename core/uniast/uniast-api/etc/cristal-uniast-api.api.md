@@ -81,16 +81,20 @@ export type InlineContent = ({
     type: "text";
 } & Text_2) | ({
     type: "image";
-} & Image_2) | {
+} & Image_2) | ({
     type: "link";
+} & Link) | {
+    type: "inlineMacro";
+    name: string;
+    params: Record<string, boolean | number | string>;
+};
+
+// @beta (undocumented)
+export type Link = {
     target: LinkTarget;
     content: Exclude<InlineContent, {
         type: "link";
     }>[];
-} | {
-    type: "inlineMacro";
-    name: string;
-    params: Record<string, boolean | number | string>;
 };
 
 // @beta (undocumented)

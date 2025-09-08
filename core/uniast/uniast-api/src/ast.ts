@@ -107,6 +107,7 @@ type Image = {
 
 /**
  * @since 0.22
+ * @beta
  */
 type Link = {
   target: LinkTarget;

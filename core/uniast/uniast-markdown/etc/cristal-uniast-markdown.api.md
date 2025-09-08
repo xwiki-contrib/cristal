@@ -5,20 +5,21 @@
 ```ts
 
 import { ConverterContext } from '@xwiki/cristal-uniast-api';
+import { InlineContent } from '@xwiki/cristal-uniast-api';
 import { UniAst } from '@xwiki/cristal-uniast-api';
 
 // @beta
 export class MarkdownToUniAstConverter {
-    constructor(context: ConverterContext);
-    // (undocumented)
-    context: ConverterContext;
+    constructor(context: ConverterContext, supportInternal: string);
     parseMarkdown(markdown: string): UniAst | Error;
 }
 
 // @beta
 export class UniAstToMarkdownConverter {
+    constructor(context: ConverterContext, type: string);
     // (undocumented)
-    toMarkdown(uniAst: UniAst): string | Error;
+    convertInlineContent(inlineContent: InlineContent): Promise<string>;
+    toMarkdown(uniAst: UniAst): Promise<string | Error>;
 }
 
 // (No @packageDocumentation comment for this package)
