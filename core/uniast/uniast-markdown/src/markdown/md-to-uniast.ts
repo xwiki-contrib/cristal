@@ -51,6 +51,7 @@ import type { Processor } from "unified";
  * Convert Markdown string to a Universal AST.
  *
  * @since 0.16
+ * @beta
  */
 export class MarkdownToUniAstConverter {
   constructor(
@@ -62,6 +63,7 @@ export class MarkdownToUniAstConverter {
    * Parse a markdown document to a universal AST
    *
    * @since 0.16
+   * @beta
    *
    * @param markdown - The markdown content to parse
    *
