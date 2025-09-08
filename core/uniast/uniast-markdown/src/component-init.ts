@@ -17,10 +17,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { DefaultMarkdownToUniAstConverter } from "./markdown/md-to-uniast";
-import { DefaultUniAstToMarkdownConverter } from "./markdown/uniast-to-md";
-import type { MarkdownToUniAstConverter } from "./markdown/md-to-uniast";
-import type { UniAstToMarkdownConverter } from "./markdown/uniast-to-md";
+import { DefaultMarkdownToUniAstConverter } from "./markdown/default-markdown-to-uni-ast-converter";
+import { DefaultUniAstToMarkdownConverter } from "./markdown/default-uni-ast-to-markdown-converter";
+import type { MarkdownToUniAstConverter } from "./markdown/markdown-to-uni-ast-converter";
+import type { UniAstToMarkdownConverter } from "./markdown/uni-ast-to-markdown-converter";
 import type { Container } from "inversify";
 
 const markdownToUniAstConverterName = "MarkdownToUniAstConverter";

@@ -17,9 +17,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import type { UniAst } from "@xwiki/cristal-uniast-api";
 
-import localConfig from "./vite.config";
-import { vitestVue as defaultConfig } from "@xwiki/cristal-dev-config";
-import { mergeConfig } from "vitest/config";
-
-export default mergeConfig(defaultConfig, localConfig);
+/**
+ * Converts Universal AST trees to markdown.
+ *
+ * @since 0.16
+ * @beta
+ */
+export interface UniAstToMarkdownConverter {
+  /**
+   * Converts the provided AST to Markdown.
+   *
+   * @param uniAst - the AST to convert to markdown
+   *
+   * understand the impacts
+   */
+  toMarkdown(uniAst: UniAst): Promise<string | Error>;
+}

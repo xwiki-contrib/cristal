@@ -18,10 +18,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { EntityType } from "@xwiki/cristal-model-api";
+import { inject, injectable } from "inversify";
 import { escape } from "lodash-es";
+import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type {
   Block,
-  ConverterContext,
   Image,
   InlineContent,
   ListItem,
@@ -40,8 +42,15 @@ export interface UniAstToHTMLConverter {
   toHtml(uniAst: UniAst): string | Error;
 }
 
+@injectable()
 export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
-  constructor(private readonly context: ConverterContext) {}
+  constructor(
+    @inject("RemoteURLSerializerProvider")
+    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
+    @inject("ModelReferenceParserProvider")
+    private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
+  ) {}
+
   toHtml(uniAst: UniAst): string | Error {
     const { blocks } = uniAst;
 
@@ -105,13 +114,20 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
   private convertImage(image: Image): string {
     const target = image.target;
-    const srcValue: string = escape(
-      target.type === "external"
-        ? target.url
-        : target.parsedReference !== null
-          ? this.context.getUrlFromReference(target.parsedReference)
-          : this.convertReference(target.rawReference, EntityType.ATTACHMENT),
-    );
+    let srcValue: string;
+    if (target.type === "external") {
+      srcValue = escape(target.url);
+    } else if (target.parsedReference !== null) {
+      srcValue = escape(
+        this.remoteURLSerializerProvider
+          .get()!
+          .serialize(target.parsedReference),
+      );
+    } else {
+      srcValue = escape(
+        this.convertReference(target.rawReference, EntityType.ATTACHMENT),
+      );
+    }
     const altValue: string = escape(image.alt) ?? "";
     return `<img src="${srcValue}" alt="${altValue}">`;
   }
@@ -223,7 +239,9 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
   }
 
   private convertReference(rawReference: string, type: EntityType) {
-    const parseReference = this.context.parseReference(rawReference, type);
-    return this.context.getUrlFromReference(parseReference!);
+    const parseReference = this.modelReferenceParserProvider
+      .get()!
+      .parse(rawReference, type);
+    return this.remoteURLSerializerProvider.get()!.serialize(parseReference);
   }
 }

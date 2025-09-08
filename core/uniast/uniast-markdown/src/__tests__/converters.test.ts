@@ -18,9 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { MarkdownToUniAstConverter } from "../markdown/md-to-uniast";
-import { UniAstToMarkdownConverter } from "../markdown/uniast-to-md";
-import { createConverterContext } from "@xwiki/cristal-uniast-utils";
+import { DefaultMarkdownToUniAstConverter } from "../markdown/default-markdown-to-uni-ast-converter";
+import { DefaultUniAstToMarkdownConverter } from "../markdown/default-uni-ast-to-markdown-converter";
 import { Container } from "inversify";
 import { describe, expect, test } from "vitest";
 import { mock } from "vitest-mock-extended";
@@ -33,10 +32,10 @@ import type {
   RemoteURLParserProvider,
   RemoteURLSerializerProvider,
 } from "@xwiki/cristal-model-remote-url-api";
-import type { ConverterContext, UniAst } from "@xwiki/cristal-uniast-api";
+import type { UniAst } from "@xwiki/cristal-uniast-api";
 
 // eslint-disable-next-line max-statements
-function getConverterContext(): ConverterContext {
+function init() {
   const modelReferenceParserProvider = mock<ModelReferenceParserProvider>();
 
   const modelReferenceSerializerProvider =
@@ -70,14 +69,26 @@ function getConverterContext(): ConverterContext {
     .calledWith("ModelReferenceHandlerProvider")
     .mockReturnValue(modelReferenceHandlerProvider);
 
-  return createConverterContext(containerMock);
+  return {
+    modelReferenceParserProvider,
+    modelReferenceHandlerProvider,
+    remoteURLSerializerProvider,
+  };
 }
 
 describe("MarkdownToUniAstConverter", () => {
-  const converterContext = getConverterContext();
-
-  const mdToUniAst = new MarkdownToUniAstConverter(converterContext, "XWiki");
-  const uniAstToMd = new UniAstToMarkdownConverter(converterContext, "XWiki");
+  const {
+    modelReferenceParserProvider,
+    modelReferenceHandlerProvider,
+    remoteURLSerializerProvider,
+  } = init();
+  const mdToUniAst = new DefaultMarkdownToUniAstConverter(
+    modelReferenceParserProvider,
+    modelReferenceHandlerProvider,
+  );
+  const uniAstToMd = new DefaultUniAstToMarkdownConverter(
+    remoteURLSerializerProvider,
+  );
 
   async function testTwoWayConversion(expected: {
     startingFrom: string;

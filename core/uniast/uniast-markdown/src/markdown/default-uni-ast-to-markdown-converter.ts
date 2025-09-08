@@ -17,11 +17,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
+import { inject, injectable } from "inversify";
+import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type {
   Block,
-  ConverterContext,
   Image,
   InlineContent,
   Link,
@@ -31,29 +31,17 @@ import type {
   UniAst,
 } from "@xwiki/cristal-uniast-api";
 
-/**
- * Converts Universal AST trees to markdown.
- *
- * @since 0.16
- * @beta
- */
-export interface UniAstToMarkdownConverter {
-  /**
-   * Converts the provided AST to Markdown.
-   *
-   * @param uniAst - the AST to convert to markdown
-   *
-   * understand the impacts
-   */
-  toMarkdown(uniAst: UniAst): Promise<string | Error>;
-}
-
+@injectable()
 export class DefaultUniAstToMarkdownConverter {
   // TODO: inject component to get values
+  private readonly type: string;
   constructor(
-    private readonly context: ConverterContext,
-    private readonly type: string,
-  ) {}
+    @inject("RemoteURLSerializerProvider")
+    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
+  ) {
+    // TODO: remove field
+    this.type = "POUET";
+  }
 
   /**
    * Converts the provided AST to Markdown.
@@ -217,9 +205,9 @@ export class DefaultUniAstToMarkdownConverter {
             const label = await this.convertInlineContents(
               inlineContent.content,
             );
-            const urlFromReference = this.context.getUrlFromReference(
-              inlineContent.target.parsedReference!,
-            );
+            const urlFromReference = this.remoteURLSerializerProvider
+              .get()!
+              .serialize(inlineContent.target.parsedReference ?? undefined)!;
             const response = await fetch(urlFromReference, {
               method: "PROPFIND",
               body: `<?xml version="1.0" encoding="UTF-8"?>
@@ -246,7 +234,9 @@ export class DefaultUniAstToMarkdownConverter {
           case "GitHub":
             return "TODO GitHub link";
           default:
-            return `[[${await this.convertInlineContents(inlineContent.content)}|${inlineContent.target.rawReference}]]`;
+            return `[[${await this.convertInlineContents(
+              inlineContent.content,
+            )}|${inlineContent.target.rawReference}]]`;
         }
     }
   }

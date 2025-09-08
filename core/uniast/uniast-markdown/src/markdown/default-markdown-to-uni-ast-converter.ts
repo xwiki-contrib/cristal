@@ -17,7 +17,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 import { findFirstMatchIn } from "./internal/find-first-match-in";
 import { remarkPartialGfm } from "./internal/remark-partial-gfm";
 import {
@@ -26,13 +25,17 @@ import {
   tryFallibleOrError,
 } from "@xwiki/cristal-fn-utils";
 import { EntityType } from "@xwiki/cristal-model-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import type { MatchResult } from "./internal/find-first-match-in";
+import type { MarkdownToUniAstConverter } from "./markdown-to-uni-ast-converter";
+import type {
+  ModelReferenceHandlerProvider,
+  ModelReferenceParserProvider,
+} from "@xwiki/cristal-model-reference-api";
 import type {
   Block,
-  ConverterContext,
   Image,
   InlineContent,
   LinkTarget,
@@ -44,33 +47,19 @@ import type {
 } from "@xwiki/cristal-uniast-api";
 import type { Image as MdImage, PhrasingContent, RootContent } from "mdast";
 
-/**
- * Convert Markdown string to a Universal AST.
- *
- * @since 0.16
- * @beta
- */
-export interface MarkdownToUniAstConverter {
-  /**
-   * Parse a markdown document to a universal AST
-   *
-   * @since 0.16
-   * @beta
-   *
-   * @param markdown - The markdown content to parse
-   *
-   * @returns The Universal Ast
-   */
-  parseMarkdown(markdown: string): UniAst | Error;
-}
-
 @injectable()
 export class DefaultMarkdownToUniAstConverter
   implements MarkdownToUniAstConverter
 {
   private readonly supportInternal: boolean;
+
   // TODO: inject converter context
-  constructor(private readonly context: ConverterContext) {
+  constructor(
+    @inject("ModelReferenceParserProvider")
+    private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
+    @inject("ModelReferenceHandlerProvider")
+    private readonly modelReferenceHandlerProvider: ModelReferenceHandlerProvider,
+  ) {
     // TODO: initialize with right context.
     this.supportInternal = false;
   }
@@ -471,10 +460,9 @@ export class DefaultMarkdownToUniAstConverter
       targetStr = substr;
     }
 
-    const reference = this.context.parseReference(
-      targetStr,
-      isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT,
-    );
+    const reference = this.modelReferenceParserProvider
+      .get()!
+      .parse(targetStr, isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT);
 
     const target: LinkTarget = {
       type: "internal",
@@ -483,7 +471,7 @@ export class DefaultMarkdownToUniAstConverter
     };
 
     title ??= reference
-      ? this.context.getDisplayName(reference)
+      ? this.modelReferenceHandlerProvider.get()!.getTitle(reference)
       : "<invalid reference>";
 
     const items: InlineContent = isImage

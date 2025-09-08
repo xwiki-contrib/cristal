@@ -19,7 +19,6 @@
  */
 import { UniAstToHTMLConverter } from "@xwiki/cristal-uniast-html";
 import { MarkdownToUniAstConverter } from "@xwiki/cristal-uniast-markdown";
-import { createConverterContext } from "@xwiki/cristal-uniast-utils";
 import { Container } from "inversify";
 
 /**
