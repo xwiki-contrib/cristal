@@ -41,8 +41,4 @@ export default defineConfig({
   worker: {
     format: "es"
   },
-  optimizeDeps: {
-    // Ensure the library is properly handled
-    include: ["@xwiki/cristal-sharedworker-impl/dist/assets/worker*"]
-  }
 });

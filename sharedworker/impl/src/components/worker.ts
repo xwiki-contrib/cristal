@@ -265,6 +265,7 @@ export class Worker implements MyWorker {
 }
 
 const worker = new Worker();
+worker.start();
 
 onconnect = (e) => {
   Comlink.expose(worker, e.ports[0]);
