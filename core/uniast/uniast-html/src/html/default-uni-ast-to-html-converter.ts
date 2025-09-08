@@ -20,6 +20,7 @@
 import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import { escape } from "lodash-es";
+import type { UniAstToHTMLConverter } from "./uni-ast-to-html-converter";
 import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type {
@@ -31,16 +32,6 @@ import type {
   Text,
   UniAst,
 } from "@xwiki/cristal-uniast-api";
-
-/**
- * Converts Universal AST trees to HTML.
- *
- * @since 0.22
- * @beta
- */
-export interface UniAstToHTMLConverter {
-  toHtml(uniAst: UniAst): string | Error;
-}
 
 @injectable()
 export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
@@ -178,7 +169,12 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
           case "internal":
             // TODO: convert reference
-            return `<a href="${escape(this.convertReference(inlineContent.target.rawReference, EntityType.DOCUMENT))}">${linkContent}</a>`;
+            return `<a href="${escape(
+              this.convertReference(
+                inlineContent.target.rawReference,
+                EntityType.DOCUMENT,
+              ),
+            )}">${linkContent}</a>`;
         }
         break;
       }
