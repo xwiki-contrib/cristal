@@ -17,11 +17,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { DefaultMarkdownToUniAstConverter } from "./markdown/md-to-uniast";
+import { DefaultUniAstToMarkdownConverter } from "./markdown/uniast-to-md";
+import type { MarkdownToUniAstConverter } from "./markdown/md-to-uniast";
+import type { UniAstToMarkdownConverter } from "./markdown/uniast-to-md";
+import type { Container } from "inversify";
 
-export type { MarkdownToUniAstConverter } from "./markdown/md-to-uniast";
-export type { UniAstToMarkdownConverter } from "./markdown/uniast-to-md";
+const markdownToUniAstConverterName = "MarkdownToUniAstConverter";
+const uniAstToMarkdownConverterName = "UniAstToMarkdownConverter";
+
+/**
+ * @since 0.22
+ * @beta
+ */
+class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<MarkdownToUniAstConverter>(markdownToUniAstConverterName)
+      .to(DefaultMarkdownToUniAstConverter)
+      .whenDefault();
+
+    container
+      .bind<UniAstToMarkdownConverter>(uniAstToMarkdownConverterName)
+      .to(DefaultUniAstToMarkdownConverter)
+      .whenDefault();
+  }
+}
+
 export {
   ComponentInit,
   markdownToUniAstConverterName,
   uniAstToMarkdownConverterName,
-} from "./component-init";
+};

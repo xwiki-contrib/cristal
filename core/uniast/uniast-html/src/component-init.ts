@@ -17,33 +17,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { UniAstToHTMLConverter } from "@xwiki/cristal-uniast-html";
-import { MarkdownToUniAstConverter } from "@xwiki/cristal-uniast-markdown";
-import { createConverterContext } from "@xwiki/cristal-uniast-utils";
-import { Container } from "inversify";
+import { DefaultUniAstToHTMLConverter } from "./html/uniast-to-html";
+import type { UniAstToHTMLConverter } from "./html/uniast-to-html";
+import type { Container } from "inversify";
 
 /**
- * Converts a markdown source into html.
- *
- * @param source - the markdown content
- * @param container - the inversify container
- * @param supportInternal - whether to support internal links
- *
  * @since 0.22
+ * @beta
  */
-export function renderMarkdown(source: string, container: Container): string {
-  // Mardown to uniast to html
+const uniAstToHTMLConverterName = "UniAstToHTMLConverter";
 
-  const md = new MarkdownToUniAstConverter(createConverterContext(container));
-  const html = new UniAstToHTMLConverter(createConverterContext(container));
-
-  const uniAst = md.parseMarkdown(source);
-  if (uniAst instanceof Error) {
-    throw uniAst;
+/**
+ * @since 0.22
+ * @beta
+ */
+class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<UniAstToHTMLConverter>(uniAstToHTMLConverterName)
+      .to(DefaultUniAstToHTMLConverter)
+      .whenDefault();
   }
-  const toHtml = html.toHtml(uniAst);
-  if (toHtml instanceof Error) {
-    throw toHtml;
-  }
-  return toHtml;
 }
+
+export { ComponentInit, uniAstToHTMLConverterName };

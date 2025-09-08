@@ -26,6 +26,7 @@ import {
   tryFallibleOrError,
 } from "@xwiki/cristal-fn-utils";
 import { EntityType } from "@xwiki/cristal-model-api";
+import { injectable } from "inversify";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import type { MatchResult } from "./internal/find-first-match-in";
@@ -49,12 +50,7 @@ import type { Image as MdImage, PhrasingContent, RootContent } from "mdast";
  * @since 0.16
  * @beta
  */
-export class MarkdownToUniAstConverter {
-  constructor(
-    private readonly context: ConverterContext,
-    private readonly supportInternal: string,
-  ) {}
-
+export interface MarkdownToUniAstConverter {
   /**
    * Parse a markdown document to a universal AST
    *
@@ -65,6 +61,20 @@ export class MarkdownToUniAstConverter {
    *
    * @returns The Universal Ast
    */
+  parseMarkdown(markdown: string): UniAst | Error;
+}
+
+@injectable()
+export class DefaultMarkdownToUniAstConverter
+  implements MarkdownToUniAstConverter
+{
+  private readonly supportInternal: boolean;
+  // TODO: inject converter context
+  constructor(private readonly context: ConverterContext) {
+    // TODO: initialize with right context.
+    this.supportInternal = false;
+  }
+
   parseMarkdown(markdown: string): UniAst | Error {
     // TODO: auto-links (URLs + emails)
     //     > https://jira.xwiki.org/browse/CRISTAL-513

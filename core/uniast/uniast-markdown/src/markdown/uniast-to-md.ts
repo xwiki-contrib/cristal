@@ -37,10 +37,19 @@ import type {
  * @since 0.16
  * @beta
  */
-export class UniAstToMarkdownConverter {
+export interface UniAstToMarkdownConverter {
   /**
-   * @param type - the type of backend (e.g., XWiki, Nextcloud...) TODO: this is a temporary parameter to better
+   * Converts the provided AST to Markdown.
+   *
+   * @param uniAst - the AST to convert to markdown
+   *
+   * understand the impacts
    */
+  toMarkdown(uniAst: UniAst): Promise<string | Error>;
+}
+
+export class DefaultUniAstToMarkdownConverter {
+  // TODO: inject component to get values
   constructor(
     private readonly context: ConverterContext,
     private readonly type: string,

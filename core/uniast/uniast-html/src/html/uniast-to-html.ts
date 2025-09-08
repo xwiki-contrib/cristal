@@ -36,7 +36,11 @@ import type {
  * @since 0.22
  * @beta
  */
-export class UniAstToHTMLConverter {
+export interface UniAstToHTMLConverter {
+  toHtml(uniAst: UniAst): string | Error;
+}
+
+export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
   constructor(private readonly context: ConverterContext) {}
   toHtml(uniAst: UniAst): string | Error {
     const { blocks } = uniAst;
