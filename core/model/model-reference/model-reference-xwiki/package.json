@@ -15,17 +15,11 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.es.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.umd.js"
-      }
+      "import": "./src/index.ts",
+      "types": "./dist/index.d.ts"
     }
   },
-  "main": "./dist/index.es.js",
+  "main": "./src/index.ts",
   "scripts": {
     "api-extractor:local": "api-extractor run --local",
     "build": "vite build",
@@ -54,5 +48,21 @@
     "vitest": "3.2.4",
     "vitest-mock-extended": "3.1.0",
     "vue": "3.5.20"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.es.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.umd.js"
+        }
+      }
+    },
+    "main": "./dist/index.es.js",
+    "types": "./dist/index.d.ts"
   }
 }

@@ -18,18 +18,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import SharedWorker from "./worker?sharedworker";
+import { default as Worker } from "./worker?sharedworker";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import * as Comlink from "comlink";
 import { inject, injectable } from "inversify";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { QueueWorker } from "@xwiki/cristal-sharedworker-api";
+import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
 
 @injectable()
 export default class DefaultQueueWorker implements QueueWorker {
   // TODO remove use of any
-
-  private workerInstance: SharedWorker | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private workerInstance: any;
   private cristalApp: CristalApp;
   private logger: Logger;
 
@@ -68,20 +69,23 @@ export default class DefaultQueueWorker implements QueueWorker {
   public initialize(): void {
     try {
       if (this.workerInstance == null) {
-        try {
-          this.workerInstance = new SharedWorker();
-          // TODO get rid of aliasing
-          // eslint-disable-next-line @typescript-eslint/no-this-alias
-          const that = this;
+        // this.workerInstance = new ComlinkWorker<typeof import('./worker')>(new URL('./worker',
+        // import.meta.url), {/* normal Worker options*/})
+        const sworker = new Worker({
+          name: "cristal-sharedworker",
+        });
+        this.workerInstance = Comlink.wrap<MyWorker>(sworker.port);
+        // TODO get rid of aliasing
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const that = this;
 
-          this.workerInstance.port.onmessage = async (event) => {
-            await that.pageLoaded(event.data);
-          };
+        this.workerInstance.setPageLoadedCallback(
+          Comlink.proxy(async (page: string) => {
+            await that.pageLoaded(page);
+          }),
+        );
 
-          console.debug("Worker initialized", this.workerInstance);
-        } catch (e) {
-          console.error("Failed to initialize shared worker", e);
-        }
+        console.debug("Worker initialized", this.workerInstance);
       } else {
         console.debug("Already initialized");
       }
@@ -90,12 +94,42 @@ export default class DefaultQueueWorker implements QueueWorker {
     }
   }
 
-  public addToQueue(page: string): void {
-    console.log("worker Calling addToQueue", page);
+  public getStatus(): boolean {
     if (this.workerInstance != null) {
-      this.workerInstance.port.postMessage(page);
+      console.log("workerInstance is ready");
+      return true;
     } else {
       console.log("workerInstance is null. Cannot call");
+      return false;
+    }
+  }
+
+  public async increment(): Promise<number> {
+    if (this.workerInstance == null) {
+      console.log("workerInstance is null. Cannot call");
+      return -1;
+    } else {
+      const result = await this.workerInstance.add(1);
+      console.log("Results from shared worker: ", result);
+      return result;
+    }
+  }
+
+  public async addToQueue(page: string): Promise<void> {
+    console.log("worker Calling addToQueue", page);
+    if (this.workerInstance != null) {
+      await this.workerInstance.addToQueue(page);
+    } else {
+      console.log("workerInstance is null. Cannot call");
+    }
+  }
+
+  public async getQueueSize(): Promise<number> {
+    console.log("worker Calling getQueueSize");
+    if (this.workerInstance == null) {
+      return -1;
+    } else {
+      return await this.workerInstance.getQueueSize();
     }
   }
 }

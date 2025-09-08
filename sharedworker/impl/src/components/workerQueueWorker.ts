@@ -18,16 +18,28 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-/**
- * @since 0.1
- * @beta
- */
-export interface MyWorker {
-  add(a: number): number;
+import { injectable } from "inversify";
+import type { QueueWorker } from "@xwiki/cristal-sharedworker-api";
 
-  addToQueue(page: string): void;
+@injectable()
+export default class WorkerQueueWorker implements QueueWorker {
+  public constructor() {
+    this.initialize();
+  }
 
-  getQueueSize(): number;
+  public initialize(): void {}
 
-  setPageLoadedCallback(fct: (a: string) => void): void;
+  public getStatus(): boolean {
+    return true;
+  }
+
+  public async increment(): Promise<number> {
+    return 0;
+  }
+
+  public async addToQueue(): Promise<void> {}
+
+  public async getQueueSize(): Promise<number> {
+    return 0;
+  }
 }

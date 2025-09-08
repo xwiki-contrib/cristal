@@ -7,6 +7,8 @@
 // @beta (undocumented)
 export interface MyWorker {
     // (undocumented)
+    add(a: number): number;
+    // (undocumented)
     addToQueue(page: string): void;
     // (undocumented)
     getQueueSize(): number;
@@ -17,7 +19,13 @@ export interface MyWorker {
 // @beta (undocumented)
 export interface QueueWorker {
     // (undocumented)
-    addToQueue(page: string): void;
+    addToQueue(page: string): Promise<void>;
+    // (undocumented)
+    getQueueSize(): Promise<number>;
+    // (undocumented)
+    getStatus(): boolean;
+    // (undocumented)
+    increment(): Promise<number>;
     // (undocumented)
     initialize(): void;
 }

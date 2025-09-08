@@ -15,37 +15,19 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/default/index.d.ts",
-        "default": "./dist/default/index.es.js"
-      },
-      "require": {
-        "types": "./dist/default/index.d.cts",
-        "default": "./dist/default/index.umd.js"
-      }
+      "types": "./dist/default/index.d.ts",
+      "import": "./src/index.ts"
     },
     "./preload": {
-      "import": {
-        "types": "./dist/preload/index.d.ts",
-        "default": "./dist/preload/index.es.js"
-      },
-      "require": {
-        "types": "./dist/preload/index.d.cts",
-        "default": "./dist/preload/index.umd.js"
-      }
+      "types": "./src/electron/preload/index.ts",
+      "import": "./src/electron/preload/index.ts"
     },
     "./main": {
-      "import": {
-        "types": "./dist/main/index.d.ts",
-        "default": "./dist/main/index.es.js"
-      },
-      "require": {
-        "types": "./dist/main/index.d.cts",
-        "default": "./dist/main/index.umd.js"
-      }
+      "types": "./src/electron/main/index.ts",
+      "import": "./src/electron/main/index.ts"
     }
   },
-  "main": "./dist/main/index.es.js",
+  "main": "./src/index.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json && vite build && vite build -c vite.preload.config.ts && vite build -c vite.main.config.ts",
     "clean": "rimraf dist",
@@ -69,5 +51,41 @@
     "reflect-metadata": "0.2.2",
     "typescript": "5.9.2",
     "vite": "7.1.4"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/default/index.d.ts",
+          "default": "./dist/default/index.es.js"
+        },
+        "require": {
+          "types": "./dist/default/index.d.cts",
+          "default": "./dist/default/index.umd.js"
+        }
+      },
+      "./preload": {
+        "import": {
+          "types": "./dist/preload/index.d.ts",
+          "default": "./dist/preload/index.es.js"
+        },
+        "require": {
+          "types": "./dist/preload/index.d.cts",
+          "default": "./dist/preload/index.umd.js"
+        }
+      },
+      "./main": {
+        "import": {
+          "types": "./dist/main/index.d.ts",
+          "default": "./dist/main/index.es.js"
+        },
+        "require": {
+          "types": "./dist/main/index.d.cts",
+          "default": "./dist/main/index.umd.js"
+        }
+      }
+    },
+    "main": "./dist/main/index.es.js",
+    "types": "./dist/main/index.d.ts"
   }
 }

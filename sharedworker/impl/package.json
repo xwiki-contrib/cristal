@@ -15,17 +15,11 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.es.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.umd.js"
-      }
+      "import": "./src/index.ts",
+      "types": "./dist/index.d.ts"
     }
   },
-  "main": "./dist/index.es.js",
+  "main": "./src/index.ts",
   "scripts": {
     "api-extractor:local": "api-extractor run --local",
     "build": "vite build",
@@ -48,12 +42,14 @@
     "@xwiki/cristal-document-api": "workspace:*",
     "@xwiki/cristal-extension-manager": "workspace:*",
     "@xwiki/cristal-sharedworker-api": "workspace:*",
+    "comlink": "4.4.2",
     "reflect-metadata": "0.2.2",
     "vue-router": "4.5.1"
   },
   "peerDependencies": {
     "inversify": "7.x",
-    "reflect-metadata": "0.x"
+    "reflect-metadata": "0.x",
+    "vue": "3.x"
   },
   "devDependencies": {
     "@types/sharedworker": "0.0.180",
@@ -62,5 +58,21 @@
     "typescript": "5.9.2",
     "vite": "7.1.4",
     "vue": "3.5.20"
+  },
+  "publishConfig": {
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.es.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.umd.js"
+        }
+      }
+    },
+    "main": "./dist/index.es.js",
+    "types": "./dist/index.d.ts"
   }
 }
