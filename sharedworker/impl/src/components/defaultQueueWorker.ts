@@ -20,18 +20,16 @@
 
 import SharedWorker from "./worker?sharedworker";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import * as Comlink from "comlink";
 import { inject, injectable } from "inversify";
 import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
-import type { Remote } from "comlink";
+import type { QueueWorker } from "@xwiki/cristal-sharedworker-api";
 
 @injectable()
 export default class DefaultQueueWorker implements QueueWorker {
   // TODO remove use of any
 
-  private workerInstance: Remote<MyWorker> | undefined;
+  private workerInstance: SharedWorker | undefined;
   private cristalApp: CristalApp;
   private logger: Logger;
 
@@ -67,22 +65,18 @@ export default class DefaultQueueWorker implements QueueWorker {
     }
   }
 
-  // eslint-disable-next-line max-statements
   public initialize(): void {
     try {
       if (this.workerInstance == null) {
         try {
-          const sworker = new SharedWorker();
-          this.workerInstance = Comlink.wrap<MyWorker>(sworker.port);
+          this.workerInstance = new SharedWorker();
           // TODO get rid of aliasing
           // eslint-disable-next-line @typescript-eslint/no-this-alias
           const that = this;
 
-          this.workerInstance.setPageLoadedCallback(
-            Comlink.proxy(async (page: string) => {
-              await that.pageLoaded(page);
-            }),
-          );
+          this.workerInstance.port.onmessage = async (event) => {
+            await that.pageLoaded(event.data);
+          };
 
           console.debug("Worker initialized", this.workerInstance);
         } catch (e) {
@@ -96,31 +90,12 @@ export default class DefaultQueueWorker implements QueueWorker {
     }
   }
 
-  public getStatus(): boolean {
-    if (this.workerInstance != null) {
-      console.log("workerInstance is ready");
-      return true;
-    } else {
-      console.log("workerInstance is null. Cannot call");
-      return false;
-    }
-  }
-
-  public async addToQueue(page: string): Promise<void> {
+  public addToQueue(page: string): void {
     console.log("worker Calling addToQueue", page);
     if (this.workerInstance != null) {
-      await this.workerInstance.addToQueue(page);
+      this.workerInstance.port.postMessage(page);
     } else {
       console.log("workerInstance is null. Cannot call");
-    }
-  }
-
-  public async getQueueSize(): Promise<number> {
-    console.log("worker Calling getQueueSize");
-    if (this.workerInstance == null) {
-      return -1;
-    } else {
-      return await this.workerInstance.getQueueSize();
     }
   }
 }

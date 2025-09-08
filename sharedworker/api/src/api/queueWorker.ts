@@ -25,9 +25,5 @@
 export interface QueueWorker {
   initialize(): void;
 
-  getStatus(): boolean;
-
-  addToQueue(page: string): Promise<void>;
-
-  getQueueSize(): Promise<number>;
+  addToQueue(page: string): void;
 }

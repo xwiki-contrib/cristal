@@ -27,9 +27,5 @@ export default mergeConfig(
     worker: {
       format: "es",
     },
-    define: {
-      // define process to avoid runtime error with jquery
-      "process.env": {},
-    },
   }),
 );
