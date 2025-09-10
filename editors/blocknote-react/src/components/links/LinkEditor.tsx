@@ -105,12 +105,12 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
           <Stack justify="center">
             <Text>
               <RiFileLine /> {link.title}
+              <Breadcrumbs c="gray">
+                {link.segments.map((segment, i) => (
+                  <Text key={`${i}${segment}`}>{segment}</Text>
+                ))}
+              </Breadcrumbs>
             </Text>
-            <Breadcrumbs c="gray">
-              {link.segments.map((segment, i) => (
-                <Text key={`${i}${segment}`}>{segment}</Text>
-              ))}
-            </Breadcrumbs>
           </Stack>
         )}
         onSelect={(url) => (creationMode ? submit({ url }) : setUrl(url))}
