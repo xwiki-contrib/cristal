@@ -37,8 +37,17 @@ import {
 } from "@xwiki/cristal-uniast-markdown";
 import { createConverterContext } from "@xwiki/cristal-uniast-utils";
 import { debounce } from "lodash-es";
-import { inject, onMounted, ref, shallowRef, useTemplateRef, watch } from "vue";
+import {
+  inject,
+  onMounted,
+  onUnmounted,
+  ref,
+  shallowRef,
+  useTemplateRef,
+  watch,
+} from "vue";
 import { useI18n } from "vue-i18n";
+import { onBeforeRouteLeave } from "vue-router";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
 import type { CristalApp, PageData } from "@xwiki/cristal-api";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
@@ -247,6 +256,18 @@ function beforeUnload(evt: BeforeUnloadEvent): string | void {
 
 onMounted(() => {
   window.addEventListener("beforeunload", beforeUnload);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("beforeunload", beforeUnload);
+});
+
+onBeforeRouteLeave(() => {
+  if (saveStatus.value !== SaveStatus.SAVED) {
+    // NOTE: the message won't actually be shown in most browsers nowadays, it will be replaced with a generic message instead.
+    // This is not a bug.
+    return confirm(t("blocknote.editor.save.unsavedChanges"));
+  }
 });
 </script>
 
