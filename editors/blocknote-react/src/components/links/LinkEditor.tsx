@@ -107,7 +107,9 @@ export const LinkEditor: React.FC<LinkEditorProps> = ({
               <RiFileLine /> {link.title}
               <Breadcrumbs c="gray">
                 {link.segments.map((segment, i) => (
-                  <Text key={`${i}${segment}`}>{segment}</Text>
+                  <Text key={`${i}${segment}`} fz="md">
+                    {segment}
+                  </Text>
                 ))}
               </Breadcrumbs>
             </Text>
