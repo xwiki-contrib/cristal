@@ -61,7 +61,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
     const entityRef = linkEditionCtx.remoteURLParser.parse(currentSelection);
 
     return entityRef
-      ? linkEditionCtx.modelReferenceHandler.getTitle(entityRef)
+      ? linkEditionCtx.modelReferenceSerializer.serialize(entityRef)
       : currentSelection;
   }, [currentSelection]);
 
