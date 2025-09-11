@@ -33,6 +33,7 @@ import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import {
   AttachmentReference,
   DocumentReference,
+  EntityType,
 } from "@xwiki/cristal-model-api";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
@@ -53,16 +54,25 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
   currentSelection,
   onSelected,
 }) => {
-  const initialQuery = useMemo(() => {
+  const [initialQuery, initialEntitySegments] = useMemo(() => {
     if (!currentSelection) {
-      return null;
+      return ["", null];
     }
 
     const entityRef = linkEditionCtx.remoteURLParser.parse(currentSelection);
 
-    return entityRef
-      ? linkEditionCtx.modelReferenceSerializer.serialize(entityRef)
-      : currentSelection;
+    if (!entityRef) {
+      return [currentSelection, null];
+    }
+
+    const documentReference =
+      entityRef?.type == EntityType.ATTACHMENT
+        ? (entityRef as AttachmentReference).document
+        : (entityRef as DocumentReference);
+
+    const segments = documentReference.space?.names.slice(0) ?? [];
+
+    return [linkEditionCtx.modelReferenceHandler.getTitle(entityRef), segments];
   }, [currentSelection]);
 
   const { t } = useTranslation();
@@ -139,7 +149,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
   // Start a first empty search on the first load, to not let the results empty.
   useEffect(() => {
-    searchAttachments(initialQuery ?? "");
+    searchAttachments(initialQuery);
   }, []);
 
   return (
@@ -160,7 +170,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
       <SearchBox
         placeholder={t("blocknote.imageSelector.placeholder")}
-        initialValue={initialQuery ?? ""}
+        initialValue={initialQuery}
         getSuggestions={searchAttachments}
         renderSuggestion={(suggestion) => (
           <Flex gap="sm">
@@ -187,6 +197,14 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
         onSelect={onSelected}
         onSubmit={onSelected}
       />
+
+      {initialEntitySegments && (
+        <Breadcrumbs c="gray" pt="md" ml="xl" fz="xs" separatorMargin="0.33rem">
+          {initialEntitySegments.map((segment, i) => (
+            <Text key={`${i}${segment}`}>{segment}</Text>
+          ))}
+        </Breadcrumbs>
+      )}
     </Box>
   );
 };
