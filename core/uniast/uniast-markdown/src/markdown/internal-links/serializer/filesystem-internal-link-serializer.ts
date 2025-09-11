@@ -17,51 +17,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { XMLParser } from "fast-xml-parser";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import type { InternalLinksSerializer } from "./internal-links-serializer";
 import type { UniAstToMarkdownConverter } from "../../uni-ast-to-markdown-converter";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
 @injectable()
-export class NextcloudInternalLinkSerializer
+export class FilesystemInternalLinkSerializer
   implements InternalLinksSerializer
 {
-  constructor(
-    @inject("RemoteURLSerializerProvider")
-    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
-    @inject("CristalApp") private readonly cristalApp: CristalApp,
-  ) {}
-
   async serialize(
     content: Link["content"],
     target: Extract<LinkTarget, { type: "internal" }>,
     uniAstToMarkdownConverter: UniAstToMarkdownConverter,
   ): Promise<string> {
-    const label =
-      await uniAstToMarkdownConverter.convertInlineContents(content);
-    const urlFromReference = this.remoteURLSerializerProvider
-      .get()!
-      .serialize(target.parsedReference ?? undefined)!;
-    const response = await fetch(urlFromReference, {
-      method: "PROPFIND",
-      body: `<?xml version="1.0" encoding="UTF-8"?>
- <d:propfind xmlns:d="DAV:">
-   <d:prop xmlns:oc="http://owncloud.org/ns">
-    <oc:fileid/>
-   </d:prop>
- </d:propfind>`,
-      headers: {
-        Authorization: `Basic ${btoa("admin:admin")}`,
-      },
-    });
-    const xml = new XMLParser().parse(await response.text());
-    const fileId =
-      xml["d:multistatus"]["d:response"]["d:propstat"]["d:prop"]["oc:fileid"];
-    const baseURL = this.cristalApp.getWikiConfig().baseURL;
-    const url = `${baseURL}/f/${fileId}`;
-    return `[${label}](${url})`;
+    // TODO: test if working ok
+    return `[${await uniAstToMarkdownConverter.convertInlineContents(
+      content,
+    )}](${target.rawReference})`;
   }
 }

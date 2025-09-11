@@ -72,6 +72,7 @@ class ComponentInit {
     this.initXWikiFactory(container);
     this.initNextcloudFactory(container);
     this.initGitHubFactory(container);
+    this.initFileSystemFactory(container);
 
     container
       .bind<ParserConfigurationResolver>("ParserConfigurationResolver")
@@ -142,6 +143,24 @@ class ComponentInit {
               "./markdown/internal-links/serializer/github-internal-link-serializer"
             )
           ).GitHubInternalLinkSerializer;
+          return this.bindAndLoad(container, name, component, context);
+        };
+      })
+      .whenNamed(name);
+  }
+  private initFileSystemFactory(container: Container) {
+    const name = "FileSystem";
+    container
+      .bind<Factory<Promise<InternalLinksSerializer>>>(
+        "Factory<InternalLinksSerializer>",
+      )
+      .toFactory((context) => {
+        return async () => {
+          const component = (
+            await import(
+              "./markdown/internal-links/serializer/filesystem-internal-link-serializer"
+            )
+          ).FilesystemInternalLinkSerializer;
           return this.bindAndLoad(container, name, component, context);
         };
       })
