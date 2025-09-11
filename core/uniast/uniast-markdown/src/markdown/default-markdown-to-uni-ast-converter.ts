@@ -19,6 +19,7 @@
  */
 import { findFirstMatchIn } from "./internal/find-first-match-in";
 import { remarkPartialGfm } from "./internal/remark-partial-gfm";
+import { ParserConfigurationResolver } from "./internal-links/parser/parser-configuration-resolver";
 import {
   assertInArray,
   assertUnreachable,
@@ -51,18 +52,14 @@ import type { Image as MdImage, PhrasingContent, RootContent } from "mdast";
 export class DefaultMarkdownToUniAstConverter
   implements MarkdownToUniAstConverter
 {
-  private readonly supportInternal: boolean;
-
-  // TODO: inject converter context
   constructor(
     @inject("ModelReferenceParserProvider")
     private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
     @inject("ModelReferenceHandlerProvider")
     private readonly modelReferenceHandlerProvider: ModelReferenceHandlerProvider,
-  ) {
-    // TODO: initialize with right context.
-    this.supportInternal = false;
-  }
+    @inject("ParserConfigurationResolver")
+    private readonly parserConfigurationResolver: ParserConfigurationResolver,
+  ) {}
 
   parseMarkdown(markdown: string): UniAst | Error {
     // TODO: auto-links (URLs + emails)
@@ -320,7 +317,7 @@ export class DefaultMarkdownToUniAstConverter
       const internalLinksOrImage: Array<{
         name: "image" | "link";
         match: string;
-      }> = this.supportInternal
+      }> = this.parserConfigurationResolver.get().supportsFlexmark
         ? [
             { name: "image", match: "![[" },
             { name: "link", match: "[[" },

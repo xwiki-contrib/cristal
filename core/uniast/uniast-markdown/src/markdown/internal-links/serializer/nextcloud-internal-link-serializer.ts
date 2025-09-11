@@ -17,17 +17,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { DOMParser } from "happy-dom";
+import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
-import type { UniAstToMarkdownConverter } from "../uni-ast-to-markdown-converter";
-import type { ExternalLinksSerializer } from "./internal-links-serializer";
+import type { InternalLinksSerializer } from "./internal-links-serializer";
+import type { UniAstToMarkdownConverter } from "../../uni-ast-to-markdown-converter";
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
 // TODO: register in container, maybe asynchronously? and named Nextcloud
 @injectable()
 export class NextcloudInternalLinkSerializer
-  implements ExternalLinksSerializer
+  implements InternalLinksSerializer
 {
   constructor(
     @inject("RemoteURLSerializerProvider")
@@ -56,11 +56,8 @@ export class NextcloudInternalLinkSerializer
         Authorization: `Basic ${btoa("admin:admin")}`,
       },
     });
-    // TODO: not portable, use fast-xml-parser instead.
-    const xml = new DOMParser().parseFromString(
-      await response.text(),
-      "text/xml",
-    );
+    const xml = new XMLParser().parse(await response.text());
+    // TODO: likely to be wrong methods below.
     // TODO: error handling?
     const fileId = xml.getElementsByTagName("oc:fileid")[0].textContent;
     //TODO: replace with a nextcloud configuration

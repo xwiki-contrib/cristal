@@ -18,20 +18,23 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { inject, injectable } from "inversify";
-import type { ExternalLinksSerializer } from "./internal-links-serializer";
+import type { InternalLinksSerializer } from "./internal-links-serializer";
 import type { CristalApp } from "@xwiki/cristal-api";
 
 @injectable()
 export class InternalLinksSerializerResolver {
   constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
-  get(): ExternalLinksSerializer {
+  async get(): Promise<InternalLinksSerializer> {
     const type = this.cristalApp.getWikiConfig().getType();
     try {
-      return this.cristalApp
-        .getContainer()
-        .get("ExternalLinksSerializer", { name: type });
-    } catch {
+      const factory: () => Promise<InternalLinksSerializer> =
+        await this.cristalApp
+          .getContainer()
+          .getAsync("Factory<InternalLinksSerializer>", { name: type });
+      return factory();
+    } catch (e) {
+      console.debug(e);
       throw new Error(`Could not resolve serializer for type ${type}`);
     }
   }

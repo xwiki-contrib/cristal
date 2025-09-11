@@ -22,6 +22,7 @@ import { MACRO_NAME_PREFIX } from "@xwiki/cristal-editors-blocknote-react";
 import {
   assertUnreachable,
   provideTypeInference,
+  tryFallible,
   tryFallibleOrError,
 } from "@xwiki/cristal-fn-utils";
 import type { Link, TableCell as BlockNoteTableCell } from "@blocknote/core";
@@ -417,7 +418,7 @@ export class BlockNoteToUniAstConverter {
   }
 
   private parseTarget(url: string): LinkTarget {
-    const reference = this.remoteURLParser.parse(url);
+    const reference = tryFallible(() => this.remoteURLParser.parse(url));
 
     return reference
       ? {

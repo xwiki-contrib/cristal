@@ -17,10 +17,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { InternalLinksSerializerResolver } from "./internal-links/internal-links-serializer-resolver";
+import { InternalLinksSerializerResolver } from "./internal-links/serializer/internal-links-serializer-resolver";
 import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import { inject, injectable } from "inversify";
-import type { ExternalLinksSerializer } from "./internal-links/internal-links-serializer";
 import type { UniAstToMarkdownConverter } from "./uni-ast-to-markdown-converter";
 import type {
   Block,
@@ -198,8 +197,8 @@ export class DefaultUniAstToMarkdownConverter
         return `[${await this.convertInlineContents(inlineContent.content)}](${inlineContent.target.url})`;
 
       case "internal": {
-        const linksSerializer: ExternalLinksSerializer =
-          this.internalLinksSerializerResolver.get();
+        const linksSerializer =
+          await this.internalLinksSerializerResolver.get();
         return linksSerializer.serialize(
           inlineContent.content,
           inlineContent.target,
