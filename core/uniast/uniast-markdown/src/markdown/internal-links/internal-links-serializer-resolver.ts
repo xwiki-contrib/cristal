@@ -17,11 +17,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { inject, injectable } from "inversify";
+import type { ExternalLinksSerializer } from "./internal-links-serializer";
+import type { CristalApp } from "@xwiki/cristal-api";
 
-export {
-  ComponentInit,
-  markdownToUniAstConverterName,
-  uniAstToMarkdownConverterName,
-} from "./component-init";
-export { type MarkdownToUniAstConverter } from "./markdown/markdown-to-uni-ast-converter";
-export { type UniAstToMarkdownConverter } from "./markdown/uni-ast-to-markdown-converter";
+@injectable()
+export class InternalLinksSerializerResolver {
+  constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
+
+  get(): ExternalLinksSerializer {
+    const type = this.cristalApp.getWikiConfig().getType();
+    try {
+      return this.cristalApp
+        .getContainer()
+        .get("ExternalLinksSerializer", { name: type });
+    } catch {
+      throw new Error(`Could not resolve serializer for type ${type}`);
+    }
+  }
+}

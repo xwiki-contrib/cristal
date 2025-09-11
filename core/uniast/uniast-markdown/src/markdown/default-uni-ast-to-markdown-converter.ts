@@ -17,9 +17,11 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { InternalLinksSerializerResolver } from "./internal-links/internal-links-serializer-resolver";
 import { tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import { inject, injectable } from "inversify";
-import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+import type { ExternalLinksSerializer } from "./internal-links/internal-links-serializer";
+import type { UniAstToMarkdownConverter } from "./uni-ast-to-markdown-converter";
 import type {
   Block,
   Image,
@@ -32,16 +34,13 @@ import type {
 } from "@xwiki/cristal-uniast-api";
 
 @injectable()
-export class DefaultUniAstToMarkdownConverter {
-  // TODO: inject component to get values
-  private readonly type: string;
+export class DefaultUniAstToMarkdownConverter
+  implements UniAstToMarkdownConverter
+{
   constructor(
-    @inject("RemoteURLSerializerProvider")
-    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
-  ) {
-    // TODO: remove field
-    this.type = "POUET";
-  }
+    @inject("InternalLinksSerializerResolver")
+    private readonly internalLinksSerializerResolver: InternalLinksSerializerResolver,
+  ) {}
 
   /**
    * Converts the provided AST to Markdown.
@@ -170,7 +169,7 @@ export class DefaultUniAstToMarkdownConverter {
     return this.convertInlineContents(cell.content);
   }
 
-  private async convertInlineContents(
+  async convertInlineContents(
     inlineContents: InlineContent[],
   ): Promise<string> {
     return (
@@ -198,46 +197,15 @@ export class DefaultUniAstToMarkdownConverter {
       case "external":
         return `[${await this.convertInlineContents(inlineContent.content)}](${inlineContent.target.url})`;
 
-      case "internal":
-        switch (this.type) {
-          case "Nextcloud": {
-            console.log("internal link", inlineContent);
-            const label = await this.convertInlineContents(
-              inlineContent.content,
-            );
-            const urlFromReference = this.remoteURLSerializerProvider
-              .get()!
-              .serialize(inlineContent.target.parsedReference ?? undefined)!;
-            const response = await fetch(urlFromReference, {
-              method: "PROPFIND",
-              body: `<?xml version="1.0" encoding="UTF-8"?>
- <d:propfind xmlns:d="DAV:">
-   <d:prop xmlns:oc="http://owncloud.org/ns">
-    <oc:fileid/>
-   </d:prop>
- </d:propfind>`,
-              headers: {
-                Authorization: `Basic ${btoa("admin:admin")}`,
-              },
-            });
-            // TODO: not portable, use fast-xml-parser instead.
-            const xml = new DOMParser().parseFromString(
-              await response.text(),
-              "text/xml",
-            );
-            // TODO: error handling?
-            const fileId = xml.getElementsByTagName("oc:fileid")[0].textContent;
-            //TODO: replace with a nextcloud configuration
-            const url = `http://localhost:9292/f/${fileId}`;
-            return `[${label}](${url})`;
-          }
-          case "GitHub":
-            return "TODO GitHub link";
-          default:
-            return `[[${await this.convertInlineContents(
-              inlineContent.content,
-            )}|${inlineContent.target.rawReference}]]`;
-        }
+      case "internal": {
+        const linksSerializer: ExternalLinksSerializer =
+          this.internalLinksSerializerResolver.get();
+        return linksSerializer.serialize(
+          inlineContent.content,
+          inlineContent.target,
+          this,
+        );
+      }
     }
   }
 

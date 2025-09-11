@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultUniAstToHTMLConverter } from "../default-uni-ast-to-h-t-m-l-converter";
+import { DefaultUniAstToHTMLConverter } from "../default-uni-ast-to-html-converter";
 import {
   AttachmentReference,
   DocumentReference,

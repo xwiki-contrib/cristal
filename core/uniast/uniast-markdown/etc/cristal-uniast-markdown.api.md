@@ -4,23 +4,29 @@
 
 ```ts
 
-import { ConverterContext } from '@xwiki/cristal-uniast-api';
-import { InlineContent } from '@xwiki/cristal-uniast-api';
+import { Container } from 'inversify';
 import { UniAst } from '@xwiki/cristal-uniast-api';
 
+// @beta (undocumented)
+export class ComponentInit {
+    constructor(container: Container);
+}
+
 // @beta
-export class MarkdownToUniAstConverter {
-    constructor(context: ConverterContext, supportInternal: string);
+export interface MarkdownToUniAstConverter {
     parseMarkdown(markdown: string): UniAst | Error;
 }
 
+// @beta (undocumented)
+export const markdownToUniAstConverterName = "MarkdownToUniAstConverter";
+
 // @beta
-export class UniAstToMarkdownConverter {
-    constructor(context: ConverterContext, type: string);
-    // (undocumented)
-    convertInlineContent(inlineContent: InlineContent): Promise<string>;
+export interface UniAstToMarkdownConverter {
     toMarkdown(uniAst: UniAst): Promise<string | Error>;
 }
+
+// @beta (undocumented)
+export const uniAstToMarkdownConverterName = "UniAstToMarkdownConverter";
 
 // (No @packageDocumentation comment for this package)
 

@@ -19,11 +19,22 @@
  */
 import { DefaultMarkdownToUniAstConverter } from "./markdown/default-markdown-to-uni-ast-converter";
 import { DefaultUniAstToMarkdownConverter } from "./markdown/default-uni-ast-to-markdown-converter";
+import { InternalLinksSerializerResolver } from "./markdown/internal-links/internal-links-serializer-resolver";
+import type { ExternalLinksSerializer } from "./markdown/internal-links/internal-links-serializer";
 import type { MarkdownToUniAstConverter } from "./markdown/markdown-to-uni-ast-converter";
 import type { UniAstToMarkdownConverter } from "./markdown/uni-ast-to-markdown-converter";
 import type { Container } from "inversify";
 
+/**
+ * @since 0.22
+ * @beta
+ */
 const markdownToUniAstConverterName = "MarkdownToUniAstConverter";
+
+/**
+ * @since 0.22
+ * @beta
+ */
 const uniAstToMarkdownConverterName = "UniAstToMarkdownConverter";
 
 /**
@@ -41,6 +52,12 @@ class ComponentInit {
       .bind<UniAstToMarkdownConverter>(uniAstToMarkdownConverterName)
       .to(DefaultUniAstToMarkdownConverter)
       .whenDefault();
+    container
+      .bind<InternalLinksSerializerResolver>("InternalLinksSerializerResolver")
+      .toSelf();
+    container
+      .bind<ExternalLinksSerializer>("GitHubInternalLinkSerializer")
+      .toProvider();
   }
 }
 

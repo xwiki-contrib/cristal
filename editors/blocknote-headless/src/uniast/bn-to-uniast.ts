@@ -32,10 +32,11 @@ import type {
   EditorStyleSchema,
   EditorStyledText,
 } from "@xwiki/cristal-editors-blocknote-react";
+import type { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
 import type {
   Block,
   BlockStyles,
-  ConverterContext,
   InlineContent,
   LinkTarget,
   ListItem,
@@ -50,8 +51,12 @@ import type {
  * @since 0.16
  * @beta
  */
+// TODO: convert to an actual inversify component
 export class BlockNoteToUniAstConverter {
-  constructor(public context: ConverterContext) {}
+  constructor(
+    private readonly remoteURLParser: RemoteURLParser,
+    private readonly modelReferenceSerializer: ModelReferenceSerializer,
+  ) {}
 
   blocksToUniAst(blocks: BlockType[]): UniAst | Error {
     const uniAstBlocks = tryFallibleOrError(() => this.convertBlocks(blocks));
@@ -412,7 +417,7 @@ export class BlockNoteToUniAstConverter {
   }
 
   private parseTarget(url: string): LinkTarget {
-    const reference = this.context.parseReferenceFromUrl(url);
+    const reference = this.remoteURLParser.parse(url);
 
     return reference
       ? {
@@ -423,7 +428,7 @@ export class BlockNoteToUniAstConverter {
           // Waiting for solved issue in BlockNote:
           // > https://github.com/TypeCellOS/BlockNote/issues/1840
           //
-          rawReference: this.context.serializeReference(reference),
+          rawReference: this.modelReferenceSerializer.serialize(reference)!,
         }
       : { type: "external", url };
   }

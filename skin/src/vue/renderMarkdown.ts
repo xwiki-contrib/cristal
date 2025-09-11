@@ -17,24 +17,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { UniAstToHTMLConverter } from "@xwiki/cristal-uniast-html";
-import { MarkdownToUniAstConverter } from "@xwiki/cristal-uniast-markdown";
+import { uniAstToHTMLConverterName } from "@xwiki/cristal-uniast-html";
+import { markdownToUniAstConverterName } from "@xwiki/cristal-uniast-markdown";
 import { Container } from "inversify";
+import type { UniAstToHTMLConverter } from "@xwiki/cristal-uniast-html";
+import type { MarkdownToUniAstConverter } from "@xwiki/cristal-uniast-markdown";
 
 /**
  * Converts a markdown source into html.
  *
  * @param source - the markdown content
  * @param container - the inversify container
- * @param supportInternal - whether to support internal links
- *
  * @since 0.22
  */
 export function renderMarkdown(source: string, container: Container): string {
   // Mardown to uniast to html
 
-  const md = new MarkdownToUniAstConverter(createConverterContext(container));
-  const html = new UniAstToHTMLConverter(createConverterContext(container));
+  const md = container.get<MarkdownToUniAstConverter>(
+    markdownToUniAstConverterName,
+  );
+
+  const html = container.get<UniAstToHTMLConverter>(uniAstToHTMLConverterName);
 
   const uniAst = md.parseMarkdown(source);
   if (uniAst instanceof Error) {

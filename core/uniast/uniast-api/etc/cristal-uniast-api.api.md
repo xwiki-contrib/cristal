@@ -5,12 +5,13 @@
 ```ts
 
 import type { EntityReference } from '@xwiki/cristal-model-api';
-import { EntityType } from '@xwiki/cristal-model-api';
 
 // @beta (undocumented)
 export type Alignment = "left" | "center" | "right" | "justify";
 
-// @beta (undocumented)
+// Warning: (ae-incompatible-release-tags) The symbol "Block" is marked as @public, but its signature references "Image_2" which is marked as @beta
+//
+// @public (undocumented)
 export type Block = {
     type: "paragraph";
     styles: BlockStyles;
@@ -54,15 +55,6 @@ export type BlockStyles = {
     textAlignment?: Alignment;
 };
 
-// @beta
-export type ConverterContext = {
-    parseReference(reference: string, type: EntityType | null): EntityReference | null;
-    serializeReference(reference: EntityReference): string;
-    parseReferenceFromUrl(url: string): EntityReference | null;
-    getUrlFromReference(reference: EntityReference): string;
-    getDisplayName(reference: EntityReference): string;
-};
-
 // @beta (undocumented)
 type Image_2 = {
     target: LinkTarget;
@@ -89,7 +81,7 @@ export type InlineContent = ({
     params: Record<string, boolean | number | string>;
 };
 
-// @beta (undocumented)
+// @public (undocumented)
 export type Link = {
     target: LinkTarget;
     content: Exclude<InlineContent, {
@@ -151,6 +143,20 @@ export type TextStyles = {
 export type UniAst = {
     blocks: Block[];
 };
+
+// Warnings were encountered during analysis:
+//
+// src/ast.ts:34:26 - (ae-incompatible-release-tags) The symbol "styles" is marked as @public, but its signature references "BlockStyles" which is marked as @beta
+// src/ast.ts:34:47 - (ae-incompatible-release-tags) The symbol "content" is marked as @public, but its signature references "InlineContent" which is marked as @beta
+// src/ast.ts:38:7 - (ae-incompatible-release-tags) The symbol "content" is marked as @public, but its signature references "InlineContent" which is marked as @beta
+// src/ast.ts:39:7 - (ae-incompatible-release-tags) The symbol "styles" is marked as @public, but its signature references "BlockStyles" which is marked as @beta
+// src/ast.ts:43:7 - (ae-incompatible-release-tags) The symbol "items" is marked as @public, but its signature references "ListItem" which is marked as @beta
+// src/ast.ts:44:7 - (ae-incompatible-release-tags) The symbol "styles" is marked as @public, but its signature references "BlockStyles" which is marked as @beta
+// src/ast.ts:46:40 - (ae-incompatible-release-tags) The symbol "styles" is marked as @public, but its signature references "BlockStyles" which is marked as @beta
+// src/ast.ts:50:7 - (ae-incompatible-release-tags) The symbol "columns" is marked as @public, but its signature references "TableColumn" which is marked as @beta
+// src/ast.ts:51:7 - (ae-incompatible-release-tags) The symbol "rows" is marked as @public, but its signature references "TableCell" which is marked as @beta
+// src/ast.ts:52:7 - (ae-incompatible-release-tags) The symbol "styles" is marked as @public, but its signature references "BlockStyles" which is marked as @beta
+// src/ast.ts:113:3 - (ae-incompatible-release-tags) The symbol "target" is marked as @public, but its signature references "LinkTarget" which is marked as @beta
 
 // (No @packageDocumentation comment for this package)
 

@@ -28,7 +28,7 @@ type UniAst = { blocks: Block[] };
 
 /**
  * @since 0.16
- * @beta
+ * @public
  */
 type Block =
   | { type: "paragraph"; styles: BlockStyles; content: InlineContent[] }
@@ -107,10 +107,14 @@ type Image = {
 
 /**
  * @since 0.22
- * @beta
+ * @public
  */
 type Link = {
   target: LinkTarget;
+  /**
+   * @since 0.23
+   * @beta
+   */
   content: Exclude<InlineContent, { type: "link" }>[];
 };
 
