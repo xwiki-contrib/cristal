@@ -48,6 +48,13 @@ export class GitHubModelReferenceParser implements ModelReferenceParser {
     }
   }
 
+  async parseAsync(
+    reference: string,
+    type?: EntityType,
+  ): Promise<EntityReference> {
+    return this.parse(reference, type);
+  }
+
   private buildDocumentReference(segments: string[]) {
     return new DocumentReference(
       segments[segments.length - 1],

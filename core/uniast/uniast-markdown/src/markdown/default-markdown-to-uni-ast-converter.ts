@@ -270,14 +270,30 @@ export class DefaultMarkdownToUniAstConverter
     }
   }
 
-  private convertLink(
+  private async convertLink(
     inline: PhrasingContent & { type: "link" },
     styles: TextStyles,
-  ): InlineContent[] {
+  ): Promise<InlineContent[]> {
     // TODO: change here for Github and nextcloud + resolve the entity reference in case the link can be resolved as
     //  internal.
     // For Nextcloud, resolve based on the note on AnyType (from docid to url)
     // TODO: the same must be done for attachments!
+    let target;
+    if (!this.supportFlexmark()) {
+      // If flexmark is not supported, we need to parse the url to find out if it's pointing to an internal entity.
+      try {
+        const parsed = await this.modelReferenceParserProvider
+          .get()!
+          .parseAsync(inline.url);
+        console.log(parsed);
+        // TODO: url value to be changed to some serialization.
+        target = { type: "internal", url: inline.url };
+      } catch {
+        target = { type: "external", url: inline.url };
+      }
+    } else {
+      target = { type: "external", url: inline.url };
+    }
     return [
       {
         type: "link",
@@ -290,7 +306,7 @@ export class DefaultMarkdownToUniAstConverter
 
             return token;
           }),
-        target: { type: "external", url: inline.url },
+        target,
       },
     ];
   }
@@ -317,7 +333,7 @@ export class DefaultMarkdownToUniAstConverter
       const internalLinksOrImage: Array<{
         name: "image" | "link";
         match: string;
-      }> = this.parserConfigurationResolver.get().supportsFlexmark
+      }> = this.supportFlexmark()
         ? [
             { name: "image", match: "![[" },
             { name: "link", match: "[[" },
@@ -392,7 +408,6 @@ export class DefaultMarkdownToUniAstConverter
     return out;
   }
 
-  // eslint-disable-next-line max-statements
   private handleLinkOrImage(
     firstItem: { name: string; match: string },
     match: number,
@@ -487,7 +502,6 @@ export class DefaultMarkdownToUniAstConverter
     return treated;
   }
 
-  // eslint-disable-next-line max-statements
   private handleMacro(
     firstItem: { name: string; match: string },
     match: number,
@@ -640,5 +654,8 @@ export class DefaultMarkdownToUniAstConverter
       });
     }
     return treated;
+  }
+  private supportFlexmark(): boolean {
+    return this.parserConfigurationResolver.get().supportsFlexmark;
   }
 }

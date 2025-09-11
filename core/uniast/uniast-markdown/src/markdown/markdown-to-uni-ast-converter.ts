@@ -36,5 +36,5 @@ export interface MarkdownToUniAstConverter {
    *
    * @returns The Universal Ast
    */
-  parseMarkdown(markdown: string): UniAst | Error;
+  parseMarkdown(markdown: string): Promise<UniAst | Error>;
 }

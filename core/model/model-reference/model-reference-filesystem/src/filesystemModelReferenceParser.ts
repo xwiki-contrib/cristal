@@ -60,6 +60,10 @@ export class FileSystemModelReferenceParser implements ModelReferenceParser {
     }
   }
 
+  async parseAsync(reference: string): Promise<EntityReference> {
+    return this.parse(reference);
+  }
+
   private unescape(string: string) {
     let ret = "";
     for (let index = 0; index < string.length; index++) {

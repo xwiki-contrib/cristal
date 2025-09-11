@@ -23,16 +23,58 @@ import {
   DocumentReference,
   SpaceReference,
 } from "@xwiki/cristal-model-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import type { CristalApp } from "@xwiki/cristal-api";
 import type { EntityReference } from "@xwiki/cristal-model-api";
 import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 
 @injectable()
 export class NextcloudModelReferenceParser implements ModelReferenceParser {
+  constructor(
+    @inject("CristalApp") private readonly cristalApp: CristalApp,
+    @inject("AuthenticationManagerProvider")
+    private readonly authenticationManagerProvider: AuthenticationManagerProvider,
+  ) {}
+
   parse(reference: string): EntityReference {
     if (/^https?:\/\//.test(reference)) {
       throw new Error(`[${reference}] is not a valid entity reference`);
     }
+    return this.legacyParsing(reference);
+  }
+
+  async parseAsync(reference: string): Promise<EntityReference> {
+    if (/^https?:\/\//.test(reference)) {
+      const baseURL = this.cristalApp.getWikiConfig().baseURL;
+      if (reference.startsWith(baseURL)) {
+        const fileid = reference.substring(`${baseURL}/f/`.length);
+        if (parseInt(fileid, 10)) {
+          await this.resolveByFileId(baseURL, reference);
+        } else {
+          throw new Error(`[${reference}] is not a valid entity reference`);
+        }
+      } else {
+        throw new Error(`[${reference}] is not a valid entity reference`);
+      }
+    }
+    return this.legacyParsing(reference);
+  }
+
+  private async resolveByFileId(baseURL: string, reference: string) {
+    const ocsUrl = new URL(`${baseURL}/ocs/v2.php/references/resolve`);
+    ocsUrl.searchParams.set("reference", reference);
+    const request = await fetch(ocsUrl, {
+      headers: {
+        ...(await this.getCredentials()),
+        Accept: "application/json",
+        "OCS-APIRequest": "true",
+      },
+    });
+    console.log(await request.json());
+    throw new Error(`[${reference}] is not a valid entity reference`);
+  }
+
+  private legacyParsing(reference: string) {
     let segments = reference.split("/");
     if (segments[0] == "") {
       segments = segments.slice(1);
@@ -57,5 +99,15 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
         ),
       );
     }
+  }
+  private async getCredentials(): Promise<{ Authorization?: string }> {
+    const authorizationHeader = await this.authenticationManagerProvider
+      .get()
+      ?.getAuthorizationHeader();
+    const headers: { Authorization?: string } = {};
+    if (authorizationHeader) {
+      headers["Authorization"] = authorizationHeader;
+    }
+    return headers;
   }
 }
