@@ -20,11 +20,7 @@
 import { findFirstMatchIn } from "./internal/find-first-match-in";
 import { remarkPartialGfm } from "./internal/remark-partial-gfm";
 import { ParserConfigurationResolver } from "./internal-links/parser/parser-configuration-resolver";
-import {
-  assertInArray,
-  assertUnreachable,
-  tryFallibleOrError,
-} from "@xwiki/cristal-fn-utils";
+import { assertInArray, assertUnreachable } from "@xwiki/cristal-fn-utils";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import remarkParse from "remark-parse";
@@ -40,7 +36,6 @@ import type {
   Image,
   InlineContent,
   LinkTarget,
-  ListItem,
   TableCell,
   TableColumn,
   TextStyles,
@@ -61,7 +56,7 @@ export class DefaultMarkdownToUniAstConverter
     private readonly parserConfigurationResolver: ParserConfigurationResolver,
   ) {}
 
-  parseMarkdown(markdown: string): UniAst | Error {
+  async parseMarkdown(markdown: string): Promise<UniAst | Error> {
     // TODO: auto-links (URLs + emails)
     //     > https://jira.xwiki.org/browse/CRISTAL-513
 
@@ -70,19 +65,20 @@ export class DefaultMarkdownToUniAstConverter
       .use(remarkPartialGfm)
       .parse(markdown);
 
-    const blocks = tryFallibleOrError(() =>
-      ast.children.map((item) => this.convertBlock(item)),
-    );
-
-    return blocks instanceof Error ? blocks : { blocks };
+    try {
+      const blocks = await Promise.all(
+        ast.children.map((item) => this.convertBlock(item)),
+      );
+      return { blocks };
+    } catch (e) {
+      return e instanceof Error ? e : new Error(String(e));
+    }
   }
 
-  private convertBlock(block: RootContent): Block {
+  private async convertBlock(block: RootContent): Promise<Block> {
     switch (block.type) {
       case "paragraph": {
-        const content = block.children.flatMap((item) =>
-          this.convertInline(item, {}),
-        );
+        const content = await this.collectInlineContent(block.children, {});
 
         // Paragraphs only made of a single inline macro are actually block macros
         if (content.length === 1 && content[0].type === "inlineMacro") {
@@ -108,16 +104,16 @@ export class DefaultMarkdownToUniAstConverter
             [1, 2, 3, 4, 5, 6] as const,
             "Invalid heading depth in markdown parser",
           ),
-          content: block.children.flatMap((item) =>
-            this.convertInline(item, {}),
-          ),
+          content: await this.collectInlineContent(block.children, {}),
           styles: {},
         };
 
       case "blockquote":
         return {
           type: "quote",
-          content: block.children.map((item) => this.convertBlock(item)),
+          content: await Promise.all(
+            block.children.map((item) => this.convertBlock(item)),
+          ),
           styles: {},
         };
 
@@ -125,17 +121,18 @@ export class DefaultMarkdownToUniAstConverter
         // TODO: "token.loose" property
         return {
           type: "list",
-          items: block.children.map(
-            (item, i): ListItem => ({
+          items: await Promise.all(
+            block.children.map(async (item, i) => ({
               number: block.ordered ? (block.start ?? 1) + i : undefined,
               checked: item.checked ?? undefined,
-              content: item.children.map((item) => this.convertBlock(item)),
+              content: await Promise.all(
+                item.children.map((item) => this.convertBlock(item)),
+              ),
               styles: {},
-            }),
+            })),
           ),
           styles: {},
         };
-
       case "code":
         // TODO: "token.escaped" property
         // TODO: "token.codeBlockStyle" property
@@ -147,28 +144,31 @@ export class DefaultMarkdownToUniAstConverter
 
       case "table": {
         const [headers, ...rows] = block.children;
-        return {
-          type: "table",
-          columns: headers?.children.map(
-            (cell): TableColumn => ({
+        const columns = await Promise.all(
+          headers?.children.map(
+            async (cell): Promise<TableColumn> => ({
               headerCell: {
-                content: cell.children.flatMap((item) =>
-                  this.convertInline(item, {}),
-                ),
+                content: await this.collectInlineContent(cell.children, {}),
                 styles: {},
               },
             }),
           ),
-          rows: rows.map((row) =>
-            row.children.map(
-              (cell): TableCell => ({
-                content: cell.children.flatMap((item) =>
-                  this.convertInline(item, {}),
-                ),
+        );
+        const tableRows = await Promise.all(
+          rows.map(async (row) => {
+            const map = row.children.map(
+              async (cell): Promise<TableCell> => ({
+                content: await this.collectInlineContent(cell.children, {}),
                 styles: {},
               }),
-            ),
-          ),
+            );
+            return await Promise.all(map);
+          }),
+        );
+        return {
+          type: "table",
+          columns: columns,
+          rows: tableRows,
           styles: {},
         };
       }
@@ -211,10 +211,10 @@ export class DefaultMarkdownToUniAstConverter
     }
   }
 
-  private convertInline(
+  private async convertInline(
     inline: PhrasingContent,
     styles: TextStyles,
-  ): InlineContent[] {
+  ): Promise<InlineContent[]> {
     switch (inline.type) {
       case "image":
         return [
@@ -225,22 +225,22 @@ export class DefaultMarkdownToUniAstConverter
         ];
 
       case "strong":
-        return inline.children.flatMap((item) =>
-          this.convertInline(item, { ...styles, bold: true }),
-        );
+        return this.collectInlineContent(inline.children, {
+          ...styles,
+          bold: true,
+        });
 
       case "emphasis":
-        return inline.children.flatMap((item) =>
-          this.convertInline(item, { ...styles, italic: true }),
-        );
+        return this.collectInlineContent(inline.children, {
+          ...styles,
+          italic: true,
+        });
 
       case "delete":
-        return inline.children.flatMap((item) =>
-          this.convertInline(item, {
-            ...styles,
-            strikethrough: true,
-          }),
-        );
+        return this.collectInlineContent(inline.children, {
+          ...styles,
+          strikethrough: true,
+        });
 
       case "inlineCode":
         return [
@@ -262,7 +262,7 @@ export class DefaultMarkdownToUniAstConverter
         throw new Error("TODO: handle inlines of type " + inline.type);
 
       case "link": {
-        return this.convertLink(inline, styles);
+        return await this.convertLink(inline, styles);
       }
 
       default:
@@ -278,34 +278,35 @@ export class DefaultMarkdownToUniAstConverter
     //  internal.
     // For Nextcloud, resolve based on the note on AnyType (from docid to url)
     // TODO: the same must be done for attachments!
-    let target;
+    let target: LinkTarget;
     if (!this.supportFlexmark()) {
       // If flexmark is not supported, we need to parse the url to find out if it's pointing to an internal entity.
       try {
         const parsed = await this.modelReferenceParserProvider
           .get()!
           .parseAsync(inline.url);
-        console.log(parsed);
-        // TODO: url value to be changed to some serialization.
-        target = { type: "internal", url: inline.url };
-      } catch {
+        target = {
+          type: "internal",
+          parsedReference: parsed,
+          rawReference: inline.url,
+        };
+      } catch (e) {
+        console.debug("Error parsing reference: ", e);
         target = { type: "external", url: inline.url };
       }
     } else {
       target = { type: "external", url: inline.url };
     }
+    const label = await this.collectInlineContent(inline.children, styles);
     return [
       {
         type: "link",
-        content: inline.children
-          .flatMap((item) => this.convertInline(item, styles))
-          .map((token) => {
-            if (token.type !== "text") {
-              throw new Error("Unexpected link inside link in markdown parser");
-            }
-
-            return token;
-          }),
+        content: label.map((token) => {
+          if (token.type !== "text") {
+            throw new Error("Unexpected link inside link in markdown parser");
+          }
+          return token;
+        }),
         target,
       },
     ];
@@ -408,6 +409,7 @@ export class DefaultMarkdownToUniAstConverter
     return out;
   }
 
+  // eslint-disable-next-line max-statements
   private handleLinkOrImage(
     firstItem: { name: string; match: string },
     match: number,
@@ -502,6 +504,7 @@ export class DefaultMarkdownToUniAstConverter
     return treated;
   }
 
+  // eslint-disable-next-line max-statements
   private handleMacro(
     firstItem: { name: string; match: string },
     match: number,
@@ -655,7 +658,19 @@ export class DefaultMarkdownToUniAstConverter
     }
     return treated;
   }
+
   private supportFlexmark(): boolean {
     return this.parserConfigurationResolver.get().supportsFlexmark;
+  }
+
+  private async collectInlineContent(
+    children: PhrasingContent[],
+    styles: TextStyles = {},
+  ): Promise<InlineContent[]> {
+    return (
+      await Promise.all(
+        children.map((item) => this.convertInline(item, styles)),
+      )
+    ).flat();
   }
 }

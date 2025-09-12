@@ -30,7 +30,10 @@ import type { MarkdownToUniAstConverter } from "@xwiki/cristal-uniast-markdown";
  * @param container - the inversify container
  * @since 0.22
  */
-export function renderMarkdown(source: string, container: Container): string {
+export async function renderMarkdown(
+  source: string,
+  container: Container,
+): Promise<string> {
   // Mardown to uniast to html
 
   const md = container.get<MarkdownToUniAstConverter>(
@@ -39,7 +42,7 @@ export function renderMarkdown(source: string, container: Container): string {
 
   const html = container.get<UniAstToHTMLConverter>(uniAstToHTMLConverterName);
 
-  const uniAst = md.parseMarkdown(source);
+  const uniAst = await md.parseMarkdown(source);
   if (uniAst instanceof Error) {
     throw uniAst;
   }

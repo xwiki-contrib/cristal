@@ -21,6 +21,7 @@ import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import { escape } from "lodash-es";
 import type { UniAstToHTMLConverter } from "./uni-ast-to-html-converter";
+import type { EntityReference } from "@xwiki/cristal-model-api";
 import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type {
@@ -167,14 +168,17 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           case "external":
             return `<a href="${escape(inlineContent.target.url)}" class="wikiexternallink">${linkContent}</a>`;
 
-          case "internal":
+          case "internal": {
             // TODO: convert reference
-            return `<a href="${escape(
-              this.convertReference(
-                inlineContent.target.rawReference,
-                EntityType.DOCUMENT,
-              ),
-            )}">${linkContent}</a>`;
+
+            const href = inlineContent.target.parsedReference
+              ? this.serializeReference(inlineContent.target.parsedReference)
+              : this.convertReference(
+                  inlineContent.target.rawReference,
+                  EntityType.DOCUMENT,
+                );
+            return `<a href="${escape(href)}">${linkContent}</a>`;
+          }
         }
         break;
       }
@@ -238,6 +242,10 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
     const parseReference = this.modelReferenceParserProvider
       .get()!
       .parse(rawReference, type);
+    return this.serializeReference(parseReference);
+  }
+
+  private serializeReference(parseReference: EntityReference) {
     return this.remoteURLSerializerProvider.get()!.serialize(parseReference);
   }
 }

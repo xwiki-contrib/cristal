@@ -2137,6 +2137,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../../authentication/authentication-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model-api

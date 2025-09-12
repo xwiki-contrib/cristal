@@ -142,7 +142,9 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     },
   };
 
-  editorContent.value = markdownToUniAst.parseMarkdown(currentPage.source);
+  editorContent.value = await markdownToUniAst.parseMarkdown(
+    currentPage.source,
+  );
 
   title.value = documentService.getTitle().value ?? "";
 }

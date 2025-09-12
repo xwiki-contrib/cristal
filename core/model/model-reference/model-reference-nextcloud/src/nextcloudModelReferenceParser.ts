@@ -25,6 +25,7 @@ import {
 } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
 import type { EntityReference } from "@xwiki/cristal-model-api";
 import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 
@@ -49,15 +50,16 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
       if (reference.startsWith(baseURL)) {
         const fileid = reference.substring(`${baseURL}/f/`.length);
         if (parseInt(fileid, 10)) {
-          await this.resolveByFileId(baseURL, reference);
+          return await this.resolveByFileId(baseURL, reference);
         } else {
           throw new Error(`[${reference}] is not a valid entity reference`);
         }
       } else {
         throw new Error(`[${reference}] is not a valid entity reference`);
       }
+    } else {
+      return this.legacyParsing(reference);
     }
-    return this.legacyParsing(reference);
   }
 
   private async resolveByFileId(baseURL: string, reference: string) {
@@ -70,8 +72,16 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
         "OCS-APIRequest": "true",
       },
     });
-    console.log(await request.json());
-    throw new Error(`[${reference}] is not a valid entity reference`);
+    const json = await request.json();
+    const path = json.ocs.data.references[reference].richObject.path as string;
+    const dirRoot =
+      this.cristalApp
+        .getWikiConfig()
+        .storageRoot?.substring("/files/${username}".length) || ".cristal/";
+    // Remove the root directory from the path
+    return this.legacyParsing(
+      path.substring(dirRoot.length).replace(/\.md$/, ""),
+    );
   }
 
   private legacyParsing(reference: string) {
@@ -80,10 +90,13 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
       segments = segments.slice(1);
     }
     if (segments[segments.length - 2] == "attachments") {
+      const documentName = segments[segments.length - 3];
       return new AttachmentReference(
         segments[segments.length - 1],
         new DocumentReference(
-          segments[segments.length - 3],
+          documentName.startsWith(".")
+            ? documentName.substring(1)
+            : documentName,
           new SpaceReference(
             undefined,
             ...segments.slice(0, segments.length - 3),

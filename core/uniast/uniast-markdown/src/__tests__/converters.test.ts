@@ -95,7 +95,7 @@ describe("MarkdownToUniAstConverter", () => {
     convertsBackTo: string;
     withUniAst: UniAst;
   }) {
-    const uniAst = mdToUniAst.parseMarkdown(expected.startingFrom);
+    const uniAst = await mdToUniAst.parseMarkdown(expected.startingFrom);
 
     expect(uniAst).toStrictEqual(expected.withUniAst);
 
