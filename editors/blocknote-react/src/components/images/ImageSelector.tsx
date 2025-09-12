@@ -54,7 +54,7 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
   currentSelection,
   onSelected,
 }) => {
-  const [initialQuery, initialEntitySegments] = useMemo(() => {
+  const [initialQuery, selectedEntityPath] = useMemo(() => {
     if (!currentSelection) {
       return ["", null];
     }
@@ -72,7 +72,12 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
     const segments = documentReference.space?.names.slice(0) ?? [];
 
-    return [linkEditionCtx.modelReferenceHandler.getTitle(entityRef), segments];
+    return [
+      "",
+      segments.concat([
+        linkEditionCtx.modelReferenceHandler.getTitle(entityRef)!,
+      ]),
+    ];
   }, [currentSelection]);
 
   const { t } = useTranslation();
@@ -198,10 +203,12 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
         onSubmit={onSelected}
       />
 
-      {initialEntitySegments && (
-        <Breadcrumbs c="gray" pt="md" ml="xl" fz="xs" separatorMargin="0.33rem">
-          {initialEntitySegments.map((segment, i) => (
-            <Text key={`${i}${segment}`}>{segment}</Text>
+      {selectedEntityPath && (
+        <Breadcrumbs c="gray" pt="md" separatorMargin="0.33rem">
+          {selectedEntityPath.map((segment, i) => (
+            <Text fz="0.9rem" key={`${i}${segment}`}>
+              {segment}
+            </Text>
           ))}
         </Breadcrumbs>
       )}
