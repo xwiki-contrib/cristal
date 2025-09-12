@@ -3916,8 +3916,8 @@ importers:
         specifier: 0.1.18
         version: 0.1.18
       tiptap-markdown:
-        specifier: 0.8.10
-        version: 0.8.10(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
+        specifier: 0.9.0
+        version: 0.9.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
       utility-types:
         specifier: 3.11.0
         version: 3.11.0
@@ -10176,10 +10176,10 @@ packages:
   tiptap-extension-global-drag-handle@0.1.18:
     resolution: {integrity: sha512-jwFuy1K8DP3a4bFy76Hpc63w1Sil0B7uZ3mvhQomVvUFCU787Lg2FowNhn7NFzeyok761qY2VG+PZ/FDthWUdg==}
 
-  tiptap-markdown@0.8.10:
-    resolution: {integrity: sha512-iDVkR2BjAqkTDtFX0h94yVvE2AihCXlF0Q7RIXSJPRSR5I0PA1TMuAg6FHFpmqTn4tPxJ0by0CK7PUMlnFLGEQ==}
+  tiptap-markdown@0.9.0:
+    resolution: {integrity: sha512-dKLQ9iiuGNgrlGVjrNauF/UBzWu4LYOx5pkD0jNkmQt/GOwfCJsBuzZTsf1jZ204ANHOm572mZ9PYvGh1S7tpQ==}
     peerDependencies:
-      '@tiptap/core': ^2.0.3
+      '@tiptap/core': ^3.0.1
 
   tmp-promise@3.0.3:
     resolution: {integrity: sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==}
@@ -16818,7 +16818,7 @@ snapshots:
 
   tiptap-extension-global-drag-handle@0.1.18: {}
 
-  tiptap-markdown@0.8.10(@tiptap/core@2.13.0(@tiptap/pm@2.13.0)):
+  tiptap-markdown@0.9.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0)):
     dependencies:
       '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
       '@types/markdown-it': 13.0.9
