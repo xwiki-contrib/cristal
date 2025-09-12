@@ -45,4 +45,9 @@ export interface InternalLinksSerializer {
     target: Extract<LinkTarget, { type: "internal" }>,
     uniAstToMarkdownConverter: UniAstToMarkdownConverter,
   ): Promise<string>;
+
+  serializeImage(
+    target: Extract<LinkTarget, { type: "internal" }>,
+    alt?: string,
+  ): Promise<string>;
 }

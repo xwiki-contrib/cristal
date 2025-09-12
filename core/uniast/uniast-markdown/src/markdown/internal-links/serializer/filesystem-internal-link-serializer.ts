@@ -31,9 +31,15 @@ export class FilesystemInternalLinkSerializer
     target: Extract<LinkTarget, { type: "internal" }>,
     uniAstToMarkdownConverter: UniAstToMarkdownConverter,
   ): Promise<string> {
-    // TODO: test if working ok
     return `[${await uniAstToMarkdownConverter.convertInlineContents(
       content,
     )}](${target.rawReference})`;
+  }
+
+  async serializeImage(
+    target: Extract<LinkTarget, { type: "internal" }>,
+    alt?: string,
+  ): Promise<string> {
+    return `![${alt ?? ""}](${target.rawReference})`;
   }
 }

@@ -17,11 +17,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { EntityType } from "@xwiki/cristal-model-api";
 import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
 import type { InternalLinksSerializer } from "./internal-links-serializer";
 import type { UniAstToMarkdownConverter } from "../../uni-ast-to-markdown-converter";
 import type { CristalApp } from "@xwiki/cristal-api";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
@@ -33,6 +35,8 @@ export class NextcloudInternalLinkSerializer
     @inject("RemoteURLSerializerProvider")
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
     @inject("CristalApp") private readonly cristalApp: CristalApp,
+    @inject("DocumentService")
+    private readonly documentService: DocumentService,
   ) {}
 
   async serialize(
@@ -63,5 +67,48 @@ export class NextcloudInternalLinkSerializer
     const baseURL = this.cristalApp.getWikiConfig().baseURL;
     const url = `${baseURL}/f/${fileId}`;
     return `[${label}](${url})`;
+  }
+
+  // eslint-disable-next-line max-statements
+  async serializeImage(
+    target: Extract<LinkTarget, { type: "internal" }>,
+    alt?: string,
+  ): Promise<string> {
+    let ref: string;
+    if (target.parsedReference) {
+      const currentDocumentReference =
+        this.documentService.getCurrentDocumentReference().value!;
+      if (target.parsedReference.type == EntityType.ATTACHMENT) {
+        const parsedReference = target.parsedReference;
+        const imageDocumentReference = parsedReference.document;
+        if (currentDocumentReference === imageDocumentReference) {
+          ref = `.${imageDocumentReference.name}/attachments/${parsedReference.name}`;
+        } else {
+          // current = x.y
+          // target = v.w
+          const down = [
+            ...(currentDocumentReference.space &&
+            currentDocumentReference.space.names.length > 0
+              ? currentDocumentReference.space.names.map(() => "..")
+              : ["."]),
+          ].join("/");
+          const up = [
+            ...(parsedReference.document.space?.names ?? []),
+            "." + parsedReference.document.name,
+          ]
+            .map(encodeURI)
+            .join("/");
+          ref = `${down}/${up}/attachments/${encodeURI(parsedReference.name)}`;
+        }
+      } else {
+        throw new Error(
+          `Unexpected type ${target.parsedReference.type} for link serialization`,
+        );
+      }
+    } else {
+      ref = target.rawReference;
+    }
+
+    return `![${alt ?? ""}](${ref})`;
   }
 }

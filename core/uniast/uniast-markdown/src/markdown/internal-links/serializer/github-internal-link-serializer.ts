@@ -32,4 +32,10 @@ export class GitHubInternalLinkSerializer implements InternalLinksSerializer {
   ): Promise<string> {
     throw new Error("Method not implemented.");
   }
+  serializeImage(
+    target: Extract<LinkTarget, { type: "internal" }>,
+    alt?: string,
+  ): Promise<string> {
+    throw new Error("Method not implemented.");
+  }
 }

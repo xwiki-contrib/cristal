@@ -2140,6 +2140,9 @@ importers:
       '@xwiki/cristal-authentication-api':
         specifier: workspace:*
         version: link:../../../authentication/authentication-api
+      '@xwiki/cristal-document-api':
+        specifier: workspace:*
+        version: link:../../../document/document-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model-api
@@ -3161,6 +3164,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../../api
+      '@xwiki/cristal-document-api':
+        specifier: workspace:*
+        version: link:../../document/document-api
       '@xwiki/cristal-fn-utils':
         specifier: workspace:*
         version: link:../../fn-utils

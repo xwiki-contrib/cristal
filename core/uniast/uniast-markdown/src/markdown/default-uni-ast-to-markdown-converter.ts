@@ -130,11 +130,13 @@ export class DefaultUniAstToMarkdownConverter
     return `${prefix}${contents.join("\n")}`;
   }
 
-  private convertImage(image: Image): string {
+  private async convertImage(image: Image): Promise<string> {
     // TODO: alt text
     return image.target.type === "external"
-      ? `![${image.alt}](${image.target.url})`
-      : `![[${image.alt}|${image.target.rawReference}]]`;
+      ? `![${image.alt ?? ""}](${image.target.url})`
+      : await (
+          await this.internalLinksSerializerResolver.get()
+        ).serializeImage(image.target, image.alt);
   }
 
   private async convertTable(

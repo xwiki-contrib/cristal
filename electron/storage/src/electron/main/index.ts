@@ -449,7 +449,7 @@ async function createMinimalContent() {
       "\n" +
       "You can use it to take your *own* notes.\n" +
       "\n" +
-      "You can also create new [[pages|index/newpage]].\n" +
+      "You can also create new [pages](index/newpage).\n" +
       "\n" +
       "Enjoy!",
     "",

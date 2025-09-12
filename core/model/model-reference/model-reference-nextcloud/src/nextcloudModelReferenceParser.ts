@@ -21,11 +21,13 @@
 import {
   AttachmentReference,
   DocumentReference,
+  EntityType,
   SpaceReference,
 } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/cristal-api";
 import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { EntityReference } from "@xwiki/cristal-model-api";
 import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 
@@ -35,22 +37,27 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
     @inject("CristalApp") private readonly cristalApp: CristalApp,
     @inject("AuthenticationManagerProvider")
     private readonly authenticationManagerProvider: AuthenticationManagerProvider,
+    @inject("DocumentService")
+    private readonly documentService: DocumentService,
   ) {}
 
   parse(reference: string): EntityReference {
     if (/^https?:\/\//.test(reference)) {
       throw new Error(`[${reference}] is not a valid entity reference`);
     }
-    return this.legacyParsing(reference);
+    return this.innerLegacyParsing(reference);
   }
 
-  async parseAsync(reference: string): Promise<EntityReference> {
+  async parseAsync(
+    reference: string,
+    type?: EntityType,
+  ): Promise<EntityReference> {
     if (/^https?:\/\//.test(reference)) {
       const baseURL = this.cristalApp.getWikiConfig().baseURL;
       if (reference.startsWith(baseURL)) {
         const fileid = reference.substring(`${baseURL}/f/`.length);
         if (parseInt(fileid, 10)) {
-          return await this.resolveByFileId(baseURL, reference);
+          return await this.resolveByFileId(reference);
         } else {
           throw new Error(`[${reference}] is not a valid entity reference`);
         }
@@ -58,11 +65,12 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
         throw new Error(`[${reference}] is not a valid entity reference`);
       }
     } else {
-      return this.legacyParsing(reference);
+      return this.legacyParsing(reference, type);
     }
   }
 
-  private async resolveByFileId(baseURL: string, reference: string) {
+  private async resolveByFileId(reference: string) {
+    const baseURL = this.cristalApp.getWikiConfig().baseURL;
     const ocsUrl = new URL(`${baseURL}/ocs/v2.php/references/resolve`);
     ocsUrl.searchParams.set("reference", reference);
     const request = await fetch(ocsUrl, {
@@ -84,7 +92,15 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
     );
   }
 
-  private legacyParsing(reference: string) {
+  private legacyParsing(reference: string, type?: EntityType) {
+    if (type === EntityType.ATTACHMENT) {
+      return this.relativeAttachmentParsing(reference);
+    } else {
+      return this.innerLegacyParsing(reference);
+    }
+  }
+
+  private innerLegacyParsing(reference: string) {
     let segments = reference.split("/");
     if (segments[0] == "") {
       segments = segments.slice(1);
@@ -113,6 +129,7 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
       );
     }
   }
+
   private async getCredentials(): Promise<{ Authorization?: string }> {
     const authorizationHeader = await this.authenticationManagerProvider
       .get()
@@ -122,5 +139,49 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
       headers["Authorization"] = authorizationHeader;
     }
     return headers;
+  }
+
+  private readonly _regExp = RegExp(/^\.attachments\.(?<id>\d+)\/(?<file>.+)$/);
+
+  private async relativeAttachmentParsing(
+    reference: string,
+  ): Promise<AttachmentReference> {
+    const m = this._regExp.exec(reference);
+    if (m?.groups?.id && m?.groups?.file) {
+      const baseURL = this.cristalApp.getWikiConfig().baseURL;
+      const resolved = await this.resolveByFileId(
+        `${baseURL}/f/${m.groups.id}`,
+      );
+      return new AttachmentReference(
+        m.groups.file,
+        new DocumentReference(
+          `.attachments.${m.groups.id}`,
+          (resolved as DocumentReference).space,
+        ),
+        {
+          "nextcloud-specific": "true",
+        },
+      );
+    } else {
+      const currentDocument =
+        this.documentService.getCurrentDocumentReference().value!;
+
+      const references = reference.split("/");
+      const spaces = references.slice(0, references.length - 3);
+      const currentSegments = currentDocument.space?.names ?? [];
+
+      while (spaces[0] == "..") {
+        currentSegments.pop();
+        spaces.pop();
+      }
+
+      return new AttachmentReference(
+        references[references.length - 1],
+        new DocumentReference(
+          references[references.length - 3].replace(/^\./, ""),
+          new SpaceReference(undefined, ...[...currentSegments, ...spaces]),
+        ),
+      );
+    }
   }
 }

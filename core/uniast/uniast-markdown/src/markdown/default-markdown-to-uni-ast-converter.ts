@@ -176,7 +176,7 @@ export class DefaultMarkdownToUniAstConverter
       case "image":
         return {
           type: "image",
-          ...this.convertImage(block),
+          ...(await this.convertImage(block)),
         };
 
       case "break":
@@ -220,7 +220,7 @@ export class DefaultMarkdownToUniAstConverter
         return [
           {
             type: "image",
-            ...this.convertImage(inline),
+            ...(await this.convertImage(inline)),
           },
         ];
 
@@ -312,11 +312,26 @@ export class DefaultMarkdownToUniAstConverter
     ];
   }
 
-  private convertImage(image: MdImage): Image {
+  private async convertImage(image: MdImage): Promise<Image> {
     // TODO: "token.text" property
+    let target: LinkTarget;
+    const url = image.url;
+    try {
+      const parsed = await this.modelReferenceParserProvider
+        .get()!
+        .parseAsync(url, EntityType.ATTACHMENT);
+      target = {
+        type: "internal",
+        parsedReference: parsed,
+        rawReference: url,
+      };
+    } catch (e) {
+      console.debug("Error parsing reference: ", e);
+      target = { type: "external", url: url };
+    }
+
     return {
-      target: { type: "external", url: image.url },
-      caption: undefined,
+      target,
       alt: image.alt ?? undefined,
       styles: {},
     };

@@ -33,4 +33,11 @@ export class XWikiInternalLinkSerializer implements InternalLinksSerializer {
       content,
     )}|${target.rawReference}]]`;
   }
+
+  async serializeImage(
+    target: Extract<LinkTarget, { type: "internal" }>,
+    alt?: string,
+  ): Promise<string> {
+    return `![[${alt ?? ""}${alt ? "|" : ""}${target.rawReference}]]`;
+  }
 }
