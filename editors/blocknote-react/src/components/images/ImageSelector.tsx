@@ -29,6 +29,7 @@ import {
   Text,
   VisuallyHidden,
 } from "@mantine/core";
+import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import {
   AttachmentReference,
@@ -59,9 +60,11 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
       return ["", null];
     }
 
-    const entityRef = linkEditionCtx.remoteURLParser.parse(currentSelection);
+    const entityRef = tryFallible(() =>
+      linkEditionCtx.remoteURLParser.parse(currentSelection),
+    );
 
-    if (!entityRef) {
+    if (!entityRef || entityRef instanceof Error) {
       return [currentSelection, null];
     }
 
