@@ -21,6 +21,9 @@ import { inject, injectable } from "inversify";
 import type { InternalLinksSerializer } from "./internal-links-serializer";
 import type { CristalApp } from "@xwiki/cristal-api";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class InternalLinksSerializerResolver {
   constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}

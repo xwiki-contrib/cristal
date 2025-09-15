@@ -43,6 +43,9 @@ import type {
 } from "@xwiki/cristal-uniast-api";
 import type { Image as MdImage, PhrasingContent, RootContent } from "mdast";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class DefaultMarkdownToUniAstConverter
   implements MarkdownToUniAstConverter
@@ -675,7 +678,7 @@ export class DefaultMarkdownToUniAstConverter
   }
 
   private supportFlexmark(): boolean {
-    return this.parserConfigurationResolver.get().supportsFlexmark;
+    return this.parserConfigurationResolver.get().supportFlexmarkInternalLinks;
   }
 
   private async collectInlineContent(

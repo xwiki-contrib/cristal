@@ -87,7 +87,7 @@ class ComponentInit {
       .toFactory(() => {
         return () => {
           return {
-            supportsFlexmark: true,
+            supportFlexmarkInternalLinks: true,
           };
         };
       })

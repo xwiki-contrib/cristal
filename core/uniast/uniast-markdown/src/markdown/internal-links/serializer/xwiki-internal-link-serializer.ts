@@ -22,6 +22,9 @@ import type { InternalLinksSerializer } from "./internal-links-serializer";
 import type { UniAstToMarkdownConverter } from "../../uni-ast-to-markdown-converter";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class XWikiInternalLinkSerializer implements InternalLinksSerializer {
   async serialize(

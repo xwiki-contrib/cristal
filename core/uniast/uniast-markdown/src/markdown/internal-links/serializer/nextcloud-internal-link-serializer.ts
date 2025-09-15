@@ -27,6 +27,9 @@ import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class NextcloudInternalLinkSerializer
   implements InternalLinksSerializer

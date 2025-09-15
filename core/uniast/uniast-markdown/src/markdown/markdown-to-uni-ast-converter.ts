@@ -29,9 +29,6 @@ export interface MarkdownToUniAstConverter {
   /**
    * Parse a markdown document to a universal AST
    *
-   * @since 0.16
-   * @beta
-   *
    * @param markdown - The markdown content to parse
    *
    * @returns The Universal Ast

@@ -37,8 +37,6 @@ export class FileSystemModelReferenceParser implements ModelReferenceParser {
 
   // eslint-disable-next-line max-statements
   parse(reference: string): EntityReference {
-    console.log("RRREFERENCE", reference);
-    console.trace();
     if (/^https?:\/\//.test(reference)) {
       throw new Error(`[${reference}] is not a valid entity reference`);
     }

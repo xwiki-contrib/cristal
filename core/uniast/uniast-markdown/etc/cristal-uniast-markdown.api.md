@@ -5,6 +5,7 @@
 ```ts
 
 import { Container } from 'inversify';
+import { InlineContent } from '@xwiki/cristal-uniast-api';
 import { UniAst } from '@xwiki/cristal-uniast-api';
 
 // @beta (undocumented)
@@ -14,7 +15,7 @@ export class ComponentInit {
 
 // @beta
 export interface MarkdownToUniAstConverter {
-    parseMarkdown(markdown: string): UniAst | Error;
+    parseMarkdown(markdown: string): Promise<UniAst | Error>;
 }
 
 // @beta (undocumented)
@@ -22,6 +23,8 @@ export const markdownToUniAstConverterName = "MarkdownToUniAstConverter";
 
 // @beta
 export interface UniAstToMarkdownConverter {
+    // (undocumented)
+    convertInlineContents(inlineContents: InlineContent[]): Promise<string>;
     toMarkdown(uniAst: UniAst): Promise<string | Error>;
 }
 

@@ -37,6 +37,7 @@ export interface UniAstToMarkdownConverter {
 
   /**
    * @since 0.22
+   * @beta
    * @param inlineContents - the inline contents to convert to markdown
    * @returns the markdown representation of the inline content
    */

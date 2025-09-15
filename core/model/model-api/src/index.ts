@@ -93,13 +93,13 @@ class DocumentReference implements BaseEntityReference {
  * @beta
  */
 class AttachmentReference implements BaseEntityReference {
-  type: EntityType.ATTACHMENT = EntityType.ATTACHMENT;
+  readonly type: EntityType.ATTACHMENT = EntityType.ATTACHMENT;
   name: string;
   document: DocumentReference;
   /**
    * @since 0.22
    */
-  metadata: Record<string, string>;
+  private readonly _metadata: Record<string, string>;
 
   /**
    *
@@ -115,7 +115,11 @@ class AttachmentReference implements BaseEntityReference {
   ) {
     this.name = name;
     this.document = document;
-    this.metadata = metadata ?? {};
+    this._metadata = metadata ?? {};
+  }
+
+  get metadata(): Record<string, string> {
+    return this._metadata;
   }
 }
 

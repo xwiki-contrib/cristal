@@ -32,6 +32,9 @@ import type {
   UniAst,
 } from "@xwiki/cristal-uniast-api";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class DefaultUniAstToMarkdownConverter
   implements UniAstToMarkdownConverter

@@ -21,6 +21,9 @@ import { inject, injectable } from "inversify";
 import type { MarkdownParserConfiguration } from "./markdown-parser-configuration";
 import type { CristalApp } from "@xwiki/cristal-api";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class ParserConfigurationResolver {
   constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
@@ -34,7 +37,7 @@ export class ParserConfigurationResolver {
     } catch {
       // Return the default value if no specific factory is found.
       return {
-        supportsFlexmark: false,
+        supportFlexmarkInternalLinks: false,
       };
     }
   }

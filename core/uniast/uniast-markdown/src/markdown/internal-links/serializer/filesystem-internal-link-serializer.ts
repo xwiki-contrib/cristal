@@ -23,6 +23,9 @@ import type { UniAstToMarkdownConverter } from "../../uni-ast-to-markdown-conver
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class FilesystemInternalLinkSerializer
   implements InternalLinksSerializer

@@ -18,8 +18,14 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 /**
+ * Variation points used by the markdown parser.
+ *
  * @since 0.22
  */
 export type MarkdownParserConfiguration = {
-  supportsFlexmark: boolean;
+  /**
+   * When true, the parser must consider that all standard links (e.g., []()) are externals, and internal links have
+   * the double square brackets ([[]]) form.
+   */
+  supportFlexmarkInternalLinks: boolean;
 };

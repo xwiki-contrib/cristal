@@ -51,15 +51,12 @@ class FileSystemNavigationTreeSource implements NavigationTreeSource {
     this.cristalApp = cristalApp;
   }
 
-  // eslint-disable-next-line max-statements
   async getChildNodes(id?: string): Promise<Array<NavigationTreeNode>> {
     const currentId = id ? id : "";
     const navigationTree: Array<NavigationTreeNode> = [];
 
     // eslint-disable-next-line
     const { fileSystemStorage } = window as any;
-    // eslint-disable-next-line no-debugger
-    debugger;
     const children = await fileSystemStorage.listChildren(currentId);
 
     for (const child of children) {

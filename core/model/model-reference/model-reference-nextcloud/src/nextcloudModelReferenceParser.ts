@@ -33,6 +33,8 @@ import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
 
 @injectable()
 export class NextcloudModelReferenceParser implements ModelReferenceParser {
+  private readonly _regExp = RegExp(/^\.attachments\.(?<id>\d+)\/(?<file>.+)$/);
+
   constructor(
     @inject("CristalApp") private readonly cristalApp: CristalApp,
     @inject("AuthenticationManagerProvider")
@@ -45,7 +47,7 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
     if (/^https?:\/\//.test(reference)) {
       throw new Error(`[${reference}] is not a valid entity reference`);
     }
-    return this.innerLegacyParsing(reference);
+    return this.innerSynchronousParsing(reference);
   }
 
   async parseAsync(
@@ -96,11 +98,11 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
     if (type === EntityType.ATTACHMENT) {
       return this.relativeAttachmentParsing(reference);
     } else {
-      return this.innerLegacyParsing(reference);
+      return this.innerSynchronousParsing(reference);
     }
   }
 
-  private innerLegacyParsing(reference: string) {
+  private innerSynchronousParsing(reference: string) {
     let segments = reference.split("/");
     if (segments[0] == "") {
       segments = segments.slice(1);
@@ -141,8 +143,7 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
     return headers;
   }
 
-  private readonly _regExp = RegExp(/^\.attachments\.(?<id>\d+)\/(?<file>.+)$/);
-
+  // eslint-disable-next-line max-statements
   private async relativeAttachmentParsing(
     reference: string,
   ): Promise<AttachmentReference> {
