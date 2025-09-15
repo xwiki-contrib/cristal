@@ -17,23 +17,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import type { InternalLinksSerializer } from "./internal-links-serializer";
 import type { UniAstToMarkdownConverter } from "../../uni-ast-to-markdown-converter";
+import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
 @injectable()
 export class FilesystemInternalLinkSerializer
   implements InternalLinksSerializer
 {
+  constructor(
+    @inject("RemoteURLSerializerProvider")
+    private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
+  ) {}
+
   async serialize(
     content: Link["content"],
     target: Extract<LinkTarget, { type: "internal" }>,
     uniAstToMarkdownConverter: UniAstToMarkdownConverter,
   ): Promise<string> {
+    const ref = target.parsedReference
+      ? this.remoteURLSerializerProvider
+          .get()!
+          .serialize(target.parsedReference)
+      : target.rawReference;
     return `[${await uniAstToMarkdownConverter.convertInlineContents(
       content,
-    )}](${target.rawReference})`;
+    )}](${ref ?? target.rawReference})`;
   }
 
   async serializeImage(

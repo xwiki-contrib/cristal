@@ -2084,6 +2084,9 @@ importers:
 
   core/model/model-reference/model-reference-filesystem:
     dependencies:
+      '@xwiki/cristal-document-api':
+        specifier: workspace:*
+        version: link:../../../document/document-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../model-api

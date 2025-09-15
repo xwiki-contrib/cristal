@@ -39,7 +39,7 @@ async function createWindow() {
   initializeMenu(browserWindow);
 
   // Uncomment to start electron debugger at startup.
-  // browserWindow.webContents.openDevTools();
+  browserWindow.webContents.openDevTools();
 
   // Allows for external links to open in the OS browser..
   browserWindow.webContents.setWindowOpenHandler(({ url }) => {
