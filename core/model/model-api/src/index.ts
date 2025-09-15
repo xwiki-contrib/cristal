@@ -93,7 +93,7 @@ class DocumentReference implements BaseEntityReference {
  * @beta
  */
 class AttachmentReference implements BaseEntityReference {
-  readonly type: EntityType.ATTACHMENT = EntityType.ATTACHMENT;
+  type: EntityType.ATTACHMENT = EntityType.ATTACHMENT;
   name: string;
   document: DocumentReference;
   /**

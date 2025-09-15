@@ -25,6 +25,9 @@ import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { EntityReference } from "@xwiki/cristal-model-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
+/**
+ * @since 0.22
+ */
 @injectable()
 export class GitHubInternalLinkSerializer implements InternalLinksSerializer {
   constructor(
