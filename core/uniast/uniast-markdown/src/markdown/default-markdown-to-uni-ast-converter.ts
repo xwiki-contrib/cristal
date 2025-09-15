@@ -27,6 +27,7 @@ import remarkParse from "remark-parse";
 import { unified } from "unified";
 import type { MatchResult } from "./internal/find-first-match-in";
 import type { MarkdownToUniAstConverter } from "./markdown-to-uni-ast-converter";
+import type { EntityReference } from "@xwiki/cristal-model-api";
 import type {
   ModelReferenceHandlerProvider,
   ModelReferenceParserProvider,
@@ -328,13 +329,13 @@ export class DefaultMarkdownToUniAstConverter
         parsedReference: parsed,
         rawReference: url,
       };
-    } catch (e) {
-      console.debug("Error parsing reference: ", e);
+    } catch {
       target = { type: "external", url: url };
     }
 
     return {
       target,
+      caption: undefined,
       alt: image.alt ?? undefined,
       styles: {},
     };
@@ -492,9 +493,17 @@ export class DefaultMarkdownToUniAstConverter
       targetStr = substr;
     }
 
-    const reference = this.modelReferenceParserProvider
-      .get()!
-      .parse(targetStr, isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT);
+    let reference: EntityReference | null;
+    try {
+      reference = this.modelReferenceParserProvider
+        .get()!
+        .parse(
+          targetStr,
+          isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT,
+        );
+    } catch {
+      reference = null;
+    }
 
     const target: LinkTarget = {
       type: "internal",

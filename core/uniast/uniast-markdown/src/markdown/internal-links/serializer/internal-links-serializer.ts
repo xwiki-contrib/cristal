@@ -39,6 +39,12 @@ import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
+/**
+ * Serialize internal link and image for a specific backend.
+ *
+ * @since 0.22
+ */
 export interface InternalLinksSerializer {
   serialize(
     content: Link["content"],

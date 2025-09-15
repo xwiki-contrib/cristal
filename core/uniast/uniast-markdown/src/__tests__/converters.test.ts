@@ -20,11 +20,17 @@
 
 import { DefaultMarkdownToUniAstConverter } from "../markdown/default-markdown-to-uni-ast-converter";
 import { DefaultUniAstToMarkdownConverter } from "../markdown/default-uni-ast-to-markdown-converter";
+import { EntityType } from "@xwiki/cristal-model-api";
 import { Container } from "inversify";
 import { describe, expect, test } from "vitest";
 import { mock } from "vitest-mock-extended";
+import type { MarkdownParserConfiguration } from "../markdown/internal-links/parser/markdown-parser-configuration";
+import type { ParserConfigurationResolver } from "../markdown/internal-links/parser/parser-configuration-resolver";
+import type { InternalLinksSerializer } from "../markdown/internal-links/serializer/internal-links-serializer";
+import type { InternalLinksSerializerResolver } from "../markdown/internal-links/serializer/internal-links-serializer-resolver";
 import type {
   ModelReferenceHandlerProvider,
+  ModelReferenceParser,
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
@@ -38,6 +44,30 @@ import type { UniAst } from "@xwiki/cristal-uniast-api";
 function init() {
   const modelReferenceParserProvider = mock<ModelReferenceParserProvider>();
 
+  const modelReferenceParser = mock<ModelReferenceParser>();
+  // modelReferenceParser.parseAsync.mockReturnValue(
+  //   Promise.resolve(new DocumentReference("A")),
+  // );
+  modelReferenceParser.parseAsync
+    .calledWith("http://somewhere.somewhere", EntityType.ATTACHMENT)
+    .mockImplementation(() => {
+      throw new Error("Not internal");
+    });
+
+  modelReferenceParser.parse
+    .calledWith("documentReference", EntityType.DOCUMENT)
+    .mockImplementation(() => {
+      throw new Error("Not internal");
+    });
+
+  modelReferenceParser.parse
+    .calledWith("imageReference", EntityType.ATTACHMENT)
+    .mockImplementation(() => {
+      throw new Error("Not internal");
+    });
+
+  modelReferenceParserProvider.get.mockReturnValue(modelReferenceParser);
+
   const modelReferenceSerializerProvider =
     mock<ModelReferenceSerializerProvider>();
 
@@ -48,6 +78,34 @@ function init() {
   const modelReferenceHandlerProvider = mock<ModelReferenceHandlerProvider>();
 
   const containerMock = mock<Container>();
+
+  const parserConfigurationResolver = mock<ParserConfigurationResolver>();
+  const markdownParserConfiguration = mock<MarkdownParserConfiguration>();
+  markdownParserConfiguration.supportFlexmarkInternalLinks.mockReturnValue(
+    false,
+  );
+  parserConfigurationResolver.get.mockReturnValue(markdownParserConfiguration);
+
+  const internalLinksSerializerResolver =
+    mock<InternalLinksSerializerResolver>();
+
+  const internalLinksSerializer = mock<InternalLinksSerializer>();
+
+  internalLinksSerializer.serialize.mockImplementation(
+    async (content, target, uniAstToMarkdownConverter) => {
+      return `[[${await uniAstToMarkdownConverter.convertInlineContents(content)}|${target.rawReference}]]`;
+    },
+  );
+
+  internalLinksSerializer.serializeImage.mockImplementation(
+    async (target, alt) => {
+      return `![[${alt}|${target.rawReference}]]`;
+    },
+  );
+
+  internalLinksSerializerResolver.get.mockReturnValue(
+    Promise.resolve(internalLinksSerializer),
+  );
 
   containerMock.get
     .calledWith("ModelReferenceParserProvider")
@@ -73,6 +131,8 @@ function init() {
     modelReferenceParserProvider,
     modelReferenceHandlerProvider,
     remoteURLSerializerProvider,
+    parserConfigurationResolver,
+    internalLinksSerializerResolver,
   };
 }
 
@@ -80,14 +140,16 @@ describe("MarkdownToUniAstConverter", () => {
   const {
     modelReferenceParserProvider,
     modelReferenceHandlerProvider,
-    remoteURLSerializerProvider,
+    parserConfigurationResolver,
+    internalLinksSerializerResolver,
   } = init();
   const mdToUniAst = new DefaultMarkdownToUniAstConverter(
     modelReferenceParserProvider,
     modelReferenceHandlerProvider,
+    parserConfigurationResolver,
   );
   const uniAstToMd = new DefaultUniAstToMarkdownConverter(
-    remoteURLSerializerProvider,
+    internalLinksSerializerResolver,
   );
 
   async function testTwoWayConversion(expected: {

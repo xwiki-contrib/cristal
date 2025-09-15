@@ -20,6 +20,7 @@
 import { inject, injectable } from "inversify";
 import type { InternalLinksSerializer } from "./internal-links-serializer";
 import type { UniAstToMarkdownConverter } from "../../uni-ast-to-markdown-converter";
+import type { EntityReference } from "@xwiki/cristal-model-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type { Link, LinkTarget } from "@xwiki/cristal-uniast-api";
 
@@ -40,20 +41,36 @@ export class FilesystemInternalLinkSerializer
     target: Extract<LinkTarget, { type: "internal" }>,
     uniAstToMarkdownConverter: UniAstToMarkdownConverter,
   ): Promise<string> {
-    const ref = target.parsedReference
-      ? this.remoteURLSerializerProvider
-          .get()!
-          .serialize(target.parsedReference)
-      : target.rawReference;
-    return `[${await uniAstToMarkdownConverter.convertInlineContents(
+    const linkText = `${await uniAstToMarkdownConverter.convertInlineContents(
       content,
-    )}](${ref ?? target.rawReference})`;
+    )}`;
+    return `[${linkText}](${this.serializeTarget(target)})`;
   }
 
   async serializeImage(
     target: Extract<LinkTarget, { type: "internal" }>,
     alt?: string,
   ): Promise<string> {
-    return `![${alt ?? ""}](${target.rawReference})`;
+    return `![${alt ?? ""}](${this.serializeTarget(target)})`;
+  }
+
+  private serializeTarget(
+    target: Extract<
+      {
+        type: "internal";
+        rawReference: string;
+        parsedReference: EntityReference | null;
+      },
+      { type: "internal" }
+    >,
+  ) {
+    return (
+      (target.parsedReference
+        ? this.remoteURLSerializerProvider
+            .get()!
+            .serialize(target.parsedReference)
+            ?.replace(/cristalfs:\/\/\/?/, "")
+        : target.rawReference) ?? target.rawReference
+    );
   }
 }

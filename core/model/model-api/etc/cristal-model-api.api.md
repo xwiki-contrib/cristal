@@ -14,7 +14,7 @@ export class AttachmentReference implements BaseEntityReference {
     // (undocumented)
     name: string;
     // (undocumented)
-    type: EntityType.ATTACHMENT;
+    readonly type: EntityType.ATTACHMENT;
 }
 
 // @beta (undocumented)

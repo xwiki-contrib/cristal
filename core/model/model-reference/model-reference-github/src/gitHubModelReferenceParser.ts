@@ -41,7 +41,7 @@ export class GitHubModelReferenceParser implements ModelReferenceParser {
     if (type === EntityType.ATTACHMENT) {
       return new AttachmentReference(
         segments[segments.length - 1],
-        this.buildDocumentReference(segments.slice(0, segments.length - 1)),
+        this.buildDocumentReference(segments.slice(0, segments.length - 2)),
       );
     } else {
       return this.buildDocumentReference(segments);

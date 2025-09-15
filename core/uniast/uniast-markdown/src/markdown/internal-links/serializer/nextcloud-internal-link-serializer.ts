@@ -87,8 +87,6 @@ export class NextcloudInternalLinkSerializer
         if (currentDocumentReference === imageDocumentReference) {
           ref = `.${imageDocumentReference.name}/attachments/${parsedReference.name}`;
         } else {
-          // current = x.y
-          // target = v.w
           const down = [
             ...(currentDocumentReference.space &&
             currentDocumentReference.space.names.length > 0

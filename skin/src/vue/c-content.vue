@@ -54,29 +54,33 @@ const contentRoot = ref(undefined);
 const content: Ref<string | undefined> = ref();
 const contentRendering = ref(true);
 
-// eslint-disable-next-line max-statements
-watch(currentPage, async (currentPage) => {
-  if (currentPage) {
-    if (
-      currentPage.html &&
-      currentPage.html.trim() !== "" &&
-      currentPage.syntax != "markdown/1.2"
-    ) {
-      content.value = currentPage.html as string;
-      contentRendering.value = false;
-    } else if (currentPage.source) {
-      contentRendering.value = true;
-      content.value = await renderMarkdown(currentPage.source, container);
-      contentRendering.value = false;
+watch(
+  currentPage,
+  // eslint-disable-next-line max-statements
+  async (currentPage) => {
+    if (currentPage) {
+      if (
+        currentPage.html &&
+        currentPage.html.trim() !== "" &&
+        currentPage.syntax != "markdown/1.2"
+      ) {
+        content.value = currentPage.html as string;
+        contentRendering.value = false;
+      } else if (currentPage.source) {
+        contentRendering.value = true;
+        content.value = await renderMarkdown(currentPage.source, container);
+        contentRendering.value = false;
+      } else {
+        content.value = "";
+        contentRendering.value = false;
+      }
     } else {
-      content.value = "";
+      content.value = undefined;
       contentRendering.value = false;
     }
-  } else {
-    content.value = undefined;
-    contentRendering.value = false;
-  }
-});
+  },
+  { immediate: true },
+);
 
 const pageExist = computed(() => {
   return content.value !== undefined;

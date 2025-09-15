@@ -49,7 +49,9 @@ export class FileSystemModelReferenceParser implements ModelReferenceParser {
         .getCurrentDocument()
         .value?.id.split("/");
 
-      const references = reference.split("/").map((s) => this.unescape(s));
+      const references = reference
+        .split(/(?<!\\)\//)
+        .map((s) => this.unescape(s));
       const spaces = references.slice(0, references.length - 3);
 
       const currentSegments =
@@ -75,8 +77,10 @@ export class FileSystemModelReferenceParser implements ModelReferenceParser {
         .getCurrentDocument()
         .value?.id.split("/");
 
-      const references = reference.split("/").map((s) => this.unescape(s));
-      const spaces = references.slice(0, references.length - 3);
+      const references = reference
+        .split(/(?<!\\)\//)
+        .map((s) => this.unescape(s));
+      const spaces = references.slice(0, references.length - 1);
 
       const currentSegments =
         currentDocumentSegments?.slice(

@@ -23,7 +23,7 @@ export const markdownToUniAstConverterName = "MarkdownToUniAstConverter";
 
 // @beta
 export interface UniAstToMarkdownConverter {
-    // (undocumented)
+    // @internal (undocumented)
     convertInlineContents(inlineContents: InlineContent[]): Promise<string>;
     toMarkdown(uniAst: UniAst): Promise<string | Error>;
 }

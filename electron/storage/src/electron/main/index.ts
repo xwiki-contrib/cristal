@@ -231,12 +231,7 @@ async function readAttachment(
         mimetype,
         reference: relative(
           homePathFull,
-          join(
-            grandGrandParentPath,
-            grandParentName.slice(1),
-            "attachments",
-            id,
-          ),
+          join(grandGrandParentPath, grandParentName, "attachments", id),
         ),
         href: `${cristalFSProtocol}://${relative(
           homePathFull,
@@ -521,7 +516,8 @@ export default async function load(): Promise<void> {
     if (!(await isWithin(homePathFull, path))) {
       throw new Error(`[${path}] is not in in [${homePathFull}]`);
     }
-    return net.fetch(`file://${path}`);
+    // The decode is required to handle paths containing spaces.
+    return net.fetch(`file://${decodeURIComponent(path)}`);
   });
 
   ipcMain.handle("resolvePath", (event, { page }) => {
