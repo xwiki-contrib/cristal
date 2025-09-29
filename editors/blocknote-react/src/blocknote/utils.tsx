@@ -86,7 +86,8 @@ function createCustomBlockSpec<
           group: slashMenu.group,
           icon: slashMenu.icon,
           onItemClick: () => {
-            insertOrUpdateBlock(editor, slashMenu.default());
+            const block = insertOrUpdateBlock(editor, slashMenu.default());
+            editor.setTextCursorPosition(block.id);
           },
         }),
 
@@ -426,7 +427,10 @@ function createMacro<Parameters extends Record<string, MacroParameterType>>({
           {rendered}
         </span>
       ) : (
-        <div style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
+        <div
+          style={{ userSelect: "none", width: "100%" }}
+          onDoubleClick={openParamsEditor}
+        >
           {rendered}
         </div>
       );
