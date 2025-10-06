@@ -4,6 +4,420 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@blocknote/core':
+      specifier: 0.35.0
+      version: 0.35.0
+    '@blocknote/mantine':
+      specifier: 0.35.0
+      version: 0.35.0
+    '@blocknote/react':
+      specifier: 0.35.0
+      version: 0.35.0
+    '@changesets/cli':
+      specifier: 2.29.7
+      version: 2.29.7
+    '@eslint/config-helpers':
+      specifier: 0.4.0
+      version: 0.4.0
+    '@eslint/eslintrc':
+      specifier: 3.3.1
+      version: 3.3.1
+    '@eslint/js':
+      specifier: 9.37.0
+      version: 9.37.0
+    '@hocuspocus/provider':
+      specifier: 2.15.3
+      version: 2.15.3
+    '@hocuspocus/server':
+      specifier: 2.15.3
+      version: 2.15.3
+    '@mantine/core':
+      specifier: 8.3.3
+      version: 8.3.3
+    '@mantine/hooks':
+      specifier: 8.3.3
+      version: 8.3.3
+    '@microsoft/api-extractor':
+      specifier: 7.53.0
+      version: 7.53.0
+    '@microsoft/tsdoc':
+      specifier: 0.15.1
+      version: 0.15.1
+    '@microsoft/tsdoc-config':
+      specifier: 0.17.1
+      version: 0.17.1
+    '@playwright/experimental-ct-react':
+      specifier: 1.55.1
+      version: 1.55.1
+    '@playwright/test':
+      specifier: 1.55.1
+      version: 1.55.1
+    '@shoelace-style/shoelace':
+      specifier: 2.20.1
+      version: 2.20.1
+    '@tiptap/core':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-collaboration':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-collaboration-cursor':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-heading':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-image':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-link':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-placeholder':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-table':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-table-cell':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-table-header':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/extension-table-row':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/pm':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/starter-kit':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/suggestion':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@tiptap/vue-3':
+      specifier: 2.13.0
+      version: 2.13.0
+    '@types/async-lock':
+      specifier: 1.4.2
+      version: 1.4.2
+    '@types/express':
+      specifier: 5.0.3
+      version: 5.0.3
+    '@types/express-ws':
+      specifier: 3.0.5
+      version: 3.0.5
+    '@types/js-cookie':
+      specifier: 3.0.6
+      version: 3.0.6
+    '@types/lodash-es':
+      specifier: 4.17.12
+      version: 4.17.12
+    '@types/markdown-it':
+      specifier: 14.1.2
+      version: 14.1.2
+    '@types/mdast':
+      specifier: 4.0.4
+      version: 4.0.4
+    '@types/node':
+      specifier: 22.18.8
+      version: 22.18.8
+    '@types/react':
+      specifier: 19.2.0
+      version: 19.2.0
+    '@types/react-dom':
+      specifier: 19.2.0
+      version: 19.2.0
+    '@types/sharedworker':
+      specifier: 0.0.184
+      version: 0.0.184
+    '@types/xml-escape':
+      specifier: 1.1.3
+      version: 1.1.3
+    '@typescript-eslint/eslint-plugin':
+      specifier: 8.45.0
+      version: 8.45.0
+    '@typescript-eslint/parser':
+      specifier: 8.45.0
+      version: 8.45.0
+    '@vitejs/plugin-react':
+      specifier: 5.0.4
+      version: 5.0.4
+    '@vitejs/plugin-vue':
+      specifier: 6.0.1
+      version: 6.0.1
+    '@vitest/coverage-v8':
+      specifier: 3.2.4
+      version: 3.2.4
+    '@vue/test-utils':
+      specifier: 2.4.6
+      version: 2.4.6
+    async-lock:
+      specifier: 1.4.1
+      version: 1.4.1
+    axios:
+      specifier: 1.12.2
+      version: 1.12.2
+    bootstrap-icons:
+      specifier: 1.13.1
+      version: 1.13.1
+    comlink:
+      specifier: 4.4.2
+      version: 4.4.2
+    concurrently:
+      specifier: 9.2.1
+      version: 9.2.1
+    dayjs:
+      specifier: 1.11.18
+      version: 1.11.18
+    dexie:
+      specifier: 4.2.0
+      version: 4.2.0
+    dotenv:
+      specifier: 17.2.3
+      version: 17.2.3
+    electron:
+      specifier: 38.2.1
+      version: 38.2.1
+    electron-builder:
+      specifier: 26.0.12
+      version: 26.0.12
+    electron-store:
+      specifier: 10.1.0
+      version: 10.1.0
+    electron-updater:
+      specifier: 6.6.2
+      version: 6.6.2
+    esbuild:
+      specifier: 0.25.10
+      version: 0.25.10
+    eslint:
+      specifier: 9.37.0
+      version: 9.37.0
+    eslint-config-prettier:
+      specifier: 10.1.8
+      version: 10.1.8
+    eslint-import-resolver-typescript:
+      specifier: 4.4.4
+      version: 4.4.4
+    eslint-plugin-headers:
+      specifier: 1.3.3
+      version: 1.3.3
+    eslint-plugin-import:
+      specifier: 2.32.0
+      version: 2.32.0
+    eslint-plugin-prettier:
+      specifier: 5.5.4
+      version: 5.5.4
+    eslint-plugin-promise:
+      specifier: 7.2.1
+      version: 7.2.1
+    eslint-plugin-tsdoc:
+      specifier: 0.4.0
+      version: 0.4.0
+    eslint-plugin-vue:
+      specifier: 10.5.0
+      version: 10.5.0
+    eventemitter3:
+      specifier: 5.0.1
+      version: 5.0.1
+    express:
+      specifier: 5.1.0
+      version: 5.1.0
+    express-ws:
+      specifier: 5.0.2
+      version: 5.0.2
+    fast-xml-parser:
+      specifier: 5.2.4
+      version: 5.2.4
+    filesize.js:
+      specifier: 2.0.0
+      version: 2.0.0
+    globals:
+      specifier: 16.4.0
+      version: 16.4.0
+    happy-dom:
+      specifier: 19.0.2
+      version: 19.0.2
+    i18next:
+      specifier: 25.5.2
+      version: 25.5.2
+    inversify:
+      specifier: 7.10.2
+      version: 7.10.2
+    jiti:
+      specifier: 2.6.1
+      version: 2.6.1
+    js-cookie:
+      specifier: 3.0.5
+      version: 3.0.5
+    lib0:
+      specifier: 0.2.114
+      version: 0.2.114
+    lodash-es:
+      specifier: 4.17.21
+      version: 4.17.21
+    markdown-it:
+      specifier: 14.1.0
+      version: 14.1.0
+    mdast-util-gfm-strikethrough:
+      specifier: 2.0.0
+      version: 2.0.0
+    mdast-util-gfm-table:
+      specifier: 2.0.0
+      version: 2.0.0
+    mdast-util-gfm-task-list-item:
+      specifier: 2.0.0
+      version: 2.0.0
+    micromark-extension-gfm-strikethrough:
+      specifier: 2.1.0
+      version: 2.1.0
+    micromark-extension-gfm-table:
+      specifier: 2.1.1
+      version: 2.1.1
+    micromark-extension-gfm-task-list-item:
+      specifier: 2.1.0
+      version: 2.1.0
+    mime:
+      specifier: 4.1.0
+      version: 4.1.0
+    nodemon:
+      specifier: 3.1.10
+      version: 3.1.10
+    nx:
+      specifier: 21.6.3
+      version: 21.6.3
+    pinia:
+      specifier: 3.0.2
+      version: 3.0.2
+    postcss:
+      specifier: 8.5.6
+      version: 8.5.6
+    postcss-preset-mantine:
+      specifier: 1.18.0
+      version: 1.18.0
+    postcss-simple-vars:
+      specifier: 7.0.1
+      version: 7.0.1
+    prettier:
+      specifier: 3.6.2
+      version: 3.6.2
+    prosemirror-markdown:
+      specifier: 1.13.2
+      version: 1.13.2
+    publint:
+      specifier: 0.3.14
+      version: 0.3.14
+    react:
+      specifier: 19.2.0
+      version: 19.2.0
+    react-dom:
+      specifier: 19.2.0
+      version: 19.2.0
+    react-i18next:
+      specifier: 16.0.0
+      version: 16.0.0
+    react-icons:
+      specifier: 5.5.0
+      version: 5.5.0
+    reflect-metadata:
+      specifier: 0.2.2
+      version: 0.2.2
+    remark-parse:
+      specifier: 11.0.0
+      version: 11.0.0
+    rimraf:
+      specifier: 6.0.1
+      version: 6.0.1
+    tippy.js:
+      specifier: 6.3.7
+      version: 6.3.7
+    tiptap-extension-global-drag-handle:
+      specifier: 0.1.18
+      version: 0.1.18
+    tiptap-markdown:
+      specifier: 0.8.10
+      version: 0.8.10
+    ts-essentials:
+      specifier: 10.1.1
+      version: 10.1.1
+    ts-node:
+      specifier: 10.9.2
+      version: 10.9.2
+    tsx:
+      specifier: 4.20.6
+      version: 4.20.6
+    typescript:
+      specifier: 5.9.3
+      version: 5.9.3
+    typescript-eslint:
+      specifier: 8.45.0
+      version: 8.45.0
+    unified:
+      specifier: 11.0.5
+      version: 11.0.5
+    utility-types:
+      specifier: 3.11.0
+      version: 3.11.0
+    vite:
+      specifier: 7.1.9
+      version: 7.1.9
+    vite-plugin-css-injected-by-js:
+      specifier: 3.5.2
+      version: 3.5.2
+    vite-plugin-dts:
+      specifier: 4.5.4
+      version: 4.5.4
+    vite-plugin-node:
+      specifier: 7.0.0
+      version: 7.0.0
+    vitest:
+      specifier: 3.2.4
+      version: 3.2.4
+    vitest-mock-extended:
+      specifier: 3.1.0
+      version: 3.1.0
+    vue:
+      specifier: 3.5.22
+      version: 3.5.22
+    vue-eslint-parser:
+      specifier: 10.2.0
+      version: 10.2.0
+    vue-i18n:
+      specifier: 11.1.12
+      version: 11.1.12
+    vue-router:
+      specifier: 4.5.1
+      version: 4.5.1
+    vue-tippy:
+      specifier: 6.7.1
+      version: 6.7.1
+    vue-tsc:
+      specifier: 2.2.12
+      version: 2.2.12
+    vue3-draggable-resizable:
+      specifier: 1.6.5
+      version: 1.6.5
+    vuetify:
+      specifier: 3.10.4
+      version: 3.10.4
+    xml-escape:
+      specifier: 1.1.0
+      version: 1.1.0
+    y-websocket:
+      specifier: 3.0.0
+      version: 3.0.0
+    yaml:
+      specifier: 2.8.1
+      version: 2.8.1
+    yjs:
+      specifier: 13.6.27
+      version: 13.6.27
+
 packageExtensionsChecksum: sha256-H0OsZ+cssnQpUbSM2euZmMd15bJwF6teFA4AiTFh3q4=
 
 importers:
@@ -11,109 +425,109 @@ importers:
   .:
     devDependencies:
       '@changesets/cli':
-        specifier: 2.29.7
+        specifier: 'catalog:'
         version: 2.29.7(@types/node@24.1.0)
       '@eslint/config-helpers':
-        specifier: 0.4.0
+        specifier: 'catalog:'
         version: 0.4.0
       '@eslint/eslintrc':
-        specifier: 3.3.1
+        specifier: 'catalog:'
         version: 3.3.1
       '@eslint/js':
-        specifier: 9.37.0
+        specifier: 'catalog:'
         version: 9.37.0
       '@microsoft/api-extractor':
-        specifier: 7.53.0
+        specifier: 'catalog:'
         version: 7.53.0(@types/node@24.1.0)
       '@microsoft/tsdoc':
-        specifier: 0.15.1
+        specifier: 'catalog:'
         version: 0.15.1
       '@microsoft/tsdoc-config':
-        specifier: 0.17.1
+        specifier: 'catalog:'
         version: 0.17.1
       '@typescript-eslint/eslint-plugin':
-        specifier: 8.45.0
+        specifier: 'catalog:'
         version: 8.45.0(@typescript-eslint/parser@8.45.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/parser':
-        specifier: 8.45.0
+        specifier: 'catalog:'
         version: 8.45.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       '@vitejs/plugin-vue':
-        specifier: 6.0.1
+        specifier: 'catalog:'
         version: 6.0.1(vite@7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       '@vitest/coverage-v8':
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       concurrently:
-        specifier: 9.2.1
+        specifier: 'catalog:'
         version: 9.2.1
       eslint:
-        specifier: 9.37.0
+        specifier: 'catalog:'
         version: 9.37.0(jiti@2.6.1)
       eslint-config-prettier:
-        specifier: 10.1.8
+        specifier: 'catalog:'
         version: 10.1.8(eslint@9.37.0(jiti@2.6.1))
       eslint-import-resolver-typescript:
-        specifier: 4.4.4
+        specifier: 'catalog:'
         version: 4.4.4(eslint-plugin-import@2.32.0)(eslint@9.37.0(jiti@2.6.1))
       eslint-plugin-headers:
-        specifier: 1.3.3
+        specifier: 'catalog:'
         version: 1.3.3(eslint@9.37.0(jiti@2.6.1))
       eslint-plugin-import:
-        specifier: 2.32.0
+        specifier: 'catalog:'
         version: 2.32.0(@typescript-eslint/parser@8.45.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.37.0(jiti@2.6.1))
       eslint-plugin-prettier:
-        specifier: 5.5.4
+        specifier: 'catalog:'
         version: 5.5.4(eslint-config-prettier@10.1.8(eslint@9.37.0(jiti@2.6.1)))(eslint@9.37.0(jiti@2.6.1))(prettier@3.6.2)
       eslint-plugin-promise:
-        specifier: 7.2.1
+        specifier: 'catalog:'
         version: 7.2.1(eslint@9.37.0(jiti@2.6.1))
       eslint-plugin-tsdoc:
-        specifier: 0.4.0
+        specifier: 'catalog:'
         version: 0.4.0
       eslint-plugin-vue:
-        specifier: 10.5.0
+        specifier: 'catalog:'
         version: 10.5.0(@typescript-eslint/parser@8.45.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.37.0(jiti@2.6.1)))
       globals:
-        specifier: 16.4.0
+        specifier: 'catalog:'
         version: 16.4.0
       happy-dom:
-        specifier: 19.0.2
+        specifier: 'catalog:'
         version: 19.0.2
       jiti:
-        specifier: 2.6.1
+        specifier: 'catalog:'
         version: 2.6.1
       nx:
-        specifier: 21.6.3
+        specifier: 'catalog:'
         version: 21.6.3
       prettier:
-        specifier: 3.6.2
+        specifier: 'catalog:'
         version: 3.6.2
       publint:
-        specifier: 0.3.14
+        specifier: 'catalog:'
         version: 0.3.14
       rimraf:
-        specifier: 6.0.1
+        specifier: 'catalog:'
         version: 6.0.1
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       typescript-eslint:
-        specifier: 8.45.0
+        specifier: 'catalog:'
         version: 8.45.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vite-plugin-css-injected-by-js:
-        specifier: 3.5.2
+        specifier: 'catalog:'
         version: 3.5.2(vite@7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vite-plugin-dts:
-        specifier: 4.5.4
+        specifier: 'catalog:'
         version: 4.5.4(@types/node@24.1.0)(rollup@4.46.2)(typescript@5.9.3)(vite@7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue-eslint-parser:
-        specifier: 10.2.0
+        specifier: 'catalog:'
         version: 10.2.0(eslint@9.37.0(jiti@2.6.1))
 
   api:
@@ -125,51 +539,51 @@ importers:
         specifier: workspace:*
         version: link:../core/configuration/configuration-api
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   authentication-server:
     dependencies:
       express:
-        specifier: 5.1.0
+        specifier: 'catalog:'
         version: 5.1.0
     devDependencies:
       '@types/express':
-        specifier: 5.0.3
+        specifier: 'catalog:'
         version: 5.0.3
       esbuild:
-        specifier: 0.25.10
+        specifier: 'catalog:'
         version: 0.25.10
       tsx:
-        specifier: 4.20.6
+        specifier: 'catalog:'
         version: 4.20.6
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/alerts/alerts-api:
@@ -185,10 +599,10 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/alerts/alerts-default:
@@ -200,26 +614,26 @@ importers:
         specifier: workspace:*
         version: link:../../../api
       pinia:
-        specifier: 3.0.2
+        specifier: 'catalog:'
         version: 3.0.2(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/alerts/alerts-ui:
@@ -231,7 +645,7 @@ importers:
         specifier: workspace:*
         version: link:../../../api
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
@@ -241,22 +655,22 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/attachments/attachments-api:
@@ -275,10 +689,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/attachments/attachments-default:
@@ -302,7 +716,7 @@ importers:
         specifier: workspace:*
         version: link:../../model/model-remote-url/model-remote-url-api
       pinia:
-        specifier: 3.0.2
+        specifier: 'catalog:'
         version: 3.0.2(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-api':
@@ -312,25 +726,25 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/attachments/attachments-ui:
@@ -375,14 +789,14 @@ importers:
         specifier: workspace:*
         version: link:../../user/user-ui
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -394,28 +808,28 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/authentication/authentication-api:
@@ -424,10 +838,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   core/authentication/authentication-default:
@@ -443,16 +857,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/authentication/authentication-github:
@@ -467,56 +881,56 @@ importers:
         specifier: workspace:*
         version: link:../authentication-github-state
       axios:
-        specifier: 1.12.2
+        specifier: 'catalog:'
         version: 1.12.2
       js-cookie:
-        specifier: 3.0.5
+        specifier: 'catalog:'
         version: 3.0.5
     devDependencies:
       '@types/js-cookie':
-        specifier: 3.0.6
+        specifier: 'catalog:'
         version: 3.0.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/authentication/authentication-github-state:
     devDependencies:
       '@types/js-cookie':
-        specifier: 3.0.6
+        specifier: 'catalog:'
         version: 3.0.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/authentication/authentication-github-ui:
@@ -543,11 +957,11 @@ importers:
         specifier: workspace:*
         version: link:../../uiextension/uiextension-default
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -559,25 +973,25 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/authentication/authentication-nextcloud:
@@ -592,59 +1006,59 @@ importers:
         specifier: workspace:*
         version: link:../authentication-nextcloud-state
       async-lock:
-        specifier: 1.4.1
+        specifier: 'catalog:'
         version: 1.4.1
       axios:
-        specifier: 1.12.2
+        specifier: 'catalog:'
         version: 1.12.2
       js-cookie:
-        specifier: 3.0.5
+        specifier: 'catalog:'
         version: 3.0.5
     devDependencies:
       '@types/async-lock':
-        specifier: 1.4.2
+        specifier: 'catalog:'
         version: 1.4.2
       '@types/js-cookie':
-        specifier: 3.0.6
+        specifier: 'catalog:'
         version: 3.0.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/authentication/authentication-nextcloud-state:
     devDependencies:
       '@types/js-cookie':
-        specifier: 3.0.6
+        specifier: 'catalog:'
         version: 3.0.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/authentication/authentication-nextcloud-ui:
@@ -662,11 +1076,11 @@ importers:
         specifier: workspace:*
         version: link:../../uiextension/uiextension-api
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -678,25 +1092,25 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/authentication/authentication-ui:
@@ -717,11 +1131,11 @@ importers:
         specifier: workspace:*
         version: link:../../uiextension/uiextension-api
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -733,25 +1147,25 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/authentication/authentication-xwiki:
@@ -763,29 +1177,29 @@ importers:
         specifier: workspace:*
         version: link:../authentication-api
       axios:
-        specifier: 1.12.2
+        specifier: 'catalog:'
         version: 1.12.2
       js-cookie:
-        specifier: 3.0.5
+        specifier: 'catalog:'
         version: 3.0.5
     devDependencies:
       '@types/js-cookie':
-        specifier: 3.0.6
+        specifier: 'catalog:'
         version: 3.0.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/backends/backend-api:
@@ -798,16 +1212,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/backends/backend-dexie:
@@ -822,23 +1236,23 @@ importers:
         specifier: workspace:*
         version: link:../../../sharedworker/api
       dexie:
-        specifier: 4.2.0
+        specifier: 'catalog:'
         version: 4.2.0
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/backends/backend-github:
@@ -862,23 +1276,23 @@ importers:
         specifier: workspace:*
         version: link:../../../utils/inversify
       mime:
-        specifier: 4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/backends/backend-nextcloud:
@@ -902,23 +1316,23 @@ importers:
         specifier: workspace:*
         version: link:../../../utils/inversify
       fast-xml-parser:
-        specifier: 5.2.4
+        specifier: 'catalog:'
         version: 5.2.4
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/backends/backend-xwiki:
@@ -946,19 +1360,19 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   core/browser/browser-api:
@@ -971,10 +1385,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/browser/browser-default:
@@ -990,19 +1404,19 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/collaboration/collaboration-api:
@@ -1011,32 +1425,32 @@ importers:
         specifier: workspace:*
         version: link:../../../api
       yjs:
-        specifier: 13.6.27
+        specifier: 'catalog:'
         version: 13.6.27
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/collaboration/collaboration-hocuspocus:
     dependencies:
       '@hocuspocus/provider':
-        specifier: 2.15.3
+        specifier: 'catalog:'
         version: 2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
       '@xwiki/cristal-api':
         specifier: workspace:*
@@ -1052,19 +1466,19 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/collaboration/collaboration-xwiki:
@@ -1079,45 +1493,45 @@ importers:
         specifier: workspace:*
         version: link:../../document/document-api
       lib0:
-        specifier: 0.2.114
+        specifier: 'catalog:'
         version: 0.2.114
       y-websocket:
-        specifier: 3.0.0
+        specifier: 'catalog:'
         version: 3.0.0(yjs@13.6.27)
       yjs:
-        specifier: 13.6.27
+        specifier: 'catalog:'
         version: 13.6.27
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/configuration/configuration-api:
     dependencies:
       utility-types:
-        specifier: 3.11.0
+        specifier: 'catalog:'
         version: 3.11.0
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   core/configuration/configuration-web:
@@ -1130,32 +1544,32 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/date/date-api:
     dependencies:
       dayjs:
-        specifier: 1.11.18
+        specifier: 'catalog:'
         version: 1.11.18
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/date/date-ui:
@@ -1174,16 +1588,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/document/document-api:
@@ -1202,13 +1616,13 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/document/document-default:
@@ -1226,57 +1640,57 @@ importers:
         specifier: workspace:*
         version: link:../../model/model-reference/model-reference-api
       pinia:
-        specifier: 3.0.2
+        specifier: 'catalog:'
         version: 3.0.2(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/extra-tabs/extra-tabs-api:
     dependencies:
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/extra-tabs/extra-tabs-default:
@@ -1285,26 +1699,26 @@ importers:
         specifier: workspace:*
         version: link:../extra-tabs-api
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/extra-tabs/extra-tabs-ui:
@@ -1326,16 +1740,16 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/file-preview/file-preview-ui:
@@ -1344,29 +1758,29 @@ importers:
         specifier: workspace:*
         version: link:../../attachments/attachments-api
       filesize.js:
-        specifier: 2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/fn-utils:
@@ -1375,10 +1789,10 @@ importers:
         specifier: workspace:*
         version: link:../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/hierarchy/hierarchy-api:
@@ -1394,10 +1808,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/hierarchy/hierarchy-default:
@@ -1416,16 +1830,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/hierarchy/hierarchy-filesystem:
@@ -1447,16 +1861,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/hierarchy/hierarchy-github:
@@ -1478,16 +1892,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/hierarchy/hierarchy-nextcloud:
@@ -1509,16 +1923,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/hierarchy/hierarchy-xwiki:
@@ -1552,16 +1966,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/history/history-api:
@@ -1577,10 +1991,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/history/history-default:
@@ -1596,16 +2010,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/history/history-github:
@@ -1627,16 +2041,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/history/history-ui:
@@ -1657,10 +2071,10 @@ importers:
         specifier: workspace:*
         version: link:../../user/user-ui
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
@@ -1670,22 +2084,22 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/history/history-xwiki:
@@ -1710,44 +2124,44 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/icons:
     dependencies:
       bootstrap-icons:
-        specifier: 1.13.1
+        specifier: 'catalog:'
         version: 1.13.1
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/info-actions/info-actions-api:
@@ -1760,10 +2174,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/info-actions/info-actions-default:
@@ -1772,26 +2186,26 @@ importers:
         specifier: workspace:*
         version: link:../info-actions-api
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/info-actions/info-actions-ui:
@@ -1809,11 +2223,11 @@ importers:
         specifier: 0.x
         version: 0.2.2
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1822,16 +2236,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/test-utils
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/link-suggest/link-suggest-api:
@@ -1844,16 +2258,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/link-suggest/link-suggest-nextcloud:
@@ -1877,26 +2291,26 @@ importers:
         specifier: workspace:*
         version: link:../../model/model-remote-url/model-remote-url-api
       xml-escape:
-        specifier: 1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
     devDependencies:
       '@types/xml-escape':
-        specifier: 1.1.3
+        specifier: 'catalog:'
         version: 1.1.3
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/link-suggest/link-suggest-xwiki:
@@ -1921,16 +2335,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/markdown/markdown-api:
@@ -1943,7 +2357,7 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   core/markdown/markdown-default:
@@ -1961,29 +2375,29 @@ importers:
         specifier: workspace:*
         version: link:../../model/model-remote-url/model-remote-url-api
       markdown-it:
-        specifier: 14.1.0
+        specifier: 'catalog:'
         version: 14.1.0
     devDependencies:
       '@types/markdown-it':
-        specifier: 14.1.2
+        specifier: 'catalog:'
         version: 14.1.2
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   core/model/model-api:
@@ -1992,10 +2406,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-click-listener:
@@ -2020,16 +2434,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-local-url:
@@ -2042,19 +2456,19 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-reference/model-reference-api:
@@ -2070,16 +2484,16 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-reference/model-reference-filesystem:
@@ -2101,22 +2515,22 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/model/model-reference/model-reference-github:
@@ -2132,16 +2546,16 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-reference/model-reference-nextcloud:
@@ -2166,16 +2580,16 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-reference/model-reference-xwiki:
@@ -2190,32 +2604,32 @@ importers:
         specifier: workspace:*
         version: link:../model-reference-api
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/model/model-remote-url/model-remote-url-api:
@@ -2231,16 +2645,16 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-remote-url/model-remote-url-filesystem/model-remote-url-filesystem-api:
@@ -2249,10 +2663,10 @@ importers:
         specifier: workspace:*
         version: link:../../../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-remote-url/model-remote-url-filesystem/model-remote-url-filesystem-default:
@@ -2271,16 +2685,16 @@ importers:
         specifier: workspace:*
         version: link:../../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/model/model-remote-url/model-remote-url-github:
@@ -2299,19 +2713,19 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   core/model/model-remote-url/model-remote-url-nextcloud:
@@ -2333,19 +2747,19 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   core/model/model-remote-url/model-remote-url-xwiki:
@@ -2364,16 +2778,16 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/navigation-tree/navigation-tree-api:
@@ -2389,10 +2803,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/navigation-tree/navigation-tree-default:
@@ -2411,16 +2825,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/navigation-tree/navigation-tree-filesystem:
@@ -2445,16 +2859,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/navigation-tree/navigation-tree-github:
@@ -2485,16 +2899,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/navigation-tree/navigation-tree-nextcloud:
@@ -2519,16 +2933,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/navigation-tree/navigation-tree-xwiki:
@@ -2556,41 +2970,41 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/page-actions/page-actions-api:
     dependencies:
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/page-actions/page-actions-default:
@@ -2599,26 +3013,26 @@ importers:
         specifier: workspace:*
         version: link:../page-actions-api
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/page-actions/page-actions-ui:
@@ -2657,7 +3071,7 @@ importers:
         specifier: workspace:*
         version: link:../../rename/rename-api
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
@@ -2667,22 +3081,22 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/page/page-api:
@@ -2691,13 +3105,13 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   core/page/page-default:
@@ -2706,17 +3120,17 @@ importers:
         specifier: workspace:*
         version: link:../page-api
       yaml:
-        specifier: 2.8.1
+        specifier: 'catalog:'
         version: 2.8.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/rename/rename-api:
@@ -2729,10 +3143,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/rename/rename-default:
@@ -2748,16 +3162,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/rename/rename-filesystem:
@@ -2776,16 +3190,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/settings/settings-api:
@@ -2797,7 +3211,7 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   core/settings/settings-browser:
@@ -2816,13 +3230,13 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/settings/settings-configurations:
@@ -2841,13 +3255,13 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/settings/settings-configurations-ui:
@@ -2880,11 +3294,11 @@ importers:
         specifier: workspace:*
         version: link:../../wiki-config/wiki-config-api
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2896,31 +3310,31 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       ts-essentials:
-        specifier: 10.1.1
+        specifier: 'catalog:'
         version: 10.1.1(typescript@5.9.3)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/settings/settings-default:
@@ -2939,28 +3353,28 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   core/tiptap-extensions/tiptap-extension-image:
     dependencies:
       '@tiptap/extension-image':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
       '@tiptap/pm':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0
       '@tiptap/vue-3':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)(vue@3.5.22(typescript@5.9.3))
       '@xwiki/cristal-api':
         specifier: workspace:*
@@ -2987,29 +3401,29 @@ importers:
         specifier: workspace:*
         version: link:../tiptap-link-suggest-ui
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
       prosemirror-markdown:
-        specifier: 1.13.2
+        specifier: 'catalog:'
         version: 1.13.2
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-tippy:
-        specifier: 6.7.1
+        specifier: 'catalog:'
         version: 6.7.1(vue@3.5.22(typescript@5.9.3))
       vue3-draggable-resizable:
-        specifier: 1.6.5
+        specifier: 'catalog:'
         version: 1.6.5
     devDependencies:
       '@tiptap/core':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/pm@2.13.0)
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3018,10 +3432,10 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/tiptap-extensions/tiptap-link-suggest-ui:
@@ -3046,10 +3460,10 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/uiextension/uiextension-api:
@@ -3062,10 +3476,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/uiextension/uiextension-default:
@@ -3074,26 +3488,26 @@ importers:
         specifier: workspace:*
         version: link:../uiextension-api
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/uiextension/uiextension-ui:
@@ -3112,16 +3526,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/uniast/uniast-api:
@@ -3131,7 +3545,7 @@ importers:
         version: link:../../model/model-api
     devDependencies:
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   core/uniast/uniast-html:
@@ -3143,11 +3557,11 @@ importers:
         specifier: workspace:*
         version: link:../uniast-api
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3159,16 +3573,16 @@ importers:
         specifier: workspace:*
         version: link:../../model/model-remote-url/model-remote-url-api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   core/uniast/uniast-markdown:
@@ -3189,35 +3603,35 @@ importers:
         specifier: workspace:*
         version: link:../uniast-api
       fast-xml-parser:
-        specifier: 5.2.4
+        specifier: 'catalog:'
         version: 5.2.4
       mdast-util-gfm-strikethrough:
-        specifier: 2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       mdast-util-gfm-table:
-        specifier: 2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       mdast-util-gfm-task-list-item:
-        specifier: 2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
       micromark-extension-gfm-strikethrough:
-        specifier: 2.1.0
+        specifier: 'catalog:'
         version: 2.1.0
       micromark-extension-gfm-table:
-        specifier: 2.1.1
+        specifier: 'catalog:'
         version: 2.1.1
       micromark-extension-gfm-task-list-item:
-        specifier: 2.1.0
+        specifier: 'catalog:'
         version: 2.1.0
       remark-parse:
-        specifier: 11.0.0
+        specifier: 'catalog:'
         version: 11.0.0
       unified:
-        specifier: 11.0.5
+        specifier: 'catalog:'
         version: 11.0.5
     devDependencies:
       '@types/mdast':
-        specifier: 4.0.4
+        specifier: 'catalog:'
         version: 4.0.4
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3229,16 +3643,16 @@ importers:
         specifier: workspace:*
         version: link:../../model/model-remote-url/model-remote-url-api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   core/user/user-ui:
@@ -3254,16 +3668,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   core/wiki-config/wiki-config-api:
@@ -3282,10 +3696,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/wiki-config/wiki-config-default:
@@ -3307,16 +3721,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   core/xwiki/xwiki-utils:
@@ -3328,38 +3742,38 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   dev/config:
     devDependencies:
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   dev/test-utils:
     dependencies:
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   ds/api:
@@ -3381,19 +3795,19 @@ importers:
         specifier: workspace:*
         version: link:../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   ds/shoelace:
     dependencies:
       '@shoelace-style/shoelace':
-        specifier: 2.20.1
+        specifier: 'catalog:'
         version: 2.20.1(@floating-ui/utils@0.2.10)(@types/react@19.2.0)
       '@xwiki/cristal-api':
         specifier: workspace:*
@@ -3417,11 +3831,11 @@ importers:
         specifier: workspace:*
         version: link:../../core/navigation-tree/navigation-tree-api
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3430,22 +3844,22 @@ importers:
         specifier: workspace:*
         version: link:../api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   ds/vuetify:
@@ -3469,14 +3883,14 @@ importers:
         specifier: workspace:*
         version: link:../../core/navigation-tree/navigation-tree-api
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vuetify:
-        specifier: 3.10.4
+        specifier: 'catalog:'
         version: 3.10.4(typescript@5.9.3)(vite-plugin-vuetify@2.1.1)(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3485,22 +3899,22 @@ importers:
         specifier: workspace:*
         version: link:../api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   editors/blocknote:
@@ -3545,47 +3959,47 @@ importers:
         specifier: workspace:*
         version: link:../../core/uniast/uniast-markdown
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@vitejs/plugin-vue':
-        specifier: 6.0.1
+        specifier: 'catalog:'
         version: 6.0.1(vite@7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   editors/blocknote-headless:
     dependencies:
       '@blocknote/core':
-        specifier: 0.35.0
+        specifier: 'catalog:'
         version: 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
@@ -3627,56 +4041,56 @@ importers:
         specifier: workspace:*
         version: link:../../core/uniast/uniast-api
       eventemitter3:
-        specifier: 5.0.1
+        specifier: 'catalog:'
         version: 5.0.1
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   editors/blocknote-react:
     dependencies:
       '@blocknote/core':
-        specifier: 0.35.0
+        specifier: 'catalog:'
         version: 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)
       '@blocknote/mantine':
-        specifier: 0.35.0
+        specifier: 'catalog:'
         version: 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(@types/react@19.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@blocknote/react':
-        specifier: 0.35.0
+        specifier: 'catalog:'
         version: 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/core':
-        specifier: 8.3.3
+        specifier: 'catalog:'
         version: 8.3.3(@mantine/hooks@8.3.3(react@19.2.0))(@types/react@19.2.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/hooks':
-        specifier: 8.3.3
+        specifier: 'catalog:'
         version: 8.3.3(react@19.2.0)
       '@types/react-dom':
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0(@types/react@19.2.0)
       '@xwiki/cristal-attachments-api':
         specifier: workspace:*
@@ -3706,101 +4120,101 @@ importers:
         specifier: workspace:*
         version: link:../../core/uniast/uniast-markdown
       i18next:
-        specifier: 25.5.2
+        specifier: 'catalog:'
         version: 25.5.2(typescript@5.9.3)
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
       react:
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0
       react-dom:
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0(react@19.2.0)
       react-i18next:
-        specifier: 16.0.0
+        specifier: 'catalog:'
         version: 16.0.0(i18next@25.5.2(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       react-icons:
-        specifier: 5.5.0
+        specifier: 'catalog:'
         version: 5.5.0(react@19.2.0)
     devDependencies:
       '@playwright/experimental-ct-react':
-        specifier: 1.55.1
+        specifier: 'catalog:'
         version: 1.55.1(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(vite@7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))(yaml@2.8.1)
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@types/react':
-        specifier: 19.2.0
+        specifier: 'catalog:'
         version: 19.2.0
       '@vitejs/plugin-react':
-        specifier: 5.0.4
+        specifier: 'catalog:'
         version: 5.0.4(vite@7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       postcss:
-        specifier: 8.5.6
+        specifier: 'catalog:'
         version: 8.5.6
       postcss-preset-mantine:
-        specifier: 1.18.0
+        specifier: 'catalog:'
         version: 1.18.0(postcss@8.5.6)
       postcss-simple-vars:
-        specifier: 7.0.1
+        specifier: 'catalog:'
         version: 7.0.1(postcss@8.5.6)
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   editors/tiptap:
     dependencies:
       '@hocuspocus/provider':
-        specifier: 2.15.3
+        specifier: 'catalog:'
         version: 2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
       '@tiptap/core':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/pm@2.13.0)
       '@tiptap/extension-collaboration':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)(y-prosemirror@1.2.13(prosemirror-model@1.25.1)(prosemirror-state@1.4.3)(prosemirror-view@1.40.0)(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))
       '@tiptap/extension-collaboration-cursor':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(y-prosemirror@1.2.13(prosemirror-model@1.25.1)(prosemirror-state@1.4.3)(prosemirror-view@1.40.0)(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))
       '@tiptap/extension-heading':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
       '@tiptap/extension-link':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
       '@tiptap/extension-placeholder':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
       '@tiptap/extension-table':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
       '@tiptap/extension-table-cell':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
       '@tiptap/extension-table-header':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
       '@tiptap/extension-table-row':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
       '@tiptap/pm':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0
       '@tiptap/starter-kit':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0
       '@tiptap/suggestion':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
       '@tiptap/vue-3':
-        specifier: 2.13.0
+        specifier: 'catalog:'
         version: 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)(vue@3.5.22(typescript@5.9.3))
       '@xwiki/cristal-alerts-api':
         specifier: workspace:*
@@ -3851,68 +4265,68 @@ importers:
         specifier: workspace:*
         version: link:../../core/tiptap-extensions/tiptap-link-suggest-ui
       eventemitter3:
-        specifier: 5.0.1
+        specifier: 'catalog:'
         version: 5.0.1
       lodash-es:
-        specifier: 4.17.21
+        specifier: 'catalog:'
         version: 4.17.21
       markdown-it:
-        specifier: 14.1.0
+        specifier: 'catalog:'
         version: 14.1.0
       pinia:
-        specifier: 3.0.2
+        specifier: 'catalog:'
         version: 3.0.2(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
       tippy.js:
-        specifier: 6.3.7
+        specifier: 'catalog:'
         version: 6.3.7
       tiptap-extension-global-drag-handle:
-        specifier: 0.1.18
+        specifier: 'catalog:'
         version: 0.1.18
       tiptap-markdown:
-        specifier: 0.8.10
+        specifier: 'catalog:'
         version: 0.8.10(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
       utility-types:
-        specifier: 3.11.0
+        specifier: 'catalog:'
         version: 3.11.0
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
       y-prosemirror:
         specifier: 1.2.13
         version: 1.2.13(prosemirror-model@1.25.1)(prosemirror-state@1.4.3)(prosemirror-view@1.40.0)(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
       yjs:
-        specifier: 13.6.27
+        specifier: 'catalog:'
         version: 13.6.27
     devDependencies:
       '@types/lodash-es':
-        specifier: 4.17.12
+        specifier: 'catalog:'
         version: 4.17.12
       '@types/markdown-it':
-        specifier: 14.1.2
+        specifier: 'catalog:'
         version: 14.1.2
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   electron:
@@ -3924,20 +4338,20 @@ importers:
         specifier: workspace:*
         version: link:../lib
       electron-updater:
-        specifier: 6.6.2
+        specifier: 'catalog:'
         version: 6.6.2
     devDependencies:
       electron:
-        specifier: 38.2.1
+        specifier: 'catalog:'
         version: 38.2.1
       electron-builder:
-        specifier: 26.0.12
+        specifier: 'catalog:'
         version: 26.0.12(electron-builder-squirrel-windows@26.0.12)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/authentication/authentication-github/authentication-github-main:
@@ -3946,23 +4360,23 @@ importers:
         specifier: workspace:*
         version: link:../../../../core/authentication/authentication-api
       axios:
-        specifier: 1.12.2
+        specifier: 'catalog:'
         version: 1.12.2
       electron:
         specifier: 38.2.1
         version: 38.2.1
       electron-store:
-        specifier: 10.1.0
+        specifier: 'catalog:'
         version: 10.1.0
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/authentication/authentication-github/authentication-github-preload:
@@ -3978,10 +4392,10 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/authentication/authentication-github/authentication-github-renderer:
@@ -4000,19 +4414,19 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   electron/authentication/authentication-nextcloud/authentication-nextcloud-main:
@@ -4021,23 +4435,23 @@ importers:
         specifier: workspace:*
         version: link:../../../../core/authentication/authentication-api
       axios:
-        specifier: 1.12.2
+        specifier: 'catalog:'
         version: 1.12.2
       electron:
         specifier: 38.2.1
         version: 38.2.1
       electron-store:
-        specifier: 10.1.0
+        specifier: 'catalog:'
         version: 10.1.0
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/authentication/authentication-nextcloud/authentication-nextcloud-preload:
@@ -4053,10 +4467,10 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/authentication/authentication-nextcloud/authentication-nextcloud-renderer:
@@ -4071,29 +4485,29 @@ importers:
         specifier: workspace:*
         version: link:../../../../core/authentication/authentication-nextcloud-state
       async-lock:
-        specifier: 1.4.1
+        specifier: 'catalog:'
         version: 1.4.1
     devDependencies:
       '@types/async-lock':
-        specifier: 1.4.2
+        specifier: 'catalog:'
         version: 1.4.2
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   electron/authentication/authentication-xwiki/authentication-xwiki-main:
@@ -4102,23 +4516,23 @@ importers:
         specifier: workspace:*
         version: link:../../../../core/authentication/authentication-api
       axios:
-        specifier: 1.12.2
+        specifier: 'catalog:'
         version: 1.12.2
       electron:
         specifier: 38.2.1
         version: 38.2.1
       electron-store:
-        specifier: 10.1.0
+        specifier: 'catalog:'
         version: 10.1.0
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/authentication/authentication-xwiki/authentication-xwiki-preload:
@@ -4134,10 +4548,10 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/authentication/authentication-xwiki/authentication-xwiki-renderer:
@@ -4153,16 +4567,16 @@ importers:
         specifier: workspace:*
         version: link:../../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/browser:
@@ -4184,16 +4598,16 @@ importers:
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/link-suggest/link-suggest-filesystem:
@@ -4218,16 +4632,16 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/main:
@@ -4251,20 +4665,20 @@ importers:
         specifier: workspace:*
         version: link:../storage
       electron:
-        specifier: 38.2.1
+        specifier: 'catalog:'
         version: 38.2.1
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
     devDependencies:
       '@types/node':
-        specifier: 22.18.8
+        specifier: 'catalog:'
         version: 22.18.8
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/preload:
@@ -4282,11 +4696,11 @@ importers:
         specifier: workspace:*
         version: link:../settings/settings-preload
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
     devDependencies:
       '@types/node':
-        specifier: 22.18.8
+        specifier: 'catalog:'
         version: 22.18.8
       '@xwiki/cristal-browser-electron':
         specifier: workspace:*
@@ -4295,10 +4709,10 @@ importers:
         specifier: workspace:*
         version: link:../storage
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/renderer:
@@ -4343,26 +4757,26 @@ importers:
         specifier: workspace:*
         version: link:../../core/rename/rename-filesystem
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
     devDependencies:
       '@types/node':
-        specifier: 22.18.8
+        specifier: 'catalog:'
         version: 22.18.8
       '@vitejs/plugin-vue':
-        specifier: 6.0.1
+        specifier: 'catalog:'
         version: 6.0.1(vite@7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/settings/settings-main:
@@ -4377,17 +4791,17 @@ importers:
         specifier: 38.2.1
         version: 38.2.1
       electron-store:
-        specifier: 10.1.0
+        specifier: 'catalog:'
         version: 10.1.0
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/settings/settings-preload:
@@ -4400,10 +4814,10 @@ importers:
         specifier: workspace:*
         version: link:../../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/settings/settings-renderer:
@@ -4422,13 +4836,13 @@ importers:
         specifier: workspace:*
         version: link:../../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/state:
@@ -4437,10 +4851,10 @@ importers:
         specifier: workspace:*
         version: link:../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   electron/storage:
@@ -4473,29 +4887,29 @@ importers:
         specifier: 38.2.1
         version: 38.2.1
       mime:
-        specifier: 4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
     devDependencies:
       '@types/node':
-        specifier: 22.18.8
+        specifier: 'catalog:'
         version: 22.18.8
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vite-plugin-node:
-        specifier: 7.0.0
+        specifier: 'catalog:'
         version: 7.0.0(vite@7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
   extension-manager:
@@ -4504,20 +4918,20 @@ importers:
         specifier: workspace:*
         version: link:../api
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   extensions/menubuttons:
@@ -4529,26 +4943,26 @@ importers:
         specifier: workspace:*
         version: link:../../skin
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   lib:
@@ -4755,20 +5169,20 @@ importers:
         specifier: workspace:*
         version: link:../core/wiki-config/wiki-config-default
       pinia:
-        specifier: 3.0.2
+        specifier: 'catalog:'
         version: 3.0.2(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@shoelace-style/shoelace':
-        specifier: 2.20.1
+        specifier: 'catalog:'
         version: 2.20.1(@floating-ui/utils@0.2.10)(@types/react@19.2.0)
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4777,50 +5191,50 @@ importers:
         specifier: workspace:*
         version: link:../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   realtime:
     dependencies:
       '@hocuspocus/server':
-        specifier: 2.15.3
+        specifier: 'catalog:'
         version: 2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
       express:
-        specifier: 5.1.0
+        specifier: 'catalog:'
         version: 5.1.0
       express-ws:
-        specifier: 5.0.2
+        specifier: 'catalog:'
         version: 5.0.2(express@5.1.0)
     devDependencies:
       '@types/express':
-        specifier: 5.0.3
+        specifier: 'catalog:'
         version: 5.0.3
       '@types/express-ws':
-        specifier: 3.0.5
+        specifier: 'catalog:'
         version: 3.0.5
       esbuild:
-        specifier: 0.25.10
+        specifier: 'catalog:'
         version: 0.25.10
       tsx:
-        specifier: 4.20.6
+        specifier: 'catalog:'
         version: 4.20.6
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   sharedworker/api:
@@ -4833,7 +5247,7 @@ importers:
         specifier: workspace:*
         version: link:../../dev/config
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   sharedworker/impl:
@@ -4875,32 +5289,32 @@ importers:
         specifier: workspace:*
         version: link:../api
       comlink:
-        specifier: 4.4.2
+        specifier: 'catalog:'
         version: 4.4.2
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@types/sharedworker':
-        specifier: 0.0.184
+        specifier: 'catalog:'
         version: 0.0.184
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
 
   skin:
@@ -4987,17 +5401,17 @@ importers:
         specifier: workspace:*
         version: link:../core/wiki-config/wiki-config-api
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       vue-i18n:
-        specifier: 11.1.12
+        specifier: 'catalog:'
         version: 11.1.12(vue@3.5.22(typescript@5.9.3))
       vue-router:
-        specifier: 4.5.1
+        specifier: 'catalog:'
         version: 4.5.1(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
-        specifier: 2.4.6
+        specifier: 'catalog:'
         version: 2.4.6
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -5006,53 +5420,53 @@ importers:
         specifier: workspace:*
         version: link:../dev/test-utils
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       ts-essentials:
-        specifier: 10.1.1
+        specifier: 'catalog:'
         version: 10.1.1(typescript@5.9.3)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest:
-        specifier: 3.2.4
+        specifier: 'catalog:'
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vitest-mock-extended:
-        specifier: 3.1.0
+        specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   sources/xwiki/mock-server:
     dependencies:
       dotenv:
-        specifier: 17.2.3
+        specifier: 'catalog:'
         version: 17.2.3
       express:
-        specifier: 5.1.0
+        specifier: 'catalog:'
         version: 5.1.0
     devDependencies:
       '@types/express':
-        specifier: 5.0.3
+        specifier: 'catalog:'
         version: 5.0.3
       nodemon:
-        specifier: 3.1.10
+        specifier: 'catalog:'
         version: 3.1.10
       ts-node:
-        specifier: 10.9.2
+        specifier: 'catalog:'
         version: 10.9.2(@types/node@24.1.0)(typescript@5.9.3)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   utils/inversify:
@@ -5064,13 +5478,13 @@ importers:
         specifier: workspace:*
         version: link:../../ds/api
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   web:
@@ -5100,41 +5514,41 @@ importers:
         specifier: workspace:*
         version: link:../core/settings/settings-browser
       express:
-        specifier: 5.1.0
+        specifier: 'catalog:'
         version: 5.1.0
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
     devDependencies:
       '@eslint/eslintrc':
-        specifier: 3.3.1
+        specifier: 'catalog:'
         version: 3.3.1
       '@eslint/js':
-        specifier: 9.37.0
+        specifier: 'catalog:'
         version: 9.37.0
       '@playwright/test':
-        specifier: 1.55.1
+        specifier: 'catalog:'
         version: 1.55.1
       '@types/node':
-        specifier: 22.18.8
+        specifier: 'catalog:'
         version: 22.18.8
       '@vitejs/plugin-vue':
-        specifier: 6.0.1
+        specifier: 'catalog:'
         version: 6.0.1(vite@7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))(vue@3.5.22(typescript@5.9.3))
       globals:
-        specifier: 16.4.0
+        specifier: 'catalog:'
         version: 16.4.0
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@22.18.8)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
   xwiki/remoteinlineeditor:
@@ -5150,22 +5564,22 @@ importers:
         specifier: workspace:*
         version: link:../../dev/config
       inversify:
-        specifier: 7.10.2
+        specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
-        specifier: 0.2.2
+        specifier: 'catalog:'
         version: 0.2.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
-        specifier: 7.1.9
+        specifier: 'catalog:'
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
       vue:
-        specifier: 3.5.22
+        specifier: 'catalog:'
         version: 3.5.22(typescript@5.9.3)
       vue-tsc:
-        specifier: 2.2.12
+        specifier: 'catalog:'
         version: 2.2.12(typescript@5.9.3)
 
 packages:
@@ -5231,11 +5645,6 @@ packages:
     resolution: {integrity: sha512-HFN59MmQXGHVyYadKLVumYsA9dBFun/ldYxipEjzA4196jpLZd8UjEEBLkbEkvfYreDqJhZxYAWFPtrfhNpj4w==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/parser@7.28.0':
-    resolution: {integrity: sha512-jVZGvOxOuNSsuQuLRTh13nU0AogFlw32w/MT+LV6D3sP5WdbW61E77RnkbaO2dUvmPAYrBDJXGn5gGS6tH4j8g==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
   '@babel/parser@7.28.4':
     resolution: {integrity: sha512-yZbBqeM6TkpP9du/I2pUZnJsRMGGvOuIrhjzC1AwHwW+6he4mni6Bp/m8ijn0iOuZuPI2BfkCoSRunpyjnrQKg==}
     engines: {node: '>=6.0.0'}
@@ -5263,10 +5672,6 @@ packages:
 
   '@babel/traverse@7.28.4':
     resolution: {integrity: sha512-YEzuboP2qvQavAcjgQNVgsvHIDv6ZpwXvcvjmyySP2DIMuByS/6ioU5G9pYrWHM6T2YDfc7xga9iNzYOs12CFQ==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/types@7.28.2':
-    resolution: {integrity: sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.28.4':
@@ -5579,12 +5984,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@eslint-community/eslint-utils@4.7.0':
-    resolution: {integrity: sha512-dyybb3AcajC7uha6CvhdVRJqaKyn7w2YKqKyAN37NKYgZT36w+iRb0Dymmc5qEJ549c/S31cMMSFd75bteCpCw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    peerDependencies:
-      eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
-
   '@eslint-community/eslint-utils@4.9.0':
     resolution: {integrity: sha512-ayVFHdtZ+hsq1t2Dy24wCmGXGe4q9Gu3smhLYALJrr473ZH27MsnSL+LKUlimp4BWJqMDMLmPpx/Q9R3OAlL4g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -5623,23 +6022,11 @@ packages:
     resolution: {integrity: sha512-sB5uyeq+dwCWyPi31B2gQlVlo+j5brPlWx4yZBrEaRo/nhdDE8Xke1gsGgtiBdaBTxuTkceLVuVt/pclrasb0A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@floating-ui/core@1.7.1':
-    resolution: {integrity: sha512-azI0DrjMMfIug/ExbBaeDVJXcY0a7EPvPjb2xAJPa4HeimBX+Z18HK8QQR3jb6356SnDDdxx+hinMLcJEDdOjw==}
-
   '@floating-ui/core@1.7.3':
     resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
 
-  '@floating-ui/dom@1.7.1':
-    resolution: {integrity: sha512-cwsmW/zyw5ltYTUeeYJ60CnQuPqmGwuGVhG9w0PRaRKkAyi38BT5CKrpIbb+jtahSwUl04cWzSx9ZOIxeS6RsQ==}
-
   '@floating-ui/dom@1.7.4':
     resolution: {integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==}
-
-  '@floating-ui/react-dom@2.1.3':
-    resolution: {integrity: sha512-huMBfiU9UnQ2oBwIhgzyIiSpVgvlDstU8CX0AF+wS+KzmYMs0J2a3GwuFHV1Lz+jlrQGeC1fF+Nv0QoumyV0bA==}
-    peerDependencies:
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
 
   '@floating-ui/react-dom@2.1.6':
     resolution: {integrity: sha512-4JX6rEatQEvlmgU80wZyq9RT96HZJa88q8hp0pBd+LrczeDI4o6uA2M+uvxngVHo4Ihr8uibXxH6+70zhAFrVw==}
@@ -5661,9 +6048,6 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
-
-  '@floating-ui/utils@0.2.9':
-    resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
   '@gar/promisify@1.1.3':
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -5783,9 +6167,6 @@ packages:
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
     engines: {node: '>=6.0.0'}
-
-  '@jridgewell/sourcemap-codec@1.5.4':
-    resolution: {integrity: sha512-VT2+G1VQs/9oz078bLrYbecdZKs912zQlkelYpuf+SXF+QvZDYJlbx/LSx+meSAwdDFnF8FVXW92AVjjkVmgFw==}
 
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
@@ -6784,14 +7165,8 @@ packages:
   '@volar/typescript@2.4.22':
     resolution: {integrity: sha512-6ZczlJW1/GWTrNnkmZxJp4qyBt/SGVlcTuCWpI5zLrdPdCZsj66Aff9ZsfFaT3TyjG8zVYgBMYPuCm/eRkpcpQ==}
 
-  '@vue/compiler-core@3.5.21':
-    resolution: {integrity: sha512-8i+LZ0vf6ZgII5Z9XmUvrCyEzocvWT+TeR2VBUVlzIH6Tyv57E20mPZ1bCS+tbejgUgmjrEh7q/0F0bibskAmw==}
-
   '@vue/compiler-core@3.5.22':
     resolution: {integrity: sha512-jQ0pFPmZwTEiRNSb+i9Ow/I/cHv2tXYqsnHKKyCQ08irI2kdF5qmYedmF8si8mA7zepUFmJ2hqzS8CQmNOWOkQ==}
-
-  '@vue/compiler-dom@3.5.21':
-    resolution: {integrity: sha512-jNtbu/u97wiyEBJlJ9kmdw7tAr5Vy0Aj5CgQmo+6pxWNQhXZDPsRr1UWPN4v3Zf82s2H3kF51IbzZ4jMWAgPlQ==}
 
   '@vue/compiler-dom@3.5.22':
     resolution: {integrity: sha512-W8RknzUM1BLkypvdz10OVsGxnMAuSIZs9Wdx1vzA3mL5fNMN15rhrSCLiTm6blWeACwUwizzPVqGJgOGBEN/hA==}
@@ -6847,9 +7222,6 @@ packages:
     peerDependencies:
       vue: 3.5.22
 
-  '@vue/shared@3.5.21':
-    resolution: {integrity: sha512-+2k1EQpnYuVuu3N7atWyG3/xoFWIVJZq4Mz8XNOdScFI0etES75fbny/oU4lKWk/577P1zmg0ioYvpGEDZ3DLw==}
-
   '@vue/shared@3.5.22':
     resolution: {integrity: sha512-F4yc6palwq3TT0u+FYf0Ns4Tfl9GRFURDN2gWG7L1ecIaS/4fCIuFOjMTnCyjsu/OK6vaDKLCrGAa+KvvH+h4w==}
 
@@ -6896,11 +7268,6 @@ packages:
   acorn-walk@8.3.4:
     resolution: {integrity: sha512-ueEepnujpqee2o5aIYnvHU6C0A42MNdsIDeqy5BydrkuC5R1ZuUFnm27EeFJGoEHJQgn3uleRvmTXaJgfXbt4g==}
     engines: {node: '>=0.4.0'}
-
-  acorn@8.14.1:
-    resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
 
   acorn@8.15.0:
     resolution: {integrity: sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==}
@@ -8740,9 +9107,6 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  magic-string@0.30.17:
-    resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
-
   magic-string@0.30.19:
     resolution: {integrity: sha512-2N21sPY9Ws53PZvsEpVtNuSW+ScYbQdp4b9qUaL+9QkHUrGFKo56Lg9Emg5s9V/qrtNBmiR01sYhUOwu3H+VOw==}
 
@@ -10123,10 +10487,6 @@ packages:
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
-  tinyglobby@0.2.14:
-    resolution: {integrity: sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==}
-    engines: {node: '>=12.0.0'}
-
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
     engines: {node: '>=12.0.0'}
@@ -10914,10 +11274,6 @@ snapshots:
       '@babel/template': 7.27.2
       '@babel/types': 7.28.4
 
-  '@babel/parser@7.28.0':
-    dependencies:
-      '@babel/types': 7.28.4
-
   '@babel/parser@7.28.4':
     dependencies:
       '@babel/types': 7.28.4
@@ -10951,11 +11307,6 @@ snapshots:
       debug: 4.4.1(supports-color@5.5.0)
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/types@7.28.2':
-    dependencies:
-      '@babel/helper-string-parser': 7.27.1
-      '@babel/helper-validator-identifier': 7.27.1
 
   '@babel/types@7.28.4':
     dependencies:
@@ -11301,7 +11652,7 @@ snapshots:
 
   '@electron/universal@2.0.1':
     dependencies:
-      '@electron/asar': 3.2.18
+      '@electron/asar': 3.4.1
       '@malept/cross-spawn-promise': 2.0.0
       debug: 4.4.1(supports-color@5.5.0)
       dir-compare: 4.2.0
@@ -11415,11 +11766,6 @@ snapshots:
   '@esbuild/win32-x64@0.25.10':
     optional: true
 
-  '@eslint-community/eslint-utils@4.7.0(eslint@9.37.0(jiti@2.6.1))':
-    dependencies:
-      eslint: 9.37.0(jiti@2.6.1)
-      eslint-visitor-keys: 3.4.3
-
   '@eslint-community/eslint-utils@4.9.0(eslint@9.37.0(jiti@2.6.1))':
     dependencies:
       eslint: 9.37.0(jiti@2.6.1)
@@ -11466,29 +11812,14 @@ snapshots:
       '@eslint/core': 0.16.0
       levn: 0.4.1
 
-  '@floating-ui/core@1.7.1':
-    dependencies:
-      '@floating-ui/utils': 0.2.9
-
   '@floating-ui/core@1.7.3':
     dependencies:
       '@floating-ui/utils': 0.2.10
-
-  '@floating-ui/dom@1.7.1':
-    dependencies:
-      '@floating-ui/core': 1.7.1
-      '@floating-ui/utils': 0.2.9
 
   '@floating-ui/dom@1.7.4':
     dependencies:
       '@floating-ui/core': 1.7.3
       '@floating-ui/utils': 0.2.10
-
-  '@floating-ui/react-dom@2.1.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@floating-ui/dom': 1.7.1
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
 
   '@floating-ui/react-dom@2.1.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
@@ -11498,8 +11829,8 @@ snapshots:
 
   '@floating-ui/react@0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@floating-ui/react-dom': 2.1.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@floating-ui/utils': 0.2.9
+      '@floating-ui/react-dom': 2.1.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@floating-ui/utils': 0.2.10
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       tabbable: 6.2.0
@@ -11513,8 +11844,6 @@ snapshots:
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.10': {}
-
-  '@floating-ui/utils@0.2.9': {}
 
   '@gar/promisify@1.1.3': {}
 
@@ -11635,7 +11964,7 @@ snapshots:
 
   '@jridgewell/gen-mapping@0.3.12':
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.4
+      '@jridgewell/sourcemap-codec': 1.5.5
       '@jridgewell/trace-mapping': 0.3.29
 
   '@jridgewell/remapping@2.3.5':
@@ -11645,19 +11974,17 @@ snapshots:
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
-  '@jridgewell/sourcemap-codec@1.5.4': {}
-
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
   '@jridgewell/trace-mapping@0.3.29':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.4
+      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.4
+      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@lifeomic/attempt@3.1.0': {}
 
@@ -12028,7 +12355,7 @@ snapshots:
   '@shoelace-style/shoelace@2.20.1(@floating-ui/utils@0.2.10)(@types/react@19.2.0)':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
-      '@floating-ui/dom': 1.7.1
+      '@floating-ui/dom': 1.7.4
       '@lit/react': 1.0.7(@types/react@19.2.0)
       '@shoelace-style/animations': 1.2.0
       '@shoelace-style/localize': 3.2.1
@@ -12308,13 +12635,13 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
 
   '@types/cacheable-request@6.0.3':
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
       '@types/responselike': 1.0.3
 
   '@types/chai@5.2.2':
@@ -12323,7 +12650,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
 
   '@types/debug@4.1.12':
     dependencies:
@@ -12335,7 +12662,7 @@ snapshots:
 
   '@types/express-serve-static-core@5.0.6':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
       '@types/qs': 6.14.0
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -12354,7 +12681,7 @@ snapshots:
 
   '@types/fs-extra@9.0.13':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
 
   '@types/hast@3.0.4':
     dependencies:
@@ -12372,7 +12699,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
 
   '@types/linkify-it@3.0.5': {}
 
@@ -12422,7 +12749,7 @@ snapshots:
 
   '@types/plist@3.0.5':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
       xmlbuilder: 15.1.1
     optional: true
 
@@ -12440,17 +12767,17 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
 
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
 
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
       '@types/send': 0.17.4
 
   '@types/sharedworker@0.0.184': {}
@@ -12468,13 +12795,13 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
 
   '@types/xml-escape@1.1.3': {}
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.18.8
+      '@types/node': 24.1.0
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.45.0(@typescript-eslint/parser@8.45.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3)':
@@ -12677,7 +13004,7 @@ snapshots:
       istanbul-lib-report: 3.0.1
       istanbul-lib-source-maps: 5.0.6
       istanbul-reports: 3.1.7
-      magic-string: 0.30.17
+      magic-string: 0.30.19
       magicast: 0.3.5
       std-env: 3.9.0
       test-exclude: 7.0.1
@@ -12698,7 +13025,7 @@ snapshots:
     dependencies:
       '@vitest/spy': 3.2.4
       estree-walker: 3.0.3
-      magic-string: 0.30.17
+      magic-string: 0.30.19
     optionalDependencies:
       vite: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
@@ -12715,7 +13042,7 @@ snapshots:
   '@vitest/snapshot@3.2.4':
     dependencies:
       '@vitest/pretty-format': 3.2.4
-      magic-string: 0.30.17
+      magic-string: 0.30.19
       pathe: 2.0.3
 
   '@vitest/spy@3.2.4':
@@ -12752,14 +13079,6 @@ snapshots:
       path-browserify: 1.0.1
       vscode-uri: 3.1.0
 
-  '@vue/compiler-core@3.5.21':
-    dependencies:
-      '@babel/parser': 7.28.4
-      '@vue/shared': 3.5.21
-      entities: 4.5.0
-      estree-walker: 2.0.2
-      source-map-js: 1.2.1
-
   '@vue/compiler-core@3.5.22':
     dependencies:
       '@babel/parser': 7.28.4
@@ -12767,11 +13086,6 @@ snapshots:
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.2.1
-
-  '@vue/compiler-dom@3.5.21':
-    dependencies:
-      '@vue/compiler-core': 3.5.21
-      '@vue/shared': 3.5.21
 
   '@vue/compiler-dom@3.5.22':
     dependencies:
@@ -12823,9 +13137,9 @@ snapshots:
   '@vue/language-core@2.2.0(typescript@5.9.3)':
     dependencies:
       '@volar/language-core': 2.4.22
-      '@vue/compiler-dom': 3.5.21
+      '@vue/compiler-dom': 3.5.22
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.21
+      '@vue/shared': 3.5.22
       alien-signals: 0.4.14
       minimatch: 9.0.5
       muggle-string: 0.4.1
@@ -12836,9 +13150,9 @@ snapshots:
   '@vue/language-core@2.2.12(typescript@5.9.3)':
     dependencies:
       '@volar/language-core': 2.4.15
-      '@vue/compiler-dom': 3.5.21
+      '@vue/compiler-dom': 3.5.22
       '@vue/compiler-vue2': 2.7.16
-      '@vue/shared': 3.5.21
+      '@vue/shared': 3.5.22
       alien-signals: 1.0.13
       minimatch: 9.0.5
       muggle-string: 0.4.1
@@ -12867,8 +13181,6 @@ snapshots:
       '@vue/compiler-ssr': 3.5.22
       '@vue/shared': 3.5.22
       vue: 3.5.22(typescript@5.9.3)
-
-  '@vue/shared@3.5.21': {}
 
   '@vue/shared@3.5.22': {}
 
@@ -12912,9 +13224,7 @@ snapshots:
 
   acorn-walk@8.3.4:
     dependencies:
-      acorn: 8.14.1
-
-  acorn@8.14.1: {}
+      acorn: 8.15.0
 
   acorn@8.15.0: {}
 
@@ -13926,7 +14236,7 @@ snapshots:
       get-tsconfig: 4.10.1
       is-bun-module: 2.0.0
       stable-hash-x: 0.2.0
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
       eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.45.0(eslint@9.37.0(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.37.0(jiti@2.6.1))
@@ -13988,7 +14298,7 @@ snapshots:
 
   eslint-plugin-promise@7.2.1(eslint@9.37.0(jiti@2.6.1)):
     dependencies:
-      '@eslint-community/eslint-utils': 4.7.0(eslint@9.37.0(jiti@2.6.1))
+      '@eslint-community/eslint-utils': 4.9.0(eslint@9.37.0(jiti@2.6.1))
       eslint: 9.37.0(jiti@2.6.1)
 
   eslint-plugin-tsdoc@0.4.0:
@@ -15093,18 +15403,14 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  magic-string@0.30.17:
-    dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.4
-
   magic-string@0.30.19:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   magicast@0.3.5:
     dependencies:
-      '@babel/parser': 7.28.0
-      '@babel/types': 7.28.2
+      '@babel/parser': 7.28.4
+      '@babel/types': 7.28.4
       source-map-js: 1.2.1
 
   make-dir@4.0.0:
@@ -16787,11 +17093,6 @@ snapshots:
 
   tinyexec@0.3.2: {}
 
-  tinyglobby@0.2.14:
-    dependencies:
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
-
   tinyglobby@0.2.15:
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
@@ -16859,7 +17160,7 @@ snapshots:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
       '@types/node': 24.1.0
-      acorn: 8.14.1
+      acorn: 8.15.0
       acorn-walk: 8.3.4
       arg: 4.1.3
       create-require: 1.1.1
@@ -17171,7 +17472,7 @@ snapshots:
       debug: 4.4.1(supports-color@5.5.0)
       kolorist: 1.8.0
       local-pkg: 1.1.1
-      magic-string: 0.30.17
+      magic-string: 0.30.19
       typescript: 5.9.3
     optionalDependencies:
       vite: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
@@ -17269,13 +17570,13 @@ snapshots:
       chai: 5.2.1
       debug: 4.4.1(supports-color@5.5.0)
       expect-type: 1.2.2
-      magic-string: 0.30.17
+      magic-string: 0.30.19
       pathe: 2.0.3
       picomatch: 4.0.3
       std-env: 3.9.0
       tinybench: 2.9.0
       tinyexec: 0.3.2
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
       tinypool: 1.1.1
       tinyrainbow: 2.0.0
       vite: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
