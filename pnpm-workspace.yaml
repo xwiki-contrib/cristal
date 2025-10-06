@@ -83,6 +83,10 @@ packages:
   - "utils/inversify"
   - "web"
   - "xwiki/remoteinlineeditor"
+# Makes it mandatory to use the catalog for all dependencies.
+catalogMode: strict
+# Automatically remove unused dependencies from the catalog.
+cleanupUnusedCatalogs: true
 catalog:
   "@blocknote/core": 0.35.0
   "@blocknote/mantine": 0.35.0
