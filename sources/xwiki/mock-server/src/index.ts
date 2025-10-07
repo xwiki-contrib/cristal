@@ -62,6 +62,7 @@ app.get(
 
     const id: string = (req.params.page as unknown as Array<string>)
       .filter((_v: string, i: number) => i % 2 == 0)
+      .map((v: string) => v.replace(/\./g, "\\.")) // Escape dots
       .join(".");
 
     let page: string = "";
