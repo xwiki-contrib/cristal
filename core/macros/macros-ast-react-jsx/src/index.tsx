@@ -68,7 +68,7 @@ export class MacrosASTToReactJsxConverter {
       case "paragraph":
         return (
           <p {...this.convertBlockStyles(block.styles)}>
-            {this.convertInlineContents(block.content)}
+            {block.content.map((inline) => this.convertInlineContent(inline))}
           </p>
         );
 
