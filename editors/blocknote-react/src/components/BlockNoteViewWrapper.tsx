@@ -27,6 +27,7 @@ import {
   querySuggestionsMenuItems,
 } from "../blocknote";
 import "@blocknote/core/fonts/inter.css";
+import { adaptMacroForBlockNote } from "../blocknote/utils";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import {
@@ -48,10 +49,12 @@ import type {
   EditorStyleSchema,
   EditorType,
 } from "../blocknote";
-import type { BuildableMacro, ContextForMacros } from "../blocknote/utils";
+import type { ContextForMacros } from "../blocknote/utils";
 import type { LinkEditionContext } from "../misc/linkSuggest";
 import type { BlockNoteEditorOptions } from "@blocknote/core";
 import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
+import type { Macro, UntypedMacroParameters } from "@xwiki/cristal-macros-api";
+import type { UniAstToReactJSXConverter } from "@xwiki/cristal-uniast-react-jsx";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -98,7 +101,7 @@ type BlockNoteViewWrapperProps = {
     /**
      * List of buildable macros
      */
-    buildable: BuildableMacro[];
+    list: Macro<UntypedMacroParameters>[];
 
     /**
      * Open the macros parameters editor
@@ -126,6 +129,11 @@ type BlockNoteViewWrapperProps = {
   linkEditionCtx: LinkEditionContext;
 
   /**
+   * UniAst to React JSX converter
+   */
+  uniAstToReactJsxConverter: UniAstToReactJSXConverter;
+
+  /**
    * Make the wrapper forward some data through references
    */
   refs?: {
@@ -146,14 +154,21 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   onChange,
   lang,
   linkEditionCtx,
+  uniAstToReactJsxConverter,
   refs: { setEditor } = {},
 }: BlockNoteViewWrapperProps) => {
   const { t } = useTranslation();
   const collaborationProvider = realtime?.collaborationProvider;
 
   const builtMacros = macros
-    ? macros.buildable.map((builder) =>
-        builder({ openParamsEditor: macros.openMacroParamsEditor }),
+    ? macros.list.map((macro) =>
+        adaptMacroForBlockNote(
+          macro,
+          {
+            openParamsEditor: macros.openMacroParamsEditor,
+          },
+          uniAstToReactJsxConverter,
+        ),
       )
     : [];
 

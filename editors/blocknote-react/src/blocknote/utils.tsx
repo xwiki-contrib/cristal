@@ -23,7 +23,7 @@ import {
   createReactBlockSpec,
   createReactInlineContentSpec,
 } from "@blocknote/react";
-import { assertUnreachable } from "@xwiki/cristal-fn-utils";
+import { assertUnreachable, objectEntries } from "@xwiki/cristal-fn-utils";
 import type {
   CustomBlockConfig,
   CustomInlineContentConfig,
@@ -39,6 +39,12 @@ import type {
   ReactCustomBlockImplementation,
   ReactInlineContentImplementation,
 } from "@blocknote/react";
+import type {
+  GetConcreteMacroParametersType,
+  Macro,
+  UntypedMacroParameters,
+} from "@xwiki/cristal-macros-api";
+import type { UniAstToReactJSXConverter } from "@xwiki/cristal-uniast-react-jsx";
 import type { ReactNode } from "react";
 
 /**
@@ -151,17 +157,40 @@ function createCustomInlineContentSpec<
 }
 
 /**
- * Function building a macro using the required context
+ * Name prefix for macro blocks and inline contents in BlockNote
+ *
+ * @since 0.23
+ * @beta
+ */
+const MACRO_NAME_PREFIX = "Macro_";
+
+/**
+ * Description of a macro's inner content
  *
  * @since 0.20
  * @beta
  */
-type BuildableMacro = (ctx: ContextForMacros) => Macro;
+type BlockNoteConcreteMacro = {
+  /** Type-erased macro */
+  macro: Macro<UntypedMacroParameters>;
+
+  /** Rendering part */
+  bnRendering: // Block macro
+  | {
+        type: "block";
+        block: ReturnType<typeof createCustomBlockSpec>;
+      }
+    // Inline macro
+    | {
+        type: "inline";
+        inlineContent: ReturnType<typeof createCustomInlineContentSpec>;
+      };
+};
 
 /**
  * Internal context required for macros execution
  *
- * @since 0.20
+ * @since 0.23
  * @beta
  */
 type ContextForMacros = {
@@ -173,342 +202,158 @@ type ContextForMacros = {
    * @param update - Calling this function will replace the existing macro's parameters with the provided ones
    */
   openParamsEditor(
-    macro: Macro,
-    params: Record<string, boolean | number | string>,
-    update: (newProps: Record<string, boolean | number | string>) => void,
+    macro: Macro<UntypedMacroParameters>,
+    params: UntypedMacroParameters,
+    update: (newProps: UntypedMacroParameters) => void,
   ): void;
 };
 
 /**
- * Description of a macro
- *
- * @since 0.20
- * @beta
- */
-type Macro = {
-  /** Name of the macro */
-  name: string;
-
-  /** Description of the macro's parameters */
-  parameters: Record<string, MacroParameterType>;
-
-  /**
-   * Macro's type
-   *
-   * `block`: only usable as a block (same level as paragraphs, headings, etc.)
-   * `inline`: only usable inside other blocks such as paragraphs
-   */
-  renderType: "block" | "inline";
-
-  /** The concrete implementation to use in BlockNote */
-  blockNote: MacroForBlockNote;
-};
-
-/**
- * Description of a macro's inner content
- *
- * @since 0.20
- * @beta
- */
-type MacroForBlockNote =
-  // Block macro
-  | {
-      type: "block";
-      block: ReturnType<typeof createCustomBlockSpec>;
-    }
-  // Inline macro
-  | {
-      type: "inline";
-      inlineContent: ReturnType<typeof createCustomInlineContentSpec>;
-    };
-
-/**
- * Description of a macro type
- *
- * @since 0.20
- * @beta
- */
-type MacroParameterType = (
-  | { type: "boolean" }
-  // We use 'float' instead of 'number' here to make it more explicit to developers
-  | { type: "float" }
-  | { type: "string" }
-  | { type: "stringEnum"; possibleValues: string[] }
-) & {
-  // Make the parameter optional
-  optional?: true;
-};
-
-/**
- * Internal utility type to get the concrete TypeScript type from a macro parameter's definition
- */
-type GetConcreteMacroParameterType<T extends MacroParameterType> =
-  | (T extends {
-      type: "boolean";
-    }
-      ? boolean
-      : // : T extends { type: "int" }
-        //   ? number
-        T extends { type: "float" }
-        ? number
-        : T extends { type: "string" }
-          ? string
-          : T extends { type: "stringEnum" }
-            ? T["possibleValues"][number]
-            : never)
-  | (T["optional"] extends true ? undefined : never);
-
-/** Internal utility type making all properties that may be assigned `undefined` optional in a record */
-type UndefinableToOptional<T> = {
-  [K in keyof T as undefined extends T[K] ? K : never]?: Exclude<
-    T[K],
-    undefined
-  >;
-} & { [K in keyof T as undefined extends T[K] ? never : K]: T[K] };
-
-/**
- * Internal utility type to get the concrete TypeScript record type from a macro's parameters definition
- *
- * Parameters defined as optional are both optional in the output record and can be assigned `undefined`
- */
-type GetConcreteMacroParametersType<
-  T extends Record<string, MacroParameterType>,
-> = UndefinableToOptional<{
-  [Param in keyof T]: GetConcreteMacroParameterType<T[Param]>;
-}>;
-
-/**Internal utility type to remove values that may be assigned `undefined` from a record */
-type FilterUndefined<T> = {
-  [K in keyof T as undefined extends T[K] ? never : K]: T[K];
-};
-
-/**
- * Arguments for creating a macro
- *
- * @since 0.20
- * @beta
- */
-type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> =
-  {
-    /** The macro's name */
-    name: string;
-
-    /** The macro's render type (block or inline content) */
-    renderType: "block" | "inline";
-
-    /** Definition of every parameter */
-    parameters: Parameters;
-
-    /**
-     * Show an entry in the slash menu
-     *
-     * @since 0.21
-     * @beta
-     */
-    slashMenu:
-      | {
-          /** The macro's description */
-          description: string;
-
-          /**
-           * Default value of every required parameter
-           *
-           * Optional parameters will be omitted from the default object
-           */
-          defaultParameters: FilterUndefined<
-            GetConcreteMacroParametersType<Parameters>
-          >;
-        }
-      | false;
-
-    /**
-     * React render function
-     *
-     * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
-     * @param contentRef - The editable section of the block, handled by BlockNote
-     * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
-     *
-     * @returns The React node to render the macro as
-     */
-    render(
-      params: GetConcreteMacroParametersType<Parameters>,
-      contentRef: (node: HTMLElement | null) => void,
-      openParamsEditor: () => void,
-    ): React.ReactNode;
-  };
-
-/**
- * The prefix used for macro names in BlockNote
- *
- * @since 0.20
- * @beta
- */
-const MACRO_NAME_PREFIX = "Macro_";
-
-/**
- * Create a macro.
- *
- * This will effectively return a `Macro` object
+ * Adapt a macro to be used inside BlockNote.
  *
  * @param args - Informations about the macro to create
  *
- * @returns The macro
+ * @returns - The BlockNote-compatible macro
  *
  * @since 0.20
  * @beta
  */
-function createMacro<Parameters extends Record<string, MacroParameterType>>({
-  name,
-  parameters,
-  slashMenu,
-  render,
-  renderType,
-}: MacroCreationArgs<Parameters>): BuildableMacro {
-  return (ctx) => {
-    // Compute the macro name
-    const blockNoteName = `${MACRO_NAME_PREFIX}${name}`;
+function adaptMacroForBlockNote<Parameters extends UntypedMacroParameters>(
+  macro: Macro<Parameters>,
+  ctx: ContextForMacros,
+  jsxConverter: UniAstToReactJSXConverter,
+): BlockNoteConcreteMacro {
+  const { name, parameters, renderType, render, slashMenu } = macro;
 
-    const propSchema: Record<
-      string,
-      PropSpec<boolean | number | string> & { optional?: true }
-    > = {};
+  // Compute the macro name
+  const blockNoteName = `${MACRO_NAME_PREFIX}${name}`;
 
-    for (const [name, param] of Object.entries(parameters)) {
-      propSchema[name] = {
-        type:
-          param.type === "string" || param.type === "stringEnum"
-            ? "string"
-            : param.type === "float"
-              ? "number"
-              : param.type === "boolean"
-                ? "boolean"
-                : assertUnreachable(param),
-        optional: param.optional,
-        values: param.type === "stringEnum" ? param.possibleValues : undefined,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any;
-    }
+  const propSchema: Record<
+    string,
+    PropSpec<boolean | number | string> & { optional?: true }
+  > = {};
 
-    const getSlashMenu = <T,>(opts: (defaultValue: () => unknown) => T) =>
-      slashMenu
-        ? {
-            title: slashMenu.description,
-            group: "Macros",
-            icon: "M",
-            aliases: [],
-            ...opts(() => ({
-              // TODO: statically type parameters so that the `type` name cannot be used,
-              //       as it would be shadowed here otherwise
-              type: `${MACRO_NAME_PREFIX}${name}`,
-              props: slashMenu.defaultParameters,
-            })),
-          }
-        : false;
-
-    // The rendering function
-    const renderMacro = (
-      contentRef: (node: HTMLElement | null) => void,
-      props: Props<PropSchema>,
-      update: (newParams: Props<PropSchema>) => void,
-    ) => {
-      const openParamsEditor = () =>
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ctx.openParamsEditor(macro, props, update as any);
-
-      const rendered = render(
-        props as GetConcreteMacroParametersType<Parameters>,
-        contentRef,
-        openParamsEditor,
-      );
-
-      return renderType === "inline" ? (
-        <span style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
-          {rendered}
-        </span>
-      ) : (
-        <div style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
-          {rendered}
-        </div>
-      );
+  for (const [name, { type }] of objectEntries(parameters)) {
+    propSchema[name] = {
+      type:
+        type.type === "string"
+          ? "string"
+          : type.type === "float"
+            ? "number"
+            : type.type === "boolean"
+              ? "boolean"
+              : assertUnreachable(type),
+      optional: type.optional,
+      default: undefined,
     };
+  }
 
-    // Block and inline macros are defined pretty differently, so a bit of logic was computed ahead of time
-    // to share it between the two definitions here.
-    const concreteMacro: MacroForBlockNote =
-      renderType === "block"
-        ? {
-            type: "block",
-            block: createCustomBlockSpec({
-              config: {
-                type: blockNoteName,
-                // TODO: when BlockNote supports internal content in custom blocks, set this to "inline" if the macro can have children
-                // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
-                content: "none",
-                propSchema,
-              },
-              implementation: {
-                render: ({ contentRef, block, editor }) =>
-                  renderMacro(contentRef, block.props, (newProps) => {
-                    editor.updateBlock(block.id, { props: newProps });
-                  }),
-              },
-              slashMenu: getSlashMenu((getDefaultValue) => ({
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                default: () => getDefaultValue() as any,
-              })),
-              // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
-              customToolbar: null,
-            }),
-          }
-        : {
-            type: "inline",
-            inlineContent: createCustomInlineContentSpec({
-              config: {
-                type: blockNoteName,
-                // TODO: when BlockNote supports internal content in custom inline contents themselves, set this to "styled" if the macro can have children
-                // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
-                content: "none",
-                propSchema,
-              },
-              implementation: {
-                render: ({ contentRef, inlineContent, updateInlineContent }) =>
-                  renderMacro(contentRef, inlineContent.props, (newProps) => {
-                    updateInlineContent({
-                      type: inlineContent.type,
-                      props: newProps,
-                      // TODO: make it editable!
-                      content: inlineContent.content,
-                    });
-                  }),
-              },
-              slashMenu: getSlashMenu((getDefaultValue) => ({
-                default: () => [
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  getDefaultValue() as any,
-                ],
-              })),
-              // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
-              customToolbar: null,
-            }),
-          };
+  const getSlashMenu = <T,>(opts: (defaultValue: () => unknown) => T) =>
+    slashMenu
+      ? {
+          title: slashMenu.description,
+          group: "Macros",
+          icon: "M",
+          aliases: [],
+          ...opts(() => ({
+            // TODO: statically type parameters so that the `type` name cannot be used,
+            //       as it would be shadowed here otherwise
+            type: `${MACRO_NAME_PREFIX}${name}`,
+            props: slashMenu.defaultParameters,
+          })),
+        }
+      : false;
 
-    const macro = {
-      name,
-      parameters,
-      renderType,
-      blockNote: concreteMacro,
-    };
+  // Erase macro's type
+  const typeErasedMacro = macro as Macro<UntypedMacroParameters>;
 
-    return macro;
+  // The rendering function
+  const renderMacro = (
+    contentRef: (node: HTMLElement | null) => void,
+    props: Props<PropSchema>,
+    update: (newParams: Props<PropSchema>) => void,
+  ) => {
+    const openParamsEditor = () =>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ctx.openParamsEditor(typeErasedMacro, props, update as any);
+
+    const uniAst = render(props as GetConcreteMacroParametersType<Parameters>);
+
+    const renderedJsx = jsxConverter.toReactJSX(uniAst, contentRef);
+
+    return renderType === "inline" ? (
+      <span style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
+        {renderedJsx}
+      </span>
+    ) : (
+      <div style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
+        {renderedJsx}
+      </div>
+    );
   };
+
+  // Block and inline macros are defined pretty differently, so a bit of logic was computed ahead of time
+  // to share it between the two definitions here.
+  const bnRendering: BlockNoteConcreteMacro["bnRendering"] =
+    renderType === "block"
+      ? {
+          type: "block",
+          block: createCustomBlockSpec({
+            config: {
+              type: blockNoteName,
+              // TODO: when BlockNote supports internal content in custom blocks, set this to "inline" if the macro can have children
+              // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
+              content: "none",
+              propSchema,
+            },
+            implementation: {
+              render: ({ contentRef, block, editor }) =>
+                renderMacro(contentRef, block.props, (newProps) => {
+                  editor.updateBlock(block.id, { props: newProps });
+                }),
+            },
+            slashMenu: getSlashMenu((getDefaultValue) => ({
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              default: () => getDefaultValue() as any,
+            })),
+            // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
+            customToolbar: null,
+          }),
+        }
+      : {
+          type: "inline",
+          inlineContent: createCustomInlineContentSpec({
+            config: {
+              type: blockNoteName,
+              // TODO: when BlockNote supports internal content in custom inline contents themselves, set this to "styled" if the macro can have children
+              // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
+              content: "none",
+              propSchema,
+            },
+            implementation: {
+              render: ({ contentRef, inlineContent, updateInlineContent }) =>
+                renderMacro(contentRef, inlineContent.props, (newProps) => {
+                  updateInlineContent({
+                    type: inlineContent.type,
+                    props: newProps,
+                    // TODO: make it editable!
+                    content: inlineContent.content,
+                  });
+                }),
+            },
+            slashMenu: getSlashMenu((getDefaultValue) => ({
+              default: () => [
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                getDefaultValue() as any,
+              ],
+            })),
+            // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
+            customToolbar: null,
+          }),
+        };
+
+  return { macro: typeErasedMacro, bnRendering };
 }
 
-export { MACRO_NAME_PREFIX, createCustomBlockSpec, createMacro };
-
-export type {
-  BuildableMacro,
-  ContextForMacros,
-  Macro,
-  MacroCreationArgs,
-  MacroParameterType,
-};
+export { MACRO_NAME_PREFIX, adaptMacroForBlockNote, createCustomBlockSpec };
+export type { BlockNoteConcreteMacro, ContextForMacros };

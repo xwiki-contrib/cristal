@@ -17,17 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { createMacro } from "../utils";
 
-export const XWikiMacroInlineHTMLMacro = createMacro({
-  name: "XWikiMacroInlineHtml",
-  parameters: {
-    html: { type: "string" },
-    metadata: { type: "string" },
-  },
-  renderType: "inline",
-  render(parameters) {
-    return <span dangerouslySetInnerHTML={{ __html: parameters.html }} />;
-  },
-  slashMenu: false,
-});
+import { generateConfig } from "../../../vite.config";
+
+export default generateConfig(import.meta.url);

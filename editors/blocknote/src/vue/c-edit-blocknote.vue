@@ -26,10 +26,7 @@ import {
   collaborationManagerProviderName,
 } from "@xwiki/cristal-collaboration-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import {
-  BlocknoteEditor as CBlockNoteView,
-  DEFAULT_MACROS,
-} from "@xwiki/cristal-editors-blocknote-headless";
+import { BlocknoteEditor as CBlockNoteView } from "@xwiki/cristal-editors-blocknote-headless";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
   markdownToUniAstConverterName,
@@ -114,6 +111,7 @@ const editorInstance =
 const markdownToUniAst = container.get<MarkdownToUniAstConverter>(
   markdownToUniAstConverterName,
 );
+
 const uniAstToMarkdown = container.get<UniAstToMarkdownConverter>(
   uniAstToMarkdownConverterName,
 );
@@ -144,11 +142,12 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     // https://jira.xwiki.org/browse/CRISTAL-457
     lang: "en",
     macros: {
-      buildable: Object.values(DEFAULT_MACROS),
+      list: [], // TODO: Object.values(DEFAULT_MACROS),
       openMacroParamsEditor(/*macro, params, update*/) {
         alert("TODO: params editor for macros in Cristal");
       },
     },
+    uniAstToReactJsxConverter: null as any, // TODO
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(
