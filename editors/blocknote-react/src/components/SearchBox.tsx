@@ -23,7 +23,7 @@ import { debounce } from "lodash-es";
 import { useCallback, useEffect, useState } from "react";
 import { RiLink } from "react-icons/ri";
 import type { LinkEditionContext, LinkSuggestion } from "../misc/linkSuggest";
-import type { ReactElement } from "react";
+import type { KeyboardEvent, ReactElement } from "react";
 
 export type SearchBoxProps = {
   /**
@@ -133,13 +133,14 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
 
   const submitRawValue = useCallback(
     // eslint-disable-next-line max-statements
-    async (value: string) => {
+    async (e: KeyboardEvent<HTMLInputElement>, value: string) => {
       if (isUrl(value)) {
         onSubmit(value);
         return;
       }
 
       if (!linkEditionCtx) {
+        e.preventDefault();
         return;
       }
 
@@ -148,12 +149,14 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
         .catch(() => null);
 
       if (!reference) {
+        e.preventDefault();
         return;
       }
 
-      const url = linkEditionCtx.modelReferenceSerializer.serialize(reference);
+      const url = linkEditionCtx.remoteURLSerializer.serialize(reference);
 
       if (url === undefined) {
+        e.preventDefault();
         throw new Error("Failed to serialize entity reference: " + value);
       }
 
@@ -209,7 +212,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
             combobox.closeDropdown();
           }}
           onKeyDown={(e) =>
-            e.key === "Enter" && submitRawValue(e.currentTarget.value)
+            e.key === "Enter" && submitRawValue(e, e.currentTarget.value)
           }
         />
       </Combobox.Target>
