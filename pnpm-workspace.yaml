@@ -43,6 +43,7 @@ packages:
   - ds/vuetify
   - editors/*
   - electron
+  - electron/e2e
   - electron/authentication/authentication-github/*
   - electron/authentication/authentication-nextcloud/*
   - electron/authentication/authentication-xwiki/*
@@ -162,6 +163,7 @@ catalog:
   nodemon: 3.1.10
   nx: 21.6.3
   pinia: 3.0.2
+  playwright: 1.55.1
   postcss: 8.5.6
   postcss-preset-mantine: 1.18.0
   postcss-simple-vars: 7.0.1
