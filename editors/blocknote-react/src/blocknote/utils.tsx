@@ -44,7 +44,7 @@ import type {
   Macro,
   UntypedMacroParameters,
 } from "@xwiki/cristal-macros-api";
-import type { UniAstToReactJSXConverter } from "@xwiki/cristal-uniast-react-jsx";
+import type { MacrosASTToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 import type { ReactNode } from "react";
 
 /**
@@ -211,7 +211,9 @@ type ContextForMacros = {
 /**
  * Adapt a macro to be used inside BlockNote.
  *
- * @param args - Informations about the macro to create
+ * @param macro - The macro to adapt
+ * @param ctx - The context used to handle the macro inside BlockNote
+ * @param jsxConverter - A converter that transforms macro ASTs to React JSX
  *
  * @returns - The BlockNote-compatible macro
  *
@@ -221,7 +223,7 @@ type ContextForMacros = {
 function adaptMacroForBlockNote<Parameters extends UntypedMacroParameters>(
   macro: Macro<Parameters>,
   ctx: ContextForMacros,
-  jsxConverter: UniAstToReactJSXConverter,
+  jsxConverter: MacrosASTToReactJsxConverter,
 ): BlockNoteConcreteMacro {
   const { name, parameters, renderType, render, slashMenu } = macro;
 

@@ -54,7 +54,7 @@ import type { LinkEditionContext } from "../misc/linkSuggest";
 import type { BlockNoteEditorOptions } from "@blocknote/core";
 import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
 import type { Macro, UntypedMacroParameters } from "@xwiki/cristal-macros-api";
-import type { UniAstToReactJSXConverter } from "@xwiki/cristal-uniast-react-jsx";
+import type { MacrosASTToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -129,9 +129,9 @@ type BlockNoteViewWrapperProps = {
   linkEditionCtx: LinkEditionContext;
 
   /**
-   * UniAst to React JSX converter
+   * Macro AST to React JSX converter
    */
-  uniAstToReactJsxConverter: UniAstToReactJSXConverter;
+  macroAstToReactJsxConverter: MacrosASTToReactJsxConverter;
 
   /**
    * Make the wrapper forward some data through references
@@ -154,7 +154,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   onChange,
   lang,
   linkEditionCtx,
-  uniAstToReactJsxConverter,
+  macroAstToReactJsxConverter,
   refs: { setEditor } = {},
 }: BlockNoteViewWrapperProps) => {
   const { t } = useTranslation();
@@ -167,7 +167,7 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
           {
             openParamsEditor: macros.openMacroParamsEditor,
           },
-          uniAstToReactJsxConverter,
+          macroAstToReactJsxConverter,
         ),
       )
     : [];

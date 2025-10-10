@@ -17,26 +17,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-/**
- * See the LICENSE file distributed with this work for additional
- * information regarding copyright ownership.
- *
- * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of
- * the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this software; if not, write to the Free
- * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
- * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */
-
 import { assertUnreachable } from "@xwiki/cristal-fn-utils";
 import type {
   MacroAst,
@@ -44,7 +24,7 @@ import type {
   MacroBlockStyles,
   MacroInlineContent,
 } from "@xwiki/cristal-macros-api";
-import type { HTMLAttributes, JSX } from "react";
+import type { HTMLAttributes, JSX, Ref } from "react";
 
 /**
  * @since 0.22
@@ -57,18 +37,28 @@ export class MacrosASTToReactJsxConverter {
      @inject("ParserConfigurationResolver")
      private readonly parserConfigurationResolver: ParserConfigurationResolver,*/) {}
 
-  async toReactJSX(macroAst: MacroAst): Promise<JSX.Element[]> {
+  async toReactJSX(
+    macroAst: MacroAst,
+    contentRef: Ref<HTMLElement> | null,
+  ): Promise<JSX.Element[]> {
     const { blocks } = macroAst;
 
-    return Promise.all(blocks.map((block) => this.convertBlock(block)));
+    return Promise.all(
+      blocks.map((block) => this.convertBlock(block, contentRef)),
+    );
   }
 
-  private async convertBlock(block: MacroBlock): Promise<JSX.Element> {
+  private async convertBlock(
+    block: MacroBlock,
+    contentRef: Ref<HTMLElement> | null,
+  ): Promise<JSX.Element> {
     switch (block.type) {
       case "paragraph":
         return (
           <p {...this.convertBlockStyles(block.styles)}>
-            {block.content.map((inline) => this.convertInlineContent(inline))}
+            {block.content.map((inline) =>
+              this.convertInlineContent(inline, contentRef),
+            )}
           </p>
         );
 
@@ -85,7 +75,9 @@ export class MacrosASTToReactJsxConverter {
         return (
           <blockquote {...this.convertBlockStyles(block.styles)}>
             {await Promise.all(
-              block.content.map((subBlock) => this.convertBlock(subBlock)),
+              block.content.map((subBlock) =>
+                this.convertBlock(subBlock, contentRef),
+              ),
             )}
           </blockquote>
         );
@@ -142,6 +134,7 @@ export class MacrosASTToReactJsxConverter {
 
   private async convertInlineContent(
     inlineContent: MacroInlineContent,
+    contentRef: Ref<HTMLElement> | null,
   ): Promise<JSX.Element> {
     switch (inlineContent.type) {
       case "text":
