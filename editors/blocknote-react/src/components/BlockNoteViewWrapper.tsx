@@ -54,7 +54,7 @@ import type { LinkEditionContext } from "../misc/linkSuggest";
 import type { BlockNoteEditorOptions } from "@blocknote/core";
 import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
 import type { Macro, UntypedMacroParameters } from "@xwiki/cristal-macros-api";
-import type { MacrosASTToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
+import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -131,7 +131,7 @@ type BlockNoteViewWrapperProps = {
   /**
    * Macro AST to React JSX converter
    */
-  macroAstToReactJsxConverter: MacrosASTToReactJsxConverter;
+  macroAstToReactJsxConverter: MacrosAstToReactJsxConverter;
 
   /**
    * Make the wrapper forward some data through references

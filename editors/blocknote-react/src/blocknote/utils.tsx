@@ -44,7 +44,7 @@ import type {
   Macro,
   UntypedMacroParameters,
 } from "@xwiki/cristal-macros-api";
-import type { MacrosASTToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
+import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 import type { ReactNode } from "react";
 
 /**
@@ -223,7 +223,7 @@ type ContextForMacros = {
 function adaptMacroForBlockNote<Parameters extends UntypedMacroParameters>(
   macro: Macro<Parameters>,
   ctx: ContextForMacros,
-  jsxConverter: MacrosASTToReactJsxConverter,
+  jsxConverter: MacrosAstToReactJsxConverter,
 ): BlockNoteConcreteMacro {
   const { name, parameters, renderType, render, slashMenu } = macro;
 
@@ -281,7 +281,17 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParameters>(
 
     const uniAst = render(props as GetConcreteMacroParametersType<Parameters>);
 
-    const renderedJsx = jsxConverter.toReactJSX(uniAst, contentRef);
+    const renderedJsx = jsxConverter.toReactJSX(
+      uniAst,
+      macro.renderType === "block"
+        ? { type: "block", ref: contentRef }
+        : { type: "inline", ref: contentRef },
+    );
+
+    if (renderedJsx instanceof Error) {
+      // TODO: how to display properly an error?
+      return <strong>Failed to render macro: {renderedJsx.message}</strong>;
+    }
 
     return renderType === "inline" ? (
       <span style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>

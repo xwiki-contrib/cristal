@@ -61,7 +61,8 @@ type MacroBlock =
       type: "macroBlock";
       name: string;
       params: Record<string, boolean | number | string>;
-    };
+    }
+  | { type: "macroBlockEditableArea" };
 
 /**
  * @since 0.23
@@ -140,7 +141,8 @@ type MacroInlineContent =
       type: "inlineMacro";
       name: string;
       params: Record<string, boolean | number | string>;
-    };
+    }
+  | { type: "inlineMacroEditableArea" };
 
 /**
  * @since 0.23

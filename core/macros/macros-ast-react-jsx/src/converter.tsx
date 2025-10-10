@@ -17,7 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { assertUnreachable } from "@xwiki/cristal-fn-utils";
+import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import type {
   MacroAst,
   MacroBlock,
@@ -27,9 +27,20 @@ import type {
 import type { HTMLAttributes, JSX, Ref } from "react";
 
 /**
- * @since 0.22
+ * @since 0.23
+ * @beta
  */
-export class MacrosASTToReactJsxConverter {
+export type MacroEditableZoneRef =
+  | { type: "block"; ref: Ref<HTMLDivElement> }
+  | { type: "inline"; ref: Ref<HTMLSpanElement> };
+
+/**
+ * Converter that transforms a macro's returned AST to React JSX
+ *
+ * @since 0.23
+ * @beta
+ */
+export class MacrosAstToReactJsxConverter {
   constructor(/* @inject("ModelReferenceParserProvider")
      private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
      @inject("ModelReferenceHandlerProvider")
@@ -37,27 +48,27 @@ export class MacrosASTToReactJsxConverter {
      @inject("ParserConfigurationResolver")
      private readonly parserConfigurationResolver: ParserConfigurationResolver,*/) {}
 
-  async toReactJSX(
+  toReactJSX(
     macroAst: MacroAst,
-    contentRef: Ref<HTMLElement> | null,
-  ): Promise<JSX.Element[]> {
+    editableZoneRef: MacroEditableZoneRef,
+  ): JSX.Element[] | Error {
     const { blocks } = macroAst;
 
-    return Promise.all(
-      blocks.map((block) => this.convertBlock(block, contentRef)),
+    return tryFallibleOrError(() =>
+      blocks.map((block) => this.convertBlock(block, editableZoneRef)),
     );
   }
 
-  private async convertBlock(
+  private convertBlock(
     block: MacroBlock,
-    contentRef: Ref<HTMLElement> | null,
-  ): Promise<JSX.Element> {
+    editableZoneRef: MacroEditableZoneRef,
+  ): JSX.Element {
     switch (block.type) {
       case "paragraph":
         return (
           <p {...this.convertBlockStyles(block.styles)}>
             {block.content.map((inline) =>
-              this.convertInlineContent(inline, contentRef),
+              this.convertInlineContent(inline, editableZoneRef),
             )}
           </p>
         );
@@ -74,10 +85,8 @@ export class MacrosASTToReactJsxConverter {
       case "quote":
         return (
           <blockquote {...this.convertBlockStyles(block.styles)}>
-            {await Promise.all(
-              block.content.map((subBlock) =>
-                this.convertBlock(subBlock, contentRef),
-              ),
+            {block.content.map((subBlock) =>
+              this.convertBlock(subBlock, editableZoneRef),
             )}
           </blockquote>
         );
@@ -102,6 +111,15 @@ export class MacrosASTToReactJsxConverter {
 
       case "macroBlock":
         throw new Error("Nested macros are not supported yet");
+
+      case "macroBlockEditableArea":
+        if (editableZoneRef.type === "inline") {
+          throw new Error(
+            'Provided editable zone React ref is of type "inline", but macro requests type "block"',
+          );
+        }
+
+        return <div ref={editableZoneRef.ref} />;
 
       default:
         assertUnreachable(block);
@@ -132,10 +150,10 @@ export class MacrosASTToReactJsxConverter {
     return out;
   }
 
-  private async convertInlineContent(
+  private convertInlineContent(
     inlineContent: MacroInlineContent,
-    contentRef: Ref<HTMLElement> | null,
-  ): Promise<JSX.Element> {
+    editableZoneRef: MacroEditableZoneRef,
+  ): JSX.Element {
     switch (inlineContent.type) {
       case "text":
         throw new Error("TODO");
@@ -145,6 +163,15 @@ export class MacrosASTToReactJsxConverter {
 
       case "inlineMacro":
         throw new Error("TODO");
+
+      case "inlineMacroEditableArea":
+        if (editableZoneRef.type === "block") {
+          throw new Error(
+            'Provided editable zone React ref is of type "block", but macro requests type "inline"',
+          );
+        }
+
+        return <span ref={editableZoneRef.ref} />;
 
       default:
         assertUnreachable(inlineContent);
