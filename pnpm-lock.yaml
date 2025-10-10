@@ -3299,9 +3299,15 @@ importers:
 
   core/uiextension/uiextension-api:
     dependencies:
+      inversify:
+        specifier: 7.x
+        version: 7.9.0(reflect-metadata@0.2.2)
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
+      vue-i18n:
+        specifier: 11.1.11
+        version: 11.1.11(vue@3.5.20(typescript@5.9.2))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3612,6 +3618,9 @@ importers:
       '@xwiki/cristal-api':
         specifier: workspace:*
         version: link:../../api
+      '@xwiki/cristal-fn-utils':
+        specifier: workspace:*
+        version: link:../../core/fn-utils
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../core/model/model-api
@@ -3701,6 +3710,9 @@ importers:
       '@xwiki/cristal-document-api':
         specifier: workspace:*
         version: link:../../core/document/document-api
+      '@xwiki/cristal-fn-utils':
+        specifier: workspace:*
+        version: link:../../core/fn-utils
       '@xwiki/cristal-hierarchy-api':
         specifier: workspace:*
         version: link:../../core/hierarchy/hierarchy-api
@@ -5014,6 +5026,9 @@ importers:
       '@xwiki/cristal-extra-tabs-ui':
         specifier: workspace:*
         version: link:../core/extra-tabs/extra-tabs-ui
+      '@xwiki/cristal-fn-utils':
+        specifier: workspace:*
+        version: link:../core/fn-utils
       '@xwiki/cristal-hierarchy-api':
         specifier: workspace:*
         version: link:../core/hierarchy/hierarchy-api

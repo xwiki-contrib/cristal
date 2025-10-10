@@ -23,7 +23,6 @@ import ConfigurationEdit from "./ConfigurationEdit.vue";
 import messages from "../translations";
 import { CIcon } from "@xwiki/cristal-icons";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
-import { CTemplate } from "@xwiki/cristal-skin";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
@@ -57,7 +56,10 @@ const configTypes = cristal
   .getAll<WikiConfig>("WikiConfig")
   .map((c) => c.getType());
 
+const configs: Ref<Map<string, WikiConfig>> =
+  wikiConfigProxy.getAvailableConfigurations();
 const newConfigurationForm = ref();
+const currentConfig = configs.value.get(cristal.getWikiConfig().name);
 
 const reactiveConfigurations: Ref<ConfigurationsSettings> = ref(
   props.configurations,
@@ -112,30 +114,103 @@ async function deleteConfig() {
   wikiConfigProxy.deleteAvailableConfiguration(deleteName.value);
   deleteDialogOpen.value = false;
 }
+
+function isEditable(configName: string): boolean {
+  return (
+    (configName != currentConfig?.name &&
+      settingsManager.get(ConfigurationsSettings)?.content?.has(configName)) ??
+    false
+  );
+}
 </script>
 
 <template>
-  <!-- TODO: Implement https://jira.xwiki.org/browse/CRISTAL-539 -->
-  <CTemplate name="config" @edit="preEditConfig" @delete="preDeleteConfig" />
-  <x-form ref="newConfigurationForm" @form-submit="submit">
-    <x-text-field
-      v-model="newName"
-      :label="t('settings.configurations.table.new.name.label')"
-      :help="t('settings.configurations.table.new.name.help')"
-      required
-    ></x-text-field>
-    <x-select
-      v-model="newType"
-      :label="t('settings.configurations.table.new.type.label')"
-      :help="t('settings.configurations.table.new.type.help')"
-      :items="configTypes"
-      required
-    ></x-select>
-    <x-btn type="submit" variant="primary">
-      <c-icon name="plus"></c-icon>
-      {{ t("settings.configurations.table.new.submit") }}</x-btn
-    >
-  </x-form>
+  <div v-if="currentConfig !== undefined" class="current-config">
+    <h2 class="nomargin">{{ t("settings.configurations.current.title") }}</h2>
+    <h3 class="nomargin">{{ currentConfig.name }}</h3>
+    {{ currentConfig.baseURL }}
+    <h4 class="nomargin">{{ t("settings.configurations.table.header.ds") }}</h4>
+    {{ currentConfig.designSystem }}
+  </div>
+
+  <h2>{{ t("settings.configurations.available.title") }}</h2>
+  <x-dialog width="auto" :title="t('settings.configurations.new')">
+    <template #activator>
+      <x-btn variant="primary">
+        <c-icon name="plus"></c-icon>
+        {{ t("settings.configurations.new") }}</x-btn
+      >
+    </template>
+    <template #default>
+      <x-form ref="newConfigurationForm" @form-submit="submit">
+        <x-text-field
+          v-model="newName"
+          :label="t('settings.configurations.table.new.name.label')"
+          :help="t('settings.configurations.table.new.name.help')"
+          required
+        ></x-text-field>
+        <x-select
+          v-model="newType"
+          :label="t('settings.configurations.table.new.type.label')"
+          :help="t('settings.configurations.table.new.type.help')"
+          :items="configTypes"
+          required
+        ></x-select>
+        <x-btn type="submit" variant="primary">
+          <c-icon name="plus"></c-icon>
+          {{ t("settings.configurations.table.new.submit") }}</x-btn
+        >
+      </x-form>
+    </template>
+  </x-dialog>
+
+  <table class="mobile-transform">
+    <thead>
+      <tr>
+        <th>{{ t("settings.configurations.table.header.name") }}</th>
+        <th>{{ t("settings.configurations.table.header.type") }}</th>
+        <th>{{ t("settings.configurations.table.header.ds") }}</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="[key, wikiConfig] in configs"
+        :key="key"
+        :class="
+          isEditable(wikiConfig.name) && wikiConfig.name != currentConfig?.name
+            ? 'editable-configuration'
+            : ''
+        "
+        @click="
+          isEditable(wikiConfig.name) && wikiConfig.name != currentConfig?.name
+            ? preEditConfig(wikiConfig.name)
+            : undefined
+        "
+      >
+        <td>{{ wikiConfig.name }}</td>
+        <td>{{ wikiConfig.getType() }}</td>
+        <td>{{ wikiConfig.designSystem }}</td>
+        <td class="fixed-size-cell">
+          <div v-if="wikiConfig.name == currentConfig?.name">
+            {{ t("settings.configurations.in-use") }}
+          </div>
+          <x-btn v-else @click="cristal?.switchConfig(wikiConfig.name)">
+            {{ t("settings.configurations.select") }}
+          </x-btn>
+        </td>
+        <td class="fixed-size-cell">
+          <c-icon
+            name="trash"
+            class="delete-action-icon"
+            v-if="isEditable(wikiConfig.name)"
+            @click.stop="preDeleteConfig(wikiConfig.name)"
+          ></c-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   <ConfigurationEdit
     v-model="editDialogOpen"
     :configuration-name="editName"
@@ -168,8 +243,27 @@ async function deleteConfig() {
 </template>
 
 <style scoped>
-.actions {
-  display: flex;
-  gap: var(--cr-spacing-x-small);
+table {
+  width: 100%;
+  margin-top: var(--cr-spacing-medium);
+}
+
+.fixed-size-cell {
+  width: 0;
+}
+
+.current-config {
+  background-color: var(--cr-color-neutral-50);
+  border-radius: var(--cr-border-radius-large);
+  padding: var(--cr-spacing-small);
+}
+
+.nomargin {
+  margin: 0;
+}
+
+.editable-configuration:hover,
+.delete-action-icon:hover {
+  cursor: pointer;
 }
 </style>
