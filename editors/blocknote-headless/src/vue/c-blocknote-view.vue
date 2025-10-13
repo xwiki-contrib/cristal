@@ -55,7 +55,10 @@ const {
   collaborationProvider = undefined,
   container,
 } = defineProps<{
-  editorProps: Omit<BlockNoteViewWrapperProps, "content" | "linkEditionCtx">;
+  editorProps: Omit<
+    BlockNoteViewWrapperProps,
+    "content" | "linkEditionCtx" | "macroAstToReactJsxConverter"
+  >;
   editorContent: UniAst | Error;
   collaborationProvider?: () => CollaborationInitializer;
   container: Container;
@@ -127,6 +130,9 @@ const { t } = useI18n({
   messages,
 });
 
+// Create the link edition context
+const linkEditionCtx = createLinkEditionContext(container);
+
 // Build the properties object for the React BlockNoteView component
 const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
   ...editorProps,
@@ -135,7 +141,7 @@ const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
     notifyChangesDebounced();
   },
   blockNoteOptions: editorProps.blockNoteOptions,
-  linkEditionCtx: createLinkEditionContext(container),
+  linkEditionCtx,
   realtime: await getRealtimeOptions(),
   refs: {
     setEditor(editor) {

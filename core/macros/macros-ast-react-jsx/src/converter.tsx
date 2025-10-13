@@ -24,7 +24,11 @@ import type {
   MacroBlockStyles,
   MacroInlineContent,
 } from "@xwiki/cristal-macros-api";
-import type { HTMLAttributes, JSX, Ref } from "react";
+import type {
+  RemoteURLParser,
+  RemoteURLSerializer,
+} from "@xwiki/cristal-model-remote-url-api";
+import type { CSSProperties, HTMLAttributes, JSX, Ref } from "react";
 
 /**
  * @since 0.23
@@ -41,12 +45,10 @@ export type MacroEditableZoneRef =
  * @beta
  */
 export class MacrosAstToReactJsxConverter {
-  constructor(/* @inject("ModelReferenceParserProvider")
-     private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
-     @inject("ModelReferenceHandlerProvider")
-     private readonly modelReferenceHandlerProvider: ModelReferenceHandlerProvider,
-     @inject("ParserConfigurationResolver")
-     private readonly parserConfigurationResolver: ParserConfigurationResolver,*/) {}
+  constructor(
+    private readonly remoteURLParser: RemoteURLParser,
+    private readonly remoteURLSerializer: RemoteURLSerializer,
+  ) {}
 
   toReactJSX(
     macroAst: MacroAst,
@@ -150,19 +152,81 @@ export class MacrosAstToReactJsxConverter {
     return out;
   }
 
+  // eslint-disable-next-line max-statements
   private convertInlineContent(
     inlineContent: MacroInlineContent,
     editableZoneRef: MacroEditableZoneRef,
   ): JSX.Element {
     switch (inlineContent.type) {
       case "text":
-        throw new Error("TODO");
+        const style: CSSProperties = {};
+
+        if (inlineContent.styles.backgroundColor) {
+          style.backgroundColor = inlineContent.styles.backgroundColor;
+        }
+
+        if (inlineContent.styles.textColor) {
+          style.color = inlineContent.styles.textColor;
+        }
+
+        if (inlineContent.styles.bold) {
+          style.fontWeight = "bold";
+        }
+
+        if (inlineContent.styles.italic) {
+          style.fontStyle = "italic";
+        }
+
+        if (inlineContent.styles.underline) {
+          style.textDecoration = "underline";
+        }
+
+        if (inlineContent.styles.strikethrough) {
+          style.textDecoration = "line-through";
+        }
+
+        const attr = Object.values(style).length > 0 ? { style } : {};
+
+        return <span {...attr}>{inlineContent.content}</span>;
 
       case "link":
-        throw new Error("TODO");
+        let targetUrl: string;
+
+        if (inlineContent.target.type === "external") {
+          targetUrl = inlineContent.target.url;
+        } else {
+          const { rawReference } = inlineContent.target;
+
+          const parsedRef = tryFallibleOrError(() =>
+            this.remoteURLParser.parse(rawReference),
+          );
+
+          if (parsedRef instanceof Error) {
+            throw new Error(
+              `Failed to parse reference "${rawReference}": ${parsedRef.message}`,
+            );
+          }
+
+          const url = this.remoteURLSerializer.serialize(parsedRef);
+
+          // TODO: when could this even happen?
+          if (!url) {
+            throw new Error(`Failed to serialize reference "${rawReference}"`);
+          }
+
+          targetUrl = url;
+        }
+
+        return (
+          <a href={targetUrl}>
+            {inlineContent.content.map((content) =>
+              this.convertInlineContent(content, editableZoneRef),
+            )}
+          </a>
+        );
 
       case "inlineMacro":
-        throw new Error("TODO");
+        throw new Error("Nested macros are not supported yet");
 
       case "inlineMacroEditableArea":
         if (editableZoneRef.type === "block") {

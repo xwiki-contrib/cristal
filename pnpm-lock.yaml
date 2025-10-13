@@ -2293,6 +2293,9 @@ importers:
       '@xwiki/cristal-macros-api':
         specifier: workspace:*
         version: link:../macros-api
+      '@xwiki/cristal-model-remote-url-api':
+        specifier: workspace:*
+        version: link:../../model/model-remote-url/model-remote-url-api
       inversify:
         specifier: 7.x
         version: 7.10.1(reflect-metadata@0.2.2)

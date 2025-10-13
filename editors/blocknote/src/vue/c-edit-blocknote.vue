@@ -147,7 +147,6 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
         alert("TODO: params editor for macros in Cristal");
       },
     },
-    macroAstToReactJsxConverter: null as any, // TODO
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(

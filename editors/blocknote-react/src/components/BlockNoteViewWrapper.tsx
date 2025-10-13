@@ -38,6 +38,7 @@ import {
   SuggestionMenuController,
   useCreateBlockNote,
 } from "@blocknote/react";
+import { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type {
@@ -49,12 +50,14 @@ import type {
   EditorStyleSchema,
   EditorType,
 } from "../blocknote";
-import type { ContextForMacros } from "../blocknote/utils";
+import type {
+  BlockNoteConcreteMacro,
+  ContextForMacros,
+} from "../blocknote/utils";
 import type { LinkEditionContext } from "../misc/linkSuggest";
 import type { BlockNoteEditorOptions } from "@blocknote/core";
 import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
 import type { Macro, UntypedMacroParameters } from "@xwiki/cristal-macros-api";
-import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -129,11 +132,6 @@ type BlockNoteViewWrapperProps = {
   linkEditionCtx: LinkEditionContext;
 
   /**
-   * Macro AST to React JSX converter
-   */
-  macroAstToReactJsxConverter: MacrosAstToReactJsxConverter;
-
-  /**
    * Make the wrapper forward some data through references
    */
   refs?: {
@@ -154,23 +152,27 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
   onChange,
   lang,
   linkEditionCtx,
-  macroAstToReactJsxConverter,
   refs: { setEditor } = {},
 }: BlockNoteViewWrapperProps) => {
   const { t } = useTranslation();
   const collaborationProvider = realtime?.collaborationProvider;
 
-  const builtMacros = macros
-    ? macros.list.map((macro) =>
-        adaptMacroForBlockNote(
-          macro,
-          {
-            openParamsEditor: macros.openMacroParamsEditor,
-          },
-          macroAstToReactJsxConverter,
-        ),
-      )
-    : [];
+  const builtMacros: BlockNoteConcreteMacro[] = [];
+
+  if (macros) {
+    const macroAstToReactJsxConverter = new MacrosAstToReactJsxConverter(
+      linkEditionCtx.remoteURLParser,
+      linkEditionCtx.remoteURLSerializer,
+    );
+
+    const ctx = { openParamsEditor: macros.openMacroParamsEditor };
+
+    for (const macro of macros.list) {
+      builtMacros.push(
+        adaptMacroForBlockNote(macro, ctx, macroAstToReactJsxConverter),
+      );
+    }
+  }
 
   const schema = createBlockNoteSchema(builtMacros);
 
