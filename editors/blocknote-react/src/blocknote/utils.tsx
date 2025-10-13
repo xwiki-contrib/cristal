@@ -42,7 +42,7 @@ import type {
 import type {
   GetConcreteMacroParametersType,
   Macro,
-  UntypedMacroParameters,
+  UntypedMacroParametersType,
 } from "@xwiki/cristal-macros-api";
 import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 import type { ReactNode } from "react";
@@ -172,7 +172,7 @@ const MACRO_NAME_PREFIX = "Macro_";
  */
 type BlockNoteConcreteMacro = {
   /** Type-erased macro */
-  macro: Macro<UntypedMacroParameters>;
+  macro: Macro<UntypedMacroParametersType>;
 
   /** Rendering part */
   bnRendering: // Block macro
@@ -202,9 +202,9 @@ type ContextForMacros = {
    * @param update - Calling this function will replace the existing macro's parameters with the provided ones
    */
   openParamsEditor(
-    macro: Macro<UntypedMacroParameters>,
-    params: UntypedMacroParameters,
-    update: (newProps: UntypedMacroParameters) => void,
+    macro: Macro<UntypedMacroParametersType>,
+    params: UntypedMacroParametersType,
+    update: (newProps: UntypedMacroParametersType) => void,
   ): void;
 };
 
@@ -220,7 +220,7 @@ type ContextForMacros = {
  * @since 0.20
  * @beta
  */
-function adaptMacroForBlockNote<Parameters extends UntypedMacroParameters>(
+function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
   macro: Macro<Parameters>,
   ctx: ContextForMacros,
   jsxConverter: MacrosAstToReactJsxConverter,
@@ -267,7 +267,7 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParameters>(
       : false;
 
   // Erase macro's type
-  const typeErasedMacro = macro as Macro<UntypedMacroParameters>;
+  const typeErasedMacro = macro as Macro<UntypedMacroParametersType>;
 
   // The rendering function
   const renderMacro = (

@@ -2316,6 +2316,28 @@ importers:
         specifier: 3.1.0
         version: 3.1.0(typescript@5.9.2)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@18.0.1)(jiti@2.6.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
+  core/macros/macros-service:
+    dependencies:
+      '@xwiki/cristal-macros-api':
+        specifier: workspace:*
+        version: link:../macros-api
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      inversify:
+        specifier: 7.10.1
+        version: 7.10.1(reflect-metadata@0.2.2)
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+      vite:
+        specifier: 7.1.7
+        version: 7.1.7(@types/node@24.1.0)(jiti@2.6.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+      vitest-mock-extended:
+        specifier: 3.1.0
+        version: 3.1.0(typescript@5.9.2)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@18.0.1)(jiti@2.6.0)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
+
   core/markdown/markdown-api:
     dependencies:
       '@xwiki/cristal-document-api':
@@ -3896,6 +3918,9 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../core/link-suggest/link-suggest-api
+      '@xwiki/cristal-macros-service':
+        specifier: workspace:*
+        version: link:../../core/macros/macros-service
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../core/model/model-api

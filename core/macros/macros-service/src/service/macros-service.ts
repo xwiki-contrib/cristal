@@ -17,16 +17,39 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import BlocknoteEditor from "./vue/c-blocknote-view.vue";
-export type {
-  ContextForMacros,
-  EditorType,
-} from "@xwiki/cristal-editors-blocknote-react";
+
+import type {
+  Macro,
+  UntypedMacroParametersType,
+} from "@xwiki/cristal-macros-api";
 
 /**
- * @since 0.16
+ * Service handling the registration and delivery of macros
+ *
+ * @since 0.23
  * @beta
  */
-const BlocknoteEditorAnnotated = BlocknoteEditor;
+export interface MacrosService {
+  /**
+   * Register a macro
+   *
+   * @param macro - The macro to register
+   */
+  register(macro: Macro<UntypedMacroParametersType>): void;
 
-export { BlocknoteEditorAnnotated as BlocknoteEditor };
+  /**
+   * List all registered macros
+   *
+   * @returns - All registered macros
+   */
+  list(): Macro<UntypedMacroParametersType>[];
+
+  /**
+   * Get a macro by its name
+   *
+   * @param name - The macro's name
+   *
+   * @returns - The registered macro with the provided name
+   */
+  get(name: string): Macro<UntypedMacroParametersType> | null;
+}

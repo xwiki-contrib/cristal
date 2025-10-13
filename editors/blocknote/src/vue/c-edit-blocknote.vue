@@ -53,6 +53,7 @@ import type {
   User,
 } from "@xwiki/cristal-collaboration-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { ContextForMacros } from "@xwiki/cristal-editors-blocknote-headless";
 import type { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
 import type { UniAst } from "@xwiki/cristal-uniast-api";
 import type {
@@ -119,6 +120,13 @@ const uniAstToMarkdown = container.get<UniAstToMarkdownConverter>(
 // Saving status
 const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
 
+// Context for macros
+const macrosContext: ContextForMacros = {
+  openParamsEditor(macro, params, update) {
+    alert("TODO: params editor for macros in Cristal");
+  },
+};
+
 /**
  * Setup the editor and title input using the fetched page's content
  *
@@ -141,12 +149,6 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     // TODO: make this customizable
     // https://jira.xwiki.org/browse/CRISTAL-457
     lang: "en",
-    macros: {
-      list: [], // TODO: Object.values(DEFAULT_MACROS),
-      openMacroParamsEditor(/*macro, params, update*/) {
-        alert("TODO: params editor for macros in Cristal");
-      },
-    },
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(
@@ -311,6 +313,7 @@ onBeforeRouteLeave(() => {
                 :editor-content
                 :container
                 :collaboration-provider
+                :macros-context
                 @instant-change="saveStatus = SaveStatus.UNSAVED"
                 @debounced-change="save"
               />

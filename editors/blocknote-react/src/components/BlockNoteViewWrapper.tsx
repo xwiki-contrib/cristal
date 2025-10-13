@@ -57,7 +57,10 @@ import type {
 import type { LinkEditionContext } from "../misc/linkSuggest";
 import type { BlockNoteEditorOptions } from "@blocknote/core";
 import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
-import type { Macro, UntypedMacroParameters } from "@xwiki/cristal-macros-api";
+import type {
+  Macro,
+  UntypedMacroParametersType,
+} from "@xwiki/cristal-macros-api";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -104,12 +107,15 @@ type BlockNoteViewWrapperProps = {
     /**
      * List of buildable macros
      */
-    list: Macro<UntypedMacroParameters>[];
+    list: Macro<UntypedMacroParametersType>[];
 
     /**
-     * Open the macros parameters editor
+     * Context for macros
+     *
+     * @since 0.23
+     * @beta
      */
-    openMacroParamsEditor: ContextForMacros["openParamsEditor"];
+    ctx: ContextForMacros;
   };
 
   /**
@@ -165,11 +171,9 @@ const BlockNoteViewWrapper: React.FC<BlockNoteViewWrapperProps> = ({
       linkEditionCtx.remoteURLSerializer,
     );
 
-    const ctx = { openParamsEditor: macros.openMacroParamsEditor };
-
     for (const macro of macros.list) {
       builtMacros.push(
-        adaptMacroForBlockNote(macro, ctx, macroAstToReactJsxConverter),
+        adaptMacroForBlockNote(macro, macros.ctx, macroAstToReactJsxConverter),
       );
     }
   }

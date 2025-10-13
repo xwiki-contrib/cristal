@@ -159,7 +159,7 @@ export type {
   MacroParameter,
   MacroParameterType,
   UndefinableToOptional,
-  UntypedMacroParametersType as UntypedMacroParameters,
+  UntypedMacroParametersType,
 };
 
 export { buildMacro };

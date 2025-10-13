@@ -17,16 +17,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import BlocknoteEditor from "./vue/c-blocknote-view.vue";
-export type {
-  ContextForMacros,
-  EditorType,
-} from "@xwiki/cristal-editors-blocknote-react";
+
+import { DefaultMacrosService } from "./service/default-macros-service";
+import type { MacrosService } from "./service/macros-service";
+import type { Container } from "inversify";
 
 /**
- * @since 0.16
+ * @since 0.23
  * @beta
  */
-const BlocknoteEditorAnnotated = BlocknoteEditor;
+const macrosServiceName = "MacrosService";
 
-export { BlocknoteEditorAnnotated as BlocknoteEditor };
+/**
+ * @since 0.23
+ * @beta
+ */
+class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<MacrosService>(macrosServiceName)
+      .to(DefaultMacrosService)
+      .whenDefault();
+  }
+}
+
+export { ComponentInit, macrosServiceName };

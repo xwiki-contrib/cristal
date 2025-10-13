@@ -17,16 +17,9 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import BlocknoteEditor from "./vue/c-blocknote-view.vue";
-export type {
-  ContextForMacros,
-  EditorType,
-} from "@xwiki/cristal-editors-blocknote-react";
 
-/**
- * @since 0.16
- * @beta
- */
-const BlocknoteEditorAnnotated = BlocknoteEditor;
+import localConfig from "./vite.config";
+import { vitestVue as defaultConfig } from "@xwiki/cristal-dev-config";
+import { mergeConfig } from "vitest/config";
 
-export { BlocknoteEditorAnnotated as BlocknoteEditor };
+export default mergeConfig(defaultConfig, localConfig);

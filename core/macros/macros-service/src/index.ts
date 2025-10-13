@@ -17,16 +17,5 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import BlocknoteEditor from "./vue/c-blocknote-view.vue";
-export type {
-  ContextForMacros,
-  EditorType,
-} from "@xwiki/cristal-editors-blocknote-react";
-
-/**
- * @since 0.16
- * @beta
- */
-const BlocknoteEditorAnnotated = BlocknoteEditor;
-
-export { BlocknoteEditorAnnotated as BlocknoteEditor };
+export { ComponentInit, macrosServiceName } from "./componentsInit";
+export { type MacrosService } from "./service/macros-service";
