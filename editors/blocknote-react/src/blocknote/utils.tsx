@@ -24,6 +24,7 @@ import {
   createReactInlineContentSpec,
 } from "@blocknote/react";
 import { assertUnreachable, objectEntries } from "@xwiki/cristal-fn-utils";
+import { castMacroAsGeneric } from "@xwiki/cristal-macros-api";
 import type {
   CustomBlockConfig,
   CustomInlineContentConfig,
@@ -225,7 +226,7 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
   ctx: ContextForMacros,
   jsxConverter: MacrosAstToReactJsxConverter,
 ): BlockNoteConcreteMacro {
-  const { name, parameters, renderType, render, slashMenu } = macro;
+  const { name, parameters, render, slashMenu } = macro;
 
   // Compute the macro name
   const blockNoteName = `${MACRO_NAME_PREFIX}${name}`;
@@ -266,9 +267,6 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
         }
       : false;
 
-  // Erase macro's type
-  const typeErasedMacro = macro as Macro<UntypedMacroParametersType>;
-
   // The rendering function
   const renderMacro = (
     contentRef: (node: HTMLElement | null) => void,
@@ -277,37 +275,41 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
   ) => {
     const openParamsEditor = () =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ctx.openParamsEditor(typeErasedMacro, props, update as any);
+      ctx.openParamsEditor(castMacroAsGeneric(macro), props, update as any);
 
-    const uniAst = render(props as GetConcreteMacroParametersType<Parameters>);
+    const params = props as GetConcreteMacroParametersType<Parameters>;
 
-    const renderedJsx = jsxConverter.toReactJSX(
-      uniAst,
-      macro.renderType === "block"
-        ? { type: "block", ref: contentRef }
-        : { type: "inline", ref: contentRef },
-    );
+    const renderedJsx =
+      render.as === "block"
+        ? jsxConverter.blocksToReactJSX(render.render(params), {
+            type: "block",
+            ref: contentRef,
+          })
+        : jsxConverter.inlineContentsToReactJSX(render.render(params), {
+            type: "inline",
+            ref: contentRef,
+          });
 
     if (renderedJsx instanceof Error) {
       // TODO: how to display properly an error?
       return <strong>Failed to render macro: {renderedJsx.message}</strong>;
     }
 
-    return renderType === "inline" ? (
-      <span style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
-        {renderedJsx}
-      </span>
-    ) : (
+    return render.as === "block" ? (
       <div style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
         {renderedJsx}
       </div>
+    ) : (
+      <span style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
+        {renderedJsx}
+      </span>
     );
   };
 
   // Block and inline macros are defined pretty differently, so a bit of logic was computed ahead of time
   // to share it between the two definitions here.
   const bnRendering: BlockNoteConcreteMacro["bnRendering"] =
-    renderType === "block"
+    macro.render.as === "block"
       ? {
           type: "block",
           block: createCustomBlockSpec({
@@ -364,7 +366,7 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
           }),
         };
 
-  return { macro: typeErasedMacro, bnRendering };
+  return { macro: castMacroAsGeneric(macro), bnRendering };
 }
 
 export { MACRO_NAME_PREFIX, adaptMacroForBlockNote, createCustomBlockSpec };

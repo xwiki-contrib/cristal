@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { MacroAst } from "./ast";
+import type { MacroBlock, MacroInlineContent } from "./ast";
 
 /**
  * Untyped macro parameters
@@ -41,14 +41,6 @@ type Macro<Parameters extends Record<string, MacroParameterType>> = {
   /** Description of the macro's parameters */
   parameters: { [P in keyof Parameters]: MacroParameter<Parameters[P]> };
 
-  /**
-   * Macro's type
-   *
-   * `block`: only usable as a block (same level as paragraphs, headings, etc.)
-   * `inline`: only usable inside other blocks such as paragraphs
-   */
-  renderType: "block" | "inline";
-
   /** Show an entry in the slash menu */
   slashMenu:
     | {
@@ -67,14 +59,45 @@ type Macro<Parameters extends Record<string, MacroParameterType>> = {
     | false;
 
   /**
-   * Render function
-   *
-   * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
-   * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
-   *
-   * @returns The AST to render the macro as
+   * Rendering options
    */
-  render(params: GetConcreteMacroParametersType<Parameters>): MacroAst;
+  render:
+    | {
+        /**
+         * Render the macro as a block (same level as paragraphs, headings, etc.)
+         */
+        as: "block";
+
+        /**
+         * Render function
+         *
+         * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
+         * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
+         *
+         * @returns The AST to render the macro as
+         */
+        render(
+          params: GetConcreteMacroParametersType<Parameters>,
+        ): MacroBlock[];
+      }
+    | {
+        /**
+         * Render the macro as an inline content (same level as paragraphs' content)
+         */
+        as: "inline";
+
+        /**
+         * Render function
+         *
+         * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
+         * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
+         *
+         * @returns The AST to render the macro as
+         */
+        render(
+          params: GetConcreteMacroParametersType<Parameters>,
+        ): MacroInlineContent[];
+      };
 };
 
 /**
@@ -113,7 +136,9 @@ type GetConcreteMacroParameterType<T extends MacroParameterType> =
           : never)
   | (T["optional"] extends true ? undefined : never);
 
-/** Internal utility type making all properties that may be assigned `undefined` optional in a record */
+/**
+ * Internal utility type making all properties that may be assigned `undefined` optional in a record
+ * */
 type UndefinableToOptional<T> = {
   [K in keyof T as undefined extends T[K] ? K : never]?: Exclude<
     T[K],
@@ -131,7 +156,9 @@ type GetConcreteMacroParametersType<T extends UntypedMacroParametersType> =
     [Param in keyof T]: GetConcreteMacroParameterType<T[Param]>;
   }>;
 
-/**Internal utility type to remove values that may be assigned `undefined` from a record */
+/**
+ * Internal utility type to remove values that may be assigned `undefined` from a record
+ * */
 type FilterUndefined<T> = {
   [K in keyof T as undefined extends T[K] ? never : K]: T[K];
 };
@@ -144,11 +171,28 @@ type FilterUndefined<T> = {
  * @returns - The built macro
  *
  * @since 0.23
+ * @beta
  */
 function buildMacro<Params extends UntypedMacroParametersType>(
   macro: Macro<Params>,
 ): Macro<Params> {
   return macro;
+}
+
+/**
+ * Erase a macro's parameters type to make it generic
+ *
+ * @param macro - The macro to type-erase
+ *
+ * @returns - The same object, with parameters type erased
+ *
+ * @since 0.23
+ * @beta
+ */
+function castMacroAsGeneric<Params extends UntypedMacroParametersType>(
+  macro: Macro<Params>,
+): Macro<UntypedMacroParametersType> {
+  return macro as Macro<UntypedMacroParametersType>;
 }
 
 export type {
@@ -162,6 +206,6 @@ export type {
   UntypedMacroParametersType,
 };
 
-export { buildMacro };
+export { buildMacro, castMacroAsGeneric };
 
 export type * from "./ast";

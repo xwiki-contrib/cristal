@@ -22,12 +22,6 @@
  * @since 0.23
  * @beta
  */
-type MacroAst = { blocks: MacroBlock[] };
-
-/**
- * @since 0.23
- * @beta
- */
 type MacroBlock =
   | {
       type: "paragraph";
@@ -62,6 +56,7 @@ type MacroBlock =
       name: string;
       params: Record<string, boolean | number | string>;
     }
+  | { type: "rawHtml"; html: string }
   | { type: "macroBlockEditableArea" };
 
 /**
@@ -137,6 +132,7 @@ type MacroTableCell = {
 type MacroInlineContent =
   | ({ type: "text" } & MacroText)
   | ({ type: "link" } & MacroLink)
+  | { type: "rawHtml"; html: string }
   | {
       type: "inlineMacro";
       name: string;
@@ -180,7 +176,6 @@ type MacroLinkTarget =
 
 export type {
   MacroAlignment,
-  MacroAst,
   MacroBlock,
   MacroBlockStyles,
   MacroImage,

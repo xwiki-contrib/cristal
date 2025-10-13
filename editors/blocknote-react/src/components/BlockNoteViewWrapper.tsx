@@ -103,20 +103,22 @@ type BlockNoteViewWrapperProps = {
    * @since 0.21
    * @beta
    */
-  macros: null | {
-    /**
-     * List of buildable macros
-     */
-    list: Macro<UntypedMacroParametersType>[];
+  macros:
+    | {
+        /**
+         * List of buildable macros
+         */
+        list: Macro<UntypedMacroParametersType>[];
 
-    /**
-     * Context for macros
-     *
-     * @since 0.23
-     * @beta
-     */
-    ctx: ContextForMacros;
-  };
+        /**
+         * Context for macros
+         *
+         * @since 0.23
+         * @beta
+         */
+        ctx: ContextForMacros;
+      }
+    | false;
 
   /**
    * Realtime options

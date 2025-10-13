@@ -121,7 +121,7 @@ const uniAstToMarkdown = container.get<UniAstToMarkdownConverter>(
 const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
 
 // Context for macros
-const macrosContext: ContextForMacros = {
+const contextForMacros: ContextForMacros = {
   openParamsEditor(macro, params, update) {
     alert("TODO: params editor for macros in Cristal");
   },
@@ -313,7 +313,7 @@ onBeforeRouteLeave(() => {
                 :editor-content
                 :container
                 :collaboration-provider
-                :macros-context
+                :context-for-macros
                 @instant-change="saveStatus = SaveStatus.UNSAVED"
                 @debounced-change="save"
               />

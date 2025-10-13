@@ -19,7 +19,6 @@
  */
 import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import type {
-  MacroAst,
   MacroBlock,
   MacroBlockStyles,
   MacroInlineContent,
@@ -50,14 +49,23 @@ export class MacrosAstToReactJsxConverter {
     private readonly remoteURLSerializer: RemoteURLSerializer,
   ) {}
 
-  toReactJSX(
-    macroAst: MacroAst,
+  blocksToReactJSX(
+    blocks: MacroBlock[],
     editableZoneRef: MacroEditableZoneRef,
   ): JSX.Element[] | Error {
-    const { blocks } = macroAst;
-
     return tryFallibleOrError(() =>
       blocks.map((block) => this.convertBlock(block, editableZoneRef)),
+    );
+  }
+
+  inlineContentsToReactJSX(
+    inlineContents: MacroInlineContent[],
+    editableZoneRef: MacroEditableZoneRef,
+  ): JSX.Element[] | Error {
+    return tryFallibleOrError(() =>
+      inlineContents.map((inlineContent) =>
+        this.convertInlineContent(inlineContent, editableZoneRef),
+      ),
     );
   }
 
@@ -110,6 +118,9 @@ export class MacrosAstToReactJsxConverter {
             height={block.heightPx}
           />
         );
+
+      case "rawHtml":
+        return <div dangerouslySetInnerHTML={{ __html: block.html }} />;
 
       case "macroBlock":
         throw new Error("Nested macros are not supported yet");
@@ -223,6 +234,11 @@ export class MacrosAstToReactJsxConverter {
               this.convertInlineContent(content, editableZoneRef),
             )}
           </a>
+        );
+
+      case "rawHtml":
+        return (
+          <span dangerouslySetInnerHTML={{ __html: inlineContent.html }} />
         );
 
       case "inlineMacro":

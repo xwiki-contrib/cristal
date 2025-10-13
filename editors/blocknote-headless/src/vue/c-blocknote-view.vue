@@ -49,7 +49,7 @@ import type { UniAst } from "@xwiki/cristal-uniast-api";
 const {
   editorProps,
   editorContent: uniAst,
-  macrosContext,
+  contextForMacros,
   collaborationProvider = undefined,
   container,
 } = defineProps<{
@@ -57,7 +57,7 @@ const {
     BlockNoteViewWrapperProps,
     "content" | "linkEditionCtx" | "macroAstToReactJsxConverter" | "macros"
   >;
-  macrosContext: ContextForMacros;
+  contextForMacros: ContextForMacros | false;
   editorContent: UniAst | Error;
   collaborationProvider?: () => CollaborationInitializer;
   container: Container;
@@ -132,9 +132,6 @@ const { t } = useI18n({
 // Create the link edition context
 const linkEditionCtx = createLinkEditionContext(container);
 
-// Get the macros service
-const macrosService = container.get<MacrosService>(macrosServiceName);
-
 // Build the properties object for the React BlockNoteView component
 const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
   ...editorProps,
@@ -143,7 +140,12 @@ const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
     notifyChangesDebounced();
   },
   blockNoteOptions: editorProps.blockNoteOptions,
-  macros: { list: macrosService.list(), ctx: macrosContext },
+  macros: contextForMacros
+    ? {
+        list: container.get<MacrosService>(macrosServiceName).list(),
+        ctx: contextForMacros,
+      }
+    : false,
   linkEditionCtx,
   realtime: await getRealtimeOptions(),
   refs: {
