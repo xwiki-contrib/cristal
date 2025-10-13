@@ -3301,13 +3301,13 @@ importers:
     dependencies:
       inversify:
         specifier: 7.x
-        version: 7.9.0(reflect-metadata@0.2.2)
+        version: 7.10.2(reflect-metadata@0.2.2)
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
       vue-i18n:
-        specifier: 11.1.11
-        version: 11.1.11(vue@3.5.20(typescript@5.9.2))
+        specifier: 'catalog:'
+        version: 11.1.12(vue@3.5.22(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*

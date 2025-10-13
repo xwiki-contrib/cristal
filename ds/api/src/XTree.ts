@@ -21,6 +21,7 @@
 import type { TreeNode } from "@xwiki/cristal-fn-utils";
 
 /**
+ * Represents a TreeNode that can be displayed in a Tree component.
  * @since 0.23
  * @beta
  */
@@ -32,6 +33,7 @@ type DisplayableTreeNode = TreeNode<{
 }>;
 
 /**
+ * Props of the Tree component.
  * @since 0.23
  * @beta
  */

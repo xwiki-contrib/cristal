@@ -30,6 +30,12 @@ const wikiConfigProxy = cristal
   .get<WikiConfigProxy>("WikiConfigProxy")!;
 const configs: Ref<Map<string, WikiConfig>> =
   wikiConfigProxy.getAvailableConfigurations();
+
+function onConfigClick(configName: string) {
+  if (configName !== cristal.getWikiConfig().name) {
+    cristal?.switchConfig(configName);
+  }
+}
 </script>
 
 <template>
@@ -42,11 +48,7 @@ const configs: Ref<Map<string, WikiConfig>> =
       <x-menu-item
         v-for="[key, wikiConfig] in configs"
         :value="key"
-        @click="
-          if (key !== cristal.getWikiConfig().name) {
-            cristal?.switchConfig(key);
-          }
-        "
+        @click="onConfigClick(key)"
         :disabled="key === cristal.getWikiConfig().name"
         :key="key"
       >
