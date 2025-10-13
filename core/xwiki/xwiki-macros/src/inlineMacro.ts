@@ -41,6 +41,12 @@ export const XWikiInlineHtmlMacro: Macro<UntypedMacroParametersType> =
         as: "inline",
         render: ({ html }) => [{ type: "rawHtml", html }],
       },
-      slashMenu: false,
+      slashMenu: {
+        description: "TODOinline",
+        defaultParameters: {
+          html: "<strong>Salut!</strong>",
+          metadata: "yoh",
+        },
+      },
     }),
   );

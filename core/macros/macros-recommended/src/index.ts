@@ -18,7 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export {
+import {
   XWikiBlockHtmlMacro,
   XWikiInlineHtmlMacro,
 } from "@xwiki/cristal-xwiki-macros";
+
+export const recommendedMacros: {
+  XWikiBlockHtmlMacro: typeof XWikiBlockHtmlMacro;
+  XWikiInlineHtmlMacro: typeof XWikiInlineHtmlMacro;
+} = {
+  XWikiBlockHtmlMacro,
+  XWikiInlineHtmlMacro,
+};

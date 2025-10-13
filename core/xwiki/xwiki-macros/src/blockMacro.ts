@@ -41,6 +41,12 @@ export const XWikiBlockHtmlMacro: Macro<UntypedMacroParametersType> =
         as: "block",
         render: ({ html }) => [{ type: "rawHtml", html }],
       },
-      slashMenu: false,
+      slashMenu: {
+        description: "TODOblock",
+        defaultParameters: {
+          html: "<strong>Salut!</strong>",
+          metadata: "yoh",
+        },
+      },
     }),
   );

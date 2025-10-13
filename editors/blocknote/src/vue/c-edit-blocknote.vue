@@ -27,6 +27,8 @@ import {
 } from "@xwiki/cristal-collaboration-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import { BlocknoteEditor as CBlockNoteView } from "@xwiki/cristal-editors-blocknote-headless";
+import { recommendedMacros } from "@xwiki/cristal-macros-recommended";
+import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
   markdownToUniAstConverterName,
@@ -35,6 +37,7 @@ import {
 import { debounce } from "lodash-es";
 import {
   inject,
+  onBeforeMount,
   onMounted,
   onUnmounted,
   ref,
@@ -54,6 +57,7 @@ import type {
 } from "@xwiki/cristal-collaboration-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { ContextForMacros } from "@xwiki/cristal-editors-blocknote-headless";
+import type { MacrosService } from "@xwiki/cristal-macros-service";
 import type { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
 import type { UniAst } from "@xwiki/cristal-uniast-api";
 import type {
@@ -261,6 +265,14 @@ function beforeUnload(evt: BeforeUnloadEvent): string | void {
     return t("blocknote.editor.save.unsavedChanges");
   }
 }
+
+onBeforeMount(() => {
+  const macrosService = container.get<MacrosService>(macrosServiceName);
+
+  for (const macro of Object.values(recommendedMacros)) {
+    macrosService.register(macro);
+  }
+});
 
 onMounted(() => {
   window.addEventListener("beforeunload", beforeUnload);

@@ -17,6 +17,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { castMacroAsGeneric } from "@xwiki/cristal-macros-api";
 import { injectable } from "inversify";
 import type { MacrosService } from "./macros-service";
 import type {
@@ -31,14 +32,20 @@ export class DefaultMacrosService implements MacrosService {
     Macro<UntypedMacroParametersType>
   >();
 
-  register(macro: Macro<UntypedMacroParametersType>): void {
-    if (this.registry.has(macro.name)) {
-      throw new Error(
-        `Cannot register duplicate macro with name "${macro.name}"`,
-      );
-    }
+  register<Params extends UntypedMacroParametersType>(
+    macro: Macro<Params>,
+  ): void {
+    const existing = this.registry.get(macro.name);
 
-    this.registry.set(macro.name, macro);
+    if (existing) {
+      if (existing !== macro) {
+        throw new Error(
+          `Cannot register duplicate macro with name "${macro.name}"`,
+        );
+      }
+    } else {
+      this.registry.set(macro.name, castMacroAsGeneric(macro));
+    }
   }
 
   list(): Macro<UntypedMacroParametersType>[] {

@@ -33,9 +33,14 @@ export interface MacrosService {
   /**
    * Register a macro
    *
+   * - Throws if a different macro with the same name already exists
+   * - Ignores silently if a macro exists with the exact same object identity (`===` equality)
+   *
    * @param macro - The macro to register
    */
-  register(macro: Macro<UntypedMacroParametersType>): void;
+  register<Params extends UntypedMacroParametersType>(
+    macro: Macro<Params>,
+  ): void;
 
   /**
    * List all registered macros
