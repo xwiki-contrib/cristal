@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-electron-authentication-xwiki-main",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -31,16 +31,16 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-authentication-api": "workspace:*",
-    "axios": "1.11.0",
-    "electron-store": "10.1.0"
+    "axios": "catalog:",
+    "electron-store": "catalog:"
   },
   "peerDependencies": {
-    "electron": "37.4.0"
+    "electron": "38.2.1"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "publishConfig": {
     "exports": {

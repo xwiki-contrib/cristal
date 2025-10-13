@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-realtime",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -20,16 +20,16 @@
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0"
   },
   "dependencies": {
-    "@hocuspocus/server": "2.15.3",
-    "express": "5.1.0",
-    "express-ws": "5.0.2"
+    "@hocuspocus/server": "catalog:",
+    "express": "catalog:",
+    "express-ws": "catalog:"
   },
   "devDependencies": {
-    "@types/express": "5.0.3",
-    "@types/express-ws": "3.0.5",
-    "esbuild": "0.25.9",
-    "tsx": "4.20.5",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "@types/express": "catalog:",
+    "@types/express-ws": "catalog:",
+    "esbuild": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   }
 }

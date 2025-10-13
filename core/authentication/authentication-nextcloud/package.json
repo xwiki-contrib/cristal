@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-authentication-nextcloud",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -33,22 +33,22 @@
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-authentication-api": "workspace:*",
     "@xwiki/cristal-authentication-nextcloud-state": "workspace:*",
-    "async-lock": "1.4.1",
-    "axios": "1.11.0",
-    "js-cookie": "3.0.5"
+    "async-lock": "catalog:",
+    "axios": "catalog:",
+    "js-cookie": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",
     "reflect-metadata": "0.x"
   },
   "devDependencies": {
-    "@types/async-lock": "1.4.2",
-    "@types/js-cookie": "3.0.6",
+    "@types/async-lock": "catalog:",
+    "@types/js-cookie": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
-    "inversify": "7.9.0",
-    "reflect-metadata": "0.2.2",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "inversify": "catalog:",
+    "reflect-metadata": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "publishConfig": {
     "exports": {

@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-electron-preload",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -24,13 +24,13 @@
     "@xwiki/cristal-electron-authentication-nextcloud-preload": "workspace:*",
     "@xwiki/cristal-electron-authentication-xwiki-preload": "workspace:*",
     "@xwiki/cristal-electron-settings-preload": "workspace:*",
-    "reflect-metadata": "0.2.2"
+    "reflect-metadata": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "22.18.0",
+    "@types/node": "catalog:",
     "@xwiki/cristal-browser-electron": "workspace:*",
     "@xwiki/cristal-electron-storage": "workspace:*",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "typescript": "catalog:",
+    "vite": "catalog:"
   }
 }

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@xwiki/cristal-sources-xwiki-mock-server",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -26,14 +26,14 @@
   },
   "types": "./src/index.ts",
   "dependencies": {
-    "dotenv": "17.2.1",
-    "express": "5.1.0"
+    "dotenv": "catalog:",
+    "express": "catalog:"
   },
   "devDependencies": {
-    "@types/express": "5.0.3",
-    "nodemon": "3.1.10",
-    "ts-node": "10.9.2",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "@types/express": "catalog:",
+    "nodemon": "catalog:",
+    "ts-node": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   }
 }

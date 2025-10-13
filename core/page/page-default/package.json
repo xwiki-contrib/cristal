@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-page-default",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -31,12 +31,12 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-page-api": "workspace:*",
-    "yaml": "2.8.0"
+    "yaml": "catalog:"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "publishConfig": {
     "exports": {

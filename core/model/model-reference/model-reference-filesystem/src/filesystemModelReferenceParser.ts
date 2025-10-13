@@ -23,41 +23,120 @@ import {
   DocumentReference,
   SpaceReference,
 } from "@xwiki/cristal-model-api";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
+import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { EntityReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import type {
+  ModelReferenceParser,
+  ModelReferenceParserOptions,
+} from "@xwiki/cristal-model-reference-api";
 
 @injectable()
 export class FileSystemModelReferenceParser implements ModelReferenceParser {
-  parse(reference: string): EntityReference {
+  constructor(
+    @inject("DocumentService")
+    private readonly documentService: DocumentService,
+  ) {}
+
+  parse(
+    reference: string,
+    options?: ModelReferenceParserOptions,
+  ): EntityReference {
     if (/^https?:\/\//.test(reference)) {
       throw new Error(`[${reference}] is not a valid entity reference`);
     }
-    const segments = reference.split(/(?<!\\)\//);
-    if (segments[segments.length - 2] == "attachments") {
-      return new AttachmentReference(
-        this.unescape(segments[segments.length - 1]),
-        new DocumentReference(
-          this.unescape(segments[segments.length - 3]),
-          new SpaceReference(
-            undefined,
-            ...segments
-              .slice(0, segments.length - 3)
-              .map((s) => this.unescape(s)),
-          ),
-        ),
-      );
+    const isAbsolute = options?.relative === false;
+    const segments = reference.split(/(?<!\\)\//).map((s) => this.unescape(s));
+    const isAttachment = this.isAttachmentReference(segments);
+    if (isAttachment && isAbsolute) {
+      return this.parseAttachmentAbsolute(segments);
+    } else if (isAttachment && !isAbsolute) {
+      return this.parseAttachmentRelative(segments);
+    } else if (isAbsolute) {
+      return this.parseDocumentAbsolute(segments);
     } else {
-      return new DocumentReference(
-        this.unescape(segments[segments.length - 1]),
-        new SpaceReference(
-          undefined,
-          ...segments
-            .slice(0, segments.length - 1)
-            .map((s) => this.unescape(s)),
-        ),
-      );
+      return this.parseDocumentRelative(segments);
     }
+  }
+
+  private isAttachmentReference(segments: string[]) {
+    return (
+      segments[segments.length - 2] == "attachments" &&
+      segments[segments.length - 3].startsWith(".")
+    );
+  }
+
+  async parseAsync(reference: string): Promise<EntityReference> {
+    return this.parse(reference);
+  }
+  private parseAttachmentRelative(segments: string[]): AttachmentReference {
+    const currentDocumentSegments = this.documentService
+      .getCurrentDocument()
+      .value?.id.split("/");
+
+    const spaces = segments.slice(0, segments.length - 3);
+
+    const currentSegments =
+      currentDocumentSegments?.slice(0, currentDocumentSegments?.length - 1) ??
+      [];
+
+    while (spaces[0] == "..") {
+      currentSegments.pop();
+      spaces.shift();
+    }
+
+    return new AttachmentReference(
+      segments[segments.length - 1],
+      new DocumentReference(
+        segments[segments.length - 3].replace(/^\./, ""),
+        new SpaceReference(undefined, ...[...currentSegments, ...spaces]),
+      ),
+    );
+  }
+
+  private parseAttachmentAbsolute(segments: string[]): AttachmentReference {
+    const spaces = segments.slice(0, segments.length - 3);
+    return new AttachmentReference(
+      segments[segments.length - 1],
+      new DocumentReference(
+        segments[segments.length - 3].replace(/^\./, ""),
+        new SpaceReference(undefined, ...spaces),
+      ),
+    );
+  }
+
+  private parseDocumentAbsolute(segments: string[]): DocumentReference {
+    const spaces = segments.slice(0, segments.length - 1);
+    return new DocumentReference(
+      segments[segments.length - 1].replace(/\.md$/, ""),
+      new SpaceReference(undefined, ...spaces),
+    );
+  }
+
+  private parseDocumentRelative(segments: string[]): DocumentReference {
+    const currentDocumentSegments = this.documentService
+      .getCurrentDocument()
+      .value?.id.split("/");
+
+    const spaces = segments.slice(0, segments.length - 1);
+
+    const currentSegments =
+      currentDocumentSegments?.slice(0, currentDocumentSegments?.length - 1) ??
+      [];
+
+    while (spaces[0] == "..") {
+      currentSegments.pop();
+      spaces.shift();
+    }
+
+    return new DocumentReference(
+      this.normalizeDocumentName(segments),
+      new SpaceReference(undefined, ...[...currentSegments, ...spaces]),
+    );
+  }
+
+  private normalizeDocumentName(segments: string[]) {
+    return segments[segments.length - 1].replace(/\.md$/, "");
   }
 
   private unescape(string: string) {
@@ -67,7 +146,7 @@ export class FileSystemModelReferenceParser implements ModelReferenceParser {
       index = newIndex;
       ret += char;
     }
-    return ret;
+    return decodeURIComponent(ret);
   }
 
   private unescapeLocal(

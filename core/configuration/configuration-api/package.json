@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-configuration-api",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -26,10 +26,10 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "utility-types": "3.11.0"
+    "utility-types": "catalog:"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "typescript": "5.9.2"
+    "typescript": "catalog:"
   }
 }

@@ -45,7 +45,7 @@ import type {
  * @beta
  */
 type LinkEditionContext = {
-  linkSuggestService: LinkSuggestService;
+  linkSuggestService: LinkSuggestService | null;
   modelReferenceParser: ModelReferenceParser;
   modelReferenceSerializer: ModelReferenceSerializer;
   modelReferenceHandler: ModelReferenceHandler;
@@ -80,14 +80,21 @@ type LinkSuggestor = (params: { query: string }) => Promise<LinkSuggestion[]>;
 /**
  * Build a function returning an array of link suggestions from a string.
  *
+ * @returns `null` if the context does not contain a link suggestion service
+ *
  * @since 0.16
  * @beta
  */
 function createLinkSuggestor({
   linkSuggestService,
   modelReferenceParser,
-}: LinkEditionContext): LinkSuggestor {
+}: LinkEditionContext): LinkSuggestor | null {
+  if (!linkSuggestService) {
+    return null;
+  }
+
   // Return an array of suggestions from a query
+
   return async ({ query }) => {
     // TODO: add upload attachment action
     // TODO: add create new page action
@@ -110,7 +117,9 @@ function createLinkSuggestor({
       .map((link) => {
         // FIXME: relate to link management is reference management, here too we
         // need to think me precisely of the architecture we want for this.
-        const entityReference = modelReferenceParser?.parse(link.reference);
+        const entityReference = modelReferenceParser?.parse(link.reference, {
+          relative: false,
+        });
 
         const documentReference =
           entityReference?.type == EntityType.ATTACHMENT
@@ -125,7 +134,7 @@ function createLinkSuggestor({
         }
 
         return {
-          title: link.label,
+          title: documentReference.name,
           segments,
           reference: link.reference,
           url: link.url,

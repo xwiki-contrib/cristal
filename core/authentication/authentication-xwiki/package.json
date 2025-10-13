@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-authentication-xwiki",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -32,20 +32,20 @@
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-authentication-api": "workspace:*",
-    "axios": "1.11.0",
-    "js-cookie": "3.0.5"
+    "axios": "catalog:",
+    "js-cookie": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",
     "reflect-metadata": "0.x"
   },
   "devDependencies": {
-    "@types/js-cookie": "3.0.6",
+    "@types/js-cookie": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
-    "inversify": "7.9.0",
-    "reflect-metadata": "0.2.2",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "inversify": "catalog:",
+    "reflect-metadata": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "publishConfig": {
     "exports": {

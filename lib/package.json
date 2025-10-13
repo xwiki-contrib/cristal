@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-lib",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -54,7 +54,6 @@
     "@xwiki/cristal-dsshoelace": "workspace:*",
     "@xwiki/cristal-dsvuetify": "workspace:*",
     "@xwiki/cristal-editors-blocknote": "workspace:*",
-    "@xwiki/cristal-editors-tiptap": "workspace:*",
     "@xwiki/cristal-extension-manager": "workspace:*",
     "@xwiki/cristal-extension-menubuttons": "workspace:*",
     "@xwiki/cristal-extra-tabs-default": "workspace:*",
@@ -94,11 +93,13 @@
     "@xwiki/cristal-sharedworker-impl": "workspace:*",
     "@xwiki/cristal-skin": "workspace:*",
     "@xwiki/cristal-uiextension-default": "workspace:*",
+    "@xwiki/cristal-uniast-html": "workspace:*",
+    "@xwiki/cristal-uniast-markdown": "workspace:*",
     "@xwiki/cristal-wiki-config-default": "workspace:*",
-    "pinia": "3.0.2",
-    "reflect-metadata": "0.2.2",
-    "vue-i18n": "11.1.11",
-    "vue-router": "4.5.1"
+    "pinia": "catalog:",
+    "reflect-metadata": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",
@@ -106,14 +107,14 @@
     "vue": "3.x"
   },
   "devDependencies": {
-    "@shoelace-style/shoelace": "2.20.1",
+    "@shoelace-style/shoelace": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
     "@xwiki/cristal-dsapi": "workspace:*",
-    "inversify": "7.9.0",
-    "typescript": "5.9.2",
-    "vite": "7.1.5",
-    "vue": "3.5.20",
-    "vue-tsc": "2.2.12"
+    "inversify": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:",
+    "vue-tsc": "catalog:"
   },
   "publishConfig": {
     "exports": {

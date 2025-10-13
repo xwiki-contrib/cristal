@@ -29,12 +29,14 @@ import {
   Text,
   VisuallyHidden,
 } from "@mantine/core";
+import { tryFallible } from "@xwiki/cristal-fn-utils";
 import { LinkType } from "@xwiki/cristal-link-suggest-api";
 import {
   AttachmentReference,
   DocumentReference,
+  EntityType,
 } from "@xwiki/cristal-model-api";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { RiAttachmentLine } from "react-icons/ri";
 import type {
@@ -44,13 +46,43 @@ import type {
 
 export type ImageSelectorProps = {
   linkEditionCtx: LinkEditionContext;
+  currentSelection?: string;
   onSelected: (url: string) => void;
 };
 
 export const ImageSelector: React.FC<ImageSelectorProps> = ({
   linkEditionCtx,
+  currentSelection,
   onSelected,
 }) => {
+  const [initialQuery, selectedEntityPath] = useMemo(() => {
+    if (!currentSelection) {
+      return ["", null];
+    }
+
+    const entityRef = tryFallible(() =>
+      linkEditionCtx.remoteURLParser.parse(currentSelection),
+    );
+
+    if (!entityRef || entityRef instanceof Error) {
+      return [currentSelection, null];
+    }
+
+    const documentReference =
+      entityRef?.type == EntityType.ATTACHMENT
+        ? (entityRef as AttachmentReference).document
+        : (entityRef as DocumentReference);
+
+    const segments = documentReference.space?.names.slice(0) ?? [];
+
+    return [
+      "",
+      segments.concat([
+        linkEditionCtx.modelReferenceHandler.getTitle(entityRef)!,
+      ]),
+    ];
+  }, [currentSelection]);
+
   const { t } = useTranslation();
 
   const fileUploadRef = useRef<HTMLButtonElement>(null);
@@ -74,8 +106,10 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
       if (uploadedFilesUrls && uploadedFilesUrls[0]) {
         url = uploadedFilesUrls[0];
       } else {
-        const parser =
-          linkEditionCtx.modelReferenceParser?.parse(currentPageName);
+        const parser = linkEditionCtx.modelReferenceParser?.parse(
+          currentPageName,
+          { relative: false },
+        );
 
         url = linkEditionCtx.remoteURLSerializer?.serialize(
           new AttachmentReference(file.name, parser as DocumentReference),
@@ -91,15 +125,20 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
   const searchAttachments = useCallback(
     async (query: string) => {
+      if (!linkEditionCtx.linkSuggestService) {
+        return false;
+      }
+
       const results = await linkEditionCtx.linkSuggestService.getLinks(
         query,
         LinkType.ATTACHMENT,
         "image/*",
       );
 
-      const suggestions = results.map((link): LinkSuggestion => {
+      return results.map((link): LinkSuggestion => {
         const attachmentReference = linkEditionCtx.modelReferenceParser?.parse(
           link.reference,
+          { relative: false },
         ) as AttachmentReference;
 
         const documentReference = attachmentReference.document;
@@ -117,15 +156,13 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
           segments,
         };
       });
-
-      return suggestions;
     },
     [linkEditionCtx],
   );
 
   // Start a first empty search on the first load, to not let the results empty.
   useEffect(() => {
-    searchAttachments("");
+    searchAttachments(initialQuery);
   }, []);
 
   return (
@@ -146,6 +183,8 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
 
       <SearchBox
         placeholder={t("blocknote.imageSelector.placeholder")}
+        initialValue={initialQuery}
+        linkEditionCtx={linkEditionCtx}
         getSuggestions={searchAttachments}
         renderSuggestion={(suggestion) => (
           <Flex gap="sm">
@@ -172,6 +211,16 @@ export const ImageSelector: React.FC<ImageSelectorProps> = ({
         onSelect={onSelected}
         onSubmit={onSelected}
       />
+
+      {selectedEntityPath && (
+        <Breadcrumbs c="gray" pt="md" separatorMargin="0.33rem">
+          {selectedEntityPath.map((segment, i) => (
+            <Text fz="0.9rem" key={`${i}${segment}`}>
+              {segment}
+            </Text>
+          ))}
+        </Breadcrumbs>
+      )}
     </Box>
   );
 };

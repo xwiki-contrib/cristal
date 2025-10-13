@@ -18,5 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { MarkdownToUniAstConverter } from "./markdown/md-to-uniast";
-export { UniAstToMarkdownConverter } from "./markdown/uniast-to-md";
+export {
+  ComponentInit,
+  markdownToUniAstConverterName,
+  uniAstToMarkdownConverterName,
+} from "./component-init";
+export { type MarkdownToUniAstConverter } from "./markdown/markdown-to-uni-ast-converter";
+export { type UniAstToMarkdownConverter } from "./markdown/uni-ast-to-markdown-converter";

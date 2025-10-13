@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-sharedworker-impl",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -42,9 +42,9 @@
     "@xwiki/cristal-document-api": "workspace:*",
     "@xwiki/cristal-extension-manager": "workspace:*",
     "@xwiki/cristal-sharedworker-api": "workspace:*",
-    "comlink": "4.4.2",
-    "reflect-metadata": "0.2.2",
-    "vue-router": "4.5.1"
+    "comlink": "catalog:",
+    "reflect-metadata": "catalog:",
+    "vue-router": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",
@@ -52,12 +52,12 @@
     "vue": "3.x"
   },
   "devDependencies": {
-    "@types/sharedworker": "0.0.180",
+    "@types/sharedworker": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
-    "inversify": "7.9.0",
-    "typescript": "5.9.2",
-    "vite": "7.1.5",
-    "vue": "3.5.20"
+    "inversify": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:"
   },
   "publishConfig": {
     "exports": {

@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-wiki-config-default",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -41,10 +41,10 @@
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "inversify": "7.9.0",
-    "typescript": "5.9.2",
-    "vite": "7.1.5",
-    "vue": "3.5.20"
+    "inversify": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vue": "catalog:"
   },
   "publishConfig": {
     "exports": {

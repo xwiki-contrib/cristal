@@ -51,6 +51,8 @@ import { ComponentInit as SettingsConfigurationsUIComponentInit } from "@xwiki/c
 import { ComponentInit as SettingsComponentInit } from "@xwiki/cristal-settings-default";
 import { ComponentInit as SkinComponentInit } from "@xwiki/cristal-skin";
 import { ComponentInit as UIExtensionDefaultComponentInit } from "@xwiki/cristal-uiextension-default";
+import { ComponentInit as UniastHTMLComponentInit } from "@xwiki/cristal-uniast-html";
+import { ComponentInit as UniastMarkdownComponentInit } from "@xwiki/cristal-uniast-markdown";
 import { ComponentInit as WikiConfigComponentInit } from "@xwiki/cristal-wiki-config-default";
 import type { Configuration } from "@xwiki/cristal-configuration-api";
 import type { Container } from "inversify";
@@ -98,6 +100,8 @@ async function defaultComponentsList(container: Container): Promise<void> {
   new WikiConfigComponentInit(container);
   new CollaborationAPIComponentInit(container);
   new CollaborationHocusPocusComponentInit(container);
+  new UniastHTMLComponentInit(container);
+  new UniastMarkdownComponentInit(container);
 }
 
 /**
@@ -132,10 +136,10 @@ async function conditionalComponentsList(
     (await import("./github")).load(container);
   }
 
-  if (configuration.editor === "tiptap" || configuration.editor === undefined) {
-    const { ComponentInit } = await import("@xwiki/cristal-editors-tiptap");
-    new ComponentInit(container);
-  } else if (configuration.editor === "blocknote") {
+  if (
+    configuration.editor === "blocknote" ||
+    configuration.editor === undefined
+  ) {
     const { ComponentInit } = await import("@xwiki/cristal-editors-blocknote");
     new ComponentInit(container);
   }

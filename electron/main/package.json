@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-electron-main",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -25,12 +25,12 @@
     "@xwiki/cristal-electron-authentication-xwiki-main": "workspace:*",
     "@xwiki/cristal-electron-settings-main": "workspace:*",
     "@xwiki/cristal-electron-storage": "workspace:*",
-    "electron": "37.4.0",
-    "reflect-metadata": "0.2.2"
+    "electron": "catalog:",
+    "reflect-metadata": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "22.18.0",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   }
 }

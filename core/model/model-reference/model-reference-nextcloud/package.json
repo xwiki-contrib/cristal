@@ -1,6 +1,6 @@
 {
   "name": "@xwiki/cristal-model-reference-nextcloud",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
@@ -30,6 +30,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/cristal-authentication-api": "workspace:*",
+    "@xwiki/cristal-document-api": "workspace:*",
     "@xwiki/cristal-model-api": "workspace:*",
     "@xwiki/cristal-model-reference-api": "workspace:*"
   },
@@ -39,10 +42,10 @@
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "inversify": "7.9.0",
-    "reflect-metadata": "0.2.2",
-    "typescript": "5.9.2",
-    "vite": "7.1.5"
+    "inversify": "catalog:",
+    "reflect-metadata": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "publishConfig": {
     "exports": {

@@ -26,11 +26,17 @@ import {
 } from "@xwiki/cristal-model-api";
 import { injectable } from "inversify";
 import type { EntityReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceParser } from "@xwiki/cristal-model-reference-api";
+import type {
+  ModelReferenceParser,
+  ModelReferenceParserOptions,
+} from "@xwiki/cristal-model-reference-api";
 
 @injectable()
 export class GitHubModelReferenceParser implements ModelReferenceParser {
-  parse(reference: string, type?: EntityType): EntityReference {
+  parse(
+    reference: string,
+    options?: ModelReferenceParserOptions,
+  ): EntityReference {
     if (/^https?:\/\//.test(reference)) {
       throw new Error(`[${reference}] is not a valid entity reference`);
     }
@@ -38,14 +44,21 @@ export class GitHubModelReferenceParser implements ModelReferenceParser {
     if (segments[0] == "") {
       segments = segments.slice(1);
     }
-    if (type === EntityType.ATTACHMENT) {
+    if (options?.type === EntityType.ATTACHMENT) {
       return new AttachmentReference(
         segments[segments.length - 1],
-        this.buildDocumentReference(segments.slice(0, segments.length - 1)),
+        this.buildDocumentReference(segments.slice(0, segments.length - 2)),
       );
     } else {
       return this.buildDocumentReference(segments);
     }
+  }
+
+  async parseAsync(
+    reference: string,
+    options?: ModelReferenceParserOptions,
+  ): Promise<EntityReference> {
+    return this.parse(reference, options);
   }
 
   private buildDocumentReference(segments: string[]) {
