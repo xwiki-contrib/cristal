@@ -84,7 +84,7 @@ type MacroAlignment = "left" | "center" | "right" | "justify";
  */
 type MacroListItem = {
   checked?: boolean;
-  content: MacroBlock[];
+  content: MacroInlineContent[];
   styles: MacroBlockStyles;
 };
 
@@ -112,7 +112,13 @@ type MacroLink = {
  * @since 0.23
  * @beta
  */
-type MacroTableColumn = { headerCell?: MacroTableCell; widthPx?: number };
+type MacroTableColumn = {
+  headerCell?: {
+    content: MacroInlineContent[];
+    styles: MacroBlockStyles;
+  };
+  widthPx?: number;
+};
 
 /**
  * @since 0.23

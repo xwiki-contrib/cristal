@@ -22,12 +22,19 @@ import type {
   MacroBlock,
   MacroBlockStyles,
   MacroInlineContent,
+  MacroLinkTarget,
 } from "@xwiki/cristal-macros-api";
 import type {
   RemoteURLParser,
   RemoteURLSerializer,
 } from "@xwiki/cristal-model-remote-url-api";
-import type { CSSProperties, HTMLAttributes, JSX, Ref } from "react";
+import type {
+  CSSProperties,
+  HTMLAttributes,
+  JSX,
+  Ref,
+  TdHTMLAttributes,
+} from "react";
 
 /**
  * @since 0.23
@@ -84,13 +91,33 @@ export class MacrosAstToReactJsxConverter {
         );
 
       case "heading":
-        // TODO: styles
-        // TODO: level h1, h2, ...h6
-        return <>TODO</>;
+        const TagName = `h${block.level}`;
+
+        return (
+          <TagName {...this.convertBlockStyles(block.styles)}>
+            {block.content.map((inline) =>
+              this.convertInlineContent(inline, editableZoneRef),
+            )}
+          </TagName>
+        );
 
       case "list":
-        // TODO: styles
-        return <>TODO</>;
+        const ListTag = block.numbered ? "ol" : "ul";
+
+        return (
+          <ListTag {...this.convertBlockStyles(block.styles)}>
+            {block.items.map((item) => (
+              <li>
+                {item.checked !== undefined && (
+                  <input type="checkbox" checked={item.checked} readOnly />
+                )}
+                {item.content.map((inline) =>
+                  this.convertInlineContent(inline, editableZoneRef),
+                )}
+              </li>
+            ))}
+          </ListTag>
+        );
 
       case "quote":
         return (
@@ -106,13 +133,70 @@ export class MacrosAstToReactJsxConverter {
         return <code>{block.content}</code>;
 
       case "table":
-        // TODO: styles
-        return <>TDOO</>;
+        return (
+          <table {...this.convertBlockStyles(block.styles)}>
+            <colgroup>
+              {block.columns.map((col) => {
+                const attrs: HTMLAttributes<unknown> = {};
+
+                if (col.widthPx) {
+                  attrs.style = { width: `${col.widthPx}px` };
+                }
+
+                return <col {...attrs} />;
+              })}
+            </colgroup>
+
+            {block.columns.find((col) => col.headerCell) && (
+              <thead>
+                <tr>
+                  {block.columns.map((col) =>
+                    col.headerCell ? (
+                      <th {...this.convertBlockStyles(col.headerCell.styles)}>
+                        {col.headerCell.content.map((inline) =>
+                          this.convertInlineContent(inline, editableZoneRef),
+                        )}
+                      </th>
+                    ) : (
+                      <th></th>
+                    ),
+                  )}
+                </tr>
+              </thead>
+            )}
+
+            <tbody>
+              {block.rows.map((row) => (
+                <tr>
+                  {row.map((cell) => {
+                    const attrs: TdHTMLAttributes<HTMLTableCellElement> = {};
+
+                    if (cell.colSpan) {
+                      attrs.colSpan = cell.colSpan;
+                    }
+
+                    if (cell.rowSpan) {
+                      attrs.rowSpan = cell.rowSpan;
+                    }
+
+                    return (
+                      <td {...this.convertBlockStyles(cell.styles)}>
+                        {cell.content.map((inline) =>
+                          this.convertInlineContent(inline, editableZoneRef),
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        );
 
       case "image":
         return (
           <img
-            src={"TODO"}
+            src={this.getTargetUrl(block.target)}
             alt={block.alt}
             width={block.widthPx}
             height={block.heightPx}
@@ -163,7 +247,6 @@ export class MacrosAstToReactJsxConverter {
     return out;
   }
 
-  // eslint-disable-next-line max-statements
   private convertInlineContent(
     inlineContent: MacroInlineContent,
     editableZoneRef: MacroEditableZoneRef,
@@ -201,35 +284,8 @@ export class MacrosAstToReactJsxConverter {
         return <span {...attr}>{inlineContent.content}</span>;
 
       case "link":
-        let targetUrl: string;
-
-        if (inlineContent.target.type === "external") {
-          targetUrl = inlineContent.target.url;
-        } else {
-          const { rawReference } = inlineContent.target;
-
-          const parsedRef = tryFallibleOrError(() =>
-            this.remoteURLParser.parse(rawReference),
-          );
-
-          if (parsedRef instanceof Error) {
-            throw new Error(
-              `Failed to parse reference "${rawReference}": ${parsedRef.message}`,
-            );
-          }
-
-          const url = this.remoteURLSerializer.serialize(parsedRef);
-
-          // TODO: when could this even happen?
-          if (!url) {
-            throw new Error(`Failed to serialize reference "${rawReference}"`);
-          }
-
-          targetUrl = url;
-        }
-
         return (
-          <a href={targetUrl}>
+          <a href={this.getTargetUrl(inlineContent.target)}>
             {inlineContent.content.map((content) =>
               this.convertInlineContent(content, editableZoneRef),
             )}
@@ -257,4 +313,33 @@ export class MacrosAstToReactJsxConverter {
         assertUnreachable(inlineContent);
     }
   }
+
+  private getTargetUrl(target: MacroLinkTarget): string {
+    if (target.type === "external") {
+      return target.url;
+    }
+
+    const { rawReference } = target;
+
+    const parsedRef = tryFallibleOrError(() =>
+      this.remoteURLParser.parse(rawReference),
+    );
+
+    if (parsedRef instanceof Error) {
+      throw new Error(
+        `Failed to parse reference "${rawReference}": ${parsedRef.message}`,
+      );
+    }
+
+    const url = this.remoteURLSerializer.serialize(parsedRef);
+
+    // TODO: when could this even happen?
+    if (!url) {
+      throw new Error(`Failed to serialize reference "${rawReference}"`);
+    }
+
+    return url;
+  }
 }
+
+// TODO: add id to all mapped JSX children
