@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
+import React from "react";
 import type {
   MacroBlock,
   MacroBlockStyles,
@@ -56,37 +57,128 @@ export class MacrosAstToReactJsxConverter {
     private readonly remoteURLSerializer: RemoteURLSerializer,
   ) {}
 
+  /**
+   * Render a macro's AST blocks to JSX elements
+   *
+   * Will force re-render every time, even if the AST is exactly the same
+   * (see the private `generateId` function for more informations)
+   *
+   * @param blocks - The blocks to render
+   * @param editableZoneRef - The macro's editable zone reference
+   *
+   * @returns The JSX elements
+   */
   blocksToReactJSX(
     blocks: MacroBlock[],
     editableZoneRef: MacroEditableZoneRef,
   ): JSX.Element[] | Error {
     return tryFallibleOrError(() =>
-      blocks.map((block) => this.convertBlock(block, editableZoneRef)),
+      this.convertBlocks(blocks, editableZoneRef, this.generateId()),
     );
   }
 
+  /**
+   * Render a macro's AST inline contents to JSX elements
+   *
+   * Will force re-render every time, even if the AST is exactly the same
+   * (see the private `generateId` function for more informations)
+   *
+   * @param inlineContents - The inline contents to render
+   * @param editableZoneRef - The macro's editable zone reference
+   *
+   * @returns The JSX elements
+   */
   inlineContentsToReactJSX(
     inlineContents: MacroInlineContent[],
     editableZoneRef: MacroEditableZoneRef,
   ): JSX.Element[] | Error {
     return tryFallibleOrError(() =>
-      inlineContents.map((inlineContent) =>
-        this.convertInlineContent(inlineContent, editableZoneRef),
+      this.convertInlineContents(
+        inlineContents,
+        editableZoneRef,
+        this.generateId(),
       ),
     );
+  }
+
+  private generateId(): string {
+    // So, this is a tough one
+    //
+    // When mapping an array to React elements, each child needs a `key` identifying it based on its content.
+    // This allows React to quickly check whether the child changed or not, and update / reorder the DOM accordingly.
+    //
+    // Because we are iterating over generic structures without identifiers (`MacroBlock` and `MacroInlineContent` don't have an ID),
+    // and adding an ID would pollute the object without any real benefit (it wouldn't be linked to the actual content), we have several options:
+    //
+    // # Option 1. Using array indexes as keys
+    //
+    // This is not a good idea as keys need to reflect the child's content. If the macro re-renders a new AST and inverses two children's positions,
+    // the keys would not reflect it and it could lead to bugs.
+    //
+    // # Option 2. Hashing each child's object and using it as a key
+    //
+    // This is not viable as it would be pretty costly. Performing a hash on an AST that may contain hundred of objects, all synchronously, would
+    // possibly block the main thread for too long, especially on weaker devices like entry-level smartphones or older computers.
+    //
+    // # Option 3. Hashing the root AST object and suffixing the result with children's indexes
+    //
+    // This would be a viable option *if* we didn't also have the editable zone React reference to account for. This may change between renders,
+    // and we have no means to derive a key from it, as it's a class instance without any identifiable property.
+    //
+    // # Option 4. Generating a random ID and suffixing the result with children's indexes
+    //
+    // This is the solution we use here and it's a big compromise. We are *not* considering the root AST object, simply generating a completely random
+    // value that we use throughout the converter. This means even providing the exact same root AST object will force a complete re-render of the entire
+    // React tree. This is desirable because again, the editable zone reference may change between two renders, and we have no mean to check that.
+    //
+    // So we use this trick which, while pretty costly for similar trees, ensures we have no bug in the render, and is an acceptable trade-off given that
+    // macros are not supposed to change their rendered output very often.
+
+    return Math.random().toString().substring(2);
+  }
+
+  private convertBlocks(
+    blocks: MacroBlock[],
+    editableZoneRef: MacroEditableZoneRef,
+    key: string,
+  ): JSX.Element[] {
+    return blocks.map((block, i) => {
+      const childKey = `${key}.${i}`;
+
+      return (
+        <React.Fragment key={childKey}>
+          {this.convertBlock(block, editableZoneRef, childKey)}
+        </React.Fragment>
+      );
+    });
+  }
+
+  private convertInlineContents(
+    inlineContents: MacroInlineContent[],
+    editableZoneRef: MacroEditableZoneRef,
+    key: string,
+  ): JSX.Element[] {
+    return inlineContents.map((inlineContent, i) => {
+      const childKey = `${key}.${i}`;
+
+      return (
+        <React.Fragment key={childKey}>
+          {this.convertInlineContent(inlineContent, editableZoneRef, key)}
+        </React.Fragment>
+      );
+    });
   }
 
   private convertBlock(
     block: MacroBlock,
     editableZoneRef: MacroEditableZoneRef,
+    key: string,
   ): JSX.Element {
     switch (block.type) {
       case "paragraph":
         return (
           <p {...this.convertBlockStyles(block.styles)}>
-            {block.content.map((inline) =>
-              this.convertInlineContent(inline, editableZoneRef),
-            )}
+            {this.convertInlineContents(block.content, editableZoneRef, key)}
           </p>
         );
 
@@ -95,9 +187,7 @@ export class MacrosAstToReactJsxConverter {
 
         return (
           <TagName {...this.convertBlockStyles(block.styles)}>
-            {block.content.map((inline) =>
-              this.convertInlineContent(inline, editableZoneRef),
-            )}
+            {this.convertInlineContents(block.content, editableZoneRef, key)}
           </TagName>
         );
 
@@ -106,25 +196,29 @@ export class MacrosAstToReactJsxConverter {
 
         return (
           <ListTag {...this.convertBlockStyles(block.styles)}>
-            {block.items.map((item) => (
-              <li>
-                {item.checked !== undefined && (
-                  <input type="checkbox" checked={item.checked} readOnly />
-                )}
-                {item.content.map((inline) =>
-                  this.convertInlineContent(inline, editableZoneRef),
-                )}
-              </li>
-            ))}
+            {block.items.map((item, i) => {
+              const childKey = `${key}.${i}`;
+
+              return (
+                <li key={childKey}>
+                  {item.checked !== undefined && (
+                    <input type="checkbox" checked={item.checked} readOnly />
+                  )}
+                  {this.convertInlineContents(
+                    item.content,
+                    editableZoneRef,
+                    childKey,
+                  )}
+                </li>
+              );
+            })}
           </ListTag>
         );
 
       case "quote":
         return (
           <blockquote {...this.convertBlockStyles(block.styles)}>
-            {block.content.map((subBlock) =>
-              this.convertBlock(subBlock, editableZoneRef),
-            )}
+            {this.convertBlocks(block.content, editableZoneRef, key)}
           </blockquote>
         );
 
@@ -136,59 +230,80 @@ export class MacrosAstToReactJsxConverter {
         return (
           <table {...this.convertBlockStyles(block.styles)}>
             <colgroup>
-              {block.columns.map((col) => {
+              {block.columns.map((col, i) => {
                 const attrs: HTMLAttributes<unknown> = {};
 
                 if (col.widthPx) {
                   attrs.style = { width: `${col.widthPx}px` };
                 }
 
-                return <col {...attrs} />;
+                const childKey = `${key}.${i}`;
+
+                return <col key={childKey} {...attrs} />;
               })}
             </colgroup>
 
             {block.columns.find((col) => col.headerCell) && (
               <thead>
                 <tr>
-                  {block.columns.map((col) =>
-                    col.headerCell ? (
-                      <th {...this.convertBlockStyles(col.headerCell.styles)}>
-                        {col.headerCell.content.map((inline) =>
-                          this.convertInlineContent(inline, editableZoneRef),
-                        )}
+                  {block.columns.map((col, i) => {
+                    const childKey = `${key}.${i}`;
+
+                    return (
+                      <th
+                        key={childKey}
+                        {...(col.headerCell
+                          ? this.convertBlockStyles(col.headerCell.styles)
+                          : {})}
+                      >
+                        {col.headerCell &&
+                          this.convertInlineContents(
+                            col.headerCell.content,
+                            editableZoneRef,
+                            key,
+                          )}
                       </th>
-                    ) : (
-                      <th></th>
-                    ),
-                  )}
+                    );
+                  })}
                 </tr>
               </thead>
             )}
 
             <tbody>
-              {block.rows.map((row) => (
-                <tr>
-                  {row.map((cell) => {
-                    const attrs: TdHTMLAttributes<HTMLTableCellElement> = {};
+              {block.rows.map((row, i) => {
+                const rowId = `${key}.${i}`;
 
-                    if (cell.colSpan) {
-                      attrs.colSpan = cell.colSpan;
-                    }
+                return (
+                  <tr key={rowId}>
+                    {row.map((cell, i) => {
+                      const attrs: TdHTMLAttributes<HTMLTableCellElement> = {};
 
-                    if (cell.rowSpan) {
-                      attrs.rowSpan = cell.rowSpan;
-                    }
+                      if (cell.colSpan) {
+                        attrs.colSpan = cell.colSpan;
+                      }
 
-                    return (
-                      <td {...this.convertBlockStyles(cell.styles)}>
-                        {cell.content.map((inline) =>
-                          this.convertInlineContent(inline, editableZoneRef),
-                        )}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
+                      if (cell.rowSpan) {
+                        attrs.rowSpan = cell.rowSpan;
+                      }
+
+                      const childKey = `${rowId}.${i}`;
+
+                      return (
+                        <td
+                          key={childKey}
+                          {...this.convertBlockStyles(cell.styles)}
+                        >
+                          {this.convertInlineContents(
+                            cell.content,
+                            editableZoneRef,
+                            childKey,
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         );
@@ -250,6 +365,7 @@ export class MacrosAstToReactJsxConverter {
   private convertInlineContent(
     inlineContent: MacroInlineContent,
     editableZoneRef: MacroEditableZoneRef,
+    key: string,
   ): JSX.Element {
     switch (inlineContent.type) {
       case "text":
@@ -286,8 +402,10 @@ export class MacrosAstToReactJsxConverter {
       case "link":
         return (
           <a href={this.getTargetUrl(inlineContent.target)}>
-            {inlineContent.content.map((content) =>
-              this.convertInlineContent(content, editableZoneRef),
+            {this.convertInlineContents(
+              inlineContent.content,
+              editableZoneRef,
+              key,
             )}
           </a>
         );
@@ -341,5 +459,3 @@ export class MacrosAstToReactJsxConverter {
     return url;
   }
 }
-
-// TODO: add id to all mapped JSX children

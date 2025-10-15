@@ -39,7 +39,51 @@ export const XWikiBlockHtmlMacro: Macro<UntypedMacroParametersType> =
       },
       render: {
         as: "block",
-        render: ({ html }) => [{ type: "rawHtml", html }],
+        render: ({ html }) => [
+          {
+            type: "table",
+            columns: [
+              {
+                headerCell: undefined,
+                widthPx: 20,
+              },
+              {
+                headerCell: {
+                  content: [
+                    {
+                      type: "text",
+                      styles: {},
+                      content: "Yoh 2",
+                    },
+                  ],
+                  styles: {
+                    backgroundColor: "blue",
+                  },
+                },
+              },
+            ],
+            styles: {
+              backgroundColor: "red",
+            },
+            rows: [
+              [
+                {
+                  content: [
+                    {
+                      type: "text",
+                      styles: { bold: true, underline: true },
+                      content: "Yeah 1-2",
+                    },
+                  ],
+                  colSpan: 2,
+                  styles: {
+                    backgroundColor: "yellow",
+                  },
+                },
+              ],
+            ],
+          },
+        ],
       },
       slashMenu: {
         description: "TODOblock",
