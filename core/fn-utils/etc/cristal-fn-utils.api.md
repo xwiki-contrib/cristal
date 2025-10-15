@@ -17,6 +17,11 @@ export function filterMap<T, U>(array: T[], filterMap: (value: T, index: number)
 export function provideTypeInference<T>(value: T): T;
 
 // @beta
+export type TreeNode<T> = T & {
+    children?: TreeNode<T>[];
+};
+
+// @beta
 export function tryFallible<T>(func: () => T): T | null;
 
 // @beta

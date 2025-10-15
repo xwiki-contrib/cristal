@@ -62,6 +62,7 @@ function updateActivated(newActivatedNode: DisplayableTreeNode) {
 </template>
 
 <style scoped>
+/* Remove the background color from the root div element. */
 .v-list {
   background: none;
 }

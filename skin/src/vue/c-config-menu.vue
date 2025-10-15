@@ -52,13 +52,21 @@ function onConfigClick(configName: string) {
         :disabled="key === cristal.getWikiConfig().name"
         :key="key"
       >
-        {{ wikiConfig.name }}
+        <div>
+          {{ wikiConfig.name }}
+          <i
+            ><small>{{ wikiConfig.designSystem }}</small></i
+          >
+        </div>
+        <div class="url">{{ wikiConfig.baseURL }}</div>
       </x-menu-item>
     </x-menu>
     <a
       :href="
-        cristal.getRouter().resolve({ name: 'admin', params: { page: 'home' } })
-          .href
+        cristal.getRouter().resolve({
+          name: 'admin',
+          params: { page: 'settings.categories.configurations' },
+        }).href
       "
       ><c-icon :size="Size.Small" name="gear"></c-icon
     ></a>
@@ -73,6 +81,15 @@ function onConfigClick(configName: string) {
 .config-container > *:first-child {
   flex-grow: 1;
   cursor: pointer;
+}
+
+.url {
+  font-weight: var(--cr-font-weight-semi-bold);
+  color: var(--cr-color-neutral-500);
+  font-size: var(--cr-font-size-small);
+  overflow-wrap: break-word;
+  line-height: var(--cr-font-size-small);
+  width: 100%;
 }
 
 a {
