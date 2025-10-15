@@ -18,5 +18,4 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-export { XWikiBlockHtmlMacro } from "./blockMacro";
-export { XWikiInlineHtmlMacro } from "./inlineMacro";
+export { ComponentInit } from "./componentInit";

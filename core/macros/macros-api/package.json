@@ -28,7 +28,9 @@
     "typecheck": "tsc"
   },
   "types": "./dist/index.d.ts",
-  "dependencies": {},
+  "dependencies": {
+    "inversify": "catalog:"
+  },
   "devDependencies": {
     "typescript": "5.9.2"
   },

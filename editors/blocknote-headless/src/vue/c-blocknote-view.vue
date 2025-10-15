@@ -25,7 +25,6 @@ import messages from "../translations";
 import { BlockNoteToUniAstConverter } from "../uniast/bn-to-uniast";
 import { UniAstToBlockNoteConverter } from "../uniast/uniast-to-bn";
 import { mountBlockNote } from "@xwiki/cristal-editors-blocknote-react";
-import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { Container } from "inversify";
 import { debounce } from "lodash-es";
 import {
@@ -43,25 +42,41 @@ import type {
   ContextForMacros,
   EditorType,
 } from "@xwiki/cristal-editors-blocknote-react";
-import type { MacrosService } from "@xwiki/cristal-macros-service";
+import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
 import type { UniAst } from "@xwiki/cristal-uniast-api";
 
-const {
-  editorProps,
-  editorContent: uniAst,
-  contextForMacros,
-  collaborationProvider = undefined,
-  container,
-} = defineProps<{
+type Props = {
+  /** Main properties for the BlockNote editor */
   editorProps: Omit<
     BlockNoteViewWrapperProps,
     "content" | "linkEditionCtx" | "macroAstToReactJsxConverter" | "macros"
   >;
-  contextForMacros: ContextForMacros | false;
+
+  /** Set to `false` to disable macros entirely */
+  macros:
+    | {
+        list: MacroWithUnknownShape[];
+        ctx: ContextForMacros;
+      }
+    | false;
+
+  /** Content to initialize the editor with */
   editorContent: UniAst | Error;
+
+  /** Collaboration initialization method */
   collaborationProvider?: () => CollaborationInitializer;
+
+  /** InversifyJS container to inject dependencies from */
   container: Container;
-}>();
+};
+
+const {
+  editorProps,
+  editorContent: uniAst,
+  macros,
+  collaborationProvider = undefined,
+  container,
+} = defineProps<Props>();
 
 const editorRef = shallowRef<EditorType | null>(null);
 
@@ -140,12 +155,7 @@ const initializedEditorProps: Omit<BlockNoteViewWrapperProps, "content"> = {
     notifyChangesDebounced();
   },
   blockNoteOptions: editorProps.blockNoteOptions,
-  macros: contextForMacros
-    ? {
-        list: container.get<MacrosService>(macrosServiceName).list(),
-        ctx: contextForMacros,
-      }
-    : false,
+  macros,
   linkEditionCtx,
   realtime: await getRealtimeOptions(),
   refs: {

@@ -27,7 +27,6 @@ import {
 } from "@xwiki/cristal-collaboration-api";
 import { name as documentServiceName } from "@xwiki/cristal-document-api";
 import { BlocknoteEditor as CBlockNoteView } from "@xwiki/cristal-editors-blocknote-headless";
-import { recommendedMacros } from "@xwiki/cristal-macros-recommended";
 import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
@@ -37,7 +36,6 @@ import {
 import { debounce } from "lodash-es";
 import {
   inject,
-  onBeforeMount,
   onMounted,
   onUnmounted,
   ref,
@@ -120,6 +118,9 @@ const markdownToUniAst = container.get<MarkdownToUniAstConverter>(
 const uniAstToMarkdown = container.get<UniAstToMarkdownConverter>(
   uniAstToMarkdownConverterName,
 );
+
+// Macros service
+const macrosService = container.get<MacrosService>(macrosServiceName);
 
 // Saving status
 const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
@@ -266,14 +267,6 @@ function beforeUnload(evt: BeforeUnloadEvent): string | void {
   }
 }
 
-onBeforeMount(() => {
-  const macrosService = container.get<MacrosService>(macrosServiceName);
-
-  for (const macro of Object.values(recommendedMacros)) {
-    macrosService.register(macro);
-  }
-});
-
 onMounted(() => {
   window.addEventListener("beforeunload", beforeUnload);
 });
@@ -325,7 +318,10 @@ onBeforeRouteLeave(() => {
                 :editor-content
                 :container
                 :collaboration-provider
-                :context-for-macros
+                :macros="{
+                  ctx: contextForMacros,
+                  list: macrosService.list(),
+                }"
                 @instant-change="saveStatus = SaveStatus.UNSAVED"
                 @debounced-change="save"
               />

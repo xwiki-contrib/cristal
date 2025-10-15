@@ -24,7 +24,6 @@ import {
   createReactInlineContentSpec,
 } from "@blocknote/react";
 import { assertUnreachable, objectEntries } from "@xwiki/cristal-fn-utils";
-import { castMacroAsGeneric } from "@xwiki/cristal-macros-api";
 import type {
   CustomBlockConfig,
   CustomInlineContentConfig,
@@ -41,9 +40,8 @@ import type {
   ReactInlineContentImplementation,
 } from "@blocknote/react";
 import type {
-  GetConcreteMacroParametersType,
-  Macro,
-  UntypedMacroParametersType,
+  MacroWithUnknownShape,
+  UnshapedMacroParamsType,
 } from "@xwiki/cristal-macros-api";
 import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 import type { ReactNode } from "react";
@@ -173,7 +171,7 @@ const MACRO_NAME_PREFIX = "Macro_";
  */
 type BlockNoteConcreteMacro = {
   /** Type-erased macro */
-  macro: Macro<UntypedMacroParametersType>;
+  macro: MacroWithUnknownShape;
 
   /** Rendering part */
   bnRendering: // Block macro
@@ -203,9 +201,9 @@ type ContextForMacros = {
    * @param update - Calling this function will replace the existing macro's parameters with the provided ones
    */
   openParamsEditor(
-    macro: Macro<UntypedMacroParametersType>,
-    params: UntypedMacroParametersType,
-    update: (newProps: UntypedMacroParametersType) => void,
+    macro: MacroWithUnknownShape,
+    params: UnshapedMacroParamsType,
+    update: (newProps: UnshapedMacroParamsType) => void,
   ): void;
 };
 
@@ -221,48 +219,48 @@ type ContextForMacros = {
  * @since 0.20
  * @beta
  */
-function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
-  macro: Macro<Parameters>,
+function adaptMacroForBlockNote(
+  macro: MacroWithUnknownShape,
   ctx: ContextForMacros,
   jsxConverter: MacrosAstToReactJsxConverter,
 ): BlockNoteConcreteMacro {
-  const { name, parameters, render, slashMenu } = macro;
+  const { id, name, params, defaultParameters } = macro.infos;
 
   // Compute the macro name
-  const blockNoteName = `${MACRO_NAME_PREFIX}${name}`;
+  const blockNoteName = `${MACRO_NAME_PREFIX}${id}`;
 
   const propSchema: Record<
     string,
     PropSpec<boolean | number | string> & { optional?: true }
   > = {};
 
-  for (const [name, { type }] of objectEntries(parameters)) {
+  for (const [name, { type, optional }] of objectEntries(params)) {
     propSchema[name] = {
       type:
-        type.type === "string"
+        type === "string"
           ? "string"
-          : type.type === "float"
+          : type === "float"
             ? "number"
-            : type.type === "boolean"
+            : type === "boolean"
               ? "boolean"
               : assertUnreachable(type),
-      optional: type.optional,
+      optional,
       default: undefined,
     };
   }
 
   const getSlashMenu = <T,>(opts: (defaultValue: () => unknown) => T) =>
-    slashMenu
+    defaultParameters
       ? {
-          title: slashMenu.description,
+          title: name,
           group: "Macros",
           icon: "M",
           aliases: [],
           ...opts(() => ({
             // TODO: statically type parameters so that the `type` name cannot be used,
             //       as it would be shadowed here otherwise
-            type: `${MACRO_NAME_PREFIX}${name}`,
-            props: slashMenu.defaultParameters,
+            type: `${MACRO_NAME_PREFIX}${id}`,
+            props: defaultParameters,
           })),
         }
       : false;
@@ -275,17 +273,15 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
   ) => {
     const openParamsEditor = () =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ctx.openParamsEditor(castMacroAsGeneric(macro), props, update as any);
-
-    const params = props as GetConcreteMacroParametersType<Parameters>;
+      ctx.openParamsEditor(macro, props, update as any);
 
     const renderedJsx =
-      render.as === "block"
-        ? jsxConverter.blocksToReactJSX(render.render(params), {
+      macro.renderAs === "block"
+        ? jsxConverter.blocksToReactJSX(macro.render(props), {
             type: "block",
             ref: contentRef,
           })
-        : jsxConverter.inlineContentsToReactJSX(render.render(params), {
+        : jsxConverter.inlineContentsToReactJSX(macro.render(props), {
             type: "inline",
             ref: contentRef,
           });
@@ -295,7 +291,7 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
       return <strong>Failed to render macro: {renderedJsx.message}</strong>;
     }
 
-    return render.as === "block" ? (
+    return macro.renderAs === "block" ? (
       <div style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
         {renderedJsx}
       </div>
@@ -309,7 +305,7 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
   // Block and inline macros are defined pretty differently, so a bit of logic was computed ahead of time
   // to share it between the two definitions here.
   const bnRendering: BlockNoteConcreteMacro["bnRendering"] =
-    macro.render.as === "block"
+    macro.renderAs === "block"
       ? {
           type: "block",
           block: createCustomBlockSpec({
@@ -366,7 +362,7 @@ function adaptMacroForBlockNote<Parameters extends UntypedMacroParametersType>(
           }),
         };
 
-  return { macro: castMacroAsGeneric(macro), bnRendering };
+  return { macro, bnRendering };
 }
 
 export { MACRO_NAME_PREFIX, adaptMacroForBlockNote, createCustomBlockSpec };

@@ -17,42 +17,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { castMacroAsGeneric } from "@xwiki/cristal-macros-api";
-import { injectable } from "inversify";
+
+import { injectable, multiInject } from "inversify";
 import type { MacrosService } from "./macros-service";
-import type {
-  Macro,
-  UntypedMacroParametersType,
-} from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
 
 @injectable()
 export class DefaultMacrosService implements MacrosService {
-  private readonly registry = new Map<
-    string,
-    Macro<UntypedMacroParametersType>
-  >();
+  private readonly macrosById: Map<string, MacroWithUnknownShape>;
 
-  register<Params extends UntypedMacroParametersType>(
-    macro: Macro<Params>,
-  ): void {
-    const existing = this.registry.get(macro.name);
-
-    if (existing) {
-      if (existing !== macro) {
-        throw new Error(
-          `Cannot register duplicate macro with name "${macro.name}"`,
-        );
-      }
-    } else {
-      this.registry.set(macro.name, castMacroAsGeneric(macro));
-    }
+  constructor(
+    @multiInject("Macro")
+    private readonly macros: MacroWithUnknownShape[],
+  ) {
+    this.macrosById = new Map(macros.map((macro) => [macro.infos.id, macro]));
   }
 
-  list(): Macro<UntypedMacroParametersType>[] {
-    return [...this.registry.values()];
+  list(): MacroWithUnknownShape[] {
+    return [...this.macros];
   }
 
-  get(name: string): Macro<UntypedMacroParametersType> | null {
-    return this.registry.get(name) ?? null;
+  get(name: string): MacroWithUnknownShape | null {
+    return this.macrosById.get(name) ?? null;
   }
 }

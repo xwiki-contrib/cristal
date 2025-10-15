@@ -17,30 +17,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { buildMacro, castMacroAsGeneric } from "@xwiki/cristal-macros-api";
-import type {
-  Macro,
-  UntypedMacroParametersType,
-} from "@xwiki/cristal-macros-api";
 
-export const XWikiInlineHtmlMacro: Macro<UntypedMacroParametersType> =
-  castMacroAsGeneric(
-    buildMacro({
-      name: "xwikiInlineHtml",
-      parameters: {
-        html: {
-          type: { type: "string" },
-          description: "Rendered HTML of an XWiki macro",
-        },
-        metadata: {
-          type: { type: "string" },
-          description: "Raw metadata string for an XWiki macro",
-        },
-      },
-      render: {
-        as: "inline",
-        render: ({ html }) => [{ type: "rawHtml", html }],
-      },
-      slashMenu: false,
-    }),
-  );
+import { XWikiHtmlBlockMacro } from "./macros/blockMacro";
+import { XWikiInlineHtmlMacro } from "./macros/inlineMacro";
+import { unshapeMacroClass } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
+import type { Container } from "inversify";
+
+/**
+ * @beta
+ */
+export class ComponentInit {
+  constructor(container: Container) {
+    container
+      .bind<MacroWithUnknownShape>("Macro")
+      .to(unshapeMacroClass(XWikiHtmlBlockMacro))
+      .whenNamed("xwiki-html-block-macro");
+
+    container
+      .bind<MacroWithUnknownShape>("Macro")
+      .to(unshapeMacroClass(XWikiInlineHtmlMacro))
+      .whenNamed("xwiki-inline-html-macro");
+  }
+}

@@ -21,12 +21,88 @@
 import type { MacroBlock, MacroInlineContent } from "./ast";
 
 /**
- * Untyped macro parameters
+ * Informations about a macro
  *
  * @since 0.23
  * @beta
  */
-type UntypedMacroParametersType = Record<string, MacroParameterType>;
+interface MacroInfos<Parameters extends Record<string, MacroParameterType>> {
+  /** ID of the macro: only lowercase letters, uppercase letters, digits and underscores allowed */
+  id: string;
+
+  /** Name of the macro (to show in menus) */
+  name: string;
+
+  /** Description of the macro */
+  // TODO: translations
+  description: string;
+
+  /** Macro's parameters */
+  params: Parameters;
+
+  /** Description of the macro's parameters */
+  // TODO: translation
+  paramsDescription: { [P in keyof Parameters]: string };
+
+  /**
+   * Default parameters for the macro
+   *
+   * If `false` is provided, the macro will be hidden
+   */
+  defaultParameters:
+    | FilterUndefined<GetConcreteMacroParametersType<Parameters>>
+    | false;
+}
+
+/**
+ * Description of a block macro
+ *
+ * @since 0.23
+ * @beta
+ */
+interface BlockMacro<Parameters extends Record<string, MacroParameterType>> {
+  /** Macro informations */
+  infos: MacroInfos<Parameters>;
+
+  /** Indicator that the macro renders as a block */
+  renderAs: "block";
+
+  /**
+   * Render function
+   *
+   * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
+   * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
+   *
+   * @returns The AST to render the macro as
+   */
+  render(params: GetConcreteMacroParametersType<Parameters>): MacroBlock[];
+}
+
+/**
+ * Description of an inline macro
+ *
+ * @since 0.23
+ * @beta
+ */
+interface InlineMacro<Parameters extends Record<string, MacroParameterType>> {
+  /** Macro informations */
+  infos: MacroInfos<Parameters>;
+
+  /** Indicator that the macro renders as an inline content */
+  renderAs: "inline";
+
+  /**
+   * Render function
+   *
+   * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
+   * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
+   *
+   * @returns The AST to render the macro as
+   */
+  render(
+    params: GetConcreteMacroParametersType<Parameters>,
+  ): MacroInlineContent[];
+}
 
 /**
  * Description of a macro
@@ -34,74 +110,29 @@ type UntypedMacroParametersType = Record<string, MacroParameterType>;
  * @since 0.23
  * @beta
  */
-type Macro<Parameters extends Record<string, MacroParameterType>> = {
-  /** Name of the macro */
-  name: string;
-
-  /** Description of the macro's parameters */
-  parameters: { [P in keyof Parameters]: MacroParameter<Parameters[P]> };
-
-  /** Show an entry in the slash menu */
-  slashMenu:
-    | {
-        /** The macro's description */
-        description: string;
-
-        /**
-         * Default value of every required parameter
-         *
-         * Optional parameters will be omitted from the default object
-         */
-        defaultParameters: FilterUndefined<
-          GetConcreteMacroParametersType<Parameters>
-        >;
-      }
-    | false;
-
-  /**
-   * Rendering options
-   */
-  render:
-    | {
-        /**
-         * Render the macro as a block (same level as paragraphs, headings, etc.)
-         */
-        as: "block";
-
-        /**
-         * Render function
-         *
-         * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
-         * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
-         *
-         * @returns The AST to render the macro as
-         */
-        render(
-          params: GetConcreteMacroParametersType<Parameters>,
-        ): MacroBlock[];
-      }
-    | {
-        /**
-         * Render the macro as an inline content (same level as paragraphs' content)
-         */
-        as: "inline";
-
-        /**
-         * Render function
-         *
-         * @param params - The macro's parameters ; optional fields may be absent or equal to `undefined`
-         * @param openParamsEditor - Request the opening of an UI to edit the macro's parameters (e.g. a modal)
-         *
-         * @returns The AST to render the macro as
-         */
-        render(
-          params: GetConcreteMacroParametersType<Parameters>,
-        ): MacroInlineContent[];
-      };
-};
+type Macro<Parameters extends Record<string, MacroParameterType>> =
+  | BlockMacro<Parameters>
+  | InlineMacro<Parameters>;
 
 /**
- * Description of a macro type
+ * Description of a macro with an unknown parameters shape
+ *
+ * @since 0.23
+ * @beta
+ */
+type MacroWithUnknownShape = Macro<Record<string, MacroParameterType>>;
+
+/**
+ * Description of an instanciable macro with an unknown parameters shape
+ *
+ * @since 0.23
+ * @beta
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type MacroClassWithUnknownShape = new (...args: any[]) => MacroWithUnknownShape;
+
+/**
+ * Description of a macro parameter
  *
  * @since 0.23
  * @beta
@@ -121,6 +152,13 @@ type MacroParameterType = (
 ) & {
   // Make the parameter optional
   optional?: true;
+};
+
+/**
+ * Internal utility type to remove values that may be assigned `undefined` from a record
+ * */
+type FilterUndefined<T> = {
+  [K in keyof T as undefined extends T[K] ? never : K]: T[K];
 };
 
 /**
@@ -151,61 +189,48 @@ type UndefinableToOptional<T> = {
  *
  * Parameters defined as optional are both optional in the output record and can be assigned `undefined`
  */
-type GetConcreteMacroParametersType<T extends UntypedMacroParametersType> =
-  UndefinableToOptional<{
-    [Param in keyof T]: GetConcreteMacroParameterType<T[Param]>;
-  }>;
+type GetConcreteMacroParametersType<
+  T extends Record<string, MacroParameterType>,
+> = UndefinableToOptional<{
+  [Param in keyof T]: GetConcreteMacroParameterType<T[Param]>;
+}>;
 
 /**
- * Internal utility type to remove values that may be assigned `undefined` from a record
- * */
-type FilterUndefined<T> = {
-  [K in keyof T as undefined extends T[K] ? never : K]: T[K];
-};
-
-/**
- * Build a macro, simple handler to ensure type consistency
- *
- * @param macro - The macro to build
- *
- * @returns - The built macro
+ * Generic type for a macro's unshaped parameters
  *
  * @since 0.23
  * @beta
  */
-function buildMacro<Params extends UntypedMacroParametersType>(
-  macro: Macro<Params>,
-): Macro<Params> {
-  return macro;
-}
+type UnshapedMacroParamsType = Record<string, boolean | number | string>;
 
 /**
- * Erase a macro's parameters type to make it generic
+ * Cast a macro class to an unknown-shape macro class
  *
- * @param macro - The macro to type-erase
+ * @param macro - The macro class to cast
  *
- * @returns - The same object, with parameters type erased
- *
- * @since 0.23
- * @beta
+ * @returns - The same macro class, without its parameters shape
  */
-function castMacroAsGeneric<Params extends UntypedMacroParametersType>(
-  macro: Macro<Params>,
-): Macro<UntypedMacroParametersType> {
-  return macro as Macro<UntypedMacroParametersType>;
+export function unshapeMacroClass<
+  Params extends Record<string, MacroParameterType>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+>(macro: new (...args: any[]) => Macro<Params>): MacroClassWithUnknownShape {
+  return macro as MacroClassWithUnknownShape;
 }
 
 export type {
+  BlockMacro,
   FilterUndefined,
   GetConcreteMacroParameterType,
   GetConcreteMacroParametersType,
+  InlineMacro,
   Macro,
+  MacroClassWithUnknownShape,
+  MacroInfos,
   MacroParameter,
   MacroParameterType,
+  MacroWithUnknownShape,
   UndefinableToOptional,
-  UntypedMacroParametersType,
+  UnshapedMacroParamsType,
 };
-
-export { buildMacro, castMacroAsGeneric };
 
 export type * from "./ast";

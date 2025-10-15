@@ -18,10 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type {
-  Macro,
-  UntypedMacroParametersType,
-} from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
 
 /**
  * Service handling the registration and delivery of macros
@@ -31,30 +28,18 @@ import type {
  */
 export interface MacrosService {
   /**
-   * Register a macro
-   *
-   * - Throws if a different macro with the same name already exists
-   * - Ignores silently if a macro exists with the exact same object identity (`===` equality)
-   *
-   * @param macro - The macro to register
-   */
-  register<Params extends UntypedMacroParametersType>(
-    macro: Macro<Params>,
-  ): void;
-
-  /**
    * List all registered macros
    *
    * @returns - All registered macros
    */
-  list(): Macro<UntypedMacroParametersType>[];
+  list(): MacroWithUnknownShape[];
 
   /**
-   * Get a macro by its name
+   * Get a macro by its ID
    *
-   * @param name - The macro's name
+   * @param id - The macro's ID
    *
-   * @returns - The registered macro with the provided name
+   * @returns - The registered macro with the provided ID
    */
-  get(name: string): Macro<UntypedMacroParametersType> | null;
+  get(id: string): MacroWithUnknownShape | null;
 }

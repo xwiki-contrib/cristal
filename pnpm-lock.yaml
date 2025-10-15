@@ -2280,6 +2280,10 @@ importers:
         version: 7.1.9(@types/node@24.1.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
 
   core/macros/macros-api:
+    dependencies:
+      inversify:
+        specifier: 'catalog:'
+        version: 7.10.2(reflect-metadata@0.2.2)
     devDependencies:
       typescript:
         specifier: 5.9.2
@@ -2315,16 +2319,6 @@ importers:
       vitest-mock-extended:
         specifier: 3.1.0
         version: 3.1.0(typescript@5.9.2)(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.1.0)(happy-dom@19.0.2)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
-
-  core/macros/macros-recommended:
-    dependencies:
-      '@xwiki/cristal-xwiki-macros':
-        specifier: workspace:*
-        version: link:../../xwiki/xwiki-macros
-    devDependencies:
-      typescript:
-        specifier: 5.9.2
-        version: 5.9.2
 
   core/macros/macros-service:
     dependencies:
@@ -3638,10 +3632,10 @@ importers:
       '@xwiki/cristal-macros-api':
         specifier: workspace:*
         version: link:../../macros/macros-api
-      inversify:
-        specifier: 7.x
-        version: 7.10.1(reflect-metadata@0.2.2)
     devDependencies:
+      inversify:
+        specifier: 'catalog:'
+        version: 7.10.2(reflect-metadata@0.2.2)
       typescript:
         specifier: 5.9.2
         version: 5.9.2
@@ -3862,9 +3856,6 @@ importers:
       '@xwiki/cristal-icons':
         specifier: workspace:*
         version: link:../../core/icons
-      '@xwiki/cristal-macros-recommended':
-        specifier: workspace:*
-        version: link:../../core/macros/macros-recommended
       '@xwiki/cristal-macros-service':
         specifier: workspace:*
         version: link:../../core/macros/macros-service
@@ -3953,9 +3944,9 @@ importers:
       '@xwiki/cristal-link-suggest-api':
         specifier: workspace:*
         version: link:../../core/link-suggest/link-suggest-api
-      '@xwiki/cristal-macros-service':
+      '@xwiki/cristal-macros-api':
         specifier: workspace:*
-        version: link:../../core/macros/macros-service
+        version: link:../../core/macros/macros-api
       '@xwiki/cristal-model-api':
         specifier: workspace:*
         version: link:../../core/model/model-api
@@ -4939,6 +4930,9 @@ importers:
       '@xwiki/cristal-wiki-config-default':
         specifier: workspace:*
         version: link:../core/wiki-config/wiki-config-default
+      '@xwiki/cristal-xwiki-macros':
+        specifier: workspace:*
+        version: link:../core/xwiki/xwiki-macros
       pinia:
         specifier: 'catalog:'
         version: 3.0.2(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))

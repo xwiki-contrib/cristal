@@ -64,7 +64,10 @@ function createBlockNoteSchema(macros: BlockNoteConcreteMacro[]) {
       ...Object.fromEntries(
         filterMap(macros, ({ macro, bnRendering }) =>
           bnRendering.type === "block"
-            ? [`${MACRO_NAME_PREFIX}${macro.name}`, bnRendering.block.block]
+            ? [
+                `${MACRO_NAME_PREFIX}${macro.infos.name}`,
+                bnRendering.block.block,
+              ]
             : null,
         ),
       ),
@@ -78,7 +81,7 @@ function createBlockNoteSchema(macros: BlockNoteConcreteMacro[]) {
         filterMap(macros, ({ macro, bnRendering }) =>
           bnRendering.type === "inline"
             ? [
-                `${MACRO_NAME_PREFIX}${macro.name}`,
+                `${MACRO_NAME_PREFIX}${macro.infos.name}`,
                 bnRendering.inlineContent.inlineContent,
               ]
             : null,
