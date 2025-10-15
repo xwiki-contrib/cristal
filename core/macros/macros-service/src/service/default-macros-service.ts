@@ -34,7 +34,8 @@ export class DefaultMacrosService implements MacrosService {
   }
 
   list(): MacroWithUnknownShape[] {
-    return [...this.macros];
+    // Clone the array to prevent modifications
+    return this.macros.slice();
   }
 
   get(name: string): MacroWithUnknownShape | null {
