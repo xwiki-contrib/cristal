@@ -276,7 +276,8 @@ export class MacrosAstToReactJsxConverter {
                 return (
                   <tr key={rowId}>
                     {row.map((cell, i) => {
-                      const attrs: TdHTMLAttributes<HTMLTableCellElement> = {};
+                      const attrs: TdHTMLAttributes<HTMLTableCellElement> =
+                        this.convertBlockStyles(cell.styles);
 
                       if (cell.colSpan) {
                         attrs.colSpan = cell.colSpan;
@@ -289,10 +290,7 @@ export class MacrosAstToReactJsxConverter {
                       const childKey = `${rowId}.${i}`;
 
                       return (
-                        <td
-                          key={childKey}
-                          {...this.convertBlockStyles(cell.styles)}
-                        >
+                        <td key={childKey} {...attrs}>
                           {this.convertInlineContents(
                             cell.content,
                             editableZoneRef,

@@ -31,12 +31,10 @@ export class ComponentInit {
   constructor(container: Container) {
     container
       .bind<MacroWithUnknownShape>("Macro")
-      .to(unshapeMacroClass(XWikiHtmlBlockMacro))
-      .whenNamed("xwiki-html-block-macro");
+      .to(unshapeMacroClass(XWikiHtmlBlockMacro));
 
     container
       .bind<MacroWithUnknownShape>("Macro")
-      .to(unshapeMacroClass(XWikiInlineHtmlMacro))
-      .whenNamed("xwiki-inline-html-macro");
+      .to(unshapeMacroClass(XWikiInlineHtmlMacro));
   }
 }
