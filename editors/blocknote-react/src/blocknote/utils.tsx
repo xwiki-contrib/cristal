@@ -40,7 +40,7 @@ import type {
   ReactInlineContentImplementation,
 } from "@blocknote/react";
 import type {
-  MacroWithUnknownShape,
+  MacroWithUnknownParamsType,
   UnshapedMacroParamsType,
 } from "@xwiki/cristal-macros-api";
 import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
@@ -171,7 +171,7 @@ const MACRO_NAME_PREFIX = "Macro_";
  */
 type BlockNoteConcreteMacro = {
   /** Type-erased macro */
-  macro: MacroWithUnknownShape;
+  macro: MacroWithUnknownParamsType;
 
   /** Rendering part */
   bnRendering: // Block macro
@@ -201,7 +201,7 @@ type ContextForMacros = {
    * @param update - Calling this function will replace the existing macro's parameters with the provided ones
    */
   openParamsEditor(
-    macro: MacroWithUnknownShape,
+    macro: MacroWithUnknownParamsType,
     params: UnshapedMacroParamsType,
     update: (newProps: UnshapedMacroParamsType) => void,
   ): void;
@@ -220,7 +220,7 @@ type ContextForMacros = {
  * @beta
  */
 function adaptMacroForBlockNote(
-  macro: MacroWithUnknownShape,
+  macro: MacroWithUnknownParamsType,
   ctx: ContextForMacros,
   jsxConverter: MacrosAstToReactJsxConverter,
 ): BlockNoteConcreteMacro {

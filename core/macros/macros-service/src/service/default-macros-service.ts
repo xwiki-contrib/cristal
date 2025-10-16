@@ -20,25 +20,25 @@
 
 import { injectable, multiInject } from "inversify";
 import type { MacrosService } from "./macros-service";
-import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
 
 @injectable()
 export class DefaultMacrosService implements MacrosService {
-  private readonly macrosById: Map<string, MacroWithUnknownShape>;
+  private readonly macrosById: Map<string, MacroWithUnknownParamsType>;
 
   constructor(
     @multiInject("Macro")
-    private readonly macros: MacroWithUnknownShape[],
+    private readonly macros: MacroWithUnknownParamsType[],
   ) {
     this.macrosById = new Map(macros.map((macro) => [macro.infos.id, macro]));
   }
 
-  list(): MacroWithUnknownShape[] {
+  list(): MacroWithUnknownParamsType[] {
     // Clone the array to prevent modifications
     return this.macros.slice();
   }
 
-  get(name: string): MacroWithUnknownShape | null {
+  get(name: string): MacroWithUnknownParamsType | null {
     return this.macrosById.get(name) ?? null;
   }
 }

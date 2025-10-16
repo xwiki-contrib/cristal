@@ -42,7 +42,7 @@ import type {
   ContextForMacros,
   EditorType,
 } from "@xwiki/cristal-editors-blocknote-react";
-import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
 import type { UniAst } from "@xwiki/cristal-uniast-api";
 
 type Props = {
@@ -55,7 +55,7 @@ type Props = {
   /** Set to `false` to disable macros entirely */
   macros:
     | {
-        list: MacroWithUnknownShape[];
+        list: MacroWithUnknownParamsType[];
         ctx: ContextForMacros;
       }
     | false;

@@ -57,7 +57,7 @@ import type {
 import type { LinkEditionContext } from "../misc/linkSuggest";
 import type { BlockNoteEditorOptions } from "@blocknote/core";
 import type { CollaborationInitializer } from "@xwiki/cristal-collaboration-api";
-import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
 
 type DefaultEditorOptionsType = BlockNoteEditorOptions<
   EditorBlockSchema,
@@ -105,7 +105,7 @@ type BlockNoteViewWrapperProps = {
         /**
          * List of buildable macros
          */
-        list: MacroWithUnknownShape[];
+        list: MacroWithUnknownParamsType[];
 
         /**
          * Context for macros

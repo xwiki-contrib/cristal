@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
 
 /**
  * Service handling the registration and delivery of macros
@@ -32,7 +32,7 @@ export interface MacrosService {
    *
    * @returns - All registered macros
    */
-  list(): MacroWithUnknownShape[];
+  list(): MacroWithUnknownParamsType[];
 
   /**
    * Get a macro by its ID
@@ -41,5 +41,5 @@ export interface MacrosService {
    *
    * @returns - The registered macro with the provided ID
    */
-  get(id: string): MacroWithUnknownShape | null;
+  get(id: string): MacroWithUnknownParamsType | null;
 }

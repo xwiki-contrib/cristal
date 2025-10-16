@@ -20,8 +20,8 @@
 
 import { XWikiHtmlBlockMacro } from "./macros/blockMacro";
 import { XWikiInlineHtmlMacro } from "./macros/inlineMacro";
-import { unshapeMacroClass } from "@xwiki/cristal-macros-api";
-import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
+import { eraseParamsTypeForMacroClass } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
 import type { Container } from "inversify";
 
 /**
@@ -31,11 +31,11 @@ import type { Container } from "inversify";
 export class ComponentInit {
   constructor(container: Container) {
     container
-      .bind<MacroWithUnknownShape>("Macro")
-      .to(unshapeMacroClass(XWikiHtmlBlockMacro));
+      .bind<MacroWithUnknownParamsType>("Macro")
+      .to(eraseParamsTypeForMacroClass(XWikiHtmlBlockMacro));
 
     container
-      .bind<MacroWithUnknownShape>("Macro")
-      .to(unshapeMacroClass(XWikiInlineHtmlMacro));
+      .bind<MacroWithUnknownParamsType>("Macro")
+      .to(eraseParamsTypeForMacroClass(XWikiInlineHtmlMacro));
   }
 }

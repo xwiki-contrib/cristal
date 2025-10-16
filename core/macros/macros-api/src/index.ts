@@ -120,7 +120,7 @@ type Macro<Parameters extends Record<string, MacroParameterType>> =
  * @since 0.23
  * @beta
  */
-type MacroWithUnknownShape = Macro<Record<string, MacroParameterType>>;
+type MacroWithUnknownParamsType = Macro<Record<string, MacroParameterType>>;
 
 /**
  * Description of an instanciable macro with an unknown parameters shape
@@ -129,7 +129,9 @@ type MacroWithUnknownShape = Macro<Record<string, MacroParameterType>>;
  * @beta
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MacroClassWithUnknownShape = new (...args: any[]) => MacroWithUnknownShape;
+type MacroClassWithUnknownParamsType = new (
+  ...args: any[]
+) => MacroWithUnknownParamsType;
 
 /**
  * Description of a macro parameter's type
@@ -214,11 +216,13 @@ type UnshapedMacroParamsType = Record<string, boolean | number | string>;
  * @since 0.23
  * @beta
  */
-export function unshapeMacroClass<
+export function eraseParamsTypeForMacroClass<
   Params extends Record<string, MacroParameterType>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
->(macro: new (...args: any[]) => Macro<Params>): MacroClassWithUnknownShape {
-  return macro as MacroClassWithUnknownShape;
+>(
+  macro: new (...args: any[]) => Macro<Params>,
+): MacroClassWithUnknownParamsType {
+  return macro as MacroClassWithUnknownParamsType;
 }
 
 export type {
@@ -227,10 +231,10 @@ export type {
   GetConcreteMacroParametersType,
   InlineMacro,
   Macro,
-  MacroClassWithUnknownShape,
+  MacroClassWithUnknownParamsType,
   MacroInfos,
   MacroParameterType,
-  MacroWithUnknownShape,
+  MacroWithUnknownParamsType,
   UnshapedMacroParamsType,
 };
 
