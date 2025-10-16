@@ -104,6 +104,9 @@ type BlockNoteViewWrapperProps = {
     | {
         /**
          * List of buildable macros
+         *
+         * @since 0.23
+         * @beta
          */
         list: MacroWithUnknownParamsType[];
 
