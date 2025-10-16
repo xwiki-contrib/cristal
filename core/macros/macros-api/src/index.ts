@@ -132,19 +132,6 @@ type MacroWithUnknownShape = Macro<Record<string, MacroParameterType>>;
 type MacroClassWithUnknownShape = new (...args: any[]) => MacroWithUnknownShape;
 
 /**
- * Description of a macro parameter
- *
- * @since 0.23
- * @beta
- */
-type MacroParameter<T extends MacroParameterType> = {
-  // Type of the parameter
-  type: T;
-  // Description of the parameter (TODO: translations)
-  description: string;
-};
-
-/**
  * Description of a macro parameter's type
  *
  * The final TypeScript type will be derived through `GetConcreteMacroParameterType`
@@ -242,7 +229,6 @@ export type {
   Macro,
   MacroClassWithUnknownShape,
   MacroInfos,
-  MacroParameter,
   MacroParameterType,
   MacroWithUnknownShape,
   UnshapedMacroParamsType,
