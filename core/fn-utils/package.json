@@ -25,8 +25,7 @@
     "build": "vite build",
     "clean": "rimraf dist",
     "lint": "eslint \"./src/**/*.{ts,tsx,vue}\" --max-warnings=0",
-    "test": "vitest --run",
-    "typecheck": "tsc"
+    "test": "vitest --run"
   },
   "types": "./dist/index.d.ts",
   "dependencies": {},
