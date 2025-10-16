@@ -127,7 +127,7 @@ const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
 
 // Context for macros
 const contextForMacros: ContextForMacros = {
-  openParamsEditor(macro, params, update) {
+  openParamsEditor(/*macro, params, update*/) {
     alert("TODO: params editor for macros in Cristal");
   },
 };
