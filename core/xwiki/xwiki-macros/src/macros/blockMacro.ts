@@ -21,6 +21,7 @@
 import { injectable } from "inversify";
 import type {
   BlockMacro,
+  GetConcreteMacroParametersType,
   MacroBlock,
   MacroInfos,
 } from "@xwiki/cristal-macros-api";
@@ -43,61 +44,12 @@ export class XWikiHtmlBlockMacro implements BlockMacro<MacroParams> {
       html: "Server-rendered HTML content",
       metadata: "Metadata used to generate the XWiki macro",
     },
-    defaultParameters: {
-      html: "<strong>SALUT</strong>",
-      metadata: "yoh",
-    },
+    defaultParameters: false,
   };
 
   renderAs = "block" as const;
 
-  render(): MacroBlock[] {
-    // return [{ type: "rawHtml", html }];
-
-    return [
-      {
-        type: "table",
-        columns: [
-          {
-            headerCell: undefined,
-            widthPx: 20,
-          },
-          {
-            headerCell: {
-              content: [
-                {
-                  type: "text",
-                  styles: {},
-                  content: "Yoh 2",
-                },
-              ],
-              styles: {
-                backgroundColor: "blue",
-              },
-            },
-          },
-        ],
-        styles: {
-          backgroundColor: "red",
-        },
-        rows: [
-          [
-            {
-              content: [
-                {
-                  type: "text",
-                  styles: { bold: true, underline: true },
-                  content: "Yeah 1-2",
-                },
-              ],
-              colSpan: 2,
-              styles: {
-                backgroundColor: "yellow",
-              },
-            },
-          ],
-        ],
-      },
-    ];
+  render({ html }: GetConcreteMacroParametersType<MacroParams>): MacroBlock[] {
+    return [{ type: "rawHtml", html }];
   }
 }
