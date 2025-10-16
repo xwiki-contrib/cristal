@@ -25,6 +25,7 @@ import type { MacroWithUnknownShape } from "@xwiki/cristal-macros-api";
 import type { Container } from "inversify";
 
 /**
+ * @since 0.23
  * @beta
  */
 export class ComponentInit {

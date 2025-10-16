@@ -327,6 +327,7 @@ function adaptMacroForBlockNote(
               default: () => getDefaultValue() as any,
             })),
             // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
+            // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-708
             customToolbar: null,
           }),
         }
@@ -358,6 +359,7 @@ function adaptMacroForBlockNote(
               ],
             })),
             // TODO: allow macros to define their own toolbar, using a set of provided UI components (buttons, ...)
+            // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-708
             customToolbar: null,
           }),
         };
