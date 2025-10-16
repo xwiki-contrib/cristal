@@ -148,12 +148,6 @@ export type MacroListItem = {
 };
 
 // @beta
-export type MacroParameter<T extends MacroParameterType> = {
-    type: T;
-    description: string;
-};
-
-// @beta
 export type MacroParameterType = ({
     type: "boolean";
 } | {
