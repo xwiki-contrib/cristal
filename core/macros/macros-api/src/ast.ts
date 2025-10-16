@@ -19,6 +19,8 @@
  */
 
 /**
+ * Block returned by a macro
+ *
  * @since 0.23
  * @beta
  */
@@ -60,6 +62,8 @@ type MacroBlock =
   | { type: "macroBlockEditableArea" };
 
 /**
+ * Styles for a `MacroBlock`
+ *
  * @since 0.23
  * @beta
  */
@@ -73,12 +77,16 @@ type MacroBlockStyles = {
 };
 
 /**
+ * Alignment for an item
+ *
  * @since 0.23
  * @beta
  */
 type MacroAlignment = "left" | "center" | "right" | "justify";
 
 /**
+ * Item that's part of a `MacroBlock` list
+ *
  * @since 0.23
  * @beta
  */
@@ -89,6 +97,8 @@ type MacroListItem = {
 };
 
 /**
+ * Image returned by a macro
+ *
  * @since 0.23
  * @beta
  */
@@ -100,6 +110,8 @@ type MacroImage = {
 };
 
 /**
+ * Link returned by a macro
+ *
  * @since 0.23
  * @beta
  */
@@ -109,6 +121,8 @@ type MacroLink = {
 };
 
 /**
+ * Column that's part of a `MacroBlock` table
+ *
  * @since 0.23
  * @beta
  */
@@ -121,6 +135,8 @@ type MacroTableColumn = {
 };
 
 /**
+ * Cell that's part of a `MacroBlock` table
+ *
  * @since 0.23
  * @beta
  */
@@ -132,6 +148,8 @@ type MacroTableCell = {
 };
 
 /**
+ * Inline content returned by a macro
+ *
  * @since 0.23
  * @beta
  */
@@ -147,6 +165,8 @@ type MacroInlineContent =
   | { type: "inlineMacroEditableArea" };
 
 /**
+ * Text that's part of a `MacroInlineContent`
+ *
  * @since 0.23
  * @beta
  */
@@ -156,6 +176,8 @@ type MacroText = {
 };
 
 /**
+ * Styles for a `MacroText`
+ *
  * @since 0.23
  * @beta
  */
@@ -170,6 +192,8 @@ type MacroTextStyles = {
 };
 
 /**
+ * Link target returned by a macro
+ *
  * @since 0.23
  * @beta
  */

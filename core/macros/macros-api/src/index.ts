@@ -21,7 +21,7 @@
 import type { MacroBlock, MacroInlineContent } from "./ast";
 
 /**
- * Informations about a macro
+ * Information about a macro.
  *
  * @since 0.23
  * @beta
@@ -34,14 +34,14 @@ interface MacroInfos<Parameters extends Record<string, MacroParameterType>> {
   name: string;
 
   /** Description of the macro */
-  // TODO: translations
+  // TODO: translations [https://jira.xwiki.org/browse/CRISTAL-707]
   description: string;
 
   /** Macro's parameters */
   params: Parameters;
 
   /** Description of the macro's parameters */
-  // TODO: translation
+  // TODO: translations [https://jira.xwiki.org/browse/CRISTAL-707]
   paramsDescription: { [P in keyof Parameters]: string };
 
   /**
@@ -234,4 +234,17 @@ export type {
   UnshapedMacroParamsType,
 };
 
-export type * from "./ast";
+export type {
+  MacroAlignment,
+  MacroBlock,
+  MacroBlockStyles,
+  MacroImage,
+  MacroInlineContent,
+  MacroLink,
+  MacroLinkTarget,
+  MacroListItem,
+  MacroTableCell,
+  MacroTableColumn,
+  MacroText,
+  MacroTextStyles,
+} from "./ast";
