@@ -129,6 +129,7 @@ type MacroWithUnknownParamsType = Macro<Record<string, MacroParameterType>>;
  */
 
 type MacroClassWithUnknownParamsType = new (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...args: any[]
 ) => MacroWithUnknownParamsType;
 
@@ -152,7 +153,10 @@ type MacroParameterType = (
 
 /**
  * Internal utility type to remove values that may be assigned `undefined` from a record
- * */
+ *
+ * @since 0.23
+ * @beta
+ */
 type FilterUndefined<T> = {
   [K in keyof T as undefined extends T[K] ? never : K]: T[K];
 };
@@ -175,7 +179,10 @@ type GetConcreteMacroParameterType<T extends MacroParameterType> =
 
 /**
  * Internal utility type making all properties that may be assigned `undefined` optional in a record
- * */
+ *
+ * @since 0.23
+ * @beta
+ */
 type UndefinableToOptional<T> = {
   [K in keyof T as undefined extends T[K] ? K : never]?: Exclude<
     T[K],
