@@ -21,6 +21,7 @@ import { InlineContentSchemaFromSpecs } from '@blocknote/core';
 import { Link } from '@blocknote/core';
 import { LinkSuggestService } from '@xwiki/cristal-link-suggest-api';
 import * as locales from '@blocknote/core/locales';
+import { MacroWithUnknownShape } from '@xwiki/cristal-macros-api';
 import { ModelReferenceHandler } from '@xwiki/cristal-model-reference-api';
 import { ModelReferenceParser } from '@xwiki/cristal-model-reference-api';
 import { ModelReferenceSerializer } from '@xwiki/cristal-model-reference-api';
@@ -36,6 +37,7 @@ import { StyleImplementation } from '@blocknote/core';
 import { StyleSchema } from '@blocknote/core';
 import { StyleSchemaFromSpecs } from '@blocknote/core';
 import { TiptapBlockImplementation } from '@blocknote/core';
+import { UnshapedMacroParamsType } from '@xwiki/cristal-macros-api';
 
 // @beta
 export type BlockNoteViewWrapperProps = {
@@ -43,10 +45,10 @@ export type BlockNoteViewWrapperProps = {
     theme?: "light" | "dark";
     lang: EditorLanguage;
     content: BlockType[];
-    macros: null | {
-        buildable: BuildableMacro[];
-        openMacroParamsEditor: ContextForMacros["openParamsEditor"];
-    };
+    macros: {
+        list: MacroWithUnknownShape[];
+        ctx: ContextForMacros;
+    } | false;
     realtime?: {
         collaborationProvider: () => CollaborationInitializer;
         user: {
@@ -70,15 +72,14 @@ export type BlockOfType<B extends BlockType["type"]> = Extract<BlockType, {
 export type BlockType = Block<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
 
 // @beta
-export type BuildableMacro = (ctx: ContextForMacros) => Macro;
-
-// @beta
 export type ContextForMacros = {
-    openParamsEditor(macro: Macro, params: Record<string, boolean | number | string>, update: (newProps: Record<string, boolean | number | string>) => void): void;
+    openParamsEditor(macro: MacroWithUnknownShape, params: UnshapedMacroParamsType, update: (newProps: UnshapedMacroParamsType) => void): void;
 };
 
+// Warning: (ae-forgotten-export) The symbol "BlockNoteConcreteMacro" needs to be exported by the entry point index.d.ts
+//
 // @beta
-export function createBlockNoteSchema(macros: Macro[]): BlockNoteSchema<BlockSchemaFromSpecs<    {
+export function createBlockNoteSchema(macros: BlockNoteConcreteMacro[]): BlockNoteSchema<BlockSchemaFromSpecs<    {
 Heading4: {
 config: {
 readonly type: "Heading4" | "Heading5" | "Heading6";
@@ -836,15 +837,6 @@ export function createDictionary(lang: EditorLanguage): {
     };
 };
 
-// @beta
-export function createMacro<Parameters extends Record<string, MacroParameterType>>({ name, parameters, slashMenu, render, renderType, }: MacroCreationArgs<Parameters>): BuildableMacro;
-
-// @beta
-export const DEFAULT_MACROS: {
-    XWikiMacroHTMLBlockMacro: BuildableMacro;
-    XWikiMacroInlineHTMLMacro: BuildableMacro;
-};
-
 // @beta (undocumented)
 export type EditorBlockSchema = EditorSchema extends BlockNoteSchema<infer BlockSchema, infer _, infer __> ? BlockSchema : never;
 
@@ -884,41 +876,7 @@ export type LinkEditionContext = {
 };
 
 // @beta
-export type Macro = {
-    name: string;
-    parameters: Record<string, MacroParameterType>;
-    renderType: "block" | "inline";
-    blockNote: MacroForBlockNote;
-};
-
-// @beta
 export const MACRO_NAME_PREFIX = "Macro_";
-
-// @beta
-export type MacroCreationArgs<Parameters extends Record<string, MacroParameterType>> = {
-    name: string;
-    renderType: "block" | "inline";
-    parameters: Parameters;
-    slashMenu: {
-        description: string;
-        defaultParameters: FilterUndefined<GetConcreteMacroParametersType<Parameters>>;
-    } | false;
-    render(params: GetConcreteMacroParametersType<Parameters>, contentRef: (node: HTMLElement | null) => void, openParamsEditor: () => void): React.ReactNode;
-};
-
-// @beta
-export type MacroParameterType = ({
-    type: "boolean";
-} | {
-    type: "float";
-} | {
-    type: "string";
-} | {
-    type: "stringEnum";
-    possibleValues: string[];
-}) & {
-    optional?: true;
-};
 
 // @beta
 export function mountBlockNote(containerEl: HTMLElement, props: BlockNoteViewWrapperProps): {
@@ -926,14 +884,11 @@ export function mountBlockNote(containerEl: HTMLElement, props: BlockNoteViewWra
 };
 
 // @beta
-export function querySuggestionsMenuItems(editor: EditorType, query: string, macros: Macro[]): DefaultReactSuggestionItem[];
+export function querySuggestionsMenuItems(editor: EditorType, query: string, macros: BlockNoteConcreteMacro[]): DefaultReactSuggestionItem[];
 
 // Warnings were encountered during analysis:
 //
-// dist/blocknote/utils.d.ts:116:5 - (ae-forgotten-export) The symbol "MacroForBlockNote" needs to be exported by the entry point index.d.ts
-// dist/blocknote/utils.d.ts:206:9 - (ae-forgotten-export) The symbol "FilterUndefined" needs to be exported by the entry point index.d.ts
-// dist/blocknote/utils.d.ts:206:9 - (ae-forgotten-export) The symbol "GetConcreteMacroParametersType" needs to be exported by the entry point index.d.ts
-// dist/components/BlockNoteViewWrapper.d.ts:16:5 - (ae-forgotten-export) The symbol "DefaultEditorOptionsType" needs to be exported by the entry point index.d.ts
+// dist/components/BlockNoteViewWrapper.d.ts:17:5 - (ae-forgotten-export) The symbol "DefaultEditorOptionsType" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

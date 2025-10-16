@@ -144,6 +144,14 @@ type MacroParameter<T extends MacroParameterType> = {
   description: string;
 };
 
+/**
+ * Description of a macro parameter's type
+ *
+ * The final TypeScript type will be derived through `GetConcreteMacroParameterType`
+ *
+ * @since 0.23
+ * @beta
+ */
 type MacroParameterType = (
   | { type: "boolean" }
   // We use 'float' instead of 'number' here to make it more explicit to developers
@@ -162,7 +170,10 @@ type FilterUndefined<T> = {
 };
 
 /**
- * Internal utility type to get the concrete TypeScript type from a macro parameter's definition
+ * Utility type to get the concrete TypeScript type from a macro parameter's definition
+ *
+ * @since 0.23
+ * @beta
  */
 type GetConcreteMacroParameterType<T extends MacroParameterType> =
   | (T["type"] extends "boolean"
@@ -185,9 +196,12 @@ type UndefinableToOptional<T> = {
 } & { [K in keyof T as undefined extends T[K] ? never : K]: T[K] };
 
 /**
- * Internal utility type to get the concrete TypeScript record type from a macro's parameters definition
+ * Utility type to get the concrete TypeScript record type from a macro's parameters definition
  *
  * Parameters defined as optional are both optional in the output record and can be assigned `undefined`
+ *
+ * @since 0.23
+ * @beta
  */
 type GetConcreteMacroParametersType<
   T extends Record<string, MacroParameterType>,
@@ -209,6 +223,9 @@ type UnshapedMacroParamsType = Record<string, boolean | number | string>;
  * @param macro - The macro class to cast
  *
  * @returns - The same macro class, without its parameters shape
+ *
+ * @since 0.23
+ * @beta
  */
 export function unshapeMacroClass<
   Params extends Record<string, MacroParameterType>,
@@ -219,7 +236,6 @@ export function unshapeMacroClass<
 
 export type {
   BlockMacro,
-  FilterUndefined,
   GetConcreteMacroParameterType,
   GetConcreteMacroParametersType,
   InlineMacro,
@@ -229,7 +245,6 @@ export type {
   MacroParameter,
   MacroParameterType,
   MacroWithUnknownShape,
-  UndefinableToOptional,
   UnshapedMacroParamsType,
 };
 
