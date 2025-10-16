@@ -41,7 +41,7 @@ import type {
 } from "@blocknote/react";
 import type {
   MacroWithUnknownParamsType,
-  UnshapedMacroParamsType,
+  UnknownMacroParamsType,
 } from "@xwiki/cristal-macros-api";
 import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
 import type { ReactNode } from "react";
@@ -202,8 +202,8 @@ type ContextForMacros = {
    */
   openParamsEditor(
     macro: MacroWithUnknownParamsType,
-    params: UnshapedMacroParamsType,
-    update: (newProps: UnshapedMacroParamsType) => void,
+    params: UnknownMacroParamsType,
+    update: (newProps: UnknownMacroParamsType) => void,
   ): void;
 };
 

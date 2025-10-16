@@ -14,8 +14,11 @@ export interface BlockMacro<Parameters extends Record<string, MacroParameterType
 // @beta
 export function eraseParamsTypeForMacroClass<Params extends Record<string, MacroParameterType>>(macro: new (...args: any[]) => Macro<Params>): MacroClassWithUnknownParamsType;
 
-// Warning: (ae-forgotten-export) The symbol "UndefinableToOptional" needs to be exported by the entry point index.d.ts
-//
+// @beta
+export type FilterUndefined<T> = {
+    [K in keyof T as undefined extends T[K] ? never : K]: T[K];
+};
+
 // @beta
 export type GetConcreteMacroParametersType<T extends Record<string, MacroParameterType>> = UndefinableToOptional<{
     [Param in keyof T]: GetConcreteMacroParameterType<T[Param]>;
@@ -99,7 +102,6 @@ export type MacroImage = {
 
 // @beta
 export interface MacroInfos<Parameters extends Record<string, MacroParameterType>> {
-    // Warning: (ae-forgotten-export) The symbol "FilterUndefined" needs to be exported by the entry point index.d.ts
     defaultParameters: FilterUndefined<GetConcreteMacroParametersType<Parameters>> | false;
     description: string;
     id: string;
@@ -199,7 +201,14 @@ export type MacroTextStyles = {
 export type MacroWithUnknownParamsType = Macro<Record<string, MacroParameterType>>;
 
 // @beta
-export type UnshapedMacroParamsType = Record<string, boolean | number | string>;
+export type UndefinableToOptional<T> = {
+    [K in keyof T as undefined extends T[K] ? K : never]?: Exclude<T[K], undefined>;
+} & {
+    [K in keyof T as undefined extends T[K] ? never : K]: T[K];
+};
+
+// @beta
+export type UnknownMacroParamsType = Record<string, boolean | number | string>;
 
 // (No @packageDocumentation comment for this package)
 

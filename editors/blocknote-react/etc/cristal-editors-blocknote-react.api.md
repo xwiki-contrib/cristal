@@ -37,7 +37,7 @@ import { StyleImplementation } from '@blocknote/core';
 import { StyleSchema } from '@blocknote/core';
 import { StyleSchemaFromSpecs } from '@blocknote/core';
 import { TiptapBlockImplementation } from '@blocknote/core';
-import { UnshapedMacroParamsType } from '@xwiki/cristal-macros-api';
+import { UnknownMacroParamsType } from '@xwiki/cristal-macros-api';
 
 // @beta
 export type BlockNoteViewWrapperProps = {
@@ -73,7 +73,7 @@ export type BlockType = Block<EditorBlockSchema, EditorInlineContentSchema, Edit
 
 // @beta
 export type ContextForMacros = {
-    openParamsEditor(macro: MacroWithUnknownParamsType, params: UnshapedMacroParamsType, update: (newProps: UnshapedMacroParamsType) => void): void;
+    openParamsEditor(macro: MacroWithUnknownParamsType, params: UnknownMacroParamsType, update: (newProps: UnknownMacroParamsType) => void): void;
 };
 
 // Warning: (ae-forgotten-export) The symbol "BlockNoteConcreteMacro" needs to be exported by the entry point index.d.ts

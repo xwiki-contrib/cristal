@@ -210,7 +210,7 @@ type GetConcreteMacroParametersType<
  * @since 0.23
  * @beta
  */
-type UnshapedMacroParamsType = Record<string, boolean | number | string>;
+type UnknownMacroParamsType = Record<string, boolean | number | string>;
 
 /**
  * Cast a macro class to an unknown-shape macro class
@@ -233,6 +233,7 @@ export function eraseParamsTypeForMacroClass<
 
 export type {
   BlockMacro,
+  FilterUndefined,
   GetConcreteMacroParameterType,
   GetConcreteMacroParametersType,
   InlineMacro,
@@ -241,7 +242,8 @@ export type {
   MacroInfos,
   MacroParameterType,
   MacroWithUnknownParamsType,
-  UnshapedMacroParamsType,
+  UndefinableToOptional,
+  UnknownMacroParamsType,
 };
 
 export type {
