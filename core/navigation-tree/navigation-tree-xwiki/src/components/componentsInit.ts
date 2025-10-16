@@ -115,6 +115,7 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
     const baseXWikiURL = this.cristalApp
       .getWikiConfig()
       .baseURL.replace(/\/[^/]*$/, "");
+    const limit = 100;
 
     const navigationTreeRequestUrl = new URL(
       `${this.cristalApp.getWikiConfig().baseURL}/bin/get`,
@@ -126,6 +127,7 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
       ["data", "children"],
       ["compact", "true"],
       ["offset", offset.toString()],
+      ["limit", limit.toString()],
       ["showTranslations", "false"],
       ["showAttachments", "false"],
     ]).toString();
@@ -166,6 +168,13 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
           is_terminal: !treeNode.id.endsWith(".WebHome"),
         });
       }
+    }
+
+    // Handle paging if necessary.
+    if (jsonResponse.length >= limit) {
+      nodes.push(
+        ...(await this.fetchNodes(currentId, headers, offset + limit)),
+      );
     }
 
     return nodes;
