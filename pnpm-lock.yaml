@@ -3632,6 +3632,9 @@ importers:
         specifier: workspace:*
         version: link:../../macros/macros-api
     devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
       inversify:
         specifier: 'catalog:'
         version: 7.10.2(reflect-metadata@0.2.2)
