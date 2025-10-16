@@ -43,7 +43,7 @@ export const BlockNoteForTest: React.FC<BlockNoteForTestProps> = ({
       lang="en"
       linkEditionCtx={linkEditionCtx}
       macros={{
-        list: [], // TODO?
+        list: [], // TODO: add tests with actual macros
         openMacroParamsEditor() {
           throw new Error("Macros params editor is not supported");
         },
