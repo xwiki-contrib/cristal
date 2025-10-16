@@ -61,4 +61,21 @@ export { MACRO_NAME_PREFIX, mountBlockNote };
 
 export type { BlockNoteViewWrapperProps, ContextForMacros, LinkEditionContext };
 
-export * from "./blocknote";
+export type {
+  BlockOfType,
+  BlockType,
+  EditorBlockSchema,
+  EditorInlineContentSchema,
+  EditorLanguage,
+  EditorLink,
+  EditorSchema,
+  EditorStyleSchema,
+  EditorStyledText,
+  EditorType,
+} from "./blocknote";
+
+export {
+  createBlockNoteSchema,
+  createDictionary,
+  querySuggestionsMenuItems,
+} from "./blocknote";
