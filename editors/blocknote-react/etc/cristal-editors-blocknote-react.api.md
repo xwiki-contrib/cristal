@@ -39,6 +39,20 @@ import { StyleSchemaFromSpecs } from '@blocknote/core';
 import { TiptapBlockImplementation } from '@blocknote/core';
 import { UnknownMacroParamsType } from '@xwiki/cristal-macros-api';
 
+// Warning: (ae-internal-missing-underscore) The name "BlockNoteConcreteMacro" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
+export type BlockNoteConcreteMacro = {
+    macro: MacroWithUnknownParamsType;
+    bnRendering: {
+        type: "block";
+        block: ReturnType<typeof createCustomBlockSpec>;
+    } | {
+        type: "inline";
+        inlineContent: ReturnType<typeof createCustomInlineContentSpec>;
+    };
+};
+
 // @beta
 export type BlockNoteViewWrapperProps = {
     blockNoteOptions?: Partial<Omit<DefaultEditorOptionsType, "schema" | "collaboration">>;
@@ -76,7 +90,7 @@ export type ContextForMacros = {
     openParamsEditor(macro: MacroWithUnknownParamsType, params: UnknownMacroParamsType, update: (newProps: UnknownMacroParamsType) => void): void;
 };
 
-// Warning: (ae-forgotten-export) The symbol "BlockNoteConcreteMacro" needs to be exported by the entry point index.d.ts
+// Warning: (ae-incompatible-release-tags) The symbol "createBlockNoteSchema" is marked as @beta, but its signature references "BlockNoteConcreteMacro" which is marked as @internal
 //
 // @beta
 export function createBlockNoteSchema(macros: BlockNoteConcreteMacro[]): BlockNoteSchema<BlockSchemaFromSpecs<    {
@@ -513,6 +527,64 @@ implementation: StyleImplementation;
 };
 }>>;
 
+// Warning: (ae-internal-missing-underscore) The name "createCustomBlockSpec" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal
+export function createCustomBlockSpec<const B extends CustomBlockConfig, const I extends InlineContentSchema, const S extends StyleSchema>({ config, implementation, slashMenu, customToolbar, }: {
+    config: B;
+    implementation: ReactCustomBlockImplementation<B, I, S>;
+    slashMenu: false | {
+        title: string;
+        aliases?: string[];
+        group: string;
+        icon: ReactNode;
+        default: () => PartialBlock<Record<B["type"], B>>;
+    };
+    customToolbar: (() => ReactNode) | null;
+}): {
+    block: {
+        config: B;
+        implementation: TiptapBlockImplementation<B, any, InlineContentSchema, StyleSchema>;
+    };
+    slashMenuEntry: false | ((editor: BlockNoteEditor<any>) => {
+        title: string;
+        aliases: string[] | undefined;
+        group: string;
+        icon: ReactNode;
+        onItemClick: () => void;
+    });
+    customToolbar: (() => ReactNode) | null;
+};
+
+// Warning: (ae-internal-missing-underscore) The name "createCustomInlineContentSpec" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function createCustomInlineContentSpec<const I extends CustomInlineContentConfig, const S extends StyleSchema>({ config, implementation, slashMenu, customToolbar, }: {
+    config: I;
+    implementation: ReactInlineContentImplementation<I, S>;
+    slashMenu: false | {
+        title: string;
+        aliases?: string[];
+        group: string;
+        icon: ReactNode;
+        default: () => PartialInlineContent<Record<I["type"], I>, S>;
+    };
+    customToolbar: (() => ReactNode) | null;
+}): {
+    inlineContent: {
+        config: I;
+        implementation: InlineContentImplementation<I>;
+    };
+    slashMenuEntry: false | ((editor: BlockNoteEditor<any>) => {
+        title: string;
+        aliases: string[] | undefined;
+        group: string;
+        icon: ReactNode;
+        onItemClick: () => void;
+    });
+    customToolbar: (() => ReactNode) | null;
+};
+
 // @beta
 export function createDictionary(lang: EditorLanguage): {
     slash_menu: {
@@ -883,6 +955,8 @@ export function mountBlockNote(containerEl: HTMLElement, props: BlockNoteViewWra
     unmount: () => void;
 };
 
+// Warning: (ae-incompatible-release-tags) The symbol "querySuggestionsMenuItems" is marked as @beta, but its signature references "BlockNoteConcreteMacro" which is marked as @internal
+//
 // @beta
 export function querySuggestionsMenuItems(editor: EditorType, query: string, macros: BlockNoteConcreteMacro[]): DefaultReactSuggestionItem[];
 

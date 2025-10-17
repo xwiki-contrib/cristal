@@ -80,3 +80,8 @@ export {
   createDictionary,
   querySuggestionsMenuItems,
 } from "./blocknote";
+
+export type {
+  createCustomBlockSpec,
+  createCustomInlineContentSpec,
+} from "./blocknote/utils";

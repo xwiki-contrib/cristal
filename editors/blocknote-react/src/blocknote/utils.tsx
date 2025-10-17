@@ -54,7 +54,7 @@ import type { ReactNode } from "react";
  * @returns A block definition
  *
  * @since 0.18
- * @beta
+ * @internal
  */
 function createCustomBlockSpec<
   const B extends CustomBlockConfig,
@@ -110,6 +110,10 @@ function createCustomBlockSpec<
  * @beta
  */
 
+/**
+ * @since 0.23
+ * @internal
+ */
 function createCustomInlineContentSpec<
   const I extends CustomInlineContentConfig,
   const S extends StyleSchema,
@@ -167,7 +171,7 @@ const MACRO_NAME_PREFIX = "Macro_";
  * Description of a macro adapted by `adaptMacroForBlockNote`
  *
  * @since 0.20
- * @beta
+ * @internal
  */
 type BlockNoteConcreteMacro = {
   /** Type-erased macro */
@@ -367,5 +371,10 @@ function adaptMacroForBlockNote(
   return { macro, bnRendering };
 }
 
-export { MACRO_NAME_PREFIX, adaptMacroForBlockNote, createCustomBlockSpec };
+export {
+  MACRO_NAME_PREFIX,
+  adaptMacroForBlockNote,
+  createCustomBlockSpec,
+  createCustomInlineContentSpec,
+};
 export type { BlockNoteConcreteMacro, ContextForMacros };
