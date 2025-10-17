@@ -51,6 +51,7 @@ function onConfigClick(configName: string) {
         @click="onConfigClick(key)"
         :disabled="key === cristal.getWikiConfig().name"
         :key="key"
+        class="item"
       >
         <div>
           {{ wikiConfig.name }}
@@ -90,6 +91,10 @@ function onConfigClick(configName: string) {
   overflow-wrap: break-word;
   line-height: var(--cr-font-size-small);
   width: 100%;
+}
+
+.item:focus-visible .url {
+  color: inherit;
 }
 
 a {

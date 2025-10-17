@@ -188,7 +188,7 @@ function isEditable(configName: string): boolean {
         :class="
           isEditable(wikiConfig.name) && wikiConfig.name != currentConfig?.name
             ? 'editable-configuration'
-            : ''
+            : 'non-editable-configuration'
         "
         @click="
           isEditable(wikiConfig.name) && wikiConfig.name != currentConfig?.name
@@ -196,9 +196,9 @@ function isEditable(configName: string): boolean {
             : undefined
         "
       >
-        <td>{{ wikiConfig.name }}</td>
-        <td>{{ wikiConfig.getType() }}</td>
-        <td>{{ wikiConfig.designSystem }}</td>
+        <td class="text-cell">{{ wikiConfig.name }}</td>
+        <td class="text-cell">{{ wikiConfig.getType() }}</td>
+        <td class="text-cell">{{ wikiConfig.designSystem }}</td>
         <td class="fixed-size-cell">
           <div v-if="wikiConfig.name == currentConfig?.name">
             {{ t("settings.configurations.in-use") }}
@@ -275,6 +275,10 @@ table {
 
 .nomargin {
   margin: 0;
+}
+
+.non-editable-configuration .text-cell {
+  color: var(--cr-mute-text-color);
 }
 
 .editable-configuration:hover,
