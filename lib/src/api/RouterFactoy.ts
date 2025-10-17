@@ -23,7 +23,8 @@ import type { RouteRecordRaw, Router } from "vue-router";
 /**
  * A factory to initialize an instance of Vue router.
  * By default, no implementation is provided. If there is one available,
- * it will be used instead of the default initialization.
+ * it will be used instead of the default initialization. Use the
+ * "RouterFactory" role to bind your custom implementation.
  * @since 0.23
  * @beta
  */
