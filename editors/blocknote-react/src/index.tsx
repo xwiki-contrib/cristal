@@ -62,6 +62,7 @@ export { MACRO_NAME_PREFIX, mountBlockNote };
 export type { BlockNoteViewWrapperProps, ContextForMacros, LinkEditionContext };
 
 export type {
+  BlockNoteConcreteMacro,
   BlockOfType,
   BlockType,
   EditorBlockSchema,

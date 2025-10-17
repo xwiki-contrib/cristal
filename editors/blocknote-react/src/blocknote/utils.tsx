@@ -164,7 +164,7 @@ function createCustomInlineContentSpec<
 const MACRO_NAME_PREFIX = "Macro_";
 
 /**
- * Description of a macro's inner content
+ * Description of a macro adapted by `adaptMacroForBlockNote`
  *
  * @since 0.20
  * @beta

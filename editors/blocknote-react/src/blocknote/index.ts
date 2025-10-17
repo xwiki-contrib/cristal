@@ -242,6 +242,7 @@ type BlockType = Block<
 type BlockOfType<B extends BlockType["type"]> = Extract<BlockType, { type: B }>;
 
 export type {
+  BlockNoteConcreteMacro,
   BlockOfType,
   BlockType,
   EditorBlockSchema,
