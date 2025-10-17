@@ -51,6 +51,12 @@ function createBlockNoteSchema(macros: BlockNoteConcreteMacro[]) {
   const { audio, video, file, toggleListItem, ...remainingBlockSpecs } =
     defaultBlockSpecs;
 
+  macros = [
+    ...macros.sort((a, b) =>
+      a.macro.infos.name.localeCompare(b.macro.infos.name),
+    ),
+  ];
+
   const blockNoteSchema = BlockNoteSchema.create({
     blockSpecs: {
       ...remainingBlockSpecs,
