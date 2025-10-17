@@ -178,6 +178,7 @@ function isEditable(configName: string): boolean {
         <th>{{ t("settings.configurations.table.header.ds") }}</th>
         <th></th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -208,8 +209,16 @@ function isEditable(configName: string): boolean {
         </td>
         <td class="fixed-size-cell">
           <c-icon
+            name="pencil"
+            class="action-icon"
+            v-if="isEditable(wikiConfig.name)"
+            @click.stop="preEditConfig(wikiConfig.name)"
+          ></c-icon>
+        </td>
+        <td class="fixed-size-cell">
+          <c-icon
             name="trash"
-            class="delete-action-icon"
+            class="action-icon"
             v-if="isEditable(wikiConfig.name)"
             @click.stop="preDeleteConfig(wikiConfig.name)"
           ></c-icon>
@@ -269,7 +278,8 @@ table {
 }
 
 .editable-configuration:hover,
-.delete-action-icon:hover {
+.action-icon:hover {
+  background-color: var(--cr-color-neutral-200);
   cursor: pointer;
 }
 </style>
