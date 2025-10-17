@@ -64,6 +64,7 @@ const currentConfig = configs.value.get(cristal.getWikiConfig().name);
 const reactiveConfigurations: Ref<ConfigurationsSettings> = ref(
   props.configurations,
 );
+const newDialogOpen: Ref<boolean> = ref(false);
 const newName: Ref<string> = ref("");
 const newType: Ref<string> = ref("");
 const editDialogOpen: Ref<boolean> = ref(false);
@@ -92,6 +93,7 @@ async function submit() {
     wikiConfigProxy.setAvailableConfigurations({ [newName.value]: newConfig });
     preEditConfig(newName.value);
     await newConfigurationForm.value?.reset();
+    newDialogOpen.value = false;
   }
 }
 
@@ -134,7 +136,11 @@ function isEditable(configName: string): boolean {
   </div>
 
   <h2>{{ t("settings.configurations.available.title") }}</h2>
-  <x-dialog width="auto" :title="t('settings.configurations.new')">
+  <x-dialog
+    v-model="newDialogOpen"
+    width="auto"
+    :title="t('settings.configurations.new')"
+  >
     <template #activator>
       <x-btn variant="primary">
         <c-icon name="plus"></c-icon>
