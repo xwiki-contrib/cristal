@@ -24,6 +24,7 @@ import {
   conditionalComponentsList,
   defaultComponentsList,
 } from "./default/defaultComponentsList";
+import type { RouterFactory } from "./api/RouterFactoy";
 
 export {
   CristalAppLoader,
@@ -31,3 +32,4 @@ export {
   conditionalComponentsList,
   defaultComponentsList,
 };
+export type { RouterFactory };
