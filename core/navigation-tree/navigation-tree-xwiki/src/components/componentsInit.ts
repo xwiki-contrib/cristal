@@ -115,6 +115,8 @@ class XWikiNavigationTreeSource implements NavigationTreeSource {
     const baseXWikiURL = this.cristalApp
       .getWikiConfig()
       .baseURL.replace(/\/[^/]*$/, "");
+    // The DocumentTree sheet sets a default limit of 15 items par page.
+    // We use a greater one to reduce the number of requests to fetch them all.
     const limit = 100;
 
     const navigationTreeRequestUrl = new URL(
