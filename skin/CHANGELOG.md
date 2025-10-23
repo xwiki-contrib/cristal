@@ -1,5 +1,40 @@
 # @xwiki/cristal-skin
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.23.1
+  - @xwiki/cristal-alerts-api@0.23.1
+  - @xwiki/cristal-alerts-ui@0.23.1
+  - @xwiki/cristal-backend-api@0.23.1
+  - @xwiki/cristal-date-ui@0.23.1
+  - @xwiki/cristal-document-api@0.23.1
+  - @xwiki/cristal-extra-tabs-api@0.23.1
+  - @xwiki/cristal-extra-tabs-ui@0.23.1
+  - @xwiki/cristal-fn-utils@0.23.1
+  - @xwiki/cristal-hierarchy-api@0.23.1
+  - @xwiki/cristal-icons@0.23.1
+  - @xwiki/cristal-info-actions-api@0.23.1
+  - @xwiki/cristal-info-actions-ui@0.23.1
+  - @xwiki/cristal-markdown-api@0.23.1
+  - @xwiki/cristal-model-api@0.23.1
+  - @xwiki/cristal-model-click-listener@0.23.1
+  - @xwiki/cristal-model-reference-api@0.23.1
+  - @xwiki/cristal-navigation-tree-api@0.23.1
+  - @xwiki/cristal-page-actions-ui@0.23.1
+  - @xwiki/cristal-settings-api@0.23.1
+  - @xwiki/cristal-settings-configurations@0.23.1
+  - @xwiki/cristal-uiextension-api@0.23.1
+  - @xwiki/cristal-uiextension-ui@0.23.1
+  - @xwiki/cristal-uniast-html@0.23.1
+  - @xwiki/cristal-uniast-markdown@0.23.1
+  - @xwiki/cristal-user-ui@0.23.1
+  - @xwiki/cristal-wiki-config-api@0.23.1
+  - @xwiki/cristal-dsapi@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

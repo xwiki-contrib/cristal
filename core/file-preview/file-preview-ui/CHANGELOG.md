@@ -1,5 +1,13 @@
 # @xwiki/cristal-file-preview-ui
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-attachments-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

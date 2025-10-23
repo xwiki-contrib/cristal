@@ -1,5 +1,13 @@
 # @xwiki/cristal-info-actions-default
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-info-actions-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

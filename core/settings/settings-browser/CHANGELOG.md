@@ -1,5 +1,14 @@
 # @xwiki/cristal-settings-browser
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.23.1
+  - @xwiki/cristal-settings-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @xwiki/cristal-electron-storage
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.23.1
+  - @xwiki/cristal-backend-api@0.23.1
+  - @xwiki/cristal-link-suggest-api@0.23.1
+  - @xwiki/cristal-model-api@0.23.1
+  - @xwiki/cristal-model-remote-url-filesystem-api@0.23.1
+  - @xwiki/cristal-page-default@0.23.1
+  - @xwiki/cristal-electron-state@0.23.1
+  - @xwiki/cristal-utils-inversify@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

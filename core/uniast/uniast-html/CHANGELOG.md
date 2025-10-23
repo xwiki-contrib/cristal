@@ -1,5 +1,14 @@
 # @xwiki/cristal-uniast-html
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-model-api@0.23.1
+  - @xwiki/cristal-uniast-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

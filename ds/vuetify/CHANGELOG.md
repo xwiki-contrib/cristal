@@ -1,5 +1,19 @@
 # @xwiki/cristal-dsvuetify
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.23.1
+  - @xwiki/cristal-document-api@0.23.1
+  - @xwiki/cristal-fn-utils@0.23.1
+  - @xwiki/cristal-hierarchy-api@0.23.1
+  - @xwiki/cristal-model-api@0.23.1
+  - @xwiki/cristal-model-reference-api@0.23.1
+  - @xwiki/cristal-navigation-tree-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

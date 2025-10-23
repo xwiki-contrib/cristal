@@ -1,5 +1,11 @@
 # @xwiki/cristal-utils-inversify
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+
 ## 0.23.0
 
 ### Minor Changes

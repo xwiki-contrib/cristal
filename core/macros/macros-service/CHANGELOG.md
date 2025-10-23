@@ -1,5 +1,13 @@
 # @xwiki/cristal-macros-service
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-macros-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

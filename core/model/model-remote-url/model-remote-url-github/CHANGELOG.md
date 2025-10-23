@@ -1,5 +1,15 @@
 # @xwiki/cristal-model-remote-url-github
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.23.1
+  - @xwiki/cristal-model-api@0.23.1
+  - @xwiki/cristal-model-remote-url-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # @xwiki/cristal-backend-dexie
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.23.1
+  - @xwiki/cristal-backend-api@0.23.1
+  - @xwiki/cristal-sharedworker-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

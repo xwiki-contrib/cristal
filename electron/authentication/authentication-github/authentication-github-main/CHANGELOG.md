@@ -1,5 +1,13 @@
 # @xwiki/cristal-electron-authentication-github-main
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-authentication-api@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

@@ -1,5 +1,25 @@
 # @xwiki/cristal-electron-renderer
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-hierarchy-filesystem@0.23.1
+  - @xwiki/cristal-model-reference-filesystem@0.23.1
+  - @xwiki/cristal-model-remote-url-filesystem-default@0.23.1
+  - @xwiki/cristal-navigation-tree-filesystem@0.23.1
+  - @xwiki/cristal-rename-filesystem@0.23.1
+  - @xwiki/cristal-electron-authentication-github-renderer@0.23.1
+  - @xwiki/cristal-electron-authentication-nextcloud-renderer@0.23.1
+  - @xwiki/cristal-electron-authentication-xwiki-renderer@0.23.1
+  - @xwiki/cristal-browser-electron@0.23.1
+  - @xwiki/cristal-link-suggest-filesystem@0.23.1
+  - @xwiki/cristal-electron-settings-renderer@0.23.1
+  - @xwiki/cristal-electron-storage@0.23.1
+  - @xwiki/cristal-lib@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @xwiki/cristal-authentication-github-ui
 
+## 0.23.1
+
+### Patch Changes
+
+- Cristal 0.23.1 Release
+- Updated dependencies
+  - @xwiki/cristal-api@0.23.1
+  - @xwiki/cristal-authentication-api@0.23.1
+  - @xwiki/cristal-authentication-github-state@0.23.1
+  - @xwiki/cristal-browser-api@0.23.1
+  - @xwiki/cristal-icons@0.23.1
+  - @xwiki/cristal-uiextension-api@0.23.1
+  - @xwiki/cristal-uiextension-default@0.23.1
+
 ## 0.23.0
 
 ### Minor Changes
