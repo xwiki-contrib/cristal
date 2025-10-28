@@ -217,9 +217,10 @@ export class DefaultMacrosAstToHtmlConverter
     }
   }
 
+  // eslint-disable-next-line max-statements
   private convertInlineContent(inlineContent: MacroInlineContent): string {
     switch (inlineContent.type) {
-      case "text":
+      case "text": {
         const { content, styles } = inlineContent;
 
         const { bold, italic, strikethrough, code } = styles;
@@ -255,6 +256,7 @@ export class DefaultMacrosAstToHtmlConverter
         }
 
         return html;
+      }
 
       case "link":
         return this.produceHtmlEl(
