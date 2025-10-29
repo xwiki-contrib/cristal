@@ -22,13 +22,13 @@ import type { MacrosAstToHtmlConverter } from "./html/macros-ast-to-html-convert
 import type { Container } from "inversify";
 
 /**
- * @since 0.22
+ * @since 0.24
  * @beta
  */
 const macrosAstToHtmlConverterName = "MacrosAstToHtmlConverter";
 
 /**
- * @since 0.22
+ * @since 0.24
  * @beta
  */
 class ComponentInit {

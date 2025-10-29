@@ -114,11 +114,13 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
         if (!macro) {
           // TODO: proper error reporting
+          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
           return `<strong>Macro "${block.name}" was not found</strong>`;
         }
 
         if (macro.renderAs === "inline") {
           // TODO: proper error reporting
+          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
           return `<strong>Macro "${block.name}" is of type "inline", but used here as a block</strong>`;
         }
 
@@ -225,11 +227,13 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
         if (!macro) {
           // TODO: proper error reporting
+          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
           return `<strong>Macro "${inlineContent.name}" was not found</strong>`;
         }
 
         if (macro.renderAs === "block") {
           // TODO: proper error reporting
+          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
           return `<strong>Macro "${inlineContent.name}" is of type "block", but used here as inline</strong>`;
         }
 

@@ -34,7 +34,7 @@ import type {
 /**
  * Converter that transforms a macro's returned AST to HTML
  *
- * @since 0.23
+ * @since 0.24
  * @beta
  */
 @injectable()
