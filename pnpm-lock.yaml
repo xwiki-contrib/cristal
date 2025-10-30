@@ -3486,6 +3486,9 @@ importers:
 
   core/uniast/uniast-html:
     dependencies:
+      '@xwiki/cristal-fn-utils':
+        specifier: workspace:*
+        version: link:../../fn-utils
       '@xwiki/cristal-macros-ast-html-converter':
         specifier: workspace:*
         version: link:../../macros/macros-ast-html-converter
