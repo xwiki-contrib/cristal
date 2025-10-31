@@ -18,26 +18,29 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
-import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
-import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { inject, injectable } from "inversify";
-import type { UniAstToHTMLConverter } from "./uni-ast-to-html-converter";
-import type { MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
-import type { MacrosService } from "@xwiki/cristal-macros-service";
-import type { EntityReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
-import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+import type { MacrosAstToHtmlConverter } from "./macros-ast-to-html-converter";
 import type {
-  Block,
-  BlockStyles,
-  Image,
-  InlineContent,
-  LinkTarget,
-  UniAst,
-} from "@xwiki/cristal-uniast-api";
+  MacroBlock,
+  MacroBlockStyles,
+  MacroInlineContent,
+  MacroLinkTarget,
+} from "@xwiki/cristal-macros-api";
+import type {
+  RemoteURLParserProvider,
+  RemoteURLSerializerProvider,
+} from "@xwiki/cristal-model-remote-url-api";
 
+/**
+ * Converter that transforms a macro's returned AST to HTML
+ *
+ * @since 0.24
+ * @beta
+ */
 @injectable()
-export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
+export class DefaultMacrosAstToHtmlConverter
+  implements MacrosAstToHtmlConverter
+{
   /**
    * XML serializer for fast HTML escaping
    */
@@ -45,34 +48,45 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
   constructor(
     @inject("RemoteURLSerializerProvider")
+    private readonly remoteURLParserProvider: RemoteURLParserProvider,
+
+    @inject("RemoteURLSerializerProvider")
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
-
-    @inject("ModelReferenceParserProvider")
-    private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
-
-    @inject(macrosServiceName)
-    private readonly macrosService: MacrosService,
-
-    @inject(macrosAstToHtmlConverterName)
-    private readonly macrosAstToHtmlConverter: MacrosAstToHtmlConverter,
   ) {}
 
-  toHtml(ast: UniAst): string | Error {
-    return tryFallibleOrError(() => this.convertBlocks(ast.blocks));
+  /**
+   * Render a macro's AST blocks to an HTML string
+   *
+   * @param blocks - The blocks to render
+   *
+   * @returns The HTML render
+   */
+  blocksToHTML(blocks: MacroBlock[]): string | Error {
+    return tryFallibleOrError(() => this.convertBlocks(blocks));
   }
 
-  private convertBlocks(blocks: Block[]): string {
+  /**
+   * Render a macro's AST inline contents to an HTML stirng
+   *
+   * @param inlineContents - The inline contents to render
+   *
+   * @returns The HTML render
+   */
+  inlineContentsToHTML(inlineContents: MacroInlineContent[]): string | Error {
+    return tryFallibleOrError(() => this.convertInlineContents(inlineContents));
+  }
+
+  private convertBlocks(blocks: MacroBlock[]): string {
     return blocks.map((block) => this.convertBlock(block)).join("");
   }
 
-  private convertInlineContents(inlineContents: InlineContent[]): string {
+  private convertInlineContents(inlineContents: MacroInlineContent[]): string {
     return inlineContents
       .map((inlineContent) => this.convertInlineContent(inlineContent))
       .join("");
   }
 
-  // eslint-disable-next-line max-statements
-  private convertBlock(block: Block): string {
+  private convertBlock(block: MacroBlock): string {
     switch (block.type) {
       case "paragraph":
         return this.produceBlockHtml(
@@ -90,16 +104,14 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
       case "list":
         return this.produceBlockHtml(
-          block.items.length > 0 && block.items[0].number !== undefined
-            ? "ol"
-            : "ul",
+          block.numbered ? "ol" : "ul",
           block.styles,
           block.items
             .map((item) =>
               this.produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? `<input type="checkbox" checked="${item.checked.toString()}" readOnly />` : ""}${this.convertBlocks(item.content)}`,
+                `${item.checked !== undefined ? `<input type="checkbox" checked="${item.checked.toString()}" readOnly />` : ""}${this.convertInlineContents(item.content)}`,
               ),
             )
             .join(""),
@@ -179,58 +191,34 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
       }
 
       case "image":
-        return this.convertImage(block);
-
-      case "break":
-        return "<hr>";
-
-      case "macroBlock": {
-        const macro = this.macrosService.get(block.name);
-
-        if (!macro) {
-          // TODO: proper error reporting
-          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${block.name}" was not found</strong>`;
-        }
-
-        if (macro.renderAs === "inline") {
-          // TODO: proper error reporting
-          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${block.name}" is of type "inline", but used here as a block</strong>`;
-        }
-
-        const rendered = this.macrosAstToHtmlConverter.blocksToHTML(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          macro.render(block.params as any),
+        return this.produceHtmlEl(
+          "img",
+          {
+            src: this.getTargetUrl(block.target),
+            alt: block.alt,
+            width: block.widthPx ? `${block.widthPx}px` : undefined,
+            height: block.heightPx ? `${block.heightPx}px` : undefined,
+          },
+          false,
         );
 
-        if (rendered instanceof Error) {
-          throw rendered;
-        }
+      case "rawHtml":
+        // TODO: sanitize?
+        return block.html;
 
-        return rendered;
-      }
+      case "macroBlock":
+        return this.convertBlock(block);
+
+      case "macroBlockEditableArea":
+        return "<!-- Macro block editable aera -->";
 
       default:
         assertUnreachable(block);
     }
   }
 
-  private convertImage(image: Image): string {
-    return this.produceHtmlEl(
-      "img",
-      {
-        src: this.getTargetUrl(image.target),
-        alt: image.alt,
-        width: image.widthPx ? `${image.widthPx}px` : undefined,
-        height: image.heightPx ? `${image.heightPx}px` : undefined,
-      },
-      false,
-    );
-  }
-
   // eslint-disable-next-line max-statements
-  private convertInlineContent(inlineContent: InlineContent): string {
+  private convertInlineContent(inlineContent: MacroInlineContent): string {
     switch (inlineContent.type) {
       case "text": {
         const { content, styles } = inlineContent;
@@ -277,63 +265,42 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           this.convertInlineContents(inlineContent.content),
         );
 
-      case "image":
-        return this.convertImage(inlineContent);
+      case "rawHtml":
+        return inlineContent.html;
 
-      case "inlineMacro": {
-        const macro = this.macrosService.get(inlineContent.name);
+      case "inlineMacro":
+        throw new Error("Nested macros are not supported yet");
 
-        if (!macro) {
-          // TODO: proper error reporting
-          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${inlineContent.name}" was not found</strong>`;
-        }
-
-        if (macro.renderAs === "block") {
-          // TODO: proper error reporting
-          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${inlineContent.name}" is of type "block", but used here as inline</strong>`;
-        }
-
-        const rendered = this.macrosAstToHtmlConverter.inlineContentsToHTML(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          macro.render(inlineContent.params as any),
-        );
-
-        if (rendered instanceof Error) {
-          throw rendered;
-        }
-
-        return rendered;
-      }
+      case "inlineMacroEditableArea":
+        return "<!-- Macro inline editable aera -->";
 
       default:
         assertUnreachable(inlineContent);
     }
   }
 
-  private getTargetUrl(target: LinkTarget): string {
+  private getTargetUrl(target: MacroLinkTarget): string {
     if (target.type === "external") {
       return target.url;
     }
 
-    if (target.parsedReference) {
-      return this.serializeReference(target.parsedReference)!;
+    const { rawReference } = target;
+
+    const parsedRef = tryFallibleOrError(() =>
+      this.remoteURLParserProvider.get()!.parse(rawReference),
+    );
+
+    if (parsedRef instanceof Error) {
+      throw new Error(
+        `Failed to parse reference "${rawReference}": ${parsedRef.message}`,
+      );
     }
 
-    const ref = this.modelReferenceParserProvider
-      .get()!
-      .parse(target.rawReference);
+    const url = this.remoteURLSerializerProvider.get()!.serialize(parsedRef);
 
-    return this.serializeReference(ref)!;
-  }
-
-  private serializeReference(ref: EntityReference): string {
-    const url = this.remoteURLSerializerProvider.get()!.serialize(ref);
-
-    // TODO: find when this could happen
+    // TODO: when could this even happen?
     if (!url) {
-      throw new Error(`Failed to serialize entity reference: "${url}"`);
+      throw new Error(`Failed to serialize reference "${rawReference}"`);
     }
 
     return url;
@@ -341,7 +308,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
   private produceBlockHtml(
     tagName: string,
-    styles: BlockStyles,
+    styles: MacroBlockStyles,
     innerHTML: string,
     attrs?: Record<string, string | undefined>,
   ): string {
@@ -364,6 +331,9 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
       {
         ...attrs,
         style: cssRules !== "" ? cssRules.trim() : undefined,
+        class: styles.cssClasses?.length
+          ? styles.cssClasses.join(" ")
+          : undefined,
       },
       innerHTML,
     );
