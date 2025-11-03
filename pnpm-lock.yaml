@@ -2312,6 +2312,9 @@ importers:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
+      '@xwiki/cristal-model-api':
+        specifier: workspace:*
+        version: link:../../model/model-api
       typescript:
         specifier: 'catalog:'
         version: 5.9.3

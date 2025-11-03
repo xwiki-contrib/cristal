@@ -18,8 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { DefaultMacrosAstToHtmlConverter } from "../default-macros-ast-to-html-converter";
+import {
+  AttachmentReference,
+  DocumentReference,
+  SpaceReference,
+} from "@xwiki/cristal-model-api";
 import { describe, expect, test } from "vitest";
-import { mock } from "vitest-mock-extended";
+import { any, mock } from "vitest-mock-extended";
 import type { MacroInlineContent } from "@xwiki/cristal-macros-api";
 import type {
   ModelReferenceParser,
@@ -31,6 +36,7 @@ import type {
 } from "@xwiki/cristal-model-remote-url-api";
 import type { Container } from "inversify";
 
+// eslint-disable-next-line max-statements
 function init() {
   const modelReferenceParserProvider = mock<ModelReferenceParserProvider>();
   const remoteURLSerializerProvider = mock<RemoteURLSerializerProvider>();
@@ -45,10 +51,25 @@ function init() {
     .calledWith("RemoteURLSerializerProvider")
     .mockReturnValue(remoteURLSerializerProvider);
 
-  modelReferenceParserProvider.get.mockReturnValue(
-    mock<ModelReferenceParser>(),
+  const modelReferenceParser = mock<ModelReferenceParser>();
+  const remoteURLSerializer = mock<RemoteURLSerializer>();
+
+  modelReferenceParserProvider.get.mockReturnValue(modelReferenceParser);
+
+  remoteURLSerializerProvider.get.mockReturnValue(remoteURLSerializer);
+
+  const attachmentReference = new AttachmentReference(
+    "image.png",
+    new DocumentReference("B", new SpaceReference(undefined, "A")),
   );
-  remoteURLSerializerProvider.get.mockReturnValue(mock<RemoteURLSerializer>());
+
+  modelReferenceParser.parse
+    .calledWith("A.B@image.png", any())
+    .mockReturnValue(attachmentReference);
+
+  remoteURLSerializer.serialize
+    .calledWith(attachmentReference)
+    .mockReturnValue("https://my.site/A/B/image.png");
 
   return { modelReferenceParserProvider, remoteURLSerializerProvider };
 }
@@ -114,6 +135,36 @@ describe("MacrosAstToHtmlConverter", () => {
         { type: "text", content: "!", styles: { underline: true } },
       ],
       '<strong style="font-weight: bold;">Hello</strong>World<u style="text-decoration: underline;">!</u>',
+    );
+  });
+
+  test("internal link", () => {
+    expectInlineContentToBe(
+      [
+        {
+          type: "link",
+          content: [
+            { type: "text", content: "I am an internal link", styles: {} },
+          ],
+          target: { type: "internal", rawReference: "A.B@image.png" },
+        },
+      ],
+      '<a href="https://my.site/A/B/image.png">I am an internal link</a>',
+    );
+  });
+
+  test("external link", () => {
+    expectInlineContentToBe(
+      [
+        {
+          type: "link",
+          content: [
+            { type: "text", content: "I am an external link", styles: {} },
+          ],
+          target: { type: "external", url: "https://perdu.com" },
+        },
+      ],
+      '<a href="https://perdu.com">I am an external link</a>',
     );
   });
 });
