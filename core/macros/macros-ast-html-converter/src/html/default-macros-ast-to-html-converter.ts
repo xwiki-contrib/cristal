@@ -202,7 +202,7 @@ export class DefaultMacrosAstToHtmlConverter
         );
 
       case "rawHtml":
-        // TODO: sanitize?
+        // NOTE: This HTML will not be sanitized ; it is up to the macro itself to ensure the HTML is safe for the end user
         return block.html;
 
       case "macroBlock":

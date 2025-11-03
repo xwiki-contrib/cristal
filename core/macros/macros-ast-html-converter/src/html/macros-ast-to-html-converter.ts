@@ -21,14 +21,14 @@
 import type { MacroBlock, MacroInlineContent } from "@xwiki/cristal-macros-api";
 
 /**
- * Convert macros' AST to HTML
+ * Convert macros' AST to HTML.
  *
  * @since 0.24
  * @beta
  */
 export interface MacrosAstToHtmlConverter {
   /**
-   * Render a macro's AST blocks to an HTML string
+   * Render a macro's AST blocks to an HTML string.
    *
    * @param blocks - The blocks to render
    *
@@ -37,7 +37,7 @@ export interface MacrosAstToHtmlConverter {
   blocksToHTML(blocks: MacroBlock[]): string | Error;
 
   /**
-   * Render a macro's AST inline contents to an HTML stirng
+   * Render a macro's AST inline contents to an HTML string.
    *
    * @param inlineContents - The inline contents to render
    *
