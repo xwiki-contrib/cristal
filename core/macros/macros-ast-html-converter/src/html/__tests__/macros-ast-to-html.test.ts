@@ -25,7 +25,10 @@ import {
 } from "@xwiki/cristal-model-api";
 import { describe, expect, test } from "vitest";
 import { any, mock } from "vitest-mock-extended";
-import type { MacroInlineContent } from "@xwiki/cristal-macros-api";
+import type {
+  MacroBlockStyles,
+  MacroInlineContent,
+} from "@xwiki/cristal-macros-api";
 import type {
   ModelReferenceParser,
   ModelReferenceParserProvider,
@@ -165,6 +168,126 @@ describe("MacrosAstToHtmlConverter", () => {
         },
       ],
       '<a href="https://perdu.com">I am an external link</a>',
+    );
+  });
+
+  test("all block types", () => {
+    const content: MacroInlineContent[] = [
+      { type: "text", content: "Hello!", styles: {} },
+    ];
+    const styles: MacroBlockStyles = { cssClasses: ["class1", "class2"] };
+
+    const res = converter.blocksToHTML([
+      { type: "paragraph", content, styles },
+      { type: "heading", level: 1, content, styles },
+      { type: "heading", level: 2, content, styles },
+      { type: "heading", level: 3, content, styles },
+      { type: "heading", level: 4, content, styles },
+      { type: "heading", level: 5, content, styles },
+      { type: "heading", level: 6, content, styles },
+      {
+        type: "list",
+        numbered: false,
+        items: [
+          { content, styles },
+          { checked: false, content, styles },
+          { checked: true, content, styles },
+        ],
+        styles,
+      },
+      {
+        type: "list",
+        numbered: true,
+        items: [
+          { content, styles },
+          { checked: false, content, styles },
+          { checked: true, content, styles },
+        ],
+        styles,
+      },
+      {
+        type: "quote",
+        content: [{ type: "paragraph", content, styles }],
+        styles,
+      },
+      { type: "code", content: "Some code here" },
+      { type: "code", content: "Some code here", language: "some-language" },
+      {
+        type: "table",
+        columns: [{}, { headerCell: { content, styles } }, { widthPx: 200 }],
+        rows: [
+          [
+            { content, styles },
+            { content, styles },
+            { content, styles, rowSpan: 1 },
+          ],
+          [{ content, styles, colSpan: 2, rowSpan: 3 }],
+        ],
+        styles,
+      },
+      {
+        type: "image",
+        target: { type: "internal", rawReference: "A.B@image.png" },
+      },
+      {
+        type: "image",
+        target: { type: "internal", rawReference: "A.B@image.png" },
+        alt: "Some alt caption",
+        widthPx: 100,
+        heightPx: 200,
+      },
+      {
+        type: "image",
+        target: { type: "external", url: "https://picsum.photos/536/354" },
+      },
+      {
+        type: "rawHtml",
+        html: "<script></script><style></style>",
+      },
+      {
+        type: "macroBlockEditableArea",
+      },
+      {
+        type: "paragraph",
+        content: [
+          {
+            type: "inlineMacroEditableArea",
+          },
+        ],
+        styles,
+      },
+    ]);
+
+    expect(res).toBe(
+      [
+        '<p class="class1 class2">Hello!</p>',
+        '<h1 class="class1 class2">Hello!</h1>',
+        '<h2 class="class1 class2">Hello!</h2>',
+        '<h3 class="class1 class2">Hello!</h3>',
+        '<h4 class="class1 class2">Hello!</h4>',
+        '<h5 class="class1 class2">Hello!</h5>',
+        '<h6 class="class1 class2">Hello!</h6>',
+        '<ul class="class1 class2">',
+        "<li>Hello!</li>",
+        '<li><input type="checkbox" checked="false" readonly="true">Hello!</li>',
+        '<li><input type="checkbox" checked="true" readonly="true">Hello!</li>',
+        "</ul>",
+        '<ol class="class1 class2">',
+        '<li>Hello!</li><li><input type="checkbox" checked="false" readonly="true">Hello!</li>',
+        '<li><input type="checkbox" checked="true" readonly="true">Hello!</li>',
+        "</ol>",
+        '<blockquote class="class1 class2"><p class="class1 class2">Hello!</p></blockquote>',
+        "<pre>Some code here</pre>",
+        "<pre>Some code here</pre>",
+        '<table class="class1 class2"><colgroup><col width=""><col width=""><col width="200px"></colgroup><thead>Hello!</thead><th class="class1 class2"></th><tbody><tr><td class="class1 class2">Hello!</td><td class="class1 class2">Hello!</td><td rowspan="1" class="class1 class2">Hello!</td></tr>,<tr><td colspan="2" rowspan="3" class="class1 class2">Hello!</td></tr></tbody></table>',
+        '<img src="https://my.site/A/B/image.png">',
+        '<img src="https://my.site/A/B/image.png" alt="Some alt caption" width="100px" height="200px">',
+        '<img src="https://picsum.photos/536/354">',
+        "<script></script><style></style>",
+        "<!-- Macro block editable aera -->",
+        '<p class="class1 class2">',
+        "<!-- Macro inline editable aera --></p>",
+      ].join(""),
     );
   });
 });

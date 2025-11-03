@@ -109,7 +109,7 @@ export class DefaultMacrosAstToHtmlConverter
               this.produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? `<input type="checkbox" checked="${item.checked.toString()}" readOnly />` : ""}${this.convertInlineContents(item.content)}`,
+                `${item.checked !== undefined ? this.produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertInlineContents(item.content)}`,
               ),
             )
             .join(""),
@@ -165,8 +165,9 @@ export class DefaultMacrosAstToHtmlConverter
           this.produceHtmlEl(
             "tr",
             {},
-            [
-              row.map((cell) =>
+
+            row
+              .map((cell) =>
                 this.produceBlockHtml(
                   "td",
                   cell.styles,
@@ -176,8 +177,8 @@ export class DefaultMacrosAstToHtmlConverter
                     rowspan: cell.rowSpan?.toString(),
                   },
                 ),
-              ),
-            ].join(""),
+              )
+              .join(""),
           ),
         );
 
@@ -205,7 +206,7 @@ export class DefaultMacrosAstToHtmlConverter
         return block.html;
 
       case "macroBlock":
-        return this.convertBlock(block);
+        throw new Error("Nested macros are not supported yet");
 
       case "macroBlockEditableArea":
         return "<!-- Macro block editable aera -->";
