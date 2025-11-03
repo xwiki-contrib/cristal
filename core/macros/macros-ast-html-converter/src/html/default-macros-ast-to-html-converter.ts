@@ -26,10 +26,8 @@ import type {
   MacroInlineContent,
   MacroLinkTarget,
 } from "@xwiki/cristal-macros-api";
-import type {
-  RemoteURLParserProvider,
-  RemoteURLSerializerProvider,
-} from "@xwiki/cristal-model-remote-url-api";
+import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
+import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 
 /**
  * Converter that transforms a macro's returned AST to HTML
@@ -47,8 +45,8 @@ export class DefaultMacrosAstToHtmlConverter
   private readonly xmlSerializer = new XMLSerializer();
 
   constructor(
-    @inject("RemoteURLSerializerProvider")
-    private readonly remoteURLParserProvider: RemoteURLParserProvider,
+    @inject("ModelReferenceParserProvider")
+    private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
 
     @inject("RemoteURLSerializerProvider")
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
@@ -223,36 +221,70 @@ export class DefaultMacrosAstToHtmlConverter
       case "text": {
         const { content, styles } = inlineContent;
 
-        const { bold, italic, strikethrough, code } = styles;
+        const {
+          bold,
+          italic,
+          strikethrough,
+          underline,
+          code,
+          textColor,
+          backgroundColor,
+        } = styles;
 
-        const surroundings = [];
+        let html = this.escapeHtml(content);
 
         if (bold) {
-          surroundings.push("strong");
+          html = this.produceHtmlEl(
+            "strong",
+            { style: "font-weight: bold;" },
+            html,
+          );
         }
 
         if (italic) {
-          surroundings.push("em");
+          html = this.produceHtmlEl(
+            "em",
+            { style: "font-style: italic;" },
+            html,
+          );
         }
 
         if (strikethrough) {
-          surroundings.push("s");
+          html = this.produceHtmlEl(
+            "s",
+            { style: "text-decoration: italic;" },
+            html,
+          );
+        }
+
+        if (underline) {
+          html = this.produceHtmlEl(
+            "u",
+            { style: "text-decoration: underline;" },
+            html,
+          );
+        }
+
+        if (textColor) {
+          html = this.produceHtmlEl(
+            "span",
+            { style: `color: ${textColor};` },
+            html,
+          );
+        }
+
+        if (backgroundColor) {
+          html = this.produceHtmlEl(
+            "span",
+            { style: `background-color: ${backgroundColor};` },
+            html,
+          );
         }
 
         // Code must be last as it's going to be the most outer surrounding
         // Otherwise other surroundings would be "trapped" inside the inline code content
         if (code) {
-          surroundings.push("pre");
-        }
-
-        let html = this.escapeHtml(content);
-
-        if (surroundings.length === 0) {
-          return `<span>${this.escapeHtml(html)}</span>`;
-        }
-
-        for (const surrounding of surroundings) {
-          html = this.produceHtmlEl(surrounding, {}, html);
+          html = this.produceHtmlEl("pre", {}, html);
         }
 
         return html;
@@ -287,7 +319,7 @@ export class DefaultMacrosAstToHtmlConverter
     const { rawReference } = target;
 
     const parsedRef = tryFallibleOrError(() =>
-      this.remoteURLParserProvider.get()!.parse(rawReference),
+      this.modelReferenceParserProvider.get()!.parse(rawReference),
     );
 
     if (parsedRef instanceof Error) {
