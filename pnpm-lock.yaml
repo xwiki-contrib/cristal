@@ -2336,9 +2336,6 @@ importers:
       '@xwiki/cristal-model-remote-url-api':
         specifier: workspace:*
         version: link:../../model/model-remote-url/model-remote-url-api
-      inversify:
-        specifier: 7.x
-        version: 7.10.2(reflect-metadata@0.2.2)
     devDependencies:
       '@types/react':
         specifier: 'catalog:'
@@ -2346,6 +2343,9 @@ importers:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
+      inversify:
+        specifier: 'catalog:'
+        version: 7.10.4(reflect-metadata@0.2.2)
       react:
         specifier: 'catalog:'
         version: 19.2.0
