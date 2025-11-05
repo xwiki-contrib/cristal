@@ -227,6 +227,7 @@ function objectEntries<O extends Record<string, unknown>>(
  * @returns - The string representation of the HTML element
  *
  * @since 0.24
+ * @beta
  */
 function produceHtmlEl(
   tagName: string,
@@ -256,6 +257,7 @@ function produceHtmlEl(
  * @returns - The HTML-safe string
  *
  * @since 0.24
+ * @beta
  */
 function escapeHtml(str: string): string {
   // NOTE: instanciating XMLSerializer is extremely cheap, so it's not a problem even in a hot loop
