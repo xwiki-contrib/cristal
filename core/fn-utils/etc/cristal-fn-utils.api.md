@@ -10,7 +10,7 @@ export function assertInArray<T, U extends T>(value: T, array: U[], message: str
 // @beta
 export function assertUnreachable(value: never): never;
 
-// @public
+// @beta
 export function escapeHtml(str: string): string;
 
 // @beta
@@ -19,7 +19,7 @@ export function filterMap<T, U>(array: T[], filterMap: (value: T, index: number)
 // @beta
 export function objectEntries<O extends Record<string, unknown>>(obj: O): Array<[keyof O & string, O[keyof O]]>;
 
-// @public
+// @beta
 export function produceHtmlEl(tagName: string, attrs: Record<string, string | undefined>, innerHTML: string | false): string;
 
 // @beta
