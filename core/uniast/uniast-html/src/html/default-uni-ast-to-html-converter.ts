@@ -17,7 +17,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
+import {
+  assertUnreachable,
+  escapeHtml,
+  produceHtmlEl,
+  tryFallibleOrError,
+} from "@xwiki/cristal-fn-utils";
 import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
 import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { inject, injectable } from "inversify";
@@ -38,11 +43,6 @@ import type {
 
 @injectable()
 export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
-  /**
-   * XML serializer for fast HTML escaping
-   */
-  private readonly xmlSerializer = new XMLSerializer();
-
   constructor(
     @inject("RemoteURLSerializerProvider")
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
@@ -96,10 +96,10 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           block.styles,
           block.items
             .map((item) =>
-              this.produceHtmlEl(
+              produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? this.produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertBlocks(item.content)}`,
+                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertBlocks(item.content)}`,
               ),
             )
             .join(""),
@@ -114,15 +114,15 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
       case "code":
         // TODO: syntax highlighting?
-        return this.produceBlockHtml("pre", {}, this.escapeHtml(block.content));
+        return this.produceBlockHtml("pre", {}, escapeHtml(block.content));
 
       case "table": {
-        const colgroup = this.produceHtmlEl(
+        const colgroup = produceHtmlEl(
           "colgroup",
           {},
           block.columns
             .map((col) =>
-              this.produceHtmlEl(
+              produceHtmlEl(
                 "col",
                 {
                   width: col.widthPx ? `${col.widthPx}px` : undefined,
@@ -134,10 +134,10 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         );
 
         const thead = block.columns.find((col) => col.headerCell)
-          ? this.produceHtmlEl(
+          ? produceHtmlEl(
               "thead",
               {},
-              this.produceHtmlEl(
+              produceHtmlEl(
                 "tr",
                 {},
                 block.columns
@@ -157,7 +157,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
         const tbody = block.rows
           .map((row) =>
-            this.produceHtmlEl(
+            produceHtmlEl(
               "tr",
               {},
               row
@@ -223,9 +223,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
   }
 
   private convertImage(image: Image): string {
-    console.log([image.alt]);
-
-    return this.produceHtmlEl(
+    return produceHtmlEl(
       "img",
       {
         src: this.getTargetUrl(image.target),
@@ -253,26 +251,18 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           backgroundColor,
         } = styles;
 
-        let html = this.escapeHtml(content);
+        let html = escapeHtml(content);
 
         if (bold) {
-          html = this.produceHtmlEl(
-            "strong",
-            { style: "font-weight: bold;" },
-            html,
-          );
+          html = produceHtmlEl("strong", { style: "font-weight: bold;" }, html);
         }
 
         if (italic) {
-          html = this.produceHtmlEl(
-            "em",
-            { style: "font-style: italic;" },
-            html,
-          );
+          html = produceHtmlEl("em", { style: "font-style: italic;" }, html);
         }
 
         if (strikethrough) {
-          html = this.produceHtmlEl(
+          html = produceHtmlEl(
             "s",
             { style: "text-decoration: italic;" },
             html,
@@ -280,7 +270,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         }
 
         if (underline) {
-          html = this.produceHtmlEl(
+          html = produceHtmlEl(
             "u",
             { style: "text-decoration: underline;" },
             html,
@@ -288,15 +278,11 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         }
 
         if (textColor) {
-          html = this.produceHtmlEl(
-            "span",
-            { style: `color: ${textColor};` },
-            html,
-          );
+          html = produceHtmlEl("span", { style: `color: ${textColor};` }, html);
         }
 
         if (backgroundColor) {
-          html = this.produceHtmlEl(
+          html = produceHtmlEl(
             "span",
             { style: `background-color: ${backgroundColor};` },
             html,
@@ -306,14 +292,14 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         // Code must be last as it's going to be the most outer surrounding
         // Otherwise other surroundings would be "trapped" inside the inline code content
         if (code) {
-          html = this.produceHtmlEl("pre", {}, html);
+          html = produceHtmlEl("pre", {}, html);
         }
 
         return html;
       }
 
       case "link":
-        return this.produceHtmlEl(
+        return produceHtmlEl(
           "a",
           { href: this.getTargetUrl(inlineContent.target) },
           this.convertInlineContents(inlineContent.content),
@@ -401,39 +387,13 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
       cssRules += `text-align: ${styles.textAlignment};`;
     }
 
-    return this.produceHtmlEl(
+    return produceHtmlEl(
       tagName,
       {
         ...attrs,
         style: cssRules !== "" ? cssRules.trim() : undefined,
       },
       innerHTML,
-    );
-  }
-
-  private produceHtmlEl(
-    tagName: string,
-    attrs: Record<string, string | undefined>,
-    innerHTML: string | false,
-  ): string {
-    const el = document.createElement(tagName);
-
-    for (const [name, value] of Object.entries(attrs)) {
-      if (value !== undefined) {
-        el.setAttribute(name, value);
-      }
-    }
-
-    if (innerHTML !== false) {
-      el.innerHTML = innerHTML;
-    }
-
-    return el.outerHTML;
-  }
-
-  private escapeHtml(content: string) {
-    return this.xmlSerializer.serializeToString(
-      document.createTextNode(content),
     );
   }
 }
