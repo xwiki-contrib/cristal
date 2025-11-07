@@ -226,7 +226,7 @@ function objectEntries<O extends Record<string, unknown>>(
  *
  * @returns - The string representation of the HTML element
  *
- * @since 0.24
+ * @since 0.24-rc-1
  * @beta
  */
 function produceHtmlEl(
@@ -256,11 +256,11 @@ function produceHtmlEl(
  *
  * @returns - The HTML-safe string
  *
- * @since 0.24
+ * @since 0.24-rc-1
  * @beta
  */
 function escapeHtml(str: string): string {
-  // NOTE: instanciating XMLSerializer is extremely cheap, so it's not a problem even in a hot loop
+  // NOTE: instantiating XMLSerializer is extremely cheap, so it's not a problem even in a hot loop
   return new XMLSerializer().serializeToString(document.createTextNode(str));
 }
 
