@@ -21,8 +21,8 @@ import { findFirstMatchIn } from "./internal/find-first-match-in";
 import { remarkPartialGfm } from "./internal/remark-partial-gfm";
 import { ParserConfigurationResolver } from "./internal-links/parser/parser-configuration-resolver";
 import {
-  HTMLIFIED_MACRO_TAG_NAME,
-  reparseHtmlifiedMacro,
+  CODIFIED_MACRO_PREFIX,
+  reparseCodifiedMacro,
   transformMacros,
 } from "./macros";
 import { assertInArray, assertUnreachable } from "@xwiki/cristal-fn-utils";
@@ -145,6 +145,7 @@ export class DefaultMarkdownToUniAstConverter
           ),
           styles: {},
         };
+
       case "code":
         // TODO: "token.escaped" property
         // TODO: "token.codeBlockStyle" property
@@ -195,21 +196,12 @@ export class DefaultMarkdownToUniAstConverter
       case "thematicBreak":
         return { type: "break" };
 
-      case "html":
-        if (block.value.startsWith(`<${HTMLIFIED_MACRO_TAG_NAME} `)) {
-          return {
-            type: "macroBlock",
-            call: reparseHtmlifiedMacro(block.value),
-          };
-        }
-
-        throw new Error("TODO: handle HTML blocks");
-
       case "imageReference":
       case "linkReference":
       case "definition":
       case "footnoteDefinition":
       case "footnoteReference":
+      case "html":
         throw new Error("TODO: handle blocks of type " + block.type);
 
       // NOTE: These are handled in the `convertInline` function below
@@ -263,34 +255,29 @@ export class DefaultMarkdownToUniAstConverter
           strikethrough: true,
         });
 
-      case "inlineCode":
+      case "inlineCode": {
         return [
-          {
-            type: "text",
-            content: inline.value,
-            styles: {},
-          },
+          inline.value.startsWith(CODIFIED_MACRO_PREFIX)
+            ? {
+                type: "inlineMacro",
+                call: reparseCodifiedMacro(inline.value),
+              }
+            : {
+                type: "text",
+                content: inline.value,
+                styles: {},
+              },
         ];
+      }
 
       case "text":
         return this.convertText(inline.value, styles);
-
-      case "html":
-        if (inline.value.startsWith(`<${HTMLIFIED_MACRO_TAG_NAME} `)) {
-          return [
-            {
-              type: "inlineMacro",
-              call: reparseHtmlifiedMacro(inline.value),
-            },
-          ];
-        }
-
-        throw new Error("TODO: handle inline HTML");
 
       case "footnoteReference":
       case "linkReference":
       case "imageReference":
       case "break":
+      case "html":
         throw new Error("TODO: handle inlines of type " + inline.type);
 
       case "link": {

@@ -151,6 +151,7 @@ function init() {
   };
 }
 
+// eslint-disable-next-line max-statements
 describe("MarkdownToUniAstConverter", () => {
   const {
     modelReferenceParserProvider,
@@ -1083,7 +1084,6 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" /}}',
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
       ].join("\n\n"),
       convertsBackTo: [
         "{{macro /}}",
@@ -1096,7 +1096,6 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" /}}',
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
       ].join("\n\n"),
       withUniAst: {
         blocks: [
@@ -1191,17 +1190,6 @@ describe("MarkdownToUniAstConverter", () => {
                 param1: "param1Value",
                 param2: "param2Value",
                 param3: "param3Value",
-              },
-              body: null,
-            },
-          },
-          {
-            type: "macroBlock",
-            call: {
-              name: "macro",
-              params: {
-                param1:
-                  'some " escaped quote and }} closing braces and \\ escaped backslashes',
               },
               body: null,
             },
@@ -1224,7 +1212,6 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" }}Hello **world**{{/macro}}',
         '{{macro param1="1" param2="2" }}Hello **world**{{/macro}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" }}Hello **world**{{/macro}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/macro}}',
       ].join("\n\n"),
       convertsBackTo: [
         "{{macro}}Hello **world**{{/macro}}",
@@ -1237,7 +1224,6 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1"}}Hello **world**{{/macro}}',
         '{{macro param1="1" param2="2"}}Hello **world**{{/macro}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value"}}Hello **world**{{/macro}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/macro}}',
       ].join("\n\n"),
       withUniAst: {
         blocks: [
@@ -1336,16 +1322,64 @@ describe("MarkdownToUniAstConverter", () => {
               body: "Hello **world**",
             },
           },
+        ],
+      },
+    });
+  });
+
+  test("parse various ambiguous macro syntaxes", async () => {
+    await testTwoWayConversion({
+      startingFrom: [
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/macro}}',
+        "{{macro}}{{subMacro}}{{/subMacro}}{{/macro}}",
+        "{{macro}}{{macro}}{{/macro}}{{/macro}}",
+      ].join("\n\n"),
+      convertsBackTo: [
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/macro}}',
+        "{{macro}}{{subMacro}}{{/subMacro}}{{/macro}}",
+        "{{macro}}{{macro}}{{/macro}}{{/macro}}",
+      ].join("\n\n"),
+      withUniAst: {
+        blocks: [
           {
-            type: "macroBlock",
             call: {
+              body: null,
               name: "macro",
               params: {
                 param1:
                   'some " escaped quote and }} closing braces and \\ escaped backslashes',
               },
-              body: "Hello **world**",
             },
+            type: "macroBlock",
+          },
+          {
+            call: {
+              body: "Hello **world**",
+              name: "macro",
+              params: {
+                param1:
+                  'some " escaped quote and }} closing braces and \\ escaped backslashes',
+              },
+            },
+            type: "macroBlock",
+          },
+          {
+            call: {
+              body: "{{subMacro}}{{/subMacro}}",
+              name: "macro",
+              params: {},
+            },
+            type: "macroBlock",
+          },
+          {
+            call: {
+              body: "{{macro}}{{/macro}}",
+              name: "macro",
+              params: {},
+            },
+            type: "macroBlock",
           },
         ],
       },
