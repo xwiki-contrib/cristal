@@ -92,10 +92,11 @@ function transformMacros(
         case "parseAs":
           out +=
             markdown.slice(lastPush + 1, i) +
-            `<${HTMLIFIED_MACRO_TAG_NAME} call="${encodeURIComponent(JSON.stringify(handling.call))}">`;
+            `\`${CODIFIED_MACRO_PREFIX}${btoa(JSON.stringify(handling.call))}\``;
 
           // NOTE: we only add 1 instead of 2 even though there are two closing braces (`}}`) as `i` will be incremented when loop starts over
-          lastPush = i + handling.chars + 1;
+          i += handling.chars + 1;
+          lastPush = i;
 
           break;
 
@@ -290,19 +291,20 @@ const eatMacro: MacroHandler = (content) => {
   };
 };
 
-function reparseHtmlifiedMacro(html: string): MacroInvocation {
-  const match = html.match(HTMLIFIED_MACRO_REGEX);
-
-  if (!match) {
-    console.error({ invalidHtmlifiedMacro: html });
-    throw new Error("Invalid HTMLified macro");
+function reparseCodifiedMacro(code: string): MacroInvocation {
+  if (!code.startsWith(CODIFIED_MACRO_PREFIX)) {
+    console.error({ code });
+    throw new Error(
+      "Internal error: provided code does not start with macro invocation prefix",
+    );
   }
 
-  return JSON.parse(decodeURIComponent(match[1])) as MacroInvocation;
+  return JSON.parse(
+    atob(code.substring(CODIFIED_MACRO_PREFIX.length)),
+  ) as MacroInvocation;
 }
 
-const HTMLIFIED_MACRO_TAG_NAME = "cristal-macro";
-const HTMLIFIED_MACRO_REGEX: RegExp = /^<cristal-macro call="(.*)">$/;
+const CODIFIED_MACRO_PREFIX = "###cristalMacro:###";
 
-export { HTMLIFIED_MACRO_TAG_NAME, reparseHtmlifiedMacro, transformMacros };
+export { CODIFIED_MACRO_PREFIX, reparseCodifiedMacro, transformMacros };
 export type { MacroHandler };
