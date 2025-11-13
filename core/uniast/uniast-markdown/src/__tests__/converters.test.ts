@@ -1334,12 +1334,16 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/macro}}',
         "{{macro}}{{subMacro}}{{/subMacro}}{{/macro}}",
         "{{macro}}{{macro}}{{/macro}}{{/macro}}",
+        "{{macro}}`{{/macro}}`{{/macro}}",
+        "{{macro}}```{{/macro}}```{{/macro}}",
       ].join("\n\n"),
       convertsBackTo: [
         '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
         '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/macro}}',
         "{{macro}}{{subMacro}}{{/subMacro}}{{/macro}}",
         "{{macro}}{{macro}}{{/macro}}{{/macro}}",
+        "{{macro}}`{{/macro}}`{{/macro}}",
+        "{{macro}}```{{/macro}}```{{/macro}}",
       ].join("\n\n"),
       withUniAst: {
         blocks: [
@@ -1376,6 +1380,22 @@ describe("MarkdownToUniAstConverter", () => {
           {
             call: {
               body: "{{macro}}{{/macro}}",
+              name: "macro",
+              params: {},
+            },
+            type: "macroBlock",
+          },
+          {
+            call: {
+              body: "`{{/macro}}`",
+              name: "macro",
+              params: {},
+            },
+            type: "macroBlock",
+          },
+          {
+            call: {
+              body: "```{{/macro}}```",
               name: "macro",
               params: {},
             },
