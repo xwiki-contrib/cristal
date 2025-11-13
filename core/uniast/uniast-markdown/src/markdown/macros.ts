@@ -1,0 +1,308 @@
+/**
+ * See the LICENSE file distributed with this work for additional
+ * information regarding copyright ownership.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+import { assertUnreachable } from "@xwiki/cristal-fn-utils";
+import type { MacroInvocation } from "@xwiki/cristal-uniast-api";
+
+type MacroHandler = (
+  content: string,
+) =>
+  | { do: "parseAs"; call: MacroInvocation; chars: number }
+  | { do: "ignore" }
+  | { do: "break" };
+
+// eslint-disable-next-line max-statements
+function transformMacros(
+  markdown: string,
+  macroHandler: MacroHandler = eatMacro,
+): {
+  content: string;
+  brokeAt: number | null;
+} {
+  let escaping = false;
+  let inCodeBlock = false;
+  let inInlineCode = false;
+  let lastPush = -1;
+  let out = "";
+
+  let i = 0;
+
+  for (i = 0; i < markdown.length; i++) {
+    if (escaping) {
+      escaping = false;
+      continue;
+    }
+
+    const char = markdown[i];
+
+    if (char === "\\") {
+      escaping = true;
+      continue;
+    }
+
+    if (inInlineCode) {
+      if (char === "`") {
+        inInlineCode = false;
+      }
+
+      continue;
+    }
+
+    if (inCodeBlock) {
+      if (markdown.slice(i).startsWith("```")) {
+        inCodeBlock = false;
+        i += 2;
+      }
+
+      continue;
+    }
+
+    if (char === "`") {
+      if (markdown.slice(i).startsWith("```")) {
+        inCodeBlock = true;
+        i += 2;
+      } else {
+        inInlineCode = true;
+      }
+
+      continue;
+    }
+
+    if (char === "{" && markdown[i + 1] === "{") {
+      const handling = macroHandler(markdown.slice(i + 2));
+
+      switch (handling.do) {
+        case "parseAs":
+          out +=
+            markdown.slice(lastPush + 1, i) +
+            `<${HTMLIFIED_MACRO_TAG_NAME} call="${encodeURIComponent(JSON.stringify(handling.call))}">`;
+
+          // NOTE: we only add 1 instead of 2 even though there are two closing braces (`}}`) as `i` will be incremented when loop starts over
+          lastPush = i + handling.chars + 1;
+
+          break;
+
+        case "ignore":
+          continue;
+
+        case "break":
+          return {
+            content: out + markdown.slice(lastPush + 1, i),
+            brokeAt: i,
+          };
+
+        default:
+          assertUnreachable(handling);
+      }
+    }
+  }
+
+  return { content: out + markdown.slice(lastPush + 1), brokeAt: null };
+}
+
+// eslint-disable-next-line max-statements
+const eatMacro: MacroHandler = (content) => {
+  // Find the macro's name
+  const macroNameMatch = content.match(
+    // This weird group matches valid accentuated Unicode letters
+    /^\s*([A-Za-zÀ-ÖØ-öø-ÿ\d]+)(\s+(?=[A-Za-zÀ-ÖØ-öø-ÿ\d/])|\s*(?=\/|}}))/,
+  );
+
+  // If the macro's name is invalid, the whole macro invocation is invalid
+  if (!macroNameMatch) {
+    return { do: "ignore" };
+  }
+
+  const macroName = macroNameMatch[1];
+
+  let i;
+
+  // Is the next character being escaped?
+  let escaping = false;
+
+  // Parameters are built character by character
+  // First the name is parsed from the source, then the value
+  let buildingParameter: { name: string; value: string | null } | null = null;
+
+  // The list of parsed parameters
+  const parameters: Record<string, string> = {};
+
+  // Is the macro being closed?
+  let closingMacro = false;
+
+  for (i = macroNameMatch[0].length; i < content.length; i++) {
+    // Escaping is possible only inside parameter values
+    if (escaping) {
+      if (!buildingParameter || buildingParameter.value === null) {
+        throw new Error("Unexpected");
+      }
+
+      escaping = false;
+      buildingParameter.value += content[i];
+
+      continue;
+    }
+
+    // If we're not building a parameter, we are expecting one thing between...
+    if (!buildingParameter) {
+      // ...a space (no particular meaning)
+      if (content[i] === " ") {
+        continue;
+      }
+
+      // ...a valid identifier character which will begin the parameter's name
+      if (content[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ_\d]/)) {
+        buildingParameter = { name: content[i], value: null };
+        continue;
+      }
+
+      // ...or a closing slash which indicates the macro has no more parameter
+      if (content[i] === "/") {
+        i++;
+        closingMacro = true;
+        break;
+      }
+
+      // Invalid character, stop building macro here
+      break;
+    }
+
+    // If we're building a parameter's name, we are expecting one thing between...
+    if (buildingParameter.value === null) {
+      // ...a valid identifier character which will continue the parameter's name
+      if (content[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ_\d]/)) {
+        buildingParameter.name += content[i];
+        continue;
+      }
+
+      // ...or an '=' operator sign which indicates we are going to assign a value to the parameter
+      if (content[i] === "=") {
+        // Usually parameters start with a double quote to indicate they have a string-like value
+        if (content[i + 1] === '"') {
+          i += 1;
+          buildingParameter.value = "";
+          continue;
+        }
+
+        // But unquoted integers are also accepted
+        const number = content
+          .substring(i + 1)
+          .match(/\d+(?=[^A-Za-zÀ-ÖØ-öø-ÿ\d])/);
+
+        if (!number) {
+          // Invalid character, stop building macro here
+          break;
+        }
+
+        parameters[buildingParameter.name] = number[0];
+        buildingParameter = null;
+
+        i += number[0].length;
+        continue;
+      }
+
+      // Invalid character, stop building macro here
+      break;
+    }
+
+    // If we reach this point, we are building the parameter's value.
+    // Which means we are expecting either:
+    // ...an escaping character
+    if (content[i] === "\\") {
+      escaping = true;
+    }
+    // ...a closing double quote to indicate the parameter's value's end
+    else if (content[i] === '"') {
+      parameters[buildingParameter.name] = buildingParameter.value;
+      buildingParameter = null;
+    }
+    // ...or any other character that will continue the parameter's value
+    else {
+      buildingParameter.value += content[i];
+    }
+  }
+
+  // When the macro closes, we expect double braces afterwards
+  const closingBraces = content.substring(i).match(/\s*}}/);
+
+  // If the macro doesn't have closing braces, it's invalid
+  if (!closingBraces) {
+    return { do: "ignore" };
+  }
+
+  let offset = i + closingBraces[0].length;
+  let body: string | null = null;
+
+  // If the macro has not been closed with a `/`, it must have a content
+  if (!closingMacro) {
+    const closingRegex = new RegExp(`^\\s*/${macroName}\\s*}}`);
+
+    const { brokeAt } = transformMacros(content.slice(offset), (content) =>
+      closingRegex.exec(content) ? { do: "break" } : eatMacro(content),
+    );
+
+    // If everything was parsed without stopping, the macro is not closed properly
+    if (brokeAt === null) {
+      throw new Error("Unclosed macro");
+    }
+
+    const closingMatch = content
+      .slice(offset + brokeAt + 2)
+      .match(closingRegex);
+
+    if (!closingMatch) {
+      throw new Error("Unexpected");
+    }
+
+    body = content.slice(offset, offset + brokeAt);
+    offset += brokeAt + closingMatch[0].length + 2;
+  }
+
+  // Otherwise, we can properly build the macro
+  // NOTE: If a paragraph only contains an inline macro, it will be converted to a macro block instead
+  //       by the calling function
+
+  return {
+    do: "parseAs",
+    call: {
+      name: macroName,
+      params: parameters,
+      body,
+    },
+    chars: offset,
+  };
+};
+
+function reparseHtmlifiedMacro(html: string): MacroInvocation {
+  const match = html.match(HTMLIFIED_MACRO_REGEX);
+
+  if (!match) {
+    console.error({ invalidHtmlifiedMacro: html });
+    throw new Error("Invalid HTMLified macro");
+  }
+
+  return JSON.parse(decodeURIComponent(match[1])) as MacroInvocation;
+}
+
+const HTMLIFIED_MACRO_TAG_NAME = "cristal-macro";
+const HTMLIFIED_MACRO_REGEX: RegExp = /^<cristal-macro call="(.*)">$/;
+
+export { HTMLIFIED_MACRO_TAG_NAME, reparseHtmlifiedMacro, transformMacros };
+export type { MacroHandler };

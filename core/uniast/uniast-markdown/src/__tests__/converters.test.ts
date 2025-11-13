@@ -94,6 +94,8 @@ function init() {
 
   const parserConfigurationResolver = mock<ParserConfigurationResolver>();
   const markdownParserConfiguration = mock<MarkdownParserConfiguration>();
+
+  // @ts-expect-error Mocking isn't typesafe
   markdownParserConfiguration.supportFlexmarkInternalLinks.mockReturnValue(
     false,
   );
@@ -1047,9 +1049,12 @@ describe("MarkdownToUniAstConverter", () => {
                 type: "text",
               },
               {
-                name: "someInlineMacro",
-                params: {},
                 type: "inlineMacro",
+                call: {
+                  name: "someInlineMacro",
+                  params: {},
+                  body: null,
+                },
               },
               {
                 content: " F",
@@ -1065,7 +1070,7 @@ describe("MarkdownToUniAstConverter", () => {
     });
   });
 
-  test("parse various macros syntaxes", async () => {
+  test("parse various contentless macros syntaxes", async () => {
     await testTwoWayConversion({
       startingFrom: [
         "{{macro/}}",
@@ -1078,7 +1083,7 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" /}}',
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
-        '{{macro param1="some \\\\" escaped quote and }} closing braces and \\\\\\ escaped backslashes" /}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
       ].join("\n\n"),
       convertsBackTo: [
         "{{macro /}}",
@@ -1091,82 +1096,256 @@ describe("MarkdownToUniAstConverter", () => {
         '{{macro param1="1" /}}',
         '{{macro param1="1" param2="2" /}}',
         '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
-        '{{macro param1="some \\\\" escaped quote and }} closing braces and \\\\\\ escaped backslashes" /}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
       ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
-            name: "macro",
-            params: {},
             type: "macroBlock",
-          },
-          {
-            name: "macro",
-            params: {},
-            type: "macroBlock",
-          },
-          {
-            name: "macro",
-            params: {},
-            type: "macroBlock",
-          },
-          {
-            name: "macro",
-            params: {},
-            type: "macroBlock",
-          },
-          {
-            name: "macro",
-            params: {
-              param1: "1",
+            call: {
+              name: "macro",
+              params: {},
+              body: null,
             },
-            type: "macroBlock",
           },
           {
-            name: "macro",
-            params: {
-              param1: "1",
-            },
             type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {},
+              body: null,
+            },
           },
           {
-            name: "macro",
-            params: {
-              param1: "1",
-            },
             type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {},
+              body: null,
+            },
           },
           {
-            name: "macro",
-            params: {
-              param1: "1",
-            },
             type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {},
+              body: null,
+            },
           },
           {
-            name: "macro",
-            params: {
-              param1: "1",
-              param2: "2",
-            },
             type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: null,
+            },
           },
           {
-            name: "macro",
-            params: {
-              param1: "param1Value",
-              param2: "param2Value",
-              param3: "param3Value",
-            },
             type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: null,
+            },
           },
           {
-            name: "macro",
-            params: {
-              param1:
-                'some " escaped quote and }} closing braces and \\ escaped backslashes',
-            },
             type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: null,
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: null,
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+                param2: "2",
+              },
+              body: null,
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "param1Value",
+                param2: "param2Value",
+                param3: "param3Value",
+              },
+              body: null,
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1:
+                  'some " escaped quote and }} closing braces and \\ escaped backslashes',
+              },
+              body: null,
+            },
+          },
+        ],
+      },
+    });
+  });
+
+  test("parse various contentful macros syntaxes", async () => {
+    await testTwoWayConversion({
+      startingFrom: [
+        "{{macro}}Hello **world**{{/macro}}",
+        "{{ macro}}Hello **world**{{/macro}}",
+        "{{macro }}Hello **world**{{/macro}}",
+        "{{  macro  }}Hello **world**{{/macro}}",
+        "{{macro param1=1}}Hello **world**{{/macro}}",
+        '{{macro param1="1"}}Hello **world**{{/macro}}',
+        "{{macro param1=1 }}Hello **world**{{/macro}}",
+        '{{macro param1="1" }}Hello **world**{{/macro}}',
+        '{{macro param1="1" param2="2" }}Hello **world**{{/macro}}',
+        '{{macro param1="param1Value" param2="param2Value" param3="param3Value" }}Hello **world**{{/macro}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/macro}}',
+      ].join("\n\n"),
+      convertsBackTo: [
+        "{{macro}}Hello **world**{{/macro}}",
+        "{{macro}}Hello **world**{{/macro}}",
+        "{{macro}}Hello **world**{{/macro}}",
+        "{{macro}}Hello **world**{{/macro}}",
+        '{{macro param1="1"}}Hello **world**{{/macro}}',
+        '{{macro param1="1"}}Hello **world**{{/macro}}',
+        '{{macro param1="1"}}Hello **world**{{/macro}}',
+        '{{macro param1="1"}}Hello **world**{{/macro}}',
+        '{{macro param1="1" param2="2"}}Hello **world**{{/macro}}',
+        '{{macro param1="param1Value" param2="param2Value" param3="param3Value"}}Hello **world**{{/macro}}',
+        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/macro}}',
+      ].join("\n\n"),
+      withUniAst: {
+        blocks: [
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {},
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {},
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {},
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {},
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+              },
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "1",
+                param2: "2",
+              },
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1: "param1Value",
+                param2: "param2Value",
+                param3: "param3Value",
+              },
+              body: "Hello **world**",
+            },
+          },
+          {
+            type: "macroBlock",
+            call: {
+              name: "macro",
+              params: {
+                param1:
+                  'some " escaped quote and }} closing braces and \\ escaped backslashes',
+              },
+              body: "Hello **world**",
+            },
           },
         ],
       },
