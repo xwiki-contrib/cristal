@@ -42,6 +42,7 @@ import type {
   RemoteURLSerializer,
   RemoteURLSerializerProvider,
 } from "@xwiki/cristal-model-remote-url-api";
+import type { BlockStyles } from "@xwiki/cristal-uniast-api";
 
 // eslint-disable-next-line max-statements
 function init() {
@@ -163,7 +164,7 @@ describe("UniAstToHTMLConverter", () => {
         },
       ],
     });
-    expect(res).toBe("<p><strong>test</strong></p>");
+    expect(res).toBe('<p><strong style="font-weight: bold;">test</strong></p>');
   });
 
   test("strikethrough and italic text", () => {
@@ -185,7 +186,9 @@ describe("UniAstToHTMLConverter", () => {
         },
       ],
     });
-    expect(res).toBe("<p><s><em>test</em></s></p>");
+    expect(res).toBe(
+      '<p><s style="text-decoration: italic;"><em style="font-style: italic;">test</em></s></p>',
+    );
   });
 
   test("text with special char", () => {
@@ -363,7 +366,7 @@ describe("UniAstToHTMLConverter", () => {
       ],
     });
     expect(res).toBe(
-      "<table><thead><th>header 1</th></thead><tbody><tr><td>cell 1</td></tr></tbody></table>",
+      "<table><colgroup><col></colgroup><thead><tr><th>header 1</th></tr></thead><tbody><tr><td>cell 1</td></tr></tbody></table>",
     );
   });
 
@@ -377,7 +380,7 @@ describe("UniAstToHTMLConverter", () => {
         },
       ],
     });
-    expect(res).toBe('<img src="https://my.site/image.png" alt="">');
+    expect(res).toBe('<img src="https://my.site/image.png">');
   });
 
   test("external image with alt", () => {
@@ -417,6 +420,120 @@ describe("UniAstToHTMLConverter", () => {
     });
     expect(res).toBe(
       '<img src="https://my.site/A/B/image.png" alt="image alt">',
+    );
+  });
+
+  test("styling", () => {
+    const styles: BlockStyles = {
+      backgroundColor: "#000000",
+      textColor: "#FFFFFF",
+      textAlignment: "right",
+    };
+
+    const res = uniAstToHTMLConverter.toHtml({
+      blocks: [
+        { type: "paragraph", content: [], styles },
+        { type: "heading", level: 1, content: [], styles },
+        { type: "heading", level: 2, content: [], styles },
+        { type: "heading", level: 3, content: [], styles },
+        { type: "heading", level: 4, content: [], styles },
+        { type: "heading", level: 5, content: [], styles },
+        { type: "heading", level: 6, content: [], styles },
+        {
+          type: "list",
+          items: [
+            { content: [], styles },
+            { checked: false, content: [], styles },
+            { checked: true, content: [], styles },
+            { number: 1, content: [], styles },
+          ],
+          styles,
+        },
+        {
+          type: "quote",
+          content: [{ type: "paragraph", content: [], styles }],
+          styles,
+        },
+        { type: "code", content: "Some code here" },
+        { type: "code", content: "Some code here", language: "some-language" },
+        {
+          type: "table",
+          columns: [
+            {},
+            { headerCell: { content: [], styles } },
+            { widthPx: 200 },
+          ],
+          rows: [
+            [
+              { content: [], styles },
+              { content: [], styles },
+              { content: [], styles, rowSpan: 1 },
+            ],
+            [{ content: [], styles, colSpan: 2, rowSpan: 3 }],
+          ],
+          styles,
+        },
+        {
+          type: "image",
+          target: {
+            type: "internal",
+            rawReference: "A.B@image.png",
+            parsedReference: null,
+          },
+          styles: {
+            alignment: "right",
+          },
+        },
+        {
+          type: "image",
+          target: {
+            type: "internal",
+            rawReference: "A.B@image.png",
+            parsedReference: null,
+          },
+          alt: "Some alt caption",
+          widthPx: 100,
+          heightPx: 200,
+          styles: { alignment: "right" },
+        },
+        {
+          type: "image",
+          target: { type: "external", url: "https://picsum.photos/536/354" },
+          styles: { alignment: "right" },
+        },
+      ],
+    });
+
+    expect(res).toBe(
+      [
+        '<p style="background-color: #000000;color: #FFFFFF;text-align: right;"></p>',
+        '<h1 style="background-color: #000000;color: #FFFFFF;text-align: right;"></h1>',
+        '<h2 style="background-color: #000000;color: #FFFFFF;text-align: right;"></h2>',
+        '<h3 style="background-color: #000000;color: #FFFFFF;text-align: right;"></h3>',
+        '<h4 style="background-color: #000000;color: #FFFFFF;text-align: right;"></h4>',
+        '<h5 style="background-color: #000000;color: #FFFFFF;text-align: right;"></h5>',
+        '<h6 style="background-color: #000000;color: #FFFFFF;text-align: right;"></h6>',
+        '<ul style="background-color: #000000;color: #FFFFFF;text-align: right;">',
+        "<li></li>",
+        '<li><input type="checkbox" checked="false" readonly="true"></li>',
+        '<li><input type="checkbox" checked="true" readonly="true"></li>',
+        "<li></li>",
+        "</ul>",
+        '<blockquote style="background-color: #000000;color: #FFFFFF;text-align: right;"><p style="background-color: #000000;color: #FFFFFF;text-align: right;"></p></blockquote>',
+        "<pre>Some code here</pre>",
+        "<pre>Some code here</pre>",
+        '<table style="background-color: #000000;color: #FFFFFF;text-align: right;">',
+        '<colgroup><col><col><col width="200px"></colgroup>',
+        '<thead><tr><th style="background-color: #000000;color: #FFFFFF;text-align: right;"></th></tr></thead>',
+        "<tbody>",
+        '<tr><td style="background-color: #000000;color: #FFFFFF;text-align: right;"></td><td style="background-color: #000000;color: #FFFFFF;text-align: right;"></td><td rowspan="1" style="background-color: #000000;color: #FFFFFF;text-align: right;"></td></tr>',
+        '<tr><td colspan="2" rowspan="3" style="background-color: #000000;color: #FFFFFF;text-align: right;"></td></tr>',
+        "</tbody>",
+        "</table>",
+        '<img src="https://my.site/A/B/image.png">',
+        '<img src="https://my.site/A/B/image.png" alt="Some alt caption" width="100px" height="200px">',
+        '<img src="https://picsum.photos/536/354">',
+      ].join(""),
     );
   });
 });

@@ -17,11 +17,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import {
+  assertUnreachable,
+  escapeHtml,
+  produceHtmlEl,
+  tryFallibleOrError,
+} from "@xwiki/cristal-fn-utils";
 import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
 import { macrosServiceName } from "@xwiki/cristal-macros-service";
-import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
-import { escape } from "lodash-es";
 import type { UniAstToHTMLConverter } from "./uni-ast-to-html-converter";
 import type { MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
 import type { MacrosService } from "@xwiki/cristal-macros-service";
@@ -30,11 +34,10 @@ import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-referenc
 import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
 import type {
   Block,
+  BlockStyles,
   Image,
   InlineContent,
-  ListItem,
-  TableCell,
-  Text,
+  LinkTarget,
   UniAst,
 } from "@xwiki/cristal-uniast-api";
 
@@ -54,54 +57,132 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
     private readonly macrosAstToHtmlConverter: MacrosAstToHtmlConverter,
   ) {}
 
-  toHtml(uniAst: UniAst): string | Error {
-    const { blocks } = uniAst;
+  toHtml(ast: UniAst): string | Error {
+    return tryFallibleOrError(() => this.convertBlocks(ast.blocks));
+  }
 
-    const out: string[] = [];
+  private convertBlocks(blocks: Block[]): string {
+    return blocks.map((block) => this.convertBlock(block)).join("");
+  }
 
-    for (const block of blocks) {
-      try {
-        out.push(this.convertBlock(block));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
-    return out.join("\n");
+  private convertInlineContents(inlineContents: InlineContent[]): string {
+    return inlineContents
+      .map((inlineContent) => this.convertInlineContent(inlineContent))
+      .join("");
   }
 
   // eslint-disable-next-line max-statements
   private convertBlock(block: Block): string {
-    // TODO: all styles are ignored here
-    // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-717
-
     switch (block.type) {
       case "paragraph":
-        return `<p>${this.convertInlineContents(block.content)}</p>`;
+        return this.produceBlockHtml(
+          "p",
+          block.styles,
+          this.convertInlineContents(block.content),
+        );
 
       case "heading":
-        return `<h${block.level}>${this.convertInlineContents(block.content)}</h${block.level}>`;
+        return this.produceBlockHtml(
+          `h${block.level}`,
+          block.styles,
+          this.convertInlineContents(block.content),
+        );
 
-      case "list": {
-        const tag = block.items[0]?.number ? "ol" : "ul";
-        return `<${tag}>${block.items
-          .map((item) => this.convertListItem(item))
-          .join("")}</${tag}>`;
-      }
+      case "list":
+        return this.produceBlockHtml(
+          block.items.length > 0 && block.items[0].number !== undefined
+            ? "ol"
+            : "ul",
+          block.styles,
+          block.items
+            .map((item) =>
+              produceHtmlEl(
+                "li",
+                {},
+                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertBlocks(item.content)}`,
+              ),
+            )
+            .join(""),
+        );
 
-      case "quote": {
-        const blockquoteContent = block.content
-          .map((item) => this.convertBlock(item))
-          ?.join("");
-        return `<blockquote>${blockquoteContent}</blockquote>`;
-      }
+      case "quote":
+        return this.produceBlockHtml(
+          "blockquote",
+          block.styles,
+          this.convertBlocks(block.content),
+        );
 
       case "code":
-        // TODO: support for syntax highlighting
-        return `<pre>${this.escapeHTML(block.content)}</pre>`;
+        // TODO: syntax highlighting?
+        return this.produceBlockHtml("pre", {}, escapeHtml(block.content));
 
-      case "table":
-        return this.convertTable(block);
+      case "table": {
+        const colgroup = produceHtmlEl(
+          "colgroup",
+          {},
+          block.columns
+            .map((col) =>
+              produceHtmlEl(
+                "col",
+                {
+                  width: col.widthPx ? `${col.widthPx}px` : undefined,
+                },
+                false,
+              ),
+            )
+            .join(""),
+        );
+
+        const thead = block.columns.find((col) => col.headerCell)
+          ? produceHtmlEl(
+              "thead",
+              {},
+              produceHtmlEl(
+                "tr",
+                {},
+                block.columns
+                  .map((col) =>
+                    col.headerCell
+                      ? this.produceBlockHtml(
+                          "th",
+                          col.headerCell.styles,
+                          this.convertInlineContents(col.headerCell.content),
+                        )
+                      : "",
+                  )
+                  .join(""),
+              ),
+            )
+          : "";
+
+        const tbody = block.rows
+          .map((row) =>
+            produceHtmlEl(
+              "tr",
+              {},
+              row
+                .map((cell) =>
+                  this.produceBlockHtml(
+                    "td",
+                    cell.styles,
+                    this.convertInlineContents(cell.content),
+                    {
+                      colspan: cell.colSpan?.toString(),
+                      rowspan: cell.rowSpan?.toString(),
+                    },
+                  ),
+                )
+                .join(""),
+            ),
+          )
+          .join("");
+
+        return this.produceBlockHtml(
+          "table",
+          block.styles,
+          [colgroup, thead, tbody].join(""),
+        );
+      }
 
       case "image":
         return this.convertImage(block);
@@ -135,92 +216,97 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
         return rendered;
       }
-    }
-  }
 
-  private convertListItem(listItem: ListItem): string {
-    return `<li>${listItem.content.map((item) => this.convertBlock(item)).join("")}</li>`;
+      default:
+        assertUnreachable(block);
+    }
   }
 
   private convertImage(image: Image): string {
-    const target = image.target;
-    let srcValue: string;
-    if (target.type === "external") {
-      srcValue = escape(target.url);
-    } else if (target.parsedReference !== null) {
-      srcValue = escape(
-        this.remoteURLSerializerProvider
-          .get()!
-          .serialize(target.parsedReference),
-      );
-    } else {
-      srcValue = escape(
-        this.convertReference(target.rawReference, EntityType.ATTACHMENT),
-      );
-    }
-    const altValue: string = escape(image.alt) ?? "";
-    return `<img src="${srcValue}" alt="${altValue}">`;
-  }
-
-  private convertTable(table: Extract<Block, { type: "table" }>): string {
-    const { columns, rows } = table;
-
-    const ths: string = columns
-      .map(
-        (column) =>
-          `<th>${column.headerCell ? this.convertTableCell(column.headerCell) : ""}</th>`,
-      )
-      .join("");
-
-    const trs: string = rows
-      .map((row) =>
-        row.map((cell) => `<td>${this.convertTableCell(cell)}</td>`).join(""),
-      )
-      .map((row) => `<tr>${row}</tr>`)
-      .join("");
-
-    return `<table><thead>${ths}</thead><tbody>${trs}</tbody></table>`;
-  }
-
-  private convertTableCell(cell: TableCell): string {
-    return this.convertInlineContents(cell.content);
-  }
-
-  private convertInlineContents(inlineContents: InlineContent[]): string {
-    return inlineContents
-      .map((item) => this.convertInlineContent(item))
-      .join("");
+    return produceHtmlEl(
+      "img",
+      {
+        src: this.getTargetUrl(image.target),
+        alt: image.alt || undefined,
+        width: image.widthPx ? `${image.widthPx}px` : undefined,
+        height: image.heightPx ? `${image.heightPx}px` : undefined,
+      },
+      false,
+    );
   }
 
   // eslint-disable-next-line max-statements
   private convertInlineContent(inlineContent: InlineContent): string {
     switch (inlineContent.type) {
-      case "text":
-        return this.convertText(inlineContent);
+      case "text": {
+        const { content, styles } = inlineContent;
+
+        const {
+          bold,
+          italic,
+          strikethrough,
+          underline,
+          code,
+          textColor,
+          backgroundColor,
+        } = styles;
+
+        let html = escapeHtml(content);
+
+        if (bold) {
+          html = produceHtmlEl("strong", { style: "font-weight: bold;" }, html);
+        }
+
+        if (italic) {
+          html = produceHtmlEl("em", { style: "font-style: italic;" }, html);
+        }
+
+        if (strikethrough) {
+          html = produceHtmlEl(
+            "s",
+            { style: "text-decoration: italic;" },
+            html,
+          );
+        }
+
+        if (underline) {
+          html = produceHtmlEl(
+            "u",
+            { style: "text-decoration: underline;" },
+            html,
+          );
+        }
+
+        if (textColor) {
+          html = produceHtmlEl("span", { style: `color: ${textColor};` }, html);
+        }
+
+        if (backgroundColor) {
+          html = produceHtmlEl(
+            "span",
+            { style: `background-color: ${backgroundColor};` },
+            html,
+          );
+        }
+
+        // Code must be last as it's going to be the most outer surrounding
+        // Otherwise other surroundings would be "trapped" inside the inline code content
+        if (code) {
+          html = produceHtmlEl("pre", {}, html);
+        }
+
+        return html;
+      }
+
+      case "link":
+        return produceHtmlEl(
+          "a",
+          { href: this.getTargetUrl(inlineContent.target) },
+          this.convertInlineContents(inlineContent.content),
+        );
 
       case "image":
         return this.convertImage(inlineContent);
-
-      case "link": {
-        const linkContent = this.convertInlineContents(inlineContent.content);
-        switch (inlineContent.target.type) {
-          case "external":
-            return `<a href="${escape(inlineContent.target.url)}" class="wikiexternallink">${linkContent}</a>`;
-
-          case "internal": {
-            // TODO: convert reference
-
-            const href = inlineContent.target.parsedReference
-              ? this.serializeReference(inlineContent.target.parsedReference)
-              : this.convertReference(
-                  inlineContent.target.rawReference,
-                  EntityType.DOCUMENT,
-                );
-            return `<a href="${escape(href)}">${linkContent}</a>`;
-          }
-        }
-        break;
-      }
 
       case "inlineMacro": {
         const macro = this.macrosService.get(inlineContent.name);
@@ -248,66 +334,66 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
         return rendered;
       }
+
+      default:
+        assertUnreachable(inlineContent);
     }
   }
 
-  // eslint-disable-next-line max-statements
-  private convertText(text: Text): string {
-    const { content, styles } = text;
-
-    const { bold, italic, strikethrough, code } = styles;
-
-    const surroundings = [];
-
-    // Code must be first as it's going to be the most outer surrounding
-    // Otherwise other surroundings would be "trapped" inside the inline code content
-    if (code) {
-      surroundings.push("pre");
+  private getTargetUrl(target: LinkTarget): string {
+    if (target.type === "external") {
+      return target.url;
     }
 
-    if (strikethrough) {
-      surroundings.push("s");
+    if (target.parsedReference) {
+      return this.serializeReference(target.parsedReference)!;
     }
 
-    if (italic) {
-      surroundings.push("em");
-    }
-
-    if (bold) {
-      surroundings.push("strong");
-    }
-
-    let output = "";
-
-    for (const surrounding of surroundings) {
-      output += `<${surrounding}>`;
-    }
-
-    output += this.escapeHTML(content);
-
-    surroundings.reverse();
-    for (const surrounding of surroundings) {
-      output += `</${surrounding}>`;
-    }
-
-    return output;
-  }
-
-  private escapeHTML(content: string) {
-    const text = document.createTextNode(content);
-    const p = document.createElement("p");
-    p.appendChild(text);
-    return p.innerHTML;
-  }
-
-  private convertReference(rawReference: string, type: EntityType) {
-    const parseReference = this.modelReferenceParserProvider
+    const ref = this.modelReferenceParserProvider
       .get()!
-      .parse(rawReference, { type });
-    return this.serializeReference(parseReference);
+      .parse(target.rawReference);
+
+    return this.serializeReference(ref)!;
   }
 
-  private serializeReference(parseReference: EntityReference) {
-    return this.remoteURLSerializerProvider.get()!.serialize(parseReference);
+  private serializeReference(ref: EntityReference): string {
+    const url = this.remoteURLSerializerProvider.get()!.serialize(ref);
+
+    // TODO: find when this could happen
+    if (!url) {
+      throw new Error(`Failed to serialize entity reference: "${url}"`);
+    }
+
+    return url;
+  }
+
+  private produceBlockHtml(
+    tagName: string,
+    styles: BlockStyles,
+    innerHTML: string,
+    attrs?: Record<string, string | undefined>,
+  ): string {
+    let cssRules = "";
+
+    if (styles.backgroundColor) {
+      cssRules += `background-color: ${styles.backgroundColor};`;
+    }
+
+    if (styles.textColor) {
+      cssRules += `color: ${styles.textColor};`;
+    }
+
+    if (styles.textAlignment) {
+      cssRules += `text-align: ${styles.textAlignment};`;
+    }
+
+    return produceHtmlEl(
+      tagName,
+      {
+        ...attrs,
+        style: cssRules !== "" ? cssRules.trim() : undefined,
+      },
+      innerHTML,
+    );
   }
 }
