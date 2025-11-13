@@ -61,8 +61,12 @@ type Block =
        * @beta
        */
       type: "macroBlock";
-      name: string;
-      params: Record<string, boolean | number | string>;
+
+      /**
+       * @since 0.24
+       * @beta
+       */
+      call: MacroInvocation;
     };
 
 /**
@@ -136,6 +140,16 @@ type TableCell = {
 };
 
 /**
+ * @since 0.24
+ * @beta
+ */
+type MacroInvocation = {
+  name: string;
+  params: Record<string, boolean | number | string>;
+  body: string | null;
+};
+
+/**
  * @since 0.16
  * @beta
  */
@@ -149,8 +163,12 @@ type InlineContent =
        * @beta
        */
       type: "inlineMacro";
-      name: string;
-      params: Record<string, boolean | number | string>;
+
+      /**
+       * @since 0.24
+       * @beta
+       */
+      call: MacroInvocation;
     };
 
 /**
@@ -210,6 +228,7 @@ export type {
   Link,
   LinkTarget,
   ListItem,
+  MacroInvocation,
   TableCell,
   TableColumn,
   Text,

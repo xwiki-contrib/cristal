@@ -27,6 +27,7 @@ import type {
   InlineContent,
   Link,
   ListItem,
+  MacroInvocation,
   TableCell,
   Text,
   UniAst,
@@ -111,7 +112,7 @@ export class DefaultUniAstToMarkdownConverter
         return "---";
 
       case "macroBlock":
-        return this.convertMacro(block.name, block.params);
+        return this.convertMacro(block.call);
     }
   }
 
@@ -194,7 +195,7 @@ export class DefaultUniAstToMarkdownConverter
       case "link":
         return this.convertLink(inlineContent);
       case "inlineMacro":
-        return this.convertMacro(inlineContent.name, inlineContent.params);
+        return this.convertMacro(inlineContent.call);
     }
   }
 
@@ -215,16 +216,17 @@ export class DefaultUniAstToMarkdownConverter
     }
   }
 
-  private convertMacro(
-    name: string,
-    parameters: Record<string, boolean | number | string>,
-  ): string {
-    return `{{${name}${Object.entries(parameters)
+  private convertMacro(call: MacroInvocation): string {
+    const opening = `${call.name}${Object.entries(call.params)
       .map(
         ([name, value]) =>
-          ` ${name}="${value.toString().replace(/\\/g, "\\\\\\").replace(/"/g, '\\\\"')}"`,
+          ` ${name}="${value.toString().replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`,
       )
-      .join("")} /}}`;
+      .join("")}`;
+
+    return call.body
+      ? `{{${opening}}}${call.body}{{/${call.name}}}`
+      : `{{${opening} /}}`;
   }
 
   // eslint-disable-next-line max-statements

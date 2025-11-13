@@ -20,12 +20,16 @@
 import { findFirstMatchIn } from "./internal/find-first-match-in";
 import { remarkPartialGfm } from "./internal/remark-partial-gfm";
 import { ParserConfigurationResolver } from "./internal-links/parser/parser-configuration-resolver";
+import {
+  HTMLIFIED_MACRO_TAG_NAME,
+  reparseHtmlifiedMacro,
+  transformMacros,
+} from "./macros";
 import { assertInArray, assertUnreachable } from "@xwiki/cristal-fn-utils";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
-import type { MatchResult } from "./internal/find-first-match-in";
 import type { MarkdownToUniAstConverter } from "./markdown-to-uni-ast-converter";
 import type { EntityReference } from "@xwiki/cristal-model-api";
 import type {
@@ -64,10 +68,15 @@ export class DefaultMarkdownToUniAstConverter
     // TODO: auto-links (URLs + emails)
     //     > https://jira.xwiki.org/browse/CRISTAL-513
 
-    const ast = unified()
-      .use(remarkParse)
-      .use(remarkPartialGfm)
-      .parse(markdown);
+    const { content, brokeAt } = transformMacros(markdown);
+
+    if (brokeAt !== null) {
+      throw new Error(
+        "Unexpected internal error: macro transform did not parse the full Markdown content",
+      );
+    }
+
+    const ast = unified().use(remarkParse).use(remarkPartialGfm).parse(content);
 
     try {
       const blocks = await Promise.all(
@@ -88,8 +97,7 @@ export class DefaultMarkdownToUniAstConverter
         if (content.length === 1 && content[0].type === "inlineMacro") {
           return {
             type: "macroBlock",
-            name: content[0].name,
-            params: content[0].params,
+            call: content[0].call,
           };
         }
 
@@ -187,12 +195,21 @@ export class DefaultMarkdownToUniAstConverter
       case "thematicBreak":
         return { type: "break" };
 
+      case "html":
+        if (block.value.startsWith(`<${HTMLIFIED_MACRO_TAG_NAME} `)) {
+          return {
+            type: "macroBlock",
+            call: reparseHtmlifiedMacro(block.value),
+          };
+        }
+
+        throw new Error("TODO: handle HTML blocks");
+
       case "imageReference":
       case "linkReference":
       case "definition":
       case "footnoteDefinition":
       case "footnoteReference":
-      case "html":
         throw new Error("TODO: handle blocks of type " + block.type);
 
       // NOTE: These are handled in the `convertInline` function below
@@ -259,6 +276,17 @@ export class DefaultMarkdownToUniAstConverter
         return this.convertText(inline.value, styles);
 
       case "html":
+        if (inline.value.startsWith(`<${HTMLIFIED_MACRO_TAG_NAME} `)) {
+          return [
+            {
+              type: "inlineMacro",
+              call: reparseHtmlifiedMacro(inline.value),
+            },
+          ];
+        }
+
+        throw new Error("TODO: handle inline HTML");
+
       case "footnoteReference":
       case "linkReference":
       case "imageReference":
@@ -359,12 +387,10 @@ export class DefaultMarkdownToUniAstConverter
             { name: "link", match: "[[" },
           ]
         : [];
-      const candidates: Array<{
-        name: "image" | "link" | "macro";
-        match: string;
-      }> = [...internalLinksOrImage, { name: "macro", match: "{{" }];
-      const firstItem: MatchResult<"image" | "link" | "macro"> | null =
-        findFirstMatchIn(text.substring(treated), candidates);
+      const firstItem = findFirstMatchIn(
+        text.substring(treated),
+        internalLinksOrImage,
+      );
 
       // If none is found, exit immediately
       // This also means texts that don't contain any specific syntax will have a very low conversion cost
@@ -402,12 +428,6 @@ export class DefaultMarkdownToUniAstConverter
             styles,
             out,
           );
-          break;
-        }
-
-        case "macro": {
-          treated = this.handleMacro(firstItem, match, text, treated, out);
-
           break;
         }
 
@@ -494,6 +514,7 @@ export class DefaultMarkdownToUniAstConverter
     }
 
     let reference: EntityReference | null;
+
     try {
       reference = this.modelReferenceParserProvider.get()!.parse(targetStr, {
         type: isImage ? EntityType.ATTACHMENT : EntityType.DOCUMENT,
@@ -524,162 +545,9 @@ export class DefaultMarkdownToUniAstConverter
           target,
           content: [{ type: "text", content: title, styles }],
         };
+
     out.push(items);
-    return treated;
-  }
 
-  // eslint-disable-next-line max-statements
-  private handleMacro(
-    firstItem: { name: string; match: string },
-    match: number,
-    text: string,
-    treated: number,
-    out: InlineContent[],
-  ): number {
-    // Find the macro's name
-    const macroNameMatch = text.substring(match + firstItem.match.length).match(
-      // This weird group matches valid accentuated Unicode letters
-      /\s*([A-Za-zÀ-ÖØ-öø-ÿ\d]+)(\s+(?=[A-Za-zÀ-ÖØ-öø-ÿ\d/])|(?=\/))/,
-    );
-
-    if (!macroNameMatch) {
-      treated = match + firstItem.match.length;
-      out.push({ type: "text", content: firstItem.match, styles: {} });
-      return treated;
-    }
-
-    const macroName = macroNameMatch[1];
-
-    let i;
-
-    // Is the next character being escaped?
-    let escaping = false;
-
-    // Parameters are built character by character
-    // First the name is parsed from the source, then the value
-    let buildingParameter: { name: string; value: string | null } | null = null;
-
-    // The list of parsed parameters
-    const parameters: Record<string, string> = {};
-
-    // Is the macro being closed?
-    let closingMacro = false;
-
-    for (
-      i = match + firstItem.match.length + macroNameMatch[0].length;
-      i < text.length;
-      i++
-    ) {
-      // Escaping is possible only inside parameter values
-      if (escaping) {
-        if (!buildingParameter || buildingParameter.value === null) {
-          throw new Error("Unexpected");
-        }
-
-        escaping = false;
-        buildingParameter.value += text[i];
-
-        continue;
-      }
-
-      // If we're not building a parameter, we are expecting one thing between...
-      if (!buildingParameter) {
-        // ...a space (no particular meaning)
-        if (text[i] === " ") {
-          continue;
-        }
-
-        // ...a valid identifier character which will begin the parameter's name
-        if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ_\d]/)) {
-          buildingParameter = { name: text[i], value: null };
-          continue;
-        }
-
-        // ...or a closing slash which indicates the macro has no more parameter
-        if (text[i] === "/") {
-          closingMacro = true;
-          break;
-        }
-
-        // Invalid character, stop building macro here
-        break;
-      }
-
-      // If we're building a parameter's name, we are expecting one thing between...
-      if (buildingParameter.value === null) {
-        // ...a valid identifier character which will continue the parameter's name
-        if (text[i].match(/[A-Za-zÀ-ÖØ-öø-ÿ_\d]/)) {
-          buildingParameter.name += text[i];
-          continue;
-        }
-
-        // ...or an '=' operator sign which indicates we are going to assign a value to the parameter
-        if (text[i] === "=") {
-          // Usually parameters start with a double quote to indicate they have a string-like value
-          if (text[i + 1] === '"') {
-            i += 1;
-            buildingParameter.value = "";
-            continue;
-          }
-
-          // But unquoted integers are also accepted
-          const number = text
-            .substring(i + 1)
-            .match(/\d+(?=[^A-Za-zÀ-ÖØ-öø-ÿ\d])/);
-
-          if (!number) {
-            // Invalid character, stop building macro here
-            break;
-          }
-
-          parameters[buildingParameter.name] = number[0];
-          buildingParameter = null;
-
-          i += number[0].length;
-          continue;
-        }
-
-        // Invalid character, stop building macro here
-        break;
-      }
-
-      // If we reach this point, we are building the parameter's value.
-      // Which means we are expecting either:
-      // ...an escaping character
-      if (text[i] === "\\") {
-        escaping = true;
-      }
-      // ...a closing double quote to indicate the parameter's value's end
-      else if (text[i] === '"') {
-        parameters[buildingParameter.name] = buildingParameter.value;
-        buildingParameter = null;
-      }
-      // ...or any other character that will continue the parameter's value
-      else {
-        buildingParameter.value += text[i];
-      }
-    }
-
-    // When the macro closes, we expect double braces afterwards
-    const closingBraces = text.substring(i).match(/\s*}}/);
-
-    // If the macro has not been closed properly (with a '/') or doesn't have the closing braces, it's invalid
-    if (!closingMacro || !closingBraces) {
-      treated = match + firstItem.match.length;
-      out.push({ type: "text", content: firstItem.match, styles: {} });
-    }
-    // Otherwise, we can properly build the macro
-    else {
-      treated = i + 1 + closingBraces[0].length;
-
-      // NOTE: If a paragraph only contains an inline macro, it will be converted to a macro block instead
-      //       by the calling function
-      out.push({
-        type: "inlineMacro",
-        name: macroName,
-        params: parameters,
-      });
-    }
     return treated;
   }
 
