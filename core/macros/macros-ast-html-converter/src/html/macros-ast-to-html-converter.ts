@@ -34,6 +34,7 @@ export interface MacrosAstToHtmlConverter {
    *
    * @returns The HTML render
    */
+  // TODO: add UniAst blocks body rendering
   blocksToHTML(blocks: MacroBlock[]): string | Error;
 
   /**
@@ -43,5 +44,6 @@ export interface MacrosAstToHtmlConverter {
    *
    * @returns The HTML render
    */
+  // TODO: add UniAst inline body rendering
   inlineContentsToHTML(inlineContents: MacroInlineContent[]): string | Error;
 }

@@ -119,19 +119,19 @@ function transformMacros(
 }
 
 // eslint-disable-next-line max-statements
-const eatMacro: MacroHandler = (content) => {
+const eatMacro: MacroHandler = (content): ReturnType<MacroHandler> => {
   // Find the macro's name
-  const macroNameMatch = content.match(
+  const macroIdMatch = content.match(
     // This weird group matches valid accentuated Unicode letters
     /^\s*([A-Za-zÀ-ÖØ-öø-ÿ\d]+)(\s+(?=[A-Za-zÀ-ÖØ-öø-ÿ\d/])|\s*(?=\/|}}))/,
   );
 
   // If the macro's name is invalid, the whole macro invocation is invalid
-  if (!macroNameMatch) {
+  if (!macroIdMatch) {
     return { do: "ignore" };
   }
 
-  const macroName = macroNameMatch[1];
+  const macroId = macroIdMatch[1];
 
   let i;
 
@@ -148,7 +148,7 @@ const eatMacro: MacroHandler = (content) => {
   // Is the macro being closed?
   let closingMacro = false;
 
-  for (i = macroNameMatch[0].length; i < content.length; i++) {
+  for (i = macroIdMatch[0].length; i < content.length; i++) {
     // Escaping is possible only inside parameter values
     if (escaping) {
       if (!buildingParameter || buildingParameter.value === null) {
@@ -253,7 +253,7 @@ const eatMacro: MacroHandler = (content) => {
 
   // If the macro has not been closed with a `/`, it must have a content
   if (!closingMacro) {
-    const closingRegex = new RegExp(`^\\s*/${macroName}\\s*}}`);
+    const closingRegex = new RegExp(`^\\s*/${macroId}\\s*}}`);
 
     const { brokeAt } = transformMacros(content.slice(offset), (content) =>
       closingRegex.exec(content) ? { do: "break" } : eatMacro(content),
@@ -283,7 +283,7 @@ const eatMacro: MacroHandler = (content) => {
   return {
     do: "parseAs",
     call: {
-      name: macroName,
+      id: macroId,
       params: parameters,
       body,
     },

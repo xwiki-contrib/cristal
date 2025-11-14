@@ -217,7 +217,7 @@ export class DefaultUniAstToMarkdownConverter
   }
 
   private convertMacro(call: MacroInvocation): string {
-    const opening = `${call.name}${Object.entries(call.params)
+    const opening = `${call.id}${Object.entries(call.params)
       .map(
         ([name, value]) =>
           ` ${name}="${value.toString().replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`,
@@ -225,7 +225,7 @@ export class DefaultUniAstToMarkdownConverter
       .join("")}`;
 
     return call.body
-      ? `{{${opening}}}${call.body}{{/${call.name}}}`
+      ? `{{${opening}}}${call.body}{{/${call.id}}}`
       : `{{${opening} /}}`;
   }
 
