@@ -33,28 +33,6 @@ const macroParams = {
 
 type MacroParams = typeof macroParams;
 
-// @injectable()
-// export class XWikiHtmlBlockMacro implements BlockMacro<MacroParams> {
-//   readonly infos: MacroInfos<MacroParams> = {
-//     id: "xwikiHtmlBlock",
-//     name: "XWiki HTML Block Content",
-//     description: "HTML rendering of an XWiki macro block content",
-//     params: macroParams,
-//     paramsDescription: {
-//       html: "Server-rendered HTML content",
-//       metadata: "Metadata used to generate the XWiki macro",
-//     },
-//     defaultParameters: false,
-//     bodyType: "none",
-//   };
-
-//   renderAs = "block" as const;
-
-//   render({ html }: GetConcreteMacroParametersType<MacroParams>): MacroBlock[] {
-//     return [{ type: "rawHtml", html }];
-//   }
-// }
-
 @injectable()
 export class XWikiHtmlBlockMacro implements BlockMacro<MacroParams> {
   readonly infos: MacroInfos<MacroParams> = {
@@ -67,28 +45,12 @@ export class XWikiHtmlBlockMacro implements BlockMacro<MacroParams> {
       metadata: "Metadata used to generate the XWiki macro",
     },
     defaultParameters: false,
-    bodyType: "wysiwyg",
+    bodyType: "none",
   };
 
   renderAs = "block" as const;
 
-  render(
-    { html }: GetConcreteMacroParametersType<MacroParams>,
-    body: string,
-  ): MacroBlock[] {
-    return [
-      { type: "rawHtml", html },
-      {
-        type: "paragraph",
-        styles: { textColor: "blue" },
-        content: [{ type: "text", styles: { italic: true }, content: body }],
-      },
-      { type: "macroBlockEditableArea" },
-      {
-        type: "paragraph",
-        styles: { textColor: "red" },
-        content: [{ type: "text", styles: { italic: true }, content: "YOH" }],
-      },
-    ];
+  render({ html }: GetConcreteMacroParametersType<MacroParams>): MacroBlock[] {
+    return [{ type: "rawHtml", html }];
   }
 }
