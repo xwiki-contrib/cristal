@@ -15,8 +15,8 @@ export class ComponentInit {
 
 // @beta
 export interface MacrosAstToHtmlConverter {
-    blocksToHTML(blocks: MacroBlock[]): string | Error;
-    inlineContentsToHTML(inlineContents: MacroInlineContent[]): string | Error;
+    blocksToHTML(blocks: MacroBlock[], htmlBody: string | null): string | Error;
+    inlineContentsToHTML(inlineContents: MacroInlineContent[], htmlBody: string | null): string | Error;
 }
 
 // @beta (undocumented)
