@@ -18,42 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-/**
- * @since 0.14
- * @beta
- */
-type AlterAction = { name: string; callback: () => void };
+import en from "../langs/translation-en.json";
 
-/**
- * @since 0.14
- * @beta
- */
-type AlertActions = AlterAction[];
-
-/**
- * Props for the alert component.
- *
- * @since 0.11
- * @beta
- */
-type AlertProps = {
-  title?: string;
-  type: "success" | "warning" | "error" | "info";
-  description?: string;
-  actions?: AlertActions;
-  closable?: boolean;
-  /**
-   * Other (less important) data to show in the alert.
-   * @since 0.13
-   * @beta
-   */
-  details?: string;
-  /**
-   * Render as a flat surface to use as, e.g., a banner.
-   * @since 0.24-rc-1
-   * @beta
-   */
-  flat?: boolean;
+const translations = {
+  en,
 };
-
-export type { AlertActions, AlertProps, AlterAction };
+export default translations;

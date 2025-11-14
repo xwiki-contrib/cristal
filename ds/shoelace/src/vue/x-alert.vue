@@ -59,6 +59,7 @@ open.value = true;
     :closable="closable"
     :variant="variant.variant"
     :open="open"
+    :class="{ flat: flat }"
     @sl-show="open = true"
     @sl-hide="open = false"
   >
@@ -82,3 +83,9 @@ open.value = true;
     <slot />
   </sl-alert>
 </template>
+
+<style scoped>
+sl-alert.flat {
+  --sl-border-radius-medium: initial;
+}
+</style>

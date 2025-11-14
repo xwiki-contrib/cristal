@@ -25,6 +25,7 @@ import { ComponentInit as ModelReferenceXWikiComponentInit } from "@xwiki/crista
 import { ComponentInit as ModelRemoteURLXWikiComponentInit } from "@xwiki/cristal-model-remote-url-xwiki";
 import { ComponentInit as XWikiNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-xwiki";
 import { ComponentInit as XWikiMacrosComponentInit } from "@xwiki/cristal-xwiki-macros";
+import { ComponentInit as XWikiUIComponentInit } from "@xwiki/cristal-xwiki-ui";
 import type { Container } from "inversify";
 
 export function load(container: Container) {
@@ -35,4 +36,5 @@ export function load(container: Container) {
   new ModelRemoteURLXWikiComponentInit(container);
   new ModelReferenceXWikiComponentInit(container);
   new XWikiMacrosComponentInit(container);
+  new XWikiUIComponentInit(container);
 }
