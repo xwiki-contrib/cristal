@@ -229,7 +229,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           case "wysiwyg":
             if (block.call.body.type !== "inlineContents") {
               throw new Error(
-                "Expexcted inline contents body for macro, found: " +
+                "Expected inline contents body for macro, found: " +
                   block.call.body.type,
               );
             }

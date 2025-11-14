@@ -19,23 +19,30 @@
  */
 
 import { assertUnreachable } from "@xwiki/cristal-fn-utils";
+import type { MarkdownToUniAstConverter } from "./markdown-to-uni-ast-converter";
+import type { MacrosService } from "@xwiki/cristal-macros-service";
 import type { MacroInvocation } from "@xwiki/cristal-uniast-api";
 
 type MacroHandler = (
   content: string,
-) =>
+  markdownParser: MarkdownToUniAstConverter,
+  macrosService: MacrosService,
+) => Promise<
   | { do: "parseAs"; call: MacroInvocation; chars: number }
   | { do: "ignore" }
-  | { do: "break" };
+  | { do: "break" }
+>;
 
 // eslint-disable-next-line max-statements
-function transformMacros(
+async function transformMacros(
   markdown: string,
+  markdownParser: MarkdownToUniAstConverter,
+  macrosService: MacrosService,
   macroHandler: MacroHandler = eatMacro,
-): {
+): Promise<{
   content: string;
   brokeAt: number | null;
-} {
+}> {
   let escaping = false;
   let inCodeBlock = false;
   let inInlineCode = false;
@@ -86,7 +93,11 @@ function transformMacros(
     }
 
     if (char === "{" && markdown[i + 1] === "{") {
-      const handling = macroHandler(markdown.slice(i + 2));
+      const handling = await macroHandler(
+        markdown.slice(i + 2),
+        markdownParser,
+        macrosService,
+      );
 
       switch (handling.do) {
         case "parseAs":
@@ -119,7 +130,11 @@ function transformMacros(
 }
 
 // eslint-disable-next-line max-statements
-const eatMacro: MacroHandler = (content): ReturnType<MacroHandler> => {
+const eatMacro: MacroHandler = async (
+  content,
+  mdParser,
+  macrosService,
+): ReturnType<MacroHandler> => {
   // Find the macro's name
   const macroIdMatch = content.match(
     // This weird group matches valid accentuated Unicode letters
@@ -249,14 +264,20 @@ const eatMacro: MacroHandler = (content): ReturnType<MacroHandler> => {
   }
 
   let offset = i + closingBraces[0].length;
-  let body: string | null = null;
+  let rawBody: string | null = null;
 
   // If the macro has not been closed with a `/`, it must have a content
   if (!closingMacro) {
     const closingRegex = new RegExp(`^\\s*/${macroId}\\s*}}`);
 
-    const { brokeAt } = transformMacros(content.slice(offset), (content) =>
-      closingRegex.exec(content) ? { do: "break" } : eatMacro(content),
+    const { brokeAt } = await transformMacros(
+      content.slice(offset),
+      mdParser,
+      macrosService,
+      async (content, mdParser, macrosService) =>
+        closingRegex.exec(content)
+          ? { do: "break" }
+          : await eatMacro(content, mdParser, macrosService),
     );
 
     // If everything was parsed without stopping, the macro is not closed properly
@@ -272,11 +293,94 @@ const eatMacro: MacroHandler = (content): ReturnType<MacroHandler> => {
       throw new Error("Unexpected");
     }
 
-    body = content.slice(offset, offset + brokeAt);
+    rawBody = content.slice(offset, offset + brokeAt);
     offset += brokeAt + closingMatch[0].length + 2;
   }
 
-  // Otherwise, we can properly build the macro
+  const macro = macrosService.get(macroId);
+
+  // Ensure the macro is known
+  // We have to wait for this point since only there do we know the syntax is valid
+  if (!macro) {
+    // TODO: properly report an error
+    // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
+    return {
+      do: "parseAs",
+      call: {
+        id: macroId,
+        params: parameters,
+        body: rawBody ? { type: "raw", content: rawBody } : { type: "none" },
+      },
+      chars: offset,
+    };
+  }
+
+  let body: MacroInvocation["body"];
+
+  switch (macro.infos.bodyType) {
+    case "none":
+      if (rawBody && rawBody.trim() !== "") {
+        // TODO: properly report the error
+        // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
+        throw new Error("Wrongly provided a body for contentless macro");
+      }
+
+      body = { type: "none" };
+      break;
+
+    case "raw":
+      if (!rawBody) {
+        // TODO: properly report the error
+        // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
+        throw new Error("Missing body for contentful macro");
+      }
+
+      body = { type: "raw", content: rawBody };
+      break;
+
+    case "wysiwyg": {
+      if (!rawBody) {
+        // TODO: properly report the error
+        // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
+        throw new Error("Missing body for contentful macro");
+      }
+
+      const uniAst = await mdParser.parseMarkdown(rawBody);
+
+      if (uniAst instanceof Error) {
+        // TODO: properly report the error (?)
+        throw uniAst;
+      }
+
+      if (uniAst.blocks.length !== 1 || uniAst.blocks[0].type !== "paragraph") {
+        // TODO: properly report the error
+        // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
+        throw new Error(
+          "Expected a single paragraph block as the macro's content",
+        );
+      }
+
+      const inlineContents = uniAst.blocks[0].content;
+
+      if (macro.renderAs === "inline") {
+        if (inlineContents.length !== 1) {
+          // TODO: properly report the error
+          // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
+          throw new Error(
+            "Expected precisely one inline content for inline macro",
+          );
+        }
+
+        body = { type: "inlineContent", inlineContent: inlineContents[0] };
+      } else {
+        body = { type: "inlineContents", inlineContents };
+      }
+
+      break;
+    }
+  }
+
+  // We can now properly build the macro
   // NOTE: If a paragraph only contains an inline macro, it will be converted to a macro block instead
   //       by the calling function
 
@@ -285,12 +389,7 @@ const eatMacro: MacroHandler = (content): ReturnType<MacroHandler> => {
     call: {
       id: macroId,
       params: parameters,
-      body: body
-        ? {
-            type: "raw",
-            content: body,
-          }
-        : { type: "none" },
+      body,
     },
     chars: offset,
   };
