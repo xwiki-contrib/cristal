@@ -216,7 +216,7 @@ export class DefaultUniAstToMarkdownConverter
     }
   }
 
-  private convertMacro(call: MacroInvocation): string {
+  private async convertMacro(call: MacroInvocation): Promise<string> {
     const opening = `${call.id}${Object.entries(call.params)
       .map(
         ([name, value]) =>
@@ -224,9 +224,27 @@ export class DefaultUniAstToMarkdownConverter
       )
       .join("")}`;
 
-    return call.body
-      ? `{{${opening}}}${call.body}{{/${call.id}}}`
-      : `{{${opening} /}}`;
+    let body: string | null;
+
+    switch (call.body.type) {
+      case "none":
+        body = null;
+        break;
+
+      case "raw":
+        body = call.body.content;
+        break;
+
+      case "inlineContent":
+        body = await this.convertInlineContent(call.body.inlineContent);
+        break;
+
+      case "inlineContents":
+        body = await this.convertInlineContents(call.body.inlineContents);
+        break;
+    }
+
+    return body ? `{{${opening}}}${body}{{/${call.id}}}` : `{{${opening} /}}`;
   }
 
   // eslint-disable-next-line max-statements

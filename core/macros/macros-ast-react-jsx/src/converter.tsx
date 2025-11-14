@@ -329,7 +329,11 @@ export class MacrosAstToReactJsxConverter {
           );
         }
 
-        return <div ref={editableZoneRef.ref} />;
+        return (
+          <div style={{ padding: "5px", backgroundColor: "yellow" }}>
+            <div ref={editableZoneRef.ref} />
+          </div>
+        );
 
       default:
         assertUnreachable(block);

@@ -146,7 +146,15 @@ type TableCell = {
 type MacroInvocation = {
   id: string;
   params: Record<string, boolean | number | string>;
-  body: string | null;
+  body:
+    | { type: "none" }
+    | { type: "raw"; content: string }
+    // NOTE: This one is for blocks, we should be changed to { type: "blocks", blocks: Block[] } when BlockNote supports nesting
+    // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
+    | { type: "inlineContents"; inlineContents: InlineContent[] }
+    // NOTE: This one is for inline contents, we should be changed to { type: "inlineContents", inlineContents: InlineContent[] } when BlockNote supports nesting
+    // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
+    | { type: "inlineContent"; inlineContent: InlineContent };
 };
 
 /**

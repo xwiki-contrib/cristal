@@ -285,7 +285,12 @@ const eatMacro: MacroHandler = (content): ReturnType<MacroHandler> => {
     call: {
       id: macroId,
       params: parameters,
-      body,
+      body: body
+        ? {
+            type: "raw",
+            content: body,
+          }
+        : { type: "none" },
     },
     chars: offset,
   };
