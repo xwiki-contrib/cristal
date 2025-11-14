@@ -61,7 +61,7 @@ interface MacroInfos<Parameters extends Record<string, MacroParameterType>> {
    * `wysiwyg`: the macro has a body that is user-editable in a WYSIWYG fashion
    * `raw`: the macro has a body that is user-editable but not in a WYSIWYG fashion
    *
-   * @since 0.24
+   * @since 0.24-rc-1
    * @beta
    */
   bodyType: "none" | "wysiwyg" | "raw";
