@@ -88,7 +88,7 @@ export type BlockOfType<B extends BlockType["type"]> = Extract<BlockType, {
 // @beta (undocumented)
 export type BlockType = Block<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
 
-// @public (undocumented)
+// @beta
 export function buildMacroRawContent(content: string): InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>;
 
 // @beta
@@ -941,7 +941,7 @@ export type EditorStyleSchema = EditorSchema extends BlockNoteSchema<infer _, in
 // @beta (undocumented)
 export type EditorType = BlockNoteEditor<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
 
-// @public (undocumented)
+// @beta
 export function extractMacroRawContent(content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[]): string;
 
 // @beta (undocumented)
