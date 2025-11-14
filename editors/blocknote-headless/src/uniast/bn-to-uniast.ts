@@ -18,7 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { MACRO_NAME_PREFIX } from "@xwiki/cristal-editors-blocknote-react";
+import {
+  MACRO_NAME_PREFIX,
+  extractMacroRawContent,
+} from "@xwiki/cristal-editors-blocknote-react";
 import {
   assertUnreachable,
   provideTypeInference,
@@ -33,6 +36,7 @@ import type {
   EditorStyleSchema,
   EditorStyledText,
 } from "@xwiki/cristal-editors-blocknote-react";
+import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
 import type { ModelReferenceSerializer } from "@xwiki/cristal-model-reference-api";
 import type { RemoteURLParser } from "@xwiki/cristal-model-remote-url-api";
 import type {
@@ -54,10 +58,17 @@ import type {
  */
 // TODO: convert to an actual inversify component
 export class BlockNoteToUniAstConverter {
+  private readonly macros: Record<string, MacroWithUnknownParamsType>;
+
   constructor(
     private readonly remoteURLParser: RemoteURLParser,
     private readonly modelReferenceSerializer: ModelReferenceSerializer,
-  ) {}
+    macros: MacroWithUnknownParamsType[],
+  ) {
+    this.macros = Object.fromEntries(
+      macros.map((macro) => [macro.infos.id, macro]),
+    );
+  }
 
   blocksToUniAst(blocks: BlockType[]): UniAst | Error {
     const uniAstBlocks = tryFallibleOrError(() => this.convertBlocks(blocks));
@@ -107,6 +118,7 @@ export class BlockNoteToUniAstConverter {
     return out;
   }
 
+  // eslint-disable-next-line max-statements
   private convertBlock(
     block: Exclude<
       BlockType,
@@ -125,11 +137,38 @@ export class BlockNoteToUniAstConverter {
 
     // Convert macros
     if (block.type.startsWith(MACRO_NAME_PREFIX)) {
+      const id = block.type.substring(MACRO_NAME_PREFIX.length);
+
+      if (!Object.hasOwn(this.macros, id)) {
+        throw new Error(`Found unregistered macro: "${id}"`);
+      }
+
+      const {
+        infos: { bodyType },
+      } = this.macros[id];
+
+      if (bodyType === "wysiwyg") {
+        throw new Error("TODO: convert macro's WYSIWYG content to string");
+      }
+
+      if (block.content && !Array.isArray(block.content)) {
+        throw new Error(
+          "Macro block should have a list of contents, found: " +
+            block.content.type,
+        );
+      }
+
       return {
         type: "macroBlock",
-        name: block.type.substring(MACRO_NAME_PREFIX.length),
-        // Conversion is required as the AST is dynamically typed
-        params: block.props as Record<string, boolean | number | string>,
+        call: {
+          id,
+          // Conversion is required as the AST is dynamically typed
+          params: block.props as Record<string, boolean | number | string>,
+          body:
+            bodyType === "raw"
+              ? extractMacroRawContent(block.content ?? [])
+              : null,
+        },
       };
     }
 
@@ -354,20 +393,39 @@ export class BlockNoteToUniAstConverter {
         };
   }
 
+  // eslint-disable-next-line max-statements
   private convertInlineContent(
     inlineContent: EditorStyledText | Link<EditorStyleSchema>,
   ): InlineContent {
     // Handle macros
     if (inlineContent.type.startsWith(MACRO_NAME_PREFIX)) {
+      const id = inlineContent.type.substring(MACRO_NAME_PREFIX.length);
+
+      if (!Object.hasOwn(this.macros, id)) {
+        throw new Error(`Found unregistered macro: "${id}"`);
+      }
+
+      const {
+        infos: { bodyType },
+      } = this.macros[id];
+
+      if (bodyType === "wysiwyg") {
+        throw new Error("TODO: convert macro's WYSIWYG content to string");
+      }
+
       return {
         type: "inlineMacro",
-        name: inlineContent.type.substring(MACRO_NAME_PREFIX.length),
-        // Conversion is required because the AST is dynamically typed
-        params: (
-          inlineContent as unknown as {
-            props: Record<string, boolean | number | string>;
-          }
-        ).props,
+        call: {
+          id,
+          // Conversion is required because the AST is dynamically typed
+          params: (
+            inlineContent as unknown as {
+              props: Record<string, boolean | number | string>;
+            }
+          ).props,
+          body:
+            bodyType === "raw" ? extractMacroRawContent([inlineContent]) : null,
+        },
       };
     }
 

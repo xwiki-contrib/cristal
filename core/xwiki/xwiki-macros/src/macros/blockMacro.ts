@@ -45,6 +45,7 @@ export class XWikiHtmlBlockMacro implements BlockMacro<MacroParams> {
       metadata: "Metadata used to generate the XWiki macro",
     },
     defaultParameters: false,
+    bodyType: "none",
   };
 
   renderAs = "block" as const;

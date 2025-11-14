@@ -27,6 +27,9 @@ import { assertUnreachable, objectEntries } from "@xwiki/cristal-fn-utils";
 import type {
   CustomBlockConfig,
   CustomInlineContentConfig,
+  DefaultInlineContentSchema,
+  DefaultStyleSchema,
+  InlineContent,
   InlineContentSchema,
   PartialBlock,
   PartialInlineContent,
@@ -270,24 +273,30 @@ function adaptMacroForBlockNote(
       : false;
 
   // The rendering function
+
   const renderMacro = (
     contentRef: (node: HTMLElement | null) => void,
     props: Props<PropSchema>,
+    content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[],
     update: (newParams: Props<PropSchema>) => void,
   ) => {
     const openParamsEditor = () =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ctx.openParamsEditor(macro, props, update as any);
 
+    /** The macro's raw body */
+    const rawBody =
+      macro.infos.bodyType === "raw" ? extractMacroRawContent(content) : null;
+
     const renderedJsx =
       macro.renderAs === "block"
-        ? jsxConverter.blocksToReactJSX(macro.render(props), {
+        ? jsxConverter.blocksToReactJSX(macro.render(props, rawBody), {
             type: "block",
-            ref: contentRef,
+            ref: macro.infos.bodyType === "wysiwyg" ? contentRef : null,
           })
-        : jsxConverter.inlineContentsToReactJSX(macro.render(props), {
+        : jsxConverter.inlineContentsToReactJSX(macro.render(props, rawBody), {
             type: "inline",
-            ref: contentRef,
+            ref: macro.infos.bodyType === "wysiwyg" ? contentRef : null,
           });
 
     if (renderedJsx instanceof Error) {
@@ -315,16 +324,27 @@ function adaptMacroForBlockNote(
           block: createCustomBlockSpec({
             config: {
               type: blockNoteName,
-              // TODO: when BlockNote supports internal content in custom blocks, set this to "inline" if the macro can have children
+              // NOTE: Nesting is not supported
               // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
-              content: "none",
+              content: "inline",
               propSchema,
             },
             implementation: {
               render: ({ contentRef, block, editor }) =>
-                renderMacro(contentRef, block.props, (newProps) => {
-                  editor.updateBlock(block.id, { props: newProps });
-                }),
+                renderMacro(
+                  contentRef,
+                  block.props,
+                  block.content.map(
+                    (value) =>
+                      // We use .map() to ensure we only typecast the values
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      value as any,
+                  ),
+                  (newProps) => {
+                    // TODO: update content as well
+                    editor.updateBlock(block.id, { props: newProps });
+                  },
+                ),
             },
             slashMenu: getSlashMenu((getDefaultValue) => ({
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -340,21 +360,26 @@ function adaptMacroForBlockNote(
           inlineContent: createCustomInlineContentSpec({
             config: {
               type: blockNoteName,
-              // TODO: when BlockNote supports internal content in custom inline contents themselves, set this to "styled" if the macro can have children
+              // NOTE: Nesting is not supported
               // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
-              content: "none",
+              content: "styled",
               propSchema,
             },
             implementation: {
               render: ({ contentRef, inlineContent, updateInlineContent }) =>
-                renderMacro(contentRef, inlineContent.props, (newProps) => {
-                  updateInlineContent({
-                    type: inlineContent.type,
-                    props: newProps,
-                    // TODO: make it editable!
-                    content: inlineContent.content,
-                  });
-                }),
+                renderMacro(
+                  contentRef,
+                  inlineContent.props,
+                  inlineContent.content,
+                  (newProps) => {
+                    updateInlineContent({
+                      type: inlineContent.type,
+                      props: newProps,
+                      // TODO: make it editable!
+                      content: inlineContent.content,
+                    });
+                  },
+                ),
             },
             slashMenu: getSlashMenu((getDefaultValue) => ({
               default: () => [
@@ -371,10 +396,37 @@ function adaptMacroForBlockNote(
   return { macro, bnRendering };
 }
 
+function extractMacroRawContent(
+  content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[],
+): string {
+  if (content.length !== 1) {
+    throw new Error(
+      "Internal error: raw-body macro does not have precisely 1 inline content",
+    );
+  }
+
+  if (content[0].type !== "text") {
+    throw new Error(
+      "Internal error: raw-body macro's inline content is not a text",
+    );
+  }
+
+  return content[0].text;
+}
+
+function buildMacroRawContent(
+  content: string,
+): InlineContent<DefaultInlineContentSchema, DefaultStyleSchema> {
+  return { type: "text", text: content, styles: {} };
+}
+
 export {
   MACRO_NAME_PREFIX,
   adaptMacroForBlockNote,
+  buildMacroRawContent,
   createCustomBlockSpec,
   createCustomInlineContentSpec,
+  extractMacroRawContent,
 };
+
 export type { BlockNoteConcreteMacro, ContextForMacros };

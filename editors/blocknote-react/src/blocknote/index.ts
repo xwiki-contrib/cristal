@@ -33,7 +33,7 @@ import * as locales from "@blocknote/core/locales";
 import { getDefaultReactSlashMenuItems } from "@blocknote/react";
 import { filterMap } from "@xwiki/cristal-fn-utils";
 import type { BlockNoteConcreteMacro } from "./utils";
-import type { Block, Link, StyledText } from "@blocknote/core";
+import type { Block, InlineContent, Link, StyledText } from "@blocknote/core";
 import type { DefaultReactSuggestionItem } from "@blocknote/react";
 
 /**
@@ -220,6 +220,15 @@ type EditorType = BlockNoteEditor<
 >;
 
 /**
+ * @since 0.24
+ * @beta
+ */
+type InlineContentType = InlineContent<
+  EditorInlineContentSchema,
+  EditorStyleSchema
+>;
+
+/**
  * @since 0.16
  * @beta
  */
@@ -259,6 +268,7 @@ export type {
   EditorStyleSchema,
   EditorStyledText,
   EditorType,
+  InlineContentType,
 };
 
 export { createBlockNoteSchema, createDictionary, querySuggestionsMenuItems };

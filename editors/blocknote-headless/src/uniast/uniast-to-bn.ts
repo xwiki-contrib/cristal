@@ -18,7 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { MACRO_NAME_PREFIX } from "@xwiki/cristal-editors-blocknote-react";
+import {
+  MACRO_NAME_PREFIX,
+  buildMacroRawContent,
+} from "@xwiki/cristal-editors-blocknote-react";
 import { assertUnreachable, tryFallibleOrError } from "@xwiki/cristal-fn-utils";
 import type { TableCell } from "@blocknote/core";
 import type {
@@ -27,6 +30,7 @@ import type {
   EditorLink,
   EditorStyleSchema,
   EditorStyledText,
+  InlineContentType,
 } from "@xwiki/cristal-editors-blocknote-react";
 import type { RemoteURLSerializer } from "@xwiki/cristal-model-remote-url-api";
 import type {
@@ -190,14 +194,21 @@ export class UniAstToBlockNoteConverter {
       case "break":
         throw new Error("TODO: handle block of type " + block.type);
 
-      case "macroBlock":
-        return {
-          // @ts-expect-error: macros are dynamically added to the AST
-          type: `${MACRO_NAME_PREFIX}${block.name}`,
+      case "macroBlock": {
+        const out: BlockType = {
+          // @ts-expect-error: AST is dynamically typed
+          type: `${MACRO_NAME_PREFIX}${block.call.id}`,
           id: genId(),
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          props: block.params as any,
+          props: block.call.params as any,
         };
+
+        if (block.call.body !== null) {
+          out.content = [buildMacroRawContent(block.call.body)];
+        }
+
+        return out;
+      }
 
       default:
         assertUnreachable(block);
@@ -332,7 +343,7 @@ export class UniAstToBlockNoteConverter {
 
   private convertInlineContent(
     inlineContent: InlineContent,
-  ): EditorStyledText | EditorLink {
+  ): InlineContentType {
     switch (inlineContent.type) {
       case "text": {
         const {
@@ -391,12 +402,20 @@ export class UniAstToBlockNoteConverter {
       case "image":
         throw new Error("Inline images are currently unsupported in blocknote");
 
-      case "inlineMacro":
-        return {
+      case "inlineMacro": {
+        const out: InlineContentType = {
           // @ts-expect-error: macros are dynamically added to the AST
-          type: `${MACRO_NAME_PREFIX}${inlineContent.name}`,
-          props: inlineContent.params,
+          type: `${MACRO_NAME_PREFIX}${inlineContent.call.id}`,
+          props: inlineContent.call.params,
+          content:
+            inlineContent.call.body !== null
+              ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (buildMacroRawContent(inlineContent.call.body) as any)
+              : undefined,
         };
+
+        return out;
+      }
     }
   }
 }

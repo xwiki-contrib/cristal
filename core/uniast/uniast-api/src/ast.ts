@@ -144,7 +144,7 @@ type TableCell = {
  * @beta
  */
 type MacroInvocation = {
-  name: string;
+  id: string;
   params: Record<string, boolean | number | string>;
   body: string | null;
 };
