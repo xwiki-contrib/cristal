@@ -305,13 +305,9 @@ function adaptMacroForBlockNote(
     }
 
     return macro.renderAs === "block" ? (
-      <div style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
-        {renderedJsx}
-      </div>
+      <div onDoubleClick={openParamsEditor}>{renderedJsx}</div>
     ) : (
-      <span style={{ userSelect: "none" }} onDoubleClick={openParamsEditor}>
-        {renderedJsx}
-      </span>
+      <span onDoubleClick={openParamsEditor}>{renderedJsx}</span>
     );
   };
 
@@ -326,7 +322,7 @@ function adaptMacroForBlockNote(
               type: blockNoteName,
               // NOTE: Nesting is not supported
               // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
-              content: "inline",
+              content: macro.infos.bodyType === "wysiwyg" ? "inline" : "none",
               propSchema,
             },
             implementation: {
@@ -334,12 +330,8 @@ function adaptMacroForBlockNote(
                 renderMacro(
                   contentRef,
                   block.props,
-                  block.content.map(
-                    (value) =>
-                      // We use .map() to ensure we only typecast the values
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                      value as any,
-                  ),
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  block.content as any,
                   (newProps) => {
                     // TODO: update content as well
                     editor.updateBlock(block.id, { props: newProps });
@@ -362,7 +354,7 @@ function adaptMacroForBlockNote(
               type: blockNoteName,
               // NOTE: Nesting is not supported
               // Tracking issue: https://github.com/TypeCellOS/BlockNote/issues/1540
-              content: "styled",
+              content: macro.infos.bodyType === "wysiwyg" ? "styled" : "none",
               propSchema,
             },
             implementation: {
