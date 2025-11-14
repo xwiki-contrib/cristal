@@ -196,7 +196,7 @@ export class UniAstToBlockNoteConverter {
         throw new Error("TODO: handle block of type " + block.type);
 
       case "macroBlock": {
-        let content: InlineContent[] | null = null;
+        let content: InlineContentType[] | null = null;
 
         const { body } = block.call;
 
@@ -206,8 +206,7 @@ export class UniAstToBlockNoteConverter {
             break;
 
           case "raw":
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            content = [buildMacroRawContent(body.content) as any];
+            content = [buildMacroRawContent(body.content)];
             break;
 
           case "inlineContent":
@@ -216,7 +215,9 @@ export class UniAstToBlockNoteConverter {
             );
 
           case "inlineContents":
-            content = body.inlineContents;
+            content = body.inlineContents.map((inline) =>
+              this.convertInlineContent(inline),
+            );
             break;
         }
 
@@ -229,7 +230,6 @@ export class UniAstToBlockNoteConverter {
         };
 
         if (content) {
-          // @ts-expect-error: AST is dynamically typed
           out.content = content;
         }
 
