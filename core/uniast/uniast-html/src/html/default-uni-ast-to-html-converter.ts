@@ -205,11 +205,31 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           return `<strong>Macro "${block.call.id}" is of type "inline", but used here as a block</strong>`;
         }
 
+        let body: string | null;
+
+        switch (macro.infos.bodyType) {
+          case "none":
+          case "wysiwyg":
+            body = null;
+            break;
+
+          case "raw":
+            if (block.call.body.type !== "raw") {
+              throw new Error(
+                "Expected raw body for macro with raw body, found: " +
+                  block.call.body.type,
+              );
+            }
+
+            body = block.call.body.content;
+            break;
+        }
+
         const rendered = this.macrosAstToHtmlConverter.blocksToHTML(
           macro.render(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             block.call.params as any,
-            macro.infos.bodyType === "raw" ? block.call.body : null,
+            body,
           ),
         );
 
@@ -326,11 +346,31 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           return `<strong>Macro "${inlineContent.call.id}" is of type "block", but used here as inline</strong>`;
         }
 
+        let body: string | null;
+
+        switch (macro.infos.bodyType) {
+          case "none":
+          case "wysiwyg":
+            body = null;
+            break;
+
+          case "raw":
+            if (inlineContent.call.body.type !== "raw") {
+              throw new Error(
+                "Expected raw body for macro with raw body, found: " +
+                  inlineContent.call.body.type,
+              );
+            }
+
+            body = inlineContent.call.body.content;
+            break;
+        }
+
         const rendered = this.macrosAstToHtmlConverter.inlineContentsToHTML(
           macro.render(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             inlineContent.call.params as any,
-            macro.infos.bodyType === "raw" ? inlineContent.call.body : null,
+            body,
           ),
         );
 
