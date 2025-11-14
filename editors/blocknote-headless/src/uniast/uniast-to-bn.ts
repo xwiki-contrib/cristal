@@ -58,6 +58,7 @@ export class UniAstToBlockNoteConverter {
     );
   }
 
+  // eslint-disable-next-line max-statements
   private convertBlock(block: Block): BlockType | BlockType[] {
     switch (block.type) {
       case "paragraph":
@@ -195,6 +196,30 @@ export class UniAstToBlockNoteConverter {
         throw new Error("TODO: handle block of type " + block.type);
 
       case "macroBlock": {
+        let content: InlineContent[] | null = null;
+
+        const { body } = block.call;
+
+        switch (body.type) {
+          case "none":
+            content = null;
+            break;
+
+          case "raw":
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            content = [buildMacroRawContent(body.content) as any];
+            break;
+
+          case "inlineContent":
+            throw new Error(
+              "Unexpectedly found inlineContent as body for block macro (expected a list of inline contents)",
+            );
+
+          case "inlineContents":
+            content = body.inlineContents;
+            break;
+        }
+
         const out: BlockType = {
           // @ts-expect-error: AST is dynamically typed
           type: `${MACRO_NAME_PREFIX}${block.call.id}`,
@@ -203,8 +228,9 @@ export class UniAstToBlockNoteConverter {
           props: block.call.params as any,
         };
 
-        if (block.call.body !== null) {
-          out.content = [buildMacroRawContent(block.call.body)];
+        if (content) {
+          // @ts-expect-error: AST is dynamically typed
+          out.content = content;
         }
 
         return out;
@@ -341,6 +367,7 @@ export class UniAstToBlockNoteConverter {
     };
   }
 
+  // eslint-disable-next-line max-statements
   private convertInlineContent(
     inlineContent: InlineContent,
   ): InlineContentType {
@@ -403,16 +430,40 @@ export class UniAstToBlockNoteConverter {
         throw new Error("Inline images are currently unsupported in blocknote");
 
       case "inlineMacro": {
+        let content: InlineContent | null = null;
+
+        const { body } = inlineContent.call;
+
+        switch (body.type) {
+          case "none":
+            content = null;
+            break;
+
+          case "raw":
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            content = buildMacroRawContent(body.content) as any;
+            break;
+
+          case "inlineContent":
+            content = body.inlineContent;
+            break;
+
+          case "inlineContents":
+            throw new Error(
+              "Unexpectedly found inlineContents as body for inline macro (expected one single inline content at most)",
+            );
+        }
+
         const out: InlineContentType = {
           // @ts-expect-error: macros are dynamically added to the AST
           type: `${MACRO_NAME_PREFIX}${inlineContent.call.id}`,
           props: inlineContent.call.params,
-          content:
-            inlineContent.call.body !== null
-              ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                (buildMacroRawContent(inlineContent.call.body) as any)
-              : undefined,
         };
+
+        if (content) {
+          // @ts-expect-error: AST is dynamically typed
+          out.content = content;
+        }
 
         return out;
       }

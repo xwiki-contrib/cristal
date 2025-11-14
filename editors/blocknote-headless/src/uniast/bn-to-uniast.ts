@@ -147,16 +147,14 @@ export class BlockNoteToUniAstConverter {
         infos: { bodyType },
       } = this.macros[id];
 
-      if (bodyType === "wysiwyg") {
-        throw new Error("TODO: convert macro's WYSIWYG content to string");
-      }
-
       if (block.content && !Array.isArray(block.content)) {
         throw new Error(
           "Macro block should have a list of contents, found: " +
             block.content.type,
         );
       }
+
+      const content = block.content ?? [];
 
       return {
         type: "macroBlock",
@@ -165,9 +163,19 @@ export class BlockNoteToUniAstConverter {
           // Conversion is required as the AST is dynamically typed
           params: block.props as Record<string, boolean | number | string>,
           body:
-            bodyType === "raw"
-              ? extractMacroRawContent(block.content ?? [])
-              : null,
+            bodyType === "none"
+              ? { type: "none" }
+              : bodyType === "raw"
+                ? {
+                    type: "raw",
+                    content: extractMacroRawContent(content),
+                  }
+                : {
+                    type: "inlineContents",
+                    inlineContents: content.map((inline) =>
+                      this.convertInlineContent(inline),
+                    ),
+                  },
         },
       };
     }
@@ -393,7 +401,6 @@ export class BlockNoteToUniAstConverter {
         };
   }
 
-  // eslint-disable-next-line max-statements
   private convertInlineContent(
     inlineContent: EditorStyledText | Link<EditorStyleSchema>,
   ): InlineContent {
@@ -409,10 +416,6 @@ export class BlockNoteToUniAstConverter {
         infos: { bodyType },
       } = this.macros[id];
 
-      if (bodyType === "wysiwyg") {
-        throw new Error("TODO: convert macro's WYSIWYG content to string");
-      }
-
       return {
         type: "inlineMacro",
         call: {
@@ -424,7 +427,18 @@ export class BlockNoteToUniAstConverter {
             }
           ).props,
           body:
-            bodyType === "raw" ? extractMacroRawContent([inlineContent]) : null,
+            bodyType === "none"
+              ? { type: "none" }
+              : bodyType === "raw"
+                ? {
+                    type: "raw",
+                    content: extractMacroRawContent([inlineContent]),
+                  }
+                : {
+                    type: "inlineContents",
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    inlineContents: [inlineContent as any],
+                  },
         },
       };
     }
