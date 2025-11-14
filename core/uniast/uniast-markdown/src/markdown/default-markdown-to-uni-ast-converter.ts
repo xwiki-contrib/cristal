@@ -26,11 +26,13 @@ import {
   transformMacros,
 } from "./macros";
 import { assertInArray, assertUnreachable } from "@xwiki/cristal-fn-utils";
+import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import type { MarkdownToUniAstConverter } from "./markdown-to-uni-ast-converter";
+import type { MacrosService } from "@xwiki/cristal-macros-service";
 import type { EntityReference } from "@xwiki/cristal-model-api";
 import type {
   ModelReferenceHandlerProvider,
@@ -58,17 +60,26 @@ export class DefaultMarkdownToUniAstConverter
   constructor(
     @inject("ModelReferenceParserProvider")
     private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
+
     @inject("ModelReferenceHandlerProvider")
     private readonly modelReferenceHandlerProvider: ModelReferenceHandlerProvider,
+
     @inject("ParserConfigurationResolver")
     private readonly parserConfigurationResolver: ParserConfigurationResolver,
+
+    @inject(macrosServiceName)
+    private readonly macrosService: MacrosService,
   ) {}
 
   async parseMarkdown(markdown: string): Promise<UniAst | Error> {
     // TODO: auto-links (URLs + emails)
     //     > https://jira.xwiki.org/browse/CRISTAL-513
 
-    const { content, brokeAt } = transformMacros(markdown);
+    const { content, brokeAt } = await transformMacros(
+      markdown,
+      this,
+      this.macrosService,
+    );
 
     if (brokeAt !== null) {
       throw new Error(
