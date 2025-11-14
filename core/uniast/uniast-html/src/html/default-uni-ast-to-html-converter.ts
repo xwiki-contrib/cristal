@@ -205,12 +205,13 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           return `<strong>Macro "${block.call.id}" is of type "inline", but used here as a block</strong>`;
         }
 
-        let body: string | null;
+        let rawBody: string | null;
+        let htmlBody: string | null;
 
         switch (macro.infos.bodyType) {
           case "none":
-          case "wysiwyg":
-            body = null;
+            rawBody = null;
+            htmlBody = null;
             break;
 
           case "raw":
@@ -221,7 +222,22 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
               );
             }
 
-            body = block.call.body.content;
+            rawBody = block.call.body.content;
+            htmlBody = null;
+            break;
+
+          case "wysiwyg":
+            if (block.call.body.type !== "inlineContents") {
+              throw new Error(
+                "Expexcted inline contents body for macro, found: " +
+                  block.call.body.type,
+              );
+            }
+
+            rawBody = null;
+            htmlBody = this.convertInlineContents(
+              block.call.body.inlineContents,
+            );
             break;
         }
 
@@ -229,8 +245,9 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           macro.render(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             block.call.params as any,
-            body,
+            rawBody,
           ),
+          htmlBody,
         );
 
         if (rendered instanceof Error) {
@@ -346,12 +363,13 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           return `<strong>Macro "${inlineContent.call.id}" is of type "block", but used here as inline</strong>`;
         }
 
-        let body: string | null;
+        let rawBody: string | null;
+        let htmlBody: string | null;
 
         switch (macro.infos.bodyType) {
           case "none":
-          case "wysiwyg":
-            body = null;
+            rawBody = null;
+            htmlBody = null;
             break;
 
           case "raw":
@@ -362,16 +380,31 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
               );
             }
 
-            body = inlineContent.call.body.content;
+            rawBody = inlineContent.call.body.content;
+            htmlBody = null;
             break;
+
+          case "wysiwyg":
+            if (inlineContent.call.body.type !== "inlineContent") {
+              throw new Error(
+                "Expected inline content body for macro, found: " +
+                  inlineContent.call.body.type,
+              );
+            }
+
+            rawBody = null;
+            htmlBody = this.convertInlineContent(
+              inlineContent.call.body.inlineContent,
+            );
         }
 
         const rendered = this.macrosAstToHtmlConverter.inlineContentsToHTML(
           macro.render(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             inlineContent.call.params as any,
-            body,
+            rawBody,
           ),
+          htmlBody,
         );
 
         if (rendered instanceof Error) {
