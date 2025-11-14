@@ -59,16 +59,16 @@ interface MacrosAstToHtmlConverter {
  */
 type MacrosAstToHtmlBody =
   | {
-      /** No body for the macro */
+      /** No body for the macro (for macros with bodyType: "none") */
       type: "none";
     }
   | {
-      /** Raw body */
+      /** Raw body (for macros with bodyType: "raw") */
       type: "raw";
       content: string;
     }
   | {
-      /** HTML-converted body */
+      /** HTML-converted body (for macros with bodyType: "wysiwyg") */
       type: "html";
       html: string;
     };
