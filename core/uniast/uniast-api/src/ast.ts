@@ -63,7 +63,7 @@ type Block =
       type: "macroBlock";
 
       /**
-       * @since 0.24
+       * @since 0.24-rc-1
        * @beta
        */
       call: MacroInvocation;
@@ -140,7 +140,7 @@ type TableCell = {
 };
 
 /**
- * @since 0.24
+ * @since 0.24-rc-1
  * @beta
  */
 type MacroInvocation = {
@@ -173,7 +173,7 @@ type InlineContent =
       type: "inlineMacro";
 
       /**
-       * @since 0.24
+       * @since 0.24-rc-1
        * @beta
        */
       call: MacroInvocation;

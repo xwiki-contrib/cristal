@@ -220,7 +220,7 @@ type EditorType = BlockNoteEditor<
 >;
 
 /**
- * @since 0.24
+ * @since 0.24-rc-1
  * @beta
  */
 type InlineContentType = InlineContent<
