@@ -25,7 +25,11 @@ import {
   reparseCodifiedMacro,
   transformMacros,
 } from "./macros";
-import { assertInArray, assertUnreachable } from "@xwiki/cristal-fn-utils";
+import {
+  assertInArray,
+  assertUnreachable,
+  tryFalliblePromiseOrError,
+} from "@xwiki/cristal-fn-utils";
 import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { EntityType } from "@xwiki/cristal-model-api";
 import { inject, injectable } from "inversify";
@@ -89,14 +93,11 @@ export class DefaultMarkdownToUniAstConverter
 
     const ast = unified().use(remarkParse).use(remarkPartialGfm).parse(content);
 
-    try {
-      const blocks = await Promise.all(
-        ast.children.map((item) => this.convertBlock(item)),
-      );
-      return { blocks };
-    } catch (e) {
-      return e instanceof Error ? e : new Error(String(e));
-    }
+    const blocks = await tryFalliblePromiseOrError(() =>
+      Promise.all(ast.children.map((item) => this.convertBlock(item))),
+    );
+
+    return blocks instanceof Error ? blocks : { blocks };
   }
 
   private async convertBlock(block: RootContent): Promise<Block> {
