@@ -45,6 +45,7 @@ export class XWikiInlineHtmlMacro implements InlineMacro<MacroParams> {
       metadata: "Metadata used to generate the XWiki macro",
     },
     defaultParameters: false,
+    bodyType: "none",
   };
 
   renderAs = "inline" as const;

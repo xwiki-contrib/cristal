@@ -26,22 +26,51 @@ import type { MacroBlock, MacroInlineContent } from "@xwiki/cristal-macros-api";
  * @since 0.24-rc-1
  * @beta
  */
-export interface MacrosAstToHtmlConverter {
+interface MacrosAstToHtmlConverter {
   /**
    * Render a macro's AST blocks to an HTML string.
    *
    * @param blocks - The blocks to render
+   * @param body - Body of the macro
    *
    * @returns The HTML render
    */
-  blocksToHTML(blocks: MacroBlock[]): string | Error;
+  blocksToHTML(blocks: MacroBlock[], body: MacrosAstToHtmlBody): string | Error;
 
   /**
    * Render a macro's AST inline contents to an HTML string.
    *
    * @param inlineContents - The inline contents to render
+   * @param body - Body of the macro
    *
    * @returns The HTML render
    */
-  inlineContentsToHTML(inlineContents: MacroInlineContent[]): string | Error;
+  inlineContentsToHTML(
+    inlineContents: MacroInlineContent[],
+    body: MacrosAstToHtmlBody,
+  ): string | Error;
 }
+
+/**
+ * Body provided to macros for rendering to HTML
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
+type MacrosAstToHtmlBody =
+  | {
+      /** No body for the macro (for macros with bodyType: "none") */
+      type: "none";
+    }
+  | {
+      /** Raw body (for macros with bodyType: "raw") */
+      type: "raw";
+      content: string;
+    }
+  | {
+      /** HTML-converted body (for macros with bodyType: "wysiwyg") */
+      type: "html";
+      html: string;
+    };
+
+export type { MacrosAstToHtmlBody, MacrosAstToHtmlConverter };

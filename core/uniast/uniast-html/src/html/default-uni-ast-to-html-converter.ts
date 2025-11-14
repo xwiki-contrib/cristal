@@ -191,23 +191,46 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         return "<hr>";
 
       case "macroBlock": {
-        const macro = this.macrosService.get(block.name);
+        const macro = this.macrosService.get(block.call.id);
 
         if (!macro) {
           // TODO: proper error reporting
           // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${block.name}" was not found</strong>`;
+          return `<strong>Macro "${block.call.id}" was not found</strong>`;
         }
 
         if (macro.renderAs === "inline") {
           // TODO: proper error reporting
           // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${block.name}" is of type "inline", but used here as a block</strong>`;
+          return `<strong>Macro "${block.call.id}" is of type "inline", but used here as a block</strong>`;
+        }
+
+        let body: string | null;
+
+        switch (macro.infos.bodyType) {
+          case "none":
+          case "wysiwyg":
+            body = null;
+            break;
+
+          case "raw":
+            if (block.call.body.type !== "raw") {
+              throw new Error(
+                "Expected raw body for macro with raw body, found: " +
+                  block.call.body.type,
+              );
+            }
+
+            body = block.call.body.content;
+            break;
         }
 
         const rendered = this.macrosAstToHtmlConverter.blocksToHTML(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          macro.render(block.params as any),
+          macro.render(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            block.call.params as any,
+            body,
+          ),
         );
 
         if (rendered instanceof Error) {
@@ -309,23 +332,46 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         return this.convertImage(inlineContent);
 
       case "inlineMacro": {
-        const macro = this.macrosService.get(inlineContent.name);
+        const macro = this.macrosService.get(inlineContent.call.id);
 
         if (!macro) {
           // TODO: proper error reporting
           // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${inlineContent.name}" was not found</strong>`;
+          return `<strong>Macro "${inlineContent.call.id}" was not found</strong>`;
         }
 
         if (macro.renderAs === "block") {
           // TODO: proper error reporting
           // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-725
-          return `<strong>Macro "${inlineContent.name}" is of type "block", but used here as inline</strong>`;
+          return `<strong>Macro "${inlineContent.call.id}" is of type "block", but used here as inline</strong>`;
+        }
+
+        let body: string | null;
+
+        switch (macro.infos.bodyType) {
+          case "none":
+          case "wysiwyg":
+            body = null;
+            break;
+
+          case "raw":
+            if (inlineContent.call.body.type !== "raw") {
+              throw new Error(
+                "Expected raw body for macro with raw body, found: " +
+                  inlineContent.call.body.type,
+              );
+            }
+
+            body = inlineContent.call.body.content;
+            break;
         }
 
         const rendered = this.macrosAstToHtmlConverter.inlineContentsToHTML(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          macro.render(inlineContent.params as any),
+          macro.render(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            inlineContent.call.params as any,
+            body,
+          ),
         );
 
         if (rendered instanceof Error) {
