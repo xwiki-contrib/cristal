@@ -396,6 +396,18 @@ function adaptMacroForBlockNote(
   return { macro, bnRendering };
 }
 
+/**
+ * Extract a macro's raw content from its BlockNote AST sub-tree
+ *
+ * Identity function with `buildMacroRawContent`
+ *
+ * @param content - The BlockNote AST to extract the macro's raw content from
+ *
+ * @returns The extracted raw content
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 function extractMacroRawContent(
   content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[],
 ): string {
@@ -414,6 +426,18 @@ function extractMacroRawContent(
   return content[0].text;
 }
 
+/**
+ * Wrap a macro's raw content inside a BlockNote AST
+ *
+ * Identify function with `extractMacroRawContent`
+ *
+ * @param content - The raw content to wrap the macro's raw content in
+ *
+ * @returns A BlockNote wrapper AST
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 function buildMacroRawContent(
   content: string,
 ): InlineContent<DefaultInlineContentSchema, DefaultStyleSchema> {
