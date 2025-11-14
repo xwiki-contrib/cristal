@@ -47,7 +47,7 @@ import type {
   UnknownMacroParamsType,
 } from "@xwiki/cristal-macros-api";
 import type { MacrosAstToReactJsxConverter } from "@xwiki/cristal-macros-ast-react-jsx";
-import type { ReactNode } from "react";
+import type { JSX, ReactNode } from "react";
 
 /**
  * Create a custom block to use in the BlockNote editor
@@ -272,14 +272,22 @@ function adaptMacroForBlockNote(
         }
       : false;
 
-  // The rendering function
-
-  const renderMacro = (
+  /**
+   * The rendering function
+   *
+   * @param contentRef - React reference to the WYSIWYG-editable content zone
+   * @param props - The macro's properties
+   * @param content - The macro's content
+   * @param update - An update function for the macro
+   *
+   * @returns The rendered macro, as a JSX element
+   */
+  function renderMacro(
     contentRef: (node: HTMLElement | null) => void,
     props: Props<PropSchema>,
     content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[],
     update: (newParams: Props<PropSchema>) => void,
-  ) => {
+  ): JSX.Element {
     const openParamsEditor = () =>
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ctx.openParamsEditor(macro, props, update as any);
@@ -309,7 +317,7 @@ function adaptMacroForBlockNote(
     ) : (
       <span onDoubleClick={openParamsEditor}>{renderedJsx}</span>
     );
-  };
+  }
 
   // Block and inline macros are defined pretty differently, so a bit of logic was computed ahead of time
   // to share it between the two definitions here.
