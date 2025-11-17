@@ -29,19 +29,26 @@ import type { MacroBlock, MacroInlineContent } from "@xwiki/cristal-macros-api";
 export interface MacrosAstToHtmlConverter {
   /**
    * Render a macro's AST blocks to an HTML string.
+   * Note that the HTML body it **NOT** sanitized.
    *
    * @param blocks - The blocks to render
+   * @param htmlBody - HTML-converted body of macros with `bodyType` set to `wysiwyg`
    *
    * @returns The HTML render
    */
-  blocksToHTML(blocks: MacroBlock[]): string | Error;
+  blocksToHTML(blocks: MacroBlock[], htmlBody: string | null): string | Error;
 
   /**
    * Render a macro's AST inline contents to an HTML string.
+   * Note that the HTML body it **NOT** sanitized.
    *
    * @param inlineContents - The inline contents to render
+   * @param htmlBody - HTML-converted body of macros with `bodyType` set to `wysiwyg`
    *
    * @returns The HTML render
    */
-  inlineContentsToHTML(inlineContents: MacroInlineContent[]): string | Error;
+  inlineContentsToHTML(
+    inlineContents: MacroInlineContent[],
+    htmlBody: string | null,
+  ): string | Error;
 }

@@ -13,8 +13,11 @@ import { BlockSchemaFromSpecs } from '@blocknote/core';
 import { CollaborationInitializer } from '@xwiki/cristal-collaboration-api';
 import { CustomBlockConfig } from '@blocknote/core';
 import { CustomInlineContentConfig } from '@blocknote/core';
+import { DefaultInlineContentSchema } from '@blocknote/core';
 import { DefaultReactSuggestionItem } from '@blocknote/react';
+import { DefaultStyleSchema } from '@blocknote/core';
 import { DocumentService } from '@xwiki/cristal-document-api';
+import { InlineContent } from '@blocknote/core';
 import { InlineContentImplementation } from '@blocknote/core';
 import { InlineContentSchema } from '@blocknote/core';
 import { InlineContentSchemaFromSpecs } from '@blocknote/core';
@@ -84,6 +87,9 @@ export type BlockOfType<B extends BlockType["type"]> = Extract<BlockType, {
 
 // @beta (undocumented)
 export type BlockType = Block<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
+
+// @beta
+export function buildMacroRawContent(content: string): InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>;
 
 // @beta
 export type ContextForMacros = {
@@ -934,6 +940,12 @@ export type EditorStyleSchema = EditorSchema extends BlockNoteSchema<infer _, in
 
 // @beta (undocumented)
 export type EditorType = BlockNoteEditor<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
+
+// @beta
+export function extractMacroRawContent(content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[]): string;
+
+// @beta (undocumented)
+export type InlineContentType = InlineContent<EditorInlineContentSchema, EditorStyleSchema>;
 
 // @beta (undocumented)
 export type LinkEditionContext = {

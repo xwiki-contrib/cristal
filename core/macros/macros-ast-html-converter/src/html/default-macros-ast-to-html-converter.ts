@@ -52,52 +52,48 @@ export class DefaultMacrosAstToHtmlConverter
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
   ) {}
 
-  /**
-   * Render a macro's AST blocks to an HTML string
-   *
-   * @param blocks - The blocks to render
-   *
-   * @returns The HTML render
-   */
-  blocksToHTML(blocks: MacroBlock[]): string | Error {
-    return tryFallibleOrError(() => this.convertBlocks(blocks));
+  blocksToHTML(blocks: MacroBlock[], htmlBody: string | null): string | Error {
+    return tryFallibleOrError(() => this.convertBlocks(blocks, htmlBody));
   }
 
-  /**
-   * Render a macro's AST inline contents to an HTML stirng
-   *
-   * @param inlineContents - The inline contents to render
-   *
-   * @returns The HTML render
-   */
-  inlineContentsToHTML(inlineContents: MacroInlineContent[]): string | Error {
-    return tryFallibleOrError(() => this.convertInlineContents(inlineContents));
+  inlineContentsToHTML(
+    inlineContents: MacroInlineContent[],
+    htmlBody: string | null,
+  ): string | Error {
+    return tryFallibleOrError(() =>
+      this.convertInlineContents(inlineContents, htmlBody),
+    );
   }
 
-  private convertBlocks(blocks: MacroBlock[]): string {
-    return blocks.map((block) => this.convertBlock(block)).join("");
+  private convertBlocks(blocks: MacroBlock[], htmlBody: string | null): string {
+    return blocks.map((block) => this.convertBlock(block, htmlBody)).join("");
   }
 
-  private convertInlineContents(inlineContents: MacroInlineContent[]): string {
+  private convertInlineContents(
+    inlineContents: MacroInlineContent[],
+    htmlBody: string | null,
+  ): string {
     return inlineContents
-      .map((inlineContent) => this.convertInlineContent(inlineContent))
+      .map((inlineContent) =>
+        this.convertInlineContent(inlineContent, htmlBody),
+      )
       .join("");
   }
 
-  private convertBlock(block: MacroBlock): string {
+  private convertBlock(block: MacroBlock, htmlBody: string | null): string {
     switch (block.type) {
       case "paragraph":
         return this.produceBlockHtml(
           "p",
           block.styles,
-          this.convertInlineContents(block.content),
+          this.convertInlineContents(block.content, htmlBody),
         );
 
       case "heading":
         return this.produceBlockHtml(
           `h${block.level}`,
           block.styles,
-          this.convertInlineContents(block.content),
+          this.convertInlineContents(block.content, htmlBody),
         );
 
       case "list":
@@ -109,7 +105,7 @@ export class DefaultMacrosAstToHtmlConverter
               produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertInlineContents(item.content)}`,
+                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertInlineContents(item.content, htmlBody)}`,
               ),
             )
             .join(""),
@@ -119,7 +115,7 @@ export class DefaultMacrosAstToHtmlConverter
         return this.produceBlockHtml(
           "blockquote",
           block.styles,
-          this.convertBlocks(block.content),
+          this.convertBlocks(block.content, htmlBody),
         );
 
       case "code":
@@ -153,7 +149,10 @@ export class DefaultMacrosAstToHtmlConverter
                     ? this.produceBlockHtml(
                         "th",
                         col.headerCell.styles,
-                        this.convertInlineContents(col.headerCell.content),
+                        this.convertInlineContents(
+                          col.headerCell.content,
+                          htmlBody,
+                        ),
                       )
                     : "",
                 )
@@ -171,7 +170,7 @@ export class DefaultMacrosAstToHtmlConverter
                 this.produceBlockHtml(
                   "td",
                   cell.styles,
-                  this.convertInlineContents(cell.content),
+                  this.convertInlineContents(cell.content, htmlBody),
                   {
                     colspan: cell.colSpan?.toString(),
                     rowspan: cell.rowSpan?.toString(),
@@ -209,7 +208,7 @@ export class DefaultMacrosAstToHtmlConverter
         throw new Error("Nested macros are not supported yet");
 
       case "macroBlockEditableArea":
-        return "<!-- Macro block editable aera -->";
+        return htmlBody ?? "";
 
       default:
         assertUnreachable(block);
@@ -217,7 +216,10 @@ export class DefaultMacrosAstToHtmlConverter
   }
 
   // eslint-disable-next-line max-statements
-  private convertInlineContent(inlineContent: MacroInlineContent): string {
+  private convertInlineContent(
+    inlineContent: MacroInlineContent,
+    htmlBody: string | null,
+  ): string {
     switch (inlineContent.type) {
       case "text": {
         const { content, styles } = inlineContent;
@@ -283,7 +285,7 @@ export class DefaultMacrosAstToHtmlConverter
         return produceHtmlEl(
           "a",
           { href: this.getTargetUrl(inlineContent.target) },
-          this.convertInlineContents(inlineContent.content),
+          this.convertInlineContents(inlineContent.content, htmlBody),
         );
 
       case "rawHtml":
@@ -293,7 +295,7 @@ export class DefaultMacrosAstToHtmlConverter
         throw new Error("Nested macros are not supported yet");
 
       case "inlineMacroEditableArea":
-        return "<!-- Macro inline editable aera -->";
+        return htmlBody ?? "";
 
       default:
         assertUnreachable(inlineContent);
