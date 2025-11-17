@@ -27,10 +27,10 @@
     "start:electron": "concurrently --kill-others 'pnpm run start:electron:ui' 'pnpm run dev:cristal-realtime' 'pnpm run dev:cristal-authentication-server'",
     "start:electron:ui": "nx build @xwiki/cristal-electron-main && nx build @xwiki/cristal-electron-renderer && nx build @xwiki/cristal-electron-storage && nx run @xwiki/cristal-electron:start",
     "test": "nx run-many -t test",
-    "typecheck": "nx run-many -t typecheck"
+    "typecheck": "nx run-many -t typecheck",
+    "version:set": "node scripts/update-versions.js"
   },
   "devDependencies": {
-    "@changesets/cli": "catalog:",
     "@eslint/config-helpers": "catalog:",
     "@eslint/eslintrc": "catalog:",
     "@eslint/js": "catalog:",
@@ -51,6 +51,7 @@
     "eslint-plugin-promise": "catalog:",
     "eslint-plugin-tsdoc": "catalog:",
     "eslint-plugin-vue": "catalog:",
+    "glob": "catalog:",
     "globals": "catalog:",
     "happy-dom": "catalog:",
     "jiti": "catalog:",
