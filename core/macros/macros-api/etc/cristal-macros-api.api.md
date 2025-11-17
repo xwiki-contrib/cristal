@@ -79,6 +79,7 @@ export type MacroBlock = {
     html: string;
 } | {
     type: "macroBlockEditableArea";
+    styles: MacroBlockStyles;
 };
 
 // @beta

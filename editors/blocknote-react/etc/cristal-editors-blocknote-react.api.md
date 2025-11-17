@@ -80,12 +80,12 @@ export type BlockNoteViewWrapperProps = {
     };
 };
 
-// @beta (undocumented)
+// @beta
 export type BlockOfType<B extends BlockType["type"]> = Extract<BlockType, {
     type: B;
 }>;
 
-// @beta (undocumented)
+// @beta
 export type BlockType = Block<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
 
 // @beta
@@ -915,10 +915,10 @@ export function createDictionary(lang: EditorLanguage): {
     };
 };
 
-// @beta (undocumented)
+// @beta
 export type EditorBlockSchema = EditorSchema extends BlockNoteSchema<infer BlockSchema, infer _, infer __> ? BlockSchema : never;
 
-// @beta (undocumented)
+// @beta
 export type EditorInlineContentSchema = EditorSchema extends BlockNoteSchema<infer _, infer InlineContentSchema, infer __> ? InlineContentSchema : never;
 
 // Warning: (ae-forgotten-export) The symbol "_default" needs to be exported by the entry point index.d.ts
@@ -926,25 +926,25 @@ export type EditorInlineContentSchema = EditorSchema extends BlockNoteSchema<inf
 // @beta (undocumented)
 export type EditorLanguage = keyof typeof locales & keyof typeof _default;
 
-// @beta (undocumented)
+// @beta
 export type EditorLink = Link<EditorStyleSchema>;
 
-// @beta (undocumented)
+// @beta
 export type EditorSchema = ReturnType<typeof createBlockNoteSchema>;
 
-// @beta (undocumented)
+// @beta
 export type EditorStyledText = StyledText<EditorStyleSchema>;
 
-// @beta (undocumented)
+// @beta
 export type EditorStyleSchema = EditorSchema extends BlockNoteSchema<infer _, infer __, infer StyleSchema> ? StyleSchema : never;
 
-// @beta (undocumented)
+// @beta
 export type EditorType = BlockNoteEditor<EditorBlockSchema, EditorInlineContentSchema, EditorStyleSchema>;
 
 // @beta
 export function extractMacroRawContent(content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[]): string;
 
-// @beta (undocumented)
+// @beta
 export type InlineContentType = InlineContent<EditorInlineContentSchema, EditorStyleSchema>;
 
 // @beta (undocumented)
