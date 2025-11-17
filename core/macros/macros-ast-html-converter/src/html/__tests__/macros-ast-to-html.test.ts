@@ -89,12 +89,15 @@ describe("MacrosAstToHtmlConverter", () => {
     inlineContents: MacroInlineContent[],
     expectedHtml: string,
   ) {
-    expect(converter.inlineContentsToHTML(inlineContents)).toBe(expectedHtml);
+    expect(converter.inlineContentsToHTML(inlineContents, null)).toBe(
+      expectedHtml,
+    );
 
     expect(
-      converter.blocksToHTML([
-        { type: "paragraph", styles: {}, content: inlineContents },
-      ]),
+      converter.blocksToHTML(
+        [{ type: "paragraph", styles: {}, content: inlineContents }],
+        null,
+      ),
     ).toBe(`<p>${expectedHtml}</p>`);
   }
 
@@ -177,86 +180,89 @@ describe("MacrosAstToHtmlConverter", () => {
     ];
     const styles: MacroBlockStyles = { cssClasses: ["class1", "class2"] };
 
-    const res = converter.blocksToHTML([
-      { type: "paragraph", content, styles },
-      { type: "heading", level: 1, content, styles },
-      { type: "heading", level: 2, content, styles },
-      { type: "heading", level: 3, content, styles },
-      { type: "heading", level: 4, content, styles },
-      { type: "heading", level: 5, content, styles },
-      { type: "heading", level: 6, content, styles },
-      {
-        type: "list",
-        numbered: false,
-        items: [
-          { content, styles },
-          { checked: false, content, styles },
-          { checked: true, content, styles },
-        ],
-        styles,
-      },
-      {
-        type: "list",
-        numbered: true,
-        items: [
-          { content, styles },
-          { checked: false, content, styles },
-          { checked: true, content, styles },
-        ],
-        styles,
-      },
-      {
-        type: "quote",
-        content: [{ type: "paragraph", content, styles }],
-        styles,
-      },
-      { type: "code", content: "Some code here" },
-      { type: "code", content: "Some code here", language: "some-language" },
-      {
-        type: "table",
-        columns: [{}, { headerCell: { content, styles } }, { widthPx: 200 }],
-        rows: [
-          [
+    const res = converter.blocksToHTML(
+      [
+        { type: "paragraph", content, styles },
+        { type: "heading", level: 1, content, styles },
+        { type: "heading", level: 2, content, styles },
+        { type: "heading", level: 3, content, styles },
+        { type: "heading", level: 4, content, styles },
+        { type: "heading", level: 5, content, styles },
+        { type: "heading", level: 6, content, styles },
+        {
+          type: "list",
+          numbered: false,
+          items: [
             { content, styles },
-            { content, styles },
-            { content, styles, rowSpan: 1 },
+            { checked: false, content, styles },
+            { checked: true, content, styles },
           ],
-          [{ content, styles, colSpan: 2, rowSpan: 3 }],
-        ],
-        styles,
-      },
-      {
-        type: "image",
-        target: { type: "internal", rawReference: "A.B@image.png" },
-      },
-      {
-        type: "image",
-        target: { type: "internal", rawReference: "A.B@image.png" },
-        alt: "Some alt caption",
-        widthPx: 100,
-        heightPx: 200,
-      },
-      {
-        type: "image",
-        target: { type: "external", url: "https://picsum.photos/536/354" },
-      },
-      {
-        type: "rawHtml",
-        html: "<script></script><style></style>",
-      },
-      {
-        type: "macroBlockEditableArea",
-      },
-      {
-        type: "paragraph",
-        content: [
-          {
-            type: "inlineMacroEditableArea",
-          },
-        ],
-        styles,
-      },
-    ]);
+          styles,
+        },
+        {
+          type: "list",
+          numbered: true,
+          items: [
+            { content, styles },
+            { checked: false, content, styles },
+            { checked: true, content, styles },
+          ],
+          styles,
+        },
+        {
+          type: "quote",
+          content: [{ type: "paragraph", content, styles }],
+          styles,
+        },
+        { type: "code", content: "Some code here" },
+        { type: "code", content: "Some code here", language: "some-language" },
+        {
+          type: "table",
+          columns: [{}, { headerCell: { content, styles } }, { widthPx: 200 }],
+          rows: [
+            [
+              { content, styles },
+              { content, styles },
+              { content, styles, rowSpan: 1 },
+            ],
+            [{ content, styles, colSpan: 2, rowSpan: 3 }],
+          ],
+          styles,
+        },
+        {
+          type: "image",
+          target: { type: "internal", rawReference: "A.B@image.png" },
+        },
+        {
+          type: "image",
+          target: { type: "internal", rawReference: "A.B@image.png" },
+          alt: "Some alt caption",
+          widthPx: 100,
+          heightPx: 200,
+        },
+        {
+          type: "image",
+          target: { type: "external", url: "https://picsum.photos/536/354" },
+        },
+        {
+          type: "rawHtml",
+          html: "<script></script><style></style>",
+        },
+        {
+          type: "macroBlockEditableArea",
+        },
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "inlineMacroEditableArea",
+            },
+          ],
+          styles,
+        },
+      ],
+      "<!-- Macro editable area's HTML content -->",
+    );
 
     expect(res).toBe(
       [
@@ -284,9 +290,8 @@ describe("MacrosAstToHtmlConverter", () => {
         '<img src="https://my.site/A/B/image.png" alt="Some alt caption" width="100px" height="200px">',
         '<img src="https://picsum.photos/536/354">',
         "<script></script><style></style>",
-        "<!-- Macro block editable aera -->",
-        '<p class="class1 class2">',
-        "<!-- Macro inline editable aera --></p>",
+        "<!-- Macro editable area's HTML content -->",
+        '<p class="class1 class2"><!-- Macro editable area\'s HTML content --></p>',
       ].join(""),
     );
   });
