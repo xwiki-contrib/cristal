@@ -376,7 +376,6 @@ function adaptMacroForBlockNote(
                     updateInlineContent({
                       type: inlineContent.type,
                       props: newProps,
-                      // TODO: make it editable!
                       content: inlineContent.content,
                     });
                   },
