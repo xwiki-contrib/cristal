@@ -81,7 +81,7 @@ function init() {
   const parserConfigurationResolver = mock<ParserConfigurationResolver>();
   const markdownParserConfiguration = mock<MarkdownParserConfiguration>();
 
-  markdownParserConfiguration.supportFlexmarkInternalLinks = false;
+  markdownParserConfiguration.supportFlexmarkInternalLinks = true;
 
   parserConfigurationResolver.get.mockReturnValue(markdownParserConfiguration);
 

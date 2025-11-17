@@ -382,20 +382,16 @@ export class DefaultMarkdownToUniAstConverter
     let treated = 0;
 
     while (true) {
-      // Try to find the first XWiki-specific-element syntax in the text (precedence order)
-      // Do not use the expressions for internal images and links when not supported.
-      const internalLinksOrImage: Array<{
-        name: "image" | "link";
-        match: string;
-      }> = this.supportFlexmark()
-        ? [
-            { name: "image", match: "![[" },
-            { name: "link", match: "[[" },
-          ]
-        : [];
       const firstItem = findFirstMatchIn(
         text.substring(treated),
-        internalLinksOrImage,
+        // Try to find the first XWiki-specific-element syntax in the text (precedence order)
+        // Do not use the expressions for internal images and links when not supported.
+        this.supportFlexmark()
+          ? [
+              { name: "image", match: "![[" },
+              { name: "link", match: "[[" },
+            ]
+          : [],
       );
 
       // If none is found, exit immediately
