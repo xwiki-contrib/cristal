@@ -128,7 +128,7 @@ export class BlockNoteToUniAstConverter {
   ): Block | Block[] | null {
     const dontExpectChildren = () => {
       if (block.children.length > 0) {
-        console.error({ unexpextedChildrenInBlock: block });
+        console.error({ unexpectedChildrenInBlock: block });
         throw new Error("Unexpected children in block type: " + block.type);
       }
     };

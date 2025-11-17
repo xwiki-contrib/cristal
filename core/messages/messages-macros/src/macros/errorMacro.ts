@@ -36,8 +36,8 @@ type MacroParams = typeof macroParams;
 export class ErrorMacro implements BlockMacro<MacroParams> {
   readonly infos: MacroInfos<MacroParams> = {
     id: "error",
-    name: "Box for an errorrmation message",
-    description: "Block showing an errorrmation message",
+    name: "Box for an error message",
+    description: "Block showing an error message",
     params: macroParams,
     paramsDescription: {},
     defaultParameters: {},

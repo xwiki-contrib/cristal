@@ -431,7 +431,7 @@ const eatMacro: MacroHandler = async (
         // TODO: properly report the error
         // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
         throw new Error(
-          "Expexted either nothing or a single paragraph block as the macro's content",
+          "Unexpected either nothing or a single paragraph block as the macro's content",
         );
       }
 
