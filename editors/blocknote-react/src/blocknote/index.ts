@@ -159,12 +159,16 @@ function querySuggestionsMenuItems(
 }
 
 /**
+ * Schema of the BlockNote editor
+ *
  * @since 0.16
  * @beta
  */
 type EditorSchema = ReturnType<typeof createBlockNoteSchema>;
 
 /**
+ * Block schema for BlockNote
+ *
  * @since 0.16
  * @beta
  */
@@ -180,6 +184,8 @@ type EditorBlockSchema =
     : never;
 
 /**
+ * Inline content schema for BlockNote
+ *
  * @since 0.16
  * @beta
  */
@@ -195,6 +201,8 @@ type EditorInlineContentSchema =
     : never;
 
 /**
+ * Style schema for BlockNote
+ *
  * @since 0.16
  * @beta
  */
@@ -210,6 +218,8 @@ type EditorStyleSchema =
     : never;
 
 /**
+ * Type of a BlockNote editor instance
+ *
  * @since 0.16
  * @beta
  */
@@ -220,27 +230,8 @@ type EditorType = BlockNoteEditor<
 >;
 
 /**
- * @since 0.24-rc-1
- * @beta
- */
-type InlineContentType = InlineContent<
-  EditorInlineContentSchema,
-  EditorStyleSchema
->;
-
-/**
- * @since 0.16
- * @beta
- */
-type EditorStyledText = StyledText<EditorStyleSchema>;
-
-/**
- * @since 0.16
- * @beta
- */
-type EditorLink = Link<EditorStyleSchema>;
-
-/**
+ * Typesafe BlockNote type
+ *
  * @since 0.16
  * @beta
  */
@@ -251,10 +242,39 @@ type BlockType = Block<
 >;
 
 /**
+ * Typesafe BlockNote type of the a given kind
+ *
  * @since 0.16
  * @beta
  */
 type BlockOfType<B extends BlockType["type"]> = Extract<BlockType, { type: B }>;
+
+/**
+ * Typesafe BlockNote inline content
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
+type InlineContentType = InlineContent<
+  EditorInlineContentSchema,
+  EditorStyleSchema
+>;
+
+/**
+ * Typesafe BlockNote styled text
+ *
+ * @since 0.16
+ * @beta
+ */
+type EditorStyledText = StyledText<EditorStyleSchema>;
+
+/**
+ * Typesafe BlockNote link
+ *
+ * @since 0.16
+ * @beta
+ */
+type EditorLink = Link<EditorStyleSchema>;
 
 export type {
   BlockNoteConcreteMacro,
