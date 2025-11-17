@@ -53,7 +53,7 @@ export class AuthServiceBannerUIExtension implements UIExtension {
       // and we display the banner if it is not "oidc-provider-bridge".
       const response = await fetch(
         `${this.cristal.getWikiConfig().baseURL}/rest/cristal/auth`,
-      )
+      );
       return response.ok && (await response.text()) != "oidc-provider-bridge";
     } else {
       return false;
