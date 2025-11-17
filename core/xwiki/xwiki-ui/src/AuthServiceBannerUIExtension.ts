@@ -32,8 +32,8 @@ import type { Component } from "vue";
  */
 @injectable()
 export class AuthServiceBannerUIExtension implements UIExtension {
-  id = "banner.authServiceBanner";
-  uixpName = "banner";
+  id = "main.banner.authServiceBanner";
+  uixpName = "main.banner";
   order = 1000;
   parameters = {};
 

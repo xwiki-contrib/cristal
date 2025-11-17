@@ -35,6 +35,7 @@ const { t } = useI18n({
   <x-alert type="warning" flat>
     <i18n-t keypath="xwiki.auth.service.banner" tag="span">
       <template #link>
+        <!-- TODO: Use RemoteURLSerializer (CRISTAL-741). -->
         <a
           :href="`${cristal.getWikiConfig().baseURL}/bin/admin/XWiki/XWikiPreferences?section=Authentication`"
           >{{ t("xwiki.auth.service.banner.link") }}</a
