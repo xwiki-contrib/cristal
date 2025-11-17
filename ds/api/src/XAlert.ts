@@ -49,11 +49,11 @@ type AlertProps = {
    */
   details?: string;
   /**
-   * Render as a flat surface to use as, e.g., a banner.
+   * Render with flat corners to use as, e.g., a banner.
    * @since 0.24-rc-1
    * @beta
    */
-  flat?: boolean;
+  flatCorners?: boolean;
 };
 
 export type { AlertActions, AlertProps, AlterAction };

@@ -28,7 +28,7 @@ defineProps<AlertProps>();
     :title="title"
     :type="type"
     :text="description"
-    :class="{ flat: flat }"
+    :class="{ 'flat-corners': flatCorners }"
   >
     <x-btn
       v-for="action of actions"
@@ -50,7 +50,7 @@ defineProps<AlertProps>();
   color: inherit;
   text-decoration-color: inherit;
 }
-.flat {
+.flat-corners {
   border-radius: initial;
 }
 </style>

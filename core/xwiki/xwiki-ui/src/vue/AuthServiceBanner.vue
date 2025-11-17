@@ -32,7 +32,7 @@ const { t } = useI18n({
 </script>
 
 <template>
-  <x-alert type="warning" flat>
+  <x-alert type="warning" flat-corners>
     <i18n-t keypath="xwiki.auth.service.banner" tag="span">
       <template #link>
         <!-- TODO: Use RemoteURLSerializer (CRISTAL-741). -->

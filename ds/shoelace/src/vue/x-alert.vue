@@ -59,7 +59,7 @@ open.value = true;
     :closable="closable"
     :variant="variant.variant"
     :open="open"
-    :class="{ flat: flat }"
+    :class="{ 'flat-corners': flatCorners }"
     @sl-show="open = true"
     @sl-hide="open = false"
   >
@@ -85,7 +85,7 @@ open.value = true;
 </template>
 
 <style scoped>
-sl-alert.flat {
+sl-alert.flat-corners {
   --sl-border-radius-medium: initial;
 }
 </style>
