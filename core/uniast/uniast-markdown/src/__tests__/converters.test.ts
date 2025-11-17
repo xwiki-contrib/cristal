@@ -974,12 +974,12 @@ describe("MarkdownToUniAstConverter", () => {
       startingFrom: [
         "A [[title|documentReference]] B",
         "C ![[title|imageReference]] D",
-        "E {{inlineMacro /}} F",
+        "E {{someInlineMacro /}} F",
       ].join("\n"),
       convertsBackTo: [
         "A [[title|documentReference]] B",
         "C ![[title|imageReference]] D",
-        "E {{inlineMacro /}} F",
+        "E {{someInlineMacro /}} F",
       ].join("\n"),
       withUniAst: {
         blocks: [
@@ -1030,7 +1030,7 @@ describe("MarkdownToUniAstConverter", () => {
               {
                 type: "inlineMacro",
                 call: {
-                  id: "inlineMacro",
+                  id: "someInlineMacro",
                   params: {},
                   body: { type: "none" },
                 },
@@ -1052,35 +1052,35 @@ describe("MarkdownToUniAstConverter", () => {
   test("parse various contentless macros syntaxes", async () => {
     await testTwoWayConversion({
       startingFrom: [
-        "{{macroBlock/}}",
-        "{{ macroBlock/}}",
-        "{{macroBlock /}}",
-        "{{  macroBlock  / }}",
-        "{{macroBlock param1=1/}}",
-        '{{macroBlock param1="1"/}}',
-        "{{macroBlock param1=1 /}}",
-        '{{macroBlock param1="1" /}}',
-        '{{macroBlock param1="1" param2="2" /}}',
-        '{{macroBlock param1="param1Value" param2="param2Value" param3="param3Value" /}}',
+        "{{someBlockMacro/}}",
+        "{{ someBlockMacro/}}",
+        "{{someBlockMacro /}}",
+        "{{  someBlockMacro  / }}",
+        "{{someBlockMacro param1=1/}}",
+        '{{someBlockMacro param1="1"/}}',
+        "{{someBlockMacro param1=1 /}}",
+        '{{someBlockMacro param1="1" /}}',
+        '{{someBlockMacro param1="1" param2="2" /}}',
+        '{{someBlockMacro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
       ].join("\n\n"),
       convertsBackTo: [
-        "{{macroBlock /}}",
-        "{{macroBlock /}}",
-        "{{macroBlock /}}",
-        "{{macroBlock /}}",
-        '{{macroBlock param1="1" /}}',
-        '{{macroBlock param1="1" /}}',
-        '{{macroBlock param1="1" /}}',
-        '{{macroBlock param1="1" /}}',
-        '{{macroBlock param1="1" param2="2" /}}',
-        '{{macroBlock param1="param1Value" param2="param2Value" param3="param3Value" /}}',
+        "{{someBlockMacro /}}",
+        "{{someBlockMacro /}}",
+        "{{someBlockMacro /}}",
+        "{{someBlockMacro /}}",
+        '{{someBlockMacro param1="1" /}}',
+        '{{someBlockMacro param1="1" /}}',
+        '{{someBlockMacro param1="1" /}}',
+        '{{someBlockMacro param1="1" /}}',
+        '{{someBlockMacro param1="1" param2="2" /}}',
+        '{{someBlockMacro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
       ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {},
               body: { type: "none" },
             },
@@ -1088,7 +1088,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {},
               body: { type: "none" },
             },
@@ -1096,7 +1096,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {},
               body: { type: "none" },
             },
@@ -1104,7 +1104,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {},
               body: { type: "none" },
             },
@@ -1112,7 +1112,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {
                 param1: "1",
               },
@@ -1122,7 +1122,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {
                 param1: "1",
               },
@@ -1132,7 +1132,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {
                 param1: "1",
               },
@@ -1142,7 +1142,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {
                 param1: "1",
               },
@@ -1152,7 +1152,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {
                 param1: "1",
                 param2: "2",
@@ -1163,7 +1163,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {
                 param1: "param1Value",
                 param2: "param2Value",
@@ -1180,35 +1180,35 @@ describe("MarkdownToUniAstConverter", () => {
   test("parse various contentful macros syntaxes", async () => {
     await testTwoWayConversion({
       startingFrom: [
-        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
-        "{{ macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent }}Hello **world**{{/macroBlockWithContent}}",
-        "{{  macroBlockWithContent  }}Hello **world**{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent param1=1}}Hello **world**{{/macroBlockWithContent}}",
-        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
-        "{{macroBlockWithContent param1=1 }}Hello **world**{{/macroBlockWithContent}}",
-        '{{macroBlockWithContent param1="1" }}Hello **world**{{/macroBlockWithContent}}',
-        '{{macroBlockWithContent param1="1" param2="2" }}Hello **world**{{/macroBlockWithContent}}',
-        '{{macroBlockWithContent param1="param1Value" param2="param2Value" param3="param3Value" }}Hello **world**{{/macroBlockWithContent}}',
+        "{{someBlockMacroWithContent}}Hello **world**{{/someBlockMacroWithContent}}",
+        "{{ someBlockMacroWithContent}}Hello **world**{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent }}Hello **world**{{/someBlockMacroWithContent}}",
+        "{{  someBlockMacroWithContent  }}Hello **world**{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent param1=1}}Hello **world**{{/someBlockMacroWithContent}}",
+        '{{someBlockMacroWithContent param1="1"}}Hello **world**{{/someBlockMacroWithContent}}',
+        "{{someBlockMacroWithContent param1=1 }}Hello **world**{{/someBlockMacroWithContent}}",
+        '{{someBlockMacroWithContent param1="1" }}Hello **world**{{/someBlockMacroWithContent}}',
+        '{{someBlockMacroWithContent param1="1" param2="2" }}Hello **world**{{/someBlockMacroWithContent}}',
+        '{{someBlockMacroWithContent param1="param1Value" param2="param2Value" param3="param3Value" }}Hello **world**{{/someBlockMacroWithContent}}',
       ].join("\n\n"),
       convertsBackTo: [
-        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
-        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
-        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
-        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
-        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
-        '{{macroBlockWithContent param1="1" param2="2"}}Hello **world**{{/macroBlockWithContent}}',
-        '{{macroBlockWithContent param1="param1Value" param2="param2Value" param3="param3Value"}}Hello **world**{{/macroBlockWithContent}}',
+        "{{someBlockMacroWithContent}}Hello **world**{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}Hello **world**{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}Hello **world**{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}Hello **world**{{/someBlockMacroWithContent}}",
+        '{{someBlockMacroWithContent param1="1"}}Hello **world**{{/someBlockMacroWithContent}}',
+        '{{someBlockMacroWithContent param1="1"}}Hello **world**{{/someBlockMacroWithContent}}',
+        '{{someBlockMacroWithContent param1="1"}}Hello **world**{{/someBlockMacroWithContent}}',
+        '{{someBlockMacroWithContent param1="1"}}Hello **world**{{/someBlockMacroWithContent}}',
+        '{{someBlockMacroWithContent param1="1" param2="2"}}Hello **world**{{/someBlockMacroWithContent}}',
+        '{{someBlockMacroWithContent param1="param1Value" param2="param2Value" param3="param3Value"}}Hello **world**{{/someBlockMacroWithContent}}',
       ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {},
               body: { type: "raw", content: "Hello **world**" },
             },
@@ -1216,7 +1216,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {},
               body: { type: "raw", content: "Hello **world**" },
             },
@@ -1224,7 +1224,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {},
               body: { type: "raw", content: "Hello **world**" },
             },
@@ -1232,7 +1232,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {},
               body: { type: "raw", content: "Hello **world**" },
             },
@@ -1240,7 +1240,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {
                 param1: "1",
               },
@@ -1250,7 +1250,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {
                 param1: "1",
               },
@@ -1260,7 +1260,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {
                 param1: "1",
               },
@@ -1270,7 +1270,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {
                 param1: "1",
               },
@@ -1280,7 +1280,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {
                 param1: "1",
                 param2: "2",
@@ -1291,7 +1291,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             type: "macroBlock",
             call: {
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {
                 param1: "param1Value",
                 param2: "param2Value",
@@ -1308,27 +1308,27 @@ describe("MarkdownToUniAstConverter", () => {
   test("parse various ambiguous macro syntaxes", async () => {
     await testTwoWayConversion({
       startingFrom: [
-        '{{macroBlock param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
-        '{{macroBlockWithContent param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/macroBlockWithContent}}',
-        "{{macroBlockWithContent}}{{macroBlock /}}{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}{{macroBlockWithContent}}{{/macroBlockWithContent}}{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}`{{/macroBlockWithContent}}`{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}```{{/macroBlockWithContent}}```{{/macroBlockWithContent}}",
+        '{{someBlockMacro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{someBlockMacroWithContent param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/someBlockMacroWithContent}}',
+        "{{someBlockMacroWithContent}}{{someBlockMacro /}}{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}{{someBlockMacroWithContent}}{{/someBlockMacroWithContent}}{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}`{{/someBlockMacroWithContent}}`{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}```{{/someBlockMacroWithContent}}```{{/someBlockMacroWithContent}}",
       ].join("\n\n"),
       convertsBackTo: [
-        '{{macroBlock param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
-        '{{macroBlockWithContent param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/macroBlockWithContent}}',
-        "{{macroBlockWithContent}}{{macroBlock /}}{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}{{macroBlockWithContent}}{{/macroBlockWithContent}}{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}`{{/macroBlockWithContent}}`{{/macroBlockWithContent}}",
-        "{{macroBlockWithContent}}```{{/macroBlockWithContent}}```{{/macroBlockWithContent}}",
+        '{{someBlockMacro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{someBlockMacroWithContent param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/someBlockMacroWithContent}}',
+        "{{someBlockMacroWithContent}}{{someBlockMacro /}}{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}{{someBlockMacroWithContent}}{{/someBlockMacroWithContent}}{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}`{{/someBlockMacroWithContent}}`{{/someBlockMacroWithContent}}",
+        "{{someBlockMacroWithContent}}```{{/someBlockMacroWithContent}}```{{/someBlockMacroWithContent}}",
       ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
             call: {
               body: { type: "none" },
-              id: "macroBlock",
+              id: "someBlockMacro",
               params: {
                 param1:
                   'some " escaped quote and }} closing braces and \\ escaped backslashes',
@@ -1339,7 +1339,7 @@ describe("MarkdownToUniAstConverter", () => {
           {
             call: {
               body: { type: "raw", content: "Hello **world**" },
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {
                 param1:
                   'some " escaped quote and }} closing braces and \\ escaped backslashes',
@@ -1351,9 +1351,9 @@ describe("MarkdownToUniAstConverter", () => {
             call: {
               body: {
                 type: "raw",
-                content: "{{macroBlock /}}",
+                content: "{{someBlockMacro /}}",
               },
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {},
             },
             type: "macroBlock",
@@ -1362,17 +1362,10 @@ describe("MarkdownToUniAstConverter", () => {
             call: {
               body: {
                 type: "raw",
-                content: "{{macroBlockWithContent}}{{/macroBlockWithContent}}",
+                content:
+                  "{{someBlockMacroWithContent}}{{/someBlockMacroWithContent}}",
               },
-              id: "macroBlockWithContent",
-              params: {},
-            },
-            type: "macroBlock",
-          },
-          {
-            call: {
-              body: { type: "raw", content: "`{{/macroBlockWithContent}}`" },
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
               params: {},
             },
             type: "macroBlock",
@@ -1381,9 +1374,20 @@ describe("MarkdownToUniAstConverter", () => {
             call: {
               body: {
                 type: "raw",
-                content: "```{{/macroBlockWithContent}}```",
+                content: "`{{/someBlockMacroWithContent}}`",
               },
-              id: "macroBlockWithContent",
+              id: "someBlockMacroWithContent",
+              params: {},
+            },
+            type: "macroBlock",
+          },
+          {
+            call: {
+              body: {
+                type: "raw",
+                content: "```{{/someBlockMacroWithContent}}```",
+              },
+              id: "someBlockMacroWithContent",
               params: {},
             },
             type: "macroBlock",
@@ -1395,9 +1399,9 @@ describe("MarkdownToUniAstConverter", () => {
 });
 
 const TEST_MACROS: Record<string, ReturnType<MacrosService["get"]>> = {
-  macroBlock: {
+  someBlockMacro: {
     infos: {
-      id: "macroBlock",
+      id: "someBlockMacro",
       name: "-",
       description: "-",
       params: {
@@ -1423,9 +1427,9 @@ const TEST_MACROS: Record<string, ReturnType<MacrosService["get"]>> = {
     ],
   },
 
-  macroBlockWithContent: {
+  someBlockMacroWithContent: {
     infos: {
-      id: "macroBlockWithContent",
+      id: "someBlockMacroWithContent",
       name: "-",
       description: "-",
       params: {
@@ -1452,9 +1456,9 @@ const TEST_MACROS: Record<string, ReturnType<MacrosService["get"]>> = {
     ],
   },
 
-  inlineMacro: {
+  someInlineMacro: {
     infos: {
-      id: "inlineMacro",
+      id: "someInlineMacro",
       name: "-",
       description: "-",
       params: {},
@@ -1466,9 +1470,9 @@ const TEST_MACROS: Record<string, ReturnType<MacrosService["get"]>> = {
     render: () => [{ type: "text", styles: {}, content: "Inline macro" }],
   },
 
-  inlineMacroWithContent: {
+  someInlineMacroWithContent: {
     infos: {
-      id: "inlineMacro",
+      id: "someInlineMacro",
       name: "-",
       description: "-",
       params: {},
