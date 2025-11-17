@@ -18,42 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-/**
- * @since 0.14
- * @beta
- */
-type AlterAction = { name: string; callback: () => void };
+import localConfig from "./vite.config";
+import { vitestVue as defaultConfig } from "@xwiki/cristal-dev-config";
+import { mergeConfig } from "vitest/config";
 
-/**
- * @since 0.14
- * @beta
- */
-type AlertActions = AlterAction[];
-
-/**
- * Props for the alert component.
- *
- * @since 0.11
- * @beta
- */
-type AlertProps = {
-  title?: string;
-  type: "success" | "warning" | "error" | "info";
-  description?: string;
-  actions?: AlertActions;
-  closable?: boolean;
-  /**
-   * Other (less important) data to show in the alert.
-   * @since 0.13
-   * @beta
-   */
-  details?: string;
-  /**
-   * Render with flat corners to use as, e.g., a banner.
-   * @since 0.24-rc-1
-   * @beta
-   */
-  flatCorners?: boolean;
-};
-
-export type { AlertActions, AlertProps, AlterAction };
+export default mergeConfig(defaultConfig, localConfig);

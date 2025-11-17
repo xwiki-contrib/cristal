@@ -3647,6 +3647,55 @@ importers:
         specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@4.0.6(@types/debug@4.1.12)(@types/node@24.10.0)(happy-dom@20.0.10)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
+  core/xwiki/xwiki-ui:
+    dependencies:
+      '@xwiki/cristal-api':
+        specifier: workspace:*
+        version: link:../../../api
+      '@xwiki/cristal-authentication-api':
+        specifier: workspace:*
+        version: link:../../authentication/authentication-api
+      '@xwiki/cristal-uiextension-api':
+        specifier: workspace:*
+        version: link:../../uiextension/uiextension-api
+      vue-i18n:
+        specifier: 'catalog:'
+        version: 11.1.12(vue@3.5.22(typescript@5.9.3))
+    devDependencies:
+      '@vue/test-utils':
+        specifier: 'catalog:'
+        version: 2.4.6
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      '@xwiki/cristal-dev-test-utils':
+        specifier: workspace:*
+        version: link:../../../dev/test-utils
+      '@xwiki/cristal-dsapi':
+        specifier: workspace:*
+        version: link:../../../ds/api
+      inversify:
+        specifier: 'catalog:'
+        version: 7.10.4(reflect-metadata@0.2.2)
+      reflect-metadata:
+        specifier: 'catalog:'
+        version: 0.2.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: 'catalog:'
+        version: 7.1.12(@types/node@24.10.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.6(@types/debug@4.1.12)(@types/node@24.10.0)(happy-dom@20.0.10)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.22(typescript@5.9.3)
+      vue-tsc:
+        specifier: 'catalog:'
+        version: 3.1.3(typescript@5.9.3)
+
   core/xwiki/xwiki-utils:
     devDependencies:
       '@xwiki/cristal-api':
@@ -4943,6 +4992,9 @@ importers:
       '@xwiki/cristal-xwiki-macros':
         specifier: workspace:*
         version: link:../core/xwiki/xwiki-macros
+      '@xwiki/cristal-xwiki-ui':
+        specifier: workspace:*
+        version: link:../core/xwiki/xwiki-ui
       pinia:
         specifier: 'catalog:'
         version: 3.0.2(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))

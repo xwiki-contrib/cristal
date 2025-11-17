@@ -17,24 +17,37 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
+
 <script setup lang="ts">
-import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
+import messages from "../translations";
+import { inject } from "vue";
+import { useI18n } from "vue-i18n";
+import type { CristalApp } from "@xwiki/cristal-api";
+
+const cristal = inject<CristalApp>("cristal")!;
+
+const { t } = useI18n({
+  messages,
+});
 </script>
 
 <template>
-  <main>
-    <suspense>
-      <u-i-extensions uix-name="main.banner"></u-i-extensions>
-    </suspense>
-    <suspense>
-      <router-view />
-    </suspense>
-  </main>
+  <x-alert type="warning" flat-corners>
+    <i18n-t keypath="xwiki.auth.service.banner" tag="span">
+      <template #link>
+        <!-- TODO: Use RemoteURLSerializer (CRISTAL-741). -->
+        <a
+          :href="`${cristal.getWikiConfig().baseURL}/bin/admin/XWiki/XWikiPreferences?section=Authentication`"
+          >{{ t("xwiki.auth.service.banner.link") }}</a
+        >
+      </template>
+    </i18n-t>
+  </x-alert>
 </template>
 
 <style scoped>
-main {
-  display: grid;
-  grid-template-rows: auto 1fr;
+a {
+  text-underline-offset: 4px;
+  font-weight: var(--cr-font-weight-semibold);
 }
 </style>
