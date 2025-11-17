@@ -21,24 +21,19 @@
 import { DefaultMarkdownToUniAstConverter } from "../markdown/default-markdown-to-uni-ast-converter";
 import { DefaultUniAstToMarkdownConverter } from "../markdown/default-uni-ast-to-markdown-converter";
 import { EntityType } from "@xwiki/cristal-model-api";
-import { Container } from "inversify";
 import { describe, expect, test } from "vitest";
 import { matches, mock } from "vitest-mock-extended";
 import type { MarkdownParserConfiguration } from "../markdown/internal-links/parser/markdown-parser-configuration";
 import type { ParserConfigurationResolver } from "../markdown/internal-links/parser/parser-configuration-resolver";
 import type { InternalLinksSerializer } from "../markdown/internal-links/serializer/internal-links-serializer";
 import type { InternalLinksSerializerResolver } from "../markdown/internal-links/serializer/internal-links-serializer-resolver";
+import type { MacrosService } from "@xwiki/cristal-macros-service";
 import type {
   ModelReferenceHandlerProvider,
   ModelReferenceParser,
   ModelReferenceParserOptions,
   ModelReferenceParserProvider,
-  ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
-import type {
-  RemoteURLParserProvider,
-  RemoteURLSerializerProvider,
-} from "@xwiki/cristal-model-remote-url-api";
 import type { UniAst } from "@xwiki/cristal-uniast-api";
 
 // eslint-disable-next-line max-statements
@@ -81,24 +76,13 @@ function init() {
 
   modelReferenceParserProvider.get.mockReturnValue(modelReferenceParser);
 
-  const modelReferenceSerializerProvider =
-    mock<ModelReferenceSerializerProvider>();
-
-  const remoteURLParserProvider = mock<RemoteURLParserProvider>();
-
-  const remoteURLSerializerProvider = mock<RemoteURLSerializerProvider>();
-
   const modelReferenceHandlerProvider = mock<ModelReferenceHandlerProvider>();
-
-  const containerMock = mock<Container>();
 
   const parserConfigurationResolver = mock<ParserConfigurationResolver>();
   const markdownParserConfiguration = mock<MarkdownParserConfiguration>();
 
-  // @ts-expect-error Mocking isn't typesafe
-  markdownParserConfiguration.supportFlexmarkInternalLinks.mockReturnValue(
-    false,
-  );
+  markdownParserConfiguration.supportFlexmarkInternalLinks = false;
+
   parserConfigurationResolver.get.mockReturnValue(markdownParserConfiguration);
 
   const internalLinksSerializerResolver =
@@ -122,32 +106,22 @@ function init() {
     Promise.resolve(internalLinksSerializer),
   );
 
-  containerMock.get
-    .calledWith("ModelReferenceParserProvider")
-    .mockReturnValue(modelReferenceParserProvider);
+  const macrosService = mock<MacrosService>();
 
-  containerMock.get
-    .calledWith("ModelReferenceSerializerProvider")
-    .mockReturnValue(modelReferenceSerializerProvider);
+  macrosService.get.mockImplementation((id) => {
+    if (Object.hasOwn(TEST_MACROS, id)) {
+      return TEST_MACROS[id];
+    }
 
-  containerMock.get
-    .calledWith("RemoteURLParserProvider")
-    .mockReturnValue(remoteURLParserProvider);
-
-  containerMock.get
-    .calledWith("RemoteURLSerializerProvider")
-    .mockReturnValue(remoteURLSerializerProvider);
-
-  containerMock.get
-    .calledWith("ModelReferenceHandlerProvider")
-    .mockReturnValue(modelReferenceHandlerProvider);
+    throw new Error("Unknown macro ID in test: " + id);
+  });
 
   return {
     modelReferenceParserProvider,
     modelReferenceHandlerProvider,
-    remoteURLSerializerProvider,
     parserConfigurationResolver,
     internalLinksSerializerResolver,
+    macrosService,
   };
 }
 
@@ -158,12 +132,16 @@ describe("MarkdownToUniAstConverter", () => {
     modelReferenceHandlerProvider,
     parserConfigurationResolver,
     internalLinksSerializerResolver,
+    macrosService,
   } = init();
+
   const mdToUniAst = new DefaultMarkdownToUniAstConverter(
     modelReferenceParserProvider,
     modelReferenceHandlerProvider,
     parserConfigurationResolver,
+    macrosService,
   );
+
   const uniAstToMd = new DefaultUniAstToMarkdownConverter(
     internalLinksSerializerResolver,
   );
@@ -996,12 +974,12 @@ describe("MarkdownToUniAstConverter", () => {
       startingFrom: [
         "A [[title|documentReference]] B",
         "C ![[title|imageReference]] D",
-        "E {{someInlineMacro /}} F",
+        "E {{inlineMacro /}} F",
       ].join("\n"),
       convertsBackTo: [
         "A [[title|documentReference]] B",
         "C ![[title|imageReference]] D",
-        "E {{someInlineMacro /}} F",
+        "E {{inlineMacro /}} F",
       ].join("\n"),
       withUniAst: {
         blocks: [
@@ -1052,9 +1030,9 @@ describe("MarkdownToUniAstConverter", () => {
               {
                 type: "inlineMacro",
                 call: {
-                  name: "someInlineMacro",
+                  id: "inlineMacro",
                   params: {},
-                  body: null,
+                  body: { type: "none" },
                 },
               },
               {
@@ -1074,124 +1052,124 @@ describe("MarkdownToUniAstConverter", () => {
   test("parse various contentless macros syntaxes", async () => {
     await testTwoWayConversion({
       startingFrom: [
-        "{{macro/}}",
-        "{{ macro/}}",
-        "{{macro /}}",
-        "{{  macro  / }}",
-        "{{macro param1=1/}}",
-        '{{macro param1="1"/}}',
-        "{{macro param1=1 /}}",
-        '{{macro param1="1" /}}',
-        '{{macro param1="1" param2="2" /}}',
-        '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
+        "{{macroBlock/}}",
+        "{{ macroBlock/}}",
+        "{{macroBlock /}}",
+        "{{  macroBlock  / }}",
+        "{{macroBlock param1=1/}}",
+        '{{macroBlock param1="1"/}}',
+        "{{macroBlock param1=1 /}}",
+        '{{macroBlock param1="1" /}}',
+        '{{macroBlock param1="1" param2="2" /}}',
+        '{{macroBlock param1="param1Value" param2="param2Value" param3="param3Value" /}}',
       ].join("\n\n"),
       convertsBackTo: [
-        "{{macro /}}",
-        "{{macro /}}",
-        "{{macro /}}",
-        "{{macro /}}",
-        '{{macro param1="1" /}}',
-        '{{macro param1="1" /}}',
-        '{{macro param1="1" /}}',
-        '{{macro param1="1" /}}',
-        '{{macro param1="1" param2="2" /}}',
-        '{{macro param1="param1Value" param2="param2Value" param3="param3Value" /}}',
+        "{{macroBlock /}}",
+        "{{macroBlock /}}",
+        "{{macroBlock /}}",
+        "{{macroBlock /}}",
+        '{{macroBlock param1="1" /}}',
+        '{{macroBlock param1="1" /}}',
+        '{{macroBlock param1="1" /}}',
+        '{{macroBlock param1="1" /}}',
+        '{{macroBlock param1="1" param2="2" /}}',
+        '{{macroBlock param1="param1Value" param2="param2Value" param3="param3Value" /}}',
       ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {},
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {},
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {},
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {},
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {
                 param1: "1",
               },
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {
                 param1: "1",
               },
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {
                 param1: "1",
               },
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {
                 param1: "1",
               },
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {
                 param1: "1",
                 param2: "2",
               },
-              body: null,
+              body: { type: "none" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlock",
               params: {
                 param1: "param1Value",
                 param2: "param2Value",
                 param3: "param3Value",
               },
-              body: null,
+              body: { type: "none" },
             },
           },
         ],
@@ -1202,124 +1180,124 @@ describe("MarkdownToUniAstConverter", () => {
   test("parse various contentful macros syntaxes", async () => {
     await testTwoWayConversion({
       startingFrom: [
-        "{{macro}}Hello **world**{{/macro}}",
-        "{{ macro}}Hello **world**{{/macro}}",
-        "{{macro }}Hello **world**{{/macro}}",
-        "{{  macro  }}Hello **world**{{/macro}}",
-        "{{macro param1=1}}Hello **world**{{/macro}}",
-        '{{macro param1="1"}}Hello **world**{{/macro}}',
-        "{{macro param1=1 }}Hello **world**{{/macro}}",
-        '{{macro param1="1" }}Hello **world**{{/macro}}',
-        '{{macro param1="1" param2="2" }}Hello **world**{{/macro}}',
-        '{{macro param1="param1Value" param2="param2Value" param3="param3Value" }}Hello **world**{{/macro}}',
+        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
+        "{{ macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent }}Hello **world**{{/macroBlockWithContent}}",
+        "{{  macroBlockWithContent  }}Hello **world**{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent param1=1}}Hello **world**{{/macroBlockWithContent}}",
+        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
+        "{{macroBlockWithContent param1=1 }}Hello **world**{{/macroBlockWithContent}}",
+        '{{macroBlockWithContent param1="1" }}Hello **world**{{/macroBlockWithContent}}',
+        '{{macroBlockWithContent param1="1" param2="2" }}Hello **world**{{/macroBlockWithContent}}',
+        '{{macroBlockWithContent param1="param1Value" param2="param2Value" param3="param3Value" }}Hello **world**{{/macroBlockWithContent}}',
       ].join("\n\n"),
       convertsBackTo: [
-        "{{macro}}Hello **world**{{/macro}}",
-        "{{macro}}Hello **world**{{/macro}}",
-        "{{macro}}Hello **world**{{/macro}}",
-        "{{macro}}Hello **world**{{/macro}}",
-        '{{macro param1="1"}}Hello **world**{{/macro}}',
-        '{{macro param1="1"}}Hello **world**{{/macro}}',
-        '{{macro param1="1"}}Hello **world**{{/macro}}',
-        '{{macro param1="1"}}Hello **world**{{/macro}}',
-        '{{macro param1="1" param2="2"}}Hello **world**{{/macro}}',
-        '{{macro param1="param1Value" param2="param2Value" param3="param3Value"}}Hello **world**{{/macro}}',
+        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}Hello **world**{{/macroBlockWithContent}}",
+        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
+        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
+        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
+        '{{macroBlockWithContent param1="1"}}Hello **world**{{/macroBlockWithContent}}',
+        '{{macroBlockWithContent param1="1" param2="2"}}Hello **world**{{/macroBlockWithContent}}',
+        '{{macroBlockWithContent param1="param1Value" param2="param2Value" param3="param3Value"}}Hello **world**{{/macroBlockWithContent}}',
       ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {},
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {},
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {},
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {},
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {
                 param1: "1",
               },
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {
                 param1: "1",
               },
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {
                 param1: "1",
               },
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {
                 param1: "1",
               },
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {
                 param1: "1",
                 param2: "2",
               },
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
           {
             type: "macroBlock",
             call: {
-              name: "macro",
+              id: "macroBlockWithContent",
               params: {
                 param1: "param1Value",
                 param2: "param2Value",
                 param3: "param3Value",
               },
-              body: "Hello **world**",
+              body: { type: "raw", content: "Hello **world**" },
             },
           },
         ],
@@ -1330,27 +1308,27 @@ describe("MarkdownToUniAstConverter", () => {
   test("parse various ambiguous macro syntaxes", async () => {
     await testTwoWayConversion({
       startingFrom: [
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/macro}}',
-        "{{macro}}{{subMacro}}{{/subMacro}}{{/macro}}",
-        "{{macro}}{{macro}}{{/macro}}{{/macro}}",
-        "{{macro}}`{{/macro}}`{{/macro}}",
-        "{{macro}}```{{/macro}}```{{/macro}}",
+        '{{macroBlock param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{macroBlockWithContent param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" }}Hello **world**{{/macroBlockWithContent}}',
+        "{{macroBlockWithContent}}{{macroBlock /}}{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}{{macroBlockWithContent}}{{/macroBlockWithContent}}{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}`{{/macroBlockWithContent}}`{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}```{{/macroBlockWithContent}}```{{/macroBlockWithContent}}",
       ].join("\n\n"),
       convertsBackTo: [
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
-        '{{macro param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/macro}}',
-        "{{macro}}{{subMacro}}{{/subMacro}}{{/macro}}",
-        "{{macro}}{{macro}}{{/macro}}{{/macro}}",
-        "{{macro}}`{{/macro}}`{{/macro}}",
-        "{{macro}}```{{/macro}}```{{/macro}}",
+        '{{macroBlock param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes" /}}',
+        '{{macroBlockWithContent param1="some \\" escaped quote and }} closing braces and \\\\ escaped backslashes"}}Hello **world**{{/macroBlockWithContent}}',
+        "{{macroBlockWithContent}}{{macroBlock /}}{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}{{macroBlockWithContent}}{{/macroBlockWithContent}}{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}`{{/macroBlockWithContent}}`{{/macroBlockWithContent}}",
+        "{{macroBlockWithContent}}```{{/macroBlockWithContent}}```{{/macroBlockWithContent}}",
       ].join("\n\n"),
       withUniAst: {
         blocks: [
           {
             call: {
-              body: null,
-              name: "macro",
+              body: { type: "none" },
+              id: "macroBlock",
               params: {
                 param1:
                   'some " escaped quote and }} closing braces and \\ escaped backslashes',
@@ -1360,8 +1338,8 @@ describe("MarkdownToUniAstConverter", () => {
           },
           {
             call: {
-              body: "Hello **world**",
-              name: "macro",
+              body: { type: "raw", content: "Hello **world**" },
+              id: "macroBlockWithContent",
               params: {
                 param1:
                   'some " escaped quote and }} closing braces and \\ escaped backslashes',
@@ -1371,32 +1349,41 @@ describe("MarkdownToUniAstConverter", () => {
           },
           {
             call: {
-              body: "{{subMacro}}{{/subMacro}}",
-              name: "macro",
+              body: {
+                type: "raw",
+                content: "{{macroBlock /}}",
+              },
+              id: "macroBlockWithContent",
               params: {},
             },
             type: "macroBlock",
           },
           {
             call: {
-              body: "{{macro}}{{/macro}}",
-              name: "macro",
+              body: {
+                type: "raw",
+                content: "{{macroBlockWithContent}}{{/macroBlockWithContent}}",
+              },
+              id: "macroBlockWithContent",
               params: {},
             },
             type: "macroBlock",
           },
           {
             call: {
-              body: "`{{/macro}}`",
-              name: "macro",
+              body: { type: "raw", content: "`{{/macroBlockWithContent}}`" },
+              id: "macroBlockWithContent",
               params: {},
             },
             type: "macroBlock",
           },
           {
             call: {
-              body: "```{{/macro}}```",
-              name: "macro",
+              body: {
+                type: "raw",
+                content: "```{{/macroBlockWithContent}}```",
+              },
+              id: "macroBlockWithContent",
               params: {},
             },
             type: "macroBlock",
@@ -1406,3 +1393,90 @@ describe("MarkdownToUniAstConverter", () => {
     });
   });
 });
+
+const TEST_MACROS: Record<string, ReturnType<MacrosService["get"]>> = {
+  macroBlock: {
+    infos: {
+      id: "macroBlock",
+      name: "-",
+      description: "-",
+      params: {
+        param1: { type: "string", optional: true },
+        param2: { type: "string", optional: true },
+        param3: { type: "string", optional: true },
+      },
+      paramsDescription: {},
+      defaultParameters: false,
+      bodyType: "none",
+    },
+    renderAs: "block",
+    render: (params) => [
+      {
+        type: "paragraph",
+        styles: {},
+        content: [
+          { type: "text", content: "Param 1 = " + params.body1, styles: {} },
+          { type: "text", content: "Param 2 = " + params.body2, styles: {} },
+          { type: "text", content: "Param 3 = " + params.body3, styles: {} },
+        ],
+      },
+    ],
+  },
+
+  macroBlockWithContent: {
+    infos: {
+      id: "macroBlockWithContent",
+      name: "-",
+      description: "-",
+      params: {
+        param1: { type: "string", optional: true },
+        param2: { type: "string", optional: true },
+        param3: { type: "string", optional: true },
+      },
+      paramsDescription: {},
+      defaultParameters: false,
+      bodyType: "raw",
+    },
+    renderAs: "block",
+    render: (params, body) => [
+      {
+        type: "paragraph",
+        styles: {},
+        content: [
+          { type: "text", styles: {}, content: body ?? "" },
+          { type: "text", content: "Param 1 = " + params.body1, styles: {} },
+          { type: "text", content: "Param 2 = " + params.body2, styles: {} },
+          { type: "text", content: "Param 3 = " + params.body3, styles: {} },
+        ],
+      },
+    ],
+  },
+
+  inlineMacro: {
+    infos: {
+      id: "inlineMacro",
+      name: "-",
+      description: "-",
+      params: {},
+      paramsDescription: {},
+      defaultParameters: false,
+      bodyType: "none",
+    },
+    renderAs: "inline",
+    render: () => [{ type: "text", styles: {}, content: "Inline macro" }],
+  },
+
+  inlineMacroWithContent: {
+    infos: {
+      id: "inlineMacro",
+      name: "-",
+      description: "-",
+      params: {},
+      paramsDescription: {},
+      defaultParameters: false,
+      bodyType: "raw",
+    },
+    renderAs: "inline",
+    render: (_, body) => [{ type: "text", styles: {}, content: body ?? "" }],
+  },
+};

@@ -205,7 +205,10 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           return `<strong>Macro "${block.call.id}" is of type "inline", but used here as a block</strong>`;
         }
 
+        /** The macro's input body (if raw) */
         let rawBody: string | null;
+
+        /** The macro's input body (if WYSIWYG) */
         let htmlBody: string | null;
 
         switch (macro.infos.bodyType) {
@@ -363,7 +366,10 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           return `<strong>Macro "${inlineContent.call.id}" is of type "block", but used here as inline</strong>`;
         }
 
+        /** The macro's input body (if raw) */
         let rawBody: string | null;
+
+        /** The macro's input body (if WYSIWYG) */
         let htmlBody: string | null;
 
         switch (macro.infos.bodyType) {

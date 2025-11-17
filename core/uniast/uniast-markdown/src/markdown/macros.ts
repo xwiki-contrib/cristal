@@ -23,18 +23,54 @@ import type { MarkdownToUniAstConverter } from "./markdown-to-uni-ast-converter"
 import type { MacrosService } from "@xwiki/cristal-macros-service";
 import type { MacroInvocation } from "@xwiki/cristal-uniast-api";
 
+/**
+ * A handler called when macro invocations are encountered
+ *
+ * @param content - The input after the macro opening (e.g. `Hello {{macro /}} world` would give `macro /}} world`)
+ *
+ * @returns
+ *  - `parseAs` item to indicate the macro invocation is correct and has been parsed
+ *  - `ignore` item to indicate the macro invocation is invalid
+ *  - `break` item to tell the transformer to stop right there (used for nesting handling)
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 type MacroHandler = (
   content: string,
   markdownParser: MarkdownToUniAstConverter,
   macrosService: MacrosService,
 ) => Promise<
-  | { do: "parseAs"; call: MacroInvocation; chars: number }
+  | {
+      do: "parseAs";
+      call: MacroInvocation;
+      /** The number of input characters consumed for the macro invocation */
+      chars: number;
+    }
   | { do: "ignore" }
   | { do: "break" }
 >;
 
+/**
+ * Parse all macro invocations with the provided handler (see {@link MacroHandler}) and convert the valid ones to inline codes with a specific prefix (see ({@link CODIFIED_MACRO_PREFIX}))
+ * that can then be decoded (see {@link reparseCodifiedMacro})
+ *
+ * @example The basic idea is pretty simple: given an input with macros, e.g. `Hello {{macro param="value" /}} world!`,
+ *          the macro invocation would be converted to an obscure inline code whose content starts with a specific prefix.
+ *          The handler indicates which invocations are valid, which ones aren't, and how they should be parsed
+ *
+ * @param markdown - The markdown input
+ * @param markdownParser - A markdown parser
+ * @param macrosService - A macros service
+ * @param macroHandler - The macro handler
+ *
+ * @returns The provided input, with transformed macros ; along with the character offset where the handler requested to break at
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 // eslint-disable-next-line max-statements
-async function transformMacros(
+async function codifyMacros(
   markdown: string,
   markdownParser: MarkdownToUniAstConverter,
   macrosService: MacrosService,
@@ -43,15 +79,26 @@ async function transformMacros(
   content: string;
   brokeAt: number | null;
 }> {
+  /** Are we escaping (after a backslash)? */
   let escaping = false;
-  let inCodeBlock = false;
+
+  /** Are we in an inline code (single backtick)? */
   let inInlineCode = false;
-  let lastPush = -1;
+
+  /** Are we in a code block (triple backticks)? */
+  let inCodeBlock = false;
+
+  /** The output string */
   let out = "";
 
+  /** Offset of the last character from the input that was pushed to the output */
+  let lastPush = -1;
+
+  /** Current offset in the input */
   let i = 0;
 
   for (i = 0; i < markdown.length; i++) {
+    // Ignore any character following a backslash
     if (escaping) {
       escaping = false;
       continue;
@@ -92,6 +139,7 @@ async function transformMacros(
       continue;
     }
 
+    // Handle macro invocations
     if (char === "{" && markdown[i + 1] === "{") {
       const handling = await macroHandler(
         markdown.slice(i + 2),
@@ -100,16 +148,25 @@ async function transformMacros(
       );
 
       switch (handling.do) {
-        case "parseAs":
-          out +=
-            markdown.slice(lastPush + 1, i) +
-            `\`${CODIFIED_MACRO_PREFIX}${btoa(JSON.stringify(handling.call))}\``;
+        case "parseAs": {
+          // Ensure the delimited macro invocation correctly ends with a closing symbol
+          if (!markdown.substring(i + handling.chars).startsWith("}}")) {
+            throw new Error(
+              "Internal error: macro handler did not stop at expected closing symbol ('}}')",
+            );
+          }
+
+          // Encode the macro as an inline code, which can be decoded through `repaseCodifiedMacro`
+          const encodedMacro = `\`${CODIFIED_MACRO_PREFIX}${btoa(JSON.stringify(handling.call))}\``;
+
+          out += markdown.slice(lastPush + 1, i) + encodedMacro;
 
           // NOTE: we only add 1 instead of 2 even though there are two closing braces (`}}`) as `i` will be incremented when loop starts over
           i += handling.chars + 1;
           lastPush = i;
 
           break;
+        }
 
         case "ignore":
           continue;
@@ -129,6 +186,11 @@ async function transformMacros(
   return { content: out + markdown.slice(lastPush + 1), brokeAt: null };
 }
 
+/**
+ * Default macro handler
+ *
+ * Converts all macro invocations, with nesting support
+ */
 // eslint-disable-next-line max-statements
 const eatMacro: MacroHandler = async (
   content,
@@ -270,7 +332,7 @@ const eatMacro: MacroHandler = async (
   if (!closingMacro) {
     const closingRegex = new RegExp(`^\\s*/${macroId}\\s*}}`);
 
-    const { brokeAt } = await transformMacros(
+    const { brokeAt } = await codifyMacros(
       content.slice(offset),
       mdParser,
       macrosService,
@@ -329,20 +391,20 @@ const eatMacro: MacroHandler = async (
       break;
 
     case "raw":
-      if (!rawBody) {
+      if (rawBody === null) {
         // TODO: properly report the error
         // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
-        throw new Error("Missing body for contentful macro");
+        throw new Error(`Missing body for contentful macro "${macroId}"`);
       }
 
       body = { type: "raw", content: rawBody };
       break;
 
     case "wysiwyg": {
-      if (!rawBody) {
+      if (rawBody === null) {
         // TODO: properly report the error
         // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
-        throw new Error("Missing body for contentful macro");
+        throw new Error(`Missing body for contentful macro "${macroId}"`);
       }
 
       const uniAst = await mdParser.parseMarkdown(rawBody);
@@ -395,6 +457,16 @@ const eatMacro: MacroHandler = async (
   };
 };
 
+/**
+ * Reparse a codified macro (see {@link codifyMacros})
+ *
+ * @param code - The inline code's content
+ *
+ * @returns The macro invocation encoded in the provided inline code
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 function reparseCodifiedMacro(code: string): MacroInvocation {
   if (!code.startsWith(CODIFIED_MACRO_PREFIX)) {
     console.error({ code });
@@ -408,7 +480,13 @@ function reparseCodifiedMacro(code: string): MacroInvocation {
   ) as MacroInvocation;
 }
 
+/**
+ * A prefix used in codified macros, allowing to identify them
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 const CODIFIED_MACRO_PREFIX = "###cristalMacro:###";
 
-export { CODIFIED_MACRO_PREFIX, reparseCodifiedMacro, transformMacros };
+export { CODIFIED_MACRO_PREFIX, codifyMacros, reparseCodifiedMacro };
 export type { MacroHandler };

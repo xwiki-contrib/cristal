@@ -22,8 +22,8 @@ import { remarkPartialGfm } from "./internal/remark-partial-gfm";
 import { ParserConfigurationResolver } from "./internal-links/parser/parser-configuration-resolver";
 import {
   CODIFIED_MACRO_PREFIX,
+  codifyMacros,
   reparseCodifiedMacro,
-  transformMacros,
 } from "./macros";
 import {
   assertInArray,
@@ -79,18 +79,21 @@ export class DefaultMarkdownToUniAstConverter
     // TODO: auto-links (URLs + emails)
     //     > https://jira.xwiki.org/browse/CRISTAL-513
 
-    const { content, brokeAt } = await transformMacros(
+    // First step is encoding macros as inline codes
+    const { content, brokeAt } = await codifyMacros(
       markdown,
       this,
       this.macrosService,
     );
 
+    // Ensure the whole input was consumed
     if (brokeAt !== null) {
       throw new Error(
         "Unexpected internal error: macro transform did not parse the full Markdown content",
       );
     }
 
+    // Now we parse the transformed markdown content, with GFM support
     const ast = unified().use(remarkParse).use(remarkPartialGfm).parse(content);
 
     const blocks = await tryFalliblePromiseOrError(() =>
@@ -105,8 +108,12 @@ export class DefaultMarkdownToUniAstConverter
       case "paragraph": {
         const content = await this.collectInlineContent(block.children, {});
 
-        // Paragraphs only made of a single inline macro are actually block macros
-        if (content.length === 1 && content[0].type === "inlineMacro") {
+        // Paragraphs only made of a single block macro are actually block macros
+        if (
+          content.length === 1 &&
+          content[0].type === "inlineMacro" &&
+          this.macrosService.get(content[0].call.id)?.renderAs === "block"
+        ) {
           return {
             type: "macroBlock",
             call: content[0].call,
