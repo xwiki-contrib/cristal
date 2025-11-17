@@ -208,7 +208,7 @@ export class DefaultMacrosAstToHtmlConverter
         throw new Error("Nested macros are not supported yet");
 
       case "macroBlockEditableArea":
-        return htmlBody ?? "";
+        return this.produceBlockHtml("div", block.styles, htmlBody ?? "");
 
       default:
         assertUnreachable(block);

@@ -49,8 +49,6 @@ import type {
   UniAst,
 } from "@xwiki/cristal-uniast-api";
 
-// TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
-
 /**
  * Convert the internal format of Blocknote to the Universal AST.
  * @since 0.16
@@ -130,7 +128,7 @@ export class BlockNoteToUniAstConverter {
   ): Block | Block[] | null {
     const dontExpectChildren = () => {
       if (block.children.length > 0) {
-        console.error({ unexpextedChildrenInBlock: block });
+        console.error({ unexpectedChildrenInBlock: block });
         throw new Error("Unexpected children in block type: " + block.type);
       }
     };

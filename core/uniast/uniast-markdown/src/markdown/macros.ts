@@ -21,7 +21,7 @@
 import { assertUnreachable } from "@xwiki/cristal-fn-utils";
 import type { MarkdownToUniAstConverter } from "./markdown-to-uni-ast-converter";
 import type { MacrosService } from "@xwiki/cristal-macros-service";
-import type { MacroInvocation } from "@xwiki/cristal-uniast-api";
+import type { InlineContent, MacroInvocation } from "@xwiki/cristal-uniast-api";
 
 /**
  * A handler called when macro invocations are encountered
@@ -414,17 +414,30 @@ const eatMacro: MacroHandler = async (
         throw uniAst;
       }
 
-      if (uniAst.blocks.length !== 1 || uniAst.blocks[0].type !== "paragraph") {
+      if (uniAst.blocks.length > 1) {
+        // TODO: properly report the error
+        // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
+        throw new Error("Unexpectedly found multiple blocks as macro's body");
+      }
+
+      const block = uniAst.blocks.at(0);
+      let inlineContents: InlineContent[];
+
+      if (!block) {
+        inlineContents = [];
+      } else if (block.type === "paragraph") {
+        inlineContents = block.content;
+      } else {
         // TODO: properly report the error
         // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
         throw new Error(
-          "Expected a single paragraph block as the macro's content",
+          "Unexpected either nothing or a single paragraph block as the macro's content",
         );
       }
 
-      const inlineContents = uniAst.blocks[0].content;
-
-      if (macro.renderAs === "inline") {
+      if (macro.renderAs === "block") {
+        body = { type: "inlineContents", inlineContents };
+      } else {
         if (inlineContents.length !== 1) {
           // TODO: properly report the error
           // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-739
@@ -434,8 +447,6 @@ const eatMacro: MacroHandler = async (
         }
 
         body = { type: "inlineContent", inlineContent: inlineContents[0] };
-      } else {
-        body = { type: "inlineContents", inlineContents };
       }
 
       break;
