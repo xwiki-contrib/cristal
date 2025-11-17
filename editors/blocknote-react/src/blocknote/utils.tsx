@@ -286,6 +286,8 @@ function adaptMacroForBlockNote(
     contentRef: (node: HTMLElement | null) => void,
     props: Props<PropSchema>,
     content: InlineContent<DefaultInlineContentSchema, DefaultStyleSchema>[],
+    // TODO: should also allow to replace the macro's body
+    // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-742
     update: (newParams: Props<PropSchema>) => void,
   ): JSX.Element {
     const openParamsEditor = () =>
@@ -341,7 +343,6 @@ function adaptMacroForBlockNote(
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   block.content as any,
                   (newProps) => {
-                    // TODO: update content as well
                     editor.updateBlock(block.id, { props: newProps });
                   },
                 ),
