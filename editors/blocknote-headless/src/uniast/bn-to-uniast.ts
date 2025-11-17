@@ -49,8 +49,6 @@ import type {
   UniAst,
 } from "@xwiki/cristal-uniast-api";
 
-// TODO: escape characters that need it (e.g. '`', '\', '*', '_', etc.)
-
 /**
  * Convert the internal format of Blocknote to the Universal AST.
  * @since 0.16

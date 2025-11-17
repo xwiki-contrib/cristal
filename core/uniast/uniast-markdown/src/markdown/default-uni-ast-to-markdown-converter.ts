@@ -244,7 +244,9 @@ export class DefaultUniAstToMarkdownConverter
         break;
     }
 
-    return body ? `{{${opening}}}${body}{{/${call.id}}}` : `{{${opening} /}}`;
+    return body !== null
+      ? `{{${opening}}}${body}{{/${call.id}}}`
+      : `{{${opening} /}}`;
   }
 
   // eslint-disable-next-line max-statements

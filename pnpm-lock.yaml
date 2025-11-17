@@ -2375,6 +2375,31 @@ importers:
         specifier: 'catalog:'
         version: 3.1.0(typescript@5.9.3)(vitest@4.0.6(@types/debug@4.1.12)(@types/node@24.10.0)(happy-dom@20.0.10)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
 
+  core/messages/messages-macros:
+    dependencies:
+      '@xwiki/cristal-fn-utils':
+        specifier: workspace:*
+        version: link:../../fn-utils
+      '@xwiki/cristal-macros-api':
+        specifier: workspace:*
+        version: link:../../macros/macros-api
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      inversify:
+        specifier: 'catalog:'
+        version: 7.10.4(reflect-metadata@0.2.2)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: 'catalog:'
+        version: 7.1.12(@types/node@24.10.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+      vitest-mock-extended:
+        specifier: 'catalog:'
+        version: 3.1.0(typescript@5.9.3)(vitest@4.0.6(@types/debug@4.1.12)(@types/node@24.10.0)(happy-dom@20.0.10)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1))
+
   core/model/model-api:
     devDependencies:
       '@xwiki/cristal-dev-config':
@@ -4914,6 +4939,9 @@ importers:
       '@xwiki/cristal-macros-service':
         specifier: workspace:*
         version: link:../core/macros/macros-service
+      '@xwiki/cristal-messages-macros':
+        specifier: workspace:*
+        version: link:../core/messages/messages-macros
       '@xwiki/cristal-model-click-listener':
         specifier: workspace:*
         version: link:../core/model/model-click-listener
