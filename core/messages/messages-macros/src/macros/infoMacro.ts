@@ -26,6 +26,12 @@ const macroParams = {} as const;
 
 type MacroParams = typeof macroParams;
 
+/**
+ * Implementation of the information macro
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 @injectable()
 export class InfoMacro implements BlockMacro<MacroParams> {
   readonly infos: MacroInfos<MacroParams> = {

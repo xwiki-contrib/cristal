@@ -26,6 +26,12 @@ const macroParams = {} as const;
 
 type MacroParams = typeof macroParams;
 
+/**
+ * Implementation of the warning macro
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 @injectable()
 export class WarningMacro implements BlockMacro<MacroParams> {
   readonly infos: MacroInfos<MacroParams> = {

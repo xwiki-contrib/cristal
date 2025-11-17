@@ -26,6 +26,12 @@ const macroParams = {} as const;
 
 type MacroParams = typeof macroParams;
 
+/**
+ * Implementation of the error macro
+ *
+ * @since 0.24-rc-1
+ * @beta
+ */
 @injectable()
 export class ErrorMacro implements BlockMacro<MacroParams> {
   readonly infos: MacroInfos<MacroParams> = {
