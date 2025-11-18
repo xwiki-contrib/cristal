@@ -250,6 +250,7 @@ describe("MacrosAstToHtmlConverter", () => {
         },
         {
           type: "macroBlockEditableArea",
+          styles: {},
         },
         {
           type: "paragraph",
