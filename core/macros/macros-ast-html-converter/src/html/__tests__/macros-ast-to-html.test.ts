@@ -291,7 +291,7 @@ describe("MacrosAstToHtmlConverter", () => {
         '<img src="https://my.site/A/B/image.png" alt="Some alt caption" width="100px" height="200px">',
         '<img src="https://picsum.photos/536/354">',
         "<script></script><style></style>",
-        "<!-- Macro editable area's HTML content -->",
+        "<div><!-- Macro editable area's HTML content --></div>",
         '<p class="class1 class2"><!-- Macro editable area\'s HTML content --></p>',
       ].join(""),
     );
