@@ -43,13 +43,13 @@
     "@xwiki/cristal-model-reference-api": "workspace:*",
     "@xwiki/cristal-uiextension-api": "workspace:*",
     "@xwiki/cristal-user-ui": "workspace:*",
-    "vue-i18n": "catalog:",
-    "vue-router": "catalog:"
+    "vue-i18n": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",
     "reflect-metadata": "0.x",
-    "vue": "3.x"
+    "vue": "3.x",
+    "vue-router": "4.x"
   },
   "devDependencies": {
     "@vue/test-utils": "catalog:",
@@ -63,6 +63,7 @@
     "vitest": "catalog:",
     "vitest-mock-extended": "catalog:",
     "vue": "catalog:",
+    "vue-router": "catalog:",
     "vue-tsc": "catalog:"
   },
   "publishConfig": {

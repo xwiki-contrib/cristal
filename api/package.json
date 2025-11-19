@@ -31,13 +31,13 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-authentication-api": "workspace:*",
-    "@xwiki/cristal-configuration-api": "workspace:*",
-    "vue-router": "catalog:"
+    "@xwiki/cristal-configuration-api": "workspace:*"
   },
   "peerDependencies": {
     "inversify": "7.x",
     "reflect-metadata": "0.x",
-    "vue": "3.x"
+    "vue": "3.x",
+    "vue-router": "4.x"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
@@ -46,6 +46,7 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
+    "vue-router": "catalog:",
     "vue-tsc": "catalog:"
   },
   "publishConfig": {
