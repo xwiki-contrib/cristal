@@ -109,8 +109,8 @@ catalogs:
       specifier: 1.4.1
       version: 1.4.1
     axios:
-      specifier: 1.13.1
-      version: 1.13.1
+      specifier: 1.13.2
+      version: 1.13.2
     bootstrap-icons:
       specifier: 1.13.1
       version: 1.13.1
@@ -808,7 +808,7 @@ importers:
         version: link:../authentication-github-state
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -936,7 +936,7 @@ importers:
         version: 1.4.1
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -1104,7 +1104,7 @@ importers:
         version: link:../authentication-api
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -4210,7 +4210,7 @@ importers:
         version: link:../../../../core/authentication/authentication-api
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       electron:
         specifier: 39.0.0
         version: 39.0.0
@@ -4285,7 +4285,7 @@ importers:
         version: link:../../../../core/authentication/authentication-api
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       electron:
         specifier: 39.0.0
         version: 39.0.0
@@ -4366,7 +4366,7 @@ importers:
         version: link:../../../../core/authentication/authentication-api
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       electron:
         specifier: 39.0.0
         version: 39.0.0
@@ -7299,6 +7299,9 @@ packages:
 
   axios@1.13.1:
     resolution: {integrity: sha512-hU4EGxxt+j7TQijx1oYdAjw4xuIp1wRQSsbMFwSthCWeBQur1eF+qJ5iQ5sN3Tw8YRzQNKb8jszgBdMDVqwJcw==}
+
+  axios@1.13.2:
+    resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==}
 
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
@@ -12990,6 +12993,14 @@ snapshots:
       possible-typed-array-names: 1.1.0
 
   axios@1.13.1:
+    dependencies:
+      follow-redirects: 1.15.9
+      form-data: 4.0.4
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.13.2:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.4
