@@ -45,13 +45,13 @@
     "@xwiki/cristal-uniast-api": "workspace:*",
     "@xwiki/cristal-uniast-markdown": "workspace:*",
     "lodash-es": "catalog:",
-    "vue-i18n": "catalog:",
-    "vue-router": "catalog:"
+    "vue-i18n": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",
     "reflect-metadata": "0.x",
-    "vue": "3.x"
+    "vue": "3.x",
+    "vue-router": "4.x"
   },
   "devDependencies": {
     "@types/lodash-es": "catalog:",
@@ -62,6 +62,7 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
+    "vue-router": "catalog:",
     "vue-tsc": "catalog:"
   },
   "publishConfig": {

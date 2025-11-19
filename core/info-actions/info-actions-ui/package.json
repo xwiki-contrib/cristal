@@ -32,12 +32,12 @@
   "dependencies": {
     "@xwiki/cristal-api": "workspace:*",
     "@xwiki/cristal-icons": "workspace:*",
-    "@xwiki/cristal-info-actions-api": "workspace:*",
-    "vue-router": "catalog:"
+    "@xwiki/cristal-info-actions-api": "workspace:*"
   },
   "peerDependencies": {
     "reflect-metadata": "0.x",
-    "vue": "3.x"
+    "vue": "3.x",
+    "vue-router": "4.x"
   },
   "devDependencies": {
     "@vue/test-utils": "catalog:",
@@ -46,6 +46,7 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
+    "vue-router": "catalog:",
     "vue-tsc": "catalog:"
   },
   "publishConfig": {
