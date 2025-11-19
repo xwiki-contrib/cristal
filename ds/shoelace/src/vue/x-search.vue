@@ -24,8 +24,6 @@ import "@shoelace-style/shoelace/dist/components/icon/icon";
 
 <template>
   <sl-input placeholder="Search" size="small" pill>
-    <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
-    Disabling it for now as I did not find an elegant solution to declare this property. -->
     <!--eslint-disable-next-line vue/no-deprecated-slot-attribute -->
     <sl-icon slot="prefix" name="home"></sl-icon>
   </sl-input>
