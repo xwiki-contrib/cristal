@@ -262,8 +262,8 @@ catalogs:
       specifier: 19.2.0
       version: 19.2.0
     react-i18next:
-      specifier: 16.2.4
-      version: 16.2.4
+      specifier: 16.3.4
+      version: 16.3.4
     react-icons:
       specifier: 5.5.0
       version: 5.5.0
@@ -4142,7 +4142,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-i18next:
         specifier: 'catalog:'
-        version: 16.2.4(i18next@25.6.0(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
+        version: 16.3.4(i18next@25.6.0(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
       react-icons:
         specifier: 'catalog:'
         version: 5.5.0(react@19.2.0)
@@ -9719,10 +9719,10 @@ packages:
     peerDependencies:
       react: ^19.2.0
 
-  react-i18next@16.2.4:
-    resolution: {integrity: sha512-pvbcPQ+YuQQoRkKBA4VCU9aO8dOgP/vdKEizIYXcAk3+AmI8yQKSJaCzxQQu4Kgg2zWZm3ax9KqHv8ItUlRY0A==}
+  react-i18next@16.3.4:
+    resolution: {integrity: sha512-DxqSfrAGEYUQn0bh8ccnWmZu6VSejRhteuA58VJenLFR7T/lr4EUuHOote/OydaVfz6MuisLcq7Uxs2fXctRCg==}
     peerDependencies:
-      i18next: '>= 25.5.2'
+      i18next: '>= 25.6.2'
       react: '>= 16.8.0'
       react-dom: '*'
       react-native: '*'
@@ -15951,7 +15951,7 @@ snapshots:
       react: 19.2.0
       scheduler: 0.27.0
 
-  react-i18next@16.2.4(i18next@25.6.0(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3):
+  react-i18next@16.3.4(i18next@25.6.0(typescript@5.9.3))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3):
     dependencies:
       '@babel/runtime': 7.28.2
       html-parse-stringify: 3.0.1
