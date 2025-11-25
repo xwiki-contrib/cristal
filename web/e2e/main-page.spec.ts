@@ -64,6 +64,9 @@ configs.forEach(
 
       const locator = page.locator("#xwikicontent");
       await expect(locator).toContainText("Welcome to Main.WebHome");
+      // First attempt at visual comparison. This assertion validates for
+      // non-regression of a simple scenario.
+      await expect(page).toHaveScreenshot();
     });
 
     test(`[${name}] can follow links`, async ({ page }) => {
