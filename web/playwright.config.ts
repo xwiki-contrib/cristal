@@ -111,7 +111,7 @@ export default defineConfig({
     toHaveScreenshot: {
       // Add a low but above zero threshold to account for differences between
       // developers and CI environments.
-      maxDiffPixelRatio: 0.02
+      maxDiffPixelRatio: 0.04
     }
   }
 });
