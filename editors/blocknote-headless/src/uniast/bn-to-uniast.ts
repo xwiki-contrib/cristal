@@ -188,47 +188,33 @@ export class BlockNoteToUniAstConverter {
           styles: this.convertBlockStyles(block.props),
         };
 
-      case "heading":
+      case "heading": {
+        const { level } = block.props;
+
+        if (
+          level !== 1 &&
+          level !== 2 &&
+          level !== 3 &&
+          level !== 4 &&
+          level !== 5 &&
+          level !== 6
+        ) {
+          throw new Error(
+            "Unreachable error: heading level should be between 1 and 6",
+          );
+        }
+
         return [
           provideTypeInference<Block>({
             type: "heading",
-            level: block.props.level,
+            level,
             content: block.content.map((item) =>
               this.convertInlineContent(item),
             ),
             styles: this.convertBlockStyles(block.props),
           }),
         ].concat(this.convertBlocks(block.children));
-
-      case "Heading4":
-        dontExpectChildren();
-
-        return {
-          type: "heading",
-          level: 4,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          styles: {}, // TODO
-        };
-
-      case "Heading5":
-        dontExpectChildren();
-
-        return {
-          type: "heading",
-          level: 4,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          styles: {}, // TODO
-        };
-
-      case "Heading6":
-        dontExpectChildren();
-
-        return {
-          type: "heading",
-          level: 4,
-          content: block.content.map((item) => this.convertInlineContent(item)),
-          styles: {}, // TODO
-        };
+      }
 
       case "codeBlock":
         dontExpectChildren();
@@ -299,6 +285,9 @@ export class BlockNoteToUniAstConverter {
           styles: this.convertBlockStyles(block.props),
         };
       }
+
+      case "divider":
+        throw new Error("TODO: add support for BlockNote dividers to UniAst");
 
       default:
         assertUnreachable(block);
