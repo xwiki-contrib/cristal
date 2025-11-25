@@ -107,4 +107,11 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
     },
   ],
+  expect: {
+    toHaveScreenshot: {
+      // Add a low but above zero threshold to account for differences between
+      // developers and CI environments.
+      maxDiffPixelRatio: 0.02
+    }
+  }
 });
