@@ -287,8 +287,8 @@ export class BlockNoteToUniAstConverter {
       }
 
       case "divider":
-        // TODO: properly report the error
-        // https://jira.xwiki.org/browse/CRISTAL-755
+        // TODO: support dividers
+        // Tracking issue: https://jira.xwiki.org/browse/CRISTAL-756
         throw new Error("TODO: add support for BlockNote dividers to UniAst");
 
       default:
