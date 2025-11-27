@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { useBlockNoteEditor } from "@blocknote/react";
+import { useEffect, useState } from "react";
 import type {
   EditorBlockSchema,
   EditorInlineContentSchema,
@@ -33,4 +34,15 @@ function useEditor(): EditorType {
   >();
 }
 
-export { useEditor };
+function useTimeoutCheck(milliseconds: number): boolean {
+  const [elapsed, setElapsed] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setElapsed(true), milliseconds);
+    return () => clearTimeout(timeout);
+  });
+
+  return elapsed;
+}
+
+export { useEditor, useTimeoutCheck };
