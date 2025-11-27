@@ -4082,16 +4082,10 @@ importers:
         version: 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)
       '@blocknote/mantine':
         specifier: 'catalog:'
-<<<<<<< HEAD
-        version: 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-        version: 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-=======
-        version: 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/core@8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.6(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
+        version: 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/core@8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.6(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@blocknote/react':
         specifier: 'catalog:'
-        version: 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        version: 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/core':
         specifier: 'catalog:'
         version: 8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -6488,249 +6482,97 @@ packages:
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
 
-<<<<<<< HEAD
-  '@tiptap/core@2.27.1':
-    resolution: {integrity: sha512-nkerkl8syHj44ZzAB7oA2GPmmZINKBKCa79FuNvmGJrJ4qyZwlkDzszud23YteFZEytbc87kVd/fP76ROS6sLg==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/core@2.13.0':
-    resolution: {integrity: sha512-VDwlf5+DznkrAT+vlggl9t/mPVeo3ayi4irXgLPkDfHAY8adVIx+RCek6GBChclJ8q2Iy0HZwpIYs/8L7tadqA==}
-=======
   '@tiptap/core@3.11.0':
     resolution: {integrity: sha512-kmS7ZVpHm1EMnW1Wmft9H5ZLM7E0G0NGBx+aGEHGDcNxZBXD2ZUa76CuWjIhOGpwsPbELp684ZdpF2JWoNi4Dg==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/pm': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-bold@2.27.1':
-    resolution: {integrity: sha512-g4l4p892x/r7mhea8syp3fNYODxsDrimgouQ+q4DKXIgQmm5+uNhyuEPexP3I8TFNXqQ4DlMNFoM9yCqk97etQ==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-bold@2.13.0':
-    resolution: {integrity: sha512-q/Kqo1HXas+dUevP/Qice+nbxXue8ZpmYBniw9zt/JHbgwH1b6Rw7lIjLxYerdaPWj305h9ZHxLqmzDOEcQRPw==}
-=======
   '@tiptap/extension-bold@3.11.0':
     resolution: {integrity: sha512-V/c3XYO09Le9GlBGq1MK4c97Fffi0GADQTbZ+LFoi65nUrAwutn5wYnXBcEyWQI6RmFWVDJTieamqtc4j9teyw==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-bubble-menu@2.27.1':
-    resolution: {integrity: sha512-ki1R27VsSvY2tT9Q2DIlcATwLOoEjf5DsN+5sExarQ8S/ZxT/tvIjRxB8Dx7lb2a818W5f/NER26YchGtmHfpg==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-bubble-menu@2.13.0':
-    resolution: {integrity: sha512-y2PRg7YT8Km1e4+xEvXcKTPfEu/i44eKNjbsKojgs70kuONdhFmhWIXCeGEVAwPH8ZPH+JPam5kcW2vsihoayg==}
-=======
   '@tiptap/extension-bubble-menu@3.11.0':
     resolution: {integrity: sha512-P3j9lQ+EZ5Zg/isJzLpCPX7bp7WUBmz8GPs/HPlyMyN2su8LqXntITBZr8IP1JNBlB/wR83k/W0XqdC57mG7cA==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
       '@tiptap/pm': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-code@2.27.1':
-    resolution: {integrity: sha512-i65wUGJevzBTIIUBHBc1ggVa27bgemvGl/tY1/89fEuS/0Xmre+OQjw8rCtSLevoHSiYYLgLRlvjtUSUhE4kgg==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-code@2.13.0':
-    resolution: {integrity: sha512-TrMhcRKsxmpZyHEstMdXAjwe+3bTqsSdiLsotzV7LwO8eCyeN42xfm2yzz9h/SJGUsO1X70YhoLH8liBNif97A==}
-=======
   '@tiptap/extension-code@3.11.0':
     resolution: {integrity: sha512-5OpR5O4bveHe1KG9CJsto86NgkuerYq3OLY78vzh9uFCLdv7xgXA2aZYJfRMhbZ7hKsR7hHg1etBJUCk+TKsMg==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-floating-menu@2.27.1':
-    resolution: {integrity: sha512-nUk/8DbiXO69l6FDwkWso94BTf52IBoWALo+YGWT6o+FO6cI9LbUGghEX2CdmQYXCvSvwvISF2jXeLQWNZvPZQ==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-floating-menu@2.13.0':
-    resolution: {integrity: sha512-gF14Nu61QUWWJDxOxzB679uK0W/rWcU7FTn1ll2zGt3NW2P2HheLo6qL1U5Wwxo3YwXloM8KLofdWi6vMN5RQQ==}
-=======
   '@tiptap/extension-floating-menu@3.11.0':
     resolution: {integrity: sha512-nEHdWZHEJYX1II1oJQ4aeZ8O/Kss4BRbYFXQFGIvPelCfCYEATpUJh3aq3767ARSq40bOWyu+Dcd4SCW0We6Sw==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@floating-ui/dom': ^1.0.0
       '@tiptap/core': ^3.11.0
       '@tiptap/pm': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-gapcursor@2.27.1':
-    resolution: {integrity: sha512-A9e1jr+jGhDWzNSXtIO6PYVYhf5j/udjbZwMja+wCE/3KvZU9V3IrnGKz1xNW+2Q2BDOe1QO7j5uVL9ElR6nTA==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-gapcursor@2.13.0':
-    resolution: {integrity: sha512-rOYVPa+mBksgGn+o9KGzKXhPNabSUVxvOB5BBwFhc0pTD+icoNk5awcUNfKx1VcBqXE3ghUvR/EEro9PvwTtdg==}
-=======
   '@tiptap/extension-gapcursor@3.11.0':
     resolution: {integrity: sha512-lXGEZiYX7k/pEFr8BgDE91vqjLTwuf+qhHLTgIpfhbt562nShLPIDj9Vzu3xrR4fwUAMiUNiLyaeInb8j3I4kg==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/extensions': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-history@2.27.1':
-    resolution: {integrity: sha512-K8PHC9gegSAt0wzSlsd4aUpoEyIJYOmVVeyniHr1P1mIblW1KYEDbRGbDlrLALTyUEfMcBhdIm8zrB9X2Nihvg==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-history@2.13.0':
-    resolution: {integrity: sha512-0gaCTHYrsECs8ZeG3oX3fyTyvKJHuGUuCnbEBfvGVxlYdhDVyuloe+G3s3UFeVVQJKO/P5OcxvUuAQ06s29tXw==}
-=======
   '@tiptap/extension-history@3.11.0':
     resolution: {integrity: sha512-Q/kuNDCoeH2dZ2P+OqEKnRW047SkrngNq+vSrwQlAKO8osO/eAS7aLzn1NELzE5jLvzOKqUda43bSTKsBeTh+w==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/extensions': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-horizontal-rule@2.27.1':
-    resolution: {integrity: sha512-WxXWGEEsqDmGIF2o9av+3r9Qje4CKrqrpeQY6aRO5bxvWX9AabQCfasepayBok6uwtvNzh3Xpsn9zbbSk09dNA==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-horizontal-rule@2.13.0':
-    resolution: {integrity: sha512-8gqYh2f7OAgEckIEoqsj98omJSPUOOWUvJRL50q70AUceMvPtVngWGKfITlDy4eYvRj5WXrNRSYrQrCU/8S8sg==}
-=======
   '@tiptap/extension-horizontal-rule@3.11.0':
     resolution: {integrity: sha512-FugFHZG+oiMBV6k42hn9NOA4wRNc2b9UeEIMR+XwEMpWJInV4VwSwDvu8JClgkDo8z7FEnker9e51DZ00CLWqg==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
       '@tiptap/pm': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-italic@2.27.1':
-    resolution: {integrity: sha512-rcm0GyniWW0UhcNI9+1eIK64GqWQLyIIrWGINslvqSUoBc+WkfocLvv4CMpRkzKlfsAxwVIBuH2eLxHKDtAREA==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-italic@2.13.0':
-    resolution: {integrity: sha512-eI5TtUgfvwIkj576pWWgHQjRItEe7IWG+t/ZyRDMo5eTxz5b6lqsJydexmJbdL/u25kMgtwd39v7QEu0OiPcVg==}
-=======
   '@tiptap/extension-italic@3.11.0':
     resolution: {integrity: sha512-WP6wL2b//8bLVdeUCWOpYA7nUStvrAMMD0nRn0F9CEW+l7vH6El2PZFhHmJ9uqXo5MnyugBpARiwgxfoAlef5w==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-link@2.27.1':
-    resolution: {integrity: sha512-cCwWPZsnVh9MXnGOqSIRXPPuUixRDK8eMN2TvqwbxUBb1TU7b/HtNvfMU4tAOqAuMRJ0aJkFuf3eB0Gi8LVb1g==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-link@2.13.0':
-    resolution: {integrity: sha512-kYCuf23Do1IWVmqDuD7V9K1nW0pEj1hUEtkGrZoGMYTcph9csYUT6gpwaflOYe66A7fVdz36gSKZjO+7XznWNg==}
-=======
   '@tiptap/extension-link@3.11.0':
     resolution: {integrity: sha512-RoUkGqowVMKLE76KktNOGhzNMyKtwrSDRqeYCe1ODPuOMZvDGexOE8cIuA4A1ODkgN6ji9qE/9Sf8uhpZdH39Q==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
       '@tiptap/pm': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-paragraph@2.27.1':
-    resolution: {integrity: sha512-R3QdrHcUdFAsdsn2UAIvhY0yWyHjqGyP/Rv8RRdN0OyFiTKtwTPqreKMHKJOflgX4sMJl/OpHTpNG1Kaf7Lo2A==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-paragraph@2.13.0':
-    resolution: {integrity: sha512-icWUqD6j3VCIW8RTFoknBDSOwWruraJwSwfUKadEoplRSIz81J75cmoExscO8rHMD8juhIrKGbs5WD5WJajrpQ==}
-=======
   '@tiptap/extension-paragraph@3.11.0':
     resolution: {integrity: sha512-hxgjZOXOqstRTWv+QjWJjK23rD5qzIV9ePlhX3imLeq/MgX0aU9VBDaG5SGKbSjaBNQnpLw6+sABJi3CDP6Z5A==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-strike@2.27.1':
-    resolution: {integrity: sha512-S9I//K8KPgfFTC5I5lorClzXk0g4lrAv9y5qHzHO5EOWt7AFl0YTg2oN8NKSIBK4bHRnPIrjJJKv+dDFnUp5jQ==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-strike@2.13.0':
-    resolution: {integrity: sha512-1j7ho8vuldtLuSHl4oQUNbVtub3P/mR8b+DbK+Fmp9UZrd5moHP9sD3yeIP4Ms/7iJhdDgLJPKAKNqmA2fsOtg==}
-=======
   '@tiptap/extension-strike@3.11.0':
     resolution: {integrity: sha512-XVP/WMYLrqLBfUsGPu2H9MrOUZLhGUaxtZ3hSRffDi/lsw53x/coZ9eO0FxOB9R7z2ksHWmticIs+0YnKt9LNQ==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-table-cell@2.27.1':
-    resolution: {integrity: sha512-VowNmz1kub2qfntWkU8jGA6DoCl9xjJBWSypuQIeiN/IRId3BMrJodT26pTNJ3ChDMtYaanWaUvYqckRxgTC2A==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-table-cell@2.13.0':
-    resolution: {integrity: sha512-7AAKYz0UpJNu7KMVZL+WvPing3LINXfv4+x+hPG5dnRuPjYH4lX5fUhTKoQ9alk1QSxyppX6vB5Z+/PC7gdogw==}
-=======
   '@tiptap/extension-text@3.11.0':
     resolution: {integrity: sha512-ELAYm2BuChzZOqDG9B0k3W6zqM4pwNvXkam28KgHGiT2y7Ni68Rb+NXp16uVR+5zR6hkqnQ/BmJSKzAW59MXpA==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-table-header@2.27.1':
-    resolution: {integrity: sha512-lSbGB6kBp/sTVzAWl4v7v7ztL5XU3aTdlS7FhfGjpdsxd4zPKYG8kx+Uxgq25W9/BlCbnqHnO0poAMfOlspDQw==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-table-header@2.13.0':
-    resolution: {integrity: sha512-ItnZvVYBWwYXBOw2ubGF037nrw7IODuCCbhAReeaI0DNTgpLeWXEkWbfoiT8gJ1ghlnsxbTCSrj+29/GEclq7g==}
-=======
   '@tiptap/extension-underline@3.11.0':
     resolution: {integrity: sha512-D3PsS/84RlQKFjd5eerMIUioC0mNh4yy1RRV/WbXx6ugu+6T+0hT42gNk9Ap8pDsVQZCk0SHfDyBEUFC2KOwKw==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-text@2.27.1':
-    resolution: {integrity: sha512-a4GCT+GZ9tUwl82F4CEum9/+WsuW0/De9Be/NqrMmi7eNfAwbUTbLCTFU0gEvv25WMHCoUzaeNk/qGmzeVPJ1Q==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-text@2.13.0':
-    resolution: {integrity: sha512-4VhKCxfOlBXbaRAM4/OtZnOeq+WcjJoaduo4Jrb7w1I18yqknVjOwFH3Cv+2VqIjPI8bILMWzgpxvFPKdrOllA==}
-=======
   '@tiptap/extensions@3.11.0':
     resolution: {integrity: sha512-g43beA73ZMLezez1st9LEwYrRHZ0FLzlsSlOZKk7sdmtHLmuqWHf4oyb0XAHol1HZIdGv104rYaGNgmQXr1ecQ==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
       '@tiptap/core': ^3.11.0
       '@tiptap/pm': ^3.11.0
 
-<<<<<<< HEAD
-  '@tiptap/extension-underline@2.27.1':
-    resolution: {integrity: sha512-fPTmfJFAQWg1O/os1pYSPVdtvly6eW/w5sDofG7pre+bdQUN+8s1cZYelSuj/ltNVioRaB2Ws7tvNgnHL0aAJQ==}
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-underline@2.13.0':
-    resolution: {integrity: sha512-VemV8CFi9Gu+9hFI3DqMl8R2e/7Vnj+z1l3aWMVoF0w5iqxqAmG/CDmmkn56p9rA2ic8cS7dhSGpHudpzTaQeQ==}
-=======
   '@tiptap/pm@3.11.0':
     resolution: {integrity: sha512-plCQDLCZIOc92cizB8NNhBRN0szvYR3cx9i5IXo6v9Xsgcun8KHNcJkesc2AyeqdIs0BtOJZaqQ9adHThz8UDw==}
 
   '@tiptap/react@3.11.0':
     resolution: {integrity: sha512-SDGei/2DjwmhzsxIQNr6dkB6NxLgXZjQ6hF36NfDm4937r5NLrWrNk5tCsoDQiKZ0DHEzuJ6yZM5C7I7LZLB6w==}
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     peerDependencies:
-<<<<<<< HEAD
-      '@tiptap/core': ^2.7.0
-
-  '@tiptap/pm@2.27.1':
-    resolution: {integrity: sha512-ijKo3+kIjALthYsnBmkRXAuw2Tswd9gd7BUR5OMfIcjGp8v576vKxOxrRfuYiUM78GPt//P0sVc1WV82H5N0PQ==}
-
-  '@tiptap/react@2.27.1':
-    resolution: {integrity: sha512-leJximSjYJuhLJQv9azOP9R7w6zuxVgKOHYT4w83Gte7GhWMpNL6xRWzld280vyq/YW/cSYjPb/8ESEOgKNBdQ==}
-    peerDependencies:
-      '@tiptap/core': ^2.7.0
-      '@tiptap/pm': ^2.7.0
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': ^2.7.0
-
-  '@tiptap/pm@2.13.0':
-    resolution: {integrity: sha512-CU2DEMQbYXwlnISFD0+7nQSBaqGKJHOiTnWpnAi5pOVphroEIbLPlT6AO4638MWtIR9QsOmGR8KXkQmNGA6tjQ==}
-
-  '@tiptap/react@2.13.0':
-    resolution: {integrity: sha512-HxA9M2PdzOszIvv5NG2MNcp7bk+bGUB+sJsUcT7X5fDRSoSn94aBKQ677BONHCV6YHHSY3wLxOtuiNXnO3kkDQ==}
-    peerDependencies:
-      '@tiptap/core': ^2.7.0
-      '@tiptap/pm': ^2.7.0
-=======
       '@tiptap/core': ^3.11.0
       '@tiptap/pm': ^3.11.0
       '@types/react': ^17.0.0 || ^18.0.0 || ^19.0.0
       '@types/react-dom': ^17.0.0 || ^18.0.0 || ^19.0.0
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -11187,41 +11029,6 @@ snapshots:
   '@blocknote/core@0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)':
     dependencies:
       '@emoji-mart/data': 1.2.1
-<<<<<<< HEAD
-      '@shikijs/types': 3.2.1
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/extension-bold': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-code': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-gapcursor': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)
-      '@tiptap/extension-history': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)
-      '@tiptap/extension-horizontal-rule': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)
-      '@tiptap/extension-italic': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-link': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)
-      '@tiptap/extension-paragraph': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-strike': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-table-cell': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-table-header': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-text': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/extension-underline': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))
-      '@tiptap/pm': 2.27.1
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@shikijs/types': 3.2.1
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/extension-bold': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-code': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-gapcursor': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
-      '@tiptap/extension-history': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
-      '@tiptap/extension-horizontal-rule': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
-      '@tiptap/extension-italic': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-link': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
-      '@tiptap/extension-paragraph': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-strike': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-table-cell': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-table-header': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-text': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/extension-underline': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))
-      '@tiptap/pm': 2.13.0
-=======
       '@shikijs/types': 3.13.0
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/extension-bold': 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))
@@ -11236,23 +11043,11 @@ snapshots:
       '@tiptap/extension-text': 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))
       '@tiptap/extension-underline': 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))
       '@tiptap/pm': 3.11.0
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
       emoji-mart: 5.6.0
       fast-deep-equal: 3.1.3
       hast-util-from-dom: 5.0.1
       prosemirror-dropcursor: 1.8.2
-<<<<<<< HEAD
-      prosemirror-highlight: 0.13.0(@shikijs/types@3.2.1)(@types/hast@3.0.4)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-transform@1.10.5)(prosemirror-view@1.41.3)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      prosemirror-highlight: 0.13.0(@shikijs/types@3.2.1)(@types/hast@3.0.4)(prosemirror-model@1.25.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.10.4)(prosemirror-view@1.40.0)
-      prosemirror-model: 1.25.1
-      prosemirror-state: 1.4.3
-      prosemirror-tables: 1.7.1
-      prosemirror-transform: 1.10.4
-      prosemirror-view: 1.40.0
-=======
       prosemirror-highlight: 0.13.0(@shikijs/types@3.13.0)(@types/hast@3.0.4)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-transform@1.10.5)(prosemirror-view@1.41.3)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
       prosemirror-model: 1.25.4
       prosemirror-state: 1.4.4
       prosemirror-tables: 1.8.1
@@ -11283,30 +11078,12 @@ snapshots:
       - sugar-high
       - supports-color
 
-<<<<<<< HEAD
-  '@blocknote/mantine@0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@blocknote/mantine@0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-=======
-  '@blocknote/mantine@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/core@8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.6(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
+  '@blocknote/mantine@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/core@8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.6(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-<<<<<<< HEAD
-      '@blocknote/core': 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)
-      '@blocknote/react': 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mantine/core': 7.17.8(@mantine/hooks@7.17.8(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mantine/hooks': 7.17.8(react@19.2.0)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@blocknote/core': 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)
-      '@blocknote/react': 0.35.0(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@types/hast@3.0.4)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mantine/core': 7.17.8(@mantine/hooks@7.17.8(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mantine/hooks': 7.17.8(react@19.2.0)
-=======
       '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)
-      '@blocknote/react': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mantine/core': 8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@blocknote/react': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@mantine/core': 8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/hooks': 8.3.6(react@19.2.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
       '@mantine/utils': 6.0.22(react@19.2.0)
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
@@ -11324,26 +11101,14 @@ snapshots:
       - sugar-high
       - supports-color
 
-  '@blocknote/react@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@blocknote/react@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))(@types/hast@3.0.4)
       '@emoji-mart/data': 1.2.1
-<<<<<<< HEAD
-      '@floating-ui/react': 0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-      '@tiptap/react': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@floating-ui/react': 0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-      '@tiptap/react': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-=======
       '@floating-ui/react': 0.27.16(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/pm': 3.11.0
-      '@tiptap/react': 3.11.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
+      '@tiptap/react': 3.11.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       emoji-mart: 5.6.0
       lodash.merge: 4.6.2
       react: 19.2.0
@@ -11462,7 +11227,7 @@ snapshots:
 
   '@electron/universal@2.0.1':
     dependencies:
-      '@electron/asar': 3.2.18
+      '@electron/asar': 3.4.1
       '@malept/cross-spawn-promise': 2.0.0
       debug: 4.4.3(supports-color@5.5.0)
       dir-compare: 4.2.0
@@ -11723,26 +11488,6 @@ snapshots:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
-<<<<<<< HEAD
-  '@floating-ui/react@0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@floating-ui/react-dom': 2.1.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@floating-ui/utils': 0.2.10
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      tabbable: 6.3.0
-
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@floating-ui/react@0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@floating-ui/react-dom': 2.1.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@floating-ui/utils': 0.2.10
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      tabbable: 6.2.0
-
-=======
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
   '@floating-ui/react@0.27.16(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@floating-ui/react-dom': 2.1.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -11908,41 +11653,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-<<<<<<< HEAD
-  '@mantine/core@7.17.8(@mantine/hooks@7.17.8(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@floating-ui/react': 0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mantine/hooks': 7.17.8(react@19.2.0)
-      clsx: 2.1.1
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      react-number-format: 5.4.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      react-remove-scroll: 2.7.1(@types/react@19.2.6)(react@19.2.0)
-      react-textarea-autosize: 8.5.9(@types/react@19.2.6)(react@19.2.0)
-      type-fest: 4.41.0
-    transitivePeerDependencies:
-      - '@types/react'
-
   '@mantine/core@8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@mantine/core@7.17.8(@mantine/hooks@7.17.8(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-    dependencies:
-      '@floating-ui/react': 0.26.28(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mantine/hooks': 7.17.8(react@19.2.0)
-      clsx: 2.1.1
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      react-number-format: 5.4.4(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      react-remove-scroll: 2.7.1(@types/react@19.2.2)(react@19.2.0)
-      react-textarea-autosize: 8.5.9(@types/react@19.2.2)(react@19.2.0)
-      type-fest: 4.41.0
-    transitivePeerDependencies:
-      - '@types/react'
-
-  '@mantine/core@8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-=======
-  '@mantine/core@8.3.6(@mantine/hooks@8.3.6(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
       '@floating-ui/react': 0.27.16(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/hooks': 8.3.6(react@19.2.0)
@@ -12278,288 +11989,77 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-<<<<<<< HEAD
-  '@tiptap/core@2.27.1(@tiptap/pm@2.27.1)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/core@2.13.0(@tiptap/pm@2.13.0)':
-=======
   '@tiptap/core@3.11.0(@tiptap/pm@3.11.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/pm': 2.27.1
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/pm': 2.13.0
-=======
       '@tiptap/pm': 3.11.0
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-bold@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-bold@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extension-bold@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-bubble-menu@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-bubble-menu@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)':
-=======
   '@tiptap/extension-bubble-menu@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-      tippy.js: 6.3.7
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-      tippy.js: 6.3.7
-=======
       '@floating-ui/dom': 1.7.4
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/pm': 3.11.0
     optional: true
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-code@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-code@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extension-code@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-floating-menu@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-floating-menu@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)':
-=======
   '@tiptap/extension-floating-menu@3.11.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-      tippy.js: 6.3.7
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-      tippy.js: 6.3.7
-=======
       '@floating-ui/dom': 1.7.4
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/pm': 3.11.0
     optional: true
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-gapcursor@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-gapcursor@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)':
-=======
   '@tiptap/extension-gapcursor@3.11.0(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-=======
       '@tiptap/extensions': 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-history@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-history@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)':
-=======
   '@tiptap/extension-history@3.11.0(@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-=======
       '@tiptap/extensions': 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-horizontal-rule@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-horizontal-rule@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)':
-=======
   '@tiptap/extension-horizontal-rule@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/pm': 3.11.0
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-italic@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-italic@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extension-italic@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-link@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-link@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)':
-=======
   '@tiptap/extension-link@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-      linkifyjs: 4.3.1
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/pm': 3.11.0
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
       linkifyjs: 4.3.2
 
-<<<<<<< HEAD
-  '@tiptap/extension-paragraph@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-paragraph@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extension-paragraph@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-strike@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-strike@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extension-strike@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-table-cell@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-table-cell@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extension-text@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-table-header@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-table-header@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extension-underline@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-text@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-text@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-=======
   '@tiptap/extensions@3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/pm': 3.11.0
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
-<<<<<<< HEAD
-  '@tiptap/extension-underline@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))':
-    dependencies:
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-
-  '@tiptap/pm@2.27.1':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/extension-underline@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))':
-    dependencies:
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-
-  '@tiptap/pm@2.13.0':
-=======
   '@tiptap/pm@3.11.0':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     dependencies:
       prosemirror-changeset: 2.3.1
       prosemirror-collab: 1.3.1
@@ -12580,45 +12080,22 @@ snapshots:
       prosemirror-transform: 1.10.5
       prosemirror-view: 1.41.3
 
-<<<<<<< HEAD
-  '@tiptap/react@2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  '@tiptap/react@2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
-=======
-  '@tiptap/react@3.11.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
+  '@tiptap/react@3.11.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-<<<<<<< HEAD
-      '@tiptap/core': 2.27.1(@tiptap/pm@2.27.1)
-      '@tiptap/extension-bubble-menu': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)
-      '@tiptap/extension-floating-menu': 2.27.1(@tiptap/core@2.27.1(@tiptap/pm@2.27.1))(@tiptap/pm@2.27.1)
-      '@tiptap/pm': 2.27.1
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@tiptap/core': 2.13.0(@tiptap/pm@2.13.0)
-      '@tiptap/extension-bubble-menu': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
-      '@tiptap/extension-floating-menu': 2.13.0(@tiptap/core@2.13.0(@tiptap/pm@2.13.0))(@tiptap/pm@2.13.0)
-      '@tiptap/pm': 2.13.0
-=======
       '@tiptap/core': 3.11.0(@tiptap/pm@3.11.0)
       '@tiptap/pm': 3.11.0
-      '@types/react': 19.2.2
-      '@types/react-dom': 19.2.2(@types/react@19.2.2)
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
+      '@types/react': 19.2.6
+      '@types/react-dom': 19.2.3(@types/react@19.2.6)
       '@types/use-sync-external-store': 0.0.6
       fast-deep-equal: 3.1.3
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       use-sync-external-store: 1.6.0(react@19.2.0)
-<<<<<<< HEAD
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      use-sync-external-store: 1.5.0(react@19.2.0)
-=======
     optionalDependencies:
       '@tiptap/extension-bubble-menu': 3.11.0(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)
       '@tiptap/extension-floating-menu': 3.11.0(@floating-ui/dom@1.7.4)(@tiptap/core@3.11.0(@tiptap/pm@3.11.0))(@tiptap/pm@3.11.0)
     transitivePeerDependencies:
       - '@floating-ui/dom'
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
   '@tootallnate/once@2.0.0': {}
 
@@ -12673,7 +12150,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 22.19.1
+      '@types/node': 24.10.1
       '@types/responselike': 1.0.3
 
   '@types/chai@5.2.3':
@@ -12732,7 +12209,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 22.19.1
+      '@types/node': 24.10.1
 
   '@types/linkify-it@5.0.0': {}
 
@@ -12789,7 +12266,7 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 22.19.1
+      '@types/node': 24.10.1
 
   '@types/send@0.17.6':
     dependencies:
@@ -12827,7 +12304,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.19.1
+      '@types/node': 24.10.1
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.47.0(@typescript-eslint/parser@8.47.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.3)':
@@ -12861,8 +12338,8 @@ snapshots:
 
   '@typescript-eslint/project-service@8.46.4(typescript@5.9.3)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.46.4(typescript@5.9.3)
-      '@typescript-eslint/types': 8.46.4
+      '@typescript-eslint/tsconfig-utils': 8.47.0(typescript@5.9.3)
+      '@typescript-eslint/types': 8.47.0
       debug: 4.4.3(supports-color@5.5.0)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -13997,7 +13474,7 @@ snapshots:
 
   dotenv-expand@11.0.7:
     dependencies:
-      dotenv: 16.4.7
+      dotenv: 16.6.1
 
   dotenv@16.4.7: {}
 
@@ -16119,7 +15596,7 @@ snapshots:
       bl: 4.1.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
-      cli-spinners: 2.6.1
+      cli-spinners: 2.9.2
       is-interactive: 1.0.0
       log-symbols: 4.1.0
       strip-ansi: 6.0.1
@@ -16342,13 +15819,7 @@ snapshots:
       prosemirror-state: 1.4.4
       prosemirror-view: 1.41.3
 
-<<<<<<< HEAD
-  prosemirror-highlight@0.13.0(@shikijs/types@3.2.1)(@types/hast@3.0.4)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-transform@1.10.5)(prosemirror-view@1.41.3):
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-  prosemirror-highlight@0.13.0(@shikijs/types@3.2.1)(@types/hast@3.0.4)(prosemirror-model@1.25.1)(prosemirror-state@1.4.3)(prosemirror-transform@1.10.4)(prosemirror-view@1.40.0):
-=======
   prosemirror-highlight@0.13.0(@shikijs/types@3.13.0)(@types/hast@3.0.4)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-transform@1.10.5)(prosemirror-view@1.41.3):
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
     optionalDependencies:
       '@shikijs/types': 3.13.0
       '@types/hast': 3.0.4
@@ -16384,14 +15855,7 @@ snapshots:
     dependencies:
       crelt: 1.0.6
       prosemirror-commands: 1.7.1
-<<<<<<< HEAD
       prosemirror-history: 1.5.0
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      prosemirror-history: 1.4.1
-      prosemirror-state: 1.4.3
-=======
-      prosemirror-history: 1.4.1
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
       prosemirror-state: 1.4.4
 
   prosemirror-model@1.25.4:
@@ -17398,18 +16862,7 @@ snapshots:
       react: 19.2.0
       tslib: 2.8.1
     optionalDependencies:
-<<<<<<< HEAD
       '@types/react': 19.2.6
-||||||| parent of 92d236dd (chore: update blocknote to 0.42.3)
-      '@types/react': 19.2.2
-
-  use-sync-external-store@1.5.0(react@19.2.0):
-    dependencies:
-      react: 19.2.0
-
-=======
-      '@types/react': 19.2.2
->>>>>>> 92d236dd (chore: update blocknote to 0.42.3)
 
   use-sync-external-store@1.6.0(react@19.2.0):
     dependencies:
