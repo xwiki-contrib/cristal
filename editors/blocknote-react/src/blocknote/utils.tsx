@@ -25,13 +25,13 @@ import {
 } from "@blocknote/react";
 import { assertUnreachable, objectEntries } from "@xwiki/cristal-fn-utils";
 import type {
-  CustomBlockConfig,
+  BlockConfig,
   CustomInlineContentConfig,
   DefaultInlineContentSchema,
   DefaultStyleSchema,
   InlineContent,
   InlineContentSchema,
-  PartialBlock,
+  PartialBlockFromConfig,
   PartialInlineContent,
   PropSchema,
   PropSpec,
@@ -60,17 +60,17 @@ import type { JSX, ReactNode } from "react";
  * @internal
  */
 function createCustomBlockSpec<
-  const B extends CustomBlockConfig,
-  const I extends InlineContentSchema,
-  const S extends StyleSchema,
+  const Name extends string,
+  const Props extends PropSchema,
+  const InlineType extends "inline" | "none",
 >({
   config,
   implementation,
   slashMenu,
   customToolbar,
 }: {
-  config: B;
-  implementation: ReactCustomBlockImplementation<B, I, S>;
+  config: BlockConfig<Name, Props, InlineType>;
+  implementation: ReactCustomBlockImplementation<Name, Props, InlineType>;
   slashMenu:
     | false
     | {
@@ -78,7 +78,11 @@ function createCustomBlockSpec<
         aliases?: string[];
         group: string;
         icon: ReactNode;
-        default: () => PartialBlock<Record<B["type"], B>>;
+        default: () => PartialBlockFromConfig<
+          BlockConfig<Name, Props, InlineType>,
+          InlineContentSchema,
+          StyleSchema
+        >;
       };
   customToolbar: (() => ReactNode) | null;
 }) {
@@ -88,7 +92,7 @@ function createCustomBlockSpec<
     slashMenuEntry: !slashMenu
       ? (false as const)
       : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (editor: BlockNoteEditor<any>) => ({
+        (editor: BlockNoteEditor<any, any, any>) => ({
           title: slashMenu.title,
           aliases: slashMenu.aliases,
           group: slashMenu.group,

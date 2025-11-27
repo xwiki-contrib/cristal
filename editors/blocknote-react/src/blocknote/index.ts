@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { Heading4, Heading5, Heading6 } from "./blocks/Headings";
 import { MACRO_NAME_PREFIX } from "./utils";
 import translations from "../translations";
 import {
@@ -61,16 +60,14 @@ function createBlockNoteSchema(macros: BlockNoteConcreteMacro[]) {
     blockSpecs: {
       ...remainingBlockSpecs,
 
-      // Custom blocks
-      Heading4: Heading4.block,
-      Heading5: Heading5.block,
-      Heading6: Heading6.block,
-
       // Macros
       ...Object.fromEntries(
         filterMap(macros, ({ macro, bnRendering }) =>
           bnRendering.type === "block"
-            ? [`${MACRO_NAME_PREFIX}${macro.infos.id}`, bnRendering.block.block]
+            ? [
+                `${MACRO_NAME_PREFIX}${macro.infos.id}`,
+                bnRendering.block.block(),
+              ]
             : null,
         ),
       ),
@@ -133,11 +130,6 @@ function querySuggestionsMenuItems(
   return filterSuggestionItems(
     combineByGroup(
       getDefaultReactSlashMenuItems(editor),
-
-      // Custom blocks
-      filterMap([Heading4, Heading5, Heading6], (custom) =>
-        custom.slashMenuEntry ? custom.slashMenuEntry(editor) : null,
-      ),
 
       // Block macros
       filterMap(macros, ({ bnRendering }) =>
