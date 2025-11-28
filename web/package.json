@@ -23,6 +23,7 @@
     "start": "pnpm run build && NODE_ENV=production node src/server.js",
     "start:e2e:xwiki": "pnpm run -C ../sources/xwiki/mock-server dev",
     "test:e2e": "playwright test",
+    "test:e2e:update-snapshots": "playwright test --update-snapshots",
     "typecheck": "vue-tsc"
   },
   "dependencies": {
