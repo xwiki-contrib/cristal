@@ -5,7 +5,7 @@
 ```ts
 
 import { Container } from 'inversify';
-import { UniAst } from '@xwiki/cristal-uniast-api';
+import { UniAst } from '@xwiki/platform-uniast-api';
 
 // @beta (undocumented)
 export class ComponentInit {

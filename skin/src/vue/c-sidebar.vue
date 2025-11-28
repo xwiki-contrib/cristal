@@ -25,13 +25,13 @@ import UIX from "./c-uix.vue";
 import { useMouseCoordinates } from "../composables/mouse";
 import { ViewportType, useViewportType } from "../composables/viewport";
 import xlogo from "../images/xwiki-logo-color.svg";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import { CIcon } from "@xwiki/cristal-icons";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
+import { CIcon } from "@xwiki/platform-icons";
 import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 import { inject, onMounted, ref, watch } from "vue";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 import type { Ref } from "vue";
 
 const logo = xlogo;

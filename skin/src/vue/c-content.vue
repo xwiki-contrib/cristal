@@ -22,13 +22,13 @@ import CArticle from "./c-article.vue";
 import { ContentTools } from "./contentTools";
 import { renderMarkdown } from "./renderMarkdown";
 import messages from "../translations";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { PageActions } from "@xwiki/cristal-page-actions-ui";
 import { computed, inject, onUpdated, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type { Ref } from "vue";
 
 const { t } = useI18n({

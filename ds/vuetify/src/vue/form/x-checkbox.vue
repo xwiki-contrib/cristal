@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import { VCheckbox } from "vuetify/components/VCheckbox";
-import type { CheckboxProps } from "@xwiki/cristal-dsapi";
+import type { CheckboxProps } from "@xwiki/platform-dsapi";
 
 defineProps<CheckboxProps>();
 

@@ -19,10 +19,10 @@
  */
 
 import ComponentInit from "./componentsInit";
-import { DefaultLogger, DefaultLoggerConfig } from "@xwiki/cristal-api";
+import { DefaultLogger, DefaultLoggerConfig } from "@xwiki/platform-api";
 import { Container } from "inversify";
 import type { ExtensionManager } from "../api/extensionManager";
-import type { Logger, LoggerConfig } from "@xwiki/cristal-api";
+import type { Logger, LoggerConfig } from "@xwiki/platform-api";
 
 /**
  * @since 0.1

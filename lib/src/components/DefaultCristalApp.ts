@@ -22,8 +22,8 @@
 // before any use of an inversify annotation.
 import "reflect-metadata";
 import Index from "../c-index.vue";
-import { DefaultLogger, DefaultPageData } from "@xwiki/cristal-api";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { DefaultLogger, DefaultPageData } from "@xwiki/platform-api";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { inject, injectable, multiInject } from "inversify";
 import { createPinia } from "pinia";
 import { createApp } from "vue";
@@ -37,10 +37,10 @@ import type {
   PageData,
   SkinManager,
   WikiConfig,
-} from "@xwiki/cristal-api";
+} from "@xwiki/platform-api";
 import type { BrowserApi } from "@xwiki/cristal-browser-api";
-import type { Configurations } from "@xwiki/cristal-configuration-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { Configurations } from "@xwiki/platform-configuration-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type { ExtensionManager } from "@xwiki/cristal-extension-manager";
 import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
 import type {

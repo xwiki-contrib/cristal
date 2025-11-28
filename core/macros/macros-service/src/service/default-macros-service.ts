@@ -20,7 +20,7 @@
 
 import { injectable, multiInject } from "inversify";
 import type { MacrosService } from "./macros-service";
-import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/platform-macros-api";
 
 @injectable()
 export class DefaultMacrosService implements MacrosService {

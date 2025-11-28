@@ -5,7 +5,7 @@
 ```ts
 
 import { Container } from 'inversify';
-import { Logger } from '@xwiki/cristal-api';
+import { Logger } from '@xwiki/platform-api';
 
 // @beta (undocumented)
 export class ComponentInit {

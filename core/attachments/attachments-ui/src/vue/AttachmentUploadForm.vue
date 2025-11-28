@@ -19,7 +19,7 @@
 -->
 <script setup lang="ts">
 import { ref } from "vue";
-import type { FileInputModel } from "@xwiki/cristal-dsapi";
+import type { FileInputModel } from "@xwiki/platform-dsapi";
 import type { Ref } from "vue";
 
 defineProps<{ isUploading: boolean }>();

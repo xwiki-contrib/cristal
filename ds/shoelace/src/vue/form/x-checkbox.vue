@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import "@shoelace-style/shoelace/dist/components/checkbox/checkbox";
-import type { CheckboxProps } from "@xwiki/cristal-dsapi";
+import type { CheckboxProps } from "@xwiki/platform-dsapi";
 
 defineProps<CheckboxProps>();
 

@@ -22,7 +22,7 @@ import messages from "../../translations";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { VTextField } from "vuetify/components/VTextField";
-import type { TextFieldProps } from "@xwiki/cristal-dsapi";
+import type { TextFieldProps } from "@xwiki/platform-dsapi";
 
 const { t } = useI18n({
   messages,

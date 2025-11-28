@@ -20,7 +20,7 @@
 
 import defaultSettings from "./defaultSettings.json";
 import Store from "electron-store";
-import type { Configurations } from "@xwiki/cristal-configuration-api";
+import type { Configurations } from "@xwiki/platform-configuration-api";
 
 const configurationKey = "configuration";
 const settingsKey = "_raw";

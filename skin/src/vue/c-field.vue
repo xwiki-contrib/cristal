@@ -35,8 +35,8 @@
 <script lang="ts">
 import { ContentTools } from "./contentTools";
 import { defineComponent, inject, ref } from "vue";
-import type { CristalApp, Document, Logger, Storage } from "@xwiki/cristal-api";
-import type { StorageProvider } from "@xwiki/cristal-backend-api";
+import type { CristalApp, Document, Logger, Storage } from "@xwiki/platform-api";
+import type { StorageProvider } from "@xwiki/platform-backend-api";
 import type { PropType, Ref } from "vue";
 
 let logger: Logger | null = null;

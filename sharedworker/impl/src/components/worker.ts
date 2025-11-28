@@ -33,11 +33,11 @@ import type {
   CristalApp,
   WikiConfig,
   WrappingStorage,
-} from "@xwiki/cristal-api";
+} from "@xwiki/platform-api";
 import type {
   ConfigurationLoader,
   Configurations,
-} from "@xwiki/cristal-configuration-api";
+} from "@xwiki/platform-configuration-api";
 import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
 import type { Container } from "inversify";
 

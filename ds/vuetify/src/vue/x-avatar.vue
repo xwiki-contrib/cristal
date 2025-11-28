@@ -18,7 +18,7 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
-import type { AvatarProps } from "@xwiki/cristal-dsapi";
+import type { AvatarProps } from "@xwiki/platform-dsapi";
 
 defineProps<AvatarProps>();
 </script>

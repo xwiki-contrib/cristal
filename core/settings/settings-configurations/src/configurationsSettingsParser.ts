@@ -20,7 +20,7 @@
 
 import { ConfigurationsSettings } from "./configurations";
 import { injectable } from "inversify";
-import type { Configuration } from "@xwiki/cristal-configuration-api";
+import type { Configuration } from "@xwiki/platform-configuration-api";
 import type { SettingsParser } from "@xwiki/cristal-settings-api";
 
 /**

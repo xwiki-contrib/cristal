@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/platform-macros-api";
 
 /**
  * Service handling the registration and delivery of macros

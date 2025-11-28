@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-model-api": "workspace:*",
-    "@xwiki/cristal-model-reference-api": "workspace:*"
+    "@xwiki/platform-model-api": "catalog:",
+    "@xwiki/platform-model-reference-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",

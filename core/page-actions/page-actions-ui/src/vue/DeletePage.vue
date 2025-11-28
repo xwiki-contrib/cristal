@@ -19,18 +19,18 @@
 -->
 <script setup lang="ts">
 import messages from "../translations";
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { StorageProvider } from "@xwiki/cristal-backend-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { StorageProvider } from "@xwiki/platform-backend-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type {
   PageHierarchyItem,
   PageHierarchyResolverProvider,
 } from "@xwiki/cristal-hierarchy-api";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 import type { Ref } from "vue";
 
 const { t } = useI18n({

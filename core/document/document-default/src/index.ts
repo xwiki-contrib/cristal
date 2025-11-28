@@ -19,9 +19,9 @@
  */
 
 import { DefaultDocumentService } from "./defaultDocumentService";
-import { name } from "@xwiki/cristal-document-api";
+import { name } from "@xwiki/platform-document-api";
 import { Container } from "inversify";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 
 /**
  * @since 0.11

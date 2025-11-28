@@ -5,7 +5,7 @@
 ```ts
 
 import { Container } from 'inversify';
-import { MacroWithUnknownParamsType } from '@xwiki/cristal-macros-api';
+import { MacroWithUnknownParamsType } from '@xwiki/platform-macros-api';
 
 // @beta (undocumented)
 export class ComponentInit {

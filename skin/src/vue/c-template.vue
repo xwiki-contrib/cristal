@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import { inject } from "vue";
-import type { CristalApp, Logger, SkinManager } from "@xwiki/cristal-api";
+import type { CristalApp, Logger, SkinManager } from "@xwiki/platform-api";
 import type { Component } from "vue";
 
 let component: Component | undefined;

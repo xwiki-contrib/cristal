@@ -18,13 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { AttachmentReference, EntityType } from "@xwiki/cristal-model-api";
+import { AttachmentReference, EntityType } from "@xwiki/platform-model-api";
 import { inject, injectable } from "inversify";
 import type { ClickListener } from "./clickListener";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { AttachmentPreview } from "@xwiki/cristal-attachments-api";
-import type { ModelReferenceSerializerProvider } from "@xwiki/cristal-model-reference-api";
-import type { RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { AttachmentPreview } from "@xwiki/platform-attachments-api";
+import type { ModelReferenceSerializerProvider } from "@xwiki/platform-model-reference-api";
+import type { RemoteURLParserProvider } from "@xwiki/platform-model-remote-url-api";
 
 /**
  * @since 0.12

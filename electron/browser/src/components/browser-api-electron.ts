@@ -20,7 +20,7 @@
 
 import { injectable } from "inversify";
 import type { APITypes } from "../electron/preload/apiTypes";
-import type { WikiConfig } from "@xwiki/cristal-api";
+import type { WikiConfig } from "@xwiki/platform-api";
 import type { BrowserApi } from "@xwiki/cristal-browser-api";
 
 declare const browserElectron: APITypes;

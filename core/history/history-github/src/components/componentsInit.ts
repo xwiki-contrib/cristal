@@ -20,8 +20,8 @@
 
 import { inject, injectable } from "inversify";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
-import type { CristalApp, Logger, PageData } from "@xwiki/cristal-api";
-import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { CristalApp, Logger, PageData } from "@xwiki/platform-api";
+import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
 import type {
   PageRevision,
   PageRevisionManager,

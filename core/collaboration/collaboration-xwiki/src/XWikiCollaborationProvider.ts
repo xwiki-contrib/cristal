@@ -17,17 +17,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { Status } from "@xwiki/cristal-collaboration-api";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { Status } from "@xwiki/platform-collaboration-api";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { inject, injectable } from "inversify";
 import { ref } from "vue";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type {
   CollaborationInitializer,
   CollaborationManager,
   User,
-} from "@xwiki/cristal-collaboration-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+} from "@xwiki/platform-collaboration-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type { Ref } from "vue";
 
 /**

@@ -19,22 +19,22 @@
 -->
 <script setup lang="ts">
 import messages from "../translations";
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type {
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import type {
   ModelReferenceHandler,
   ModelReferenceHandlerProvider,
   ModelReferenceSerializer,
   ModelReferenceSerializerProvider,
-} from "@xwiki/cristal-model-reference-api";
+} from "@xwiki/platform-model-reference-api";
 import type {
   PageRenameManager,
   PageRenameManagerProvider,

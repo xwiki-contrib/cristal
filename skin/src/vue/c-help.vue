@@ -18,7 +18,7 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import { CIcon } from "@xwiki/cristal-icons";
+import { CIcon } from "@xwiki/platform-icons";
 </script>
 <template>
   <div class="help-button">

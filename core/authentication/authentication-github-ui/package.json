@@ -30,11 +30,11 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-authentication-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/cristal-authentication-github-state": "workspace:*",
     "@xwiki/cristal-browser-api": "workspace:*",
-    "@xwiki/cristal-icons": "workspace:*",
+    "@xwiki/platform-icons": "catalog:",
     "@xwiki/cristal-uiextension-api": "workspace:*",
     "@xwiki/cristal-uiextension-default": "workspace:*",
     "vue-i18n": "catalog:"
@@ -48,7 +48,7 @@
     "@vue/test-utils": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
     "@xwiki/cristal-dev-test-utils": "workspace:*",
-    "@xwiki/cristal-dsapi": "workspace:*",
+    "@xwiki/platform-dsapi": "catalog:",
     "inversify": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",

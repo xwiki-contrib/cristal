@@ -19,15 +19,15 @@
  */
 
 import { ComponentInit as AlertsDefaultComponentInit } from "@xwiki/cristal-alerts-default";
-import { ComponentInit as AttachmentsDefaultComponentInit } from "@xwiki/cristal-attachments-default";
+import { ComponentInit as AttachmentsDefaultComponentInit } from "@xwiki/platform-attachments-default";
 import { ComponentInit as AttachmentsUIComponentInit } from "@xwiki/cristal-attachments-ui";
 import { ComponentInit as AuthenticationDefaultComponentInit } from "@xwiki/cristal-authentication-default";
 import { ComponentInit as AuthenticationUIComponentInit } from "@xwiki/cristal-authentication-ui";
-import { ComponentInit as BackendAPIComponentInit } from "@xwiki/cristal-backend-api";
+import { ComponentInit as BackendAPIComponentInit } from "@xwiki/platform-backend-api";
 import { ComponentInit as GithubBackendComponentInit } from "@xwiki/cristal-backend-github";
 import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-backend-nextcloud";
 import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
-import { ComponentInit as CollaborationAPIComponentInit } from "@xwiki/cristal-collaboration-api";
+import { ComponentInit as CollaborationAPIComponentInit } from "@xwiki/platform-collaboration-api";
 import { ComponentInit as CollaborationHocusPocusComponentInit } from "@xwiki/cristal-collaboration-hocuspocus";
 import { ComponentInit as DateAPIComponentInit } from "@xwiki/cristal-date-api";
 import { ComponentInit as DocumentComponentInit } from "@xwiki/cristal-document-default";
@@ -37,13 +37,13 @@ import { ComponentInit as DefaultPageHierarchyComponentInit } from "@xwiki/crist
 import { ComponentInit as DefaultPageHistoryComponentInit } from "@xwiki/cristal-history-default";
 import { ComponentInit as HistoryUIComponentInit } from "@xwiki/cristal-history-ui";
 import { ComponentInit as InfoActionsComponentInit } from "@xwiki/cristal-info-actions-default";
-import { ComponentInit as LinkSuggestComponentInit } from "@xwiki/cristal-link-suggest-api";
+import { ComponentInit as LinkSuggestComponentInit } from "@xwiki/platform-link-suggest-api";
 import { ComponentInit as MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
 import { ComponentInit as MacrosServiceComponentInit } from "@xwiki/cristal-macros-service";
 import { ComponentInit as MessagesMacrosComponentInit } from "@xwiki/cristal-messages-macros";
 import { ComponentInit as ClickListenerComponentInit } from "@xwiki/cristal-model-click-listener";
-import { ComponentInit as ModelReferenceAPIComponentInit } from "@xwiki/cristal-model-reference-api";
-import { ComponentInit as ModelRemoteURLAPIComponentInit } from "@xwiki/cristal-model-remote-url-api";
+import { ComponentInit as ModelReferenceAPIComponentInit } from "@xwiki/platform-model-reference-api";
+import { ComponentInit as ModelRemoteURLAPIComponentInit } from "@xwiki/platform-model-remote-url-api";
 import { ComponentInit as DefaultNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-default";
 import { ComponentInit as ActionsPagesComponentInit } from "@xwiki/cristal-page-actions-default";
 import { ComponentInit as ActionsPagesUIComponentInit } from "@xwiki/cristal-page-actions-ui";
@@ -54,9 +54,9 @@ import { ComponentInit as SettingsComponentInit } from "@xwiki/cristal-settings-
 import { ComponentInit as SkinComponentInit } from "@xwiki/cristal-skin";
 import { ComponentInit as UIExtensionDefaultComponentInit } from "@xwiki/cristal-uiextension-default";
 import { ComponentInit as UniastHTMLComponentInit } from "@xwiki/cristal-uniast-html";
-import { ComponentInit as UniastMarkdownComponentInit } from "@xwiki/cristal-uniast-markdown";
+import { ComponentInit as UniastMarkdownComponentInit } from "@xwiki/platform-uniast-markdown";
 import { ComponentInit as WikiConfigComponentInit } from "@xwiki/cristal-wiki-config-default";
-import type { Configuration } from "@xwiki/cristal-configuration-api";
+import type { Configuration } from "@xwiki/platform-configuration-api";
 import type { Container } from "inversify";
 
 /**

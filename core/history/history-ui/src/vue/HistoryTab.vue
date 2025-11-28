@@ -19,12 +19,12 @@
 -->
 <script setup lang="ts">
 import messages from "../translations";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { User } from "@xwiki/cristal-user-ui";
 import { inject, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type {
   PageRevision,
   PageRevisionManagerProvider,

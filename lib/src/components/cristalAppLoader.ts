@@ -22,13 +22,13 @@ import { DefaultCristalApp } from "./DefaultCristalApp";
 import { CristalLoader } from "@xwiki/cristal-extension-manager";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
 import { Container } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
 import type {
   Configuration,
   ConfigurationLoader,
   Configurations,
-} from "@xwiki/cristal-configuration-api";
+} from "@xwiki/platform-configuration-api";
 import type {
   SettingsManager,
   SettingsStorage,

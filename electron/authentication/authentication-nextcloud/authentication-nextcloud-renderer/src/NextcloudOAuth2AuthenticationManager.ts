@@ -20,11 +20,11 @@
 
 import AsyncLock from "async-lock";
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type {
   AuthenticationManager,
   UserDetails,
-} from "@xwiki/cristal-authentication-api";
+} from "@xwiki/platform-authentication-api";
 
 interface AuthenticationWindow extends Window {
   authenticationNextcloud: {

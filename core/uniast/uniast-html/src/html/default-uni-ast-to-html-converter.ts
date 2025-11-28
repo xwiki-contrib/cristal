@@ -22,16 +22,16 @@ import {
   escapeHtml,
   produceHtmlEl,
   tryFallibleOrError,
-} from "@xwiki/cristal-fn-utils";
+} from "@xwiki/platform-fn-utils";
 import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
 import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { inject, injectable } from "inversify";
 import type { UniAstToHTMLConverter } from "./uni-ast-to-html-converter";
 import type { MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
 import type { MacrosService } from "@xwiki/cristal-macros-service";
-import type { EntityReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
-import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+import type { EntityReference } from "@xwiki/platform-model-api";
+import type { ModelReferenceParserProvider } from "@xwiki/platform-model-reference-api";
+import type { RemoteURLSerializerProvider } from "@xwiki/platform-model-remote-url-api";
 import type {
   Block,
   BlockStyles,
@@ -39,7 +39,7 @@ import type {
   InlineContent,
   LinkTarget,
   UniAst,
-} from "@xwiki/cristal-uniast-api";
+} from "@xwiki/platform-uniast-api";
 
 @injectable()
 export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {

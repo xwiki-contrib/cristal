@@ -8,8 +8,8 @@ import { ComponentOptionsMixin } from 'vue';
 import { ComponentProvideOptions } from 'vue';
 import { Container } from 'inversify';
 import { DefineComponent } from 'vue';
-import { DocumentReference } from '@xwiki/cristal-model-api';
-import { PageData } from '@xwiki/cristal-api';
+import { DocumentReference } from '@xwiki/platform-model-api';
+import { PageData } from '@xwiki/platform-api';
 import { PublicProps } from 'vue';
 
 // @beta (undocumented)

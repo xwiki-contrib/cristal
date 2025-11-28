@@ -4,8 +4,8 @@
 
 ```ts
 
-import { PageData } from '@xwiki/cristal-api';
-import { UserDetails } from '@xwiki/cristal-authentication-api';
+import { PageData } from '@xwiki/platform-api';
+import { UserDetails } from '@xwiki/platform-authentication-api';
 
 // @beta
 const name_2 = "PageRevisionManager";

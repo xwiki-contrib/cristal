@@ -4,7 +4,7 @@
 
 ```ts
 
-import { Configurations } from '@xwiki/cristal-configuration-api';
+import { Configurations } from '@xwiki/platform-configuration-api';
 
 // @beta (undocumented)
 export function getConfigurations(): Configurations;

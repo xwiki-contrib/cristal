@@ -20,7 +20,7 @@
 
 import { DefaultAuthenticationManagerProvider } from "./defaultAuthenticationManagerProvider";
 import { Container } from "inversify";
-import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
 
 /**
  * @beta
