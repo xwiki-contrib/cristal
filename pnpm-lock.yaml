@@ -240,6 +240,9 @@ catalogs:
     pinia:
       specifier: 3.0.2
       version: 3.0.2
+    playwright:
+      specifier: 1.55.1
+      version: 1.55.1
     postcss:
       specifier: 8.5.6
       version: 8.5.6
@@ -4458,6 +4461,12 @@ importers:
       vite:
         specifier: 'catalog:'
         version: 7.2.4(@types/node@24.10.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+
+  electron/e2e:
+    devDependencies:
+      playwright:
+        specifier: 'catalog:'
+        version: 1.55.1
 
   electron/link-suggest/link-suggest-filesystem:
     dependencies:
