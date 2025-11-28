@@ -30,9 +30,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-document-api": "workspace:*",
-    "@xwiki/cristal-model-api": "workspace:*",
-    "@xwiki/cristal-model-reference-api": "workspace:*",
+    "@xwiki/platform-document-api": "catalog:",
+    "@xwiki/platform-model-api": "catalog:",
+    "@xwiki/platform-model-reference-api": "catalog:",
     "lodash-es": "catalog:"
   },
   "peerDependencies": {

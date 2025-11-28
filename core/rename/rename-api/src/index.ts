@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { PageData } from "@xwiki/cristal-api";
+import type { PageData } from "@xwiki/platform-api";
 
 /**
  * A PageRenameManager can handle page rename operations.

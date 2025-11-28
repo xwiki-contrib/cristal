@@ -22,7 +22,7 @@ import {
   escapeHtml,
   produceHtmlEl,
   tryFallibleOrError,
-} from "@xwiki/cristal-fn-utils";
+} from "@xwiki/platform-fn-utils";
 import { inject, injectable } from "inversify";
 import type { MacrosAstToHtmlConverter } from "./macros-ast-to-html-converter";
 import type {
@@ -30,9 +30,9 @@ import type {
   MacroBlockStyles,
   MacroInlineContent,
   MacroLinkTarget,
-} from "@xwiki/cristal-macros-api";
-import type { ModelReferenceParserProvider } from "@xwiki/cristal-model-reference-api";
-import type { RemoteURLSerializerProvider } from "@xwiki/cristal-model-remote-url-api";
+} from "@xwiki/platform-macros-api";
+import type { ModelReferenceParserProvider } from "@xwiki/platform-model-reference-api";
+import type { RemoteURLSerializerProvider } from "@xwiki/platform-model-remote-url-api";
 
 /**
  * Converter that transforms a macro's returned AST to HTML

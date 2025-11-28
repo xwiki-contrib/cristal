@@ -30,7 +30,7 @@ import { ComponentInit as BrowserComponentInit } from "@xwiki/cristal-browser-de
 import { ComponentInit as BrowserSettingsComponentInit } from "@xwiki/cristal-settings-browser";
 import { loadConfig } from "@xwiki/cristal-configuration-web";
 import type { Container } from "inversify";
-import type { Configuration } from "@xwiki/cristal-configuration-api";
+import type { Configuration } from "@xwiki/platform-configuration-api";
 
 CristalAppLoader.init(
   [

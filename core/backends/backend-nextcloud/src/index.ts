@@ -22,7 +22,7 @@ import { NextcloudWikiConfig } from "./NextcloudWikiConfig";
 import { NextcloudStorage } from "./nextcloudStorage";
 import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
 import { Container } from "inversify";
-import type { Storage, WikiConfig } from "@xwiki/cristal-api";
+import type { Storage, WikiConfig } from "@xwiki/platform-api";
 
 /**
  * @beta

@@ -24,7 +24,7 @@ import type {
   GetConcreteMacroParametersType,
   MacroBlock,
   MacroInfos,
-} from "@xwiki/cristal-macros-api";
+} from "@xwiki/platform-macros-api";
 
 const macroParams = {
   html: { type: "string" },

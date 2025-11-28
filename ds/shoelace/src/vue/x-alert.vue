@@ -20,9 +20,9 @@
 <script setup lang="ts">
 import "@shoelace-style/shoelace/dist/components/alert/alert";
 import "@shoelace-style/shoelace/dist/components/icon/icon";
-import { CIcon } from "@xwiki/cristal-icons";
+import { CIcon } from "@xwiki/platform-icons";
 import { computed } from "vue";
-import type { AlertProps } from "@xwiki/cristal-dsapi";
+import type { AlertProps } from "@xwiki/platform-dsapi";
 
 const { type } = defineProps<AlertProps>();
 

@@ -22,14 +22,14 @@ import {
   AttachmentReference,
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { inject, injectable } from "inversify";
-import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { EntityReference } from "@xwiki/cristal-model-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
+import type { EntityReference } from "@xwiki/platform-model-api";
 import type {
   ModelReferenceParser,
   ModelReferenceParserOptions,
-} from "@xwiki/cristal-model-reference-api";
+} from "@xwiki/platform-model-reference-api";
 
 @injectable()
 export class FileSystemModelReferenceParser implements ModelReferenceParser {

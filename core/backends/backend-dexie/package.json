@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-backend-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-backend-api": "catalog:",
     "@xwiki/cristal-sharedworker-api": "workspace:*",
     "dexie": "catalog:"
   },

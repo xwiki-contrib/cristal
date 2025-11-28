@@ -22,7 +22,7 @@ import { XWikiWikiConfig } from "./XWikiWikiConfig";
 import { XWikiStorage } from "./xwikiStorage";
 import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
 import { Container } from "inversify";
-import type { Storage, WikiConfig } from "@xwiki/cristal-api";
+import type { Storage, WikiConfig } from "@xwiki/platform-api";
 
 /**
  * @beta

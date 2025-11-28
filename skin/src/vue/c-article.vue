@@ -29,12 +29,12 @@ import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 import { User } from "@xwiki/cristal-user-ui";
 import { inject, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type {
   PageHierarchyItem,
   PageHierarchyResolverProvider,
 } from "@xwiki/cristal-hierarchy-api";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 import type { Ref } from "vue";
 
 // FIXME: since vue-tsc 2.2.6, this line fix with a compilation error for no obvious reasons as other components of the

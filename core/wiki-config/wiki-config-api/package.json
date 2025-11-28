@@ -26,8 +26,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-configuration-api": "workspace:*"
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-configuration-api": "catalog:"
   },
   "peerDependencies": {
     "reflect-metadata": "0.x",

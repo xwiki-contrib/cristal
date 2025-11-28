@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-model-api": "workspace:*",
-    "@xwiki/cristal-model-remote-url-api": "workspace:*",
+    "@xwiki/platform-model-api": "catalog:",
+    "@xwiki/platform-model-remote-url-api": "catalog:",
     "@xwiki/cristal-model-remote-url-filesystem-api": "workspace:*"
   },
   "peerDependencies": {

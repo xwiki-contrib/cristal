@@ -22,7 +22,7 @@ import { NextcloudBasicAuthenticationManager } from "./NextcloudBasicAuthenticat
 import { NextcloudLoginFlowAuthenticationManager } from "./NextcloudLoginFlowAuthenticationManager";
 import { NextcloudOAuth2AuthenticationManager } from "./NextcloudOAuth2AuthenticationManager";
 import { NextcloudAuthenticationState } from "@xwiki/cristal-authentication-nextcloud-state";
-import type { AuthenticationManager } from "@xwiki/cristal-authentication-api";
+import type { AuthenticationManager } from "@xwiki/platform-authentication-api";
 import type { Container } from "inversify";
 
 /**

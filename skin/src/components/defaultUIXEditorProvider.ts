@@ -22,7 +22,7 @@ import "reflect-metadata";
 import DefaultUIXTemplateProvider from "./defaultUIXTemplateProvider";
 import { injectable } from "inversify";
 import type { UIXEditorProvider } from "../api/uixEditorProvider";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 @injectable()
 export default class DefaultUIXEditorProvider

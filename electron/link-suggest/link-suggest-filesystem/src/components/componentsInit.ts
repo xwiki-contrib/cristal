@@ -19,9 +19,9 @@
  */
 
 import { FilesystemLinkSuggestService } from "./filesystemLinkSuggestService";
-import { name } from "@xwiki/cristal-link-suggest-api";
+import { name } from "@xwiki/platform-link-suggest-api";
 import { Container } from "inversify";
-import type { LinkSuggestService } from "@xwiki/cristal-link-suggest-api";
+import type { LinkSuggestService } from "@xwiki/platform-link-suggest-api";
 
 /**
  * @beta

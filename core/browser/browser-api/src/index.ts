@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { WikiConfig } from "@xwiki/cristal-api";
+import type { WikiConfig } from "@xwiki/platform-api";
 
 /**
  * Provide the operations to interact with the browser. We need this abstraction

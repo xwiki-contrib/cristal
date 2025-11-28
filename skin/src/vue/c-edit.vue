@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import CDocumentRefresher from "./c-document-refresher.vue";
 import { inject, markRaw } from "vue";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 const cristal = inject<CristalApp>("cristal")!;
 

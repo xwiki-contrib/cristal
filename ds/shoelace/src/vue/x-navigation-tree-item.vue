@@ -26,12 +26,12 @@
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
 import { inject, ref, useTemplateRef } from "vue";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item.d.ts";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
   NavigationTreeSourceProvider,
-} from "@xwiki/cristal-navigation-tree-api";
+} from "@xwiki/platform-navigation-tree-api";
 import type { Ref } from "vue";
 
 type OnClickAction = (node: NavigationTreeNode) => void;

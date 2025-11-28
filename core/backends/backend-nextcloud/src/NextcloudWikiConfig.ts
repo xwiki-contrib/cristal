@@ -18,9 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultWikiConfig } from "@xwiki/cristal-api";
+import { DefaultWikiConfig } from "@xwiki/platform-api";
 import { inject, injectable, named } from "inversify";
-import type { CristalApp, Logger, Storage } from "@xwiki/cristal-api";
+import type { CristalApp, Logger, Storage } from "@xwiki/platform-api";
 
 /**
  * Configuration instance for the Nextcloud backend.

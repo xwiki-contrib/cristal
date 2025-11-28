@@ -19,7 +19,7 @@
 -->
 <script setup lang="ts">
 import "@shoelace-style/shoelace/dist/components/tab-panel/tab-panel";
-import type { TabPanelProps } from "@xwiki/cristal-dsapi";
+import type { TabPanelProps } from "@xwiki/platform-dsapi";
 
 defineProps<TabPanelProps>();
 </script>

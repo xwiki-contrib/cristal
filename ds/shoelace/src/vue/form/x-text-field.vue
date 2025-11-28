@@ -18,7 +18,7 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import type { TextFieldProps } from "@xwiki/cristal-dsapi";
+import type { TextFieldProps } from "@xwiki/platform-dsapi";
 import "@shoelace-style/shoelace/dist/components/input/input";
 
 defineProps<TextFieldProps>();

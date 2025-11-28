@@ -24,7 +24,7 @@ import { Container } from "inversify";
 import type {
   RemoteURLParser,
   RemoteURLSerializer,
-} from "@xwiki/cristal-model-remote-url-api";
+} from "@xwiki/platform-model-remote-url-api";
 
 /**
  * @beta

@@ -19,7 +19,7 @@
 -->
 <script setup lang="ts">
 import { ref, useId, watch } from "vue";
-import type { FileInputModel, TextFieldProps } from "@xwiki/cristal-dsapi";
+import type { FileInputModel, TextFieldProps } from "@xwiki/platform-dsapi";
 import "@shoelace-style/shoelace/dist/components/input/input";
 
 const model = defineModel<FileInputModel>();

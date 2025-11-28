@@ -19,10 +19,10 @@
  */
 
 import DexiePageStorage from "./dexiePageStorage";
-import { DefaultPageData } from "@xwiki/cristal-api";
+import { DefaultPageData } from "@xwiki/platform-api";
 import { inject, injectable } from "inversify";
-import type { Logger, PageData } from "@xwiki/cristal-api";
-import type { OfflineStorage } from "@xwiki/cristal-backend-api";
+import type { Logger, PageData } from "@xwiki/platform-api";
+import type { OfflineStorage } from "@xwiki/platform-backend-api";
 
 @injectable()
 export default class DexieOfflineStorage implements OfflineStorage {

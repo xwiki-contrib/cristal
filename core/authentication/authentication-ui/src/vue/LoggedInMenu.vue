@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import UserDetails from "./UserDetails.vue";
 import messages from "../translations";
-import { CIcon } from "@xwiki/cristal-icons";
+import { CIcon } from "@xwiki/platform-icons";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n({

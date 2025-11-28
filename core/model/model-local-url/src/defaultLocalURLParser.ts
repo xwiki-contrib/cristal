@@ -19,7 +19,7 @@
  */
 
 import type { LocalURLParser } from "./localURLParser";
-import type { EntityReference } from "@xwiki/cristal-model-api";
+import type { EntityReference } from "@xwiki/platform-model-api";
 
 export class DefaultLocalURLParser implements LocalURLParser {
   parse(): EntityReference {

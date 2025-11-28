@@ -4,7 +4,7 @@
 
 ```ts
 
-import { Configuration } from '@xwiki/cristal-configuration-api';
+import { Configuration } from '@xwiki/platform-configuration-api';
 import { Container } from 'inversify';
 import { Settings } from '@xwiki/cristal-settings-api';
 

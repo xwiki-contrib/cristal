@@ -19,8 +19,8 @@
  */
 
 import { getStorageRoot } from "@xwiki/cristal-electron-state";
-import { LinkType } from "@xwiki/cristal-link-suggest-api";
-import { EntityType } from "@xwiki/cristal-model-api";
+import { LinkType } from "@xwiki/platform-link-suggest-api";
+import { EntityType } from "@xwiki/platform-model-api";
 import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import {
   DefaultPageReader,
@@ -32,7 +32,7 @@ import fs from "node:fs";
 import { readdir } from "node:fs/promises";
 import os from "node:os";
 import { basename, dirname, join, relative } from "node:path";
-import type { PageAttachment, PageData } from "@xwiki/cristal-api";
+import type { PageAttachment, PageData } from "@xwiki/platform-api";
 
 const HOME_PATH = ".cristal";
 const HOME_PATH_FULL = join(app.getPath("home"), HOME_PATH);

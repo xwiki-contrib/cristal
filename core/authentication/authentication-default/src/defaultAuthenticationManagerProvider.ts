@@ -19,11 +19,11 @@
  */
 
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type {
   AuthenticationManager,
   AuthenticationManagerProvider,
-} from "@xwiki/cristal-authentication-api";
+} from "@xwiki/platform-authentication-api";
 
 /**
  * Default implementation of the authentication manager. Resolve the class

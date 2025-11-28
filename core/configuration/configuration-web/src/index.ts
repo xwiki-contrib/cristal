@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { Configurations } from "@xwiki/cristal-configuration-api";
+import type { Configurations } from "@xwiki/platform-configuration-api";
 
 /**
  * @param input - the input string

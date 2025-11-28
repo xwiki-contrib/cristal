@@ -24,15 +24,15 @@ import messages from "../translations";
 import {
   Status,
   collaborationManagerProviderName,
-} from "@xwiki/cristal-collaboration-api";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import { BlocknoteEditor as CBlockNoteView } from "@xwiki/cristal-editors-blocknote-headless";
+} from "@xwiki/platform-collaboration-api";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
+import { BlocknoteEditor as CBlockNoteView } from "@xwiki/platform-editors-blocknote-headless";
 import { macrosServiceName } from "@xwiki/cristal-macros-service";
 import { CArticle } from "@xwiki/cristal-skin";
 import {
   markdownToUniAstConverterName,
   uniAstToMarkdownConverterName,
-} from "@xwiki/cristal-uniast-markdown";
+} from "@xwiki/platform-uniast-markdown";
 import { debounce } from "lodash-es";
 import {
   inject,
@@ -46,22 +46,22 @@ import {
 import { useI18n } from "vue-i18n";
 import { onBeforeRouteLeave } from "vue-router";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { StorageProvider } from "@xwiki/cristal-backend-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { StorageProvider } from "@xwiki/platform-backend-api";
 import type {
   CollaborationInitializer,
   CollaborationManagerProvider,
   User,
-} from "@xwiki/cristal-collaboration-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { ContextForMacros } from "@xwiki/cristal-editors-blocknote-headless";
+} from "@xwiki/platform-collaboration-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
+import type { ContextForMacros } from "@xwiki/platform-editors-blocknote-headless";
 import type { MacrosService } from "@xwiki/cristal-macros-service";
-import type { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
-import type { UniAst } from "@xwiki/cristal-uniast-api";
+import type { ModelReferenceHandlerProvider } from "@xwiki/platform-model-reference-api";
+import type { UniAst } from "@xwiki/platform-uniast-api";
 import type {
   MarkdownToUniAstConverter,
   UniAstToMarkdownConverter,
-} from "@xwiki/cristal-uniast-markdown";
+} from "@xwiki/platform-uniast-markdown";
 import type { Ref } from "vue";
 
 const { t } = useI18n({

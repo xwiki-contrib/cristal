@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { registerAsyncComponent } from "@xwiki/cristal-api";
+import { registerAsyncComponent } from "@xwiki/platform-api";
 import { injectable } from "inversify";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
@@ -27,7 +27,7 @@ import { VCol, VContainer, VRow } from "vuetify/components";
 import * as directives from "vuetify/directives";
 import { aliases, mdi } from "vuetify/iconsets/mdi-svg";
 import { blue, blueGrey } from "vuetify/util/colors";
-import type { DesignSystemLoader } from "@xwiki/cristal-api";
+import type { DesignSystemLoader } from "@xwiki/platform-api";
 import type { App } from "vue";
 
 @injectable()

@@ -19,9 +19,9 @@
 -->
 <script setup lang="ts">
 import NoAvatar from "../../images/noavatar.png";
-import { Status } from "@xwiki/cristal-collaboration-api";
-import { CIcon, Size } from "@xwiki/cristal-icons";
-import type { User } from "@xwiki/cristal-collaboration-api";
+import { Status } from "@xwiki/platform-collaboration-api";
+import { CIcon, Size } from "@xwiki/platform-icons";
+import type { User } from "@xwiki/platform-collaboration-api";
 
 const { status, users } = defineProps<{
   status: Status;

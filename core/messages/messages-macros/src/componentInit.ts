@@ -22,8 +22,8 @@ import { ErrorMacro } from "./macros/errorMacro";
 import { InfoMacro } from "./macros/infoMacro";
 import { SuccessMacro } from "./macros/successMacro";
 import { WarningMacro } from "./macros/warningMacro";
-import { eraseParamsTypeForMacroClass } from "@xwiki/cristal-macros-api";
-import type { MacroWithUnknownParamsType } from "@xwiki/cristal-macros-api";
+import { eraseParamsTypeForMacroClass } from "@xwiki/platform-macros-api";
+import type { MacroWithUnknownParamsType } from "@xwiki/platform-macros-api";
 import type { Container } from "inversify";
 
 /**

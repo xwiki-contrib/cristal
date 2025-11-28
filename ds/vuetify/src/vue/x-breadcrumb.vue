@@ -19,7 +19,7 @@
 -->
 <script setup lang="ts">
 import { computed } from "vue";
-import type { BreadcrumbProps } from "@xwiki/cristal-dsapi";
+import type { BreadcrumbProps } from "@xwiki/platform-dsapi";
 
 const props = defineProps<BreadcrumbProps>();
 // Converts props items to the format expected by v-breadcrumbs

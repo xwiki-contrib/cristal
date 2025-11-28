@@ -19,23 +19,23 @@
 -->
 <script setup lang="ts">
 import messages from "../translations";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
-import { CIcon } from "@xwiki/cristal-icons";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
+import { CIcon } from "@xwiki/platform-icons";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { StorageProvider } from "@xwiki/cristal-backend-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { StorageProvider } from "@xwiki/platform-backend-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type {
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import type {
   ModelReferenceHandler,
   ModelReferenceHandlerProvider,
   ModelReferenceSerializer,
   ModelReferenceSerializerProvider,
-} from "@xwiki/cristal-model-reference-api";
+} from "@xwiki/platform-model-reference-api";
 import type { Ref } from "vue";
 
 const cristal = inject<CristalApp>("cristal")!;

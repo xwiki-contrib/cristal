@@ -20,7 +20,7 @@
 
 <script lang="ts" setup>
 import { inject } from "vue";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
 import type { Component } from "vue";
 //

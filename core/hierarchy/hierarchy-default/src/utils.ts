@@ -18,13 +18,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { EntityType } from "@xwiki/cristal-model-api";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
+import { EntityType } from "@xwiki/platform-model-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type { PageHierarchyItem } from "@xwiki/cristal-hierarchy-api";
 import type {
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 
 /**
  * Returns the page hierarchy for a path-like page id.

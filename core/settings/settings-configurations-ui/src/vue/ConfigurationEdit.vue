@@ -20,12 +20,12 @@
 
 <script lang="ts" setup>
 import messages from "../translations";
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
 import { inject, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { Configuration } from "@xwiki/cristal-configuration-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { Configuration } from "@xwiki/platform-configuration-api";
 import type {
   SettingsManager,
   SettingsStorage,

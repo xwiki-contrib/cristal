@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import { inject } from "vue";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 const cristal = inject<CristalApp>("cristal")!;
 const items: Array<string> = cristal.getMenuEntries();

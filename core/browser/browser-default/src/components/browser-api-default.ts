@@ -20,7 +20,7 @@
 
 import { injectable } from "inversify";
 import { onBeforeMount, onBeforeUnmount } from "vue";
-import type { WikiConfig } from "@xwiki/cristal-api";
+import type { WikiConfig } from "@xwiki/platform-api";
 import type { BrowserApi } from "@xwiki/cristal-browser-api";
 
 /**

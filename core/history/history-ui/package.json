@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-document-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-document-api": "catalog:",
     "@xwiki/cristal-extra-tabs-api": "workspace:*",
     "@xwiki/cristal-history-api": "workspace:*",
     "@xwiki/cristal-user-ui": "workspace:*",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "@xwiki/cristal-dsapi": "workspace:*",
+    "@xwiki/platform-dsapi": "catalog:",
     "inversify": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",

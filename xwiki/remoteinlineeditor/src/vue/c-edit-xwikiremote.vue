@@ -28,7 +28,7 @@
 <script lang="ts">
 import { CTemplate } from "@xwiki/cristal-skin";
 import { inject, ref } from "vue";
-import type { CristalApp, Logger } from "@xwiki/cristal-api";
+import type { CristalApp, Logger } from "@xwiki/platform-api";
 
 const pageStatus = ref({
   currentContent: "Initial content",

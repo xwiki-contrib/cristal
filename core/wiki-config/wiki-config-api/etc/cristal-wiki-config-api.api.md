@@ -4,9 +4,9 @@
 
 ```ts
 
-import type { Configurations } from '@xwiki/cristal-configuration-api';
+import type { Configurations } from '@xwiki/platform-configuration-api';
 import type { Ref } from 'vue';
-import type { WikiConfig } from '@xwiki/cristal-api';
+import type { WikiConfig } from '@xwiki/platform-api';
 
 // @beta
 export interface WikiConfigProxy {

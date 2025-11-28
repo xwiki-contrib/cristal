@@ -5,7 +5,7 @@
 ```ts
 
 import { Container } from 'inversify';
-import { DocumentReference } from '@xwiki/cristal-model-api';
+import { DocumentReference } from '@xwiki/platform-model-api';
 
 // @beta (undocumented)
 export class ComponentInit {

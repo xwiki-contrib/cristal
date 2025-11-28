@@ -18,9 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { produceHtmlEl } from "@xwiki/cristal-fn-utils";
+import { produceHtmlEl } from "@xwiki/platform-fn-utils";
 import { injectable } from "inversify";
-import type { BlockMacro, MacroInfos } from "@xwiki/cristal-macros-api";
+import type { BlockMacro, MacroInfos } from "@xwiki/platform-macros-api";
 
 const macroParams = {} as const;
 

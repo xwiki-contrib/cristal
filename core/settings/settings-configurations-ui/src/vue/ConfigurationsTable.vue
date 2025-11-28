@@ -21,12 +21,12 @@
 <script lang="ts" setup>
 import ConfigurationEdit from "./ConfigurationEdit.vue";
 import messages from "../translations";
-import { CIcon } from "@xwiki/cristal-icons";
+import { CIcon } from "@xwiki/platform-icons";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
+import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
 import type {
   SettingsManager,
   SettingsStorage,
