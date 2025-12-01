@@ -30,13 +30,13 @@ import type {
   MacroInlineContent,
 } from "@xwiki/cristal-macros-api";
 import type {
-  RemoteURLSerializer,
-  RemoteURLSerializerProvider,
-} from "@xwiki/cristal-model-remote-url-api";
-import type {
   ModelReferenceParser,
   ModelReferenceParserProvider,
 } from "@xwiki/platform-model-reference-api";
+import type {
+  RemoteURLSerializer,
+  RemoteURLSerializerProvider,
+} from "@xwiki/platform-model-remote-url-api";
 import type { Container } from "inversify";
 
 // eslint-disable-next-line max-statements
