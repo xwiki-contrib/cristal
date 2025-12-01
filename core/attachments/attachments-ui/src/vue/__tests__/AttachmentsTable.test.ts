@@ -20,20 +20,20 @@
 import AttachmentsTable from "../AttachmentsTable.vue";
 import { shallowMount } from "@vue/test-utils";
 import { mockI18n } from "@xwiki/cristal-dev-test-utils";
+import { ClickListener } from "@xwiki/cristal-model-click-listener";
+import { CristalApp } from "@xwiki/platform-api";
 import {
   AttachmentReference,
   DocumentReference,
-} from "@xwiki/cristal-model-api";
-import { ClickListener } from "@xwiki/cristal-model-click-listener";
+} from "@xwiki/platform-model-api";
 import {
   ModelReferenceParser,
   ModelReferenceParserProvider,
-} from "@xwiki/cristal-model-reference-api";
-import { CristalApp } from "@xwiki/platform-api";
+} from "@xwiki/platform-model-reference-api";
 import { Container } from "inversify";
 import { describe, expect, it, vi } from "vitest";
 import { any, mock } from "vitest-mock-extended";
-import type { Attachment } from "@xwiki/cristal-attachments-api";
+import type { Attachment } from "@xwiki/platform-attachments-api";
 
 function initializeMocks() {
   const cristalMock = mock<CristalApp>();

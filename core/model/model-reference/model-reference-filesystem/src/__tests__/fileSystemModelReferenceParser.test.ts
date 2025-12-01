@@ -22,12 +22,12 @@ import {
   AttachmentReference,
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { describe, expect, it } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { ref } from "vue";
-import type { DocumentService } from "@xwiki/cristal-document-api";
 import type { PageData } from "@xwiki/platform-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 
 describe("FileSystemModelReferenceParser", () => {
   const documentService = mock<DocumentService>();

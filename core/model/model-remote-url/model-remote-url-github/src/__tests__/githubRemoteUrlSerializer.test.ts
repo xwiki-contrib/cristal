@@ -18,11 +18,11 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { GitHubRemoteURLSerializer } from "../gitHubRemoteURLSerializer";
+import { CristalApp, WikiConfig } from "@xwiki/platform-api";
 import {
   AttachmentReference,
   DocumentReference,
-} from "@xwiki/cristal-model-api";
-import { CristalApp, WikiConfig } from "@xwiki/platform-api";
+} from "@xwiki/platform-model-api";
 import { describe, expect, it } from "vitest";
 import { mock } from "vitest-mock-extended";
 

@@ -22,7 +22,7 @@ import {
   AttachmentReference,
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { describe, expect, test } from "vitest";
 import { any, mock } from "vitest-mock-extended";
 import type {
@@ -30,13 +30,13 @@ import type {
   MacroInlineContent,
 } from "@xwiki/cristal-macros-api";
 import type {
-  ModelReferenceParser,
-  ModelReferenceParserProvider,
-} from "@xwiki/cristal-model-reference-api";
-import type {
   RemoteURLSerializer,
   RemoteURLSerializerProvider,
 } from "@xwiki/cristal-model-remote-url-api";
+import type {
+  ModelReferenceParser,
+  ModelReferenceParserProvider,
+} from "@xwiki/platform-model-reference-api";
 import type { Container } from "inversify";
 
 // eslint-disable-next-line max-statements
