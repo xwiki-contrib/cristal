@@ -98,7 +98,7 @@ pnpm run test
 pnpm --filter ./web exec playwright install --with-deps
 
 ## Run the tests from the web module.
-pnpm run --filter ./web test:e2e
+docker run -it --rm -v ./:/cristal -w /cristal xwiki/build-node pnpm run -filter ./web test:e2e
 
 ## Run the tests from the web module and update the screenshots
 docker run -it --rm -v ./:/cristal -w /cristal xwiki/build-node pnpm run -filter ./web test:e2e:update-snapshots 
