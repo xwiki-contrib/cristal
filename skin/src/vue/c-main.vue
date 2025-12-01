@@ -23,7 +23,7 @@ import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 
 <template>
   <main>
-    <div id="banners">
+    <div>
       <suspense>
         <u-i-extensions uix-name="main.banner"></u-i-extensions>
       </suspense>
