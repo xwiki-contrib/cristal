@@ -20,13 +20,12 @@
 import "reflect-metadata";
 import CSidebar from "../c-sidebar.vue";
 import { config, flushPromises, mount } from "@vue/test-utils";
-import { DefaultPageData } from "@xwiki/cristal-api";
 import { mockI18n, wrapInSuspense } from "@xwiki/cristal-dev-test-utils";
 import { DocumentReference, SpaceReference } from "@xwiki/cristal-model-api";
+import { DefaultPageData } from "@xwiki/platform-api";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { ref } from "vue";
-import type { WikiConfig } from "@xwiki/cristal-api";
 import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
@@ -35,6 +34,7 @@ import type {
   ModelReferenceSerializer,
   ModelReferenceSerializerProvider,
 } from "@xwiki/cristal-model-reference-api";
+import type { WikiConfig } from "@xwiki/platform-api";
 import type { Container } from "inversify";
 
 // eslint-disable-next-line max-statements

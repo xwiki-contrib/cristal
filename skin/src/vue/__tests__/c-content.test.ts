@@ -20,7 +20,6 @@
 import "reflect-metadata";
 import CContent from "../c-content.vue";
 import { config, mount } from "@vue/test-utils";
-import { PageData } from "@xwiki/cristal-api";
 import {
   makeInjectable,
   mockI18n,
@@ -29,6 +28,7 @@ import {
 import { DocumentService } from "@xwiki/cristal-document-api";
 import { DocumentReference, SpaceReference } from "@xwiki/cristal-model-api";
 import { ClickListener } from "@xwiki/cristal-model-click-listener";
+import { PageData } from "@xwiki/platform-api";
 import { Container } from "inversify";
 import { DeepPartial } from "ts-essentials";
 import { beforeAll, describe, expect, it, vi } from "vitest";

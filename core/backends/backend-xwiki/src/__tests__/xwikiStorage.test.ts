@@ -20,15 +20,15 @@
 
 import "reflect-metadata";
 import { XWikiStorage } from "../xwikiStorage";
-import { DefaultLogger } from "@xwiki/cristal-api";
+import { DefaultLogger } from "@xwiki/platform-api";
 import { describe, expect, it, vi } from "vitest";
 import { anyObject, mock } from "vitest-mock-extended";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
-import type { WikiConfig } from "@xwiki/cristal-api";
 import type {
   AuthenticationManager,
   AuthenticationManagerProvider,
 } from "@xwiki/cristal-authentication-api";
+import type { WikiConfig } from "@xwiki/platform-api";
 
 describe("getPageFromViewURL", () => {
   const wikiConfig: WikiConfig = {

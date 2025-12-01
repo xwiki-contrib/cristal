@@ -17,18 +17,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
 import {
   assertUnreachable,
   escapeHtml,
   produceHtmlEl,
   tryFallibleOrError,
 } from "@xwiki/platform-fn-utils";
-import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
-import { macrosServiceName } from "@xwiki/cristal-macros-service";
+import { macrosServiceName } from "@xwiki/platform-macros-service";
 import { inject, injectable } from "inversify";
 import type { UniAstToHTMLConverter } from "./uni-ast-to-html-converter";
 import type { MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
-import type { MacrosService } from "@xwiki/cristal-macros-service";
+import type { MacrosService } from "@xwiki/platform-macros-service";
 import type { EntityReference } from "@xwiki/platform-model-api";
 import type { ModelReferenceParserProvider } from "@xwiki/platform-model-reference-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/platform-model-remote-url-api";

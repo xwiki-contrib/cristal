@@ -24,7 +24,7 @@ import {
   EntityType,
 } from "@xwiki/cristal-model-api";
 import { describe, expect, it } from "vitest";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 describe("GithubRemoteURLParser", () => {
   const gitHubRemoteURLParser = new GitHubRemoteURLParser({

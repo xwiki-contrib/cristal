@@ -26,8 +26,8 @@ import {
 import { describe, expect, it } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { ref } from "vue";
-import type { PageData } from "@xwiki/cristal-api";
 import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { PageData } from "@xwiki/platform-api";
 
 describe("FileSystemModelReferenceParser", () => {
   const documentService = mock<DocumentService>();

@@ -39,7 +39,7 @@ import { ComponentInit as HistoryUIComponentInit } from "@xwiki/cristal-history-
 import { ComponentInit as InfoActionsComponentInit } from "@xwiki/cristal-info-actions-default";
 import { ComponentInit as LinkSuggestComponentInit } from "@xwiki/platform-link-suggest-api";
 import { ComponentInit as MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
-import { ComponentInit as MacrosServiceComponentInit } from "@xwiki/cristal-macros-service";
+import { ComponentInit as MacrosServiceComponentInit } from "@xwiki/platform-macros-service";
 import { ComponentInit as MessagesMacrosComponentInit } from "@xwiki/cristal-messages-macros";
 import { ComponentInit as ClickListenerComponentInit } from "@xwiki/cristal-model-click-listener";
 import { ComponentInit as ModelReferenceAPIComponentInit } from "@xwiki/platform-model-reference-api";

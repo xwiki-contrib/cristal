@@ -29,8 +29,8 @@ import { Container } from "inversify";
 import { createPinia, setActivePinia } from "pinia";
 import { beforeEach, describe, expect, it } from "vitest";
 import { any, mock } from "vitest-mock-extended";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
 import type { ModelReferenceHandlerProvider } from "@xwiki/cristal-model-reference-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type { MockProxy } from "vitest-mock-extended";
 
 // eslint-disable-next-line max-statements
