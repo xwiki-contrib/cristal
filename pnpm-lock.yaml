@@ -142,8 +142,8 @@ catalogs:
       specifier: 1.4.1
       version: 1.4.1
     axios:
-      specifier: 1.13.1
-      version: 1.13.1
+      specifier: 1.13.2
+      version: 1.13.2
     comlink:
       specifier: 4.4.2
       version: 4.4.2
@@ -664,7 +664,7 @@ importers:
         version: 18.0.0-1764348314(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -792,7 +792,7 @@ importers:
         version: 1.4.1
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -960,7 +960,7 @@ importers:
         version: 18.0.0-1764348314(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -3471,7 +3471,7 @@ importers:
         version: 18.0.0-1764348314(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       electron:
         specifier: 39.0.0
         version: 39.0.0
@@ -3546,7 +3546,7 @@ importers:
         version: 18.0.0-1764348314(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       electron:
         specifier: 39.0.0
         version: 39.0.0
@@ -3627,7 +3627,7 @@ importers:
         version: 18.0.0-1764348314(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.1
+        version: 1.13.2
       electron:
         specifier: 39.0.0
         version: 39.0.0
@@ -6618,9 +6618,6 @@ packages:
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
-
-  axios@1.13.1:
-    resolution: {integrity: sha512-hU4EGxxt+j7TQijx1oYdAjw4xuIp1wRQSsbMFwSthCWeBQur1eF+qJ5iQ5sN3Tw8YRzQNKb8jszgBdMDVqwJcw==}
 
   axios@1.13.2:
     resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==}
@@ -12280,14 +12277,6 @@ snapshots:
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.1.0
-
-  axios@1.13.1:
-    dependencies:
-      follow-redirects: 1.15.11
-      form-data: 4.0.5
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
 
   axios@1.13.2:
     dependencies:
