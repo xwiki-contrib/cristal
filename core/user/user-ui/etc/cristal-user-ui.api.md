@@ -8,7 +8,7 @@ import { ComponentOptionsMixin } from 'vue';
 import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';
 import { PublicProps } from 'vue';
-import { UserDetails } from '@xwiki/cristal-authentication-api';
+import { UserDetails } from '@xwiki/platform-authentication-api';
 
 // @beta (undocumented)
 export const User: DefineComponent<    {

@@ -30,17 +30,17 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-fn-utils": "workspace:*",
-    "@xwiki/cristal-macros-api": "workspace:*",
-    "@xwiki/cristal-model-reference-api": "workspace:*",
-    "@xwiki/cristal-model-remote-url-api": "workspace:*"
+    "@xwiki/platform-fn-utils": "catalog:",
+    "@xwiki/platform-macros-api": "catalog:",
+    "@xwiki/platform-model-reference-api": "catalog:",
+    "@xwiki/platform-model-remote-url-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "@xwiki/cristal-model-api": "workspace:*",
+    "@xwiki/platform-model-api": "catalog:",
     "inversify": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

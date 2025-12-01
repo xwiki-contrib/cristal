@@ -4,7 +4,7 @@
 
 ```ts
 
-import type { AlertActions } from '@xwiki/cristal-dsapi';
+import type { AlertActions } from '@xwiki/platform-dsapi';
 import type { Ref } from 'vue';
 
 // @beta (undocumented)

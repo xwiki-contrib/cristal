@@ -21,11 +21,11 @@ import { DefaultSettingsManager } from "../defaultSettingsManager";
 import { DefaultSettingsParser } from "../defaultSettingsParser";
 import { describe, expect, it } from "vitest";
 import { mock } from "vitest-mock-extended";
-import type { CristalApp } from "@xwiki/cristal-api";
 import type {
   Settings,
   SettingsParserProvider,
 } from "@xwiki/cristal-settings-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type { Container } from "inversify";
 
 class QuestionSettings implements Settings {

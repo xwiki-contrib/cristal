@@ -30,7 +30,7 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
     "@xwiki/cristal-settings-api": "workspace:*"
   },
   "peerDependencies": {
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "@xwiki/cristal-dsapi": "workspace:*",
+    "@xwiki/platform-dsapi": "catalog:",
     "inversify": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

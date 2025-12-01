@@ -23,7 +23,7 @@ import { NextcloudModelReferenceSerializer } from "./nextcloudModelReferenceSeri
 import type {
   ModelReferenceParser,
   ModelReferenceSerializer,
-} from "@xwiki/cristal-model-reference-api";
+} from "@xwiki/platform-model-reference-api";
 import type { Container } from "inversify";
 
 /**

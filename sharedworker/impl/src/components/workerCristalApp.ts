@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultLogger } from "@xwiki/cristal-api";
+import { DefaultLogger } from "@xwiki/platform-api";
 import { injectable } from "inversify";
 import type {
   CristalApp,
@@ -27,8 +27,8 @@ import type {
   PageData,
   SkinManager,
   WikiConfig,
-} from "@xwiki/cristal-api";
-import type { Configurations } from "@xwiki/cristal-configuration-api";
+} from "@xwiki/platform-api";
+import type { Configurations } from "@xwiki/platform-configuration-api";
 import type { Container } from "inversify";
 import type { App, Component } from "vue";
 import type { Router } from "vue-router";

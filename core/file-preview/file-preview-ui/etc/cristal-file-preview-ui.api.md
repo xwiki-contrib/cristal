@@ -4,7 +4,7 @@
 
 ```ts
 
-import { Attachment } from '@xwiki/cristal-attachments-api';
+import { Attachment } from '@xwiki/platform-attachments-api';
 import { ComponentOptionsMixin } from 'vue';
 import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';

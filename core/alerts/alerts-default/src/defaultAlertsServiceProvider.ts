@@ -23,7 +23,7 @@ import type {
   AlertsService,
   AlertsServiceProvider,
 } from "@xwiki/cristal-alerts-api";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 /**
  * Provider for {@link DefaultAlertsService}.

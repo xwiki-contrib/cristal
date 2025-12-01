@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import { inject, shallowRef } from "vue";
-import type { CristalApp, Logger } from "@xwiki/cristal-api";
+import type { CristalApp, Logger } from "@xwiki/platform-api";
 import type { Component } from "vue";
 
 let components: Array<Component> = [];

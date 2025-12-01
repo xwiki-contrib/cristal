@@ -19,8 +19,8 @@
  */
 
 import { XWikiCollaborationProvider } from "./XWikiCollaborationProvider";
-import { collaborationManagerName } from "@xwiki/cristal-collaboration-api";
-import type { CollaborationManager } from "@xwiki/cristal-collaboration-api";
+import { collaborationManagerName } from "@xwiki/platform-collaboration-api";
+import type { CollaborationManager } from "@xwiki/platform-collaboration-api";
 import type { Container } from "inversify";
 
 /**

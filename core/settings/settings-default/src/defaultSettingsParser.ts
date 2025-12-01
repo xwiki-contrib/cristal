@@ -20,12 +20,12 @@
 
 import { DefaultSettings } from "./defaultSettings";
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
 import type {
   Settings,
   SettingsParser,
   SettingsParserProvider,
 } from "@xwiki/cristal-settings-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 /**
  * Default implementation for {@link SettingsParser}.

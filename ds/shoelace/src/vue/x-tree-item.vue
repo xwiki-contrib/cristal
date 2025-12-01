@@ -21,7 +21,7 @@
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
 import { useTemplateRef } from "vue";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item.d.ts";
-import type { DisplayableTreeNode } from "@xwiki/cristal-dsapi";
+import type { DisplayableTreeNode } from "@xwiki/platform-dsapi";
 
 const current = useTemplateRef<SlTreeItem>("current");
 

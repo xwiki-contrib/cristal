@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import "@shoelace-style/shoelace/dist/components/avatar/avatar";
-import type { AvatarProps } from "@xwiki/cristal-dsapi";
+import type { AvatarProps } from "@xwiki/platform-dsapi";
 
 withDefaults(defineProps<AvatarProps>(), {
   // reuse shoelace default avatar size when no explicit size value is passed in the props.

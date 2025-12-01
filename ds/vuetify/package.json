@@ -30,13 +30,13 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-document-api": "workspace:*",
-    "@xwiki/cristal-fn-utils": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-document-api": "catalog:",
+    "@xwiki/platform-fn-utils": "catalog:",
     "@xwiki/cristal-hierarchy-api": "workspace:*",
-    "@xwiki/cristal-model-api": "workspace:*",
-    "@xwiki/cristal-model-reference-api": "workspace:*",
-    "@xwiki/cristal-navigation-tree-api": "workspace:*",
+    "@xwiki/platform-model-api": "catalog:",
+    "@xwiki/platform-model-reference-api": "catalog:",
+    "@xwiki/platform-navigation-tree-api": "catalog:",
     "vue-i18n": "catalog:",
     "vuetify": "catalog:"
   },
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@vue/test-utils": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
-    "@xwiki/cristal-dsapi": "workspace:*",
+    "@xwiki/platform-dsapi": "catalog:",
     "inversify": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",

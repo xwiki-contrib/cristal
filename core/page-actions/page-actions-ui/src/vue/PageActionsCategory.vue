@@ -19,13 +19,13 @@
 -->
 <script setup lang="ts">
 import { inject, onMounted, ref, shallowRef } from "vue";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
 import type {
   PageAction,
   PageActionCategory,
   PageActionService,
 } from "@xwiki/cristal-page-actions-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 import type { Component, Ref, ShallowRef } from "vue";
 
 const props = defineProps<{

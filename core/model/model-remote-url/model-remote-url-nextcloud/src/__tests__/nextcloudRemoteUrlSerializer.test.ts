@@ -23,14 +23,14 @@ import {
   DocumentReference,
   SpaceReference,
   WikiReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { describe, expect, it } from "vitest";
 import { mock } from "vitest-mock-extended";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
 import type {
   AuthenticationManager,
   AuthenticationManagerProvider,
 } from "@xwiki/cristal-authentication-api";
+import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
 
 describe("NextcloudRemoteURLSerializer", () => {
   const mockAuthenticationManagerProvider =

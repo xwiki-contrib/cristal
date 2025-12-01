@@ -22,7 +22,7 @@ import messages from "../../translations";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { VSelect } from "vuetify/components/VSelect";
-import type { SelectProps } from "@xwiki/cristal-dsapi";
+import type { SelectProps } from "@xwiki/platform-dsapi";
 
 const props = defineProps<SelectProps>();
 const selected = defineModel<string>();

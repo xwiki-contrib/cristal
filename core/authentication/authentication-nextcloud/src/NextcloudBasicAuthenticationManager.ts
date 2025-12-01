@@ -21,11 +21,11 @@
 import { NextcloudAuthenticationState } from "@xwiki/cristal-authentication-nextcloud-state";
 import { inject, injectable } from "inversify";
 import Cookies from "js-cookie";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
+import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
 import type {
   AuthenticationManager,
   UserDetails,
-} from "@xwiki/cristal-authentication-api";
+} from "@xwiki/platform-authentication-api";
 
 /**
  * {@link AuthenticationManager} for the Nextcloud backend, using Basic auth.

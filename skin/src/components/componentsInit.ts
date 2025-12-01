@@ -29,10 +29,10 @@ import { UIXSearchTemplateProvider } from "./uixSearchTemplateProvider";
 import { UIXVueTemplateProvider } from "./uixVueTemplateProvider";
 import type { UIXTemplateProvider } from "../api/uixTemplateProvider";
 import type { VueTemplateProvider } from "../api/vueTemplateProvider";
-import type { Logger, SkinManager } from "@xwiki/cristal-api";
 import type { ExtraTab } from "@xwiki/cristal-extra-tabs-api";
 import type { InfoAction } from "@xwiki/cristal-info-actions-api";
 import type { UIExtension } from "@xwiki/cristal-uiextension-api";
+import type { Logger, SkinManager } from "@xwiki/platform-api";
 import type { Container } from "inversify";
 
 /**

@@ -19,15 +19,15 @@
 -->
 <script lang="ts" setup>
 import messages from "../translations";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { inject, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
 import type {
   UIExtension,
   UIExtensionsManager,
 } from "@xwiki/cristal-uiextension-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type { Component, Ref } from "vue";
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;

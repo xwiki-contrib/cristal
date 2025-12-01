@@ -27,7 +27,7 @@ import Main from "../vue/c-main.vue";
 import Sidebar from "../vue/c-sidebar.vue";
 import View from "../vue/c-view.vue";
 import { injectable } from "inversify";
-import type { DesignSystemLoader, SkinManager } from "@xwiki/cristal-api";
+import type { DesignSystemLoader, SkinManager } from "@xwiki/platform-api";
 import type { Container } from "inversify";
 import type { App, Component } from "vue";
 

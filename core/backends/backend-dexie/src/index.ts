@@ -21,8 +21,8 @@
 import DexieOfflineStorage from "./dexieOfflineStorage";
 import { WrappingOfflineStorage } from "./wrappingOfflineStorage";
 import { Container } from "inversify";
-import type { WrappingStorage } from "@xwiki/cristal-api";
-import type { OfflineStorage } from "@xwiki/cristal-backend-api";
+import type { WrappingStorage } from "@xwiki/platform-api";
+import type { OfflineStorage } from "@xwiki/platform-backend-api";
 
 /**
  * @beta

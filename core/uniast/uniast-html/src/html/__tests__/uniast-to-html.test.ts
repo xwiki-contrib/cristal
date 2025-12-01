@@ -20,29 +20,29 @@
 
 import { DefaultUniAstToHTMLConverter } from "../default-uni-ast-to-html-converter";
 import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
-import { macrosServiceName } from "@xwiki/cristal-macros-service";
+import { macrosServiceName } from "@xwiki/platform-macros-service";
 import {
   AttachmentReference,
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { Container } from "inversify";
 import { describe, expect, test } from "vitest";
 import { any, mock } from "vitest-mock-extended";
 import type { MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
-import type { MacrosService } from "@xwiki/cristal-macros-service";
+import type { MacrosService } from "@xwiki/platform-macros-service";
 import type {
   ModelReferenceHandlerProvider,
   ModelReferenceParser,
   ModelReferenceParserProvider,
   ModelReferenceSerializerProvider,
-} from "@xwiki/cristal-model-reference-api";
+} from "@xwiki/platform-model-reference-api";
 import type {
   RemoteURLParserProvider,
   RemoteURLSerializer,
   RemoteURLSerializerProvider,
-} from "@xwiki/cristal-model-remote-url-api";
-import type { BlockStyles } from "@xwiki/cristal-uniast-api";
+} from "@xwiki/platform-model-remote-url-api";
+import type { BlockStyles } from "@xwiki/platform-uniast-api";
 
 // eslint-disable-next-line max-statements
 function init() {

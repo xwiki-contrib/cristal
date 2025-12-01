@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { VTreeview } from "vuetify/components/VTreeview";
-import type { DisplayableTreeNode, TreeProps } from "@xwiki/cristal-dsapi";
+import type { DisplayableTreeNode, TreeProps } from "@xwiki/platform-dsapi";
 import type { Ref } from "vue";
 
 defineProps<TreeProps>();

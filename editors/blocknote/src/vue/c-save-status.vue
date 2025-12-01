@@ -26,7 +26,7 @@ export enum SaveStatus {
 </script>
 
 <script setup lang="ts">
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { computed } from "vue";
 
 const { saveStatus } = defineProps<{ saveStatus: SaveStatus }>();

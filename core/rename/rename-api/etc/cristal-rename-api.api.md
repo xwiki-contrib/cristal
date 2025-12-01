@@ -4,7 +4,7 @@
 
 ```ts
 
-import { PageData } from '@xwiki/cristal-api';
+import { PageData } from '@xwiki/platform-api';
 
 // @beta
 const name_2 = "PageRenameManager";

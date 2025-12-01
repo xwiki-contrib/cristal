@@ -24,7 +24,7 @@ import type {
   InlineMacro,
   MacroInfos,
   MacroInlineContent,
-} from "@xwiki/cristal-macros-api";
+} from "@xwiki/platform-macros-api";
 
 const macroParams = {
   html: { type: "string" },

@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import XTreeItem from "./x-tree-item.vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
-import type { TreeProps } from "@xwiki/cristal-dsapi";
+import type { TreeProps } from "@xwiki/platform-dsapi";
 
 defineProps<TreeProps>();
 const opened = defineModel<string[]>("opened", { default: [] });

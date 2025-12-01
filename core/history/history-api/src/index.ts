@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { PageData } from "@xwiki/cristal-api";
-import type { UserDetails } from "@xwiki/cristal-authentication-api";
+import type { PageData } from "@xwiki/platform-api";
+import type { UserDetails } from "@xwiki/platform-authentication-api";
 
 /**
  * Description of a revision for a given page.

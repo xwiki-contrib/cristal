@@ -4,7 +4,7 @@
 
 ```ts
 
-import { WikiConfig } from '@xwiki/cristal-api';
+import { WikiConfig } from '@xwiki/platform-api';
 
 // @beta
 export interface BrowserApi {

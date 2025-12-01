@@ -31,9 +31,9 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@hocuspocus/provider": "catalog:",
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-collaboration-api": "workspace:*",
-    "@xwiki/cristal-document-api": "workspace:*"
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-collaboration-api": "catalog:",
+    "@xwiki/platform-document-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",

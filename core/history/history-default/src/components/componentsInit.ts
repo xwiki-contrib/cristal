@@ -20,11 +20,11 @@
 
 import { name as PageRevisionManagerName } from "@xwiki/cristal-history-api";
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
 import type {
   PageRevisionManager,
   PageRevisionManagerProvider,
 } from "@xwiki/cristal-history-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 /**
  * Default implementation for PageRevisionManagerProvider.

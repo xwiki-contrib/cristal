@@ -18,7 +18,7 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
-import type { MenuItemProps } from "@xwiki/cristal-dsapi";
+import type { MenuItemProps } from "@xwiki/platform-dsapi";
 
 defineProps<MenuItemProps>();
 </script>

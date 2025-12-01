@@ -21,15 +21,15 @@
 import { name } from "@xwiki/cristal-hierarchy-api";
 import { getPageHierarchyFromPath } from "@xwiki/cristal-hierarchy-default";
 import { Container, inject, injectable } from "inversify";
-import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type {
   PageHierarchyItem,
   PageHierarchyResolver,
 } from "@xwiki/cristal-hierarchy-api";
+import type { CristalApp, Logger } from "@xwiki/platform-api";
 import type {
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 
 /**
  * Implementation of PageHierarchyResolver for the FileSystem backend.

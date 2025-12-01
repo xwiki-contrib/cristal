@@ -23,10 +23,10 @@ import {
   DocumentReference,
   EntityType,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { injectable } from "inversify";
-import type { EntityReference, WikiReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceHandler } from "@xwiki/cristal-model-reference-api";
+import type { EntityReference, WikiReference } from "@xwiki/platform-model-api";
+import type { ModelReferenceHandler } from "@xwiki/platform-model-reference-api";
 
 /**
  * Implementation of {@link ModelReferenceHandler} for the XWiki backend.

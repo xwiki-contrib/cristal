@@ -33,20 +33,20 @@
  *     on items, were also disabled.
  */
 import XNavigationTreeItem from "./x-navigation-tree-item.vue";
-import { navigationTreePropsDefaults } from "@xwiki/cristal-dsapi";
-import { SpaceReference } from "@xwiki/cristal-model-api";
+import { navigationTreePropsDefaults } from "@xwiki/platform-dsapi";
+import { SpaceReference } from "@xwiki/platform-model-api";
 import { inject, onBeforeMount, ref, useTemplateRef, watch } from "vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item.d.ts";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { NavigationTreeProps } from "@xwiki/cristal-dsapi";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
+import type { NavigationTreeProps } from "@xwiki/platform-dsapi";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
   NavigationTreeSourceProvider,
-} from "@xwiki/cristal-navigation-tree-api";
+} from "@xwiki/platform-navigation-tree-api";
 import type { Ref } from "vue";
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
