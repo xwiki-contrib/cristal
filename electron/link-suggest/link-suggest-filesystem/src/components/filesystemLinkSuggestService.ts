@@ -21,7 +21,10 @@ import { LinkType } from "@xwiki/platform-link-suggest-api";
 import { EntityType } from "@xwiki/platform-model-api";
 import { injectable } from "inversify";
 import type { PageAttachment, PageData } from "@xwiki/platform-api";
-import type { Link, LinkSuggestService } from "@xwiki/platform-link-suggest-api";
+import type {
+  Link,
+  LinkSuggestService,
+} from "@xwiki/platform-link-suggest-api";
 
 declare const fileSystemStorage: {
   search(

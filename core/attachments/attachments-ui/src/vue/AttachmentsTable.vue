@@ -21,13 +21,13 @@
 import messages from "../translations";
 import { Date } from "@xwiki/cristal-date-ui";
 import { FileSize } from "@xwiki/cristal-file-preview-ui";
-import { AttachmentReference, EntityType } from "@xwiki/platform-model-api";
 import { User } from "@xwiki/cristal-user-ui";
+import { AttachmentReference, EntityType } from "@xwiki/platform-model-api";
 import { computed, inject } from "vue";
 import { useI18n } from "vue-i18n";
+import type { ClickListener } from "@xwiki/cristal-model-click-listener";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { Attachment } from "@xwiki/platform-attachments-api";
-import type { ClickListener } from "@xwiki/cristal-model-click-listener";
 import type { ModelReferenceParserProvider } from "@xwiki/platform-model-reference-api";
 
 const { t } = useI18n({

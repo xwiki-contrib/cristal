@@ -18,12 +18,12 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
-import { CIcon, Size } from "@xwiki/platform-icons";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject } from "vue";
-import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
 import type { SettingsManager } from "@xwiki/cristal-settings-api";
 import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
+import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
 import type { Ref } from "vue";
 
 const cristal = inject<CristalApp>("cristal")!;

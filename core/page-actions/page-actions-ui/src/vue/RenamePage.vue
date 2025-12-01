@@ -23,6 +23,10 @@ import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
+import type {
+  PageRenameManager,
+  PageRenameManagerProvider,
+} from "@xwiki/cristal-rename-api";
 import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
 import type { DocumentReference } from "@xwiki/platform-model-api";
@@ -34,10 +38,6 @@ import type {
   ModelReferenceSerializer,
   ModelReferenceSerializerProvider,
 } from "@xwiki/platform-model-reference-api";
-import type {
-  PageRenameManager,
-  PageRenameManagerProvider,
-} from "@xwiki/cristal-rename-api";
 import type { Ref } from "vue";
 
 const { t } = useI18n({

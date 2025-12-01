@@ -18,9 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { getParentNodesIdFromPath } from "@xwiki/cristal-navigation-tree-default";
 import { SpaceReference, WikiReference } from "@xwiki/platform-model-api";
 import { name as NavigationTreeSourceName } from "@xwiki/platform-navigation-tree-api";
-import { getParentNodesIdFromPath } from "@xwiki/cristal-navigation-tree-default";
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp, Logger } from "@xwiki/platform-api";
 import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";

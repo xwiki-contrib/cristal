@@ -22,7 +22,10 @@ import { LinkType, name } from "@xwiki/platform-link-suggest-api";
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
-import type { Link, LinkSuggestService } from "@xwiki/platform-link-suggest-api";
+import type {
+  Link,
+  LinkSuggestService,
+} from "@xwiki/platform-link-suggest-api";
 import type { ModelReferenceParserProvider } from "@xwiki/platform-model-reference-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/platform-model-remote-url-api";
 

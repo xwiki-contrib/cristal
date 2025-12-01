@@ -24,10 +24,10 @@ import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
+import type { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
 import type { TreeNode } from "@xwiki/platform-fn-utils";
-import type { UIExtensionsManager } from "@xwiki/cristal-uiextension-api";
 import type { Ref } from "vue";
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;

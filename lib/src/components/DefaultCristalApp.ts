@@ -30,6 +30,13 @@ import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
 import { createRouter, createWebHashHistory } from "vue-router";
 import type { RouterFactory } from "../api/RouterFactoy";
+import type { BrowserApi } from "@xwiki/cristal-browser-api";
+import type { ExtensionManager } from "@xwiki/cristal-extension-manager";
+import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
+import type {
+  UIXTemplateProvider,
+  VueTemplateProvider,
+} from "@xwiki/cristal-skin";
 import type {
   CristalApp,
   Logger,
@@ -38,15 +45,8 @@ import type {
   SkinManager,
   WikiConfig,
 } from "@xwiki/platform-api";
-import type { BrowserApi } from "@xwiki/cristal-browser-api";
 import type { Configurations } from "@xwiki/platform-configuration-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
-import type { ExtensionManager } from "@xwiki/cristal-extension-manager";
-import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
-import type {
-  UIXTemplateProvider,
-  VueTemplateProvider,
-} from "@xwiki/cristal-skin";
 import type { Container } from "inversify";
 import type { App, Component, Ref } from "vue";
 import type { RouteRecordRaw, Router } from "vue-router";

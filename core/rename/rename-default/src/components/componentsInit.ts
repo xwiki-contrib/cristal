@@ -20,11 +20,11 @@
 
 import { name as pageRenameManagerName } from "@xwiki/cristal-rename-api";
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/platform-api";
 import type {
   PageRenameManager,
   PageRenameManagerProvider,
 } from "@xwiki/cristal-rename-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 /**
  * Default implementation for {@link PageRenameManagerProvider}.

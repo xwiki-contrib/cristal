@@ -18,9 +18,9 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
 import { DefaultPageData, JSONLDDocument } from "@xwiki/platform-api";
 import { AbstractStorage } from "@xwiki/platform-backend-api";
-import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
 import { inject, injectable } from "inversify";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
 import type {

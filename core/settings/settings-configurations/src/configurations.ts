@@ -18,8 +18,8 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { Configuration } from "@xwiki/platform-configuration-api";
 import type { Settings } from "@xwiki/cristal-settings-api";
+import type { Configuration } from "@xwiki/platform-configuration-api";
 
 /**
  * Imlementation of {@link Settings} to handle {@link Configuration} instances.

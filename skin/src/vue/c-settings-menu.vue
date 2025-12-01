@@ -20,8 +20,8 @@
 <script setup lang="ts">
 import CConfigMenu from "./c-config-menu.vue";
 import logo from "../images/xwiki-logo-color.svg";
-import { CIcon } from "@xwiki/platform-icons";
 import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
+import { CIcon } from "@xwiki/platform-icons";
 </script>
 
 <template>

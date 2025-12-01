@@ -18,12 +18,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { DefaultPageData } from "@xwiki/platform-api";
-import { AbstractStorage } from "@xwiki/platform-backend-api";
 import {
   DefaultPageReader,
   DefaultPageWriter,
 } from "@xwiki/cristal-page-default";
+import { DefaultPageData } from "@xwiki/platform-api";
+import { AbstractStorage } from "@xwiki/platform-backend-api";
 import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";

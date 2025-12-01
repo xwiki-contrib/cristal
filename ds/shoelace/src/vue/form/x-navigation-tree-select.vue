@@ -24,13 +24,13 @@ import { navigationTreeSelectPropsDefaults } from "@xwiki/platform-dsapi";
 import { EntityType, SpaceReference } from "@xwiki/platform-model-api";
 import { inject, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp } from "@xwiki/platform-api";
-import type { NavigationTreeSelectProps } from "@xwiki/platform-dsapi";
 import type {
   PageHierarchyItem,
   PageHierarchyResolver,
   PageHierarchyResolverProvider,
 } from "@xwiki/cristal-hierarchy-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { NavigationTreeSelectProps } from "@xwiki/platform-dsapi";
 import type { DocumentReference } from "@xwiki/platform-model-api";
 import type {
   ModelReferenceHandler,

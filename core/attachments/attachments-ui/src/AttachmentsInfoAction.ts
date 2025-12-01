@@ -19,9 +19,9 @@
  */
 
 import { inject, injectable } from "inversify";
+import type { InfoAction } from "@xwiki/cristal-info-actions-api";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { AttachmentsService } from "@xwiki/platform-attachments-api";
-import type { InfoAction } from "@xwiki/cristal-info-actions-api";
 import type { Ref } from "vue";
 
 /**

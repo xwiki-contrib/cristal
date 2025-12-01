@@ -21,8 +21,8 @@
 <script setup lang="ts">
 import InfoAction from "./InfoAction.vue";
 import { inject } from "vue";
-import type { CristalApp } from "@xwiki/platform-api";
 import type { InfoActionsService } from "@xwiki/cristal-info-actions-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 const cristal = inject<CristalApp>("cristal")!;
 

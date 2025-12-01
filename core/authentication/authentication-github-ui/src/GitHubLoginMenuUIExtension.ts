@@ -19,11 +19,11 @@
  */
 
 import { inject, injectable } from "inversify";
+import type { UIExtension } from "@xwiki/cristal-uiextension-api";
 import type {
   AuthenticationManager,
   AuthenticationManagerProvider,
 } from "@xwiki/platform-authentication-api";
-import type { UIExtension } from "@xwiki/cristal-uiextension-api";
 import type { Component } from "vue";
 
 /**

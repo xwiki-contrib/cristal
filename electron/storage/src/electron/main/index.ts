@@ -19,13 +19,13 @@
  */
 
 import { getStorageRoot } from "@xwiki/cristal-electron-state";
-import { LinkType } from "@xwiki/platform-link-suggest-api";
-import { EntityType } from "@xwiki/platform-model-api";
 import { protocol as cristalFSProtocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import {
   DefaultPageReader,
   DefaultPageWriter,
 } from "@xwiki/cristal-page-default";
+import { LinkType } from "@xwiki/platform-link-suggest-api";
+import { EntityType } from "@xwiki/platform-model-api";
 import { app, ipcMain, net, protocol, shell } from "electron";
 import mime from "mime";
 import fs from "node:fs";

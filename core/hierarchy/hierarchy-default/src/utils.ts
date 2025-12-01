@@ -19,8 +19,8 @@
  */
 
 import { EntityType } from "@xwiki/platform-model-api";
-import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type { PageHierarchyItem } from "@xwiki/cristal-hierarchy-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type {
   DocumentReference,
   SpaceReference,

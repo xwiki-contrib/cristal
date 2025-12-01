@@ -23,9 +23,9 @@ import messages from "../translations";
 import { name as browserApiName } from "@xwiki/cristal-browser-api";
 import { inject } from "vue";
 import { I18nT, useI18n } from "vue-i18n";
+import type { BrowserApi } from "@xwiki/cristal-browser-api";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
-import type { BrowserApi } from "@xwiki/cristal-browser-api";
 
 const { t } = useI18n({
   messages,

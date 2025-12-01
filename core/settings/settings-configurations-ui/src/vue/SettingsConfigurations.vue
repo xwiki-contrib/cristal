@@ -22,8 +22,8 @@
 import ConfigurationsTable from "./ConfigurationsTable.vue";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
 import { inject } from "vue";
-import type { CristalApp } from "@xwiki/platform-api";
 import type { SettingsManager } from "@xwiki/cristal-settings-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 const cristal = inject<CristalApp>("cristal")!;
 const settingsManager = cristal

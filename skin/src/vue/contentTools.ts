@@ -19,9 +19,9 @@
  */
 
 import { createVNode, render } from "vue";
+import type { ClickListener } from "@xwiki/cristal-model-click-listener";
 import type { CristalApp, Logger } from "@xwiki/platform-api";
 import type { StorageProvider } from "@xwiki/platform-backend-api";
-import type { ClickListener } from "@xwiki/cristal-model-click-listener";
 import type { App, Component, VNode } from "vue";
 
 /**

@@ -24,7 +24,10 @@ import { inject, injectable } from "inversify";
 import xmlescape from "xml-escape";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
-import type { Link, LinkSuggestService } from "@xwiki/platform-link-suggest-api";
+import type {
+  Link,
+  LinkSuggestService,
+} from "@xwiki/platform-link-suggest-api";
 import type { ModelReferenceSerializerProvider } from "@xwiki/platform-model-reference-api";
 import type { RemoteURLParserProvider } from "@xwiki/platform-model-remote-url-api";
 

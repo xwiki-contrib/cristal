@@ -18,12 +18,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { protocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import {
   AttachmentReference,
   DocumentReference,
   SpaceReference,
 } from "@xwiki/platform-model-api";
-import { protocol } from "@xwiki/cristal-model-remote-url-filesystem-api";
 import { injectable } from "inversify";
 import type { EntityReference } from "@xwiki/platform-model-api";
 import type { RemoteURLParser } from "@xwiki/platform-model-remote-url-api";

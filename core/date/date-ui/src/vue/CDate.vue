@@ -19,8 +19,8 @@
 -->
 <script lang="ts" setup>
 import { inject } from "vue";
-import type { CristalApp } from "@xwiki/platform-api";
 import type { DateService } from "@xwiki/cristal-date-api";
+import type { CristalApp } from "@xwiki/platform-api";
 
 defineProps<{ date: Date }>();
 const cristal = inject<CristalApp>("cristal")!;
