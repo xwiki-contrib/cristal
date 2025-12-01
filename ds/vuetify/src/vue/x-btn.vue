@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import { computed } from "vue";
-import type { BtnProps } from "@xwiki/cristal-dsapi";
+import type { BtnProps } from "@xwiki/platform-dsapi";
 
 const { variant } = defineProps<BtnProps>();
 

@@ -23,9 +23,9 @@ import {
   DocumentReference,
   SpaceReference,
   WikiReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { describe, expect, it } from "vitest";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
+import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
 
 describe("NextcloudRemoteURLParser", () => {
   it("parse default root url", () => {

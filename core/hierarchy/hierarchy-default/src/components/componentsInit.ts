@@ -19,18 +19,18 @@
  */
 
 import { name as PageHierarchyResolverName } from "@xwiki/cristal-hierarchy-api";
-import { EntityType } from "@xwiki/cristal-model-api";
+import { EntityType } from "@xwiki/platform-model-api";
 import { Container, inject, injectable } from "inversify";
-import type { CristalApp, Logger } from "@xwiki/cristal-api";
 import type {
   PageHierarchyItem,
   PageHierarchyResolver,
   PageHierarchyResolverProvider,
 } from "@xwiki/cristal-hierarchy-api";
+import type { CristalApp, Logger } from "@xwiki/platform-api";
 import type {
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 
 /**
  * Default implementation for PageHierarchyResolver.

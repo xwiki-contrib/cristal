@@ -30,12 +30,12 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-configuration-api": "workspace:*",
+    "@xwiki/platform-configuration-api": "catalog:",
     "@xwiki/cristal-settings-api": "workspace:*",
     "electron-store": "catalog:"
   },
   "peerDependencies": {
-    "electron": "39.0.0"
+    "electron": "39.2.4"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",

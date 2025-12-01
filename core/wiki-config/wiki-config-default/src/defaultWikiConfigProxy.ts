@@ -20,9 +20,9 @@
 
 import { inject, injectable } from "inversify";
 import { shallowRef, triggerRef } from "vue";
-import type { CristalApp, WikiConfig } from "@xwiki/cristal-api";
-import type { Configurations } from "@xwiki/cristal-configuration-api";
 import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
+import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
+import type { Configurations } from "@xwiki/platform-configuration-api";
 import type { Ref } from "vue";
 
 /**

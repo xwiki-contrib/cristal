@@ -18,7 +18,7 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import type { AlertProps } from "@xwiki/cristal-dsapi";
+import type { AlertProps } from "@xwiki/platform-dsapi";
 
 defineProps<AlertProps>();
 </script>

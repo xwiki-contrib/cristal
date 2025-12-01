@@ -21,15 +21,15 @@
 import { getRestSpacesApiUrl } from "@xwiki/cristal-xwiki-utils";
 import { inject, injectable } from "inversify";
 import type { AlertsService } from "@xwiki/cristal-alerts-api";
-import type { CristalApp, Logger, PageData } from "@xwiki/cristal-api";
-import type {
-  AuthenticationManagerProvider,
-  UserDetails,
-} from "@xwiki/cristal-authentication-api";
 import type {
   PageRevision,
   PageRevisionManager,
 } from "@xwiki/cristal-history-api";
+import type { CristalApp, Logger, PageData } from "@xwiki/platform-api";
+import type {
+  AuthenticationManagerProvider,
+  UserDetails,
+} from "@xwiki/platform-authentication-api";
 
 /**
  * Implementation of PageRevisionManager for the XWiki backend.

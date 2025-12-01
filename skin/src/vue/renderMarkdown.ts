@@ -18,10 +18,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { uniAstToHTMLConverterName } from "@xwiki/cristal-uniast-html";
-import { markdownToUniAstConverterName } from "@xwiki/cristal-uniast-markdown";
+import { markdownToUniAstConverterName } from "@xwiki/platform-uniast-markdown";
 import { Container } from "inversify";
 import type { UniAstToHTMLConverter } from "@xwiki/cristal-uniast-html";
-import type { MarkdownToUniAstConverter } from "@xwiki/cristal-uniast-markdown";
+import type { MarkdownToUniAstConverter } from "@xwiki/platform-uniast-markdown";
 
 /**
  * Converts a markdown source into html.

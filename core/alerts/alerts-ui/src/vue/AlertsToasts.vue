@@ -22,7 +22,7 @@ import messages from "../translations";
 import { inject } from "vue";
 import { useI18n } from "vue-i18n";
 import type { Alert, AlertsService } from "@xwiki/cristal-alerts-api";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type { Ref } from "vue";
 
 const cristal = inject<CristalApp>("cristal")!;

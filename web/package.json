@@ -23,6 +23,7 @@
     "start": "pnpm run build && NODE_ENV=production node src/server.js",
     "start:e2e:xwiki": "pnpm run -C ../sources/xwiki/mock-server dev",
     "test:e2e": "playwright test",
+    "test:e2e:update-snapshots": "playwright test --update-snapshots",
     "typecheck": "vue-tsc"
   },
   "dependencies": {
@@ -30,7 +31,7 @@
     "@xwiki/cristal-authentication-nextcloud": "workspace:*",
     "@xwiki/cristal-authentication-xwiki": "workspace:*",
     "@xwiki/cristal-browser-default": "workspace:*",
-    "@xwiki/cristal-configuration-api": "workspace:*",
+    "@xwiki/platform-configuration-api": "catalog:",
     "@xwiki/cristal-configuration-web": "workspace:*",
     "@xwiki/cristal-lib": "workspace:*",
     "@xwiki/cristal-settings-browser": "workspace:*",

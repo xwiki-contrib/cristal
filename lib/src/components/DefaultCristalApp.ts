@@ -22,14 +22,21 @@
 // before any use of an inversify annotation.
 import "reflect-metadata";
 import Index from "../c-index.vue";
-import { DefaultLogger, DefaultPageData } from "@xwiki/cristal-api";
-import { name as documentServiceName } from "@xwiki/cristal-document-api";
+import { DefaultLogger, DefaultPageData } from "@xwiki/platform-api";
+import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { inject, injectable, multiInject } from "inversify";
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
 import { createRouter, createWebHashHistory } from "vue-router";
 import type { RouterFactory } from "../api/RouterFactoy";
+import type { BrowserApi } from "@xwiki/cristal-browser-api";
+import type { ExtensionManager } from "@xwiki/cristal-extension-manager";
+import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
+import type {
+  UIXTemplateProvider,
+  VueTemplateProvider,
+} from "@xwiki/cristal-skin";
 import type {
   CristalApp,
   Logger,
@@ -37,16 +44,9 @@ import type {
   PageData,
   SkinManager,
   WikiConfig,
-} from "@xwiki/cristal-api";
-import type { BrowserApi } from "@xwiki/cristal-browser-api";
-import type { Configurations } from "@xwiki/cristal-configuration-api";
-import type { DocumentService } from "@xwiki/cristal-document-api";
-import type { ExtensionManager } from "@xwiki/cristal-extension-manager";
-import type { MenuEntry } from "@xwiki/cristal-extension-menubuttons";
-import type {
-  UIXTemplateProvider,
-  VueTemplateProvider,
-} from "@xwiki/cristal-skin";
+} from "@xwiki/platform-api";
+import type { Configurations } from "@xwiki/platform-configuration-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type { Container } from "inversify";
 import type { App, Component, Ref } from "vue";
 import type { RouteRecordRaw, Router } from "vue-router";

@@ -19,9 +19,9 @@
  */
 
 import { inject, injectable } from "inversify";
-import type { PageData } from "@xwiki/cristal-api";
-import type { StorageProvider } from "@xwiki/cristal-backend-api";
 import type { PageRenameManager } from "@xwiki/cristal-rename-api";
+import type { PageData } from "@xwiki/platform-api";
+import type { StorageProvider } from "@xwiki/platform-backend-api";
 
 /**
  * Implementation of {@link PageRenameManager} for FileSystem backend.

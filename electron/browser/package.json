@@ -36,12 +36,12 @@
   },
   "types": "./dist/main/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
     "@xwiki/cristal-browser-api": "workspace:*",
     "@xwiki/cristal-electron-state": "workspace:*"
   },
   "peerDependencies": {
-    "electron": "39.0.0",
+    "electron": "39.2.4",
     "inversify": "7.x",
     "reflect-metadata": "0.x"
   },

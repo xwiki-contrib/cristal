@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { GitHubModelReferenceParser } from "../gitHubModelReferenceParser";
-import { DocumentReference, SpaceReference } from "@xwiki/cristal-model-api";
+import { DocumentReference, SpaceReference } from "@xwiki/platform-model-api";
 import { describe, expect, it } from "vitest";
 
 describe("GitHubModelReferenceParser", () => {

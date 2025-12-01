@@ -5,8 +5,8 @@
 ```ts
 
 import { Container } from 'inversify';
-import { MacroBlock } from '@xwiki/cristal-macros-api';
-import { MacroInlineContent } from '@xwiki/cristal-macros-api';
+import { MacroBlock } from '@xwiki/platform-macros-api';
+import { MacroInlineContent } from '@xwiki/platform-macros-api';
 
 // @beta (undocumented)
 export class ComponentInit {

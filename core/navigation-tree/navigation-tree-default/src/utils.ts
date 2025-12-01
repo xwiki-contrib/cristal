@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type { DocumentReference } from "@xwiki/cristal-model-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 
 /**
  * Returns the ids of the parents nodes for a path-like page id.

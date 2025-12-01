@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-fn-utils": "workspace:*",
-    "@xwiki/cristal-macros-api": "workspace:*"
+    "@xwiki/platform-fn-utils": "catalog:",
+    "@xwiki/platform-macros-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x"

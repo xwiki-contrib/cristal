@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-authentication-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/cristal-authentication-github-state": "workspace:*"
   },
   "peerDependencies": {

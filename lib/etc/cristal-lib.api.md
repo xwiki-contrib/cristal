@@ -7,22 +7,22 @@
 import { App } from 'vue';
 import { BrowserApi } from '@xwiki/cristal-browser-api';
 import { Component } from 'vue';
-import { Configuration } from '@xwiki/cristal-configuration-api';
-import { ConfigurationLoader } from '@xwiki/cristal-configuration-api';
-import { Configurations } from '@xwiki/cristal-configuration-api';
+import { Configuration } from '@xwiki/platform-configuration-api';
+import { ConfigurationLoader } from '@xwiki/platform-configuration-api';
+import { Configurations } from '@xwiki/platform-configuration-api';
 import { Container } from 'inversify';
-import { CristalApp } from '@xwiki/cristal-api';
+import { CristalApp } from '@xwiki/platform-api';
 import { CristalLoader } from '@xwiki/cristal-extension-manager';
 import { ExtensionManager } from '@xwiki/cristal-extension-manager';
-import { Logger } from '@xwiki/cristal-api';
-import { LoggerConfig } from '@xwiki/cristal-api';
-import { PageData } from '@xwiki/cristal-api';
+import { Logger } from '@xwiki/platform-api';
+import { LoggerConfig } from '@xwiki/platform-api';
+import { PageData } from '@xwiki/platform-api';
 import { Ref } from 'vue';
 import { Router } from 'vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import { SkinManager } from '@xwiki/cristal-api';
+import { SkinManager } from '@xwiki/platform-api';
 import { VueTemplateProvider } from '@xwiki/cristal-skin';
-import { WikiConfig } from '@xwiki/cristal-api';
+import { WikiConfig } from '@xwiki/platform-api';
 
 // @beta
 export function conditionalComponentsList(container: Container, configuration: Configuration): Promise<void>;

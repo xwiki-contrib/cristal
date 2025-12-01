@@ -29,16 +29,16 @@ import { ComponentInit as NextcloudBackendComponentInit } from "@xwiki/cristal-b
 import { ComponentInit as XWikiBackendComponentInit } from "@xwiki/cristal-backend-xwiki";
 import { CristalLoader } from "@xwiki/cristal-extension-manager";
 import * as Comlink from "comlink";
+import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
 import type {
   CristalApp,
   WikiConfig,
   WrappingStorage,
-} from "@xwiki/cristal-api";
+} from "@xwiki/platform-api";
 import type {
   ConfigurationLoader,
   Configurations,
-} from "@xwiki/cristal-configuration-api";
-import type { MyWorker, QueueWorker } from "@xwiki/cristal-sharedworker-api";
+} from "@xwiki/platform-configuration-api";
 import type { Container } from "inversify";
 
 async function loadConfigWeb() {

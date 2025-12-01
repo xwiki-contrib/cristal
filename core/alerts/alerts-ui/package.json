@@ -31,7 +31,7 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-alerts-api": "workspace:*",
-    "@xwiki/cristal-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
-    "@xwiki/cristal-dsapi": "workspace:*",
+    "@xwiki/platform-dsapi": "catalog:",
     "inversify": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",

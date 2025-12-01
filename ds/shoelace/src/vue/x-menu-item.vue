@@ -19,7 +19,7 @@
 -->
 <script lang="ts" setup>
 import "@shoelace-style/shoelace/dist/components/menu/menu";
-import type { MenuItemProps } from "@xwiki/cristal-dsapi";
+import type { MenuItemProps } from "@xwiki/platform-dsapi";
 
 defineProps<MenuItemProps>();
 </script>

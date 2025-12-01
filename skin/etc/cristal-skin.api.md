@@ -13,15 +13,15 @@ import { ComponentOptionsMixin } from 'vue';
 import { ComponentProvideOptions } from 'vue';
 import { Container } from 'inversify';
 import { CreateComponentPublicInstanceWithMixins } from 'vue';
-import { CristalApp } from '@xwiki/cristal-api';
+import { CristalApp } from '@xwiki/platform-api';
 import { DefineComponent } from 'vue';
-import { DocumentReference } from '@xwiki/cristal-model-api';
+import { DocumentReference } from '@xwiki/platform-model-api';
 import { GlobalComponents } from 'vue';
 import { GlobalDirectives } from 'vue';
-import { Logger } from '@xwiki/cristal-api';
-import { PageData } from '@xwiki/cristal-api';
+import { Logger } from '@xwiki/platform-api';
+import { PageData } from '@xwiki/platform-api';
 import { PublicProps } from 'vue';
-import { SkinManager } from '@xwiki/cristal-api';
+import { SkinManager } from '@xwiki/platform-api';
 import { VNodeProps } from 'vue';
 
 // @beta (undocumented)

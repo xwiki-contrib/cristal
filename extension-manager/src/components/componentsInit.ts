@@ -20,7 +20,7 @@
 
 import { DefaultExtensionManager } from "./defaultExtensionManager";
 import type { ExtensionManager } from "../api/extensionManager";
-import type { Logger } from "@xwiki/cristal-api";
+import type { Logger } from "@xwiki/platform-api";
 import type { Container } from "inversify";
 
 /**

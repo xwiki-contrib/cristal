@@ -30,11 +30,11 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-fn-utils": "workspace:*",
+    "@xwiki/platform-fn-utils": "catalog:",
     "@xwiki/cristal-macros-ast-html-converter": "workspace:*",
-    "@xwiki/cristal-macros-service": "workspace:*",
-    "@xwiki/cristal-model-api": "workspace:*",
-    "@xwiki/cristal-uniast-api": "workspace:*",
+    "@xwiki/platform-macros-service": "catalog:",
+    "@xwiki/platform-model-api": "catalog:",
+    "@xwiki/platform-uniast-api": "catalog:",
     "lodash-es": "catalog:"
   },
   "peerDependencies": {
@@ -43,8 +43,8 @@
   "devDependencies": {
     "@types/lodash-es": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
-    "@xwiki/cristal-model-reference-api": "workspace:*",
-    "@xwiki/cristal-model-remote-url-api": "workspace:*",
+    "@xwiki/platform-model-reference-api": "catalog:",
+    "@xwiki/platform-model-remote-url-api": "catalog:",
     "inversify": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

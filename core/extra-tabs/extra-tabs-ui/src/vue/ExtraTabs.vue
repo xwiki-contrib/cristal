@@ -19,8 +19,8 @@
 -->
 <script setup lang="ts">
 import { inject, onBeforeMount, ref, shallowRef } from "vue";
-import type { CristalApp } from "@xwiki/cristal-api";
 import type { ExtraTab, ExtraTabsService } from "@xwiki/cristal-extra-tabs-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type { Component, Ref, ShallowRef } from "vue";
 
 const cristal = inject<CristalApp>("cristal")!;

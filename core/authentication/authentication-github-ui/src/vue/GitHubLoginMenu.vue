@@ -23,8 +23,8 @@ import messages from "../translations";
 import { GitHubAuthenticationState } from "@xwiki/cristal-authentication-github-state";
 import { inject, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
 import type { Ref } from "vue";
 
 const { t } = useI18n({

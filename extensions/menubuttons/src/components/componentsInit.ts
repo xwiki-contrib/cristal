@@ -20,7 +20,7 @@
 
 import { MenuEntryButton1 } from "./menuEntryButton1";
 import type { MenuEntry } from "../api/menuEntry";
-import type { Logger } from "@xwiki/cristal-api";
+import type { Logger } from "@xwiki/platform-api";
 import type { Container } from "inversify";
 
 /**

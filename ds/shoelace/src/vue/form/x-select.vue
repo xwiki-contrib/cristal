@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import "@shoelace-style/shoelace/dist/components/option/option";
 import "@shoelace-style/shoelace/dist/components/select/select";
-import type { SelectProps } from "@xwiki/cristal-dsapi";
+import type { SelectProps } from "@xwiki/platform-dsapi";
 
 defineProps<SelectProps>();
 

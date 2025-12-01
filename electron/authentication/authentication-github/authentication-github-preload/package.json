@@ -30,10 +30,10 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-authentication-api": "workspace:*"
+    "@xwiki/platform-authentication-api": "catalog:"
   },
   "peerDependencies": {
-    "electron": "39.0.0"
+    "electron": "39.2.4"
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",

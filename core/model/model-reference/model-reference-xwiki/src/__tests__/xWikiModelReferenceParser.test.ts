@@ -25,11 +25,11 @@ import {
   DocumentReference,
   EntityType,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { describe, expect, test } from "vitest";
 import { mock } from "vitest-mock-extended";
 import { ref } from "vue";
-import type { DocumentService } from "@xwiki/cristal-document-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 import type { Ref } from "vue";
 
 describe("xWikiModelReferenceParser", () => {

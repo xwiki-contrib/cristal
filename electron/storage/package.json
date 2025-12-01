@@ -37,18 +37,18 @@
   },
   "types": "./dist/default/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-api": "workspace:*",
-    "@xwiki/cristal-backend-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-backend-api": "catalog:",
     "@xwiki/cristal-electron-state": "workspace:*",
-    "@xwiki/cristal-link-suggest-api": "workspace:*",
-    "@xwiki/cristal-model-api": "workspace:*",
+    "@xwiki/platform-link-suggest-api": "catalog:",
+    "@xwiki/platform-model-api": "catalog:",
     "@xwiki/cristal-model-remote-url-filesystem-api": "workspace:*",
     "@xwiki/cristal-page-default": "workspace:*",
     "@xwiki/cristal-utils-inversify": "workspace:*",
     "mime": "catalog:"
   },
   "peerDependencies": {
-    "electron": "39.0.0",
+    "electron": "39.2.4",
     "inversify": "7.x",
     "reflect-metadata": "0.x"
   },

@@ -23,7 +23,7 @@ import {
   AttachmentReference,
   DocumentReference,
   SpaceReference,
-} from "@xwiki/cristal-model-api";
+} from "@xwiki/platform-model-api";
 import { describe, expect, it } from "vitest";
 
 describe("FileSystemRemoteURLParser", () => {

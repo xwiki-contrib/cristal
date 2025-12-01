@@ -19,11 +19,11 @@
  */
 
 import { inject, injectable } from "inversify";
-import type { CristalApp } from "@xwiki/cristal-api";
+import type { CristalApp } from "@xwiki/platform-api";
 import type {
   AuthenticationManager,
   UserDetails,
-} from "@xwiki/cristal-authentication-api";
+} from "@xwiki/platform-authentication-api";
 
 // TODO: find out how to move the type declaration to a separate location.
 // eslint-disable-next-line @typescript-eslint/prefer-namespace-keyword, @typescript-eslint/no-namespace

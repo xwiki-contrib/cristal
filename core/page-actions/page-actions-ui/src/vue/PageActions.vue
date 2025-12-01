@@ -19,14 +19,14 @@
 -->
 <script setup lang="ts">
 import PageActionsCategory from "./PageActionsCategory.vue";
-import { CIcon, Size } from "@xwiki/cristal-icons";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject } from "vue";
-import type { CristalApp, PageData } from "@xwiki/cristal-api";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
 import type {
   PageActionCategory,
   PageActionCategoryService,
 } from "@xwiki/cristal-page-actions-api";
+import type { CristalApp, PageData } from "@xwiki/platform-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 
 defineProps<{
   currentPage: PageData | undefined;

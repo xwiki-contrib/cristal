@@ -5,10 +5,10 @@
 ```ts
 
 import { Container } from 'inversify';
-import { CristalApp } from '@xwiki/cristal-api';
-import { DocumentReference } from '@xwiki/cristal-model-api';
+import { CristalApp } from '@xwiki/platform-api';
+import { DocumentReference } from '@xwiki/platform-model-api';
 import { PageHierarchyItem } from '@xwiki/cristal-hierarchy-api';
-import { SpaceReference } from '@xwiki/cristal-model-api';
+import { SpaceReference } from '@xwiki/platform-model-api';
 
 // @beta (undocumented)
 export class ComponentInit {

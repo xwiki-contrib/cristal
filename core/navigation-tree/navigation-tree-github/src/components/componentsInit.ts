@@ -18,19 +18,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { EntityType } from "@xwiki/cristal-model-api";
-import { name as NavigationTreeSourceName } from "@xwiki/cristal-navigation-tree-api";
 import { getParentNodesIdFromPath } from "@xwiki/cristal-navigation-tree-default";
+import { EntityType } from "@xwiki/platform-model-api";
+import { name as NavigationTreeSourceName } from "@xwiki/platform-navigation-tree-api";
 import { Container, inject, injectable } from "inversify";
-import type { CristalApp, Logger } from "@xwiki/cristal-api";
-import type { AuthenticationManagerProvider } from "@xwiki/cristal-authentication-api";
-import type { DocumentReference } from "@xwiki/cristal-model-api";
-import type { ModelReferenceSerializerProvider } from "@xwiki/cristal-model-reference-api";
-import type { RemoteURLParserProvider } from "@xwiki/cristal-model-remote-url-api";
+import type { CristalApp, Logger } from "@xwiki/platform-api";
+import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
+import type { ModelReferenceSerializerProvider } from "@xwiki/platform-model-reference-api";
+import type { RemoteURLParserProvider } from "@xwiki/platform-model-remote-url-api";
 import type {
   NavigationTreeNode,
   NavigationTreeSource,
-} from "@xwiki/cristal-navigation-tree-api";
+} from "@xwiki/platform-navigation-tree-api";
 
 /**
  * Implementation of NavigationTreeSource for the GitHub backend.

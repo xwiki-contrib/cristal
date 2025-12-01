@@ -20,17 +20,17 @@
 
 <script lang="ts" setup>
 import messages from "../translations";
-import { CIcon, Size } from "@xwiki/cristal-icons";
 import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
+import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import type { CristalApp } from "@xwiki/cristal-api";
-import type { Configuration } from "@xwiki/cristal-configuration-api";
 import type {
   SettingsManager,
   SettingsStorage,
 } from "@xwiki/cristal-settings-api";
 import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
+import type { CristalApp } from "@xwiki/platform-api";
+import type { Configuration } from "@xwiki/platform-configuration-api";
 import type { Ref } from "vue";
 
 const props = defineProps<{

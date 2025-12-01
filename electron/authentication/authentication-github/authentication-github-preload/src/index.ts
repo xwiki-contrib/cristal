@@ -19,7 +19,7 @@
  */
 
 import { contextBridge, ipcRenderer } from "electron";
-import type { UserDetails } from "@xwiki/cristal-authentication-api";
+import type { UserDetails } from "@xwiki/platform-authentication-api";
 
 contextBridge.exposeInMainWorld("authenticationGitHub", {
   login: async (
