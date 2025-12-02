@@ -25,10 +25,12 @@ import UIX from "./c-uix.vue";
 import { useMouseCoordinates } from "../composables/mouse";
 import { ViewportType, useViewportType } from "../composables/viewport";
 import xlogo from "../images/xwiki-logo-color.svg";
+import messages from "../translations";
 import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { CIcon } from "@xwiki/platform-icons";
 import { inject, onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
 import type { DocumentReference } from "@xwiki/platform-model-api";
@@ -41,6 +43,10 @@ const { x } = useMouseCoordinates();
 const isSidebarClosed: Ref<boolean> = ref(
   viewportType.value == ViewportType.Mobile,
 );
+
+const { t } = useI18n({
+  messages,
+});
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 const documentService = cristal
@@ -152,7 +158,13 @@ function onClickOutsideMainSidebar() {
           onCloseMainSidebar();
         "
       ></c-icon>
-      <x-img class="logo" :src="logo" :width="72" :height="22" />
+      <x-img
+        class="logo"
+        :alt="t('sidebar.logo.alt')"
+        :src="logo"
+        :width="72"
+        :height="22"
+      />
       <suspense>
         <u-i-extensions uix-name="sidebar.actions"></u-i-extensions>
       </suspense>
