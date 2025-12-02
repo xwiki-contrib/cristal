@@ -17,25 +17,36 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { glob } from "glob";
+import { readdir } from "fs/promises";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 // Configuration
 const WORKSPACE_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-async function findWorkspacePackages() {
-  // Find all package.json files, excluding node_modules and root
-  const pattern = "**/package.json";
-  const ignore = ["**/node_modules/**", "node_modules/**", "package.json"];
+async function findWorkspacePackages(dir = WORKSPACE_ROOT, packages = []) {
+  const entries = await readdir(dir, { withFileTypes: true });
 
-  const files = await glob(pattern, {
-    cwd: WORKSPACE_ROOT,
-    ignore,
-    absolute: true,
-  });
+  for (const entry of entries) {
+    const fullPath = join(dir, entry.name);
 
-  return files.map((file) => dirname(file));
+    // Skip node_modules and hidden directories
+    if (entry.name === "node_modules" || entry.name.startsWith(".")) {
+      continue;
+    }
+
+    if (entry.isDirectory()) {
+      // Recursively search subdirectories
+      await findWorkspacePackages(fullPath, packages);
+    } else if (entry.name === "package.json") {
+      // Skip root package.json
+      if (dirname(fullPath) !== WORKSPACE_ROOT) {
+        packages.push(dirname(fullPath));
+      }
+    }
+  }
+
+  return packages;
 }
 
 export { WORKSPACE_ROOT, findWorkspacePackages };
