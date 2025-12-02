@@ -53,7 +53,7 @@ export default defineConfig({
     baseURL: `http://localhost:${port}`,
 
     /* Force a specific timezone. */
-    timezoneId: 'Etc/UTC',
+    timezoneId: 'Africa/Abidjan',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "retain-on-failure",
