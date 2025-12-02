@@ -32,7 +32,7 @@ pipeline {
                 sh 'node scripts/update-snapshot-versions.js'
                 sh 'pnpm install'
                 sh 'cat pnpm-lock.yaml'
-                sh 'gc -am "commit updated lockfile"'
+                sh 'git commit -am "commit updated lockfile"'
             }
         }
         stage('Build') {
