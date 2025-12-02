@@ -20,43 +20,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 import { WORKSPACE_ROOT, findWorkspacePackages } from "./utils.js";
-import { readFile, writeFile } from "fs/promises";
-import { join, relative } from "path";
-import { argv } from "process";
+import { rm } from "fs/promises";
+import { join } from "path";
 
-// eslint-disable-next-line max-statements
-async function updatePackageVersion(packageDir, newVersion) {
-  const packagePath = join(packageDir, "package.json");
+async function removeNodeModules(packageDir) {
+  const nodeModulesPath = join(packageDir, "node_modules");
 
   try {
-    const content = await readFile(packagePath, "utf-8");
-    const pkg = JSON.parse(content);
-
-    // Skip if private or no name
-    if (pkg.private && !pkg.name) {
-      return null;
-    }
-
-    pkg.version = newVersion;
-
-    await writeFile(packagePath, JSON.stringify(pkg, null, 2) + "\n");
-
+    await rm(nodeModulesPath, { recursive: true, force: true });
     return true;
   } catch (error) {
-    const relativePath = relative(WORKSPACE_ROOT, packageDir);
-    console.error(`Failed to update ${relativePath}:`, error.message);
+    console.error(`Failed to remove ${nodeModulesPath}:`, error.message);
     return null;
   }
 }
 
-// eslint-disable-next-line max-statements
 async function main() {
-  if (argv.length < 3) {
-    console.error("Missing version parameter");
-    return;
-  }
-  const version = argv[2];
-
   const packages = await findWorkspacePackages();
 
   if (packages.length === 0) {
@@ -65,10 +44,16 @@ async function main() {
   }
 
   const results = await Promise.all(
-    packages.map((pkg) => updatePackageVersion(pkg, version)),
+    packages.map((pkg) => removeNodeModules(pkg)),
   );
 
   const successful = results.filter((r) => r !== null);
+
+  await rm(join(WORKSPACE_ROOT, "node_modules"), {
+    recursive: true,
+    force: true,
+  });
+  await rm(join(WORKSPACE_ROOT, "pnpm-lock.yaml"));
 
   if (successful.length === 0) {
     console.warn("No packages updated");
