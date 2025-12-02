@@ -72,6 +72,7 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
         Authorization: (await this.authenticationManagerProvider
           .get()!
           .getAuthorizationHeader())!,
+        "OCS-APIRequest": "true",
       },
       body: `<?xml version="1.0" encoding="UTF-8"?>
  <d:searchrequest xmlns:d="DAV:" xmlns:oc="http://owncloud.org/ns">

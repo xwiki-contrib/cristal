@@ -118,6 +118,7 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
             .get()!
             .getAuthorizationHeader())!,
           Depth: "2",
+          "OCS-APIRequest": "true",
         },
       });
 

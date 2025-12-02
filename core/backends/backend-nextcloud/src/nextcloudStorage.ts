@@ -96,7 +96,10 @@ export class NextcloudStorage extends AbstractStorage {
     try {
       const response = await fetch(`${this.getRootUrl(username)}/${page}.md`, {
         method: "GET",
-        headers: await this.getCredentials(),
+        headers: {
+          ...(await this.getCredentials()),
+          "OCS-APIRequest": "true",
+        },
       });
 
       if (response.status >= 200 && response.status < 300) {
@@ -147,6 +150,7 @@ export class NextcloudStorage extends AbstractStorage {
       headers: {
         ...(await this.getCredentials()),
         Accept: "application/json",
+        "OCS-APIRequest": "true",
       },
     });
     if (response.status >= 200 && response.status < 300) {
@@ -184,6 +188,7 @@ export class NextcloudStorage extends AbstractStorage {
         ...(await this.getCredentials()),
         Depth: "1",
         Accept: "application/json",
+        "OCS-APIRequest": "true",
       },
     });
 
@@ -225,6 +230,7 @@ export class NextcloudStorage extends AbstractStorage {
           ...(await this.getCredentials()),
           Depth: "1",
           Accept: "application/json",
+          "OCS-APIRequest": "true",
         },
       },
     );
@@ -275,7 +281,10 @@ export class NextcloudStorage extends AbstractStorage {
     });
     await fetch(`${rootURL}/${newDirectories.join("/")}.md`, {
       method: "PUT",
-      headers: await this.getCredentials(),
+      headers: {
+        ...(await this.getCredentials()),
+        "OCS-APIRequest": "true",
+      },
       body,
     });
 
@@ -345,7 +354,10 @@ export class NextcloudStorage extends AbstractStorage {
       this.getAttachmentsBasePath(page, username) + "/" + file.name;
     await fetch(fileURL, {
       method: "PUT",
-      headers: await this.getCredentials(),
+      headers: {
+        ...(await this.getCredentials()),
+        "OCS-APIRequest": "true",
+      },
       body: file,
     });
     return;
@@ -392,7 +404,10 @@ export class NextcloudStorage extends AbstractStorage {
   private async deletePageFile(rootURL: string, page: string) {
     return await fetch(`${rootURL}/${page}.md`, {
       method: "DELETE",
-      headers: await this.getCredentials(),
+      headers: {
+        ...(await this.getCredentials()),
+        "OCS-APIRequest": "true",
+      },
     }).then(async (response) => {
       if (response.ok) {
         return { success: true };
@@ -407,7 +422,10 @@ export class NextcloudStorage extends AbstractStorage {
       `${rootURL}/${this.convertToMetaSegments(page).join("/")}`,
       {
         method: "DELETE",
-        headers: await this.getCredentials(),
+        headers: {
+          ...(await this.getCredentials()),
+          "OCS-APIRequest": "true",
+        },
       },
     ).then(async (response) => {
       if (response.ok) {
@@ -430,7 +448,10 @@ export class NextcloudStorage extends AbstractStorage {
   private async createDirectory(currentTarget: string) {
     await fetch(currentTarget, {
       method: "MKCOL",
-      headers: await this.getCredentials(),
+      headers: {
+        ...(await this.getCredentials()),
+        "OCS-APIRequest": "true",
+      },
     });
   }
 
@@ -474,7 +495,10 @@ export class NextcloudStorage extends AbstractStorage {
   private async initBaseContent(username: string) {
     if (!this.initBaseContentCalled) {
       this.initBaseContentCalled = true;
-      const headers = await this.getCredentials();
+      const headers = {
+        ...(await this.getCredentials()),
+        "OCS-APIRequest": "true",
+      };
       try {
         const res = await fetch(this.getRootUrl(username!), {
           method: "GET",
