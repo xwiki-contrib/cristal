@@ -52,9 +52,8 @@ export class XWikiCollaborationProvider implements CollaborationManager {
   }
 
   async get(): Promise<() => CollaborationInitializer> {
-    const { createXWikiWebSocketProvider } = await import(
-      "./xwikiProviderWebSocket"
-    );
+    const { createXWikiWebSocketProvider } =
+      await import("./xwikiProviderWebSocket");
 
     return () => {
       const provider = createXWikiWebSocketProvider(

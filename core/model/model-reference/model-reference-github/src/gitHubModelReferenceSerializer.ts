@@ -24,9 +24,7 @@ import type { EntityReference } from "@xwiki/platform-model-api";
 import type { ModelReferenceSerializer } from "@xwiki/platform-model-reference-api";
 
 @injectable()
-export class GitHubModelReferenceSerializer
-  implements ModelReferenceSerializer
-{
+export class GitHubModelReferenceSerializer implements ModelReferenceSerializer {
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
   // eslint-disable-next-line max-statements
   serialize(reference?: EntityReference): string | undefined {

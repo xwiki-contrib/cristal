@@ -33,9 +33,7 @@ import type { CristalApp } from "@xwiki/platform-api";
  * @beta
  **/
 @injectable()
-class DefaultPageRevisionManagerProvider
-  implements PageRevisionManagerProvider
-{
+class DefaultPageRevisionManagerProvider implements PageRevisionManagerProvider {
   constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
   has(): boolean {

@@ -55,9 +55,7 @@ interface AuthenticationWindow extends Window {
 declare const window: AuthenticationWindow;
 
 @injectable()
-export class NextcloudOAuth2AuthenticationManager
-  implements AuthenticationManager
-{
+export class NextcloudOAuth2AuthenticationManager implements AuthenticationManager {
   constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
   private readonly lock = new AsyncLock();

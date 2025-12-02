@@ -35,9 +35,7 @@ describe("getPageFromViewURL", () => {
     baseURL: "http://baseurl",
   } as WikiConfig;
 
-  class MockAuthenticationManagerProvider
-    implements AuthenticationManagerProvider
-  {
+  class MockAuthenticationManagerProvider implements AuthenticationManagerProvider {
     get(): AuthenticationManager | undefined {
       return undefined;
     }

@@ -32,9 +32,7 @@ import type {
  * @beta
  */
 @injectable()
-class DefaultAuthenticationManagerProvider
-  implements AuthenticationManagerProvider
-{
+class DefaultAuthenticationManagerProvider implements AuthenticationManagerProvider {
   constructor(@inject("CristalApp") private cristalApp: CristalApp) {}
 
   get(type?: string): AuthenticationManager | undefined {

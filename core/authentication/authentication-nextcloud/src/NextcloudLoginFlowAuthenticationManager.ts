@@ -33,9 +33,7 @@ import type {
  * @beta
  */
 @injectable()
-export class NextcloudLoginFlowAuthenticationManager
-  implements AuthenticationManager
-{
+export class NextcloudLoginFlowAuthenticationManager implements AuthenticationManager {
   constructor(@inject("CristalApp") private readonly cristalApp: CristalApp) {}
 
   private readonly accessTokenCookieKeyPrefix = "accessToken";

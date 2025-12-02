@@ -67,9 +67,7 @@ class DefaultNavigationTreeSource implements NavigationTreeSource {
  * @beta
  **/
 @injectable()
-class DefaultNavigationTreeSourceProvider
-  implements NavigationTreeSourceProvider
-{
+class DefaultNavigationTreeSourceProvider implements NavigationTreeSourceProvider {
   private cristalApp: CristalApp;
   public logger: Logger;
 

@@ -56,9 +56,8 @@ export class HocuspocusCollaborationProvider implements CollaborationManager {
   }
 
   async get(): Promise<() => CollaborationInitializer> {
-    const { HocuspocusProvider, WebSocketStatus } = await import(
-      "@hocuspocus/provider"
-    );
+    const { HocuspocusProvider, WebSocketStatus } =
+      await import("@hocuspocus/provider");
 
     return () => {
       const provider = new HocuspocusProvider({

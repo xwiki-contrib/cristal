@@ -87,9 +87,7 @@ class DefaultPageHierarchyResolver implements PageHierarchyResolver {
  * @beta
  **/
 @injectable()
-class DefaultPageHierarchyResolverProvider
-  implements PageHierarchyResolverProvider
-{
+class DefaultPageHierarchyResolverProvider implements PageHierarchyResolverProvider {
   private cristalApp: CristalApp;
   public logger: Logger;
 

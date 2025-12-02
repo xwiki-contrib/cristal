@@ -34,9 +34,7 @@ import type {
  * @beta
  */
 @injectable()
-export class NextcloudBasicAuthenticationManager
-  implements AuthenticationManager
-{
+export class NextcloudBasicAuthenticationManager implements AuthenticationManager {
   constructor(
     @inject("CristalApp") private readonly cristalApp: CristalApp,
     @inject(NextcloudAuthenticationState)

@@ -72,9 +72,8 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
               : spaces[spaces.length - 1],
           location: new SpaceReference(
             new WikiReference(
-              (
-                await this.authenticationManagerProvider.get()!.getUserDetails()
-              ).username!,
+              (await this.authenticationManagerProvider.get()!.getUserDetails())
+                .username!,
             ),
             ...spaces,
           ),

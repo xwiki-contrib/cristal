@@ -41,9 +41,7 @@ import type { RemoteURLSerializerProvider } from "@xwiki/platform-model-remote-u
  * @beta
  */
 @injectable()
-export class DefaultMacrosAstToHtmlConverter
-  implements MacrosAstToHtmlConverter
-{
+export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter {
   constructor(
     @inject("ModelReferenceParserProvider")
     private readonly modelReferenceParserProvider: ModelReferenceParserProvider,
