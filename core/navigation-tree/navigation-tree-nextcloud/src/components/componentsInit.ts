@@ -21,7 +21,8 @@
 import { getParentNodesIdFromPath } from "@xwiki/cristal-navigation-tree-default";
 import { SpaceReference, WikiReference } from "@xwiki/platform-model-api";
 import { name as NavigationTreeSourceName } from "@xwiki/platform-navigation-tree-api";
-import { Container, inject, injectable } from "inversify";
+import { Container, inject, injectable, named } from "inversify";
+import type { HTTPHeadersProvider } from "@xwiki/cristal-nextcloud-http-headers";
 import type { CristalApp, Logger } from "@xwiki/platform-api";
 import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
 import type { DocumentReference } from "@xwiki/platform-model-api";
@@ -46,6 +47,9 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
     @inject("CristalApp") cristalApp: CristalApp,
     @inject("AuthenticationManagerProvider")
     private authenticationManagerProvider: AuthenticationManagerProvider,
+    @inject("HTTPHeadersProvider")
+    @named("Nextcloud/Authenticated")
+    private readonly httpHeadersProvider: HTTPHeadersProvider,
   ) {
     this.logger = logger;
     this.logger.setModule(
@@ -72,9 +76,8 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
               : spaces[spaces.length - 1],
           location: new SpaceReference(
             new WikiReference(
-              (
-                await this.authenticationManagerProvider.get()!.getUserDetails()
-              ).username!,
+              (await this.authenticationManagerProvider.get()!.getUserDetails())
+                .username!,
             ),
             ...spaces,
           ),
@@ -111,15 +114,13 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
           config.storageRoot ?? `/files/${username}/.cristal`
         }`.replace("${username}", username),
       );
+
+      const headers = await this.httpHeadersProvider.getHeaders();
+      headers.set("Depth", "2");
+
       const response = await fetch(`${rootUrl}/${directory}`, {
         method: "PROPFIND",
-        headers: {
-          Authorization: (await this.authenticationManagerProvider
-            .get()!
-            .getAuthorizationHeader())!,
-          Depth: "2",
-          "OCS-APIRequest": "true",
-        },
+        headers,
       });
 
       const text = await response.text();

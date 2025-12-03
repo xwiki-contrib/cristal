@@ -24,9 +24,9 @@ import {
   EntityType,
   SpaceReference,
 } from "@xwiki/platform-model-api";
-import { inject, injectable } from "inversify";
+import { inject, injectable, named } from "inversify";
+import type { HTTPHeadersProvider } from "@xwiki/cristal-nextcloud-http-headers";
 import type { CristalApp } from "@xwiki/platform-api";
-import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
 import type { EntityReference } from "@xwiki/platform-model-api";
 import type {
@@ -40,10 +40,11 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
 
   constructor(
     @inject("CristalApp") private readonly cristalApp: CristalApp,
-    @inject("AuthenticationManagerProvider")
-    private readonly authenticationManagerProvider: AuthenticationManagerProvider,
     @inject("DocumentService")
     private readonly documentService: DocumentService,
+    @inject("HTTPHeadersProvider")
+    @named("Nextcloud/Authenticated")
+    private readonly httpHeadersProvider: HTTPHeadersProvider,
   ) {}
 
   parse(reference: string): EntityReference {
@@ -78,12 +79,12 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
     const baseURL = this.cristalApp.getWikiConfig().baseURL;
     const ocsUrl = new URL(`${baseURL}/ocs/v2.php/references/resolve`);
     ocsUrl.searchParams.set("reference", reference);
+
+    const headers = await this.httpHeadersProvider.getHeaders();
+    headers.set("Accept", "application/json");
+
     const request = await fetch(ocsUrl, {
-      headers: {
-        ...(await this.getCredentials()),
-        Accept: "application/json",
-        "OCS-APIRequest": "true",
-      },
+      headers,
     });
     const json = await request.json();
     const path = json.ocs.data.references[reference].richObject.path as string;
@@ -133,17 +134,6 @@ export class NextcloudModelReferenceParser implements ModelReferenceParser {
         ),
       );
     }
-  }
-
-  private async getCredentials(): Promise<{ Authorization?: string }> {
-    const authorizationHeader = await this.authenticationManagerProvider
-      .get()
-      ?.getAuthorizationHeader();
-    const headers: { Authorization?: string } = {};
-    if (authorizationHeader) {
-      headers["Authorization"] = authorizationHeader;
-    }
-    return headers;
   }
 
   // eslint-disable-next-line max-statements
