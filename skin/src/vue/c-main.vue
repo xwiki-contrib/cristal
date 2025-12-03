@@ -23,9 +23,11 @@ import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 
 <template>
   <main>
-    <suspense>
-      <u-i-extensions uix-name="main.banner"></u-i-extensions>
-    </suspense>
+    <div>
+      <suspense>
+        <u-i-extensions uix-name="main.banner"></u-i-extensions>
+      </suspense>
+    </div>
     <suspense>
       <router-view />
     </suspense>
