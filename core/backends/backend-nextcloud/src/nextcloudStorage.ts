@@ -410,7 +410,10 @@ export class NextcloudStorage extends AbstractStorage {
         headers: await this.getCredentials(),
       },
     ).then(async (response) => {
-      if (response.ok) {
+      // A 404 is acceptable because the metadata folder might not exist.
+      // If the page actually does not exist, this should be raised by
+      // deletePageFile() instead.
+      if (response.ok || response.status == 404) {
         return { success: true };
       } else {
         return { success: false, error: await response.text() };
