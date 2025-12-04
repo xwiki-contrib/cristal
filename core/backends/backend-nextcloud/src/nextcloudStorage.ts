@@ -112,6 +112,7 @@ export class NextcloudStorage extends AbstractStorage {
         // storage
         const pageData = new DefaultPageData();
         pageData.source = parsedContent.content;
+        pageData.name = parsedContent.name as string;
         pageData.headline = parsedContent.name as string;
         pageData.headlineRaw = parsedContent.name as string;
         pageData.syntax = parsedContent.syntax as string;
