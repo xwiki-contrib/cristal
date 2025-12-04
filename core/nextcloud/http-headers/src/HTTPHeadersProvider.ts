@@ -26,5 +26,10 @@
  * @beta
  */
 export interface HTTPHeadersProvider {
+  /**
+   * Returns the HTTP headers managed by this instance.
+   *
+   * @returns the HTTP headers
+   */
   getHeaders(): Promise<Headers>;
 }

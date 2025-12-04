@@ -35,6 +35,11 @@ export class NextcloudAuthenticatedHTTPHeadersProvider implements HTTPHeadersPro
     private readonly authenticationManagerProvider: AuthenticationManagerProvider,
   ) {}
 
+  /**
+   * Returns the HTTP headers for an authenticated Nextcloud user.
+   *
+   * @returns the HTTP headers
+   */
   async getHeaders(): Promise<Headers> {
     const authorizationHeader = await this.authenticationManagerProvider
       .get()

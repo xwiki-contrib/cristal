@@ -76,6 +76,9 @@ export class NextcloudStorage extends AbstractStorage {
     return "";
   }
 
+  // We inject a specific HTTPHeadersProvider that exists only for Nextcloud.
+  // However, all storages are always resolved no matter the current
+  // configuration, so this injection needs to be lazy.
   // We do not have a way to lazily inject the HTTPHeadersProvider,
   // so we rely on this helper instead accessing the container directly.
   private async getAuthenticatedHTTPHeaders(): Promise<Headers> {
