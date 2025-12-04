@@ -66,14 +66,14 @@ class NextcloudNavigationTreeSource implements NavigationTreeSource {
     const subdirectories = await this.getSubDirectories(currentId);
     for (const d of subdirectories) {
       const spaces = d.split("/");
-      const currentPageData = await this.cristalApp.getPage(d);
       if (spaces.length == currentDepth + 1) {
+        const currentPageData = await this.cristalApp.getPage(d);
         navigationTree.push({
           id: d,
           label:
             currentPageData && currentPageData.name
               ? currentPageData.name
-              : spaces[spaces.length - 1],
+              : decodeURI(spaces[spaces.length - 1]),
           location: new SpaceReference(
             new WikiReference(
               (await this.authenticationManagerProvider.get()!.getUserDetails())
