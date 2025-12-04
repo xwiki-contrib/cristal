@@ -1054,6 +1054,9 @@ importers:
       '@xwiki/cristal-alerts-api':
         specifier: workspace:*
         version: link:../../alerts/alerts-api
+      '@xwiki/cristal-nextcloud-http-headers':
+        specifier: workspace:*
+        version: link:../../nextcloud/http-headers
       '@xwiki/cristal-page-default':
         specifier: workspace:*
         version: link:../../page/page-default
@@ -1898,6 +1901,9 @@ importers:
 
   core/link-suggest/link-suggest-nextcloud:
     dependencies:
+      '@xwiki/cristal-nextcloud-http-headers':
+        specifier: workspace:*
+        version: link:../../nextcloud/http-headers
       '@xwiki/platform-api':
         specifier: 'catalog:'
         version: 18.0.0-1764348314(inversify@7.10.4(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
@@ -2155,12 +2161,12 @@ importers:
 
   core/model/model-reference/model-reference-nextcloud:
     dependencies:
+      '@xwiki/cristal-nextcloud-http-headers':
+        specifier: workspace:*
+        version: link:../../../nextcloud/http-headers
       '@xwiki/platform-api':
         specifier: 'catalog:'
         version: 18.0.0-1764348314(inversify@7.10.4(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
-      '@xwiki/platform-authentication-api':
-        specifier: 'catalog:'
-        version: 18.0.0-1764348314(reflect-metadata@0.2.2)
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
         version: 18.0.0-1764348314(inversify@7.10.4(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
@@ -2467,6 +2473,9 @@ importers:
       '@xwiki/cristal-navigation-tree-default':
         specifier: workspace:*
         version: link:../navigation-tree-default
+      '@xwiki/cristal-nextcloud-http-headers':
+        specifier: workspace:*
+        version: link:../../nextcloud/http-headers
       '@xwiki/platform-api':
         specifier: 'catalog:'
         version: 18.0.0-1764348314(inversify@7.10.4(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
@@ -2516,6 +2525,28 @@ importers:
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
         version: 18.0.0-1764348314(inversify@7.10.4(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
+      inversify:
+        specifier: 'catalog:'
+        version: 7.10.4(reflect-metadata@0.2.2)
+      reflect-metadata:
+        specifier: 'catalog:'
+        version: 0.2.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: 'catalog:'
+        version: 7.2.4(@types/node@24.10.1)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.20.6)(yaml@2.8.1)
+
+  core/nextcloud/http-headers:
+    dependencies:
+      '@xwiki/platform-authentication-api':
+        specifier: 'catalog:'
+        version: 18.0.0-1764348314(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4206,6 +4237,9 @@ importers:
       '@xwiki/cristal-navigation-tree-xwiki':
         specifier: workspace:*
         version: link:../core/navigation-tree/navigation-tree-xwiki
+      '@xwiki/cristal-nextcloud-http-headers':
+        specifier: workspace:*
+        version: link:../core/nextcloud/http-headers
       '@xwiki/cristal-page-actions-default':
         specifier: workspace:*
         version: link:../core/page-actions/page-actions-default

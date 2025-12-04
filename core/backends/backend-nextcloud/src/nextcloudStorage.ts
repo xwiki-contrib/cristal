@@ -27,8 +27,10 @@ import { AbstractStorage } from "@xwiki/platform-backend-api";
 import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
+import type { HTTPHeadersProvider } from "@xwiki/cristal-nextcloud-http-headers";
 import type {
   AttachmentsData,
+  CristalApp,
   Logger,
   PageAttachment,
   PageData,
@@ -51,6 +53,7 @@ import type {
 export class NextcloudStorage extends AbstractStorage {
   private readonly ATTACHMENTS = "attachments";
   private initBaseContentCalled: boolean = false;
+  private authenticatedHTTPHeadersProvider: HTTPHeadersProvider | undefined;
 
   constructor(
     @inject("Logger") logger: Logger,
@@ -58,6 +61,7 @@ export class NextcloudStorage extends AbstractStorage {
     private authenticationManagerProvider: AuthenticationManagerProvider,
     @inject("AlertsServiceProvider")
     private readonly alertsServiceProvider: AlertsServiceProvider,
+    @inject("CristalApp") private readonly cristalApp: CristalApp,
   ) {
     super(logger, "storage.components.nextcloudStorage");
   }
@@ -70,6 +74,20 @@ export class NextcloudStorage extends AbstractStorage {
   getImageURL(): string {
     // TODO: unsupported
     return "";
+  }
+
+  // We inject a specific HTTPHeadersProvider that exists only for Nextcloud.
+  // However, all storages are always resolved no matter the current
+  // configuration, so this injection needs to be lazy.
+  // We do not have a way to lazily inject the HTTPHeadersProvider,
+  // so we rely on this helper instead accessing the container directly.
+  private async getAuthenticatedHTTPHeaders(): Promise<Headers> {
+    if (!this.authenticatedHTTPHeadersProvider) {
+      this.authenticatedHTTPHeadersProvider = this.cristalApp
+        .getContainer()
+        .get("HTTPHeadersProvider", { name: "Nextcloud/Authenticated" });
+    }
+    return await this.authenticatedHTTPHeadersProvider!.getHeaders();
   }
 
   private getRootUrl(username: string) {
@@ -96,7 +114,7 @@ export class NextcloudStorage extends AbstractStorage {
     try {
       const response = await fetch(`${this.getRootUrl(username)}/${page}.md`, {
         method: "GET",
-        headers: await this.getCredentials(),
+        headers: await this.getAuthenticatedHTTPHeaders(),
       });
 
       if (response.status >= 200 && response.status < 300) {
@@ -144,10 +162,7 @@ export class NextcloudStorage extends AbstractStorage {
             </d:prop>
           </d:propfind>`,
       method: "PROPFIND",
-      headers: {
-        ...(await this.getCredentials()),
-        Accept: "application/json",
-      },
+      headers: await this.getAuthenticatedHTTPHeaders(),
     });
     if (response.status >= 200 && response.status < 300) {
       // window.DOMParser can't be used because it is not available in web
@@ -180,11 +195,7 @@ export class NextcloudStorage extends AbstractStorage {
 
     const response = await fetch(this.getAttachmentsBasePath(page, username!), {
       method: "PROPFIND",
-      headers: {
-        ...(await this.getCredentials()),
-        Depth: "1",
-        Accept: "application/json",
-      },
+      headers: await this.getAuthenticatedHTTPHeaders(),
     });
 
     if (response.status >= 200 && response.status < 300) {
@@ -221,11 +232,7 @@ export class NextcloudStorage extends AbstractStorage {
       this.getAttachmentBasePath(name, page, username!),
       {
         method: "PROPFIND",
-        headers: {
-          ...(await this.getCredentials()),
-          Depth: "1",
-          Accept: "application/json",
-        },
+        headers: await this.getAuthenticatedHTTPHeaders(),
       },
     );
 
@@ -275,7 +282,7 @@ export class NextcloudStorage extends AbstractStorage {
     });
     await fetch(`${rootURL}/${newDirectories.join("/")}.md`, {
       method: "PUT",
-      headers: await this.getCredentials(),
+      headers: await this.getAuthenticatedHTTPHeaders(),
       body,
     });
 
@@ -345,7 +352,7 @@ export class NextcloudStorage extends AbstractStorage {
       this.getAttachmentsBasePath(page, username) + "/" + file.name;
     await fetch(fileURL, {
       method: "PUT",
-      headers: await this.getCredentials(),
+      headers: await this.getAuthenticatedHTTPHeaders(),
       body: file,
     });
     return;
@@ -392,7 +399,7 @@ export class NextcloudStorage extends AbstractStorage {
   private async deletePageFile(rootURL: string, page: string) {
     return await fetch(`${rootURL}/${page}.md`, {
       method: "DELETE",
-      headers: await this.getCredentials(),
+      headers: await this.getAuthenticatedHTTPHeaders(),
     }).then(async (response) => {
       if (response.ok) {
         return { success: true };
@@ -407,7 +414,7 @@ export class NextcloudStorage extends AbstractStorage {
       `${rootURL}/${this.convertToMetaSegments(page).join("/")}`,
       {
         method: "DELETE",
-        headers: await this.getCredentials(),
+        headers: await this.getAuthenticatedHTTPHeaders(),
       },
     ).then(async (response) => {
       // A 404 is acceptable because the metadata folder might not exist.
@@ -433,19 +440,8 @@ export class NextcloudStorage extends AbstractStorage {
   private async createDirectory(currentTarget: string) {
     await fetch(currentTarget, {
       method: "MKCOL",
-      headers: await this.getCredentials(),
+      headers: await this.getAuthenticatedHTTPHeaders(),
     });
-  }
-
-  private async getCredentials(): Promise<{ Authorization?: string }> {
-    const authorizationHeader = await this.authenticationManagerProvider
-      .get()
-      ?.getAuthorizationHeader();
-    const headers: { Authorization?: string } = {};
-    if (authorizationHeader) {
-      headers["Authorization"] = authorizationHeader;
-    }
-    return headers;
   }
 
   private parseAttachment(element: Element): PageAttachment {
@@ -477,11 +473,10 @@ export class NextcloudStorage extends AbstractStorage {
   private async initBaseContent(username: string) {
     if (!this.initBaseContentCalled) {
       this.initBaseContentCalled = true;
-      const headers = await this.getCredentials();
       try {
         const res = await fetch(this.getRootUrl(username!), {
           method: "GET",
-          headers: headers,
+          headers: await this.getAuthenticatedHTTPHeaders(),
         });
         // if .cristal does not exist, initialize it with a default content.
         if (res.status === 404) {

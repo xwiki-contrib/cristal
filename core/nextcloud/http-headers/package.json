@@ -1,12 +1,12 @@
 {
-  "name": "@xwiki/cristal-backend-nextcloud",
+  "name": "@xwiki/cristal-nextcloud-http-headers",
   "version": "0.25.0-rc-1",
   "license": "LGPL 2.1",
   "author": "XWiki Org Community <contact@xwiki.org>",
   "homepage": "https://cristal.xwiki.org/",
   "repository": {
     "type": "git",
-    "directory": "/core/backend/backend-nextcloud",
+    "directory": "core/nextcloud/http-headers",
     "url": "git+https://github.com/xwiki-contrib/cristal.git"
   },
   "bugs": {
@@ -30,14 +30,7 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/cristal-alerts-api": "workspace:*",
-    "@xwiki/cristal-nextcloud-http-headers": "workspace:*",
-    "@xwiki/cristal-page-default": "workspace:*",
-    "@xwiki/cristal-utils-inversify": "workspace:*",
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-authentication-api": "catalog:",
-    "@xwiki/platform-backend-api": "catalog:",
-    "fast-xml-parser": "catalog:"
+    "@xwiki/platform-authentication-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "7.x",
@@ -48,8 +41,7 @@
     "inversify": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:",
-    "vitest-mock-extended": "catalog:"
+    "vite": "catalog:"
   },
   "publishConfig": {
     "exports": {

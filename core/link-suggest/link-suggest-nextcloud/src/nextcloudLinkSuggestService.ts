@@ -20,8 +20,9 @@
 
 import { LinkType } from "@xwiki/platform-link-suggest-api";
 import { EntityType } from "@xwiki/platform-model-api";
-import { inject, injectable } from "inversify";
+import { inject, injectable, named } from "inversify";
 import xmlescape from "xml-escape";
+import type { HTTPHeadersProvider } from "@xwiki/cristal-nextcloud-http-headers";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { AuthenticationManagerProvider } from "@xwiki/platform-authentication-api";
 import type {
@@ -45,6 +46,9 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
     private readonly remoteURLParserProvider: RemoteURLParserProvider,
     @inject("ModelReferenceSerializerProvider")
     private readonly modelReferenceSerializerProvider: ModelReferenceSerializerProvider,
+    @inject("HTTPHeadersProvider")
+    @named("Nextcloud/Authenticated")
+    private readonly httpHeadersProvider: HTTPHeadersProvider,
   ) {}
 
   // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
@@ -67,12 +71,7 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
 
     const options = {
       method: "SEARCH",
-      headers: {
-        "Content-Type": "text/xml",
-        Authorization: (await this.authenticationManagerProvider
-          .get()!
-          .getAuthorizationHeader())!,
-      },
+      headers: await this.httpHeadersProvider.getHeaders(),
       body: `<?xml version="1.0" encoding="UTF-8"?>
  <d:searchrequest xmlns:d="DAV:" xmlns:oc="http://owncloud.org/ns">
      <d:basicsearch>

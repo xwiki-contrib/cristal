@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-nextcloud-http-headers": "workspace:*",
     "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/platform-document-api": "catalog:",
     "@xwiki/platform-model-api": "catalog:",
     "@xwiki/platform-model-reference-api": "catalog:"

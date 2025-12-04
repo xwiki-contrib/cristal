@@ -24,6 +24,7 @@ import { ComponentInit as NextcloudLinkSuggestComponentInit } from "@xwiki/crist
 import { ComponentInit as ModelReferenceNextcloudComponentInit } from "@xwiki/cristal-model-reference-nextcloud";
 import { ComponentInit as ModelRemoteURLNextcloudComponentInit } from "@xwiki/cristal-model-remote-url-nextcloud";
 import { ComponentInit as NextcloudNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-nextcloud";
+import { ComponentInit as NextcloudAuthenticatedHTTPHeadersComponentInit } from "@xwiki/cristal-nextcloud-http-headers";
 import type { Container } from "inversify";
 
 export function load(container: Container) {
@@ -33,4 +34,5 @@ export function load(container: Container) {
   new NextcloudNavigationTreeComponentInit(container);
   new ModelRemoteURLNextcloudComponentInit(container);
   new ModelReferenceNextcloudComponentInit(container);
+  new NextcloudAuthenticatedHTTPHeadersComponentInit(container);
 }
