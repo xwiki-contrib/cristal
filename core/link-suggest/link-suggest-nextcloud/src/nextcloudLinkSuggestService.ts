@@ -69,9 +69,12 @@ export class NextcloudLinkSuggestService implements LinkSuggestService {
       config.storageRoot ?? `/files/${username}/.cristal`
     ).replace("${username}", username);
 
+    const headers = await this.httpHeadersProvider.getHeaders();
+    headers.set("Content-Type", "text/xml");
+
     const options = {
       method: "SEARCH",
-      headers: await this.httpHeadersProvider.getHeaders(),
+      headers,
       body: `<?xml version="1.0" encoding="UTF-8"?>
  <d:searchrequest xmlns:d="DAV:" xmlns:oc="http://owncloud.org/ns">
      <d:basicsearch>
