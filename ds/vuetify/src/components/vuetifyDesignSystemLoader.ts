@@ -137,18 +137,8 @@ export class VuetifyDesignSystemLoader implements DesignSystemLoader {
     );
     registerAsyncComponent(
       app,
-      "XNavigationTree",
-      () => import("../vue/x-navigation-tree.vue"),
-    );
-    registerAsyncComponent(
-      app,
       "XCheckbox",
       () => import("../vue/form/x-checkbox.vue"),
-    );
-    registerAsyncComponent(
-      app,
-      "XNavigationTreeSelect",
-      () => import("../vue/form/x-navigation-tree-select.vue"),
     );
     registerAsyncComponent(
       app,

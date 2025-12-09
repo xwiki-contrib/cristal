@@ -230,6 +230,14 @@ async function saveContent() {
 async function submit() {
   await saveContent();
 
+  // Notify that the document has changed on submit.
+  if (currentPageReference.value) {
+    await documentService.notifyDocumentChange(
+      "update",
+      currentPageReference.value,
+    );
+  }
+
   // TODO: hold back user in case of error
   navigateToView();
 }

@@ -17,7 +17,7 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends DisplayableTreeNode">
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
 import { useTemplateRef } from "vue";
 import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item.d.ts";
@@ -26,7 +26,9 @@ import type { DisplayableTreeNode } from "@xwiki/platform-dsapi";
 const current = useTemplateRef<SlTreeItem>("current");
 
 const props = defineProps<{
-  node: DisplayableTreeNode;
+  node: T;
+  lazyLoadChildren?: (node: T) => Promise<void>;
+  nodeClickAction?: (node: T) => Promise<void>;
 }>();
 const opened = defineModel<string[]>("opened", { default: [] });
 const activated = defineModel<string | undefined>("activated");
@@ -45,9 +47,19 @@ function onExpand() {
 
 function onCollapse() {
   if (opened.value?.includes(props.node.id)) {
-    opened.value = [
-      ...opened.value.filter((nodeId) => nodeId !== props.node.id),
-    ];
+    const index = opened.value.indexOf(props.node.id);
+    opened.value.splice(index, 1);
+  }
+}
+
+async function lazyLoadChildrenWrapper() {
+  await props.lazyLoadChildren!(props.node);
+
+  // If there were no children added, we need to manually disable the loading
+  // state.
+  if (!props.node.children) {
+    current.value!.loading = false;
+    current.value!.isLeaf = true;
   }
 }
 </script>
@@ -57,11 +69,27 @@ function onCollapse() {
     ref="current"
     :data-id="node.id"
     :selected="node.id === activated"
-    :expanded="opened?.includes(node.id)"
-    @sl-expand="onExpand"
-    @sl-collapse="onCollapse"
+    :expanded="opened.includes(node.id)"
+    :lazy="lazyLoadChildren && node.children?.length == 0"
+    @sl-expand.stop="onExpand"
+    @sl-collapse.stop="onCollapse"
+    @sl-lazy-load.once="
+      lazyLoadChildren ? lazyLoadChildrenWrapper() : undefined
+    "
   >
-    <a class="undecorated" :href="node.url" @click="updateActivated">{{
+    <a
+      v-if="nodeClickAction"
+      class="undecorated"
+      :href="node.url"
+      @click.prevent="
+        async () => {
+          updateActivated();
+          await nodeClickAction!(node);
+        }
+      "
+      >{{ node.label }}</a
+    >
+    <a v-else class="undecorated" :href="node.url" @click="updateActivated">{{
       node.label
     }}</a>
     <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
@@ -72,6 +100,8 @@ function onCollapse() {
       v-for="item in node.children"
       :key="item.id"
       :node="item"
+      :lazy-load-children="lazyLoadChildren"
+      :node-click-action="nodeClickAction"
       v-model:activated="activated"
       v-model:opened="opened"
     >
