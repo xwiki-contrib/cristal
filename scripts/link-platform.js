@@ -24,6 +24,11 @@ import { readFile, writeFile } from "fs/promises";
 import { join, relative } from "path";
 import { argv } from "process";
 
+const localPlatformLocation = join(
+  WORKSPACE_ROOT,
+  "node_modules/.pnpm/.xwiki-platform",
+);
+
 // eslint-disable-next-line max-statements
 async function linkPackages(packageDir, platformPackages, packageName) {
   const packagePath = join(packageDir, "package.json");
@@ -66,9 +71,9 @@ async function linkPackages(packageDir, platformPackages, packageName) {
   }
 }
 
-async function getPlatformPackages(xwikiPlatformLocation) {
+async function getLocalPlatformPackages() {
   const platformPackagesDirs = await findWorkspacePackages(
-    `${xwikiPlatformLocation}/xwiki-platform-core/xwiki-platform-node/src/main/node`,
+    localPlatformLocation,
   );
 
   const platformPackages = new Map();
@@ -93,18 +98,17 @@ async function getPlatformPackages(xwikiPlatformLocation) {
 
 // eslint-disable-next-line max-statements
 async function main() {
-  if (argv.length < 4) {
+  if (argv.length < 3) {
     console.error(
-      `Missing parameter. Usage: ${argv[1]} <xwiki-platform-location> <package-name | 'all'>`,
+      `Missing parameter. Usage: ${argv[1]} <package-name | 'all'>`,
     );
     return;
   }
 
-  const xwikiPlatformLocation = argv[2];
-  const packageName = argv[3];
+  const packageName = argv[2];
 
   const packages = await findWorkspacePackages();
-  const platformPackages = await getPlatformPackages(xwikiPlatformLocation);
+  const platformPackages = await getLocalPlatformPackages();
 
   if (packages.length === 0) {
     console.error("No cristal packages found.");
@@ -117,9 +121,7 @@ async function main() {
   }
 
   if (packageName != "all" && !platformPackages.has(packageName)) {
-    console.error(
-      `Package ${packageName} not found in ${xwikiPlatformLocation}.`,
-    );
+    console.error(`Package ${packageName} not found in ./.xwiki-platform.`);
     return;
   }
 
