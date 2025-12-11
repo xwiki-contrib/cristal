@@ -35,7 +35,7 @@ jobs:
         with:
           cache: 'pnpm'
       - id: restore-cache-electron-linux
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             .nx/
@@ -66,7 +66,7 @@ jobs:
         with:
           cache: 'pnpm'
       - id: restore-cache-electron-mac
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             .nx/
@@ -91,7 +91,7 @@ jobs:
         with:
           cache: 'pnpm'
       - id: restore-cache-electron-win
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             .nx/
