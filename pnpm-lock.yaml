@@ -304,8 +304,8 @@ catalogs:
       specifier: 3.1.8
       version: 3.1.8
     vuetify:
-      specifier: 3.11.2
-      version: 3.11.2
+      specifier: 3.11.3
+      version: 3.11.3
     xml-escape:
       specifier: 1.1.0
       version: 1.1.0
@@ -3355,7 +3355,7 @@ importers:
         version: 11.2.2(vue@3.5.25(typescript@5.9.3))
       vuetify:
         specifier: 'catalog:'
-        version: 3.11.2(typescript@5.9.3)(vue@3.5.25(typescript@5.9.3))
+        version: 3.11.3(typescript@5.9.3)(vue@3.5.25(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
@@ -9950,8 +9950,8 @@ packages:
       typescript:
         optional: true
 
-  vuetify@3.11.2:
-    resolution: {integrity: sha512-1lL0qN6JIdbx6xGYpo6dnx378EfC0t4EotPJdP4go8ThmIdRO3xLva1ALxhxi5lSYTht4R9OVk9miVnwVfDx3A==}
+  vuetify@3.11.3:
+    resolution: {integrity: sha512-sZe/2f143cbqtJupkynOGOHxgn+YjRrXIj0atZlBECbOr4nZPCmSdukPSbudb0wU3fQpUjlaTGx0m4vIBPQqGQ==}
     peerDependencies:
       typescript: '>=4.7'
       vite-plugin-vuetify: '>=2.1.0'
@@ -16250,7 +16250,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  vuetify@3.11.2(typescript@5.9.3)(vue@3.5.25(typescript@5.9.3)):
+  vuetify@3.11.3(typescript@5.9.3)(vue@3.5.25(typescript@5.9.3)):
     dependencies:
       vue: 3.5.25(typescript@5.9.3)
     optionalDependencies:
