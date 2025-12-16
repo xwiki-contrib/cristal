@@ -13,7 +13,6 @@ export class ComponentInit {
 
 // @beta
 export interface HTTPHeadersProvider {
-    // (undocumented)
     getHeaders(): Promise<Headers>;
 }
 
