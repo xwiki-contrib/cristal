@@ -20,27 +20,30 @@
 
 import { NextcloudStorage } from "../nextcloudStorage";
 import { DefaultLogger } from "@xwiki/platform-api";
+import { Container } from "inversify";
 import { describe, expect, it, vi } from "vitest";
 import { anyObject, mock } from "vitest-mock-extended";
+import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
 import type {
   AuthenticationManager,
   AuthenticationManagerProvider,
   UserDetails,
 } from "@xwiki/cristal-authentication-api";
-import type { WikiConfig } from "@xwiki/platform-api";
+import type { HTTPHeadersProvider } from "@xwiki/cristal-nextcloud-http-headers";
+import type { CristalApp, WikiConfig } from "@xwiki/platform-api";
 
+// eslint-disable-next-line max-statements
 describe("nextcloudStorage", () => {
   const wikiConfig: WikiConfig = {
     baseRestURL: "http://baseurl/remote.php/dav",
     storageRoot: "/files/${username}/.cristal",
   } as WikiConfig;
 
+  const container = new Container();
+
   class MockAuthenticationManager implements AuthenticationManager {
     getUserDetails(): UserDetails {
       return { name: "Test User", username: "testuser" };
-    }
-    getAuthorizationHeader(): Promise<string> {
-      return Promise.resolve("TEST-AUTHORIZATION");
     }
   }
 
@@ -50,10 +53,32 @@ describe("nextcloudStorage", () => {
     }
   }
 
+  class MockHTTPHeadersProvider implements HTTPHeadersProvider {
+    getHeaders(): Promise<Headers> {
+      return Promise.resolve(
+        new Headers({
+          Authorization: "TEST-AUTHORIZATION",
+          "OCS-ApiRequest": "true",
+        }),
+      );
+    }
+  }
+  container
+    .bind("HTTPHeadersProvider")
+    .to(MockHTTPHeadersProvider)
+    .whenNamed("Nextcloud/Authenticated");
+
+  const mockCristalApp = mock<CristalApp>({
+    getContainer(): Container {
+      return container;
+    },
+  });
+
   const nextcloudStorage: NextcloudStorage = new NextcloudStorage(
     new DefaultLogger(),
     new MockAuthenticationManagerProvider(),
     mock<AlertsServiceProvider>(),
+    mockCristalApp,
   );
   nextcloudStorage.setWikiConfig(wikiConfig);
 
