@@ -29,8 +29,7 @@ pipeline {
     stages {
         stage('Install') {
             steps {
-                sh 'node scripts/update-snapshot-versions.js'
-                sh 'pnpm install'
+                sh 'pnpm update -r --no-save'
                 sh 'cat pnpm-lock.yaml'
                 sh 'git commit -am "commit updated lockfile"'
             }
