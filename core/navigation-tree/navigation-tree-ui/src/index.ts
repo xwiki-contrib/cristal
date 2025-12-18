@@ -20,7 +20,6 @@
 
 import NavigationTree from "./vue/NavigationTree.vue";
 import NavigationTreeSelect from "./vue/NavigationTreeSelect.vue";
-import type { TreeNode as _ } from "@xwiki/platform-fn-utils";
 
 /**
  * @since 0.25
