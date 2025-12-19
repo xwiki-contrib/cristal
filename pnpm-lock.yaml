@@ -316,8 +316,8 @@ catalogs:
       specifier: 2.8.2
       version: 2.8.2
     yjs:
-      specifier: 13.6.27
-      version: 13.6.27
+      specifier: 13.6.28
+      version: 13.6.28
 
 importers:
 
@@ -1183,7 +1183,7 @@ importers:
     dependencies:
       '@hocuspocus/provider':
         specifier: 'catalog:'
-        version: 2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
+        version: 2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28)
       '@xwiki/platform-api':
         specifier: 'catalog:'
         version: 18.0.0-1764348314(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
@@ -1229,10 +1229,10 @@ importers:
         version: 0.2.114
       y-websocket:
         specifier: 'catalog:'
-        version: 3.0.0(yjs@13.6.27)
+        version: 3.0.0(yjs@13.6.28)
       yjs:
         specifier: 'catalog:'
-        version: 13.6.27
+        version: 13.6.28
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4363,7 +4363,7 @@ importers:
     dependencies:
       '@hocuspocus/server':
         specifier: 'catalog:'
-        version: 2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
+        version: 2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28)
       express:
         specifier: 'catalog:'
         version: 5.2.1
@@ -10106,6 +10106,10 @@ packages:
     resolution: {integrity: sha512-OIDwaflOaq4wC6YlPBy2L6ceKeKuF7DeTxx+jPzv1FHn9tCZ0ZwSRnUBxD05E3yed46fv/FWJbvR+Ud7x0L7zw==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
 
+  yjs@13.6.28:
+    resolution: {integrity: sha512-EgnDOXs8+hBVm6mq3/S89Kiwzh5JRbn7w2wXwbrMRyKy/8dOFsLvuIfC+x19ZdtaDc0tA9rQmdZzbqqNHG44wA==}
+    engines: {node: '>=16.0.0', npm: '>=8.0.0'}
+
   yn@3.1.1:
     resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
     engines: {node: '>=6'}
@@ -10627,8 +10631,21 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    optional: true
 
-  '@hocuspocus/server@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)':
+  '@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28)':
+    dependencies:
+      '@hocuspocus/common': 2.15.3
+      '@lifeomic/attempt': 3.1.0
+      lib0: 0.2.114
+      ws: 8.18.3
+      y-protocols: 1.0.6(yjs@13.6.28)
+      yjs: 13.6.28
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@hocuspocus/server@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28)':
     dependencies:
       '@hocuspocus/common': 2.15.3
       async-lock: 1.4.1
@@ -10636,8 +10653,8 @@ snapshots:
       lib0: 0.2.114
       uuid: 11.1.0
       ws: 8.18.3
-      y-protocols: 1.0.6(yjs@13.6.27)
-      yjs: 13.6.27
+      y-protocols: 1.0.6(yjs@13.6.28)
+      yjs: 13.6.28
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -16354,11 +16371,16 @@ snapshots:
       lib0: 0.2.114
       yjs: 13.6.27
 
-  y-websocket@3.0.0(yjs@13.6.27):
+  y-protocols@1.0.6(yjs@13.6.28):
     dependencies:
       lib0: 0.2.114
-      y-protocols: 1.0.6(yjs@13.6.27)
-      yjs: 13.6.27
+      yjs: 13.6.28
+
+  y-websocket@3.0.0(yjs@13.6.28):
+    dependencies:
+      lib0: 0.2.114
+      y-protocols: 1.0.6(yjs@13.6.28)
+      yjs: 13.6.28
 
   y18n@5.0.8: {}
 
@@ -16384,6 +16406,10 @@ snapshots:
       fd-slicer: 1.1.0
 
   yjs@13.6.27:
+    dependencies:
+      lib0: 0.2.114
+
+  yjs@13.6.28:
     dependencies:
       lib0: 0.2.114
 
