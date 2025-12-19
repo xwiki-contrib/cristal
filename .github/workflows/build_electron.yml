@@ -40,7 +40,9 @@ jobs:
           path: |
             .nx/
           key: ${{ github.ref }}-restore-cache-electron-linux
-      - run: pnpm install
+      - run: pnpm update -r --no-save
+      - run: cat pnpm-lock.yaml
+      - run: git commit -am "commit updated lockfile"
       - run: pnpm run build
       - run: sudo apt update
       - run: sudo apt install flatpak-builder
