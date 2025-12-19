@@ -58,3 +58,8 @@ CristalAppLoader.init(
     await conditionalComponentsList(container, configuration);
   },
 );
+
+const metaVersion = document.createElement("meta");
+metaVersion.setAttribute("name", "version");
+metaVersion.setAttribute("content", APP_VERSION);
+document.head.appendChild(metaVersion);

@@ -41,4 +41,7 @@ export default defineConfig({
   worker: {
     format: "es"
   },
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
 });
