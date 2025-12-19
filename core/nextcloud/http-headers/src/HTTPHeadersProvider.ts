@@ -22,7 +22,7 @@
  * Provides the required HTTP headers to perform a request in a specific
  * context.
  *
- * @since 0.25.0-rc-1
+ * @since 0.25.0
  * @beta
  */
 export interface HTTPHeadersProvider {
