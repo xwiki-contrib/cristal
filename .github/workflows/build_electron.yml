@@ -75,7 +75,11 @@ jobs:
           path: |
             .nx/
           key: ${{ github.ref }}-restore-cache-electron-mac
-      - run: pnpm install
+      - run: pnpm update -r --no-save
+      - run: cat pnpm-lock.yaml
+      - run: git config --global user.email "tmp@xwiki.org"
+      - run: git config --global user.name "XWiki Dev Team"
+      - run: git commit -am "commit updated lockfile"
       - run: pnpm run build
       - run: pnpm run --filter @xwiki/cristal-electron build:mac
         env:
@@ -104,7 +108,11 @@ jobs:
         env:
           NX_DISABLE_DB: true
           NX_DB_CACHE: false
-      - run: pnpm install
+      - run: pnpm update -r --no-save
+      - run: cat pnpm-lock.yaml
+      - run: git config --global user.email "tmp@xwiki.org"
+      - run: git config --global user.name "XWiki Dev Team"
+      - run: git commit -am "commit updated lockfile"
       - run: pnpm run build
       - run: pnpm run --filter @xwiki/cristal-electron build:win
         env:
