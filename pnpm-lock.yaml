@@ -76,67 +76,67 @@ catalogs:
       specifier: 2.4.6
       version: 2.4.6
     '@xwiki/platform-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-attachments-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-attachments-default':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-authentication-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-backend-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-collaboration-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-configuration-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-document-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-dsapi':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-editors-blocknote-headless':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-fn-utils':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-icons':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-link-suggest-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-macros-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-macros-service':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-model-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-model-reference-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-model-remote-url-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-navigation-tree-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-uniast-api':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     '@xwiki/platform-uniast-markdown':
-      specifier: 18.0.0-1766398944
+      specifier: ^18.0.0-0
       version: 18.0.0-1766398944
     async-lock:
       specifier: 1.4.1
@@ -3410,7 +3410,7 @@ importers:
         version: 18.0.0-1766398944(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
       '@xwiki/platform-editors-blocknote-headless':
         specifier: 'catalog:'
-        version: 18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/utils@6.0.22(react@19.2.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
+        version: 18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@mantine/utils@6.0.22(react@19.2.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
         version: 18.0.0-1766398944(reflect-metadata@0.2.2)(vue@3.5.25(typescript@5.9.3))
@@ -10094,10 +10094,6 @@ packages:
   yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
 
-  yjs@13.6.27:
-    resolution: {integrity: sha512-OIDwaflOaq4wC6YlPBy2L6ceKeKuF7DeTxx+jPzv1FHn9tCZ0ZwSRnUBxD05E3yed46fv/FWJbvR+Ud7x0L7zw==}
-    engines: {node: '>=16.0.0', npm: '>=8.0.0'}
-
   yjs@13.6.28:
     resolution: {integrity: sha512-EgnDOXs8+hBVm6mq3/S89Kiwzh5JRbn7w2wXwbrMRyKy/8dOFsLvuIfC+x19ZdtaDc0tA9rQmdZzbqqNHG44wA==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
@@ -10134,7 +10130,7 @@ snapshots:
 
   '@bcoe/v8-coverage@1.0.2': {}
 
-  '@blocknote/core@0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)':
+  '@blocknote/core@0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)':
     dependencies:
       '@emoji-mart/data': 1.2.1
       '@shikijs/types': 3.13.0
@@ -10172,11 +10168,11 @@ snapshots:
       unified: 11.0.5
       unist-util-visit: 5.0.0
       uuid: 8.3.2
-      y-prosemirror: 1.3.7(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.3)(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
-      y-protocols: 1.0.6(yjs@13.6.27)
-      yjs: 13.6.27
+      y-prosemirror: 1.3.7(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.3)(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28)
+      y-protocols: 1.0.6(yjs@13.6.28)
+      yjs: 13.6.28
     optionalDependencies:
-      '@hocuspocus/provider': 2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)
+      '@hocuspocus/provider': 2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28)
     transitivePeerDependencies:
       - '@tiptap/extensions'
       - '@types/hast'
@@ -10186,10 +10182,10 @@ snapshots:
       - sugar-high
       - supports-color
 
-  '@blocknote/mantine@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.10(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@blocknote/mantine@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.10(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
-      '@blocknote/react': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
+      '@blocknote/react': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/core': 8.3.10(@mantine/hooks@8.3.10(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/hooks': 8.3.10(react@19.2.0)
       '@mantine/utils': 6.0.22(react@19.2.0)
@@ -10209,9 +10205,9 @@ snapshots:
       - sugar-high
       - supports-color
 
-  '@blocknote/react@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+  '@blocknote/react@0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
-      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
+      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
       '@emoji-mart/data': 1.2.1
       '@floating-ui/react': 0.27.16(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tiptap/core': 3.13.0(@tiptap/pm@3.13.0)
@@ -10611,19 +10607,6 @@ snapshots:
   '@hocuspocus/common@2.15.3':
     dependencies:
       lib0: 0.2.114
-
-  '@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27)':
-    dependencies:
-      '@hocuspocus/common': 2.15.3
-      '@lifeomic/attempt': 3.1.0
-      lib0: 0.2.114
-      ws: 8.18.3
-      y-protocols: 1.0.6(yjs@13.6.27)
-      yjs: 13.6.27
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-    optional: true
 
   '@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28)':
     dependencies:
@@ -11839,9 +11822,9 @@ snapshots:
       - inversify
       - vue-router
 
-  '@xwiki/platform-editors-blocknote-headless@18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/utils@6.0.22(react@19.2.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))':
+  '@xwiki/platform-editors-blocknote-headless@18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@mantine/utils@6.0.22(react@19.2.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))':
     dependencies:
-      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
+      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
       '@tiptap/core': 3.13.0(@tiptap/pm@3.13.0)
       '@tiptap/extensions': 3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0)
       '@tiptap/pm': 3.13.0
@@ -11850,7 +11833,7 @@ snapshots:
       '@xwiki/platform-collaboration-api': 18.0.0-1766398944(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
       '@xwiki/platform-document-api': 18.0.0-1766398944(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
       '@xwiki/platform-dsapi': 18.0.0-1766398944(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
-      '@xwiki/platform-editors-blocknote-react': 18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
+      '@xwiki/platform-editors-blocknote-react': 18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
       '@xwiki/platform-fn-utils': 18.0.0-1766398944
       '@xwiki/platform-icons': 18.0.0-1766398944(reflect-metadata@0.2.2)(vue@3.5.25(typescript@5.9.3))
       '@xwiki/platform-link-suggest-api': 18.0.0-1766398944(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
@@ -11880,11 +11863,11 @@ snapshots:
       - typescript
       - vue-router
 
-  '@xwiki/platform-editors-blocknote-react@18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))':
+  '@xwiki/platform-editors-blocknote-react@18.0.0-1766398944(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))':
     dependencies:
-      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
-      '@blocknote/mantine': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.10(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@blocknote/react': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
+      '@blocknote/mantine': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mantine/hooks@8.3.10(react@19.2.0))(@mantine/utils@6.0.22(react@19.2.0))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@blocknote/react': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.2(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/core': 8.3.10(@mantine/hooks@8.3.10(react@19.2.0))(@types/react@19.2.6)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@mantine/hooks': 8.3.10(react@19.2.0)
       '@types/react-dom': 19.2.2(@types/react@19.2.6)
@@ -16343,19 +16326,14 @@ snapshots:
 
   xmlbuilder@15.1.1: {}
 
-  y-prosemirror@1.3.7(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.3)(y-protocols@1.0.6(yjs@13.6.27))(yjs@13.6.27):
+  y-prosemirror@1.3.7(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-view@1.41.3)(y-protocols@1.0.6(yjs@13.6.28))(yjs@13.6.28):
     dependencies:
       lib0: 0.2.114
       prosemirror-model: 1.25.4
       prosemirror-state: 1.4.4
       prosemirror-view: 1.41.3
-      y-protocols: 1.0.6(yjs@13.6.27)
-      yjs: 13.6.27
-
-  y-protocols@1.0.6(yjs@13.6.27):
-    dependencies:
-      lib0: 0.2.114
-      yjs: 13.6.27
+      y-protocols: 1.0.6(yjs@13.6.28)
+      yjs: 13.6.28
 
   y-protocols@1.0.6(yjs@13.6.28):
     dependencies:
@@ -16390,10 +16368,6 @@ snapshots:
     dependencies:
       buffer-crc32: 0.2.13
       fd-slicer: 1.1.0
-
-  yjs@13.6.27:
-    dependencies:
-      lib0: 0.2.114
 
   yjs@13.6.28:
     dependencies:
