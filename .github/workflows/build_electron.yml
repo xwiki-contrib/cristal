@@ -42,6 +42,8 @@ jobs:
           key: ${{ github.ref }}-restore-cache-electron-linux
       - run: pnpm update -r --no-save
       - run: cat pnpm-lock.yaml
+      - run: git config --global user.email "tmp@xwiki.org"
+      - run: git config --global user.name "XWiki Dev Team"
       - run: git commit -am "commit updated lockfile"
       - run: pnpm run build
       - run: sudo apt update
