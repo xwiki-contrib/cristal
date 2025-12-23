@@ -19,7 +19,7 @@
  */
 
 import { getParentNodesIdFromPath } from "@xwiki/cristal-navigation-tree-default";
-import { EntityType } from "@xwiki/platform-model-api";
+import { EntityType, SpaceReference } from "@xwiki/platform-model-api";
 import { name as NavigationTreeSourceName } from "@xwiki/platform-navigation-tree-api";
 import { Container, inject, injectable } from "inversify";
 import type { CristalApp, Logger } from "@xwiki/platform-api";
@@ -91,7 +91,7 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
                 type: string;
                 git_url: string;
                 url: string;
-              }) => {
+              }): Promise<NavigationTreeNode | undefined> => {
                 const parse = this.remoteURLParserProvider
                   .get()!
                   .parse(
@@ -113,7 +113,10 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
                   return {
                     id: page,
                     label: this.computeLabel(currentPageData, parse, treeNode),
-                    location: parse,
+                    location: new SpaceReference(
+                      parse.space?.wiki,
+                      ...page.split("/"),
+                    ),
                     url: this.cristalApp.getRouter().resolve({
                       name: "view",
                       params: {
@@ -150,10 +153,12 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
         }
       | undefined
     )[]
-  ) {
-    return names
-      .filter((it) => it?.name !== undefined && it.name !== "")
-      .map((it) => it!.name)[0];
+  ): string {
+    return (
+      names
+        .filter((it) => it?.name !== undefined && it.name !== "")
+        .map((it) => it!.name)[0] ?? ""
+    );
   }
 
   getParentNodesId(

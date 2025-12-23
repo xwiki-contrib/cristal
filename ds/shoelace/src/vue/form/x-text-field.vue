@@ -37,7 +37,14 @@ const input = defineModel<string>();
     :readonly="readonly"
     :type="type ?? 'text'"
     @input="input = $event.target.value"
-  ></sl-input>
+  >
+    <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
+    Disabling it for now as I did not find an elegant solution to declare this property. -->
+    <!--eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+    <div slot="prefix" v-if="$slots.default">
+      <slot name="default" />
+    </div>
+  </sl-input>
 </template>
 
 <style scoped></style>

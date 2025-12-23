@@ -56,7 +56,11 @@ const rules = computed(() => {
     :rules="rules"
     :readonly="readonly"
     :type="type ?? 'text'"
-  ></v-text-field>
+  >
+    <template #default>
+      <slot name="default" />
+    </template>
+  </v-text-field>
 </template>
 
 <style scoped></style>

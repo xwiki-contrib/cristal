@@ -18,27 +18,36 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
-import messages from "../../translations";
-import XBreadcrumb from "../x-breadcrumb.vue";
-import { navigationTreeSelectPropsDefaults } from "@xwiki/platform-dsapi";
-import { EntityType, SpaceReference } from "@xwiki/platform-model-api";
-import { inject, onMounted, ref } from "vue";
+import NavigationTree from "./NavigationTree.vue";
+import messages from "../translations";
+import { SpaceReference } from "@xwiki/platform-model-api";
+import { inject, onBeforeMount, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import { VTextField } from "vuetify/components/VTextField";
 import type {
   PageHierarchyItem,
   PageHierarchyResolver,
   PageHierarchyResolverProvider,
 } from "@xwiki/cristal-hierarchy-api";
 import type { CristalApp } from "@xwiki/platform-api";
-import type { NavigationTreeSelectProps } from "@xwiki/platform-dsapi";
+import type { DocumentService } from "@xwiki/platform-document-api";
+import type { DisplayableTreeNode } from "@xwiki/platform-dsapi";
 import type { DocumentReference } from "@xwiki/platform-model-api";
 import type {
   ModelReferenceHandler,
   ModelReferenceHandlerProvider,
 } from "@xwiki/platform-model-reference-api";
-import type { NavigationTreeNode } from "@xwiki/platform-navigation-tree-api";
 import type { Ref } from "vue";
+
+type NavigationTreeNode = DisplayableTreeNode & {
+  location: SpaceReference;
+};
+
+defineProps<{
+  label: string;
+  help?: string;
+  includeTerminals?: boolean;
+}>();
+const model = defineModel<SpaceReference>();
 
 const cristal: CristalApp = inject<CristalApp>("cristal")!;
 const hierarchyResolver: PageHierarchyResolver = cristal
@@ -49,98 +58,77 @@ const referenceHandler: ModelReferenceHandler = cristal
   .getContainer()
   .get<ModelReferenceHandlerProvider>("ModelReferenceHandlerProvider")
   .get()!;
+const documentService: DocumentService = cristal
+  .getContainer()
+  .get<DocumentService>("DocumentService");
+const currentPageReference: Ref<DocumentReference | undefined> =
+  documentService.getCurrentDocumentReference();
+
+const openedLocationDialog: Ref<boolean> = ref(false);
+const hierarchy: Ref<Array<PageHierarchyItem>> = ref([]);
 
 const { t } = useI18n({
   messages,
 });
-const props = withDefaults(
-  defineProps<NavigationTreeSelectProps>(),
-  navigationTreeSelectPropsDefaults,
-);
-const model = defineModel<SpaceReference | DocumentReference>();
 
-const openedLocationDialog: Ref<boolean> = ref(false);
-const hierarchy: Ref<Array<PageHierarchyItem>> = ref([]);
-let selectedPage: DocumentReference | undefined;
-
-onMounted(async () => {
-  selectedPage = props.currentPageReference;
-  model.value = props.currentPageReference!.space;
-  hierarchy.value = await hierarchyResolver.getPageHierarchy(
-    props.currentPageReference!.space!,
-    false,
-  );
-});
-
-async function treeNodeClickAction(node: NavigationTreeNode) {
-  if (node.location.type == EntityType.SPACE) {
-    if (node.location.names.length > 0) {
-      selectedPage = referenceHandler.createDocumentReference(
-        node.location.names[node.location.names.length - 1],
-        new SpaceReference(
-          node.location.wiki,
-          ...node.location.names.slice(0, -1),
-        ),
-      );
-      hierarchy.value = await hierarchyResolver.getPageHierarchy(
-        selectedPage,
-        false,
-      );
-    } else {
-      selectedPage = undefined;
-      hierarchy.value = [{ label: node.label, pageId: "", url: node.url }];
-    }
-  } else {
-    selectedPage = node.location;
+watch(model, async (newLocation) => {
+  if (newLocation && newLocation.names.length > 0) {
+    const selectedPage = referenceHandler.createDocumentReference(
+      newLocation.names[newLocation.names.length - 1],
+      new SpaceReference(newLocation.wiki, ...newLocation.names.slice(0, -1)),
+    );
     hierarchy.value = await hierarchyResolver.getPageHierarchy(
       selectedPage,
       false,
     );
+  } else {
+    hierarchy.value = [{ label: "Root", pageId: "", url: "." }];
   }
+});
+
+onBeforeMount(async () => {
+  const currentSpaceReference = currentPageReference.value!.space;
+  model.value = currentSpaceReference;
+  if (currentSpaceReference) {
+    hierarchy.value = await hierarchyResolver.getPageHierarchy(
+      currentPageReference.value!.space!,
+      false,
+    );
+  }
+});
+
+async function nodeClickAction(node: NavigationTreeNode) {
   model.value = node.location;
 }
 </script>
 
 <template>
-  <v-text-field
-    :label="label"
-    :hint="help"
-    :persistent-hint="help !== undefined"
-    :active="hierarchy.length > 0"
-    readonly
-  >
+  <x-text-field :label="label" :help="help" modelValue=" " readonly>
     <template #default>
       <XBreadcrumb :items="hierarchy"></XBreadcrumb>
     </template>
-  </v-text-field>
+  </x-text-field>
   <XDialog
     v-model="openedLocationDialog"
     width="auto"
-    :title="t('vuetify.tree.select.location.label')"
+    :title="t('navigation.tree.select.location.label')"
   >
     <template #activator>
       <x-btn id="change-page-location-button" size="small" color="secondary">
-        {{ t("vuetify.tree.select.location.label") }}
+        {{ t("navigation.tree.select.location.label") }}
       </x-btn>
     </template>
     <template #default>
-      <XNavigationTree
-        :current-page-reference="selectedPage"
-        :click-action="treeNodeClickAction"
+      <navigation-tree
         :include-terminals="includeTerminals"
+        :node-click-action="nodeClickAction"
         show-root-node
-      ></XNavigationTree>
+      ></navigation-tree>
     </template>
     <template #footer>
       <XBtn variant="primary" @click="openedLocationDialog = false">
-        {{ t("vuetify.tree.select.location.select") }}
+        {{ t("navigation.tree.select.location.select") }}
       </XBtn>
     </template>
   </XDialog>
 </template>
-
-<style scoped>
-.v-treeview {
-  overflow: auto;
-}
-</style>
