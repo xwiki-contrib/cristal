@@ -19,15 +19,11 @@
 -->
 <script lang="ts" setup>
 import "@shoelace-style/shoelace/dist/components/dialog/dialog";
-import { useTemplateRef } from "vue";
-import type SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.d.ts";
 
 defineProps<{
   title: string;
   width: string | number | undefined;
 }>();
-
-const dialog = useTemplateRef<SlDialog>("dialog");
 
 function click() {
   open.value = true;
@@ -42,7 +38,6 @@ const open = defineModel<boolean>();
   <!-- We need to place the modal in the root node to avoid overlay issues. -->
   <Teleport to="#view">
     <sl-dialog
-      ref="dialog"
       :open="open"
       :label="title"
       class="dialog-overview"

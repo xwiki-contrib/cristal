@@ -86,17 +86,29 @@ function init() {
   modelReferenceParserProvider.get.mockReturnValue(modelReferenceParser);
   remoteURLSerializerProvider.get.mockReturnValue(remoteURLSerializer);
 
+  const documentReference = new DocumentReference(
+    "B",
+    new SpaceReference(undefined, "A"),
+  );
   const attachmentReference = new AttachmentReference(
     "image.png",
-    new DocumentReference("B", new SpaceReference(undefined, "A")),
+    documentReference,
   );
   modelReferenceParser.parse
     .calledWith("A.B@image.png", any())
     .mockReturnValue(attachmentReference);
 
+  modelReferenceParser.parse
+    .calledWith("A.B", any())
+    .mockReturnValue(documentReference);
+
   remoteURLSerializer.serialize
     .calledWith(attachmentReference)
     .mockReturnValue("https://my.site/A/B/image.png");
+
+  remoteURLSerializer.serialize
+    .calledWith(documentReference)
+    .mockReturnValue("https://my.site/A/B/");
 
   return {
     remoteURLSerializerProvider,
@@ -534,6 +546,53 @@ describe("UniAstToHTMLConverter", () => {
         '<img src="https://my.site/A/B/image.png" alt="Some alt caption" width="100px" height="200px">',
         '<img src="https://picsum.photos/536/354">',
       ].join(""),
+    );
+  });
+
+  test("internal link", () => {
+    const res = uniAstToHTMLConverter.toHtml({
+      blocks: [
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "link",
+              target: {
+                type: "internal",
+                rawReference: "A.B",
+                parsedReference: null,
+              },
+              content: [{ type: "text", content: "My Link", styles: {} }],
+            },
+          ],
+          styles: {},
+        },
+      ],
+    });
+    expect(res).toBe('<p><a href="https://my.site/A/B/">My Link</a></p>');
+  });
+
+  test("external link", () => {
+    const res = uniAstToHTMLConverter.toHtml({
+      blocks: [
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "link",
+              target: {
+                type: "external",
+                url: "https://my.external.site",
+              },
+              content: [{ type: "text", content: "My Link", styles: {} }],
+            },
+          ],
+          styles: {},
+        },
+      ],
+    });
+    expect(res).toBe(
+      '<p><a href="https://my.external.site" class="wikiexternallink">My Link</a></p>',
     );
   });
 });

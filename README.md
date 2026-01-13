@@ -54,7 +54,9 @@ Page" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2)">
 ## Project Setup
 
 ```sh
-pnpm install
+## Install and update the dependency ranges with the latest versions.
+## This command can be run whenever the most up to date version of dependencies is needed.
+pnpm update -r --no-save
 ```
 
 ### Starting the project

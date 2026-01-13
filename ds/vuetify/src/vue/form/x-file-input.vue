@@ -19,7 +19,7 @@
 -->
 <script setup lang="ts">
 import messages from "../../translations";
-import { computed, defineModel } from "vue";
+import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { VFileInput } from "vuetify/components/VFileInput";
 import type { FileInputModel, TextFieldProps } from "@xwiki/platform-dsapi";

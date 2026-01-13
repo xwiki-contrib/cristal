@@ -25,7 +25,7 @@ import type { AuthenticationManagerProvider } from "@xwiki/platform-authenticati
 /**
  * Provides HTTP headers to perform authenticated requests with Nextcloud's API.
  *
- * @since 0.25.0-rc-1
+ * @since 0.25.0
  * @beta
  */
 @injectable()

@@ -344,7 +344,12 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
       case "link":
         return produceHtmlEl(
           "a",
-          { href: this.getTargetUrl(inlineContent.target) },
+          {
+            href: this.getTargetUrl(inlineContent.target),
+            ...(inlineContent.target.type === "external"
+              ? { class: "wikiexternallink" }
+              : {}),
+          },
           this.convertInlineContents(inlineContent.content),
         );
 

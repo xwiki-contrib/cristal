@@ -146,7 +146,7 @@ app.get(
       hierarchy: {
         items: [
           {
-            label: "xwiki",
+            label: "Home",
             name: "xwiki",
             type: "wiki",
             url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
