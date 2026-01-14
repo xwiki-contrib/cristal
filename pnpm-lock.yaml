@@ -226,8 +226,8 @@ catalogs:
       specifier: 3.0.5
       version: 3.0.5
     lib0:
-      specifier: 0.2.114
-      version: 0.2.114
+      specifier: 0.2.117
+      version: 0.2.117
     lodash-es:
       specifier: 4.17.21
       version: 4.17.21
@@ -1226,7 +1226,7 @@ importers:
         version: 18.0.0-1766398944(inversify@7.10.6(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.3(vue@3.5.25(typescript@5.9.3)))(vue@3.5.25(typescript@5.9.3))
       lib0:
         specifier: 'catalog:'
-        version: 0.2.114
+        version: 0.2.117
       y-websocket:
         specifier: 'catalog:'
         version: 3.0.0(yjs@13.6.29)
@@ -8142,6 +8142,11 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  lib0@0.2.117:
+    resolution: {integrity: sha512-DeXj9X5xDCjgKLU/7RR+/HQEVzuuEUiwldwOGsHK/sfAfELGWEyTcf0x+uOvCvK3O2zPmZePXWL85vtia6GyZw==}
+    engines: {node: '>=16'}
+    hasBin: true
+
   lines-and-columns@2.0.3:
     resolution: {integrity: sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -14112,6 +14117,10 @@ snapshots:
     dependencies:
       isomorphic.js: 0.2.5
 
+  lib0@0.2.117:
+    dependencies:
+      isomorphic.js: 0.2.5
+
   lines-and-columns@2.0.3: {}
 
   linkify-it@5.0.0:
@@ -16356,17 +16365,17 @@ snapshots:
 
   y-protocols@1.0.6(yjs@13.6.28):
     dependencies:
-      lib0: 0.2.114
+      lib0: 0.2.117
       yjs: 13.6.28
 
   y-protocols@1.0.6(yjs@13.6.29):
     dependencies:
-      lib0: 0.2.114
+      lib0: 0.2.117
       yjs: 13.6.29
 
   y-websocket@3.0.0(yjs@13.6.29):
     dependencies:
-      lib0: 0.2.114
+      lib0: 0.2.117
       y-protocols: 1.0.6(yjs@13.6.29)
       yjs: 13.6.29
 
@@ -16399,7 +16408,7 @@ snapshots:
 
   yjs@13.6.29:
     dependencies:
-      lib0: 0.2.114
+      lib0: 0.2.117
 
   yn@3.1.1: {}
 
