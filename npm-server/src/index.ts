@@ -114,7 +114,7 @@ app.get("/metadata/:packageId", async (req: Request, res: Response) => {
             ...pkg,
             dist: {
               integrity: `sha512-${sha}`,
-              tarball: `http://localhost:${port}/package/${encodeURIComponent(req.params["packageId"])}`,
+              tarball: `http://localhost:${port}/package/${encodeURIComponent(req.params["packageId"] as string)}`,
             },
           },
         },
@@ -125,7 +125,7 @@ app.get("/metadata/:packageId", async (req: Request, res: Response) => {
         `Package ${req.params["packageId"]} not found locally, redirecting...`,
       );
       res.redirect(
-        `${NEXUS_REGISTRY}${encodeURIComponent(req.params["packageId"])}`,
+        `${NEXUS_REGISTRY}${encodeURIComponent(req.params["packageId"] as string)}`,
       );
     }
   } else {
