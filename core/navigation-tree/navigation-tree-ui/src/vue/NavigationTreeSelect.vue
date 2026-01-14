@@ -82,7 +82,9 @@ watch(model, async (newLocation) => {
       false,
     );
   } else {
-    hierarchy.value = [{ label: "Root", pageId: "", url: "." }];
+    hierarchy.value = [
+      { label: t("navigation.tree.root.node.label"), pageId: "", url: "." },
+    ];
   }
 });
 

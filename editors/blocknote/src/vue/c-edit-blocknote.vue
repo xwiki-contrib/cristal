@@ -166,7 +166,15 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
 /**
  * Go to the view route
  */
-function navigateToView() {
+async function navigateToView() {
+  // Notify that the document has been edited.
+  if (currentPageReference.value) {
+    await documentService.notifyDocumentChange(
+      "update",
+      currentPageReference.value,
+    );
+  }
+
   // Navigate to view mode.
   const viewRouterParams = {
     name: "view",
@@ -230,16 +238,8 @@ async function saveContent() {
 async function submit() {
   await saveContent();
 
-  // Notify that the document has changed on submit.
-  if (currentPageReference.value) {
-    await documentService.notifyDocumentChange(
-      "update",
-      currentPageReference.value,
-    );
-  }
-
   // TODO: hold back user in case of error
-  navigateToView();
+  await navigateToView();
 }
 
 // Wait for the page to be fetched before loading the editor

@@ -115,7 +115,8 @@ class GitHubNavigationTreeSource implements NavigationTreeSource {
                     label: this.computeLabel(currentPageData, parse, treeNode),
                     location: new SpaceReference(
                       parse.space?.wiki,
-                      ...page.split("/"),
+                      ...(parse.space?.names ?? []),
+                      parse.name,
                     ),
                     url: this.cristalApp.getRouter().resolve({
                       name: "view",

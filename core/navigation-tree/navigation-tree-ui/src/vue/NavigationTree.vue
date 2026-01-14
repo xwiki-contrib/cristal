@@ -18,9 +18,11 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script setup lang="ts">
+import messages from "../translations";
 import { SpaceReference } from "@xwiki/platform-model-api";
 import AsyncLock from "async-lock";
 import { inject, onBeforeMount, reactive, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
 import type { DisplayableTreeNode } from "@xwiki/platform-dsapi";
@@ -55,9 +57,13 @@ const currentPageReference: Ref<DocumentReference | undefined> =
 const activatedNode: Ref<string | undefined> = ref(undefined);
 const openedNodes: Ref<string[]> = ref(props.showRootNode ? ["_root"] : []);
 
+const { t } = useI18n({
+  messages,
+});
+
 const treeNodeRoot: Ref<NavigationTreeNode> = ref({
   id: "_root",
-  label: "Root",
+  label: t("navigation.tree.root.node.label"),
   location: new SpaceReference(),
   url: ".",
   children: [],

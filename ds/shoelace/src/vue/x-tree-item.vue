@@ -19,7 +19,11 @@
 -->
 <script setup lang="ts" generic="T extends DisplayableTreeNode">
 import "@shoelace-style/shoelace/dist/components/tree-item/tree-item";
+import { useTemplateRef } from "vue";
+import type SlTreeItem from "@shoelace-style/shoelace/dist/components/tree-item/tree-item.d.ts";
 import type { DisplayableTreeNode } from "@xwiki/platform-dsapi";
+
+const current = useTemplateRef<SlTreeItem>("current");
 
 const props = defineProps<{
   node: T;
@@ -62,6 +66,7 @@ async function lazyLoadChildrenWrapper() {
 
 <template>
   <sl-tree-item
+    ref="current"
     :data-id="node.id"
     :selected="node.id === activated"
     :expanded="opened.includes(node.id)"
@@ -87,8 +92,6 @@ async function lazyLoadChildrenWrapper() {
     <a v-else class="undecorated" :href="node.url" @click="updateActivated">{{
       node.label
     }}</a>
-    <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
-    Disabling it for now as I did not find an elegant solution to declare this property. -->
     <!-- eslint-disable vue/no-deprecated-slot-attribute -->
     <x-tree-item
       slot="children"

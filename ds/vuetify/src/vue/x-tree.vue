@@ -59,7 +59,7 @@ async function lazyLoadChildrenWrapper(node: unknown) {
     active-strategy="independent"
     item-value="id"
     v-model:opened="opened as string[]"
-    @update:opened="($event) => (opened = $event as string[])"
+    @update:opened="($event: string[]) => (opened = $event)"
     @update:activated="resetActivated"
   >
     <template #title="{ item }">
