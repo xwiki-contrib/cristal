@@ -128,7 +128,13 @@ function onClickOutsideMainSidebar() {
 }
 </script>
 <template>
-  <div class="collapsed-main-sidebar" @click="onOpenMainSidebar">
+  <div
+    class="collapsed-main-sidebar"
+    tabindex="0"
+    @click="onOpenMainSidebar"
+    @keyup.enter="onOpenMainSidebar"
+    @keyup.space="onOpenMainSidebar"
+  >
     <c-icon name="list" class="open-sidebar"></c-icon>
   </div>
   <div
@@ -140,20 +146,35 @@ function onClickOutsideMainSidebar() {
       <c-icon
         name="x-lg"
         class="close-sidebar"
+        tabindex="0"
         @click="onCloseMainSidebar()"
+        @keyup.enter="onCloseMainSidebar()"
+        @keyup.space="onCloseMainSidebar()"
       ></c-icon>
 
       <c-icon
         name="pin"
         class="pin-sidebar"
+        tabindex="0"
         @click="$emit('collapseMainSidebar')"
+        @keyup.enter="$emit('collapseMainSidebar')"
+        @keyup.space="$emit('collapseMainSidebar')"
       ></c-icon>
     </div>
     <div class="sidebar-header">
       <c-icon
         name="list"
         class="hide-sidebar"
+        tabindex="0"
         @click="
+          $emit('collapseMainSidebar');
+          onCloseMainSidebar();
+        "
+        @keyup.enter="
+          $emit('collapseMainSidebar');
+          onCloseMainSidebar();
+        "
+        @keyup.space="
           $emit('collapseMainSidebar');
           onCloseMainSidebar();
         "
