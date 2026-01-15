@@ -143,28 +143,26 @@ function onClickOutsideMainSidebar() {
   >
     <UIX uixname="sidebar.before" />
     <div class="sidebar-collapse-controls">
-      <c-icon
-        name="x-lg"
-        class="close-sidebar"
+      <span
         tabindex="0"
-        @click="onCloseMainSidebar()"
-        @keyup.enter="onCloseMainSidebar()"
-        @keyup.space="onCloseMainSidebar()"
-      ></c-icon>
+        @click="onCloseMainSidebar"
+        @keyup.enter="onCloseMainSidebar"
+        @keyup.space="onCloseMainSidebar"
+      >
+        <c-icon name="x-lg" class="close-sidebar"></c-icon>
+      </span>
 
-      <c-icon
-        name="pin"
-        class="pin-sidebar"
+      <span
         tabindex="0"
         @click="$emit('collapseMainSidebar')"
         @keyup.enter="$emit('collapseMainSidebar')"
         @keyup.space="$emit('collapseMainSidebar')"
-      ></c-icon>
+      >
+        <c-icon name="pin" class="pin-sidebar"></c-icon>
+      </span>
     </div>
     <div class="sidebar-header">
-      <c-icon
-        name="list"
-        class="hide-sidebar"
+      <span
         tabindex="0"
         @click="
           $emit('collapseMainSidebar');
@@ -178,7 +176,9 @@ function onClickOutsideMainSidebar() {
           $emit('collapseMainSidebar');
           onCloseMainSidebar();
         "
-      ></c-icon>
+      >
+        <c-icon name="list" class="hide-sidebar"></c-icon>
+      </span>
       <x-img
         class="logo"
         :alt="t('sidebar.logo.alt')"
