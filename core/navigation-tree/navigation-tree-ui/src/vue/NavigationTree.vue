@@ -54,15 +54,21 @@ const documentService: DocumentService = cristal
 const currentPageReference: Ref<DocumentReference | undefined> =
   documentService.getCurrentDocumentReference();
 
+// We need the root node of the tree to have a non-empty id
+// (mainly for Vuetify's tree implementation). We use "_root" here, since the
+// "_" prefix separates it from an actual id coming from the backend.
+// This id will also be used for checks when the prop "showRootNode" is true.
+const rootNodeId: string = "_root";
+
 const activatedNode: Ref<string | undefined> = ref(undefined);
-const openedNodes: Ref<string[]> = ref(props.showRootNode ? ["_root"] : []);
+const openedNodes: Ref<string[]> = ref(props.showRootNode ? [rootNodeId] : []);
 
 const { t } = useI18n({
   messages,
 });
 
 const treeNodeRoot: Ref<NavigationTreeNode> = ref({
-  id: "_root",
+  id: rootNodeId,
   label: t("navigation.tree.root.node.label"),
   location: new SpaceReference(),
   url: ".",
@@ -248,7 +254,7 @@ async function onDocumentUpdate(page: DocumentReference) {
 async function onDocumentUpdateEditNode(nodeId: string) {
   const currentNode = nodesMap.get(nodeId)!;
   const parentNodeId =
-    currentNode.parent!.id == "_root" ? "" : currentNode.parent!.id;
+    currentNode.parent!.id == rootNodeId ? "" : currentNode.parent!.id;
   // We re-fetch the parent node's children.
   for (const newNode of await getChildNodes(parentNodeId)) {
     if (newNode.id == nodeId) {
@@ -260,7 +266,7 @@ async function onDocumentUpdateEditNode(nodeId: string) {
 }
 
 async function onDocumentUpdateCreateNode(nodeId: string, parentId: string) {
-  const parentNode = nodesMap.get(parentId == "" ? "_root" : parentId)!;
+  const parentNode = nodesMap.get(parentId == "" ? rootNodeId : parentId)!;
   // We re-fetch the parent node's children.
   for (const newNode of await getChildNodes(parentId)) {
     if (newNode.id == nodeId) {
