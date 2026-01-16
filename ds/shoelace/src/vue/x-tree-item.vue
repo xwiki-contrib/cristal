@@ -27,6 +27,7 @@ const current = useTemplateRef<SlTreeItem>("current");
 
 const props = defineProps<{
   node: T;
+  slot?: string;
   lazyLoadChildren?: (node: T) => Promise<void>;
   nodeClickAction?: (node: T) => Promise<void>;
 }>();
@@ -97,7 +98,7 @@ async function lazyLoadChildrenWrapper() {
       slot="children"
       v-for="item in node.children"
       :key="item.id"
-      :node="item"
+      :node="item as T"
       :lazy-load-children="lazyLoadChildren"
       :node-click-action="nodeClickAction"
       v-model:activated="activated"
