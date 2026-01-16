@@ -128,7 +128,13 @@ function onClickOutsideMainSidebar() {
 }
 </script>
 <template>
-  <div class="collapsed-main-sidebar" @click="onOpenMainSidebar">
+  <div
+    class="collapsed-main-sidebar"
+    tabindex="0"
+    @click="onOpenMainSidebar"
+    @keyup.enter="onOpenMainSidebar"
+    @keyup.space="onOpenMainSidebar"
+  >
     <c-icon name="list" class="open-sidebar"></c-icon>
   </div>
   <div
@@ -137,27 +143,42 @@ function onClickOutsideMainSidebar() {
   >
     <UIX uixname="sidebar.before" />
     <div class="sidebar-collapse-controls">
-      <c-icon
-        name="x-lg"
-        class="close-sidebar"
-        @click="onCloseMainSidebar()"
-      ></c-icon>
+      <span
+        tabindex="0"
+        @click="onCloseMainSidebar"
+        @keyup.enter="onCloseMainSidebar"
+        @keyup.space="onCloseMainSidebar"
+      >
+        <c-icon name="x-lg" class="close-sidebar"></c-icon>
+      </span>
 
-      <c-icon
-        name="pin"
-        class="pin-sidebar"
+      <span
+        tabindex="0"
         @click="$emit('collapseMainSidebar')"
-      ></c-icon>
+        @keyup.enter="$emit('collapseMainSidebar')"
+        @keyup.space="$emit('collapseMainSidebar')"
+      >
+        <c-icon name="pin" class="pin-sidebar"></c-icon>
+      </span>
     </div>
     <div class="sidebar-header">
-      <c-icon
-        name="list"
-        class="hide-sidebar"
+      <span
+        tabindex="0"
         @click="
           $emit('collapseMainSidebar');
           onCloseMainSidebar();
         "
-      ></c-icon>
+        @keyup.enter="
+          $emit('collapseMainSidebar');
+          onCloseMainSidebar();
+        "
+        @keyup.space="
+          $emit('collapseMainSidebar');
+          onCloseMainSidebar();
+        "
+      >
+        <c-icon name="list" class="hide-sidebar"></c-icon>
+      </span>
       <x-img
         class="logo"
         :alt="t('sidebar.logo.alt')"
