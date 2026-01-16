@@ -19,6 +19,7 @@
 -->
 <script setup lang="ts">
 import messages from "../translations";
+import { NavigationTreeSelect } from "@xwiki/cristal-navigation-tree-ui";
 import { CIcon, Size } from "@xwiki/platform-icons";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
@@ -152,12 +153,11 @@ async function handleSuccess(result: { success: boolean; error?: string }) {
       </x-alert>
       <div class="dialog-content">
         <x-form id="page-move-form" @form-submit="movePage">
-          <XNavigationTreeSelect
+          <navigation-tree-select
             v-model="locationReference"
             :label="t('page.action.action.move.page.location.label')"
             :help="t('page.action.action.move.page.location.help')"
-            :current-page-reference="currentPageReference"
-          ></XNavigationTreeSelect>
+          ></navigation-tree-select>
           <XCheckbox
             v-model="preserveChildren"
             :label="t('page.action.action.move.page.preserve.children.label')"
