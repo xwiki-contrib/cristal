@@ -26,6 +26,7 @@ import { useMouseCoordinates } from "../composables/mouse";
 import { ViewportType, useViewportType } from "../composables/viewport";
 import xlogo from "../images/xwiki-logo-color.svg";
 import messages from "../translations";
+import { NavigationTree } from "@xwiki/cristal-navigation-tree-ui";
 import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { CIcon } from "@xwiki/platform-icons";
@@ -199,9 +200,7 @@ function onClickOutsideMainSidebar() {
         <c-page-creation-menu
           :current-page-reference="currentPageReference"
         ></c-page-creation-menu>
-        <XNavigationTree
-          :current-page-reference="currentPageReference"
-        ></XNavigationTree>
+        <navigation-tree include-terminals></navigation-tree>
       </c-sidebar-panel>
       <UIX uixname="sidebar.after" />
     </div>

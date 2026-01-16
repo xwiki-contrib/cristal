@@ -17,12 +17,12 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends DisplayableTreeNode">
 import XTreeItem from "./x-tree-item.vue";
 import "@shoelace-style/shoelace/dist/components/tree/tree";
-import type { TreeProps } from "@xwiki/platform-dsapi";
+import type { DisplayableTreeNode, TreeProps } from "@xwiki/platform-dsapi";
 
-defineProps<TreeProps>();
+defineProps<TreeProps<T>>();
 const opened = defineModel<string[]>("opened", { default: [] });
 const activated = defineModel<string | undefined>("activated");
 </script>
@@ -32,7 +32,9 @@ const activated = defineModel<string | undefined>("activated");
     <x-tree-item
       v-for="item in showRootNode ? [rootNode] : rootNode.children"
       :key="item.id"
-      :node="item"
+      :node="item as T"
+      :lazy-load-children="lazyLoadChildren"
+      :node-click-action="nodeClickAction"
       v-model:activated="activated"
       v-model:opened="opened"
     >

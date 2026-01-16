@@ -19,6 +19,7 @@
 -->
 <script setup lang="ts">
 import messages from "../translations";
+import { NavigationTreeSelect } from "@xwiki/cristal-navigation-tree-ui";
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { CIcon } from "@xwiki/platform-icons";
 import { inject, ref } from "vue";
@@ -195,12 +196,11 @@ async function editExistingPage() {
             :help="t('page.creation.menu.field.name.help')"
             autofocus
           ></x-text-field>
-          <XNavigationTreeSelect
+          <navigation-tree-select
             v-model="location"
             :label="t('page.creation.menu.field.location')"
             :help="t('page.creation.menu.field.location.help')"
-            :current-page-reference="currentPageReference"
-          ></XNavigationTreeSelect>
+          ></navigation-tree-select>
         </x-form>
       </div>
     </template>
