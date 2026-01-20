@@ -76,68 +76,68 @@ catalogs:
       specifier: 2.4.6
       version: 2.4.6
     '@xwiki/platform-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-attachments-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-attachments-default':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-authentication-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-backend-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-collaboration-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-configuration-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-document-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-dsapi':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-editors-blocknote-headless':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-fn-utils':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-icons':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-link-suggest-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-macros-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-macros-service':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-model-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-model-reference-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-model-remote-url-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-navigation-tree-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-uniast-api':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     '@xwiki/platform-uniast-markdown':
-      specifier: 18.0.0-rc-1
-      version: 18.0.0-rc-1
+      specifier: ^18.1.0-0
+      version: 18.1.0-1768904761
     async-lock:
       specifier: 1.4.1
       version: 1.4.1
@@ -459,7 +459,7 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -474,7 +474,7 @@ importers:
         version: link:../alerts-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       pinia:
         specifier: 'catalog:'
         version: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
@@ -505,7 +505,7 @@ importers:
         version: link:../alerts-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -515,7 +515,7 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -563,19 +563,19 @@ importers:
         version: link:../../user/user-ui
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-attachments-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -591,7 +591,7 @@ importers:
         version: link:../../../dev/test-utils
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -624,10 +624,10 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -652,10 +652,10 @@ importers:
         version: link:../authentication-github-state
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
         version: 1.13.2
@@ -725,13 +725,13 @@ importers:
         version: link:../../uiextension/uiextension-default
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -747,7 +747,7 @@ importers:
         version: link:../../../dev/test-utils
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -777,10 +777,10 @@ importers:
         version: link:../authentication-nextcloud-state
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       async-lock:
         specifier: 'catalog:'
         version: 1.4.1
@@ -847,10 +847,10 @@ importers:
         version: link:../../uiextension/uiextension-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -866,7 +866,7 @@ importers:
         version: link:../../../dev/test-utils
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -899,13 +899,13 @@ importers:
         version: link:../../uiextension/uiextension-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -921,7 +921,7 @@ importers:
         version: link:../../../dev/test-utils
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -948,10 +948,10 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
         version: 1.13.2
@@ -985,10 +985,10 @@ importers:
         version: link:../../../sharedworker/api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       dexie:
         specifier: 'catalog:'
         version: 4.2.1
@@ -1022,13 +1022,13 @@ importers:
         version: link:../../../utils/inversify
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       mime:
         specifier: 'catalog:'
         version: 4.1.0
@@ -1065,13 +1065,13 @@ importers:
         version: link:../../../utils/inversify
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       fast-xml-parser:
         specifier: 'catalog:'
         version: 5.3.2
@@ -1108,13 +1108,13 @@ importers:
         version: link:../../xwiki/xwiki-utils
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1139,7 +1139,7 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1158,7 +1158,7 @@ importers:
         version: link:../browser-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1186,13 +1186,13 @@ importers:
         version: 2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29)
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-collaboration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1217,13 +1217,13 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-collaboration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       lib0:
         specifier: 'catalog:'
         version: 0.2.117
@@ -1257,7 +1257,7 @@ importers:
     dependencies:
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1298,7 +1298,7 @@ importers:
         version: link:../date-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -1323,16 +1323,16 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       pinia:
         specifier: 'catalog:'
         version: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
@@ -1422,7 +1422,7 @@ importers:
         version: link:../extra-tabs-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -1432,7 +1432,7 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1450,7 +1450,7 @@ importers:
     dependencies:
       '@xwiki/platform-attachments-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       filesize.js:
         specifier: 'catalog:'
         version: 2.0.0
@@ -1481,10 +1481,10 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1503,10 +1503,10 @@ importers:
         version: link:../hierarchy-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1534,10 +1534,10 @@ importers:
         version: link:../hierarchy-default
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1565,10 +1565,10 @@ importers:
         version: link:../hierarchy-default
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1596,10 +1596,10 @@ importers:
         version: link:../hierarchy-default
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1627,22 +1627,22 @@ importers:
         version: link:../../xwiki/xwiki-utils
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1664,10 +1664,10 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1686,7 +1686,7 @@ importers:
         version: link:../history-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1714,10 +1714,10 @@ importers:
         version: link:../history-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1748,10 +1748,10 @@ importers:
         version: link:../../user/user-ui
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -1761,7 +1761,7 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -1797,10 +1797,10 @@ importers:
         version: link:../../xwiki/xwiki-utils
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1869,10 +1869,10 @@ importers:
         version: link:../info-actions-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -1909,22 +1909,22 @@ importers:
         version: link:../../nextcloud/http-headers
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-link-suggest-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       xml-escape:
         specifier: 'catalog:'
         version: 1.1.0
@@ -1952,19 +1952,19 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-link-suggest-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -1986,23 +1986,23 @@ importers:
     dependencies:
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -2020,10 +2020,10 @@ importers:
     dependencies:
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2045,19 +2045,19 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-attachments-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2079,7 +2079,7 @@ importers:
     dependencies:
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2104,20 +2104,20 @@ importers:
     dependencies:
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../../dev/config
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -2141,10 +2141,10 @@ importers:
     dependencies:
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2169,16 +2169,16 @@ importers:
         version: link:../../../nextcloud/http-headers
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2200,13 +2200,13 @@ importers:
     dependencies:
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       lodash-es:
         specifier: 'catalog:'
         version: 4.17.22
@@ -2255,10 +2255,10 @@ importers:
         version: link:../model-remote-url-filesystem-api
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2280,13 +2280,13 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2311,16 +2311,16 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2345,13 +2345,13 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2373,13 +2373,13 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2407,13 +2407,13 @@ importers:
         version: link:../navigation-tree-default
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2438,22 +2438,22 @@ importers:
         version: link:../navigation-tree-default
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2481,16 +2481,16 @@ importers:
         version: link:../../nextcloud/http-headers
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2515,22 +2515,22 @@ importers:
         version: link:../../hierarchy/hierarchy-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       async-lock:
         specifier: 'catalog:'
         version: 1.4.1
@@ -2564,22 +2564,22 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2601,7 +2601,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2691,22 +2691,22 @@ importers:
         version: link:../../rename/rename-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -2716,7 +2716,7 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -2774,7 +2774,7 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2793,7 +2793,7 @@ importers:
         version: link:../rename-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2818,10 +2818,10 @@ importers:
         version: link:../rename-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2846,7 +2846,7 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -2858,14 +2858,14 @@ importers:
         version: link:../settings-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -2883,14 +2883,14 @@ importers:
         version: link:../settings-api
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -2923,13 +2923,13 @@ importers:
         version: link:../../wiki-config/wiki-config-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -2945,7 +2945,7 @@ importers:
         version: link:../../../dev/test-utils
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -2981,14 +2981,14 @@ importers:
         version: link:../settings-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -3062,7 +3062,7 @@ importers:
         version: link:../uiextension-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -3090,16 +3090,16 @@ importers:
         version: link:../../macros/macros-ast-html-converter
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-uniast-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       lodash-es:
         specifier: 'catalog:'
         version: 4.17.22
@@ -3112,10 +3112,10 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -3133,7 +3133,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -3158,10 +3158,10 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -3183,10 +3183,10 @@ importers:
         version: link:../wiki-config-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -3211,7 +3211,7 @@ importers:
     dependencies:
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3236,10 +3236,10 @@ importers:
         version: link:../../uiextension/uiextension-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -3255,7 +3255,7 @@ importers:
         version: link:../../../dev/test-utils
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -3285,7 +3285,7 @@ importers:
         version: link:../../../dev/config
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -3331,25 +3331,25 @@ importers:
         version: link:../../core/hierarchy/hierarchy-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -3362,7 +3362,7 @@ importers:
         version: link:../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -3389,22 +3389,22 @@ importers:
         version: link:../../core/hierarchy/hierarchy-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-navigation-tree-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.2.2(vue@3.5.26(typescript@5.9.3))
@@ -3420,7 +3420,7 @@ importers:
         version: link:../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -3450,40 +3450,40 @@ importers:
         version: link:../../skin
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-collaboration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-editors-blocknote-headless':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-uniast-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-uniast-markdown':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       lodash-es:
         specifier: 'catalog:'
         version: 4.17.22
@@ -3551,7 +3551,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
         version: 1.13.2
@@ -3576,7 +3576,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       electron:
         specifier: 39.2.6
         version: 39.2.6
@@ -3598,10 +3598,10 @@ importers:
         version: link:../../../../core/authentication/authentication-github-state
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3626,7 +3626,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
         version: 1.13.2
@@ -3651,7 +3651,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       electron:
         specifier: 39.2.6
         version: 39.2.6
@@ -3673,10 +3673,10 @@ importers:
         version: link:../../../../core/authentication/authentication-nextcloud-state
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       async-lock:
         specifier: 'catalog:'
         version: 1.4.1
@@ -3707,7 +3707,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
         version: 1.13.2
@@ -3732,7 +3732,7 @@ importers:
     dependencies:
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       electron:
         specifier: 39.2.6
         version: 39.2.6
@@ -3751,10 +3751,10 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3782,7 +3782,7 @@ importers:
         version: link:../state
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       electron:
         specifier: 39.2.6
         version: 39.2.6
@@ -3807,19 +3807,19 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-link-suggest-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3982,7 +3982,7 @@ importers:
         version: link:../../../core/settings/settings-api
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       electron:
         specifier: 39.2.6
         version: 39.2.6
@@ -4023,14 +4023,14 @@ importers:
         version: link:../../../core/settings/settings-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -4069,16 +4069,16 @@ importers:
         version: link:../../utils/inversify
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-link-suggest-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       electron:
         specifier: 39.2.6
         version: 39.2.6
@@ -4112,7 +4112,7 @@ importers:
     dependencies:
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -4137,7 +4137,7 @@ importers:
         version: link:../../skin
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -4342,40 +4342,40 @@ importers:
         version: link:../core/xwiki/xwiki-ui
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-attachments-default':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-collaboration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-link-suggest-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-uniast-markdown':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       pinia:
         specifier: 'catalog:'
         version: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
@@ -4394,7 +4394,7 @@ importers:
         version: link:../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -4489,13 +4489,13 @@ importers:
         version: link:../api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       comlink:
         specifier: 'catalog:'
         version: 4.4.2
@@ -4583,31 +4583,31 @@ importers:
         version: link:../core/wiki-config/wiki-config-api
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-backend-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       '@xwiki/platform-uniast-markdown':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -4684,7 +4684,7 @@ importers:
         version: link:../../dev/config
       '@xwiki/platform-dsapi':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
       inversify:
         specifier: 'catalog:'
         version: 7.11.0(reflect-metadata@0.2.2)
@@ -4720,7 +4720,7 @@ importers:
         version: link:../core/settings/settings-browser
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1
+        version: 18.1.0-1768904761
       express:
         specifier: 'catalog:'
         version: 5.2.1
@@ -4769,7 +4769,7 @@ importers:
         version: link:../../skin
       '@xwiki/platform-api':
         specifier: 'catalog:'
-        version: 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+        version: 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -6276,122 +6276,122 @@ packages:
     resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
     engines: {node: '>=10.0.0'}
 
-  '@xwiki/platform-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-6hA+tuyIijE8ki92xz+p422Oe2lciHyZ+oVV3is/S3uCzTRKY6Sxc/cFSQdn0rPAH//ngAlsVaef0y24MTN1pg==}
+  '@xwiki/platform-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-2RxC3DQsdlaqA+hWKtCopWPmyEHNvh21E8i8PPEzFSicYhivJHCrGX45XXSGDQjOTYXar3Lwz2OZiXpXoAteYg==}
     peerDependencies:
       inversify: 7.x
       reflect-metadata: 0.x
       vue: 3.x
       vue-router: 4.x
 
-  '@xwiki/platform-attachments-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-xoNzhIbBDJdHDvycE5NM8wu+nOQz59m3wvHV5OEuMfanT1ZuuMEetGZVAlhGEPB6565yI+GjwWgBjkEWr744HA==}
+  '@xwiki/platform-attachments-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-GooZ0kajOcBEzCd/rBYY1FNUkYWK3I9LcveTcMMnXbcm9lNjxNF76O7x3khGKvZUALD8r7IHmcn7kn4yAuFxVw==}
     peerDependencies:
       reflect-metadata: 0.x
       vue: 3.x
 
-  '@xwiki/platform-attachments-default@18.0.0-rc-1':
-    resolution: {integrity: sha512-RRg0W6tzhD7H8SRjk+NJ3KJN0Y43Kvv7koJ9LBJcnm1fKcaLT0VJpxdrZwU7VfiL8ZR8xrHf+WBg7F16lJa/0Q==}
+  '@xwiki/platform-attachments-default@18.1.0-1768904761':
+    resolution: {integrity: sha512-rPQnsaeiCJC5yq1aEaBzsEEAEQeR1o8BZ1/T2R147b/9e1yTCM5TTLM1Ja5mE5b9eeMfy+115grZP1491QlhFw==}
     peerDependencies:
       inversify: 7.x
       pinia: 3.x
       reflect-metadata: 0.x
       vue: 3.x
 
-  '@xwiki/platform-authentication-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-UIzUH1Li8AtZw8T1xeyqmubLQAYyhqCRXajnZar/91bKOxTxPlgFkMsMK9woJgsKlca58c+wRw59AbQPxYVc3w==}
+  '@xwiki/platform-authentication-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-ZyMZy7dXklC/U0dX3BtC/vw1rjxy3NhJlwnGqVKD+xpyaK2WDash8+plyK66MYspfnVPChXtpeLKie1mVH7/Pg==}
     peerDependencies:
       reflect-metadata: 0.x
 
-  '@xwiki/platform-backend-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-lb1erCb+Z5ZUZ5EVjYY0NWUWmxD49QfppD95wzS+RYSH2eb2ONxU4Ij0Cxhc8N5M2b34c5i9Ad0Wh9W6z8yM1g==}
-    peerDependencies:
-      inversify: 7.x
-      reflect-metadata: 0.x
-
-  '@xwiki/platform-collaboration-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-YH96DYS5LxoMy98O2h0VdOzLz/XfGFJ8iKOKdiZZXkyFna5Ui60demUfmxC44hCpJyQyoYMx3x26lj4lVs/S6g==}
+  '@xwiki/platform-backend-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-L3IkuRWzVoERQ1Br0IKY8ngE4VlL6pR744r1y2KBf/mUxHmpZa3VTtXWHPdTI8UzXbNGGsArF/KZfUfaT1KDHQ==}
     peerDependencies:
       inversify: 7.x
       reflect-metadata: 0.x
-      vue: 3.x
 
-  '@xwiki/platform-configuration-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-W3s7QvkvHEZoCom5lvsXhHJLt0OdoYgVdtONNQRFqP1EtA242RFocjceLHL66a+Udb3MnlWCqu4STuFFKIgmrg==}
-
-  '@xwiki/platform-document-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-LRngDvGK/EISOctKdDbyV/Xep1jfsTC03CHC+iEzwjV7I/yzRqEf6o+ZdXz4bifJAQUs/FBlNNxFMU2tiUg+1g==}
-    peerDependencies:
-      reflect-metadata: 0.x
-      vue: 3.x
-
-  '@xwiki/platform-dsapi@18.0.0-rc-1':
-    resolution: {integrity: sha512-dLQn/k6H9W6fNHpF0la4M0XqFotudkJYT1dGovOs0Quw2une65d1tHjrqE6sl/AwEtx+IRU24H23HQC9+joxFA==}
-    peerDependencies:
-      reflect-metadata: 0.x
-      vue: 3.x
-
-  '@xwiki/platform-editors-blocknote-headless@18.0.0-rc-1':
-    resolution: {integrity: sha512-Z5kkc7rvqz5XrrAcaKHJL0ImYbf4itleasFpDquHOFOtRtRXLenX9JbdDLTjvhaDJG7mOd0xKxBeeB92rzNELg==}
+  '@xwiki/platform-collaboration-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-E4tZcYr3QmMZEr4bn1FtlpDjFVnkIYganjVkNhaYUVwD2xgBQJgXMF1mOCoK/IJCVNYMSW6RD+W+A7FqTt7sTQ==}
     peerDependencies:
       inversify: 7.x
       reflect-metadata: 0.x
       vue: 3.x
 
-  '@xwiki/platform-editors-blocknote-react@18.0.0-rc-1':
-    resolution: {integrity: sha512-zdAN2a+zSPSjwSl5lwma5gsBeU21/n3QlXJxf6m4kdrgR5o4eXLF+zfmJb2s6Doue4ew0CPa2Xaqj8Gl79filg==}
+  '@xwiki/platform-configuration-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-/ZA7mnnhcdKt8NpNTgLju2WuhU1/dcAFFY6N/elRrPp4+s/pHCTMHKQNoKoAYUWmXti4njtJsqRMIC1bW0HX1w==}
 
-  '@xwiki/platform-fn-utils@18.0.0-rc-1':
-    resolution: {integrity: sha512-erm3QlnkEOufBBJTASu3wiDRjyzb3kw0T09aZARfgT7xvAfZuEmlGtzdERAbdxSQRfd8BPtEIS4srOAUpygPxQ==}
-
-  '@xwiki/platform-icons@18.0.0-rc-1':
-    resolution: {integrity: sha512-0lfDV8Pv4332CkRQsrSgN0gU9QENTEVj+cBBfL9Yfh9Djwq5oBihrrGDYBpmKx7QWauo7dWfzeBgcZg0YekLig==}
+  '@xwiki/platform-document-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-jkQrqDWF8ccaa3vbF6aeBm5T9pkWFc5iml8omgMVDQAWSEjfr7qVCxMb9XwHApxjGhi1VHluiOBW8pWUpVW6iQ==}
     peerDependencies:
       reflect-metadata: 0.x
       vue: 3.x
 
-  '@xwiki/platform-link-suggest-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-71hVFD9GJADPszo8o/IYUrwiCmE0WnidmqTn/v5cabLtqvE2rcEG7chMw7MVE9qb4/qqY7kPUKgj3K6M71iPmA==}
+  '@xwiki/platform-dsapi@18.1.0-1768904761':
+    resolution: {integrity: sha512-Di2QhLNojvjwmn32ag70hRaS977frq9J57YiobMS3vjy9CFlLqV7tmf/H86E8fkdu3DDcuT8lvjrvhMWRa0RRw==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-editors-blocknote-headless@18.1.0-1768904761':
+    resolution: {integrity: sha512-YFB0lJeKklz2tNQjKAICvWEghINJGyqaVCJ2GWU4aLly82g1F4454P/MiqR73ftnmuRMfRD38GYYMfihcrbkyg==}
+    peerDependencies:
+      inversify: 7.x
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-editors-blocknote-react@18.1.0-1768904761':
+    resolution: {integrity: sha512-f+JgtibVNoWKMpkSdyXy+BFO7rJzaFS8rzjYU4+sn9RZp8sv51TDQ2p2ATnKzmU1DA8E8fm2L5PqBNVzDzRQmw==}
+
+  '@xwiki/platform-fn-utils@18.1.0-1768904761':
+    resolution: {integrity: sha512-0SPa+PlFtvcuf83nit5J8wNAWRYeihlnyjSzAJkQEW+t2fPG6S9Dn2GnHXAIgTKNEe6nyCrVK1HAUSG/xBKBCg==}
+
+  '@xwiki/platform-icons@18.1.0-1768904761':
+    resolution: {integrity: sha512-bAWRSGYik0NJ8d3uO0jbI+PCXHjEOmeEFWpTbmyXrdCG2nlXjy7tZe2q3G5Gsq5Wi8LLx46lodEsZInqI5p8IA==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-link-suggest-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-REIbydvRpBDG+iQx0/3/q5nBiKzuLsIyY+ifTX58XV4EXKxvYGpfV9Q3JjSyO3I1D3+Svn2VXnX8F9u58zQRjA==}
     peerDependencies:
       inversify: 7.x
       reflect-metadata: 0.x
 
-  '@xwiki/platform-macros-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-DQ+czHI/LMquiP/9e9DPfgwdBriMbS1BfecG/aTrejWKxFgTmQZTJ0MUQRJMwB7tCyx6Px9eRcTcZHLxHr4u+g==}
+  '@xwiki/platform-macros-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-4WmdZcJebZ/di+abhUt3+XD0CW3sOS5D/MlBH9pO75lrpnAXgLMdflgiAe2tmtYWAs2ptSO5SM6I+jyxYrJScw==}
 
-  '@xwiki/platform-macros-ast-react-jsx@18.0.0-rc-1':
-    resolution: {integrity: sha512-btvMMG/1GgjLlppxa9WciwQmM3DKgOf26ekQSFC5IQwszkbfUBzbhwGqsPRsTeLRC36PiLXWIvZaayaOwujcKg==}
+  '@xwiki/platform-macros-ast-react-jsx@18.1.0-1768904761':
+    resolution: {integrity: sha512-yYBG7ivjWTA0VnPTLBEdiKwg+fdWJ3MJw6udbe6Du7xys2pObBk4Ebiz3lcsA/POZKTKmDD5Ztqo7MK2KPQWJQ==}
     peerDependencies:
       inversify: 7.x
 
-  '@xwiki/platform-macros-service@18.0.0-rc-1':
-    resolution: {integrity: sha512-RTGCukajHVMki/XoFVYAt5mUEnvZnI7qZAON9XBWxrgXisYEiImsCV5w7iMkeeUKNjdRXUX5tKKYV+iZMtDp6g==}
+  '@xwiki/platform-macros-service@18.1.0-1768904761':
+    resolution: {integrity: sha512-em05au4k0sd0G2kcovr0BHiuxB5OocbKFUJAz4gVSFYgY8GTwmA+71JBQns8U8n0A0qf6e0mVMMZPG5aGLonQw==}
     peerDependencies:
       inversify: 7.x
 
-  '@xwiki/platform-model-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-HU+ja2eOuLHiAE+aPPK1A5isSf1K2MCWkrRHX9+hNt8LMs6xWJXhZIwHPkQmzivuHhBXhD8AoYV9BAFG7UIgpg==}
+  '@xwiki/platform-model-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-p37hjek4BpZhqV5hhrCUjtIU67bs6DEqCBSXXpnGkdKeAG2vgEnWj1yKuE5DJQx2KB5Ox/eiy/oCWRnk15vXrw==}
 
-  '@xwiki/platform-model-reference-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-clWOEqQNCJ7f4FWwRLsZwnUtH1B3yxlxRDajduC/wzJjEADSPf5+egpDgvaRhPXP878SVSAFUYgnBEYTL4rUgg==}
-    peerDependencies:
-      inversify: 7.x
-      reflect-metadata: 0.x
-
-  '@xwiki/platform-model-remote-url-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-mqQFFnoMcjJ+wtrBAV/7xgrWGPyY+mi+Cak5BUgNAcWo/Ybw9JYg6Le97dzWuRMo+2AVulSKX1VzpQonXbJvbg==}
+  '@xwiki/platform-model-reference-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-ijhezZqUe/yR/6MYloeZxaVIpZ9w/p0a8Tp8GKuiRYpH6OuV4CiK9mJuXww5nh8QgiHPjfP1yA753ipFQCJxVw==}
     peerDependencies:
       inversify: 7.x
       reflect-metadata: 0.x
 
-  '@xwiki/platform-navigation-tree-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-DvDbnrrfbaVE7a02cH8ikGWyrsfoU8wG26EUndmgIc+TWrr3jA2P57p/8Do1113YGB9Zt2iZsBDQGIOzLDABdQ==}
+  '@xwiki/platform-model-remote-url-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-zpC32SvtWRj0/V0gkvNtVRqbMVUEqOo4Vg4JS7kkKmHrZcD6aMbpcfiqjRw3hg4jMWxErFqO6mDX4U8VCUdxpQ==}
+    peerDependencies:
+      inversify: 7.x
+      reflect-metadata: 0.x
 
-  '@xwiki/platform-uniast-api@18.0.0-rc-1':
-    resolution: {integrity: sha512-6tJTI58rZQLvGscgPSa/hueu31nP0n/bSKC3kfIcc3nMvkWup4pzNa+QuBTydav8i6Vd7t4Qf7d7aIW+btoTmg==}
+  '@xwiki/platform-navigation-tree-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-8LvXCKb8c2hdSWg/5St5QfR1Vo8IGExUNm95jSbfK2aBkTmjQtWr+uop7H2dKw+q4QS6RnWpLU4mc6Jhpey/zw==}
 
-  '@xwiki/platform-uniast-markdown@18.0.0-rc-1':
-    resolution: {integrity: sha512-fubZ7GwYe0fynv1Ls5mYaxRs5v4INKPRlVwBfEvoQZvUh0lKZAFsVG4IBhdG2RNaH9pZqyN5T8P73IO4UJfG9A==}
+  '@xwiki/platform-uniast-api@18.1.0-1768904761':
+    resolution: {integrity: sha512-7tT5NUMpGTwKf+zo3HMUSmtbCCsq/jsPax8NXCJjdB0OHNg38FP8zJkzVDMF8eXmzXIeOIDWJwPr7KMN99rgtg==}
+
+  '@xwiki/platform-uniast-markdown@18.1.0-1768904761':
+    resolution: {integrity: sha512-RfHRf3IeTZE0ztRsu/SXqnlXWH5Nya0sBjhvmfliGfuxGFg/Tq3unLcrFD5vSAJSUA1EUe6SdoOCd2z1KL9N1Q==}
     peerDependencies:
       inversify: 7.x
 
@@ -11757,30 +11757,30 @@ snapshots:
 
   '@xmldom/xmldom@0.8.11': {}
 
-  '@xwiki/platform-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-authentication-api': 18.0.0-rc-1(reflect-metadata@0.2.2)
-      '@xwiki/platform-configuration-api': 18.0.0-rc-1
+      '@xwiki/platform-authentication-api': 18.1.0-1768904761(reflect-metadata@0.2.2)
+      '@xwiki/platform-configuration-api': 18.1.0-1768904761
       inversify: 7.11.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
       vue: 3.5.26(typescript@5.9.3)
       vue-router: 4.6.4(vue@3.5.26(typescript@5.9.3))
 
-  '@xwiki/platform-attachments-api@18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-attachments-api@18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-authentication-api': 18.0.0-rc-1(reflect-metadata@0.2.2)
-      '@xwiki/platform-model-api': 18.0.0-rc-1
+      '@xwiki/platform-authentication-api': 18.1.0-1768904761(reflect-metadata@0.2.2)
+      '@xwiki/platform-model-api': 18.1.0-1768904761
       reflect-metadata: 0.2.2
       vue: 3.5.26(typescript@5.9.3)
 
-  '@xwiki/platform-attachments-default@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-attachments-default@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(pinia@3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-attachments-api': 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-authentication-api': 18.0.0-rc-1(reflect-metadata@0.2.2)
-      '@xwiki/platform-backend-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-api': 18.0.0-rc-1
-      '@xwiki/platform-model-reference-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-remote-url-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-attachments-api': 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-authentication-api': 18.1.0-1768904761(reflect-metadata@0.2.2)
+      '@xwiki/platform-backend-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.1.0-1768904761
+      '@xwiki/platform-model-reference-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-remote-url-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       inversify: 7.11.0(reflect-metadata@0.2.2)
       pinia: 3.0.4(typescript@5.9.3)(vue@3.5.26(typescript@5.9.3))
       reflect-metadata: 0.2.2
@@ -11788,22 +11788,22 @@ snapshots:
     transitivePeerDependencies:
       - vue-router
 
-  '@xwiki/platform-authentication-api@18.0.0-rc-1(reflect-metadata@0.2.2)':
+  '@xwiki/platform-authentication-api@18.1.0-1768904761(reflect-metadata@0.2.2)':
     dependencies:
       reflect-metadata: 0.2.2
 
-  '@xwiki/platform-backend-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-backend-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       inversify: 7.11.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
       - vue
       - vue-router
 
-  '@xwiki/platform-collaboration-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-collaboration-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       inversify: 7.11.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
       vue: 3.5.26(typescript@5.9.3)
@@ -11811,46 +11811,46 @@ snapshots:
     transitivePeerDependencies:
       - vue-router
 
-  '@xwiki/platform-configuration-api@18.0.0-rc-1':
+  '@xwiki/platform-configuration-api@18.1.0-1768904761':
     dependencies:
       utility-types: 3.11.0
 
-  '@xwiki/platform-document-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-document-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-api': 18.0.0-rc-1
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.1.0-1768904761
       reflect-metadata: 0.2.2
       vue: 3.5.26(typescript@5.9.3)
     transitivePeerDependencies:
       - inversify
       - vue-router
 
-  '@xwiki/platform-dsapi@18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-dsapi@18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-fn-utils': 18.0.0-rc-1
+      '@xwiki/platform-fn-utils': 18.1.0-1768904761
       reflect-metadata: 0.2.2
       vue: 3.5.26(typescript@5.9.3)
 
-  '@xwiki/platform-editors-blocknote-headless@18.0.0-rc-1(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-editors-blocknote-headless@18.1.0-1768904761(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
       '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
       '@tiptap/core': 3.13.0(@tiptap/pm@3.13.0)
       '@tiptap/extensions': 3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0)
       '@tiptap/pm': 3.13.0
-      '@xwiki/platform-attachments-api': 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-authentication-api': 18.0.0-rc-1(reflect-metadata@0.2.2)
-      '@xwiki/platform-collaboration-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-document-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-dsapi': 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-editors-blocknote-react': 18.0.0-rc-1(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-fn-utils': 18.0.0-rc-1
-      '@xwiki/platform-icons': 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-link-suggest-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-macros-api': 18.0.0-rc-1
-      '@xwiki/platform-model-api': 18.0.0-rc-1
-      '@xwiki/platform-model-reference-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-remote-url-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-uniast-api': 18.0.0-rc-1
+      '@xwiki/platform-attachments-api': 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-authentication-api': 18.1.0-1768904761(reflect-metadata@0.2.2)
+      '@xwiki/platform-collaboration-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-document-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-dsapi': 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-editors-blocknote-react': 18.1.0-1768904761(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.1.0-1768904761
+      '@xwiki/platform-icons': 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-link-suggest-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-macros-api': 18.1.0-1768904761
+      '@xwiki/platform-model-api': 18.1.0-1768904761
+      '@xwiki/platform-model-reference-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-remote-url-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-uniast-api': 18.1.0-1768904761
       eventemitter3: 5.0.1
       inversify: 7.11.0(reflect-metadata@0.2.2)
       lodash-es: 4.17.22
@@ -11872,7 +11872,7 @@ snapshots:
       - typescript
       - vue-router
 
-  '@xwiki/platform-editors-blocknote-react@18.0.0-rc-1(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-editors-blocknote-react@18.1.0-1768904761(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/utils@6.0.22(react@19.2.3))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react@19.2.6)(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(typescript@5.9.3)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
       '@blocknote/core': 0.42.3(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)
       '@blocknote/mantine': 0.42.3(@floating-ui/dom@1.7.4)(@hocuspocus/provider@2.15.3(y-protocols@1.0.6(yjs@13.6.29))(yjs@13.6.29))(@mantine/core@8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(@mantine/hooks@8.3.10(react@19.2.3))(@mantine/utils@6.0.22(react@19.2.3))(@tiptap/extensions@3.13.0(@tiptap/core@3.13.0(@tiptap/pm@3.13.0))(@tiptap/pm@3.13.0))(@types/hast@3.0.4)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -11880,17 +11880,17 @@ snapshots:
       '@mantine/core': 8.3.10(@mantine/hooks@8.3.10(react@19.2.3))(@types/react@19.2.6)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@mantine/hooks': 8.3.10(react@19.2.3)
       '@types/react-dom': 19.2.3(@types/react@19.2.6)
-      '@xwiki/platform-attachments-api': 18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-collaboration-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-document-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-fn-utils': 18.0.0-rc-1
-      '@xwiki/platform-link-suggest-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-macros-api': 18.0.0-rc-1
-      '@xwiki/platform-macros-ast-react-jsx': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-api': 18.0.0-rc-1
-      '@xwiki/platform-model-reference-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-remote-url-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-uniast-markdown': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-attachments-api': 18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-collaboration-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-document-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.1.0-1768904761
+      '@xwiki/platform-link-suggest-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-macros-api': 18.1.0-1768904761
+      '@xwiki/platform-macros-ast-react-jsx': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.1.0-1768904761
+      '@xwiki/platform-model-reference-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-remote-url-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-uniast-markdown': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       i18next: 25.5.3(typescript@5.9.3)
       lodash-es: 4.17.22
       react: 19.2.3
@@ -11916,85 +11916,85 @@ snapshots:
       - vue
       - vue-router
 
-  '@xwiki/platform-fn-utils@18.0.0-rc-1': {}
+  '@xwiki/platform-fn-utils@18.1.0-1768904761': {}
 
-  '@xwiki/platform-icons@18.0.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-icons@18.1.0-1768904761(reflect-metadata@0.2.2)(vue@3.5.26(typescript@5.9.3))':
     dependencies:
       bootstrap-icons: 1.13.1
       reflect-metadata: 0.2.2
       vue: 3.5.26(typescript@5.9.3)
 
-  '@xwiki/platform-link-suggest-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-link-suggest-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       inversify: 7.11.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
       - vue
       - vue-router
 
-  '@xwiki/platform-macros-api@18.0.0-rc-1': {}
+  '@xwiki/platform-macros-api@18.1.0-1768904761': {}
 
-  '@xwiki/platform-macros-ast-react-jsx@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-macros-ast-react-jsx@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-fn-utils': 18.0.0-rc-1
-      '@xwiki/platform-macros-api': 18.0.0-rc-1
-      '@xwiki/platform-model-remote-url-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.1.0-1768904761
+      '@xwiki/platform-macros-api': 18.1.0-1768904761
+      '@xwiki/platform-model-remote-url-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       inversify: 7.11.0(reflect-metadata@0.2.2)
     transitivePeerDependencies:
       - reflect-metadata
       - vue
       - vue-router
 
-  '@xwiki/platform-macros-service@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))':
+  '@xwiki/platform-macros-service@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))':
     dependencies:
-      '@xwiki/platform-macros-api': 18.0.0-rc-1
+      '@xwiki/platform-macros-api': 18.1.0-1768904761
       inversify: 7.11.0(reflect-metadata@0.2.2)
 
-  '@xwiki/platform-model-api@18.0.0-rc-1': {}
+  '@xwiki/platform-model-api@18.1.0-1768904761': {}
 
-  '@xwiki/platform-model-reference-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-model-reference-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-api': 18.0.0-rc-1
-      inversify: 7.11.0(reflect-metadata@0.2.2)
-      reflect-metadata: 0.2.2
-    transitivePeerDependencies:
-      - vue
-      - vue-router
-
-  '@xwiki/platform-model-remote-url-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
-    dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-api': 18.0.0-rc-1
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.1.0-1768904761
       inversify: 7.11.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
       - vue
       - vue-router
 
-  '@xwiki/platform-navigation-tree-api@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-model-remote-url-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-model-api': 18.0.0-rc-1
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.1.0-1768904761
+      inversify: 7.11.0(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+    transitivePeerDependencies:
+      - vue
+      - vue-router
+
+  '@xwiki/platform-navigation-tree-api@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.1.0-1768904761
     transitivePeerDependencies:
       - inversify
       - reflect-metadata
       - vue
       - vue-router
 
-  '@xwiki/platform-uniast-api@18.0.0-rc-1':
+  '@xwiki/platform-uniast-api@18.1.0-1768904761':
     dependencies:
-      '@xwiki/platform-model-api': 18.0.0-rc-1
+      '@xwiki/platform-model-api': 18.1.0-1768904761
 
-  '@xwiki/platform-uniast-markdown@18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
+  '@xwiki/platform-uniast-markdown@18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-document-api': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
-      '@xwiki/platform-fn-utils': 18.0.0-rc-1
-      '@xwiki/platform-macros-service': 18.0.0-rc-1(inversify@7.11.0(reflect-metadata@0.2.2))
-      '@xwiki/platform-model-api': 18.0.0-rc-1
-      '@xwiki/platform-uniast-api': 18.0.0-rc-1
+      '@xwiki/platform-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-document-api': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@4.6.4(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.1.0-1768904761
+      '@xwiki/platform-macros-service': 18.1.0-1768904761(inversify@7.11.0(reflect-metadata@0.2.2))
+      '@xwiki/platform-model-api': 18.1.0-1768904761
+      '@xwiki/platform-uniast-api': 18.1.0-1768904761
       fast-xml-parser: 5.3.0
       inversify: 7.11.0(reflect-metadata@0.2.2)
       mdast-util-gfm-strikethrough: 2.0.0
