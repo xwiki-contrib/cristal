@@ -31,7 +31,7 @@
         <slot name="activator" />
       </span>
     </template>
-    <v-list>
+    <v-list density="compact">
       <slot name="default" />
     </v-list>
   </v-menu>

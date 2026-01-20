@@ -25,3 +25,10 @@ import "@shoelace-style/shoelace/dist/components/menu/menu";
     <slot />
   </sl-menu-label>
 </template>
+
+<style scoped>
+sl-menu-label::part(base) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>

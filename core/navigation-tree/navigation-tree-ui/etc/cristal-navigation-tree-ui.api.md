@@ -9,7 +9,7 @@ import { ComponentProvideOptions } from 'vue';
 import { DefineComponent } from 'vue';
 import { PublicProps } from 'vue';
 import { SpaceReference } from '@xwiki/platform-model-api';
-import { TreeNode } from '@xwiki/platform-fn-utils';
+import { TreeNode } from '@xwiki/platform-dsapi';
 
 // @beta (undocumented)
 export const NavigationTree: DefineComponent<    {
@@ -21,7 +21,7 @@ label: string;
 url?: string;
 activatable?: boolean;
 } & {
-children?: TreeNode<{
+children?: TreeNode<    {
 id: string;
 label: string;
 url?: string;
@@ -39,7 +39,7 @@ label: string;
 url?: string;
 activatable?: boolean;
 } & {
-children?: TreeNode<{
+children?: TreeNode<    {
 id: string;
 label: string;
 url?: string;
