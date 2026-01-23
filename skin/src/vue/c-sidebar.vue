@@ -129,7 +129,9 @@ function onClickOutsideMainSidebar() {
 </script>
 <template>
   <div class="collapsed-main-sidebar" @click="onOpenMainSidebar">
-    <c-icon name="list" class="open-sidebar"></c-icon>
+    <div class="sidebar-header">
+      <c-icon name="list" class="open-sidebar"></c-icon>
+    </div>
   </div>
   <div
     id="sidebar"
@@ -212,6 +214,7 @@ function onClickOutsideMainSidebar() {
 }
 
 .sidebar-header {
+  min-height: var(--cr-sizes-main-sidebar-header-min-height);
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
