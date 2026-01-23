@@ -17,13 +17,13 @@
   Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends DisplayableTreeNode">
 import { ref, watch } from "vue";
 import { VTreeview } from "vuetify/components/VTreeview";
 import type { DisplayableTreeNode, TreeProps } from "@xwiki/platform-dsapi";
 import type { Ref } from "vue";
 
-defineProps<TreeProps>();
+const props = defineProps<TreeProps<T>>();
 const opened = defineModel("opened", { default: [], type: Array<string> });
 const activated = defineModel<string | undefined>("activated");
 
@@ -42,6 +42,11 @@ function updateActivated(newActivatedNode: DisplayableTreeNode) {
     activated.value = newActivatedNode.id;
   }
 }
+
+async function lazyLoadChildrenWrapper(node: unknown) {
+  // We need this wrapper because our props are more specific than Vuetify's.
+  await props.lazyLoadChildren!(node as T);
+}
 </script>
 
 <template>
@@ -49,15 +54,29 @@ function updateActivated(newActivatedNode: DisplayableTreeNode) {
     density="compact"
     :activated="activatedNodes"
     :items="showRootNode ? [rootNode] : rootNode.children"
+    :load-children="lazyLoadChildren ? lazyLoadChildrenWrapper : undefined"
     activatable
     active-strategy="independent"
     item-value="id"
-    :opened="opened"
-    @update:opened="($event) => (opened = $event as string[])"
+    v-model:opened="opened as string[]"
+    @update:opened="($event: string[]) => (opened = $event)"
     @update:activated="resetActivated"
   >
     <template #title="{ item }">
-      <a :href="item.url" @click="updateActivated(item)">{{ item.label }}</a>
+      <a
+        v-if="nodeClickAction"
+        :href="item.url"
+        @click.prevent="
+          async () => {
+            updateActivated(item);
+            await nodeClickAction!(item as T);
+          }
+        "
+        >{{ item.label }}</a
+      >
+      <a v-else :href="item.url" @click="updateActivated(item)">{{
+        item.label
+      }}</a>
     </template>
   </v-treeview>
 </template>
