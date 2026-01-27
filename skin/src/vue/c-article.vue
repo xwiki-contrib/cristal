@@ -303,7 +303,8 @@ watch(
 }
 
 .page-header {
-  padding: var(--cr-spacing-small) 0;
+  min-height: var(--cr-sizes-main-sidebar-header-min-height);
+  margin: var(--cr-spacing-small) 0;
   display: flex;
   flex-wrap: wrap;
   gap: var(--cr-spacing-medium);
