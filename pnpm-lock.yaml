@@ -211,8 +211,8 @@ catalogs:
       specifier: 2.0.0
       version: 2.0.0
     globals:
-      specifier: 17.0.0
-      version: 17.0.0
+      specifier: 17.2.0
+      version: 17.2.0
     happy-dom:
       specifier: 20.4.0
       version: 20.4.0
@@ -385,7 +385,7 @@ importers:
         version: 10.7.0(@typescript-eslint/parser@8.55.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(vue-eslint-parser@10.2.0(eslint@9.39.2(jiti@2.6.1)))
       globals:
         specifier: 'catalog:'
-        version: 17.0.0
+        version: 17.2.0
       happy-dom:
         specifier: 'catalog:'
         version: 20.4.0
@@ -4751,7 +4751,7 @@ importers:
         version: 6.0.3(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
       globals:
         specifier: 'catalog:'
-        version: 17.0.0
+        version: 17.2.0
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -7683,8 +7683,8 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
-  globals@17.0.0:
-    resolution: {integrity: sha512-gv5BeD2EssA793rlFWVPMMCqefTlpusw6/2TbAVMy0FzcG8wKJn4O+NqJ4+XWmmwrayJgw5TzrmWjFgmz1XPqw==}
+  globals@17.2.0:
+    resolution: {integrity: sha512-tovnCz/fEq+Ripoq+p/gN1u7l6A7wwkoBT9pRCzTHzsD/LvADIzXZdjmRymh5Ztf0DYC3Rwg5cZRYjxzBmzbWg==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -13829,7 +13829,7 @@ snapshots:
 
   globals@14.0.0: {}
 
-  globals@17.0.0: {}
+  globals@17.2.0: {}
 
   globalthis@1.0.4:
     dependencies:
