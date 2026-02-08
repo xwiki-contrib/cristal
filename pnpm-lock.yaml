@@ -142,8 +142,8 @@ catalogs:
       specifier: 1.4.1
       version: 1.4.1
     axios:
-      specifier: 1.13.2
-      version: 1.13.2
+      specifier: 1.13.4
+      version: 1.13.4
     comlink:
       specifier: 4.4.2
       version: 4.4.2
@@ -658,7 +658,7 @@ importers:
         version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.13.4
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -786,7 +786,7 @@ importers:
         version: 1.4.1
       axios:
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.13.4
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -954,7 +954,7 @@ importers:
         version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.13.4
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -3554,7 +3554,7 @@ importers:
         version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.13.4
       electron:
         specifier: 40.0.0
         version: 40.0.0
@@ -3629,7 +3629,7 @@ importers:
         version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.13.4
       electron:
         specifier: 40.0.0
         version: 40.0.0
@@ -3710,7 +3710,7 @@ importers:
         version: 18.1.0-1768904761(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.2
+        version: 1.13.4
       electron:
         specifier: 40.0.0
         version: 40.0.0
@@ -6600,6 +6600,9 @@ packages:
   axios@1.13.2:
     resolution: {integrity: sha512-VPk9ebNqPcy5lRGuSlKx752IlDatOjT9paPlm8A7yOuW2Fbvp4X3JznJtT4f0GzGLLiWE9W8onz51SqLYwzGaA==}
 
+  axios@1.13.4:
+    resolution: {integrity: sha512-1wVkUaAO6WyaYtCkcYCOx12ZgpGf9Zif+qXa4n+oYzK558YryKqiL6UWwd5DqiH3VRW0GYhTZQ/vlgJrCoNQlg==}
+
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
@@ -7567,21 +7570,23 @@ packages:
 
   glob@10.5.0:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@11.1.0:
     resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
     engines: {node: 20 || >=22}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   global-agent@3.0.0:
     resolution: {integrity: sha512-PT6XReJ+D07JvGoxQMkT6qji/jVNfX/h364XHZOWeRzy64sSFr+xJ5OX7LI3b4MPQzdL4H8Y8M0xzPpsVMwA8Q==}
@@ -9443,6 +9448,7 @@ packages:
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   temp-file@3.4.0:
     resolution: {integrity: sha512-C5tjlC/HCtVUOi3KWVokd4vHVViOmGjtLwIh4MuzPo/nMYTV/p1urt3RnMz2IWXDdKEGJH3k5+KPxtqRsUYGtg==}
@@ -9891,6 +9897,7 @@ packages:
   vue-i18n@11.1.12:
     resolution: {integrity: sha512-BnstPj3KLHLrsqbVU2UOrPmr0+Mv11bsUZG0PyCOzsawCivk8W00GMXHeVUWIDOgNaScCuZah47CZFE+Wnl8mw==}
     engines: {node: '>= 16'}
+    deprecated: This version is NOT deprecated. Previous deprecation was a mistake.
     peerDependencies:
       vue: ^3.0.0
 
@@ -12258,6 +12265,14 @@ snapshots:
       possible-typed-array-names: 1.1.0
 
   axios@1.13.2:
+    dependencies:
+      follow-redirects: 1.15.11
+      form-data: 4.0.5
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.13.4:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
