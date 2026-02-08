@@ -3531,8 +3531,8 @@ importers:
         specifier: workspace:*
         version: link:../lib
       electron-updater:
-        specifier: 6.6.2
-        version: 6.6.2
+        specifier: 6.7.3
+        version: 6.7.3
     devDependencies:
       electron:
         specifier: 'catalog:'
@@ -7152,8 +7152,8 @@ packages:
     resolution: {integrity: sha512-4VkNRdN+BImL2KcCi41WvAYbh6zLX5AUTi4so68yPqiItjbgTjqpEnGAqasgnG+lB6GuAyUltKwVopp6Uv+gwQ==}
     engines: {node: '>=20'}
 
-  electron-updater@6.6.2:
-    resolution: {integrity: sha512-Cr4GDOkbAUqRHP5/oeOmH/L2Bn6+FQPxVLZtPbcmKZC63a1F3uu5EefYOssgZXG3u/zBlubbJ5PJdITdMVggbw==}
+  electron-updater@6.7.3:
+    resolution: {integrity: sha512-EgkT8Z9noqXKbwc3u5FkJA+r48jwZ5DTUiOkJMOTEEH//n5Am6wfQGz7nvSFEA2oIAMv9jRzn5JKTyWeSKOPgg==}
 
   electron-winstaller@5.4.0:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
@@ -13164,9 +13164,9 @@ snapshots:
       conf: 15.1.0
       type-fest: 5.4.4
 
-  electron-updater@6.6.2:
+  electron-updater@6.7.3:
     dependencies:
-      builder-util-runtime: 9.3.1
+      builder-util-runtime: 9.5.1
       fs-extra: 10.1.0
       js-yaml: 4.1.1
       lazy-val: 1.0.5
