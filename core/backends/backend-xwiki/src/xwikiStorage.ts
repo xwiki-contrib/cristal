@@ -140,6 +140,8 @@ export class XWikiStorage extends AbstractStorage {
 
     let url;
     if (revision) {
+      // We don't need to check rights for older revisions, they are read-only.
+      // If we can fetch them successfully that's enough to display them.
       url = new URL(
         `${getRestSpacesApiUrl(this.wikiConfig, page)}/history/${revision}`,
       );
