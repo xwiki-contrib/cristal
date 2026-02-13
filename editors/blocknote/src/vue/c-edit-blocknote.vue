@@ -83,7 +83,9 @@ const modelReferenceHandler = container
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
-const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
+const { realtimeURL: realtimeServerURL, disableSyntaxFeatures } =
+  cristal.getWikiConfig();
+
 let collaborationProvider: () => CollaborationInitializer;
 let status: Ref<Status> | undefined;
 let users: Ref<User[]> | undefined;
@@ -154,6 +156,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     // TODO: make this customizable
     // https://jira.xwiki.org/browse/CRISTAL-457
     lang: "en",
+    disableSyntaxFeatures,
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(
