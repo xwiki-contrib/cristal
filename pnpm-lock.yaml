@@ -67,8 +67,8 @@ catalogs:
       specifier: 8.55.0
       version: 8.55.0
     '@vitejs/plugin-vue':
-      specifier: 6.0.3
-      version: 6.0.3
+      specifier: 6.0.4
+      version: 6.0.4
     '@vitest/coverage-v8':
       specifier: 4.0.18
       version: 4.0.18
@@ -349,7 +349,7 @@ importers:
         version: 8.55.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
-        version: 6.0.3(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
+        version: 6.0.4(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 4.0.18(vitest@4.0.18(@types/node@25.2.3)(happy-dom@20.4.0)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))
@@ -3496,7 +3496,7 @@ importers:
         version: 4.17.12
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
-        version: 6.0.3(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
+        version: 6.0.4(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
@@ -3967,7 +3967,7 @@ importers:
         version: 24.10.13
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
-        version: 6.0.3(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
+        version: 6.0.4(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -4748,7 +4748,7 @@ importers:
         version: 24.10.13
       '@vitejs/plugin-vue':
         specifier: 'catalog:'
-        version: 6.0.3(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
+        version: 6.0.4(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))
       globals:
         specifier: 'catalog:'
         version: 17.2.0
@@ -5454,8 +5454,8 @@ packages:
   '@remirror/core-constants@3.0.0':
     resolution: {integrity: sha512-42aWfPrimMfDKDi4YegyS7x+/0tlzaqwPQCULLanv3DMIlu96KTJR0fM5isWX2UViOqlGnX6YFgqWepcX+XMNg==}
 
-  '@rolldown/pluginutils@1.0.0-beta.53':
-    resolution: {integrity: sha512-vENRlFU4YbrwVqNDZ7fLvy+JR1CRkyr01jhSiDpE1u6py3OMzQfztQU2jxykW3ALNxO4kSlqIDeYyD0Y9RcQeQ==}
+  '@rolldown/pluginutils@1.0.0-rc.2':
+    resolution: {integrity: sha512-izyXV/v+cHiRfozX62W9htOAvwMo4/bXKDrQ+vom1L1qRuexPock/7VZDAhnpHCLNejd3NJ6hiab+tO0D44Rgw==}
 
   '@rollup/pluginutils@4.2.1':
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -6190,8 +6190,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@vitejs/plugin-vue@6.0.3':
-    resolution: {integrity: sha512-TlGPkLFLVOY3T7fZrwdvKpjprR3s4fxRln0ORDo1VQ7HHyxJwTlrjKU3kpVWTlaAjIEuCTokmjkZnr8Tpc925w==}
+  '@vitejs/plugin-vue@6.0.4':
+    resolution: {integrity: sha512-uM5iXipgYIn13UUQCZNdWkYk+sysBeA97d5mHsAoAt1u/wpN3+zxOmsVJWosuzX+IMGRzeYUNytztrYznboIkQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
@@ -11024,7 +11024,7 @@ snapshots:
 
   '@remirror/core-constants@3.0.0': {}
 
-  '@rolldown/pluginutils@1.0.0-beta.53': {}
+  '@rolldown/pluginutils@1.0.0-rc.2': {}
 
   '@rollup/pluginutils@4.2.1':
     dependencies:
@@ -11773,15 +11773,15 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vitejs/plugin-vue@6.0.3(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))':
+  '@vitejs/plugin-vue@6.0.4(vite@7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))':
     dependencies:
-      '@rolldown/pluginutils': 1.0.0-beta.53
+      '@rolldown/pluginutils': 1.0.0-rc.2
       vite: 7.3.1(@types/node@24.10.13)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2)
       vue: 3.5.28(typescript@5.9.3)
 
-  '@vitejs/plugin-vue@6.0.3(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))':
+  '@vitejs/plugin-vue@6.0.4(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2))(vue@3.5.28(typescript@5.9.3))':
     dependencies:
-      '@rolldown/pluginutils': 1.0.0-beta.53
+      '@rolldown/pluginutils': 1.0.0-rc.2
       vite: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2)
       vue: 3.5.28(typescript@5.9.3)
 
