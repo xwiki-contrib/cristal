@@ -22,8 +22,8 @@ catalogs:
       specifier: 2.15.3
       version: 2.15.3
     '@microsoft/api-extractor':
-      specifier: 7.55.2
-      version: 7.55.2
+      specifier: 7.56.3
+      version: 7.56.3
     '@microsoft/tsdoc':
       specifier: 0.16.0
       version: 0.16.0
@@ -334,7 +334,7 @@ importers:
         version: 9.39.2
       '@microsoft/api-extractor':
         specifier: 'catalog:'
-        version: 7.55.2(@types/node@25.2.3)
+        version: 7.56.3(@types/node@25.2.3)
       '@microsoft/tsdoc':
         specifier: 'catalog:'
         version: 0.16.0
@@ -5332,8 +5332,8 @@ packages:
   '@microsoft/api-extractor-model@7.32.2':
     resolution: {integrity: sha512-Ussc25rAalc+4JJs9HNQE7TuO9y6jpYQX9nWD1DhqUzYPBr3Lr7O9intf+ZY8kD5HnIqeIRJX7ccCT0QyBy2Ww==}
 
-  '@microsoft/api-extractor@7.55.2':
-    resolution: {integrity: sha512-1jlWO4qmgqYoVUcyh+oXYRztZde/pAi7cSVzBz/rc+S7CoVzDasy8QE13dx6sLG4VRo8SfkkLbFORR6tBw4uGQ==}
+  '@microsoft/api-extractor@7.56.3':
+    resolution: {integrity: sha512-fRqok4aRNq5GpgGBv2fKlSSKbirPKTJ75vQefthB5x9dwt4Zz+AezUzdc1p/AG4wUBIgmhjcEwn/Rj+N4Wh4Mw==}
     hasBin: true
 
   '@microsoft/tsdoc-config@0.18.0':
@@ -5630,16 +5630,16 @@ packages:
   '@rushstack/rig-package@0.6.0':
     resolution: {integrity: sha512-ZQmfzsLE2+Y91GF15c65L/slMRVhF6Hycq04D4TwtdGaUAbIXXg9c5pKA5KFU7M4QMaihoobp9JJYpYcaY3zOw==}
 
-  '@rushstack/terminal@0.19.5':
-    resolution: {integrity: sha512-6k5tpdB88G0K7QrH/3yfKO84HK9ggftfUZ51p7fePyCE7+RLLHkWZbID9OFWbXuna+eeCFE7AkKnRMHMxNbz7Q==}
+  '@rushstack/terminal@0.21.0':
+    resolution: {integrity: sha512-cLaI4HwCNYmknM5ns4G+drqdEB6q3dCPV423+d3TZeBusYSSm09+nR7CnhzJMjJqeRcdMAaLnrA4M/3xDz4R3w==}
     peerDependencies:
       '@types/node': '*'
     peerDependenciesMeta:
       '@types/node':
         optional: true
 
-  '@rushstack/ts-command-line@5.1.5':
-    resolution: {integrity: sha512-YmrFTFUdHXblYSa+Xc9OO9FsL/XFcckZy0ycQ6q7VSBsVs5P0uD9vcges5Q9vctGlVdu27w+Ct6IuJ458V0cTQ==}
+  '@rushstack/ts-command-line@5.2.0':
+    resolution: {integrity: sha512-lYxCX0nDdkDtCkVpvF0m25ymf66SaMWuppbD6b7MdkIzvGXKBXNIVZlwBH/C0YfkanrupnICWf2n4z3AKSfaHw==}
 
   '@shikijs/types@3.22.0':
     resolution: {integrity: sha512-491iAekgKDBFE67z70Ok5a8KBMsQ2IJwOWw3us/7ffQkIBCyOQfm/aNwVMBUriP02QshIfgHCBSIYAl3u2eWjg==}
@@ -8480,10 +8480,6 @@ packages:
     resolution: {integrity: sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==}
     engines: {node: '>=10'}
 
-  minimatch@10.0.3:
-    resolution: {integrity: sha512-IPZ167aShDZZUMdRk66cyQAW3qr0WzbHkPdMYa8bzZhlHhO3jALbKdxcaak7W9FfT2rZNpQuUu4Od7ILEpXSaw==}
-    engines: {node: 20 || >=22}
-
   minimatch@10.1.1:
     resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
     engines: {node: 20 || >=22}
@@ -10906,18 +10902,18 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
-  '@microsoft/api-extractor@7.55.2(@types/node@25.2.3)':
+  '@microsoft/api-extractor@7.56.3(@types/node@25.2.3)':
     dependencies:
       '@microsoft/api-extractor-model': 7.32.2(@types/node@25.2.3)
       '@microsoft/tsdoc': 0.16.0
       '@microsoft/tsdoc-config': 0.18.0
       '@rushstack/node-core-library': 5.19.1(@types/node@25.2.3)
       '@rushstack/rig-package': 0.6.0
-      '@rushstack/terminal': 0.19.5(@types/node@25.2.3)
-      '@rushstack/ts-command-line': 5.1.5(@types/node@25.2.3)
+      '@rushstack/terminal': 0.21.0(@types/node@25.2.3)
+      '@rushstack/ts-command-line': 5.2.0(@types/node@25.2.3)
       diff: 8.0.3
       lodash: 4.17.23
-      minimatch: 10.0.3
+      minimatch: 10.1.2
       resolve: 1.22.11
       semver: 7.5.4
       source-map: 0.6.1
@@ -11142,7 +11138,7 @@ snapshots:
       resolve: 1.22.11
       strip-json-comments: 3.1.1
 
-  '@rushstack/terminal@0.19.5(@types/node@25.2.3)':
+  '@rushstack/terminal@0.21.0(@types/node@25.2.3)':
     dependencies:
       '@rushstack/node-core-library': 5.19.1(@types/node@25.2.3)
       '@rushstack/problem-matcher': 0.1.1(@types/node@25.2.3)
@@ -11150,9 +11146,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 25.2.3
 
-  '@rushstack/ts-command-line@5.1.5(@types/node@25.2.3)':
+  '@rushstack/ts-command-line@5.2.0(@types/node@25.2.3)':
     dependencies:
-      '@rushstack/terminal': 0.19.5(@types/node@25.2.3)
+      '@rushstack/terminal': 0.21.0(@types/node@25.2.3)
       '@types/argparse': 1.0.38
       argparse: 1.0.10
       string-argv: 0.3.2
@@ -14876,10 +14872,6 @@ snapshots:
 
   mimic-response@3.1.0: {}
 
-  minimatch@10.0.3:
-    dependencies:
-      '@isaacs/brace-expansion': 5.0.1
-
   minimatch@10.1.1:
     dependencies:
       '@isaacs/brace-expansion': 5.0.1
@@ -16492,7 +16484,7 @@ snapshots:
 
   vite-plugin-dts@4.5.4(@types/node@25.2.3)(rollup@4.57.1)(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.6))(tsx@4.21.0)(yaml@2.8.2)):
     dependencies:
-      '@microsoft/api-extractor': 7.55.2(@types/node@25.2.3)
+      '@microsoft/api-extractor': 7.56.3(@types/node@25.2.3)
       '@rollup/pluginutils': 5.3.0(rollup@4.57.1)
       '@volar/typescript': 2.4.28
       '@vue/language-core': 2.2.0(typescript@5.9.3)
