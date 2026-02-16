@@ -138,11 +138,200 @@ ${revision ? "Revision " + revision : ""}
 );
 
 app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Main/spaces/ExistingPage/pages/WebHome",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      rawTitle: "ExistingPage.WebHome",
+      title: "ExistingPage.WebHome",
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Main",
+            name: "Main",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "ExistingPage",
+            name: "ExistingPage",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/ExistingPage/`,
+          },
+          {
+            label: "WebHome",
+            name: "WebHome",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/ExistingPage/`,
+          },
+        ],
+      },
+    });
+  },
+);
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Main/spaces/NewPage2/pages/WebHome",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    if (newNewPage2) {
+      newNewPage2 = false;
+      res.sendStatus(404);
+    } else {
+      res.json({
+        rawTitle: "Main.NewPage2.WebHome",
+        title: "Main.NewPage2.WebHome",
+        hierarchy: {
+          items: [
+            {
+              label: "Home",
+              name: "xwiki",
+              type: "wiki",
+              url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+            },
+            {
+              label: "Main",
+              name: "Main",
+              type: "space",
+              url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+            },
+            {
+              label: "NewPage2",
+              name: "NewPage2",
+              type: "space",
+              url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/NewPage2/`,
+            },
+            {
+              label: "WebHome",
+              name: "WebHome",
+              type: "document",
+              url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/NewPage2/`,
+            },
+          ],
+        },
+      });
+    }
+  },
+);
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Main/pages/Offline",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      rawTitle: "Offline",
+      title: "Offline",
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Main",
+            name: "Main",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Offline",
+            name: "Offline",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/Offline`,
+          },
+        ],
+      },
+    });
+  },
+);
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Main/pages/Page.With.Dots",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      rawTitle: "Main.Page.With.Dots",
+      title: "Main.Page.With.Dots",
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Main",
+            name: "Main",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Page.With.Dots",
+            name: "Page.With.Dots",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/Page.With.Dots`,
+          },
+        ],
+      },
+    });
+  },
+);
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Main/pages/Page%2EWith%2EDots",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      rawTitle: "Main.Page.With.Dots",
+      title: "Main.Page.With.Dots",
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Main",
+            name: "Main",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Page.With.Dots",
+            name: "Page.With.Dots",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/Page.With.Dots`,
+          },
+        ],
+      },
+    });
+  },
+);
+
+app.get(
   "/xwiki/rest/wikis/xwiki/spaces/Main/pages/WebHome",
   (req: Request, res: Response) => {
     res.appendHeader("Access-Control-Allow-Origin", "*");
 
     res.json({
+      rawTitle: "Main.WebHome",
+      title: "Main.WebHome",
       hierarchy: {
         items: [
           {
@@ -168,6 +357,77 @@ app.get(
     });
   },
 );
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Main/pages/WebHome/history/2.1",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      majorVersion: 2,
+      minorVersion: 1,
+      rawTitle: "Main.WebHome",
+      title: "Main.WebHome",
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Main",
+            name: "Main",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "WebHome",
+            name: "WebHome",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+        ],
+      },
+    });
+  },
+);
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Page2/pages/WebHome",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      rawTitle: "Page2.WebHome",
+      title: "Page2.WebHome",
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "Page2",
+            name: "Page2",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/Page2/`,
+          },
+          {
+            label: "WebHome",
+            name: "WebHome",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/Page2/`,
+          },
+        ],
+      },
+    });
+  },
+);
+
 
 app.get(
   "/xwiki/rest/wikis/xwiki/spaces/Deep1/pages/Deep2",

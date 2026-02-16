@@ -137,73 +137,106 @@ export class XWikiStorage extends AbstractStorage {
     if (page == "") {
       page = "Main.WebHome";
     }
-    const url = this.getPageRestURL(page, syntax, revision);
+
+    let url;
+    if (revision) {
+      // We don't need to check rights for older revisions, they are read-only.
+      // If we can fetch them successfully that's enough to display them.
+      url = new URL(
+        `${getRestSpacesApiUrl(this.wikiConfig, page)}/history/${revision}`,
+      );
+    } else {
+      url = new URL(getRestSpacesApiUrl(this.wikiConfig, page));
+      url.search = new URLSearchParams([["checkRight", "edit"]]).toString();
+    }
     this.logger?.debug("XWiki Loading url", url);
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
+        Accept: "application/json",
         ...(await this.getCredentials()),
       },
     });
+
+    const cristalApiUrl = this.getPageRestURL(page, syntax, revision);
+    this.logger?.debug("XWiki Loading url", cristalApiUrl);
+    const cristalApiResponse = await fetch(cristalApiUrl, {
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+        ...(await this.getCredentials()),
+      },
+    });
+
     let json;
+    let cristalApiJson;
     try {
       json = await response.json();
       if (!response.ok) {
         // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
         this.alertsServiceProvider
           .get()
-          .error(`Could not load page ${page}. Reason: ${json.error}`);
+          .error(`Could not load page ${page}. Reason: ${json.message}`);
+        return undefined;
+      }
+
+      cristalApiJson = await cristalApiResponse.json();
+      if (!cristalApiResponse.ok) {
+        // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
+        this.alertsServiceProvider
+          .get()
+          .error(
+            `Could not load page ${page}. Reason: ${cristalApiJson.message}`,
+          );
         return undefined;
       }
     } catch {
       // Return undefined in case of missing page.
       return undefined;
     }
-    let source = "";
+
     let html = "";
     let jsonContent = {};
     if (syntax == "jsonld") {
-      jsonContent = json;
+      jsonContent = cristalApiJson;
       if (this.wikiConfig.serverRendering) {
         this.logger?.debug("Using server side rendering for jsonld");
-        source = json.source;
-        html = json.html;
+        html = cristalApiJson.html;
       } else {
         this.logger?.debug("Using client side rendering for jsonld");
-        source = json.source;
         html = "";
       }
     } else if (syntax == "html") {
       if (this.wikiConfig.serverRendering) {
         this.logger?.debug("Using server side rendering for html");
-        source = json.source;
         html = "";
       } else {
         this.logger?.debug("Using client side rendering for html");
-        source = json.source;
         html = "";
       }
     } else {
-      source = "";
       html = "";
     }
 
     const pageContentData = new DefaultPageData();
-    pageContentData.source = source;
+    pageContentData.source = json.text;
     pageContentData.syntax = "xwiki";
     pageContentData.html = html;
     pageContentData.document = new JSONLDDocument(jsonContent);
-    pageContentData.css = json.css;
-    pageContentData.js = json.js;
-    pageContentData.version = pageContentData.document.get("version");
-    pageContentData.headlineRaw = json.headlineRaw;
-    pageContentData.headline = json.headline;
-    pageContentData.name = json.name;
-    pageContentData.lastModificationDate = new Date(
-      Date.parse(json.dateModified),
-    );
-    pageContentData.lastAuthor = { name: json.editor };
-    pageContentData.canEdit = json.canEdit;
+    pageContentData.version = `${json.majorVersion}.${json.minorVersion}`;
+    pageContentData.headlineRaw = json.rawTitle;
+    pageContentData.headline = json.title;
+
+    const pageName = json.hierarchy.items.pop().name;
+    pageContentData.name =
+      pageName != "WebHome" ? pageName : json.hierarchy.items.pop().name;
+
+    pageContentData.lastModificationDate = new Date(json.modified);
+    pageContentData.lastAuthor = { name: json.author };
+    pageContentData.canEdit =
+      json.rights?.find(
+        (right: { value: boolean; name: string }) => right.name == "edit",
+      )?.value ?? false;
     return pageContentData;
   }
 
