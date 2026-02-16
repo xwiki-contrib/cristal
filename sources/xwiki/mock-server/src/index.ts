@@ -428,7 +428,6 @@ app.get(
   },
 );
 
-
 app.get(
   "/xwiki/rest/wikis/xwiki/spaces/Deep1/pages/Deep2",
   (req: Request, res: Response) => {
