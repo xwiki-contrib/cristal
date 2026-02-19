@@ -9874,6 +9874,7 @@ packages:
   vue-i18n@11.2.8:
     resolution: {integrity: sha512-vJ123v/PXCZntd6Qj5Jumy7UBmIuE92VrtdX+AXr+1WzdBHojiBxnAxdfctUFL+/JIN+VQH4BhsfTtiGsvVObg==}
     engines: {node: '>= 16'}
+    deprecated: This version is NOT deprecated. Previous deprecation was a mistake.
     peerDependencies:
       vue: ^3.0.0
 
@@ -12299,6 +12300,13 @@ snapshots:
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
       sax: 1.4.4
+    transitivePeerDependencies:
+      - supports-color
+
+  builder-util-runtime@9.5.1:
+    dependencies:
+      debug: 4.4.3(supports-color@5.5.0)
+      sax: 1.4.3
     transitivePeerDependencies:
       - supports-color
 
