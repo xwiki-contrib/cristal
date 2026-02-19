@@ -39,6 +39,9 @@ export class XWikiWikiConfig extends DefaultWikiConfig {
     if (this.homePage == "") {
       this.homePage = "Main.WebHome";
     }
+    this.disableSyntaxFeatures = {
+      checkableListItems: true,
+    };
   }
 
   override isSupported(format: string): boolean {
