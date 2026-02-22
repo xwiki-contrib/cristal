@@ -55,8 +55,8 @@ catalogs:
       specifier: 24.10.13
       version: 24.10.13
     '@types/sharedworker':
-      specifier: 0.0.216
-      version: 0.0.216
+      specifier: 0.0.220
+      version: 0.0.220
     '@types/xml-escape':
       specifier: 1.1.3
       version: 1.1.3
@@ -4505,7 +4505,7 @@ importers:
     devDependencies:
       '@types/sharedworker':
         specifier: 'catalog:'
-        version: 0.0.216
+        version: 0.0.220
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
@@ -5857,8 +5857,8 @@ packages:
   '@types/serve-static@2.2.0':
     resolution: {integrity: sha512-8mam4H1NHLtu7nmtalF7eyBH14QyOASmcxHhSfEoRyr0nP/YdoesEtU+uSRvMe96TW/HPTtkoKqQLl53N7UXMQ==}
 
-  '@types/sharedworker@0.0.216':
-    resolution: {integrity: sha512-LYfGFJ4p/D9CGe4/E3X4h912Si8hupMeUf1f9hE1Q1gw1gSX0G0duMoF6HzpQaeo4D1YvugRBibJeS4daG9I1w==}
+  '@types/sharedworker@0.0.220':
+    resolution: {integrity: sha512-AoVVSalPd5+KhISYtGG0bVh35XJpMKaHCmBRynail7qKyFmVj1O4Ppk4bcZN1/khPj41ZZB25ONqm729Y3H9KQ==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -11202,7 +11202,7 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/node': 25.2.3
 
-  '@types/sharedworker@0.0.216': {}
+  '@types/sharedworker@0.0.220': {}
 
   '@types/trusted-types@2.0.7': {}
 
