@@ -205,8 +205,8 @@ catalogs:
       specifier: 5.0.2
       version: 5.0.2
     fast-xml-parser:
-      specifier: 5.3.4
-      version: 5.3.4
+      specifier: 5.3.6
+      version: 5.3.6
     filesize.js:
       specifier: 2.0.0
       version: 2.0.0
@@ -1074,7 +1074,7 @@ importers:
         version: 18.2.0-1771445965(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.28)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3))
       fast-xml-parser:
         specifier: 'catalog:'
-        version: 5.3.4
+        version: 5.3.6
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -7444,6 +7444,10 @@ packages:
     resolution: {integrity: sha512-EFd6afGmXlCx8H8WTZHhAoDaWaGyuIBoZJ2mknrNxug+aZKjkp0a0dlars9Izl+jF+7Gu1/5f/2h68cQpe0IiA==}
     hasBin: true
 
+  fast-xml-parser@5.3.6:
+    resolution: {integrity: sha512-QNI3sAvSvaOiaMl8FYU4trnEzCwiRr8XMWgAHzlrWpTSj+QaCSvOf1h82OEP1s4hiAXhnbXSyFWCf4ldZzZRVA==}
+    hasBin: true
+
   fastq@1.20.1:
     resolution: {integrity: sha512-GGToxJ/w1x32s/D2EKND7kTil4n8OVk/9mycTc4VDza13lOvpUZTGX3mFSCtV9ksdGBVzvsyAVLM6mHFThxXxw==}
 
@@ -13532,6 +13536,10 @@ snapshots:
   fast-uri@3.1.0: {}
 
   fast-xml-parser@5.3.4:
+    dependencies:
+      strnum: 2.1.2
+
+  fast-xml-parser@5.3.6:
     dependencies:
       strnum: 2.1.2
 
