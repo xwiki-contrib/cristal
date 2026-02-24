@@ -235,8 +235,8 @@ catalogs:
       specifier: 4.1.0
       version: 4.1.0
     nodemon:
-      specifier: 3.1.13
-      version: 3.1.13
+      specifier: 3.1.14
+      version: 3.1.14
     nx:
       specifier: 22.5.1
       version: 22.5.1
@@ -4666,7 +4666,7 @@ importers:
         version: 5.0.6
       nodemon:
         specifier: 'catalog:'
-        version: 3.1.13
+        version: 3.1.14
       ts-node:
         specifier: 'catalog:'
         version: 10.9.2(@types/node@25.2.3)(typescript@5.9.3)
@@ -8602,8 +8602,8 @@ packages:
   node-machine-id@1.1.12:
     resolution: {integrity: sha512-QNABxbrPa3qEIfrE6GOJ7BYIuignnJw7iQ2YPbc3Nla1HzRJjXzZOiikfF8m7eAMfichLt3M4VgLOetqgDmgGQ==}
 
-  nodemon@3.1.13:
-    resolution: {integrity: sha512-nPN6L7A9cTA3BnJ3zZIibH5FiDh3GbmibeS17bl5YEU1IRO2mcfvR0ZJXH3ndoeKItjUcaX81FSKc/Kq/IiG6g==}
+  nodemon@3.1.14:
+    resolution: {integrity: sha512-jakjZi93UtB3jHMWsXL68FXSAosbLfY0In5gtKq3niLSkrWznrVBzXFNOEMJUfc9+Ke7SHWoAZsiMkNP3vq6Jw==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -14977,7 +14977,7 @@ snapshots:
 
   node-machine-id@1.1.12: {}
 
-  nodemon@3.1.13:
+  nodemon@3.1.14:
     dependencies:
       chokidar: 3.6.0
       debug: 4.4.3(supports-color@5.5.0)
