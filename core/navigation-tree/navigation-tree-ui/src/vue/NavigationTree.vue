@@ -21,7 +21,7 @@
 import messages from "../translations";
 import { SpaceReference } from "@xwiki/platform-model-api";
 import AsyncLock from "async-lock";
-import { inject, onBeforeMount, reactive, ref, watch } from "vue";
+import { inject, onBeforeMount, onUnmounted, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
@@ -118,6 +118,12 @@ onBeforeMount(async () => {
   documentService.registerDocumentChangeListener("delete", onDocumentDelete);
   documentService.registerDocumentChangeListener("update", onDocumentUpdate);
   initDone = true;
+});
+
+onUnmounted(() => {
+  // Remove listeners when the component is destroyed.
+  documentService.removeDocumentChangeListener("delete", onDocumentDelete);
+  documentService.removeDocumentChangeListener("update", onDocumentUpdate);
 });
 
 watch(currentPageReference, async (newReference) => {
