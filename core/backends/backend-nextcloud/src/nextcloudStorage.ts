@@ -24,6 +24,7 @@ import {
 } from "@xwiki/cristal-page-default";
 import { DefaultPageData } from "@xwiki/platform-api";
 import { AbstractStorage } from "@xwiki/platform-backend-api";
+import { DocumentReference, SpaceReference } from "@xwiki/platform-model-api";
 import { XMLParser } from "fast-xml-parser";
 import { inject, injectable } from "inversify";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
@@ -39,6 +40,7 @@ import type {
   AuthenticationManagerProvider,
   UserDetails,
 } from "@xwiki/platform-authentication-api";
+import type { DocumentService } from "@xwiki/platform-document-api";
 
 /**
  * Access Nextcloud storage through http.
@@ -54,6 +56,7 @@ export class NextcloudStorage extends AbstractStorage {
   private readonly ATTACHMENTS = "attachments";
   private initBaseContentCalled: boolean = false;
   private authenticatedHTTPHeadersProvider: HTTPHeadersProvider | undefined;
+  private documentService: DocumentService | undefined;
 
   constructor(
     @inject("Logger") logger: Logger,
@@ -88,6 +91,18 @@ export class NextcloudStorage extends AbstractStorage {
         .get("HTTPHeadersProvider", { name: "Nextcloud/Authenticated" });
     }
     return await this.authenticatedHTTPHeadersProvider!.getHeaders();
+  }
+
+  // The DocumentService cannot be injected before the storage is fully
+  // initialized. We do not have a way to lazily inject it so we rely on this
+  // helper instead.
+  private async getDocumentService(): Promise<DocumentService> {
+    if (!this.documentService) {
+      this.documentService = this.cristalApp
+        .getContainer()
+        .get("DocumentService")!;
+    }
+    return this.documentService;
   }
 
   private getRootUrl(username: string) {
@@ -491,6 +506,12 @@ export class NextcloudStorage extends AbstractStorage {
               "You can use it to take your *own* notes.\n" +
               "\n" +
               "Enjoy!",
+          );
+          await (
+            await this.getDocumentService()
+          ).notifyDocumentChange(
+            "update",
+            new DocumentReference("home", new SpaceReference()),
           );
         }
       } catch (e) {
