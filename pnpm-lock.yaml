@@ -160,8 +160,8 @@ catalogs:
       specifier: 17.3.1
       version: 17.3.1
     electron:
-      specifier: 40.6.0
-      version: 40.6.0
+      specifier: 40.6.1
+      version: 40.6.1
     electron-builder:
       specifier: 26.8.1
       version: 26.8.1
@@ -3536,7 +3536,7 @@ importers:
     devDependencies:
       electron:
         specifier: 'catalog:'
-        version: 40.6.0
+        version: 40.6.1
       electron-builder:
         specifier: 'catalog:'
         version: 26.8.1(electron-builder-squirrel-windows@26.0.12)
@@ -3556,8 +3556,8 @@ importers:
         specifier: 'catalog:'
         version: 1.13.5
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
       electron-store:
         specifier: 'catalog:'
         version: 11.0.2
@@ -3578,8 +3578,8 @@ importers:
         specifier: 'catalog:'
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3631,8 +3631,8 @@ importers:
         specifier: 'catalog:'
         version: 1.13.5
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
       electron-store:
         specifier: 'catalog:'
         version: 11.0.2
@@ -3653,8 +3653,8 @@ importers:
         specifier: 'catalog:'
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3712,8 +3712,8 @@ importers:
         specifier: 'catalog:'
         version: 1.13.5
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
       electron-store:
         specifier: 'catalog:'
         version: 11.0.2
@@ -3734,8 +3734,8 @@ importers:
         specifier: 'catalog:'
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3784,8 +3784,8 @@ importers:
         specifier: 'catalog:'
         version: 18.2.0-1771445965(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.28)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3))
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3859,7 +3859,7 @@ importers:
         version: link:../storage
       electron:
         specifier: 'catalog:'
-        version: 40.6.0
+        version: 40.6.1
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -3984,8 +3984,8 @@ importers:
         specifier: 'catalog:'
         version: 18.2.0-1771445965
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
       electron-store:
         specifier: 'catalog:'
         version: 11.0.2
@@ -4003,8 +4003,8 @@ importers:
   electron/settings/settings-preload:
     dependencies:
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4080,8 +4080,8 @@ importers:
         specifier: 'catalog:'
         version: 18.2.0-1771445965
       electron:
-        specifier: 40.1.0
-        version: 40.1.0
+        specifier: 40.6.1
+        version: 40.6.1
       mime:
         specifier: 'catalog:'
         version: 4.1.0
@@ -7102,13 +7102,8 @@ packages:
     resolution: {integrity: sha512-bO3y10YikuUwUuDUQRM4KfwNkKhnpVO7IPdbsrejwN9/AABJzzTQ4GeHwyzNSrVO+tEH3/Np255a3sVZpZDjvg==}
     engines: {node: '>=8.0.0'}
 
-  electron@40.1.0:
-    resolution: {integrity: sha512-2j/kvw7uF0H1PnzYBzw2k2Q6q16J8ToKrtQzZfsAoXbbMY0l5gQi2DLOauIZLzwp4O01n8Wt/74JhSRwG0yj9A==}
-    engines: {node: '>= 12.20.55'}
-    hasBin: true
-
-  electron@40.6.0:
-    resolution: {integrity: sha512-ett8W+yOFGDuM0vhJMamYSkrbV3LoaffzJd9GfjI96zRAxyrNqUSKqBpf/WGbQCweDxX2pkUCUfrv4wwKpsFZA==}
+  electron@40.6.1:
+    resolution: {integrity: sha512-u9YfoixttdauciHV9Ut9Zf3YipJoU093kR1GSYTTXTAXqhiXI0G1A0NnL/f0O2m2UULCXaXMf2W71PloR6V9pQ==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -13081,15 +13076,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@40.1.0:
-    dependencies:
-      '@electron/get': 2.0.3
-      '@types/node': 24.10.13
-      extract-zip: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
-
-  electron@40.6.0:
+  electron@40.6.1:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 24.10.13
