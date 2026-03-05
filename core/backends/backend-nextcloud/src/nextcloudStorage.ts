@@ -96,7 +96,7 @@ export class NextcloudStorage extends AbstractStorage {
   // The DocumentService cannot be injected before the storage is fully
   // initialized. We do not have a way to lazily inject it so we rely on this
   // helper instead.
-  private async getDocumentService(): Promise<DocumentService> {
+  private getDocumentService(): DocumentService {
     if (!this.documentService) {
       this.documentService = this.cristalApp
         .getContainer()
@@ -507,9 +507,7 @@ export class NextcloudStorage extends AbstractStorage {
               "\n" +
               "Enjoy!",
           );
-          await (
-            await this.getDocumentService()
-          ).notifyDocumentChange(
+          await this.getDocumentService().notifyDocumentChange(
             "update",
             new DocumentReference("home", new SpaceReference()),
           );
