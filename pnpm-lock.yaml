@@ -145,8 +145,8 @@ catalogs:
       specifier: 1.4.1
       version: 1.4.1
     axios:
-      specifier: 1.13.5
-      version: 1.13.5
+      specifier: 1.13.6
+      version: 1.13.6
     comlink:
       specifier: 4.4.2
       version: 4.4.2
@@ -661,7 +661,7 @@ importers:
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.5
+        version: 1.13.6
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -789,7 +789,7 @@ importers:
         version: 1.4.1
       axios:
         specifier: 'catalog:'
-        version: 1.13.5
+        version: 1.13.6
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -957,7 +957,7 @@ importers:
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.5
+        version: 1.13.6
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -3222,7 +3222,7 @@ importers:
         version: 18.2.0-1771445965(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.28)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3))
       fast-xml-parser:
         specifier: 'catalog:'
-        version: 5.3.4
+        version: 5.3.6
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3668,7 +3668,7 @@ importers:
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.5
+        version: 1.13.6
       electron:
         specifier: 40.1.0
         version: 40.1.0
@@ -3743,7 +3743,7 @@ importers:
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.5
+        version: 1.13.6
       electron:
         specifier: 40.1.0
         version: 40.1.0
@@ -3824,7 +3824,7 @@ importers:
         version: 18.2.0-1771445965(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.5
+        version: 1.13.6
       electron:
         specifier: 40.1.0
         version: 40.1.0
@@ -6773,6 +6773,9 @@ packages:
 
   axios@1.13.5:
     resolution: {integrity: sha512-cz4ur7Vb0xS4/KUN0tPWe44eqxrIu31me+fbang3ijiNscE129POzipJJA6zniq2C/Z6sJCjMimjS8Lc/GAs8Q==}
+
+  axios@1.13.6:
+    resolution: {integrity: sha512-ChTCHMouEe2kn713WHbQGcuYrr6fXTBiu460OTwWrWob16g1bXn4vtz07Ope7ewMozJAnEquLk5lWQWtBig9DQ==}
 
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
@@ -12697,6 +12700,14 @@ snapshots:
       possible-typed-array-names: 1.1.0
 
   axios@1.13.5:
+    dependencies:
+      follow-redirects: 1.15.11
+      form-data: 4.0.5
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
+  axios@1.13.6:
     dependencies:
       follow-redirects: 1.15.11
       form-data: 4.0.5
