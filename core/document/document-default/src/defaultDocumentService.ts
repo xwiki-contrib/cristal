@@ -284,6 +284,20 @@ export class DefaultDocumentService implements DocumentService {
     }
   }
 
+  removeDocumentChangeListener(
+    change: DocumentChange,
+    listener: (page: DocumentReference) => Promise<void>,
+  ): void {
+    if (this.documentChangeListeners.has(change)) {
+      const index = this.documentChangeListeners
+        .get(change)
+        ?.findIndex((l) => l === listener);
+      if (index) {
+        this.documentChangeListeners.get(change)?.splice(index);
+      }
+    }
+  }
+
   async notifyDocumentChange(
     change: DocumentChange,
     page: DocumentReference,
