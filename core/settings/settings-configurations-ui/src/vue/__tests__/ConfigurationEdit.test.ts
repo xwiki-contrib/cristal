@@ -25,12 +25,12 @@ import { ConfigurationsSettings } from "@xwiki/cristal-settings-configurations";
 import { Container } from "inversify";
 import { describe, expect, it, vi } from "vitest";
 import { mock } from "vitest-mock-extended";
-import type { Configuration } from "@xwiki/cristal-configuration-api";
 import type {
   SettingsManager,
   SettingsStorage,
 } from "@xwiki/cristal-settings-api";
 import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
+import type { Configuration } from "@xwiki/platform-configuration-api";
 import type { MockProxy } from "vitest-mock-extended";
 
 let settingsManagerConfigurations: Map<string, Configuration>;
@@ -149,13 +149,13 @@ describe("ConfigurationEdit", () => {
     });
 
     await configurationEdit
-      .find("input[id=settings.configurations.edit.homepage.label]")
+      .find("input[id='settings.configurations.edit.homepage.label']")
       .setValue("Hello World 2");
     await configurationEdit
-      .find("input[id=settings.configurations.edit.storageroot.label]")
+      .find("input[id='settings.configurations.edit.storageroot.label']")
       .setValue("/");
     await configurationEdit
-      .find("select[id=settings.configurations.edit.designsystem.label]")
+      .find("select[id='settings.configurations.edit.designsystem.label']")
       .setValue("vuetify");
     await configurationEdit.find("form").trigger("submit");
     await flushPromises();

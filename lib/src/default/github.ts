@@ -24,6 +24,7 @@ import { ComponentInit as GitHubPageHistoryComponentInit } from "@xwiki/cristal-
 import { ComponentInit as ModelReferenceGitHubComponentInit } from "@xwiki/cristal-model-reference-github";
 import { ComponentInit as ModelRemoteURLGitHubComponentInit } from "@xwiki/cristal-model-remote-url-github";
 import { ComponentInit as GitHubNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-github";
+import { ComponentInit as UniASTMarkdownGitHubComponentInit } from "@xwiki/cristal-uniast-markdown-github";
 import type { Container } from "inversify";
 
 export function load(container: Container) {
@@ -33,4 +34,5 @@ export function load(container: Container) {
   new GitHubPageHistoryComponentInit(container);
   new ModelReferenceGitHubComponentInit(container);
   new ModelRemoteURLGitHubComponentInit(container);
+  new UniASTMarkdownGitHubComponentInit(container);
 }

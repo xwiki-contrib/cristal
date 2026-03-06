@@ -36,6 +36,7 @@ import { ComponentInit as ModelReferenceFilesystemComponentInit } from "@xwiki/c
 import { ComponentInit as ModelRemoteURLFilesystemComponentInit } from "@xwiki/cristal-model-remote-url-filesystem-default";
 import { ComponentInit as FileSystemNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-filesystem";
 import { ComponentInit as FileSystemRenameComponentInit } from "@xwiki/cristal-rename-filesystem";
+import { ComponentInit as UniASTMarkdownFileSystemComponentInit } from "@xwiki/cristal-uniast-markdown-filesystem";
 
 CristalAppLoader.init(
   [
@@ -67,6 +68,7 @@ CristalAppLoader.init(
     new GitHubAuthenticationComponentInit(container);
     new NextcloudAuthenticationComponentInit(container);
     new SettingsComponentInit(container);
+    new UniASTMarkdownFileSystemComponentInit(container);
   },
   async (container, configuration) => {
     await conditionalComponentsList(container, configuration);
