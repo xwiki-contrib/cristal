@@ -23,7 +23,7 @@ import type { BtnProps } from "@xwiki/platform-dsapi";
 const { variant } = defineProps<BtnProps>();
 </script>
 <template>
-  <sl-button :variant="variant || 'default'">
+  <sl-button :variant="variant || 'default'" :disabled>
     <!-- TODO: We should try to use each the default icon slots to avoid weird alignment issues
       https://shoelace.style/components/button#slots
       -->

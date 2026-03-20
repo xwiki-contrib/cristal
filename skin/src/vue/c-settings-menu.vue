@@ -19,13 +19,12 @@
 -->
 <script setup lang="ts">
 import CConfigMenu from "./c-config-menu.vue";
-import logo from "../images/xwiki-logo-color.svg";
 import { UIExtensions } from "@xwiki/cristal-uiextension-ui";
 import { CIcon } from "@xwiki/platform-icons";
 </script>
 
 <template>
-  <x-dialog width="auto" :logo="logo" title="Settings">
+  <x-dialog width="auto" title="Settings">
     <template #activator="{ props }">
       <c-icon name="gear" v-bind="props"></c-icon>
     </template>

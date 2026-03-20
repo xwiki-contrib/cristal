@@ -42,21 +42,21 @@ const actionCategoryService: PageActionCategoryService = cristal
 const actionCategories: PageActionCategory[] = actionCategoryService.list();
 </script>
 <template>
-  <x-menu :disabled="disabled">
+  <x-dropdown :disabled="disabled" :btn-props="{ size: 'small', disabled }">
     <template #activator="{}">
-      <x-btn size="small" :disabled="disabled">
-        <c-icon name="three-dots-vertical" :size="Size.Small"></c-icon>
-      </x-btn>
+      <c-icon name="three-dots-vertical" :size="Size.Small"></c-icon>
     </template>
-    <page-actions-category
-      v-for="(category, i) in actionCategories"
-      :key="category.id"
-      :category="category"
-      :current-page="currentPage"
-      :current-page-name="currentPageName"
-      :current-page-reference="currentPageReference"
-      :is-last="i == actionCategories.length - 1"
-    ></page-actions-category>
-  </x-menu>
+    <x-menu>
+      <page-actions-category
+        v-for="(category, i) in actionCategories"
+        :key="category.id"
+        :category="category"
+        :current-page="currentPage"
+        :current-page-name="currentPageName"
+        :current-page-reference="currentPageReference"
+        :is-last="i == actionCategories.length - 1"
+      ></page-actions-category>
+    </x-menu>
+  </x-dropdown>
 </template>
 <style scoped></style>

@@ -40,37 +40,42 @@ function onConfigClick(configName: string) {
 
 <template>
   <div class="config-container">
-    <x-menu class="config-selector">
-      <template #activator="{}">
-        <c-icon name="chevron-expand" :size="Size.Small"></c-icon>
-        {{ cristal.getWikiConfig().name }}
+    <x-dropdown class="config-selector" :btn-props="{ variant: 'text' }">
+      <template #activator>
+        <span :class="$style.blackText">
+          <c-icon name="chevron-expand" :size="Size.Small"></c-icon>
+          {{ cristal.getWikiConfig().name }}
+        </span>
       </template>
-      <x-menu-item
-        v-for="[key, wikiConfig] in configs"
-        :value="key"
-        @click="onConfigClick(key)"
-        :disabled="key === cristal.getWikiConfig().name"
-        :key="key"
-        class="item"
-      >
-        <div>
-          {{ wikiConfig.name }}
-          <i
-            ><small>{{ wikiConfig.designSystem }}</small></i
-          >
-        </div>
-        <div class="url">{{ wikiConfig.baseURL }}</div>
-      </x-menu-item>
-    </x-menu>
-    <a
-      :href="
-        cristal.getRouter().resolve({
+      <x-menu>
+        <x-menu-item
+          v-for="[key, wikiConfig] in configs"
+          :value="key"
+          @click="onConfigClick(key)"
+          :disabled="key === cristal.getWikiConfig().name"
+          :key="key"
+          class="item"
+        >
+          <div>
+            {{ wikiConfig.name }}
+            <i
+              ><small>{{ wikiConfig.designSystem }}</small></i
+            >
+          </div>
+          <div class="url">{{ wikiConfig.baseURL }}</div>
+        </x-menu-item>
+      </x-menu>
+    </x-dropdown>
+    <x-btn
+      variant="text"
+      @click="
+        cristal.getRouter().push({
           name: 'admin',
           params: { page: 'settings.categories.configurations' },
-        }).href
+        })
       "
-      ><c-icon :size="Size.Small" name="gear"></c-icon
-    ></a>
+      ><c-icon :size="Size.Small" name="gear" :class="$style.blackText"></c-icon
+    ></x-btn>
   </div>
 </template>
 
@@ -100,5 +105,11 @@ function onConfigClick(configName: string) {
 a {
   text-decoration: none;
   color: inherit;
+}
+</style>
+
+<style module>
+.blackText {
+  color: var(--cr-base-text-color);
 }
 </style>

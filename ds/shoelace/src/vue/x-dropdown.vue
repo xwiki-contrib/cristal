@@ -19,9 +19,24 @@
 -->
 <script lang="ts" setup>
 import "@shoelace-style/shoelace";
+import XBtn from "./x-btn.vue";
+import type { DropdownProps } from "@xwiki/platform-dsapi";
+
+defineProps<DropdownProps>();
 </script>
 <template>
-  <sl-menu>
-    <slot name="default" />
-  </sl-menu>
+  <sl-dropdown hoist stay-open-on-select>
+    <!-- @vue-expect-error the slot attribute is shoelace specific and is not know by the typechecker.
+    Disabling it for now as I did not find an elegant solution to declare this property. -->
+    <!--eslint-disable-next-line vue/no-deprecated-slot-attribute -->
+    <x-btn v-bind="btnProps" slot="trigger">
+      <slot name="activator" />
+    </x-btn>
+    <slot></slot>
+  </sl-dropdown>
 </template>
+<style scoped>
+sl-dropdown {
+  z-index: var(--cr-z-index-dropdown);
+}
+</style>

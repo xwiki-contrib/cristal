@@ -19,22 +19,9 @@
 -->
 <script lang="ts" setup></script>
 <template>
-  <!-- v-menu needs to be attached inside Cristal DOM to fix its z-index.
-       We also reset the default z-index to set it in the style section. -->
-  <v-menu
-    :close-on-content-click="false"
-    attach="#xwCristalApp"
-    z-index="initial"
-  >
-    <template #activator="{ props }">
-      <span v-bind="props">
-        <slot name="activator" />
-      </span>
-    </template>
-    <v-list density="compact">
-      <slot name="default" />
-    </v-list>
-  </v-menu>
+  <v-list density="compact">
+    <slot name="default" />
+  </v-list>
 </template>
 <style scoped>
 .v-overlay {

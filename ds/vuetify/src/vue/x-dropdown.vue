@@ -18,10 +18,32 @@
   02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <script lang="ts" setup>
-import "@shoelace-style/shoelace";
+import XBtn from "./x-btn.vue";
+import type { DropdownProps } from "@xwiki/platform-dsapi";
+
+defineProps<DropdownProps>();
 </script>
 <template>
-  <sl-menu>
-    <slot name="default" />
-  </sl-menu>
+  <!-- v-menu needs to be attached inside Cristal DOM to fix its z-index.
+       We also reset the default z-index to set it in the style section. -->
+  <v-menu
+    :close-on-content-click="false"
+    attach="#xwCristalApp"
+    z-index="initial"
+  >
+    <template #activator="{ props }">
+      <!-- @vue-expect-error click is not part of the API. We need to improve
+      Abstract Components type declaration to support generic html elements
+      properties. -->
+      <x-btn v-bind="btnProps" :disabled="disabled" @click="props.onClick">
+        <slot name="activator"></slot>
+      </x-btn>
+    </template>
+    <slot></slot>
+  </v-menu>
 </template>
+<style scoped>
+.v-overlay {
+  z-index: var(--cr-z-index-dropdown);
+}
+</style>

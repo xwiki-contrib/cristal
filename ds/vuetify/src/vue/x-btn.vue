@@ -51,7 +51,7 @@ const color = computed(() => {
 const vVariant = computed(() => (variant == "text" ? "text" : "tonal"));
 </script>
 <template>
-  <v-btn :color="color" :variant="vVariant">
+  <v-btn :color="color" :variant="vVariant" :disabled>
     <slot />
   </v-btn>
 </template>

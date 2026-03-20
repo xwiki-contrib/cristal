@@ -92,6 +92,11 @@ export class VuetifyDesignSystemLoader implements DesignSystemLoader {
     registerAsyncComponent(app, "XCard", () => import("../vue/x-card.vue"));
     registerAsyncComponent(app, "XAlert", () => import("../vue/x-alert.vue"));
     registerAsyncComponent(app, "XDialog", () => import("../vue/x-dialog.vue"));
+    registerAsyncComponent(
+      app,
+      "XDropdown",
+      () => import("../vue/x-dropdown.vue"),
+    );
     registerAsyncComponent(app, "XMenu", () => import("../vue/x-menu.vue"));
     registerAsyncComponent(
       app,
