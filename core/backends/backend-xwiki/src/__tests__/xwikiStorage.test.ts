@@ -76,16 +76,10 @@ describe("getPageFromViewURL", () => {
       "Main.Page\\.With\\.Dots.WebHome",
       "html",
     );
-    expect(global.fetch).toHaveBeenNthCalledWith(
-      1,
+    expect(global.fetch).toHaveBeenCalledExactlyOnceWith(
       new URL(
-        "http://baseurl/rest/wikis/xwiki/spaces/Main/spaces/Page%2EWith%2EDots/pages/WebHome?checkRight=edit",
+        "http://baseurl/rest/wikis/xwiki/spaces/Main/spaces/Page%2EWith%2EDots/pages/WebHome?checkRight=edit&supportedSyntax=markdown%2F1.2",
       ),
-      anyObject(),
-    );
-    expect(global.fetch).toHaveBeenNthCalledWith(
-      2,
-      "http://baseurl/rest/cristal/wikis/xwiki/spaces/Main/spaces/Page.With.Dots/pages/WebHome?format=html",
       anyObject(),
     );
   });
