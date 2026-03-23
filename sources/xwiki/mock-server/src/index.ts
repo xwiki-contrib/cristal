@@ -60,84 +60,6 @@ ${revision ? "Revision " + revision : ""}
 }
 
 app.get(
-  "/xwiki/rest/cristal/wikis/xwiki/spaces/*page",
-  // eslint-disable-next-line max-statements
-  (req: Request, res: Response) => {
-    res.appendHeader("Access-Control-Allow-Origin", "*");
-
-    const id: string = (req.params.page as unknown as Array<string>)
-      .filter((_v: string, i: number) => i % 2 == 0)
-      // Escape dots in segments to differentiate with separators
-      .map((v: string) => v.replace(/\./g, "\\."))
-      .join(".");
-
-    let page: string = "";
-    let name: string = "";
-    let revision: string | undefined = undefined;
-    let text: string = "";
-    let html: string = "";
-    let encodingFormat = "xwiki/2.1";
-
-    switch (id) {
-      case "Main.WebHome":
-        page = "Main.WebHome";
-        name = "WebHome";
-        revision = (req.query.revision as string) || undefined;
-        text = `= Welcome to ${page} =
-
-XWiki is the best tool to organize your knowledge.
-
-[[XWiki Syntax>>Page2.WebHome]]
-${revision ? "Revision " + revision : ""}
-}`;
-        html = getHtml(page, revision, { offline: false });
-        break;
-
-      case "Main.Offline":
-        page = "Main.Offline";
-        name = "Offline";
-        html = getHtml(page, revision, { offline: true });
-        break;
-
-      case "Main.NewPage.WebHome":
-        res.sendStatus(404);
-        return;
-
-      case "Main.NewPage2.WebHome": {
-        console.log("is NewPage2 new ?", newNewPage2);
-        if (newNewPage2) {
-          newNewPage2 = false;
-          res.sendStatus(404);
-          return;
-        } else {
-          page = "Main.NewPage2.WebHome";
-          encodingFormat = "markdown/1.2";
-        }
-        break;
-      }
-
-      default:
-        page = id;
-        name = "WebHome";
-        html = getHtml(page, revision, { offline: false });
-    }
-
-    res.json({
-      "@context": "https://schema.org",
-      "@type": "CreativeWork",
-      identifier: id,
-      name: name,
-      headline: page,
-      headlineRaw: page,
-      creator: page,
-      encodingFormat,
-      text: text,
-      html: html,
-    });
-  },
-);
-
-app.get(
   "/xwiki/rest/wikis/xwiki/spaces/Main/spaces/ExistingPage/pages/WebHome",
   (req: Request, res: Response) => {
     res.appendHeader("Access-Control-Allow-Origin", "*");
@@ -178,6 +100,14 @@ app.get(
 );
 
 app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/Main/spaces/NewPage/pages/WebHome",
+  (_: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+    res.sendStatus(404);
+  },
+);
+
+app.get(
   "/xwiki/rest/wikis/xwiki/spaces/Main/spaces/NewPage2/pages/WebHome",
   (req: Request, res: Response) => {
     res.appendHeader("Access-Control-Allow-Origin", "*");
@@ -189,6 +119,8 @@ app.get(
       res.json({
         rawTitle: "Main.NewPage2.WebHome",
         title: "Main.NewPage2.WebHome",
+        syntax: "markdown/1.2",
+        content: "",
         hierarchy: {
           items: [
             {
@@ -228,8 +160,12 @@ app.get(
     res.appendHeader("Access-Control-Allow-Origin", "*");
 
     res.json({
+      fullName: "Main.Offline",
       rawTitle: "Offline",
       title: "Offline",
+      renderedContent: req.query["supportedSyntax"]
+        ? getHtml("Main.Offline", undefined, { offline: true })
+        : undefined,
       hierarchy: {
         items: [
           {
@@ -264,6 +200,9 @@ app.get(
     res.json({
       rawTitle: "Main.Page.With.Dots",
       title: "Main.Page.With.Dots",
+      renderedContent: getHtml("Main.Page\\.With\\.Dots", undefined, {
+        offline: false,
+      }),
       hierarchy: {
         items: [
           {
@@ -298,6 +237,9 @@ app.get(
     res.json({
       rawTitle: "Main.Page.With.Dots",
       title: "Main.Page.With.Dots",
+      renderedContent: getHtml("Main.Page\\.With\\.Dots", undefined, {
+        offline: false,
+      }),
       hierarchy: {
         items: [
           {
@@ -330,8 +272,15 @@ app.get(
     res.appendHeader("Access-Control-Allow-Origin", "*");
 
     res.json({
+      fullName: "Main.WebHome",
       rawTitle: "Main.WebHome",
       title: "Main.WebHome",
+      content: `= Welcome to Main.WebHome =
+
+XWiki is the best tool to organize your knowledge.
+
+[[XWiki Syntax>>Page2.WebHome]]`,
+      renderedContent: getHtml("Main.WebHome", undefined, { offline: false }),
       hierarchy: {
         items: [
           {
@@ -368,6 +317,13 @@ app.get(
       minorVersion: 1,
       rawTitle: "Main.WebHome",
       title: "Main.WebHome",
+      content: `= Welcome to Main.WebHome =
+
+XWiki is the best tool to organize your knowledge.
+
+[[XWiki Syntax>>Page2.WebHome]]
+
+Revision 2.1`,
       hierarchy: {
         items: [
           {
@@ -402,6 +358,7 @@ app.get(
     res.json({
       rawTitle: "Page2.WebHome",
       title: "Page2.WebHome",
+      renderedContent: getHtml("Page2.WebHome", undefined, { offline: false }),
       hierarchy: {
         items: [
           {
