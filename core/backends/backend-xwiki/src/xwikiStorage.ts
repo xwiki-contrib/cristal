@@ -147,7 +147,10 @@ export class XWikiStorage extends AbstractStorage {
       );
     } else {
       url = new URL(getRestSpacesApiUrl(this.wikiConfig, page));
-      url.search = new URLSearchParams([["checkRight", "edit"]]).toString();
+      url.search = new URLSearchParams([
+        ["checkRight", "edit"],
+        ["supportedSyntax", "markdown/1.2"],
+      ]).toString();
     }
     this.logger?.debug("XWiki Loading url", url);
     const response = await fetch(url, {
@@ -158,18 +161,7 @@ export class XWikiStorage extends AbstractStorage {
       },
     });
 
-    const cristalApiUrl = this.getPageRestURL(page, syntax, revision);
-    this.logger?.debug("XWiki Loading url", cristalApiUrl);
-    const cristalApiResponse = await fetch(cristalApiUrl, {
-      cache: "no-store",
-      headers: {
-        Accept: "application/json",
-        ...(await this.getCredentials()),
-      },
-    });
-
     let json;
-    let cristalApiJson;
     try {
       json = await response.json();
       if (!response.ok) {
@@ -179,50 +171,15 @@ export class XWikiStorage extends AbstractStorage {
           .error(`Could not load page ${page}. Reason: ${json.message}`);
         return undefined;
       }
-
-      cristalApiJson = await cristalApiResponse.json();
-      if (!cristalApiResponse.ok) {
-        // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
-        this.alertsServiceProvider
-          .get()
-          .error(
-            `Could not load page ${page}. Reason: ${cristalApiJson.message}`,
-          );
-        return undefined;
-      }
     } catch {
       // Return undefined in case of missing page.
       return undefined;
     }
 
-    let html = "";
-    let jsonContent = {};
-    if (syntax == "jsonld") {
-      jsonContent = cristalApiJson;
-      if (this.wikiConfig.serverRendering) {
-        this.logger?.debug("Using server side rendering for jsonld");
-        html = cristalApiJson.html;
-      } else {
-        this.logger?.debug("Using client side rendering for jsonld");
-        html = "";
-      }
-    } else if (syntax == "html") {
-      if (this.wikiConfig.serverRendering) {
-        this.logger?.debug("Using server side rendering for html");
-        html = "";
-      } else {
-        this.logger?.debug("Using client side rendering for html");
-        html = "";
-      }
-    } else {
-      html = "";
-    }
-
     const pageContentData = new DefaultPageData();
-    pageContentData.source = json.text;
-    pageContentData.syntax = "xwiki";
-    pageContentData.html = html;
-    pageContentData.document = new JSONLDDocument(jsonContent);
+    pageContentData.syntax = json.syntax;
+    pageContentData.source = json.content;
+    pageContentData.html = json.renderedContent;
     pageContentData.version = `${json.majorVersion}.${json.minorVersion}`;
     pageContentData.headlineRaw = json.rawTitle;
     pageContentData.headline = json.title;
@@ -237,6 +194,17 @@ export class XWikiStorage extends AbstractStorage {
       json.rights?.find(
         (right: { value: boolean; name: string }) => right.name == "edit",
       )?.value ?? false;
+
+    pageContentData.document = new JSONLDDocument({
+      encodingFormat: pageContentData.syntax,
+      name: pageContentData.name,
+      identifier: json.fullName,
+      headline: pageContentData.headline,
+      headlineRaw: pageContentData.headlineRaw,
+      text: pageContentData.source,
+      html: pageContentData.html,
+    });
+
     return pageContentData;
   }
 
