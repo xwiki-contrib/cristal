@@ -121,17 +121,22 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
 
   async getUserDetails(): Promise<UserDetails> {
     const config = this.cristalApp.getWikiConfig();
-    const userinfoUrl = `${config.baseURL}/oidc/userinfo`;
-    const data = {
+    const userinfoUrl = `${config.baseURL}/rest/wikis/xwiki/user`;
+    const response = await fetch(userinfoUrl, {
       headers: {
-        Authorization: await this.getAuthorizationHeader(),
+        Accept: "application/json",
+        Authorization: (await this.getAuthorizationHeader())!,
       },
-    };
-    const {
-      data: { profile, name, picture, preferred_username },
-    } = await axios.get(userinfoUrl, data);
+    });
 
-    return { profile, username: preferred_username, name, avatar: picture };
+    const json = await response.json();
+
+    return {
+      profile: json.xwikiAbsoluteUrl,
+      username: json.id,
+      name: json.displayName,
+      avatar: json.avatarUrl,
+    };
   }
 
   async logout(): Promise<void> {

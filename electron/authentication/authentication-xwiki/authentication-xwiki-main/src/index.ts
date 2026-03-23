@@ -141,17 +141,22 @@ export function load(
   ipcMain.handle(
     "authentication:xwiki:userDetails",
     async (event, { baseURL }: { baseURL: string }): Promise<UserDetails> => {
-      const userinfoUrl = `${baseURL}/oidc/userinfo`;
-      const data = {
+      const userinfoUrl = `${baseURL}/rest/wikis/xwiki/user`;
+      const response = await fetch(userinfoUrl, {
         headers: {
+          Accept: "application/json",
           Authorization: getAuthorizationValue(),
         },
-      };
-      const {
-        data: { profile, name, picture, preferred_username },
-      } = await axios.get(userinfoUrl, data);
+      });
 
-      return { profile, username: preferred_username, name, avatar: picture };
+      const json = await response.json();
+
+      return {
+        profile: json.xwikiAbsoluteUrl,
+        username: json.id,
+        name: json.displayName,
+        avatar: json.avatarUrl,
+      };
     },
   );
   ipcMain.handle("authentication:xwiki:authorizationValue", () => {
