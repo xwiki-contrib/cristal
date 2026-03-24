@@ -1334,6 +1334,9 @@ importers:
       '@xwiki/cristal-utils-inversify':
         specifier: workspace:*
         version: link:../../../utils/inversify
+      '@xwiki/markdown-syntax-config':
+        specifier: link:../../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/markdown
+        version: link:../../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/markdown
       '@xwiki/platform-api':
 <<<<<<< HEAD
         specifier: 'catalog:'
@@ -1392,6 +1395,9 @@ importers:
       '@xwiki/cristal-utils-inversify':
         specifier: workspace:*
         version: link:../../../utils/inversify
+      '@xwiki/markdown-syntax-config':
+        specifier: link:../../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/markdown
+        version: link:../../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/markdown
       '@xwiki/platform-api':
 <<<<<<< HEAD
         specifier: 'catalog:'
