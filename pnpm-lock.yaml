@@ -314,7 +314,7 @@ overrides:
   '@vue/compiler-sfc': 3.5.30
   vue-router: 5.0.3
   '@inversifyjs/container': 1.14.1
-  yjs: 13.6.30
+  yjs: 13.6.29
 
 importers:
 
@@ -1192,7 +1192,7 @@ importers:
     dependencies:
       '@hocuspocus/provider':
         specifier: 'catalog:'
-        version: 2.15.3(y-protocols@1.0.7(yjs@13.6.30))(yjs@13.6.30)
+        version: 2.15.3(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29)
       '@xwiki/platform-api':
         specifier: link:../../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/api
         version: link:../../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/api
@@ -1238,10 +1238,10 @@ importers:
         version: 0.2.117
       y-websocket:
         specifier: 'catalog:'
-        version: 3.0.0(yjs@13.6.30)
+        version: 3.0.0(yjs@13.6.29)
       yjs:
-        specifier: 13.6.30
-        version: 13.6.30
+        specifier: 13.6.29
+        version: 13.6.29
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4550,7 +4550,7 @@ importers:
     dependencies:
       '@hocuspocus/server':
         specifier: 'catalog:'
-        version: 2.15.3(y-protocols@1.0.7(yjs@13.6.30))(yjs@13.6.30)
+        version: 2.15.3(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29)
       express:
         specifier: 'catalog:'
         version: 5.2.1
@@ -5234,13 +5234,13 @@ packages:
     resolution: {integrity: sha512-oadN05m+KL4ylNKVo5YspNG4MXkT2Y+FUFzrgigpQeTjQibkPUwCNmUnkUxMgrGRgxb+O0lJCfirFIJMxedctA==}
     peerDependencies:
       y-protocols: ^1.0.6
-      yjs: 13.6.30
+      yjs: 13.6.29
 
   '@hocuspocus/server@2.15.3':
     resolution: {integrity: sha512-Ju4ty4/7JtmvivcP7gKReOLf8KrFwN7Yx/5VhXYh4TRULy4kSo2fsDVUaluPp0neZa6PbVhizJuzlOim73IEbQ==}
     peerDependencies:
       y-protocols: ^1.0.6
-      yjs: 13.6.30
+      yjs: 13.6.29
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -9225,13 +9225,13 @@ packages:
     resolution: {integrity: sha512-YSVsLoXxO67J6eE/nV4AtFtT3QEotZf5sK5BHxFBXso7VDUT3Tx07IfA6hsu5Q5OmBdMkQVmFZ9QOA7fikWvnw==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     peerDependencies:
-      yjs: 13.6.30
+      yjs: 13.6.29
 
   y-websocket@3.0.0:
     resolution: {integrity: sha512-mUHy7AzkOZ834T/7piqtlA8Yk6AchqKqcrCXjKW8J1w2lPtRDjz8W5/CvXz9higKAHgKRKqpI3T33YkRFLkPtg==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     peerDependencies:
-      yjs: 13.6.30
+      yjs: 13.6.29
 
   y18n@5.0.8:
     resolution: {integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==}
@@ -9265,8 +9265,8 @@ packages:
   yauzl@2.10.0:
     resolution: {integrity: sha512-p4a9I6X6nu6IhoGmBqAcbJy1mlC4j27vEPZX9F4L4/vZT3Lyq1VkFHw/V/PUcB9Buo+DG3iHkT0x3Qya58zc3g==}
 
-  yjs@13.6.30:
-    resolution: {integrity: sha512-vv/9h42eCMC81ZHDFswuu/MKzkl/vyq1BhaNGfHyOonwlG4CJbQF4oiBBJPvfdeCt/PlVDWh7Nov9D34YY09uQ==}
+  yjs@13.6.29:
+    resolution: {integrity: sha512-kHqDPdltoXH+X4w1lVmMtddE3Oeqq48nM40FD5ojTd8xYhQpzIDcfE2keMSU5bAgRPJBe225WTUdyUgj1DtbiQ==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
 
   yn@3.1.1:
@@ -9575,19 +9575,19 @@ snapshots:
     dependencies:
       lib0: 0.2.117
 
-  '@hocuspocus/provider@2.15.3(y-protocols@1.0.7(yjs@13.6.30))(yjs@13.6.30)':
+  '@hocuspocus/provider@2.15.3(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29)':
     dependencies:
       '@hocuspocus/common': 2.15.3
       '@lifeomic/attempt': 3.1.0
       lib0: 0.2.117
       ws: 8.20.0
-      y-protocols: 1.0.7(yjs@13.6.30)
-      yjs: 13.6.30
+      y-protocols: 1.0.7(yjs@13.6.29)
+      yjs: 13.6.29
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@hocuspocus/server@2.15.3(y-protocols@1.0.7(yjs@13.6.30))(yjs@13.6.30)':
+  '@hocuspocus/server@2.15.3(y-protocols@1.0.7(yjs@13.6.29))(yjs@13.6.29)':
     dependencies:
       '@hocuspocus/common': 2.15.3
       async-lock: 1.4.1
@@ -9595,8 +9595,8 @@ snapshots:
       lib0: 0.2.117
       uuid: 11.1.0
       ws: 8.20.0
-      y-protocols: 1.0.7(yjs@13.6.30)
-      yjs: 13.6.30
+      y-protocols: 1.0.7(yjs@13.6.29)
+      yjs: 13.6.29
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -10604,7 +10604,7 @@ snapshots:
       inversify: 7.11.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
       vue: 3.5.30(typescript@5.9.3)
-      yjs: 13.6.30
+      yjs: 13.6.29
 
   '@xwiki/platform-configuration-api@18.2.0-1774291043':
     dependencies:
@@ -14068,16 +14068,16 @@ snapshots:
 
   xmlbuilder@15.1.1: {}
 
-  y-protocols@1.0.7(yjs@13.6.30):
+  y-protocols@1.0.7(yjs@13.6.29):
     dependencies:
       lib0: 0.2.117
-      yjs: 13.6.30
+      yjs: 13.6.29
 
-  y-websocket@3.0.0(yjs@13.6.30):
+  y-websocket@3.0.0(yjs@13.6.29):
     dependencies:
       lib0: 0.2.117
-      y-protocols: 1.0.7(yjs@13.6.30)
-      yjs: 13.6.30
+      y-protocols: 1.0.7(yjs@13.6.29)
+      yjs: 13.6.29
 
   y18n@5.0.8: {}
 
@@ -14106,7 +14106,7 @@ snapshots:
       buffer-crc32: 0.2.13
       fd-slicer: 1.1.0
 
-  yjs@13.6.30:
+  yjs@13.6.29:
     dependencies:
       lib0: 0.2.117
 
