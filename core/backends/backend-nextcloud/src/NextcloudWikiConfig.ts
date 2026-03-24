@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { markdownSyntaxConfig } from "@xwiki/markdown-syntax-config";
 import { DefaultWikiConfig } from "@xwiki/platform-api";
 import { inject, injectable, named } from "inversify";
 import type { CristalApp, Logger, Storage } from "@xwiki/platform-api";
@@ -42,6 +43,7 @@ export class NextcloudWikiConfig extends DefaultWikiConfig {
     this.cristal = cristal;
     this.storage = storage;
     this.storage.setWikiConfig(this);
+    this.syntaxes = [markdownSyntaxConfig];
   }
 
   override isSupported(format: string): boolean {

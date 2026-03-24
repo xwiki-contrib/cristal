@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { markdownSyntaxConfig } from "@xwiki/markdown-syntax-config";
 import { DefaultWikiConfig } from "@xwiki/platform-api";
 import { inject, injectable, named } from "inversify";
 import type { CristalApp, Logger, Storage } from "@xwiki/platform-api";
@@ -39,6 +40,7 @@ export class GitHubWikiConfig extends DefaultWikiConfig {
     if (this.homePage == "") {
       this.homePage = "README.md";
     }
+    this.syntaxes = [markdownSyntaxConfig];
   }
 
   override defaultPageName(): string {
