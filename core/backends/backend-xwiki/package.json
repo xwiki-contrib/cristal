@@ -35,7 +35,10 @@
     "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/platform-backend-api": "catalog:",
-    "@xwiki/platform-xwiki-utils": "catalog:"
+    "@xwiki/platform-xwiki-utils": "catalog:",
+    "@xwiki/markdown-syntax-config": "catalog:*",
+    "@xwiki/platform-syntaxes-config": "catalog:*",
+    "@xwiki/cristal-xwiki-utils": "workspace:*"
   },
   "peerDependencies": {
     "inversify": "8.x",

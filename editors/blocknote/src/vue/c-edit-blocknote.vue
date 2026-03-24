@@ -143,6 +143,7 @@ const contextForMacros: ContextForMacros = {
  *
  * @param currentPage - The fetched current page
  */
+// eslint-disable-next-line max-statements
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
     // TODO
@@ -155,12 +156,23 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     return;
   }
 
+  const syntaxConfig = syntaxes.find(
+    (syntax) => syntax.id === currentPage.syntax,
+  );
+
+  if (!syntaxConfig) {
+    // TODO add a translation
+    unknownSyntax.value = `Syntax [${currentPage.syntax}] is not supported by the current backend`;
+    return;
+  }
+
   editorProps.value = {
     theme: "light",
     // TODO: make this customizable
     // https://jira.xwiki.org/browse/CRISTAL-457
     lang: "en",
     label: t("blocknote.editor.label"),
+    syntax: syntaxConfig,
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(
