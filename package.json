@@ -82,6 +82,28 @@
       "electron"
     ],
     "overrides": {
+      "@xwiki/platform-model-api": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/model/model-api",
+      "@xwiki/platform-model-reference": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/model/model-reference",
+      "@xwiki/platform-model-remote-url": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/model/model-remote-url",
+
+      "@xwiki/platform-uniast-api": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/uniast/uniast-api",
+      "@xwiki/platform-uniast-markdown": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/uniast/uniast-markdown",
+
+      "@xwiki/platform-api": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/api",
+      "@xwiki/platform-editors-blocknote-headless": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/editors/blocknote-headless",
+
+      "@xwiki/platform-syntaxes-config": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/platform-config",
+      "@xwiki/markdown-syntax-config": "link:../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/markdown",
+      
+      "vue": "3.5.30",
+      "@vue/reactivity": "3.5.30",
+      "@vue/runtime-core": "3.5.30",
+      "@vue/compiler-sfc": "3.5.30",
+
+      "vue-router": "5.0.3",
+      
+      "@inversifyjs/container": "1.14.1",
+      
       "yjs": "catalog:"
     }
   }
