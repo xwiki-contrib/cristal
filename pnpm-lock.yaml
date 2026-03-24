@@ -949,6 +949,9 @@ importers:
 
   core/authentication/authentication-xwiki:
     dependencies:
+      '@xwiki/cristal-authentication-xwiki-utils':
+        specifier: workspace:*
+        version: link:../authentication-xwiki-utils
       '@xwiki/platform-api':
         specifier: 'catalog:'
         version: 18.2.0-1773980315(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
@@ -974,6 +977,22 @@ importers:
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vite:
+        specifier: 'catalog:'
+        version: 7.3.1(@types/node@25.2.3)(jiti@2.6.1)(sugarss@5.0.1(postcss@8.5.8))(tsx@4.21.0)(yaml@2.8.2)
+
+  core/authentication/authentication-xwiki-utils:
+    dependencies:
+      '@xwiki/platform-authentication-api':
+        specifier: 'catalog:'
+        version: 18.2.0-1773980315(reflect-metadata@0.2.2)
+    devDependencies:
+      '@xwiki/cristal-dev-config':
+        specifier: workspace:*
+        version: link:../../../dev/config
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -3825,6 +3844,9 @@ importers:
 
   electron/authentication/authentication-xwiki/authentication-xwiki-main:
     dependencies:
+      '@xwiki/cristal-authentication-xwiki-utils':
+        specifier: workspace:*
+        version: link:../../../../core/authentication/authentication-xwiki-utils
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
         version: 18.2.0-1773980315(reflect-metadata@0.2.2)

@@ -26,6 +26,7 @@ import {
   setAccessToken,
   setTokenType,
 } from "./storage.js";
+import { fetchUserDetails } from "@xwiki/cristal-authentication-xwiki-utils";
 import axios from "axios";
 import { BrowserWindow, ipcMain } from "electron";
 import type { UserDetails } from "@xwiki/platform-authentication-api";
@@ -141,22 +142,10 @@ export function load(
   ipcMain.handle(
     "authentication:xwiki:userDetails",
     async (event, { baseURL }: { baseURL: string }): Promise<UserDetails> => {
-      const userinfoUrl = `${baseURL}/rest/wikis/xwiki/user`;
-      const response = await fetch(userinfoUrl, {
-        headers: {
-          Accept: "application/json",
-          Authorization: getAuthorizationValue(),
-        },
-      });
-
-      const json = await response.json();
-
-      return {
-        profile: json.xwikiAbsoluteUrl,
-        username: json.id,
-        name: json.displayName,
-        avatar: json.avatarUrl,
-      };
+      return fetchUserDetails(
+        `${baseURL}/rest/wikis/xwiki/user`,
+        getAuthorizationValue(),
+      );
     },
   );
   ipcMain.handle("authentication:xwiki:authorizationValue", () => {

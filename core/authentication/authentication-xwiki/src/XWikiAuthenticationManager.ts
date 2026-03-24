@@ -18,6 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { fetchUserDetails } from "@xwiki/cristal-authentication-xwiki-utils";
 import axios from "axios";
 import { inject, injectable } from "inversify";
 import Cookies from "js-cookie";
@@ -121,22 +122,10 @@ export class XWikiAuthenticationManager implements AuthenticationManager {
 
   async getUserDetails(): Promise<UserDetails> {
     const config = this.cristalApp.getWikiConfig();
-    const userinfoUrl = `${config.baseURL}/rest/wikis/xwiki/user`;
-    const response = await fetch(userinfoUrl, {
-      headers: {
-        Accept: "application/json",
-        Authorization: (await this.getAuthorizationHeader())!,
-      },
-    });
-
-    const json = await response.json();
-
-    return {
-      profile: json.xwikiAbsoluteUrl,
-      username: json.id,
-      name: json.displayName,
-      avatar: json.avatarUrl,
-    };
+    return fetchUserDetails(
+      `${config.baseURL}/rest/wikis/xwiki/user`,
+      (await this.getAuthorizationHeader())!,
+    );
   }
 
   async logout(): Promise<void> {
