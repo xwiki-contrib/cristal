@@ -31,9 +31,11 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-alerts-api": "workspace:*",
+    "@xwiki/markdown-syntax-config": "catalog:*",
     "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/platform-backend-api": "catalog:",
+    "@xwiki/platform-syntaxes-config": "catalog:*",
     "@xwiki/cristal-utils-inversify": "workspace:*",
     "@xwiki/cristal-xwiki-utils": "workspace:*"
   },
