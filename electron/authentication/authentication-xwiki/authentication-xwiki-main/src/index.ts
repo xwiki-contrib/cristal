@@ -26,6 +26,7 @@ import {
   setAccessToken,
   setTokenType,
 } from "./storage.js";
+import { fetchUserDetails } from "@xwiki/cristal-authentication-xwiki-utils";
 import axios from "axios";
 import { BrowserWindow, ipcMain } from "electron";
 import type { UserDetails } from "@xwiki/platform-authentication-api";
@@ -141,17 +142,10 @@ export function load(
   ipcMain.handle(
     "authentication:xwiki:userDetails",
     async (event, { baseURL }: { baseURL: string }): Promise<UserDetails> => {
-      const userinfoUrl = `${baseURL}/oidc/userinfo`;
-      const data = {
-        headers: {
-          Authorization: getAuthorizationValue(),
-        },
-      };
-      const {
-        data: { profile, name, picture, preferred_username },
-      } = await axios.get(userinfoUrl, data);
-
-      return { profile, username: preferred_username, name, avatar: picture };
+      return fetchUserDetails(
+        `${baseURL}/rest/wikis/xwiki/user`,
+        getAuthorizationValue(),
+      );
     },
   );
   ipcMain.handle("authentication:xwiki:authorizationValue", () => {
