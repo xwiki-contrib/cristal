@@ -154,6 +154,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     // TODO: make this customizable
     // https://jira.xwiki.org/browse/CRISTAL-457
     lang: "en",
+    label: t("blocknote.editor.label"),
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(
