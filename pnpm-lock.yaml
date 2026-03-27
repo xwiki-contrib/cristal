@@ -163,8 +163,8 @@ catalogs:
       specifier: 17.3.1
       version: 17.3.1
     electron:
-      specifier: 40.6.0
-      version: 40.6.0
+      specifier: 41.0.3
+      version: 41.0.3
     electron-builder:
       specifier: 26.8.1
       version: 26.8.1
@@ -3675,7 +3675,7 @@ importers:
     devDependencies:
       electron:
         specifier: 'catalog:'
-        version: 40.6.0
+        version: 41.0.3
       electron-builder:
         specifier: 'catalog:'
         version: 26.8.1(electron-builder-squirrel-windows@26.8.1)
@@ -4001,7 +4001,7 @@ importers:
         version: link:../storage
       electron:
         specifier: 'catalog:'
-        version: 40.6.0
+        version: 41.0.3
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -7176,8 +7176,8 @@ packages:
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
-  electron@40.6.0:
-    resolution: {integrity: sha512-ett8W+yOFGDuM0vhJMamYSkrbV3LoaffzJd9GfjI96zRAxyrNqUSKqBpf/WGbQCweDxX2pkUCUfrv4wwKpsFZA==}
+  electron@41.0.3:
+    resolution: {integrity: sha512-IDjx8liW1q+r7+MOip5W1Eo1eMwJzVObmYrd9yz2dPCkS7XlgLq3qPVMR80TpiROFp73iY30kTzMdpA6fEVs3A==}
     engines: {node: '>= 12.20.55'}
     hasBin: true
 
@@ -12804,7 +12804,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  electron@40.6.0:
+  electron@41.0.3:
     dependencies:
       '@electron/get': 2.0.3
       '@types/node': 24.12.0
