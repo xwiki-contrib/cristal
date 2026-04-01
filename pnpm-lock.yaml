@@ -304,8 +304,8 @@ catalogs:
       specifier: 3.2.6
       version: 3.2.6
     vuetify:
-      specifier: 4.0.3
-      version: 4.0.3
+      specifier: 4.0.4
+      version: 4.0.4
     xml-escape:
       specifier: 1.1.0
       version: 1.1.0
@@ -3543,7 +3543,7 @@ importers:
         version: 11.3.0(vue@3.5.30(typescript@5.9.3))
       vuetify:
         specifier: 'catalog:'
-        version: 4.0.3(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        version: 4.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
@@ -6429,6 +6429,7 @@ packages:
   '@xmldom/xmldom@0.8.11':
     resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@xwiki/platform-api@18.3.0-1774575775':
     resolution: {integrity: sha512-VlYqTUktQC7OTxFxVrrYbwAmHNHrkehOF5HTb6su1rGcxizjV9C3ELTHTEU5aTfWs5zcM6BXUMHSmRg+E8f8Zw==}
@@ -10031,8 +10032,8 @@ packages:
       typescript:
         optional: true
 
-  vuetify@4.0.3:
-    resolution: {integrity: sha512-RjvmvXuq0omR4h4BQGNzkzl7/CKml+Q82JUu3AvecuX43V7eSxk35GC/TsUoKMWJVgXPLwGh5dpQnH1bG1D3qg==}
+  vuetify@4.0.4:
+    resolution: {integrity: sha512-sO2ux9RG0C1HKaP1HqDMro3+vbbmUJwzcKXuzaxQmUERAT/0FR0yfbwnj4PrMwWy1qc2WPJq01h4cr86FmNrFA==}
     peerDependencies:
       typescript: '>=4.7'
       vite-plugin-vuetify: '>=2.1.0'
@@ -16329,7 +16330,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  vuetify@4.0.3(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)):
+  vuetify@4.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)):
     dependencies:
       vue: 3.5.30(typescript@5.9.3)
     optionalDependencies:
