@@ -157,8 +157,8 @@ catalogs:
       specifier: 1.11.20
       version: 1.11.20
     dexie:
-      specifier: 4.3.0
-      version: 4.3.0
+      specifier: 4.4.1
+      version: 4.4.1
     dotenv:
       specifier: 17.3.1
       version: 17.3.1
@@ -1007,7 +1007,7 @@ importers:
         version: 18.3.0-1774575775(inversify@8.1.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       dexie:
         specifier: 'catalog:'
-        version: 4.3.0
+        version: 4.4.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -6429,6 +6429,7 @@ packages:
   '@xmldom/xmldom@0.8.11':
     resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@xwiki/platform-api@18.3.0-1774575775':
     resolution: {integrity: sha512-VlYqTUktQC7OTxFxVrrYbwAmHNHrkehOF5HTb6su1rGcxizjV9C3ELTHTEU5aTfWs5zcM6BXUMHSmRg+E8f8Zw==}
@@ -7135,8 +7136,8 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  dexie@4.3.0:
-    resolution: {integrity: sha512-5EeoQpJvMKHe6zWt/FSIIuRa3CWlZeIl6zKXt+Lz7BU6RoRRLgX9dZEynRfXrkLcldKYCBiz7xekTEylnie1Ug==}
+  dexie@4.4.1:
+    resolution: {integrity: sha512-4Xec5+yrS+TgyFAnMrneFOt/QG8sD3FxlkUVpfypui3SriRN80UN0SZBWmkNAY7ulfKgk0ilvv7M6pBURprdgA==}
 
   diff@4.0.4:
     resolution: {integrity: sha512-X07nttJQkwkfKfvTPG/KSnE2OMdcUCao6+eXF3wmnIQRn2aPAHH3VxDbDOdegkd6JbPsXqShpvEOHfAT+nCNwQ==}
@@ -12796,7 +12797,7 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  dexie@4.3.0: {}
+  dexie@4.4.1: {}
 
   diff@4.0.4: {}
 
