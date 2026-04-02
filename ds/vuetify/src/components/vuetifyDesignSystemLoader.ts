@@ -61,6 +61,7 @@ export class VuetifyDesignSystemLoader implements DesignSystemLoader {
         },
       },
       theme: {
+        defaultTheme: "light",
         themes: {
           light: {
             dark: false,
