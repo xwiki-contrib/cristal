@@ -87,8 +87,8 @@ async function registerPlatformChangeWatchers(xwikiPlatformRoot, timestamp) {
   );
 
   for (const packageName of platformPackages.keys()) {
-    // Skip packages not watched.
-    if (!(process.env.WATCHED_DEPS?.split(",") ?? []).includes(packageName)) {
+    // Skip root package.
+    if (packageName == "@xwiki/platform-node") {
       continue;
     }
 
@@ -202,7 +202,6 @@ async function main() {
       env: {
         ...process.env,
         PLATFORM_EXTERNAL_DEPS: "true",
-        VITE_EXCLUDE_DEPS: process.env.WATCHED_DEPS,
       },
     });
   }

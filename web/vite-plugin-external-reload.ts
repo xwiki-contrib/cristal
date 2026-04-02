@@ -63,16 +63,9 @@ export function externalReloadPlugin(): Plugin {
     async handleHotUpdate({ server, file }) {
       if (file.includes(LOCAL_PLATFORM) && file.endsWith(".updated")) {
         const packageName = decodeURIComponent(basename(dirname(file)));
-        const pnpmPackageName = packageName.replace("/", "+");
 
-        for (const [key, module] of server.moduleGraph.idToModuleMap) {
-          if (key.includes(pnpmPackageName)) {
-            console.log(`Reloading ${packageName}...`);
-            replacePnpmPackage(packageName, dirname(file));
-            server.moduleGraph.invalidateModule(module);
-            return [module]
-          }
-        }
+        replacePnpmPackage(packageName, dirname(file));
+        setImmediate(() => server.restart());
       }
     },
   }

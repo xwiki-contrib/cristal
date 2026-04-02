@@ -58,7 +58,7 @@ export default defineConfig(({ command, mode }) => {
 
   if (enablePlatformHotReload) {
     config.optimizeDeps = {
-      exclude: process.env.VITE_EXCLUDE_DEPS?.split(",") ?? [],
+      force: true,
     },
     config.plugins!.push(externalReloadPlugin());
   }
