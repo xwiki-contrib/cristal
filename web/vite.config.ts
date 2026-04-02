@@ -18,30 +18,50 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+import { externalReloadPlugin } from "./vite-plugin-external-reload";
 import { defineConfig } from "vite";
 import Vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
+import type { UserConfig } from "vite";
 
-export default defineConfig({
-  build: {
-    sourcemap: true,
-    input: {
-      main: resolve(__dirname, "index.html")
-    }
-  },
-  plugins: [
-    Vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith("sl-")
+export default defineConfig(({ command, mode }) => {
+  // We only want platform hot-reload in dev mode.
+  const enablePlatformHotReload =
+    command === "serve" && mode === "development"
+    && process.env.PLATFORM_EXTERNAL_DEPS === "true";
+
+  const config: UserConfig = {
+    build: {
+      sourcemap: true,
+      rollupOptions: {
+        input: {
+          main: resolve(__dirname, "index.html")
+        },
+      },
+    },
+    plugins: [
+      Vue({
+        template: {
+          compilerOptions: {
+            isCustomElement: (tag) => tag.startsWith("sl-")
+          }
         }
-      }
-    })
-  ],
-  worker: {
-    format: "es"
-  },
-  define: {
-    APP_VERSION: JSON.stringify(process.env.npm_package_version),
-  },
+      }),
+    ],
+    worker: {
+      format: "es"
+    },
+    define: {
+      APP_VERSION: JSON.stringify(process.env.npm_package_version),
+    },
+  };
+
+  if (enablePlatformHotReload) {
+    config.optimizeDeps = {
+      exclude: process.env.VITE_EXCLUDE_DEPS?.split(",") ?? [],
+    },
+    config.plugins!.push(externalReloadPlugin());
+  }
+
+  return config;
 });

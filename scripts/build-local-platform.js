@@ -22,9 +22,11 @@
 import { WORKSPACE_ROOT, findWorkspacePackages } from "./utils.js";
 import { x } from "tar";
 import { spawnSync } from "child_process";
+import { closeSync, openSync } from "fs";
 import { lstat, mkdir, readFile, rm, writeFile } from "fs/promises";
 import { join } from "path";
 import { argv } from "process";
+import { fileURLToPath } from "url";
 
 const localPlatformLocation = join(WORKSPACE_ROOT, ".xwiki-platform");
 
@@ -44,83 +46,121 @@ async function clearLocalPlatform() {
 }
 
 // eslint-disable-next-line max-statements
-async function createLocalPlatform(xwikiPlatformRoot) {
+async function packLocalPackage(packageName, platformPackages, timestamp) {
+  console.info(`Packing local version of package ${packageName}...`);
+
+  const destFolder = join(
+    localPlatformLocation,
+    encodeURIComponent(packageName),
+  );
+
+  const packageJsonPath = join(
+    platformPackages.get(packageName),
+    "package.json",
+  );
+  const oldPackageJson = await readFile(packageJsonPath);
+  const packageJson = JSON.parse(oldPackageJson);
+
+  if (packageJson.version.includes("SNAPSHOT")) {
+    await mkdir(destFolder, { recursive: true });
+
+    packageJson.version = packageJson.version.replace("SNAPSHOT", timestamp);
+
+    if ("dependencies" in packageJson) {
+      for (const dep in packageJson.dependencies) {
+        if (platformPackages.has(dep)) {
+          packageJson.dependencies[dep] = packageJson.version;
+        }
+      }
+    }
+    if ("devDependencies" in packageJson) {
+      for (const dep in packageJson.devDependencies) {
+        if (platformPackages.has(dep)) {
+          packageJson.devDependencies[dep] = packageJson.version;
+        }
+      }
+    }
+
+    await writeFile(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2) + "\n",
+    );
+    spawnSync("pnpm", ["pack", "--out", `${destFolder}/package.tgz`], {
+      cwd: platformPackages.get(packageName),
+    });
+    await writeFile(packageJsonPath, oldPackageJson);
+
+    x({
+      f: `${destFolder}/package.tgz`,
+      C: destFolder,
+      strip: 1,
+    });
+
+    // Create empty file for Vite to watch.
+    closeSync(openSync(join(destFolder, ".updated"), "w"));
+  } else {
+    return;
+  }
+}
+
+// eslint-disable-next-line max-statements
+async function createLocalPlatform(xwikiPlatformRoot, timestamp) {
   const xwikiPlatformLocation = join(
     xwikiPlatformRoot,
     "xwiki-platform-core/xwiki-platform-node",
+    "src/main/node",
   );
-  const platformPackages = await getPlatformPackages(
-    join(xwikiPlatformLocation, "src/main/node"),
-  );
+  const platformPackages = await getPlatformPackages(xwikiPlatformLocation);
 
   if (platformPackages.length === 0) {
     console.error("No platform packages found.");
     return;
   }
 
-  const timestamp = Math.floor(Date.now() / 1000);
-
   console.info("Building platform packages...");
-  spawnSync("mvn", ["clean", "install"], { cwd: xwikiPlatformLocation });
-
-  // eslint-disable-next-line max-statements
-  const promises = platformPackages.keys().map(async (packageName) => {
-    console.info(`Packing local version of package ${packageName}...`);
-
-    const destFolder = join(
-      localPlatformLocation,
-      encodeURIComponent(packageName),
-    );
-
-    const packageJsonPath = join(
-      platformPackages.get(packageName),
-      "package.json",
-    );
-    const oldPackageJson = await readFile(packageJsonPath);
-    const packageJson = JSON.parse(oldPackageJson);
-
-    if (packageJson.version.includes("SNAPSHOT")) {
-      await mkdir(destFolder, { recursive: true });
-
-      packageJson.version = packageJson.version.replace("SNAPSHOT", timestamp);
-
-      if ("dependencies" in packageJson) {
-        for (const dep in packageJson.dependencies) {
-          if (platformPackages.has(dep)) {
-            packageJson.dependencies[dep] = packageJson.version;
-          }
-        }
-      }
-      if ("devDependencies" in packageJson) {
-        for (const dep in packageJson.devDependencies) {
-          if (platformPackages.has(dep)) {
-            packageJson.devDependencies[dep] = packageJson.version;
-          }
-        }
-      }
-
-      await writeFile(
-        packageJsonPath,
-        JSON.stringify(packageJson, null, 2) + "\n",
-      );
-      spawnSync("pnpm", ["pack", "--out", `${destFolder}/package.tgz`], {
-        cwd: platformPackages.get(packageName),
-      });
-      await writeFile(packageJsonPath, oldPackageJson);
-
-      x({
-        f: `${destFolder}/package.tgz`,
-        C: destFolder,
-        strip: 1,
-      });
-    } else {
-      return;
-    }
+  spawnSync("pnpm", ["install"], {
+    cwd: xwikiPlatformLocation,
+    stdio: "inherit",
   });
+  spawnSync("pnpm", ["run", "build", "--skip-nx-cache"], {
+    cwd: xwikiPlatformLocation,
+    stdio: "inherit",
+  });
+
+  const promises = platformPackages
+    .keys()
+    .map((packageName) =>
+      packLocalPackage(packageName, platformPackages, timestamp),
+    );
 
   for (const promise of promises) {
     await promise;
   }
+}
+
+async function updateSingleLocalPlatform(
+  packageName,
+  xwikiPlatformRoot,
+  timestamp,
+) {
+  const xwikiPlatformLocation = join(
+    xwikiPlatformRoot,
+    "xwiki-platform-core/xwiki-platform-node",
+    "src/main/node",
+  );
+  const platformPackages = await getPlatformPackages(xwikiPlatformLocation);
+
+  if (platformPackages.length === 0) {
+    console.error("No platform packages found.");
+    return;
+  }
+
+  console.info(`Rebuilding package ${packageName}...`);
+  spawnSync("pnpm", ["run", "--filter", packageName, "build"], {
+    cwd: xwikiPlatformLocation,
+  });
+
+  await packLocalPackage(packageName, platformPackages, timestamp);
 }
 
 async function getPlatformPackages(xwikiPlatformLocation) {
@@ -154,12 +194,22 @@ async function main() {
   }
 
   const xwikiPlatformRoot = argv[2];
+  const timestamp = Math.floor(Date.now() / 1000);
 
   await clearLocalPlatform();
-  await createLocalPlatform(xwikiPlatformRoot);
+  await createLocalPlatform(xwikiPlatformRoot, timestamp);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
+
+export {
+  clearLocalPlatform,
+  createLocalPlatform,
+  getPlatformPackages,
+  updateSingleLocalPlatform,
+};
