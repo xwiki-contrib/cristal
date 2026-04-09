@@ -103,7 +103,7 @@ app.get(
   "/xwiki/rest/wikis/xwiki/spaces/Main/spaces/NewPage/pages/WebHome",
   (_: Request, res: Response) => {
     res.appendHeader("Access-Control-Allow-Origin", "*");
-    res.sendStatus(404);
+    res.status(404).json({});
   },
 );
 
@@ -114,7 +114,7 @@ app.get(
 
     if (newNewPage2) {
       newNewPage2 = false;
-      res.sendStatus(404);
+      res.status(404).json({});
     } else {
       res.json({
         rawTitle: "Main.NewPage2.WebHome",
