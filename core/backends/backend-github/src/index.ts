@@ -21,6 +21,7 @@
 import { GitHubWikiConfig } from "./GitHubWikiConfig";
 import { GitHubStorage } from "./githubStorage";
 import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
+import { ComponentInit as MarkdownComponentInit } from "@xwiki/markdown-syntax-config";
 import { Container } from "inversify";
 import type { Storage, WikiConfig } from "@xwiki/platform-api";
 
@@ -33,6 +34,9 @@ export class ComponentInit {
       .bind<WikiConfig>("WikiConfig")
       .to(GitHubWikiConfig)
       .when(whenNamedOrDefault("GitHub"));
+
     container.bind<Storage>("Storage").to(GitHubStorage).whenNamed("GitHub");
+
+    new MarkdownComponentInit(container);
   }
 }
