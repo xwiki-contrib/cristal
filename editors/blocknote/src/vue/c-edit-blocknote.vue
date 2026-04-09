@@ -29,6 +29,7 @@ import {
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { BlocknoteEditor as CBlockNoteView } from "@xwiki/platform-editors-blocknote-headless";
 import { macrosServiceName } from "@xwiki/platform-macros-service";
+import { SYNTAX_CONFIG_COMPONENT_GROUP_NAME } from "@xwiki/platform-syntaxes-config";
 import {
   markdownToUniAstConverterName,
   uniAstToMarkdownConverterName,
@@ -57,6 +58,7 @@ import type { DocumentService } from "@xwiki/platform-document-api";
 import type { ContextForMacros } from "@xwiki/platform-editors-blocknote-headless";
 import type { MacrosService } from "@xwiki/platform-macros-service";
 import type { ModelReferenceHandlerProvider } from "@xwiki/platform-model-reference-api";
+import type { SyntaxConfig } from "@xwiki/platform-syntaxes-config";
 import type { UniAst } from "@xwiki/platform-uniast-api";
 import type {
   MarkdownToUniAstConverter,
@@ -83,7 +85,11 @@ const modelReferenceHandler = container
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
-const { realtimeURL: realtimeServerURL, syntaxes } = cristal.getWikiConfig();
+const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
+
+const syntaxes: SyntaxConfig[] = container.getAll(
+  SYNTAX_CONFIG_COMPONENT_GROUP_NAME,
+);
 
 let collaborationProvider: () => CollaborationInitializer;
 let status: Ref<Status> | undefined;

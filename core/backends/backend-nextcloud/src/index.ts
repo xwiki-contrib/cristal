@@ -21,6 +21,7 @@
 import { NextcloudWikiConfig } from "./NextcloudWikiConfig";
 import { NextcloudStorage } from "./nextcloudStorage";
 import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
+import { ComponentInit as MarkdownComponentInit } from "@xwiki/markdown-syntax-config";
 import { Container } from "inversify";
 import type { Storage, WikiConfig } from "@xwiki/platform-api";
 
@@ -33,9 +34,12 @@ export class ComponentInit {
       .bind<WikiConfig>("WikiConfig")
       .to(NextcloudWikiConfig)
       .when(whenNamedOrDefault("Nextcloud"));
+
     container
       .bind<Storage>("Storage")
       .to(NextcloudStorage)
       .whenNamed("Nextcloud");
+
+    new MarkdownComponentInit(container);
   }
 }

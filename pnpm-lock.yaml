@@ -3604,6 +3604,9 @@ importers:
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
         version: 18.2.0-1774291043(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@xwiki/platform-syntaxes-config':
+        specifier: link:../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/platform-config
+        version: link:../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/syntaxes/platform-config
       '@xwiki/platform-uniast-api':
         specifier: link:../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/uniast/uniast-api
         version: link:../../../xwiki-platform/xwiki-platform-core/xwiki-platform-node/src/main/node/core/uniast/uniast-api
