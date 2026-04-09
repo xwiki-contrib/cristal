@@ -22,15 +22,13 @@ import messages from "../translations";
 import { NavigationTreeSelect } from "@xwiki/cristal-navigation-tree-ui";
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { CIcon } from "@xwiki/platform-icons";
+import { SpaceReference } from "@xwiki/platform-model-api";
 import { inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type { StorageProvider } from "@xwiki/platform-backend-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
-import type {
-  DocumentReference,
-  SpaceReference,
-} from "@xwiki/platform-model-api";
+import type { DocumentReference } from "@xwiki/platform-model-api";
 import type {
   ModelReferenceHandler,
   ModelReferenceHandlerProvider,
@@ -56,7 +54,9 @@ const name: Ref<string> = ref("");
 const namePlaceholder: Ref<string> = ref("");
 const location: Ref<SpaceReference | undefined> = ref(undefined);
 const existingPage: Ref<PageData | undefined> = ref(undefined);
+const canCreate: Ref<boolean> = ref(true);
 let newDocumentReferenceString: string = "";
+let parentDocumentReferenceString: string = "";
 
 defineProps<{
   currentPageReference?: DocumentReference;
@@ -70,6 +70,7 @@ function updateCurrentPage() {
   namePlaceholder.value = cristal.getWikiConfig().getNewPageDefaultName();
   name.value = "";
   existingPage.value = undefined;
+  canCreate.value = true;
 }
 
 // eslint-disable-next-line max-statements
@@ -79,14 +80,30 @@ async function createPage() {
     newDocumentName,
     location.value!,
   );
+  const parentDocumentReference = referenceHandler.createDocumentReference(
+    location.value!.names[location.value!.names.length - 1],
+    new SpaceReference(
+      location.value!.wiki,
+      ...location.value!.names.slice(0, -1),
+    ),
+  );
+
   newDocumentReferenceString =
     referenceSerializer.serialize(newDocumentReference)!;
+  parentDocumentReferenceString = referenceSerializer.serialize(
+    parentDocumentReference,
+  )!;
 
   existingPage.value = await cristal.getPage(newDocumentReferenceString);
 
   const titlePlaceholder = referenceHandler.getTitle(newDocumentReference);
 
   if (!existingPage.value) {
+    canCreate.value =
+      (await cristal.getPage(parentDocumentReferenceString))?.canEdit ?? false;
+  }
+
+  if (!existingPage.value && canCreate.value) {
     await storage.save(
       newDocumentReferenceString,
       titlePlaceholder,
@@ -181,6 +198,25 @@ async function editExistingPage() {
                     "
                     @click.prevent="editExistingPage"
                     >{{ t("page.creation.menu.alert.content.edit.link") }}</a
+                  >
+                </template>
+              </i18n-t>
+            </x-alert>
+            <!-- Indicate that the user does not have creation rights. -->
+            <x-alert v-if="!canCreate" type="error">
+              <i18n-t
+                keypath="page.creation.menu.alert.content.create"
+                tag="span"
+              >
+                <template #parentPageName>
+                  <a
+                    :href="
+                      cristal.getRouter().resolve({
+                        name: 'view',
+                        params: { page: parentDocumentReferenceString },
+                      }).href
+                    "
+                    >{{ parentDocumentReferenceString }}</a
                   >
                 </template>
               </i18n-t>

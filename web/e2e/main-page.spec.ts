@@ -227,6 +227,33 @@ configs.forEach(
       await expect(newPageDialogAlerts).toBeEmpty();
     });
 
+    test(`[${name}] checks for parent edit rights during creation`, async ({
+      page,
+    }) => {
+      await page.goto(localDefaultPage.replace("Main", "MainNoEdit"));
+
+      await new SidebarPageObject(page).openSidebar();
+      await page.locator("#sidebar #new-page-button").nth(0).click();
+
+      const newPageDialogForm = page.locator("#page-creation-form");
+      await expect(newPageDialogForm).toBeVisible();
+      await page.keyboard.insertText("NewPage");
+      await newPageDialogForm.dispatchEvent("submit");
+
+      const newPageDialogAlerts = page.locator("#new-page-content .alerts");
+      await expect(newPageDialogAlerts).toContainText(
+        "You do not have the right to create a page in MainNoEdit.WebHome.",
+      );
+
+      // We click outside the dialog to close it.
+      await page.locator("body").click({ position: { x: 0, y: 0 } });
+
+      // We reopen the dialog to check that the error has been cleaned.
+      await page.locator("#sidebar #new-page-button").nth(0).click();
+      await expect(newPageDialogForm).toBeVisible();
+      await expect(newPageDialogAlerts).toBeEmpty();
+    });
+
     test(`[${name}] has working navigation`, async ({ page }) => {
       await page.goto(localDefaultPage);
 
