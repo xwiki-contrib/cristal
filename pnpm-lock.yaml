@@ -145,8 +145,8 @@ catalogs:
       specifier: 1.4.1
       version: 1.4.1
     axios:
-      specifier: 1.13.6
-      version: 1.13.6
+      specifier: 1.15.0
+      version: 1.15.0
     comlink:
       specifier: 4.4.2
       version: 4.4.2
@@ -661,7 +661,7 @@ importers:
         version: 18.3.0-1775129912(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.6
+        version: 1.15.0
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -789,7 +789,7 @@ importers:
         version: 1.4.1
       axios:
         specifier: 'catalog:'
-        version: 1.13.6
+        version: 1.15.0
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -960,7 +960,7 @@ importers:
         version: 18.3.0-1775129912(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.6
+        version: 1.15.0
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.5
@@ -3693,7 +3693,7 @@ importers:
         version: 18.3.0-1775129912(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.6
+        version: 1.15.0
       electron:
         specifier: 40.1.0
         version: 40.1.0
@@ -3768,7 +3768,7 @@ importers:
         version: 18.3.0-1775129912(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.6
+        version: 1.15.0
       electron:
         specifier: 40.1.0
         version: 40.1.0
@@ -3852,7 +3852,7 @@ importers:
         version: 18.3.0-1775129912(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.13.6
+        version: 1.15.0
       electron:
         specifier: 40.1.0
         version: 40.1.0
@@ -6782,6 +6782,9 @@ packages:
   axios@1.13.6:
     resolution: {integrity: sha512-ChTCHMouEe2kn713WHbQGcuYrr6fXTBiu460OTwWrWob16g1bXn4vtz07Ope7ewMozJAnEquLk5lWQWtBig9DQ==}
 
+  axios@1.15.0:
+    resolution: {integrity: sha512-wWyJDlAatxk30ZJer+GeCWS209sA42X+N5jU2jy6oHTp7ufw8uzUTVFBX9+wTfAlhiJXGS0Bq7X6efruWjuK9Q==}
+
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
 
@@ -9035,6 +9038,10 @@ packages:
 
   proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+
+  proxy-from-env@2.1.0:
+    resolution: {integrity: sha512-cJ+oHTW1VAEa8cJslgmUZrc+sjRKgAKl3Zyse6+PV38hZe/V6Z14TbCuXcan9F9ghlz4QrFr2c92TNF82UkYHA==}
+    engines: {node: '>=10'}
 
   pstree.remy@1.1.8:
     resolution: {integrity: sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w==}
@@ -12432,6 +12439,14 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
+  axios@1.15.0:
+    dependencies:
+      follow-redirects: 1.15.11
+      form-data: 4.0.5
+      proxy-from-env: 2.1.0
+    transitivePeerDependencies:
+      - debug
+
   bail@2.0.2: {}
 
   balanced-match@1.0.2: {}
@@ -15200,6 +15215,8 @@ snapshots:
       ipaddr.js: 1.9.1
 
   proxy-from-env@1.1.0: {}
+
+  proxy-from-env@2.1.0: {}
 
   pstree.remy@1.1.8: {}
 
