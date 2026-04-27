@@ -127,8 +127,17 @@ function mountCComponent() {
           emits: ["formSubmit"],
           template: `<form @submit.prevent="$emit('formSubmit')"><slot></slot></form>`,
         },
-        XNavigationTree: true,
-        XNavigationTreeSelect: true,
+        NavigationTree: true,
+        NavigationTreeSelect: {
+          props: ["modelValue"],
+          emits: ["update:modelValue"],
+          mounted() {
+            this.$emit(
+              "update:modelValue",
+              new SpaceReference(undefined, "The", "Page"),
+            );
+          },
+        },
         XTextField: true,
         "i18n-t": true,
       },
