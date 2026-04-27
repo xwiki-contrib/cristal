@@ -161,18 +161,15 @@ export class XWikiStorage extends AbstractStorage {
       },
     });
 
-    let json;
-    try {
-      json = await response.json();
-      if (!response.ok) {
-        // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
-        this.alertsServiceProvider
-          .get()
-          .error(`Could not load page ${page}. Reason: ${json.message}`);
-        return undefined;
-      }
-    } catch {
+    const json = await response.json();
+    if (response.status == 404) {
       // Return undefined in case of missing page.
+      return undefined;
+    } else if (!response.ok) {
+      // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
+      this.alertsServiceProvider
+        .get()
+        .error(`Could not load page ${page}. Reason: ${json.message}`);
       return undefined;
     }
 

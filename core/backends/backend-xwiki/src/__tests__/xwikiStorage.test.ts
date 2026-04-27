@@ -69,7 +69,13 @@ describe("getPageFromViewURL", () => {
   it("fetch page with dots", async () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve({}),
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            hierarchy: {
+              items: [{ name: "" }],
+            },
+          }),
       } as Response),
     );
     await xwikiStorage.getPageContent(
