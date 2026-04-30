@@ -425,6 +425,12 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         return rendered;
       }
 
+      case "subscript":
+        return produceHtmlEl("sub", {}, escapeHtml(inlineContent.content));
+
+      case "superscript":
+        return produceHtmlEl("sup", {}, escapeHtml(inlineContent.content));
+
       default:
         assertUnreachable(inlineContent);
     }
