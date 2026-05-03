@@ -55,8 +55,8 @@ catalogs:
       specifier: 24.12.0
       version: 24.12.0
     '@types/sharedworker':
-      specifier: 0.0.223
-      version: 0.0.223
+      specifier: 0.0.225
+      version: 0.0.225
     '@types/xml-escape':
       specifier: 1.1.3
       version: 1.1.3
@@ -4681,7 +4681,7 @@ importers:
     devDependencies:
       '@types/sharedworker':
         specifier: 'catalog:'
-        version: 0.0.223
+        version: 0.0.225
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
@@ -6027,8 +6027,8 @@ packages:
   '@types/serve-static@2.2.0':
     resolution: {integrity: sha512-8mam4H1NHLtu7nmtalF7eyBH14QyOASmcxHhSfEoRyr0nP/YdoesEtU+uSRvMe96TW/HPTtkoKqQLl53N7UXMQ==}
 
-  '@types/sharedworker@0.0.223':
-    resolution: {integrity: sha512-pTdDOxQMFu7/+iGPj5pmfKOWf2N7EQs2/mCv/MpTP9Bi0YEH2Hd6JoAix4XIDKSg8ouMs6lH8AL/i5KpP2cbVw==}
+  '@types/sharedworker@0.0.225':
+    resolution: {integrity: sha512-WP46/Q1exZKyETj3Q7YwzmpdYWHijRT3wrBdSp/F0k8UpPb5YNK8RdPlfjCvs0laC1/KE/c/za7h9yQF473sSA==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -9867,6 +9867,7 @@ packages:
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -11380,7 +11381,7 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/node': 25.2.3
 
-  '@types/sharedworker@0.0.223': {}
+  '@types/sharedworker@0.0.225': {}
 
   '@types/trusted-types@2.0.7': {}
 
