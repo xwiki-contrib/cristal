@@ -281,6 +281,7 @@ XWiki is the best tool to organize your knowledge.
 
 [[XWiki Syntax>>Page2.WebHome]]`,
       renderedContent: getHtml("Main.WebHome", undefined, { offline: false }),
+      rights: [{ name: "edit", value: true }],
       hierarchy: {
         items: [
           {
@@ -304,6 +305,50 @@ XWiki is the best tool to organize your knowledge.
         ],
       },
     });
+  },
+);
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/MainNoEdit/pages/WebHome",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      fullName: "MainNoEdit.WebHome",
+      rawTitle: "MainNoEdit.WebHome",
+      title: "MainNoEdit.WebHome",
+      rights: [{ name: "edit", value: false }],
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "MainNoEdit",
+            name: "MainNoEdit",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/MainNoEdit/`,
+          },
+          {
+            label: "WebHome",
+            name: "WebHome",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/MainNoEdit/`,
+          },
+        ],
+      },
+    });
+  },
+);
+
+app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/MainNoEdit/spaces/NewPage/pages/WebHome",
+  (_: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+    res.status(404).json({});
   },
 );
 
