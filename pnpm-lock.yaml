@@ -73,8 +73,8 @@ catalogs:
       specifier: 4.1.1
       version: 4.1.1
     '@vue/test-utils':
-      specifier: 2.4.6
-      version: 2.4.6
+      specifier: 2.4.10
+      version: 2.4.10
     '@xwiki/platform-api':
       specifier: ^18.4.0-0
       version: 18.4.0-1779094458
@@ -576,7 +576,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -732,7 +732,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -851,7 +851,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -906,7 +906,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -1327,7 +1327,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -1867,7 +1867,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -2924,7 +2924,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -3345,7 +3345,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -3455,7 +3455,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
@@ -3513,7 +3513,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../dev/config
@@ -4753,7 +4753,7 @@ importers:
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
-        version: 2.4.6
+        version: 2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../dev/config
@@ -6386,8 +6386,15 @@ packages:
   '@vue/shared@3.5.30':
     resolution: {integrity: sha512-YXgQ7JjaO18NeK2K9VTbDHaFy62WrObMa6XERNfNOkAhD1F1oDSf3ZJ7K6GqabZ0BvSDHajp8qfS5Sa2I9n8uQ==}
 
-  '@vue/test-utils@2.4.6':
-    resolution: {integrity: sha512-FMxEjOpYNYiFe0GkaHsnJPXFHxQ6m4t8vI/ElPGpMWxZKpmRvQ33OIrvRXemy6yha03RxhOlQuy+gZMC3CQSow==}
+  '@vue/test-utils@2.4.10':
+    resolution: {integrity: sha512-SmoZ5EA1kYiAFs9NkYdiFFQF+cSnUwnvlYEbY+DogWQZUiqOm/Y29eSbc5T6yi75SgSF9863SBeXniIEoPajCA==}
+    peerDependencies:
+      '@vue/compiler-dom': 3.x
+      '@vue/server-renderer': 3.x
+      vue: 3.x
+    peerDependenciesMeta:
+      '@vue/server-renderer':
+        optional: true
 
   '@xmldom/xmldom@0.8.11':
     resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
@@ -9889,8 +9896,8 @@ packages:
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
 
-  vue-component-type-helpers@2.2.12:
-    resolution: {integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==}
+  vue-component-type-helpers@3.2.9:
+    resolution: {integrity: sha512-S3BiWYaLSzHxTpln665ELSrMR9UYmrIDUmhik7nVZxmJjTKL2/a+ew1hvGxksKelivm0ujjWfG1fYOiU/2e8rA==}
 
   vue-eslint-parser@10.4.0:
     resolution: {integrity: sha512-Vxi9pJdbN3ZnVGLODVtZ7y4Y2kzAAE2Cm0CZ3ZDRvydVYxZ6VrnBhLikBsRS+dpwj4Jv4UCv21PTEwF5rQ9WXg==}
@@ -11781,10 +11788,14 @@ snapshots:
 
   '@vue/shared@3.5.30': {}
 
-  '@vue/test-utils@2.4.6':
+  '@vue/test-utils@2.4.10(@vue/compiler-dom@3.5.30)(@vue/server-renderer@3.5.30(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))':
     dependencies:
+      '@vue/compiler-dom': 3.5.30
       js-beautify: 1.15.4
-      vue-component-type-helpers: 2.2.12
+      vue: 3.5.30(typescript@5.9.3)
+      vue-component-type-helpers: 3.2.9
+    optionalDependencies:
+      '@vue/server-renderer': 3.5.30(vue@3.5.30(typescript@5.9.3))
 
   '@xmldom/xmldom@0.8.11': {}
 
@@ -16074,7 +16085,7 @@ snapshots:
 
   vscode-uri@3.1.0: {}
 
-  vue-component-type-helpers@2.2.12: {}
+  vue-component-type-helpers@3.2.9: {}
 
   vue-eslint-parser@10.4.0(eslint@9.39.4(jiti@2.6.1)):
     dependencies:
