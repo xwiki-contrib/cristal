@@ -18,7 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { HocuspocusCollaborationProvider } from "./hocuspocusCollaborationProvider";
+import { HocuspocusCollaborationManager } from "./hocuspocusCollaborationManager";
 import { collaborationManagerName } from "@xwiki/platform-collaboration-api";
 import type { CollaborationManager } from "@xwiki/platform-collaboration-api";
 import type { Container } from "inversify";
@@ -32,7 +32,7 @@ class ComponentInit {
     // Register the hocuspocus collaboration provider as the default for legacy reason.
     container
       .bind<CollaborationManager>(collaborationManagerName)
-      .to(HocuspocusCollaborationProvider)
+      .to(HocuspocusCollaborationManager)
       .inSingletonScope()
       .whenDefault();
   }
