@@ -80,13 +80,8 @@ async function createPage() {
     newDocumentName,
     location.value!,
   );
-  const parentDocumentReference = referenceHandler.createDocumentReference(
-    location.value!.names[location.value!.names.length - 1],
-    new SpaceReference(
-      location.value!.wiki,
-      ...location.value!.names.slice(0, -1),
-    ),
-  );
+  const parentDocumentReference =
+    referenceHandler.getParentDocumentReference(newDocumentReference);
 
   newDocumentReferenceString =
     referenceSerializer.serialize(newDocumentReference)!;

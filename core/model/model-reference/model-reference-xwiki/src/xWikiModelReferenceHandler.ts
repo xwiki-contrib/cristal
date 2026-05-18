@@ -24,9 +24,9 @@ import {
   EntityType,
   SpaceReference,
 } from "@xwiki/platform-model-api";
+import { AbstractModelReferenceHandler } from "@xwiki/platform-model-reference-api";
 import { injectable } from "inversify";
 import type { EntityReference, WikiReference } from "@xwiki/platform-model-api";
-import type { ModelReferenceHandler } from "@xwiki/platform-model-reference-api";
 
 /**
  * Implementation of {@link ModelReferenceHandler} for the XWiki backend.
@@ -35,7 +35,7 @@ import type { ModelReferenceHandler } from "@xwiki/platform-model-reference-api"
  * @beta
  */
 @injectable()
-export class XWikiModelReferenceHandler implements ModelReferenceHandler {
+export class XWikiModelReferenceHandler extends AbstractModelReferenceHandler {
   createDocumentReference(
     name: string,
     space: SpaceReference,
