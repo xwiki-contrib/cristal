@@ -61,6 +61,17 @@ export class XWikiModelReferenceHandler extends AbstractModelReferenceHandler {
       case EntityType.ATTACHMENT:
         return (reference as AttachmentReference).name;
     }
-    return "";
+  }
+
+  override getParentDocumentReference(
+    reference: DocumentReference,
+  ): DocumentReference | undefined {
+    const parentSpace = reference.space
+      ? this.getParentSpaceReference(reference.space)
+      : undefined;
+
+    if (parentSpace) {
+      return new DocumentReference("WebHome", parentSpace);
+    }
   }
 }
