@@ -19,13 +19,12 @@
 -->
 <script setup lang="ts">
 import NoAvatar from "../../images/noavatar.png";
-import { Status } from "@xwiki/platform-collaboration-api";
+import { ConnectionStatus } from "@xwiki/platform-collaboration-api";
 import { CIcon, Size } from "@xwiki/platform-icons";
-import type { User } from "@xwiki/platform-collaboration-api";
+import type { Collaboration } from "@xwiki/platform-collaboration-api";
 
-const { status, users } = defineProps<{
-  status: Status;
-  users: User[];
+const { collaboration } = defineProps<{
+  collaboration: Collaboration;
 }>();
 </script>
 
@@ -33,7 +32,9 @@ const { status, users } = defineProps<{
   <!-- this element produce content only if a provider has been initialized -->
   <span class="connection-status">
     <span
-      v-if="status === Status.Disconnected"
+      v-if="
+        collaboration.connectionStatus.value === ConnectionStatus.Disconnected
+      "
       class="connection-status-offline"
     >
       <c-icon
@@ -45,7 +46,9 @@ const { status, users } = defineProps<{
     </span>
 
     <span
-      v-if="status === Status.Connecting"
+      v-if="
+        collaboration.connectionStatus.value === ConnectionStatus.Connecting
+      "
       class="connection-status-connecting"
     >
       <c-icon
@@ -56,17 +59,22 @@ const { status, users } = defineProps<{
       <span class="connection-status-label">Connecting</span>
     </span>
 
-    <span v-if="status === Status.Connected" class="connection-status-users">
+    <span
+      v-if="collaboration.connectionStatus.value === ConnectionStatus.Connected"
+      class="connection-status-users"
+    >
       <x-avatar
-        v-for="{ clientId, user } in users.filter((user) => user.user)"
-        :key="clientId"
-        :image="NoAvatar"
-        :name="user.name"
+        v-for="{ id, user } in collaboration.collaborators.value.filter(
+          (collaborator) => collaborator.user.username,
+        )"
+        :key="id"
+        :image="user.avatar ?? NoAvatar"
+        :name="user.username"
         size="28px"
         class="avatar"
-        :title="user.name"
+        :title="user.username"
       >
-        {{ user.name }}
+        {{ user.username }}
       </x-avatar>
     </span>
   </span>

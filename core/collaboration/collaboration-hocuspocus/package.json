@@ -32,8 +32,11 @@
   "dependencies": {
     "@hocuspocus/provider": "catalog:",
     "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/platform-collaboration-api": "catalog:",
-    "@xwiki/platform-document-api": "catalog:"
+    "@xwiki/platform-document-api": "catalog:",
+    "@xwiki/platform-model-api": "catalog:",
+    "@xwiki/platform-model-reference-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",

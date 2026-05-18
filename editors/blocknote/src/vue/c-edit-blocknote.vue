@@ -22,10 +22,7 @@ import cRealtimeUsers from "./c-realtime-users.vue";
 import cSaveStatus, { SaveStatus } from "./c-save-status.vue";
 import messages from "../translations";
 import { CArticle } from "@xwiki/cristal-skin";
-import {
-  Status,
-  collaborationManagerProviderName,
-} from "@xwiki/platform-collaboration-api";
+import { collaborationManagerProviderName } from "@xwiki/platform-collaboration-api";
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { BlocknoteEditor as CBlockNoteView } from "@xwiki/platform-editors-blocknote-headless";
 import { macrosServiceName } from "@xwiki/platform-macros-service";
@@ -49,9 +46,9 @@ import type { AlertsService } from "@xwiki/cristal-alerts-api";
 import type { CristalApp, PageData } from "@xwiki/platform-api";
 import type { StorageProvider } from "@xwiki/platform-backend-api";
 import type {
-  CollaborationInitializer,
+  Collaboration,
+  CollaborationManager,
   CollaborationManagerProvider,
-  User,
 } from "@xwiki/platform-collaboration-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
 import type { ContextForMacros } from "@xwiki/platform-editors-blocknote-headless";
@@ -84,16 +81,14 @@ const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
 const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
-let collaborationProvider: () => CollaborationInitializer;
-let status: Ref<Status> | undefined;
-let users: Ref<User[]> | undefined;
+const collaboration: Ref<Collaboration | undefined> = ref(undefined);
+let collaborationManager: CollaborationManager | undefined = undefined;
 if (realtimeServerURL) {
-  const collaborationManager = container
+  collaborationManager = container
     .get<CollaborationManagerProvider>(collaborationManagerProviderName)
     .get();
-  status = collaborationManager.status();
-  users = collaborationManager.users();
-  collaborationProvider = await collaborationManager.get();
+  // Join the realtime collaboration session for the current document.
+  collaboration.value = await collaborationManager.join();
 }
 
 const title = ref("");
@@ -281,6 +276,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  collaborationManager?.leave();
   window.removeEventListener("beforeunload", beforeUnload);
 });
 
@@ -326,7 +322,7 @@ onBeforeRouteLeave(() => {
                 :editor-props
                 :editor-content
                 :container
-                :collaboration-provider
+                :collaboration
                 :macros="{
                   ctx: contextForMacros,
                   list: macrosService.list(),
@@ -339,7 +335,7 @@ onBeforeRouteLeave(() => {
 
           <form class="pagemenu" @submit="submit">
             <div class="pagemenu-status">
-              <c-realtime-users v-if="status && users" :status :users />
+              <c-realtime-users v-if="collaboration" :collaboration />
               <c-save-status :save-status />
             </div>
 
