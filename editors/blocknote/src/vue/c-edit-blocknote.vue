@@ -90,9 +90,6 @@ const syntaxes: SyntaxConfig[] = container.getAll(
   SYNTAX_CONFIG_COMPONENT_GROUP_NAME,
 );
 
-let collaborationProvider: () => CollaborationInitializer;
-let status: Ref<Status> | undefined;
-let users: Ref<User[]> | undefined;
 if (realtimeServerURL) {
   collaborationManager = container
     .get<CollaborationManagerProvider>(collaborationManagerProviderName)
