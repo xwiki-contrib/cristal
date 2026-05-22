@@ -26,6 +26,7 @@ import { collaborationManagerProviderName } from "@xwiki/platform-collaboration-
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { BlocknoteEditor as CBlockNoteView } from "@xwiki/platform-editors-blocknote-headless";
 import { macrosServiceName } from "@xwiki/platform-macros-service";
+import { SYNTAX_CONFIG_COMPONENT_GROUP_NAME } from "@xwiki/platform-syntaxes-config";
 import {
   markdownToUniAstConverterName,
   uniAstToMarkdownConverterName,
@@ -54,6 +55,7 @@ import type { DocumentService } from "@xwiki/platform-document-api";
 import type { ContextForMacros } from "@xwiki/platform-editors-blocknote-headless";
 import type { MacrosService } from "@xwiki/platform-macros-service";
 import type { ModelReferenceHandlerProvider } from "@xwiki/platform-model-reference-api";
+import type { SyntaxConfig } from "@xwiki/platform-syntaxes-config";
 import type { UniAst } from "@xwiki/platform-uniast-api";
 import type {
   MarkdownToUniAstConverter,
@@ -80,9 +82,14 @@ const modelReferenceHandler = container
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
-const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
 const collaboration: Ref<Collaboration | undefined> = ref(undefined);
 let collaborationManager: CollaborationManager | undefined = undefined;
+const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
+
+const syntaxes: SyntaxConfig[] = container.getAll(
+  SYNTAX_CONFIG_COMPONENT_GROUP_NAME,
+);
+
 if (realtimeServerURL) {
   collaborationManager = container
     .get<CollaborationManagerProvider>(collaborationManagerProviderName)
@@ -132,6 +139,7 @@ const contextForMacros: ContextForMacros = {
  *
  * @param currentPage - The fetched current page
  */
+// eslint-disable-next-line max-statements
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
     // TODO
@@ -144,12 +152,23 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     return;
   }
 
+  const syntaxConfig = syntaxes.find(
+    (syntax) => syntax.id === currentPage.syntax,
+  );
+
+  if (!syntaxConfig) {
+    // TODO add a translation
+    unknownSyntax.value = `Syntax [${currentPage.syntax}] is not supported by the current backend`;
+    return;
+  }
+
   editorProps.value = {
     theme: "light",
     // TODO: make this customizable
     // https://jira.xwiki.org/browse/CRISTAL-457
     lang: "en",
     label: t("blocknote.editor.label"),
+    syntax: syntaxConfig,
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(

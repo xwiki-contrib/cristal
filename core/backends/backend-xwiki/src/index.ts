@@ -21,6 +21,7 @@
 import { XWikiWikiConfig } from "./XWikiWikiConfig";
 import { XWikiStorage } from "./xwikiStorage";
 import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
+import { ComponentInit as MarkdownComponentInit } from "@xwiki/markdown-syntax-config";
 import { Container } from "inversify";
 import type { Storage, WikiConfig } from "@xwiki/platform-api";
 
@@ -33,6 +34,9 @@ export class ComponentInit {
       .bind<WikiConfig>("WikiConfig")
       .to(XWikiWikiConfig)
       .when(whenNamedOrDefault("XWiki"));
+
     container.bind<Storage>("Storage").to(XWikiStorage).whenNamed("XWiki");
+
+    new MarkdownComponentInit(container);
   }
 }
