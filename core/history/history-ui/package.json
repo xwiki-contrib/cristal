@@ -30,11 +30,11 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-document-api": "catalog:",
     "@xwiki/cristal-extra-tabs-api": "workspace:*",
     "@xwiki/cristal-history-api": "workspace:*",
     "@xwiki/cristal-user-ui": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-document-api": "catalog:",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {

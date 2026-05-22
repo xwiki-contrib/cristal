@@ -33,9 +33,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-authentication-nextcloud-state": "workspace:*",
     "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-authentication-api": "catalog:",
-    "@xwiki/cristal-authentication-nextcloud-state": "workspace:*",
     "async-lock": "catalog:"
   },
   "peerDependencies": {

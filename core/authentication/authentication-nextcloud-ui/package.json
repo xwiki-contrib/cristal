@@ -30,10 +30,10 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/cristal-authentication-nextcloud-state": "workspace:*",
     "@xwiki/cristal-uiextension-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-authentication-api": "catalog:",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {

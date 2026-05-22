@@ -30,9 +30,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-wiki-config-api": "workspace:*",
     "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-configuration-api": "catalog:",
-    "@xwiki/cristal-wiki-config-api": "workspace:*"
+    "@xwiki/platform-configuration-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",

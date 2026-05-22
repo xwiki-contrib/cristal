@@ -30,9 +30,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-sharedworker-api": "workspace:*",
     "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-backend-api": "catalog:",
-    "@xwiki/cristal-sharedworker-api": "workspace:*",
     "dexie": "catalog:"
   },
   "peerDependencies": {

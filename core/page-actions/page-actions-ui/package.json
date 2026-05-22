@@ -31,16 +31,16 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-alerts-api": "workspace:*",
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-backend-api": "catalog:",
-    "@xwiki/platform-document-api": "catalog:",
-    "@xwiki/cristal-hierarchy-api": "workspace:*",
-    "@xwiki/platform-icons": "catalog:",
-    "@xwiki/platform-model-api": "catalog:",
-    "@xwiki/platform-model-reference-api": "catalog:",
     "@xwiki/cristal-navigation-tree-ui": "workspace:*",
     "@xwiki/cristal-page-actions-api": "workspace:*",
     "@xwiki/cristal-rename-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-backend-api": "catalog:",
+    "@xwiki/platform-document-api": "catalog:",
+    "@xwiki/platform-hierarchy-api": "catalog:",
+    "@xwiki/platform-icons": "catalog:",
+    "@xwiki/platform-model-api": "catalog:",
+    "@xwiki/platform-model-reference-api": "catalog:",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {

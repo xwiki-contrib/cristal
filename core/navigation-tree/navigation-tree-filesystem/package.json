@@ -30,11 +30,11 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-api": "catalog:",
     "@xwiki/cristal-electron-storage": "workspace:*",
+    "@xwiki/cristal-navigation-tree-default": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-model-api": "catalog:",
-    "@xwiki/platform-navigation-tree-api": "catalog:",
-    "@xwiki/cristal-navigation-tree-default": "workspace:*"
+    "@xwiki/platform-navigation-tree-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",

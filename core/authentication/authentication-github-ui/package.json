@@ -30,13 +30,13 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/cristal-authentication-github-state": "workspace:*",
     "@xwiki/cristal-browser-api": "workspace:*",
-    "@xwiki/platform-icons": "catalog:",
     "@xwiki/cristal-uiextension-api": "workspace:*",
     "@xwiki/cristal-uiextension-default": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-authentication-api": "catalog:",
+    "@xwiki/platform-icons": "catalog:",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {

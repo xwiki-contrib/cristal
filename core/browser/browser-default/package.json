@@ -30,8 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/cristal-browser-api": "workspace:*"
+    "@xwiki/cristal-browser-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",

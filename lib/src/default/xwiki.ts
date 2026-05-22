@@ -18,7 +18,6 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { ComponentInit as XWikiPageHierarchyComponentInit } from "@xwiki/cristal-hierarchy-xwiki";
 import { ComponentInit as XWikiPageHistoryComponentInit } from "@xwiki/cristal-history-xwiki";
 import { ComponentInit as XWikiLinkSuggestComponentInit } from "@xwiki/cristal-link-suggest-xwiki";
 import { ComponentInit as ModelReferenceXWikiComponentInit } from "@xwiki/cristal-model-reference-xwiki";
@@ -26,6 +25,7 @@ import { ComponentInit as ModelRemoteURLXWikiComponentInit } from "@xwiki/crista
 import { ComponentInit as XWikiNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-xwiki";
 import { ComponentInit as XWikiMacrosComponentInit } from "@xwiki/cristal-xwiki-macros";
 import { ComponentInit as XWikiUIComponentInit } from "@xwiki/cristal-xwiki-ui";
+import { ComponentInit as XWikiPageHierarchyComponentInit } from "@xwiki/platform-hierarchy-xwiki";
 import { ComponentInit as UniastMarkdownXWikiComponentInit } from "@xwiki/platform-uniast-markdown-xwiki";
 import type { Container } from "inversify";
 

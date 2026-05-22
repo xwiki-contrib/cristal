@@ -31,14 +31,14 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-alerts-api": "workspace:*",
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-configuration-api": "catalog:",
-    "@xwiki/platform-icons": "catalog:",
     "@xwiki/cristal-settings-api": "workspace:*",
     "@xwiki/cristal-settings-configurations": "workspace:*",
     "@xwiki/cristal-skin": "workspace:*",
     "@xwiki/cristal-uiextension-api": "workspace:*",
     "@xwiki/cristal-wiki-config-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-configuration-api": "catalog:",
+    "@xwiki/platform-icons": "catalog:",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {

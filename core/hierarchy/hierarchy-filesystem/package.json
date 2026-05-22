@@ -30,9 +30,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-api": "catalog:",
-    "@xwiki/cristal-hierarchy-api": "workspace:*",
     "@xwiki/cristal-hierarchy-default": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-hierarchy-api": "catalog:",
     "@xwiki/platform-model-api": "catalog:"
   },
   "peerDependencies": {

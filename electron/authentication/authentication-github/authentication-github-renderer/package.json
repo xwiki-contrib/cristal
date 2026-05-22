@@ -33,9 +33,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-authentication-github-state": "workspace:*",
     "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-authentication-api": "catalog:",
-    "@xwiki/cristal-authentication-github-state": "workspace:*"
+    "@xwiki/platform-authentication-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",

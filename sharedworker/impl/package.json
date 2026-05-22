@@ -31,17 +31,17 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-alerts-default": "workspace:*",
-    "@xwiki/platform-api": "catalog:",
     "@xwiki/cristal-authentication-default": "workspace:*",
     "@xwiki/cristal-backend-dexie": "workspace:*",
     "@xwiki/cristal-backend-github": "workspace:*",
     "@xwiki/cristal-backend-nextcloud": "workspace:*",
     "@xwiki/cristal-backend-xwiki": "workspace:*",
-    "@xwiki/platform-configuration-api": "catalog:",
     "@xwiki/cristal-configuration-web": "workspace:*",
-    "@xwiki/platform-document-api": "catalog:",
     "@xwiki/cristal-extension-manager": "workspace:*",
     "@xwiki/cristal-sharedworker-api": "workspace:*",
+    "@xwiki/platform-api": "catalog:",
+    "@xwiki/platform-configuration-api": "catalog:",
+    "@xwiki/platform-document-api": "catalog:",
     "comlink": "catalog:",
     "reflect-metadata": "catalog:"
   },
@@ -57,8 +57,8 @@
     "inversify": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vue-router": "catalog:",
-    "vue": "catalog:"
+    "vue": "catalog:",
+    "vue-router": "catalog:"
   },
   "publishConfig": {
     "exports": {

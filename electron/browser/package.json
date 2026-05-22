@@ -39,9 +39,9 @@
   },
   "types": "./dist/main/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-api": "catalog:",
     "@xwiki/cristal-browser-api": "workspace:*",
-    "@xwiki/cristal-electron-state": "workspace:*"
+    "@xwiki/cristal-electron-state": "workspace:*",
+    "@xwiki/platform-api": "catalog:"
   },
   "peerDependencies": {
     "electron": "41.1.0",

@@ -18,15 +18,15 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import { name as PageHierarchyResolverName } from "@xwiki/cristal-hierarchy-api";
+import { name as PageHierarchyResolverName } from "@xwiki/platform-hierarchy-api";
 import { EntityType } from "@xwiki/platform-model-api";
 import { Container, inject, injectable } from "inversify";
+import type { CristalApp, Logger } from "@xwiki/platform-api";
 import type {
   PageHierarchyItem,
   PageHierarchyResolver,
   PageHierarchyResolverProvider,
-} from "@xwiki/cristal-hierarchy-api";
-import type { CristalApp, Logger } from "@xwiki/platform-api";
+} from "@xwiki/platform-hierarchy-api";
 import type {
   DocumentReference,
   SpaceReference,

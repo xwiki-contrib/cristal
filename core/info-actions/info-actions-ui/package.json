@@ -30,9 +30,9 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-info-actions-api": "workspace:*",
     "@xwiki/platform-api": "catalog:",
-    "@xwiki/platform-icons": "catalog:",
-    "@xwiki/cristal-info-actions-api": "workspace:*"
+    "@xwiki/platform-icons": "catalog:"
   },
   "peerDependencies": {
     "reflect-metadata": "0.x",

@@ -30,11 +30,11 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
+    "@xwiki/cristal-browser-api": "workspace:*",
+    "@xwiki/cristal-uiextension-api": "workspace:*",
     "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-authentication-api": "catalog:",
-    "@xwiki/cristal-browser-api": "workspace:*",
     "@xwiki/platform-icons": "catalog:",
-    "@xwiki/cristal-uiextension-api": "workspace:*",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {
