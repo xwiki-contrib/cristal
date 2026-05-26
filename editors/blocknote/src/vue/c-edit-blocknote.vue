@@ -80,15 +80,26 @@ const modelReferenceHandler = container
 const alertsService = container.get<AlertsService>("AlertsService")!;
 const storage = container.get<StorageProvider>("StorageProvider").get();
 
-const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
 const collaboration: Ref<Collaboration | undefined> = ref(undefined);
 let collaborationManager: CollaborationManager | undefined = undefined;
+async function joinCollaborationSession(): Promise<void> {
+  try {
+    collaborationManager = container
+      .get<CollaborationManagerProvider>(collaborationManagerProviderName)
+      .get();
+    // Try to join the realtime collaboration session for the current document.
+    collaboration.value = await collaborationManager.join();
+  } catch (e) {
+    console.error("Failed to join the collaboration session: ", e);
+    // Try again after a minute.
+    setTimeout(() => {
+      joinCollaborationSession();
+    }, 60000);
+  }
+}
+const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
 if (realtimeServerURL) {
-  collaborationManager = container
-    .get<CollaborationManagerProvider>(collaborationManagerProviderName)
-    .get();
-  // Join the realtime collaboration session for the current document.
-  collaboration.value = await collaborationManager.join();
+  joinCollaborationSession();
 }
 
 const title = ref("");
