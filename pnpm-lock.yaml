@@ -157,8 +157,8 @@ catalogs:
       specifier: 1.11.20
       version: 1.11.20
     dexie:
-      specifier: 4.3.0
-      version: 4.3.0
+      specifier: 4.4.2
+      version: 4.4.2
     dotenv:
       specifier: 17.4.2
       version: 17.4.2
@@ -1007,7 +1007,7 @@ importers:
         version: 18.5.0-1779905039(inversify@8.1.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       dexie:
         specifier: 'catalog:'
-        version: 4.3.0
+        version: 4.4.2
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -7199,8 +7199,8 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  dexie@4.3.0:
-    resolution: {integrity: sha512-5EeoQpJvMKHe6zWt/FSIIuRa3CWlZeIl6zKXt+Lz7BU6RoRRLgX9dZEynRfXrkLcldKYCBiz7xekTEylnie1Ug==}
+  dexie@4.4.2:
+    resolution: {integrity: sha512-zMtV8q79EFE5U8FKZvt0Y/77PCU/Hr/RDxv1EDeo228L+m/HTbeN2AjoQm674rhQCX8n3ljK87lajt7UQuZfvw==}
 
   diff@4.0.4:
     resolution: {integrity: sha512-X07nttJQkwkfKfvTPG/KSnE2OMdcUCao6+eXF3wmnIQRn2aPAHH3VxDbDOdegkd6JbPsXqShpvEOHfAT+nCNwQ==}
@@ -12789,7 +12789,7 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  dexie@4.3.0: {}
+  dexie@4.4.2: {}
 
   diff@4.0.4: {}
 
