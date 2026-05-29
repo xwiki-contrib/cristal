@@ -13,11 +13,8 @@
   "bugs": {
     "url": "https://jira.xwiki.org/projects/CRISTAL/"
   },
-  "engines": {
-    "node": ">=24.0.0"
-  },
-  "files": [],
   "main": "./main/dist/index.cjs",
+  "files": [],
   "scripts": {
     "build:linux": "electron-builder --linux snap deb rpm flatpak AppImage --x64 --config .electron-builder.config.js --dir",
     "build:mac": "electron-builder --mac dmg --x64 --arm64 --config .electron-builder.config.js --dir",
@@ -35,5 +32,8 @@
     "electron-builder": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }

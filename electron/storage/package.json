@@ -12,9 +12,6 @@
   "bugs": {
     "url": "https://jira.xwiki.org/projects/CRISTAL/"
   },
-  "engines": {
-    "node": ">=24.0.0"
-  },
   "type": "module",
   "exports": {
     ".": {
@@ -63,6 +60,9 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vite-plugin-node": "catalog:"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   },
   "publishConfig": {
     "exports": {
