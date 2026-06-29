@@ -25,6 +25,7 @@ const tab: Ref<unknown> = ref();
 const emits = defineEmits(["tab-change"]);
 
 function change(tabId: unknown) {
+  tab.value = tabId;
   if (typeof tabId == "string") {
     emits("tab-change", tabId);
   }
@@ -33,7 +34,7 @@ function change(tabId: unknown) {
 
 <template>
   <v-card class="mx-auto">
-    <v-tabs v-model="tab" @update:model-value="change">
+    <v-tabs :model-value="tab" @update:model-value="change">
       <slot name="tabs"></slot>
     </v-tabs>
     <v-card-text>
