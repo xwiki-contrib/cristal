@@ -92,32 +92,32 @@ catalog:
   '@vitejs/plugin-vue': 6.0.7
   '@vitest/coverage-v8': 4.1.6
   '@vue/test-utils': 2.4.10
-  '@xwiki/platform-api': ^18.5.0-0
-  '@xwiki/platform-attachments-api': ^18.5.0-0
-  '@xwiki/platform-attachments-default': ^18.5.0-0
-  '@xwiki/platform-authentication-api': ^18.5.0-0
-  '@xwiki/platform-backend-api': ^18.5.0-0
-  '@xwiki/platform-collaboration-api': ^18.5.0-0
-  '@xwiki/platform-configuration-api': ^18.5.0-0
-  '@xwiki/platform-document-api': ^18.5.0-0
-  '@xwiki/platform-dsapi': ^18.5.0-0
-  '@xwiki/platform-editors-blocknote-headless': ^18.5.0-0
-  '@xwiki/platform-fn-utils': ^18.5.0-0
-  '@xwiki/platform-icons': ^18.5.0-0
-  '@xwiki/platform-link-suggest-api': ^18.5.0-0
-  '@xwiki/platform-link-suggest-xwiki': ^18.5.0-0
-  '@xwiki/platform-macros-api': ^18.5.0-0
-  '@xwiki/platform-macros-service': ^18.5.0-0
-  '@xwiki/platform-model-api': ^18.5.0-0
-  '@xwiki/platform-model-reference-api': ^18.5.0-0
-  '@xwiki/platform-model-remote-url-api': ^18.5.0-0
-  '@xwiki/platform-hierarchy-api': ^18.5.0-0
-  '@xwiki/platform-hierarchy-xwiki': ^18.5.0-0
-  '@xwiki/platform-navigation-tree-api': ^18.5.0-0
-  '@xwiki/platform-xwiki-utils': ^18.5.0-0
-  '@xwiki/platform-uniast-api': ^18.5.0-0
-  '@xwiki/platform-uniast-markdown': ^18.5.0-0
-  '@xwiki/platform-uniast-markdown-xwiki': ^18.5.0-0
+  '@xwiki/platform-api': ^18.6.0-0
+  '@xwiki/platform-attachments-api': ^18.6.0-0
+  '@xwiki/platform-attachments-default': ^18.6.0-0
+  '@xwiki/platform-authentication-api': ^18.6.0-0
+  '@xwiki/platform-backend-api': ^18.6.0-0
+  '@xwiki/platform-collaboration-api': ^18.6.0-0
+  '@xwiki/platform-configuration-api': ^18.6.0-0
+  '@xwiki/platform-document-api': ^18.6.0-0
+  '@xwiki/platform-dsapi': ^18.6.0-0
+  '@xwiki/platform-editors-blocknote-headless': ^18.6.0-0
+  '@xwiki/platform-fn-utils': ^18.6.0-0
+  '@xwiki/platform-icons': ^18.6.0-0
+  '@xwiki/platform-link-suggest-api': ^18.6.0-0
+  '@xwiki/platform-link-suggest-xwiki': ^18.6.0-0
+  '@xwiki/platform-macros-api': ^18.6.0-0
+  '@xwiki/platform-macros-service': ^18.6.0-0
+  '@xwiki/platform-model-api': ^18.6.0-0
+  '@xwiki/platform-model-reference-api': ^18.6.0-0
+  '@xwiki/platform-model-remote-url-api': ^18.6.0-0
+  '@xwiki/platform-hierarchy-api': ^18.6.0-0
+  '@xwiki/platform-hierarchy-xwiki': ^18.6.0-0
+  '@xwiki/platform-navigation-tree-api': ^18.6.0-0
+  '@xwiki/platform-xwiki-utils': ^18.6.0-0
+  '@xwiki/platform-uniast-api': ^18.6.0-0
+  '@xwiki/platform-uniast-markdown': ^18.6.0-0
+  '@xwiki/platform-uniast-markdown-xwiki': ^18.6.0-0
   async-lock: 1.4.1
   axios: 1.16.1
   comlink: 4.4.2
@@ -176,10 +176,5 @@ catalog:
   xml-escape: 1.1.0
   yaml: 2.8.3
 
-overrides:
-  ## See https://github.com/TypeCellOS/BlockNote/issues/2751 - to remove when blocknote is upgraded.
-  prosemirror-model: 1.25.4
-
 catalogMode: strict
-
 cleanupUnusedCatalogs: true
