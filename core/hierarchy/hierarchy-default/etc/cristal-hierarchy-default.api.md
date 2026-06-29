@@ -7,7 +7,7 @@
 import { Container } from 'inversify';
 import { CristalApp } from '@xwiki/platform-api';
 import { DocumentReference } from '@xwiki/platform-model-api';
-import { PageHierarchyItem } from '@xwiki/cristal-hierarchy-api';
+import { PageHierarchyItem } from '@xwiki/platform-hierarchy-api';
 import { SpaceReference } from '@xwiki/platform-model-api';
 
 // @beta (undocumented)
