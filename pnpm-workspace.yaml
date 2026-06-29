@@ -179,6 +179,9 @@ catalog:
 overrides:
   ## See https://github.com/TypeCellOS/BlockNote/issues/2751 - to remove when blocknote is upgraded.
   prosemirror-model: 1.25.4
+  ## Dedupe yjs to a single instance: @xwiki/platform-collaboration-api pins 13.6.30 while
+  ## @hocuspocus/provider (^13.6.8) otherwise resolves to a newer patch, yielding incompatible Doc types.
+  yjs: 13.6.30
 
 catalogMode: strict
 
