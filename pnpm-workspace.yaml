@@ -178,5 +178,10 @@ catalog:
   xml-escape: 1.1.0
   yaml: 2.8.3
 
+overrides:
+  ## Dedupe yjs to a single instance: @xwiki/platform-collaboration-api pins 13.6.30 while
+  ## @hocuspocus/provider (^13.6.8) otherwise resolves to a newer patch, yielding incompatible Doc types.
+  yjs: 13.6.30
+
 catalogMode: strict
 cleanupUnusedCatalogs: true
