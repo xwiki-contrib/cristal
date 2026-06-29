@@ -21,7 +21,7 @@
 import { GitHubWikiConfig } from "./GitHubWikiConfig";
 import { GitHubStorage } from "./githubStorage";
 import { whenNamedOrDefault } from "@xwiki/cristal-utils-inversify";
-import { ComponentInit as MarkdownComponentInit } from "@xwiki/markdown-syntax-config";
+import { ComponentInit as MarkdownComponentInit } from "@xwiki/platform-markdown-syntax-config";
 import { Container } from "inversify";
 import type { Storage, WikiConfig } from "@xwiki/platform-api";
 
