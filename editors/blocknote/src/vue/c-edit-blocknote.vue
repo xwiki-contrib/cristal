@@ -146,9 +146,6 @@ const contextForMacros: ContextForMacros = {
   openParamsEditor(/*macro, params, update*/) {
     alert("TODO: params editor for macros in Cristal");
   },
-  openInsertionEditor(/*prefill, insert*/) {
-    alert("TODO: insertion editor for macros in Cristal");
-  },
 };
 
 /**
@@ -357,7 +354,7 @@ onBeforeRouteLeave(() => {
                 ref="editorInstance"
                 :editor-props
                 :editor-content
-                :deps-container="container"
+                :container
                 :collaboration
                 :macros="{
                   ctx: contextForMacros,
