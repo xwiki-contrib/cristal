@@ -21,7 +21,7 @@ import test, { expect } from "@playwright/test";
 import { screenshotIfTestFailed } from "./screenshot-failures";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/XWikiNoRealtime/#/Main.WebHome/edit");
+  await page.goto("/Localhost/#/MD.WebHome/edit");
   await page.waitForLoadState("networkidle");
 
   await expect(page).toHaveTitle("Cristal Wiki");

@@ -309,6 +309,45 @@ XWiki is the best tool to organize your knowledge.
 );
 
 app.get(
+  "/xwiki/rest/wikis/xwiki/spaces/MD/pages/WebHome",
+  (req: Request, res: Response) => {
+    res.appendHeader("Access-Control-Allow-Origin", "*");
+
+    res.json({
+      fullName: "MD.WebHome",
+      rawTitle: "MD.WebHome",
+      title: "MD.WebHome",
+      content: `# Welcome to MD.WebHome`,
+      renderedContent: getHtml("MD.WebHome", undefined, { offline: false }),
+      rights: [{ name: "edit", value: true }],
+      syntax: "markdown/1.2",
+      hierarchy: {
+        items: [
+          {
+            label: "Home",
+            name: "xwiki",
+            type: "wiki",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/Main/`,
+          },
+          {
+            label: "MD",
+            name: "MD",
+            type: "space",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/MD/`,
+          },
+          {
+            label: "WebHome",
+            name: "WebHome",
+            type: "document",
+            url: `${req.protocol}://${req.headers.host}/xwiki/bin/view/MD/`,
+          },
+        ],
+      },
+    });
+  },
+);
+
+app.get(
   "/xwiki/rest/wikis/xwiki/spaces/MainNoEdit/pages/WebHome",
   (req: Request, res: Response) => {
     res.appendHeader("Access-Control-Allow-Origin", "*");
