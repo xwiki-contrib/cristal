@@ -26,6 +26,7 @@ import { collaborationManagerProviderName } from "@xwiki/platform-collaboration-
 import { name as documentServiceName } from "@xwiki/platform-document-api";
 import { BlocknoteEditor as CBlockNoteView } from "@xwiki/platform-editors-blocknote-headless";
 import { macrosServiceName } from "@xwiki/platform-macros-service";
+import { SYNTAX_CONFIG_COMPONENT_GROUP_NAME } from "@xwiki/platform-syntaxes-config";
 import {
   markdownToUniAstConverterName,
   uniAstToMarkdownConverterName,
@@ -54,6 +55,7 @@ import type { DocumentService } from "@xwiki/platform-document-api";
 import type { ContextForMacros } from "@xwiki/platform-editors-blocknote-headless";
 import type { MacrosService } from "@xwiki/platform-macros-service";
 import type { ModelReferenceHandlerProvider } from "@xwiki/platform-model-reference-api";
+import type { SyntaxConfig } from "@xwiki/platform-syntaxes-config";
 import type { UniAst } from "@xwiki/platform-uniast-api";
 import type {
   MarkdownToUniAstConverter,
@@ -70,7 +72,7 @@ const container = cristal.getContainer();
 const documentService = container.get<DocumentService>(documentServiceName);
 const loading = documentService.isLoading();
 const error = documentService.getError();
-const unknownSyntax = ref();
+const unknownSyntax = ref<string | null>();
 const currentPage = documentService.getCurrentDocument();
 const currentPageName = documentService.getCurrentDocumentReferenceString();
 const currentPageReference = documentService.getCurrentDocumentReference();
@@ -98,6 +100,14 @@ async function joinCollaborationSession(): Promise<void> {
   }
 }
 const { realtimeURL: realtimeServerURL } = cristal.getWikiConfig();
+if (realtimeServerURL) {
+  joinCollaborationSession();
+}
+
+const syntaxes: SyntaxConfig[] = container.getAll(
+  SYNTAX_CONFIG_COMPONENT_GROUP_NAME,
+);
+
 if (realtimeServerURL) {
   joinCollaborationSession();
 }
@@ -143,6 +153,7 @@ const contextForMacros: ContextForMacros = {
  *
  * @param currentPage - The fetched current page
  */
+// eslint-disable-next-line max-statements
 async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   if (!currentPage) {
     // TODO
@@ -150,8 +161,22 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   }
 
   if (currentPage.syntax !== "markdown/1.2") {
-    // TODO add a translation
-    unknownSyntax.value = `Syntax [${currentPage.syntax}] is not editable with this editor.`;
+    unknownSyntax.value = t("blocknote.syntax.editorUnsupported", {
+      name: currentPage.syntax,
+    });
+
+    return;
+  }
+
+  const syntaxConfig = syntaxes.find(
+    (syntax) => syntax.id === currentPage.syntax,
+  );
+
+  if (!syntaxConfig) {
+    unknownSyntax.value = t("blocknote.syntax.backendUnsupported", {
+      name: currentPage.syntax,
+    });
+
     return;
   }
 
@@ -161,6 +186,7 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     // https://jira.xwiki.org/browse/CRISTAL-457
     lang: "en",
     label: t("blocknote.editor.label"),
+    syntax: syntaxConfig,
   };
 
   editorContent.value = await markdownToUniAst.parseMarkdown(
