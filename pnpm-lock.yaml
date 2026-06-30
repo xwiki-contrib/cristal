@@ -277,8 +277,8 @@ catalogs:
       specifier: 7.5.16
       version: 7.5.16
     ts-essentials:
-      specifier: 10.2.0
-      version: 10.2.0
+      specifier: 10.2.1
+      version: 10.2.1
     ts-node:
       specifier: 10.9.2
       version: 10.9.2
@@ -3104,7 +3104,7 @@ importers:
         version: 0.2.2
       ts-essentials:
         specifier: 'catalog:'
-        version: 10.2.0(typescript@5.9.3)
+        version: 10.2.1(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -5023,7 +5023,7 @@ importers:
         version: 8.1.1(reflect-metadata@0.2.2)
       ts-essentials:
         specifier: 'catalog:'
-        version: 10.2.0(typescript@5.9.3)
+        version: 10.2.1(typescript@5.9.3)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -9922,6 +9922,14 @@ packages:
 
   ts-essentials@10.2.0:
     resolution: {integrity: sha512-z9FlLywg0XEV46Ws1FwYN4NZDMr9qAe38lTTtgVBqzhhyEgwrnCUkFe4MEqnvar1kY1kFEnlkp56bxn2g0V+UA==}
+    peerDependencies:
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  ts-essentials@10.2.1:
+    resolution: {integrity: sha512-+Id1fRkuir+CsgK2x04/icS2b4V1hQmq7ObzIrDjhN0ozfRYivnP7aaKMVJfLApQm0trjR39A6NIMVchiB9Erw==}
     peerDependencies:
       typescript: '>=4.5.0'
     peerDependenciesMeta:
@@ -16170,6 +16178,10 @@ snapshots:
       typescript: 5.9.3
 
   ts-essentials@10.2.0(typescript@5.9.3):
+    optionalDependencies:
+      typescript: 5.9.3
+
+  ts-essentials@10.2.1(typescript@5.9.3):
     optionalDependencies:
       typescript: 5.9.3
 
