@@ -35,9 +35,9 @@
     "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/platform-backend-api": "catalog:",
-    "@xwiki/platform-xwiki-utils": "catalog:",
     "@xwiki/platform-markdown-syntax-config": "catalog:",
-    "@xwiki/platform-syntaxes-config": "catalog:"
+    "@xwiki/platform-syntaxes-config": "catalog:",
+    "@xwiki/platform-xwiki-utils": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
+    "@xwiki/platform-tool-apiextractorconfig": "catalog:",
     "inversify": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",

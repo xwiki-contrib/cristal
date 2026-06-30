@@ -103,6 +103,8 @@ catalog:
   '@xwiki/platform-dsapi': ^18.6.0-0
   '@xwiki/platform-editors-blocknote-headless': ^18.6.0-0
   '@xwiki/platform-fn-utils': ^18.6.0-0
+  '@xwiki/platform-hierarchy-api': ^18.6.0-0
+  '@xwiki/platform-hierarchy-xwiki': ^18.6.0-0
   '@xwiki/platform-icons': ^18.6.0-0
   '@xwiki/platform-link-suggest-api': ^18.6.0-0
   '@xwiki/platform-link-suggest-xwiki': ^18.6.0-0
@@ -112,10 +114,9 @@ catalog:
   '@xwiki/platform-model-api': ^18.6.0-0
   '@xwiki/platform-model-reference-api': ^18.6.0-0
   '@xwiki/platform-model-remote-url-api': ^18.6.0-0
-  '@xwiki/platform-hierarchy-api': ^18.6.0-0
-  '@xwiki/platform-hierarchy-xwiki': ^18.6.0-0
   '@xwiki/platform-navigation-tree-api': ^18.6.0-0
   '@xwiki/platform-syntaxes-config': ^18.6.0-0
+  '@xwiki/platform-tool-apiextractorconfig': ^18.6.0-0
   '@xwiki/platform-uniast-api': ^18.6.0-0
   '@xwiki/platform-uniast-markdown': ^18.6.0-0
   '@xwiki/platform-uniast-markdown-xwiki': ^18.6.0-0
@@ -178,10 +179,10 @@ catalog:
   xml-escape: 1.1.0
   yaml: 2.8.3
 
+catalogMode: strict
+cleanupUnusedCatalogs: true
+
 overrides:
   ## Dedupe yjs to a single instance: @xwiki/platform-collaboration-api pins 13.6.30 while
   ## @hocuspocus/provider (^13.6.8) otherwise resolves to a newer patch, yielding incompatible Doc types.
   yjs: 13.6.30
-
-catalogMode: strict
-cleanupUnusedCatalogs: true

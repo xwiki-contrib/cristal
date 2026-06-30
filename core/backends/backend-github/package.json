@@ -33,10 +33,10 @@
     "@xwiki/cristal-alerts-api": "workspace:*",
     "@xwiki/cristal-page-default": "workspace:*",
     "@xwiki/cristal-utils-inversify": "workspace:*",
-    "@xwiki/platform-markdown-syntax-config": "catalog:",
     "@xwiki/platform-api": "catalog:",
     "@xwiki/platform-authentication-api": "catalog:",
     "@xwiki/platform-backend-api": "catalog:",
+    "@xwiki/platform-markdown-syntax-config": "catalog:",
     "mime": "catalog:"
   },
   "peerDependencies": {
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@xwiki/cristal-dev-config": "workspace:*",
+    "@xwiki/platform-tool-apiextractorconfig": "catalog:",
     "inversify": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",
