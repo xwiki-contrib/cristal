@@ -166,8 +166,8 @@ catalogs:
       specifier: 1.4.1
       version: 1.4.1
     axios:
-      specifier: 1.16.1
-      version: 1.16.1
+      specifier: 1.18.1
+      version: 1.18.1
     comlink:
       specifier: 4.4.2
       version: 4.4.2
@@ -691,7 +691,7 @@ importers:
         version: 18.6.0-1782809739(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.16.1
+        version: 1.18.1
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.7
@@ -828,7 +828,7 @@ importers:
         version: 1.4.1
       axios:
         specifier: 'catalog:'
-        version: 1.16.1
+        version: 1.18.1
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.7
@@ -1011,7 +1011,7 @@ importers:
         version: 18.6.0-1782809739(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.16.1
+        version: 1.18.1
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.7
@@ -3851,7 +3851,7 @@ importers:
         version: 18.6.0-1782809739(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.16.1
+        version: 1.18.1
       electron:
         specifier: 41.1.0
         version: 41.1.0
@@ -3935,7 +3935,7 @@ importers:
         version: 18.6.0-1782809739(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.16.1
+        version: 1.18.1
       electron:
         specifier: 41.1.0
         version: 41.1.0
@@ -4028,7 +4028,7 @@ importers:
         version: 18.6.0-1782809739(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.16.1
+        version: 1.18.1
       electron:
         specifier: 41.1.0
         version: 41.1.0
@@ -7233,8 +7233,8 @@ packages:
   axios@1.16.0:
     resolution: {integrity: sha512-6hp5CwvTPlN2A31g5dxnwAX0orzM7pmCRDLnZSX772mv8WDqICwFjowHuPs04Mc8deIld1+ejhtaMn5vp6b+1w==}
 
-  axios@1.16.1:
-    resolution: {integrity: sha512-caYkukvroVPO8KrzuJEb50Hm07KwfBZPEC3VeFHTsqWHvKTsy54hjJz9BS/cdaypROE2rH6xvm9mHX4fgWkr3A==}
+  axios@1.18.1:
+    resolution: {integrity: sha512-3nTvFlvpn9Zu/RkHUqtc7/+al4UpRW5az71ap5zccp6e8RAYEzhMTecX8Dz1wWDYrPpUoB1HAQEGEAEvUr7S9g==}
 
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
@@ -12952,7 +12952,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.16.1:
+  axios@1.18.1:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.5
