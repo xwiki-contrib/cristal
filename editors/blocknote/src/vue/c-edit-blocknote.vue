@@ -72,7 +72,7 @@ const container = cristal.getContainer();
 const documentService = container.get<DocumentService>(documentServiceName);
 const loading = documentService.isLoading();
 const error = documentService.getError();
-const unknownSyntax = ref();
+const unknownSyntax = ref<string | null>();
 const currentPage = documentService.getCurrentDocument();
 const currentPageName = documentService.getCurrentDocumentReferenceString();
 const currentPageReference = documentService.getCurrentDocumentReference();
@@ -161,8 +161,10 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   }
 
   if (currentPage.syntax !== "markdown/1.2") {
-    // TODO add a translation
-    unknownSyntax.value = `Syntax [${currentPage.syntax}] is not editable with this editor.`;
+    unknownSyntax.value = t("blocknote.syntax.editorUnsupported", {
+      name: currentPage.syntax,
+    });
+
     return;
   }
 
@@ -171,8 +173,10 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
   );
 
   if (!syntaxConfig) {
-    // TODO add a translation
-    unknownSyntax.value = `Syntax [${currentPage.syntax}] is not supported by the current backend`;
+    unknownSyntax.value = t("blocknote.syntax.backendUnsupported", {
+      name: currentPage.syntax,
+    });
+
     return;
   }
 
