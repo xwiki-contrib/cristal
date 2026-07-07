@@ -358,7 +358,7 @@ onBeforeRouteLeave(() => {
                 ref="editorInstance"
                 :editor-props
                 :editor-content
-                :container
+                :deps-container="container"
                 :collaboration
                 :macros="{
                   ctx: contextForMacros,
