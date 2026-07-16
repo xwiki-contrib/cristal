@@ -58,7 +58,7 @@ const canCreate: Ref<boolean> = ref(true);
 let newDocumentReferenceString: string = "";
 let parentDocumentReferenceString: string = "";
 
-defineProps<{
+const props = defineProps<{
   currentPageReference?: DocumentReference;
 }>();
 
@@ -71,6 +71,32 @@ function updateCurrentPage() {
   name.value = "";
   existingPage.value = undefined;
   canCreate.value = true;
+  location.value = currentPageLocation();
+}
+
+/**
+ * The location of the current page, seen as the container of the new page.
+ */
+function currentPageLocation(): SpaceReference | undefined {
+  const document =
+    props.currentPageReference ??
+    documentService.getCurrentDocumentReference().value;
+  if (!document) {
+    return undefined;
+  }
+  const space = document.space ?? new SpaceReference();
+  const probe = referenceHandler.createDocumentReference(document.name, space);
+  if (
+    probe.name === document.name &&
+    (probe.space?.names ?? []).join("/") === space.names.join("/")
+  ) {
+    // The document name is a plain path segment (path-based backends like
+    // Nextcloud): the location of the page includes its name.
+    return new SpaceReference(space.wiki, ...space.names, document.name);
+  }
+  // The backend uses a marker document name (e.g. WebHome): the space of the
+  // document already designates the page.
+  return space;
 }
 
 // eslint-disable-next-line max-statements
@@ -251,7 +277,11 @@ async function editExistingPage() {
   cursor: pointer;
 }
 #new-page-content {
-  min-width: 600px;
+  /* Aim for a comfortable 600px width, but never overflow a dialog that is
+     narrower than that (e.g. the fixed-width Nextcloud dialog), which would
+     otherwise show a horizontal scrollbar. */
+  width: 600px;
+  max-width: 100%;
 }
 
 .grid {

@@ -2832,21 +2832,36 @@ importers:
       '@types/async-lock':
         specifier: 'catalog:'
         version: 1.4.2
+      '@vue/test-utils':
+        specifier: 'catalog:'
+        version: 2.4.10(@vue/compiler-dom@3.5.38)(@vue/server-renderer@3.5.38(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
+      '@xwiki/cristal-dev-test-utils':
+        specifier: workspace:*
+        version: link:../../../dev/test-utils
       '@xwiki/platform-tool-apiextractorconfig':
         specifier: 'catalog:'
         version: 18.6.0-1782809739
       '@xwiki/platform-tool-tsconfig':
         specifier: 'catalog:'
         version: 18.6.0-1782976222(typescript@5.9.3)
+      inversify:
+        specifier: 'catalog:'
+        version: 8.1.1(reflect-metadata@0.2.2)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
       vite:
         specifier: 'catalog:'
         version: 7.3.5(@types/node@25.2.3)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.16))(tsx@4.22.1)(yaml@2.9.0)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.6(@types/node@25.2.3)(@vitest/coverage-v8@4.1.6)(happy-dom@20.8.4)(vite@7.3.5(@types/node@25.2.3)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.16))(tsx@4.22.1)(yaml@2.9.0))
+      vitest-mock-extended:
+        specifier: 'catalog:'
+        version: 4.0.0(typescript@5.9.3)(vitest@4.1.6)
       vue:
         specifier: 'catalog:'
         version: 3.5.38(typescript@5.9.3)
