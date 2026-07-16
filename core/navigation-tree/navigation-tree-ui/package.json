@@ -46,11 +46,16 @@
   },
   "devDependencies": {
     "@types/async-lock": "catalog:",
+    "@vue/test-utils": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
+    "@xwiki/cristal-dev-test-utils": "workspace:*",
     "@xwiki/platform-tool-apiextractorconfig": "catalog:",
     "@xwiki/platform-tool-tsconfig": "catalog:",
+    "inversify": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
+    "vitest": "catalog:",
+    "vitest-mock-extended": "catalog:",
     "vue": "catalog:",
     "vue-tsc": "catalog:"
   },

@@ -21,7 +21,7 @@
 import NavigationTree from "./NavigationTree.vue";
 import messages from "../translations";
 import { SpaceReference } from "@xwiki/platform-model-api";
-import { inject, onBeforeMount, ref, watch } from "vue";
+import { computed, inject, onBeforeMount, ref, useId, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import type { CristalApp } from "@xwiki/platform-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
@@ -66,6 +66,12 @@ const currentPageReference: Ref<DocumentReference | undefined> =
 
 const openedLocationDialog: Ref<boolean> = ref(false);
 const hierarchy: Ref<Array<PageHierarchyItem>> = ref([]);
+// The location chosen in the tree, only applied to the model once the user
+// confirms with the Select button.
+const pendingLocation: Ref<SpaceReference | undefined> = ref(undefined);
+
+const changeLocationButtonId = useId();
+const selectButtonId = useId();
 
 const { t } = useI18n({
   messages,
@@ -89,25 +95,49 @@ watch(model, async (newLocation) => {
 });
 
 onBeforeMount(async () => {
-  const currentSpaceReference = currentPageReference.value!.space;
-  model.value = currentSpaceReference;
-  if (currentSpaceReference) {
+  // A location provided by the caller takes precedence over the default
+  // (the space of the current page).
+  const initialLocation = model.value ?? currentPageReference.value!.space;
+  model.value = initialLocation;
+  if (initialLocation) {
     hierarchy.value = await hierarchyResolver.getPageHierarchy(
-      currentPageReference.value!.space!,
+      initialLocation,
       false,
     );
   }
 });
 
 async function nodeClickAction(node: NavigationTreeNode) {
-  model.value = node.location;
+  pendingLocation.value = node.location;
 }
+
+function selectLocation() {
+  if (pendingLocation.value) {
+    model.value = pendingLocation.value;
+  }
+  openedLocationDialog.value = false;
+}
+
+// Start each visit to the location dialog from a clean slate so a choice
+// abandoned by closing the dialog is not applied on the next confirmation.
+watch(openedLocationDialog, (opened) => {
+  if (opened) {
+    pendingLocation.value = undefined;
+  }
+});
+
+// The breadcrumb is a plain display of the selected location: the urls are
+// stripped so that its segments are not rendered as links, otherwise clicking
+// one would navigate away while the surrounding dialog stays open.
+const displayHierarchy = computed(() =>
+  hierarchy.value.map(({ label }) => ({ label })),
+);
 </script>
 
 <template>
   <x-text-field :label="label" :help="help" modelValue=" " readonly>
     <template #default>
-      <XBreadcrumb :items="hierarchy"></XBreadcrumb>
+      <XBreadcrumb :items="displayHierarchy"></XBreadcrumb>
     </template>
   </x-text-field>
   <XDialog
@@ -116,7 +146,7 @@ async function nodeClickAction(node: NavigationTreeNode) {
     :title="t('navigation.tree.select.location.label')"
   >
     <template #activator>
-      <x-btn id="change-page-location-button" size="small" color="secondary">
+      <x-btn :id="changeLocationButtonId" size="small" color="secondary">
         {{ t("navigation.tree.select.location.label") }}
       </x-btn>
     </template>
@@ -128,7 +158,7 @@ async function nodeClickAction(node: NavigationTreeNode) {
       ></navigation-tree>
     </template>
     <template #footer>
-      <XBtn variant="primary" @click="openedLocationDialog = false">
+      <XBtn :id="selectButtonId" variant="primary" @click="selectLocation">
         {{ t("navigation.tree.select.location.select") }}
       </XBtn>
     </template>

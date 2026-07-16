@@ -59,6 +59,9 @@ function mountCComponent() {
   const mockModelReferenceHandlerProvider =
     mock<ModelReferenceHandlerProvider>();
   const mockModelReferenceHandler = mock<ModelReferenceHandler>();
+  mockModelReferenceHandler.createDocumentReference.mockImplementation(
+    (name, space) => new DocumentReference(name, space),
+  );
   mockModelReferenceHandlerProvider.get.mockReturnValue(
     mockModelReferenceHandler,
   );
