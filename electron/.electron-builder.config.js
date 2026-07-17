@@ -58,7 +58,7 @@ module.exports = async function () {
     mac: {
       artifactName: "${productName}-${version}-mac-${arch}.${ext}",
       executableName: "cristal",
-      target: "dmg",
+      target: ["dmg", "zip"],
       category: "Application",
     },
     win: {

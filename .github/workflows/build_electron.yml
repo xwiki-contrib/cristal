@@ -57,8 +57,7 @@ jobs:
         with:
           files: |
             electron/dist/cristal-*.*
-            electron/dist/latest.yml
-            electron/dist/latest-linux.yml
+            electron/dist/latest*.yml
           tag_name: ${{ github.ref }}
           draft: true
   electron-mac:
@@ -88,7 +87,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: softprops/action-gh-release@v3
         with:
-          files: electron/dist/cristal-*.dmg
+          files: |
+            electron/dist/cristal-*.*
+            electron/dist/latest*.yml
           tag_name: ${{ github.ref }}
           draft: true
   electron-win:
@@ -122,6 +123,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: softprops/action-gh-release@v3
         with:
-          files: electron/dist/cristal-*.*
+          files: |
+            electron/dist/cristal-*.*
+            electron/dist/latest*.yml
           tag_name: ${{ github.ref }}
           draft: true
