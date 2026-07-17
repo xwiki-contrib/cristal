@@ -7,7 +7,7 @@
   "repository": {
     "type": "git",
     "directory": "core/page/page-api",
-    "url": "https://github.com/xwiki-contrib/cristal/"
+    "url": "git+https://github.com/xwiki-contrib/cristal.git"
   },
   "bugs": {
     "url": "https://jira.xwiki.org/projects/CRISTAL/"
@@ -18,6 +18,13 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.spec.*",
+    "!src/**/*.test.*",
+    "!src/**/__tests__"
+  ],
   "scripts": {
     "api-extractor:local": "api-extractor run --local",
     "build": "rimraf dist && tsc",

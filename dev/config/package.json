@@ -20,6 +20,13 @@
       "import": "./dist/index.js"
     }
   },
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.spec.*",
+    "!src/**/*.test.*",
+    "!src/**/__tests__"
+  ],
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist"
