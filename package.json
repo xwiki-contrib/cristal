@@ -69,18 +69,5 @@
   "engines": {
     "node": "24.18.0"
   },
-  "packageManager": "pnpm@10.33.2",
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "electron-winstaller",
-      "esbuild",
-      "nx",
-      "unrs-resolver",
-      "vue-demi"
-    ],
-    "onlyBuiltDependencies": [
-      "electron"
-    ],
-    "overrides": {}
-  }
+  "packageManager": "pnpm@11.13.1"
 }

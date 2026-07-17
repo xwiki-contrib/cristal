@@ -68,6 +68,14 @@ packages:
   - web
   - xwiki/remoteinlineeditor
 
+allowBuilds:
+  electron: true
+  electron-winstaller: false
+  esbuild: false
+  nx: false
+  unrs-resolver: false
+  vue-demi: false
+
 catalog:
   '@eslint/config-helpers': 0.6.0
   '@eslint/eslintrc': 3.3.5
