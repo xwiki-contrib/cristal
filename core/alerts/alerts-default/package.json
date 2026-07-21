@@ -31,19 +31,21 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@xwiki/cristal-alerts-api": "workspace:*",
-    "@xwiki/platform-api": "catalog:",
-    "pinia": "catalog:"
+    "@xwiki/platform-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",
+    "pinia": "4.x",
     "reflect-metadata": "0.x",
     "vue": "3.x"
   },
   "devDependencies": {
+    "@vue/devtools-api": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
     "@xwiki/platform-tool-apiextractorconfig": "catalog:",
     "@xwiki/platform-tool-tsconfig": "catalog:",
     "inversify": "catalog:",
+    "pinia": "catalog:",
     "reflect-metadata": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

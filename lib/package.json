@@ -104,23 +104,25 @@
     "@xwiki/platform-model-remote-url-api": "catalog:",
     "@xwiki/platform-uniast-markdown": "catalog:",
     "@xwiki/platform-uniast-markdown-xwiki": "catalog:",
-    "pinia": "catalog:",
     "reflect-metadata": "catalog:",
     "vue-i18n": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x",
+    "pinia": "4.x",
     "reflect-metadata": "0.x",
     "vue": "3.x",
     "vue-router": "5.x"
   },
   "devDependencies": {
     "@shoelace-style/shoelace": "catalog:",
+    "@vue/devtools-api": "catalog:",
     "@xwiki/cristal-dev-config": "workspace:*",
     "@xwiki/platform-dsapi": "catalog:",
     "@xwiki/platform-tool-apiextractorconfig": "catalog:",
     "@xwiki/platform-tool-tsconfig": "catalog:",
     "inversify": "catalog:",
+    "pinia": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
     "vue": "catalog:",
