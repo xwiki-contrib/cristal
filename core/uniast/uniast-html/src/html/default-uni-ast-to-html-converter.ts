@@ -90,19 +90,24 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
       case "list":
         return this.produceBlockHtml(
-          block.items.length > 0 && block.items[0].number !== undefined
-            ? "ol"
-            : "ul",
+          block.listType.type === "ordered" ? "ol" : "ul",
           block.styles,
+
           block.items
             .map((item) =>
               produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertBlocks(item.content)}`,
+                `${block.listType.type === "checkable" && item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), disabled: "disabled" }, false) : ""}${this.convertBlocks(item.content)}`,
               ),
             )
             .join(""),
+
+          // Start index for list
+          block.listType.type === "ordered" &&
+            block.listType.firstIndex !== undefined
+            ? { start: block.listType.firstIndex?.toString() }
+            : undefined,
         );
 
       case "quote":
