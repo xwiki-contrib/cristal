@@ -21,6 +21,8 @@
 import cRealtimeUsers from "./c-realtime-users.vue";
 import cSaveStatus, { SaveStatus } from "./c-save-status.vue";
 import messages from "../translations";
+import { BlockNoteToUniAstConverter } from "../uniast/bn-to-uniast";
+import { UniAstToBlockNoteConverter } from "../uniast/uniast-to-bn";
 import { CArticle } from "@xwiki/cristal-skin";
 import { collaborationManagerProviderName } from "@xwiki/platform-collaboration-api";
 import { name as documentServiceName } from "@xwiki/platform-document-api";
@@ -53,10 +55,10 @@ import type {
 } from "@xwiki/platform-collaboration-api";
 import type { DocumentService } from "@xwiki/platform-document-api";
 import type { ContextForMacros } from "@xwiki/platform-editors-blocknote-headless";
+import type { BlockType } from "@xwiki/platform-editors-blocknote-react";
 import type { MacrosService } from "@xwiki/platform-macros-service";
 import type { ModelReferenceHandlerProvider } from "@xwiki/platform-model-reference-api";
 import type { SyntaxConfig } from "@xwiki/platform-syntaxes-config";
-import type { UniAst } from "@xwiki/platform-uniast-api";
 import type {
   MarkdownToUniAstConverter,
   UniAstToMarkdownConverter,
@@ -121,7 +123,7 @@ const editorProps = shallowRef<
   InstanceType<typeof CBlockNoteView>["$props"]["editorProps"] | null
 >(null);
 
-const editorContent = shallowRef<UniAst | Error | null>(null);
+const editorContent = shallowRef<BlockType[] | null>(null);
 
 const editorInstance =
   useTemplateRef<InstanceType<typeof CBlockNoteView>>("editorInstance");
@@ -137,6 +139,14 @@ const uniAstToMarkdown = container.get<UniAstToMarkdownConverter>(
 
 // Macros service
 const macrosService = container.get<MacrosService>(macrosServiceName);
+
+// Tools for the conversion between the UniAst and the BlockNote blocks handled
+// by the editor.
+const uniAstToBlockNote = new UniAstToBlockNoteConverter(container);
+const blockNoteToUniAst = new BlockNoteToUniAstConverter(
+  container,
+  macrosService.list(),
+);
 
 // Saving status
 const saveStatus = ref<SaveStatus>(SaveStatus.SAVED);
@@ -189,9 +199,23 @@ async function loadEditor(currentPage: PageData | undefined): Promise<void> {
     syntax: syntaxConfig,
   };
 
-  editorContent.value = await markdownToUniAst.parseMarkdown(
-    currentPage.source,
-  );
+  const uniAst = await markdownToUniAst.parseMarkdown(currentPage.source);
+
+  if (uniAst instanceof Error) {
+    // TODO: error reporting
+    console.error(uniAst);
+    return;
+  }
+
+  const blocks = uniAstToBlockNote.uniAstToBlockNote(uniAst);
+
+  if (blocks instanceof Error) {
+    // TODO: error reporting
+    console.error(blocks);
+    return;
+  }
+
+  editorContent.value = blocks;
 
   title.value = documentService.getTitle().value ?? "";
 }
@@ -218,18 +242,34 @@ async function navigateToView() {
 }
 
 /**
+ * Convert the editor's BlockNote content to the markdown persisted in storage.
+ *
+ * @param content - The editor's BlockNote content
+ * @returns the markdown, or an Error if the conversion failed
+ */
+async function blocksToMarkdown(content: BlockType[]): Promise<string | Error> {
+  const uniAst = blockNoteToUniAst.blocksToUniAst(content);
+
+  if (uniAst instanceof Error) {
+    return uniAst;
+  }
+
+  return uniAstToMarkdown.toMarkdown(uniAst);
+}
+
+/**
  * Save a content into the current page document
  *
  * @param content - The content to save
  */
-async function save(content: UniAst) {
+async function save(content: BlockType[]) {
   saveStatus.value = SaveStatus.SAVING;
 
   try {
-    const markdown = await uniAstToMarkdown.toMarkdown(content);
+    const markdown = await blocksToMarkdown(content);
 
     if (markdown instanceof Error) {
-      throw error;
+      throw markdown;
     }
 
     // TODO: html does not make any sense here.
@@ -256,11 +296,6 @@ async function save(content: UniAst) {
 async function saveContent() {
   const editor = editorInstance.value!;
   const content = editor.getContent();
-
-  if (content instanceof Error) {
-    // TODO: error reporting
-    return;
-  }
 
   await save(content);
 }
