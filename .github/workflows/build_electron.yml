@@ -36,7 +36,7 @@ jobs:
           node-version: 'lts/*'
           cache: 'pnpm'
       - id: restore-cache-electron-linux
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             .nx/
@@ -71,7 +71,7 @@ jobs:
           node-version: 'lts/*'
           cache: 'pnpm'
       - id: restore-cache-electron-mac
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             .nx/
@@ -103,7 +103,7 @@ jobs:
           node-version: 'lts/*'
           cache: 'pnpm'
       - id: restore-cache-electron-win
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             .nx/
