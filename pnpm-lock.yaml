@@ -76,8 +76,8 @@ catalogs:
       specifier: 4.1.6
       version: 4.1.6
     '@vue/devtools-api':
-      specifier: 8.1.5
-      version: 8.1.5
+      specifier: 8.2.1
+      version: 8.2.1
     '@vue/test-utils':
       specifier: 2.4.11
       version: 2.4.11
@@ -439,7 +439,7 @@ importers:
         version: 5.9.3
       typescript-eslint:
         specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)
       vite:
         specifier: 'catalog:'
         version: 7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.22))(tsx@4.22.1)(yaml@2.9.0)
@@ -517,7 +517,7 @@ importers:
     devDependencies:
       '@vue/devtools-api':
         specifier: 'catalog:'
-        version: 8.1.5
+        version: 8.2.1
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../../../dev/config
@@ -532,7 +532,7 @@ importers:
         version: 8.1.1(reflect-metadata@0.2.2)
       pinia:
         specifier: 'catalog:'
-        version: 4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+        version: 4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -675,7 +675,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       vue-tsc:
         specifier: 'catalog:'
         version: 3.3.4(typescript@5.9.3)
@@ -1522,7 +1522,7 @@ importers:
     devDependencies:
       '@vue/devtools-api':
         specifier: 'catalog:'
-        version: 8.1.5
+        version: 8.2.1
       '@vue/test-utils':
         specifier: 'catalog:'
         version: 2.4.11(@vue/compiler-dom@3.5.40)(@vue/server-renderer@3.5.38(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -1540,7 +1540,7 @@ importers:
         version: 8.1.1(reflect-metadata@0.2.2)
       pinia:
         specifier: 'catalog:'
-        version: 4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+        version: 4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -1984,7 +1984,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       vue-tsc:
         specifier: 'catalog:'
         version: 3.3.4(typescript@5.9.3)
@@ -2126,7 +2126,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       vue-tsc:
         specifier: 'catalog:'
         version: 3.3.4(typescript@5.9.3)
@@ -4147,7 +4147,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       vue-tsc:
         specifier: 'catalog:'
         version: 3.3.4(typescript@5.9.3)
@@ -4653,7 +4653,7 @@ importers:
         version: 8.1.1(reflect-metadata@0.2.2)
       pinia:
         specifier: 'catalog:'
-        version: 4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+        version: 4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -4662,7 +4662,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -4672,7 +4672,7 @@ importers:
         version: 6.0.7(vite@7.3.5(@types/node@24.12.4)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.22))(tsx@4.22.1)(yaml@2.9.0))(vue@3.5.38(typescript@5.9.3))
       '@vue/devtools-api':
         specifier: 'catalog:'
-        version: 8.1.5
+        version: 8.2.1
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -5089,7 +5089,7 @@ importers:
         version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-attachments-default':
         specifier: 'catalog:'
-        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-authentication-api':
         specifier: 'catalog:'
         version: 18.7.0-1784751146(reflect-metadata@0.2.2)
@@ -5107,13 +5107,13 @@ importers:
         version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-hierarchy-xwiki':
         specifier: 'catalog:'
-        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-link-suggest-api':
         specifier: 'catalog:'
         version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-link-suggest-xwiki':
         specifier: 'catalog:'
-        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
         version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))
@@ -5128,7 +5128,7 @@ importers:
         version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-uniast-markdown-xwiki':
         specifier: 'catalog:'
-        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -5141,7 +5141,7 @@ importers:
         version: 2.20.1(@floating-ui/utils@0.2.11)(@types/react@19.2.6)
       '@vue/devtools-api':
         specifier: 'catalog:'
-        version: 8.1.5
+        version: 8.2.1
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
         version: link:../dev/config
@@ -5159,7 +5159,7 @@ importers:
         version: 8.1.1(reflect-metadata@0.2.2)
       pinia:
         specifier: 'catalog:'
-        version: 4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+        version: 4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -5171,7 +5171,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       vue-tsc:
         specifier: 'catalog:'
         version: 3.3.4(typescript@5.9.3)
@@ -5325,7 +5325,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
 
   skin:
     dependencies:
@@ -5455,7 +5455,7 @@ importers:
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       vue-tsc:
         specifier: 'catalog:'
         version: 3.3.4(typescript@5.9.3)
@@ -5546,13 +5546,13 @@ importers:
         version: 8.1.1(reflect-metadata@0.2.2)
       pinia:
         specifier: 'catalog:'
-        version: 4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+        version: 4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       vue:
         specifier: 'catalog:'
         version: 3.5.38(typescript@5.9.3)
       vue-router:
         specifier: 'catalog:'
-        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
     devDependencies:
       '@eslint/eslintrc':
         specifier: 'catalog:'
@@ -5571,7 +5571,7 @@ importers:
         version: 6.0.7(vite@7.3.5(@types/node@24.12.4)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.22))(tsx@4.22.1)(yaml@2.9.0))(vue@3.5.38(typescript@5.9.3))
       '@vue/devtools-api':
         specifier: 'catalog:'
-        version: 8.1.5
+        version: 8.2.1
       '@xwiki/platform-tool-tsconfig':
         specifier: 'catalog:'
         version: 18.7.0-1784751146(typescript@5.9.3)
@@ -7311,11 +7311,20 @@ packages:
   '@vue/devtools-api@8.1.5':
     resolution: {integrity: sha512-YJipMVAKe5wT5CWf5kTYCaNV7NMNjFVxJkIkJaJ4W/nCxEBzlZzrOsYKeCymdCrFZmBS/+wTWFoUs3Jf/Q6XSQ==}
 
+  '@vue/devtools-api@8.2.1':
+    resolution: {integrity: sha512-6u4vXBlIBAC1wMplIZgpyPn7uh/s4Bf6F5bMzvLv+EdJ0aHs/+4B7Ygv864EStQSjRbsRzTko/kUG1A1IejQ3A==}
+
   '@vue/devtools-kit@8.1.5':
     resolution: {integrity: sha512-FcSAxsi4eWuXLCB7Rv9lj0aIVHHPNVQ2BazGf4RJTc2JCqb4BQg0hk87ZFhminCfl+mD5OUI0rX2cgyu4kJOGA==}
 
+  '@vue/devtools-kit@8.2.1':
+    resolution: {integrity: sha512-FIGIuq3AWReEpbAHY/cRGeHDfI0qOb8OCQ3YjbEAX04uaxIDbGc9rhkbVcG7rnfHPXE3RsU5KrWOu9V/okd8AQ==}
+
   '@vue/devtools-shared@8.1.5':
     resolution: {integrity: sha512-mhT4zcPFhF+Xk1O4BfhhrbXzpmfqY03fS6xGpcllbQG7lDjhQf8pQHcTIhqQIYx1hfwtHmk/6jM96ele0UxPqQ==}
+
+  '@vue/devtools-shared@8.2.1':
+    resolution: {integrity: sha512-Fkac7lUdGReh6pVOi3AYPRGe82LQqRmAfThW7RRligOAP0ZA/Z1z9XLHDM9dv34pV2HRc79DK8uKPeG2fLnA/g==}
 
   '@vue/language-core@2.2.0':
     resolution: {integrity: sha512-O1ZZFaaBGkKbsRfnVH1ifOK1/1BUkyK+3SQsfnh6PmMmD4qJcTU8godCeA96jjDRTL6zgnK7YzCHfaUlH2r0Mw==}
@@ -12367,12 +12376,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.65.0(@typescript-eslint/parser@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.65.0(@typescript-eslint/parser@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)
       '@typescript-eslint/scope-manager': 8.65.0
-      '@typescript-eslint/type-utils': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)
+      '@typescript-eslint/type-utils': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)
       '@typescript-eslint/utils': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)
       '@typescript-eslint/visitor-keys': 8.65.0
       eslint: 10.7.0(jiti@2.7.0)(supports-color@5.5.0)
@@ -12395,7 +12404,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)':
+  '@typescript-eslint/parser@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.65.0
       '@typescript-eslint/types': 8.65.0
@@ -12477,7 +12486,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/type-utils@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)':
+  '@typescript-eslint/type-utils@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/types': 8.65.0
       '@typescript-eslint/typescript-estree': 8.65.0(typescript@5.9.3)
@@ -12809,6 +12818,10 @@ snapshots:
     dependencies:
       '@vue/devtools-kit': 8.1.5
 
+  '@vue/devtools-api@8.2.1':
+    dependencies:
+      '@vue/devtools-kit': 8.2.1
+
   '@vue/devtools-kit@8.1.5':
     dependencies:
       '@vue/devtools-shared': 8.1.5
@@ -12816,7 +12829,16 @@ snapshots:
       hookable: 5.5.3
       perfect-debounce: 2.1.0
 
+  '@vue/devtools-kit@8.2.1':
+    dependencies:
+      '@vue/devtools-shared': 8.2.1
+      birpc: 2.9.0
+      hookable: 5.5.3
+      perfect-debounce: 2.1.0
+
   '@vue/devtools-shared@8.1.5': {}
+
+  '@vue/devtools-shared@8.2.1': {}
 
   '@vue/language-core@2.2.0(typescript@5.9.3)':
     dependencies:
@@ -12885,7 +12907,7 @@ snapshots:
       inversify: 8.1.1(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
       vue: 3.5.38(typescript@5.9.3)
-      vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
 
   '@xwiki/platform-api@18.7.0-1784751146(inversify@8.2.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
@@ -12894,7 +12916,7 @@ snapshots:
       inversify: 8.2.1(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
       vue: 3.5.38(typescript@5.9.3)
-      vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
 
   '@xwiki/platform-attachments-api@18.7.0-1784751146(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))':
     dependencies:
@@ -12903,7 +12925,7 @@ snapshots:
       reflect-metadata: 0.2.2
       vue: 3.5.38(typescript@5.9.3)
 
-  '@xwiki/platform-attachments-default@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+  '@xwiki/platform-attachments-default@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-attachments-api': 18.7.0-1784751146(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-authentication-api': 18.7.0-1784751146(reflect-metadata@0.2.2)
@@ -12912,7 +12934,7 @@ snapshots:
       '@xwiki/platform-model-reference-api': 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api': 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       inversify: 8.1.1(reflect-metadata@0.2.2)
-      pinia: 4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+      pinia: 4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
       reflect-metadata: 0.2.2
       vue: 3.5.38(typescript@5.9.3)
     transitivePeerDependencies:
@@ -13083,7 +13105,7 @@ snapshots:
       - vue
       - vue-router
 
-  '@xwiki/platform-hierarchy-xwiki@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+  '@xwiki/platform-hierarchy-xwiki@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-authentication-api': 18.7.0-1784751146(reflect-metadata@0.2.2)
@@ -13114,7 +13136,7 @@ snapshots:
       - vue
       - vue-router
 
-  '@xwiki/platform-link-suggest-xwiki@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+  '@xwiki/platform-link-suggest-xwiki@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-authentication-api': 18.7.0-1784751146(reflect-metadata@0.2.2)
@@ -13250,7 +13272,7 @@ snapshots:
     dependencies:
       '@xwiki/platform-model-api': 18.7.0-1784751146
 
-  '@xwiki/platform-uniast-markdown-xwiki@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+  '@xwiki/platform-uniast-markdown-xwiki@18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-uniast-api': 18.7.0-1784751146
       '@xwiki/platform-uniast-markdown': 18.7.0-1784751146(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -16064,9 +16086,9 @@ snapshots:
 
   picomatch@4.0.5: {}
 
-  pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)):
+  pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)):
     dependencies:
-      '@vue/devtools-api': 8.1.5
+      '@vue/devtools-api': 8.2.1
       nostics: 1.2.0
       vue: 3.5.38(typescript@5.9.3)
     optionalDependencies:
@@ -16948,10 +16970,10 @@ snapshots:
       possible-typed-array-names: 1.1.0
       reflect.getprototypeof: 1.0.10
 
-  typescript-eslint@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3):
+  typescript-eslint@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.65.0(@typescript-eslint/parser@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)
-      '@typescript-eslint/parser': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)
+      '@typescript-eslint/eslint-plugin': 8.65.0(@typescript-eslint/parser@8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(supports-color@5.5.0)(typescript@5.9.3)
       '@typescript-eslint/typescript-estree': 8.65.0(typescript@5.9.3)
       '@typescript-eslint/utils': 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@5.5.0))(typescript@5.9.3)
       eslint: 10.7.0(jiti@2.7.0)(supports-color@5.5.0)
@@ -17274,7 +17296,7 @@ snapshots:
       '@vue/devtools-api': 6.6.4
       vue: 3.5.38(typescript@5.9.3)
 
-  vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)):
+  vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)):
     dependencies:
       '@babel/generator': 7.29.1
       '@vue-macros/common': 3.1.2(vue@3.5.38(typescript@5.9.3))
@@ -17296,7 +17318,7 @@ snapshots:
       yaml: 2.9.0
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.40
-      pinia: 4.0.2(@vue/devtools-api@8.1.5)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+      pinia: 4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
 
   vue-tsc@3.3.4(typescript@5.9.3):
     dependencies:
