@@ -35,6 +35,11 @@ import type {
   ModelReferenceParserProvider,
 } from "@xwiki/platform-model-reference-api";
 
+// Module mocks are hoisted and applied before any test runs, whatever their
+// location, so they are declared at the top level to match their actual scope.
+vi.mock("vue-router");
+vi.mock("vue-i18n");
+
 function initializeMocks() {
   const cristalMock = mock<CristalApp>();
   const containerMock = mock<Container>();
@@ -67,8 +72,6 @@ function shallowMountAttachmentsTable({
   errorMessage?: string;
   isLoading: boolean;
 }) {
-  vi.mock("vue-router");
-  vi.mock("vue-i18n");
   mockI18n();
   const cristalMock = initializeMocks();
   return shallowMount(AttachmentsTable, {

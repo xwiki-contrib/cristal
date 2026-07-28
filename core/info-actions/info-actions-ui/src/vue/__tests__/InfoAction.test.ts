@@ -26,9 +26,12 @@ import { Ref, ref } from "vue";
 import { useRoute } from "vue-router";
 import type { InfoAction as InfoActionAPI } from "@xwiki/cristal-info-actions-api";
 
+// Module mocks are hoisted and applied before any test runs, whatever their
+// location, so they are declared at the top level to match their actual scope.
+vi.mock("vue-router");
+
 describe("info-action", () => {
   it("Takes into account the info action values", async () => {
-    vi.mock("vue-router");
     useRoute.mockReturnValue({
       params: {
         page: "testPage",

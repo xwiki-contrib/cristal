@@ -37,6 +37,10 @@ import type {
 } from "@xwiki/platform-model-reference-api";
 import type { Container } from "inversify";
 
+// Module mocks are hoisted and applied before any test runs, whatever their
+// location, so they are declared at the top level to match their actual scope.
+vi.mock("vue-i18n");
+
 // eslint-disable-next-line max-statements
 function mountCComponent() {
   const container = mock<Container>();
@@ -150,7 +154,6 @@ function mountCComponent() {
 
 describe("c-sidebar", () => {
   beforeAll(() => {
-    vi.mock("vue-i18n");
     mockI18n();
     config.global.renderStubDefaultSlot = true;
   });

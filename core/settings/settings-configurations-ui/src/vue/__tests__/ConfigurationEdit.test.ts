@@ -33,6 +33,10 @@ import type { WikiConfigProxy } from "@xwiki/cristal-wiki-config-api";
 import type { Configuration } from "@xwiki/platform-configuration-api";
 import type { MockProxy } from "vitest-mock-extended";
 
+// Module mocks are hoisted and applied before any test runs, whatever their
+// location, so they are declared at the top level to match their actual scope.
+vi.mock("vue-i18n");
+
 let settingsManagerConfigurations: Map<string, Configuration>;
 let mockWikiConfigProxy: MockProxy<WikiConfigProxy> & WikiConfigProxy;
 let mockSettingsManager: MockProxy<SettingsManager> & SettingsManager;
@@ -65,7 +69,6 @@ function mountConfigurationEdit(params: {
     .calledWith("SettingsStorage")
     .mockReturnValue(mockSettingsStorage);
 
-  vi.mock("vue-i18n");
   mockI18n();
 
   return mount(ConfigurationEdit, {

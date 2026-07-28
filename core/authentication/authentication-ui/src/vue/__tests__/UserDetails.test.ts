@@ -29,6 +29,10 @@ import {
 import { Container } from "inversify";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 
+// Module mocks are hoisted and applied before any test runs, whatever their
+// location, so they are declared at the top level to match their actual scope.
+vi.mock("vue-i18n");
+
 function mountUserDetails(container) {
   return mount(wrapInSuspense(UserDetails, {}), {
     shallow: true,
@@ -55,7 +59,6 @@ describe("UserDetails", () => {
   let container;
   const authenticationManagerMock = vi.fn();
   beforeAll(() => {
-    vi.mock("vue-i18n");
     mockI18n();
 
     // Allow default slot of stubbed components tO have their default slot in
