@@ -19,6 +19,7 @@
  */
 
 import { UixBlocknoteEditorProvider } from "./uixBlocknoteEditorProvider";
+import { DefaultResourceReferenceParser } from "@xwiki/platform-rendering-api";
 import { Container } from "inversify";
 import type { UIXTemplateProvider } from "@xwiki/cristal-skin";
 
@@ -31,5 +32,8 @@ export default class ComponentInit {
       .bind<UIXTemplateProvider>("UIXTemplateProvider")
       .to(UixBlocknoteEditorProvider)
       .whenNamed(UixBlocknoteEditorProvider.extensionPoint);
+    // The editor hands this container to the BlockNote link edition components,
+    // which resolve a ResourceReferenceParser from it.
+    DefaultResourceReferenceParser.bind(container);
   }
 }
