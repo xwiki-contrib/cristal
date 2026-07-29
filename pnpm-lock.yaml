@@ -153,6 +153,9 @@ catalogs:
     '@xwiki/platform-navigation-tree-api':
       specifier: 18.6.0
       version: 18.6.0
+    '@xwiki/platform-rendering-api':
+      specifier: 18.6.0
+      version: 18.6.0
     '@xwiki/platform-syntaxes-config':
       specifier: 18.6.0
       version: 18.6.0
@@ -4090,6 +4093,9 @@ importers:
       '@xwiki/platform-model-remote-url-api':
         specifier: 'catalog:'
         version: 18.6.0(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-rendering-api':
+        specifier: 'catalog:'
+        version: 18.6.0(inversify@8.1.1(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@xwiki/platform-syntaxes-config':
         specifier: 'catalog:'
         version: 18.6.0(@types/node@26.1.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.22))(tsx@4.22.1)(yaml@2.9.0)
