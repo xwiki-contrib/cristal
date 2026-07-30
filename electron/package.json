@@ -16,9 +16,9 @@
   "main": "./main/dist/index.cjs",
   "files": [],
   "scripts": {
-    "build:linux": "electron-builder --linux snap deb rpm flatpak AppImage --x64 --config .electron-builder.config.js --dir",
-    "build:mac": "electron-builder --mac dmg zip --x64 --arm64 --config .electron-builder.config.js --dir",
-    "build:win": "electron-builder --win nsis msi --x64 --ia32 --config .electron-builder.config.js --dir",
+    "build:linux": "electron-builder --linux snap deb rpm flatpak AppImage --x64 --config .electron-builder.config.js --dir --publish onTag",
+    "build:mac": "electron-builder --mac dmg zip --x64 --arm64 --config .electron-builder.config.js --dir --publish onTag",
+    "build:win": "electron-builder --win nsis msi --x64 --ia32 --config .electron-builder.config.js --dir --publish onTag",
     "clean": "rimraf dist",
     "start": "electron ."
   },

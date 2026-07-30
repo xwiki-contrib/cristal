@@ -14,20 +14,11 @@ concurrency:
 
 permissions: write-all
 
+## electron-builder uploads the artifacts itself, to a draft release named after the tag, but only for tag builds.
+## Branch builds expose them as run artifacts instead.
 jobs:
-  electron-prepare:
-    runs-on: ubuntu-latest
-    # Cleanup the release note artifacts before building new ones. Otherwise, the action-gh-release step fails because
-    # an artifact already exists.
-    steps:
-      - uses: liudonghua123/delete-release-action@v1
-        with:
-          release_name: ${{ github.ref }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   electron-linux:
     runs-on: ubuntu-latest
-    needs: electron-prepare
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -53,16 +44,19 @@ jobs:
       - run: pnpm run --filter @xwiki/cristal-electron build:linux
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: softprops/action-gh-release@v3
+      - uses: actions/upload-artifact@v7
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         with:
-          files: |
+          name: cristal-linux
+          path: |
             electron/dist/cristal-*.*
             electron/dist/latest*.yml
-          tag_name: ${{ github.ref }}
-          draft: true
+          retention-days: 14
+          # The files are already compressed installers, deflating them again only slows the upload down.
+          compression-level: 0
+          if-no-files-found: error
   electron-mac:
     runs-on: macos-latest
-    needs: electron-prepare
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -85,16 +79,19 @@ jobs:
       - run: pnpm run --filter @xwiki/cristal-electron build:mac
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: softprops/action-gh-release@v3
+      - uses: actions/upload-artifact@v7
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         with:
-          files: |
+          name: cristal-mac
+          path: |
             electron/dist/cristal-*.*
             electron/dist/latest*.yml
-          tag_name: ${{ github.ref }}
-          draft: true
+          retention-days: 14
+          # The files are already compressed installers, deflating them again only slows the upload down.
+          compression-level: 0
+          if-no-files-found: error
   electron-win:
     runs-on: windows-latest
-    needs: electron-prepare
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -121,10 +118,14 @@ jobs:
       - run: pnpm run --filter @xwiki/cristal-electron build:win
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: softprops/action-gh-release@v3
+      - uses: actions/upload-artifact@v7
+        if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         with:
-          files: |
+          name: cristal-win
+          path: |
             electron/dist/cristal-*.*
             electron/dist/latest*.yml
-          tag_name: ${{ github.ref }}
-          draft: true
+          retention-days: 14
+          # The files are already compressed installers, deflating them again only slows the upload down.
+          compression-level: 0
+          if-no-files-found: error

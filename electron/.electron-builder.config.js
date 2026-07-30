@@ -44,11 +44,23 @@ module.exports = async function () {
       version: getVersion(),
     },
 
-    // Specify linux target just for disabling snap compilation
+    // Releases are tagged without a "v" prefix (e.g. "1.6.1"), while the GitHub publisher prefixes the version by
+    // default. Without this the artifacts land on a second release, distinct from the one carrying the git tag.
+    publish: {
+      provider: "github",
+      vPrefixedTagName: false,
+    },
+
+    // Artifact naming and desktop entry metadata shared by every Linux target.
     linux: {
       artifactName: "${productName}-${version}-linux-${arch}.${ext}",
       executableName: "cristal",
       category: "Application",
+    },
+    // The snap artifact is published to the Snap Store by default, which requires snapcraft on the build machine.
+    // Publish it to GitHub along with the other artifacts instead.
+    snap: {
+      publish: ["github"],
     },
     flatpak: {
       artifactName: "${productName}-${version}-linux-${arch}.${ext}",
