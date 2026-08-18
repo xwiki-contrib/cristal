@@ -96,17 +96,24 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
 
       case "list":
         return this.produceBlockHtml(
-          block.numbered ? "ol" : "ul",
+          block.listType.type === "ordered" ? "ol" : "ul",
           block.styles,
+
           block.items
             .map((item) =>
               produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertInlineContents(item.content, htmlBody)}`,
+                `${block.listType.type === "checkable" && item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertInlineContents(item.content, htmlBody)}`,
               ),
             )
             .join(""),
+
+          // Start index for list
+          block.listType.type === "ordered" &&
+            block.listType.firstIndex !== undefined
+            ? { start: block.listType.firstIndex?.toString() }
+            : undefined,
         );
 
       case "quote":
