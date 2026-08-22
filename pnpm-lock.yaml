@@ -337,8 +337,8 @@ catalogs:
       specifier: 3.3.4
       version: 3.3.4
     vuetify:
-      specifier: 4.1.5
-      version: 4.1.5
+      specifier: 4.1.11
+      version: 4.1.11
     xml-escape:
       specifier: 1.1.0
       version: 1.1.0
@@ -4004,7 +4004,7 @@ importers:
         version: 11.4.4(vue@3.5.38(typescript@5.9.3))
       vuetify:
         specifier: 'catalog:'
-        version: 4.1.5(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
+        version: 4.1.11(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))
     devDependencies:
       '@vue/test-utils':
         specifier: 'catalog:'
@@ -10480,10 +10480,6 @@ packages:
   tmp-promise@3.0.3:
     resolution: {integrity: sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==}
 
-  tmp@0.2.5:
-    resolution: {integrity: sha512-voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==}
-    engines: {node: '>=14.14'}
-
   tmp@0.2.7:
     resolution: {integrity: sha512-e0votIpp4Uo2AJYSzVHV6xCcawuiez3DzqDAbrTc3YxBkplN6e+dM13ZeIcZnDg/QpSuU2zfZ3rzwY8ukEnaXw==}
     engines: {node: '>=14.14'}
@@ -10937,12 +10933,12 @@ packages:
       typescript:
         optional: true
 
-  vuetify@4.1.5:
-    resolution: {integrity: sha512-cR3XMzWbVll9wSdarhH7asT27zm23rMNM5dQ9pMGwTPGwEm0km8mY6ERJAGHIa/nMw0pYXWHjf1O9qJ/0PtZCQ==}
+  vuetify@4.1.11:
+    resolution: {integrity: sha512-pMzGsjha58Lbg9n/icMXCxcQN9rTczcOdMq3wMU1Qe+cfufl28eX4VUUzLwSsDgmLjTtUGsgZIkyYZFQy+SmIw==}
     peerDependencies:
       typescript: '>=4.7'
       vite-plugin-vuetify: '>=2.1.0'
-      vue: ^3.5.0
+      vue: ^3.5.0 || ^3.6.0-0
       webpack-plugin-vuetify: '>=3.1.0'
     peerDependenciesMeta:
       typescript:
@@ -16942,9 +16938,7 @@ snapshots:
 
   tmp-promise@3.0.3:
     dependencies:
-      tmp: 0.2.5
-
-  tmp@0.2.5: {}
+      tmp: 0.2.7
 
   tmp@0.2.7: {}
 
@@ -17432,7 +17426,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  vuetify@4.1.5(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)):
+  vuetify@4.1.11(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)):
     dependencies:
       vue: 3.5.38(typescript@5.9.3)
     optionalDependencies:
