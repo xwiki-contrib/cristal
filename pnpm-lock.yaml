@@ -137,7 +137,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-macros-service':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-markdown-syntax-config':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -3525,7 +3525,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))
+        version: 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -4080,7 +4080,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))
+        version: 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -5116,7 +5116,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))
+        version: 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -7482,6 +7482,9 @@ packages:
   '@xwiki/platform-macros-api@18.7.0-1785159720':
     resolution: {integrity: sha512-xd6M/Wcn/XGGsfKdEvOrd5yoka5jBlwD09GNrZ7luGg7BHZ2rC60/btLqC72bG3M+2W3V4hWz7sCxOp1aWvmoQ==}
 
+  '@xwiki/platform-macros-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-+O1c/nStjBj3k1dsXA/Vmr8QpDKeAFDanm+4Q3j8nYL9On8AiJMoMituif1GOl4QmzAztzJrkfalTlmJVWZLOw==}
+
   '@xwiki/platform-macros-ast-react-jsx@18.7.0-1785159720':
     resolution: {integrity: sha512-m2wX00K+raLujnAJ1DcQ/b5PJHcetIp5paZRt5zyzfHDSkCVwE2oB6JfaVGiGDd6B00yKOqHp36KlLELqESqrQ==}
     peerDependencies:
@@ -7489,6 +7492,11 @@ packages:
 
   '@xwiki/platform-macros-service@18.7.0-1785159720':
     resolution: {integrity: sha512-XN27Jr9NM8QvCIzawKuzz+tH03CPRiZN+s8zVHnWbUHv5p+jst5CwbZyT9AFZGwmOsql9W3qldBt5osuWxeUBQ==}
+    peerDependencies:
+      inversify: 8.x
+
+  '@xwiki/platform-macros-service@18.7.0-rc-1':
+    resolution: {integrity: sha512-tT51e6JSD6PoF9eWZT9FrJEYuG4r/5Ofu/G6Hkzrp8f7pBdfghv5RKI1K4LkMBWlQMZY58ThmdGSpkXIKbC5Tg==}
     peerDependencies:
       inversify: 8.x
 
@@ -13249,6 +13257,8 @@ snapshots:
 
   '@xwiki/platform-macros-api@18.7.0-1785159720': {}
 
+  '@xwiki/platform-macros-api@18.7.0-rc-1': {}
+
   '@xwiki/platform-macros-ast-react-jsx@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-fn-utils': 18.7.0-1785159720
@@ -13263,6 +13273,11 @@ snapshots:
   '@xwiki/platform-macros-service@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))':
     dependencies:
       '@xwiki/platform-macros-api': 18.7.0-1785159720
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+
+  '@xwiki/platform-macros-service@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))':
+    dependencies:
+      '@xwiki/platform-macros-api': 18.7.0-rc-1
       inversify: 8.2.3(reflect-metadata@0.2.2)
 
   '@xwiki/platform-markdown-syntax-config@18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)':
