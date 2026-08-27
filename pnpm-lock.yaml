@@ -134,7 +134,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-macros-api':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-macros-service':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -2190,7 +2190,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -2230,7 +2230,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3796,7 +3796,7 @@ importers:
     dependencies:
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4077,7 +4077,7 @@ importers:
         version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))
@@ -7481,6 +7481,9 @@ packages:
 
   '@xwiki/platform-macros-api@18.7.0-1785159720':
     resolution: {integrity: sha512-xd6M/Wcn/XGGsfKdEvOrd5yoka5jBlwD09GNrZ7luGg7BHZ2rC60/btLqC72bG3M+2W3V4hWz7sCxOp1aWvmoQ==}
+
+  '@xwiki/platform-macros-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-+O1c/nStjBj3k1dsXA/Vmr8QpDKeAFDanm+4Q3j8nYL9On8AiJMoMituif1GOl4QmzAztzJrkfalTlmJVWZLOw==}
 
   '@xwiki/platform-macros-ast-react-jsx@18.7.0-1785159720':
     resolution: {integrity: sha512-m2wX00K+raLujnAJ1DcQ/b5PJHcetIp5paZRt5zyzfHDSkCVwE2oB6JfaVGiGDd6B00yKOqHp36KlLELqESqrQ==}
@@ -13248,6 +13251,8 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-macros-api@18.7.0-1785159720': {}
+
+  '@xwiki/platform-macros-api@18.7.0-rc-1': {}
 
   '@xwiki/platform-macros-ast-react-jsx@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
