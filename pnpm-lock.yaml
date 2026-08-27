@@ -113,7 +113,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-editors-blocknote-react':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-fn-utils':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -4068,7 +4068,7 @@ importers:
         version: 18.7.0-1785159720(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.1.1)(@types/react@19.2.6)(esbuild@0.28.1)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
       '@xwiki/platform-editors-blocknote-react':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.1.1)(@types/react@19.2.6)(esbuild@0.28.1)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
+        version: 18.7.0-rc-1(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.1.1)(@types/react@19.2.6)(esbuild@0.28.1)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -7241,6 +7241,13 @@ packages:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
       vue: ^3.2.25
 
+  '@vitejs/plugin-vue@6.0.8':
+    resolution: {integrity: sha512-0ZjgOg7oO6farnNGup7yvoM/YXZV84OZxHAwtflItNa/6zzQyVb5LNxyea3FEKEX2XlagIKzrlH7wwxkKgtiew==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+      vue: ^3.2.25
+
   '@vitest/coverage-v8@4.1.11':
     resolution: {integrity: sha512-8MVGEFnJIcdGjcbfKmeq8z0pZHH0JlVtoVZH9Q/qwUp6wyFnEJUBMrw9DCaj+ra3vShGmhavjalMIhPNxZAUcw==}
     peerDependencies:
@@ -7395,8 +7402,22 @@ packages:
       vue: 3.x
       vue-router: 5.x
 
+  '@xwiki/platform-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-AOYKA7Xm2gC5jQqSHUkKOk+8lJgSQrZDy8aNVrhFcD5ZhKUJBoVTjU3iH52GtEbH+8k3bY7z6FFXALx0UgC/gw==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+      vue: 3.x
+      vue-router: 5.x
+
   '@xwiki/platform-attachments-api@18.7.0-1785159720':
     resolution: {integrity: sha512-VMLZ8v3fAHzM7LV6jkQn0P42Ew1oDJKQDOQbpsGo4I04Bi/xDl/pT+pbZ4KHA6+PfYOjInqUd7srpLs9UbaBUw==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-attachments-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-U1Ud9mxbxlNrO7AjT3nqURdLjqiCj2og6rx+aLBqKRRgwF64LUx/diSNSiiGGP7ejhvWooePlHRmeSKa+RDQWg==}
     peerDependencies:
       reflect-metadata: 0.x
       vue: 3.x
@@ -7414,6 +7435,11 @@ packages:
     peerDependencies:
       reflect-metadata: 0.x
 
+  '@xwiki/platform-authentication-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-YlHcP3Zgb9wrceWnQGUiKJP1Zuu8mmLeg/jtSYbRD5aU/fMNkROnRyxLWm3khuMus96E7NLFpRfB7y/6SurWyQ==}
+    peerDependencies:
+      reflect-metadata: 0.x
+
   '@xwiki/platform-backend-api@18.7.0-1785159720':
     resolution: {integrity: sha512-n+bJAY4LaryqyqCFy2UcUIkM/1eet2yQJcX8lGHp6L714rxTL9awsc7LWKRw9NhThT3NwkJJ9I3H10ZAZ53iWQ==}
     peerDependencies:
@@ -7427,11 +7453,27 @@ packages:
       reflect-metadata: 0.x
       vue: 3.x
 
+  '@xwiki/platform-collaboration-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-8AjWep5Vej5KvqlmScRQO7C51hdp3eugQ0PeHBeeqa50cavcPwB6sDtDCrMmj4NZThnbiLMF+KDAByAk+H/0Qw==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+      vue: 3.x
+
   '@xwiki/platform-configuration-api@18.7.0-1785159720':
     resolution: {integrity: sha512-I4b1bRFDi1zkdNUWR3vaQ4KXjpJ5DrfmWh0tY9rMV5gsLT3VGMgRYfvEOPw5B75FPWf0S0Y3P67wxOSOWjsFpA==}
 
+  '@xwiki/platform-configuration-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-pdyDpt4EkkiT0I5FBHEunmRkTd6l52pHjMOSGa/RbRP85jDOOGb8JA65Ee957Ms8FY4PQJjEZhXzrbgPIrfKLw==}
+
   '@xwiki/platform-document-api@18.7.0-1785159720':
     resolution: {integrity: sha512-5UZlk6bwYE1GRkbzgT4UHr+MI2YX6JzTc+Pid1PlORfcHmpx/ZUx7Yk190M707IZsasj5y1AAMi8IzstjZcPcQ==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-document-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-zD6aKTEKx/L0T2Jl1vPmnvqbCF9ecNjcGJ881FsjVq/KOw6snIMtIRJe7FrmaF9BOAhzqSPMfFXbvCmwz8C+zg==}
     peerDependencies:
       reflect-metadata: 0.x
       vue: 3.x
@@ -7454,8 +7496,16 @@ packages:
     peerDependencies:
       inversify: 8.x
 
+  '@xwiki/platform-editors-blocknote-react@18.7.0-rc-1':
+    resolution: {integrity: sha512-XFYPpGOvFyBX4Gh+6uHTH9/WGUdT0PmO30qKbxhMn7jvqBXO62+MAUn7m4sZkExonOMhifSFWjX6FO0LkLqizw==}
+    peerDependencies:
+      inversify: 8.x
+
   '@xwiki/platform-fn-utils@18.7.0-1785159720':
     resolution: {integrity: sha512-EiOFKin1GYzbkVe9tiSwc+yZvjOLrZ8s18WygcqiKzFiuBNeMkE9vgskhLTKLdb0mgXDnpdcivUQw4VcM2c24A==}
+
+  '@xwiki/platform-fn-utils@18.7.0-rc-1':
+    resolution: {integrity: sha512-iiNqmMufJNqFNT0hGHJC3lZVjIy9+nzoIyUGeeGD8QoTZx7riF44GyhqPniTF17TZj2TBXIyenUrinJGeqQ6ZA==}
 
   '@xwiki/platform-hierarchy-api@18.7.0-1785159720':
     resolution: {integrity: sha512-Zuo74ZKY2xu2a8pZQARaD0dTuEKG3qUPhx8QiHWLbDCYi6HzJ+vXELmvM/31Ov+bXJGO+EBdsI+KaqXbpXWDNQ==}
@@ -7478,6 +7528,12 @@ packages:
       inversify: 8.x
       reflect-metadata: 0.x
 
+  '@xwiki/platform-link-suggest-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-nIPT6wxtMF+9wQv7mykYt/fiSPlzyqKXobmd3TRbjvpsM9fPccfHTw1YDbjj5minTlkwqPtHcdPrG97TaRGNTQ==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
   '@xwiki/platform-link-suggest-xwiki@18.7.0-1785159720':
     resolution: {integrity: sha512-NPWPViKOR5HapuT4gGegVCjnz1LgwEW7j+Rt/YHOCQunlKf2NupnaFTm0VKFE4dmNwfUC0n8HF6MYP+xaXh5CQ==}
     peerDependencies:
@@ -7487,13 +7543,26 @@ packages:
   '@xwiki/platform-macros-api@18.7.0-1785159720':
     resolution: {integrity: sha512-xd6M/Wcn/XGGsfKdEvOrd5yoka5jBlwD09GNrZ7luGg7BHZ2rC60/btLqC72bG3M+2W3V4hWz7sCxOp1aWvmoQ==}
 
+  '@xwiki/platform-macros-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-+O1c/nStjBj3k1dsXA/Vmr8QpDKeAFDanm+4Q3j8nYL9On8AiJMoMituif1GOl4QmzAztzJrkfalTlmJVWZLOw==}
+
   '@xwiki/platform-macros-ast-react-jsx@18.7.0-1785159720':
     resolution: {integrity: sha512-m2wX00K+raLujnAJ1DcQ/b5PJHcetIp5paZRt5zyzfHDSkCVwE2oB6JfaVGiGDd6B00yKOqHp36KlLELqESqrQ==}
     peerDependencies:
       inversify: 8.x
 
+  '@xwiki/platform-macros-ast-react-jsx@18.7.0-rc-1':
+    resolution: {integrity: sha512-j2Bz77K0fIqiIZ7wz+qumrdnMH/NyvzDngR+i2UF55GSDDxS2cKEnP0Jipwnt+IVIxshdO2OdoM9Cg8X+tv/fA==}
+    peerDependencies:
+      inversify: 8.x
+
   '@xwiki/platform-macros-service@18.7.0-1785159720':
     resolution: {integrity: sha512-XN27Jr9NM8QvCIzawKuzz+tH03CPRiZN+s8zVHnWbUHv5p+jst5CwbZyT9AFZGwmOsql9W3qldBt5osuWxeUBQ==}
+    peerDependencies:
+      inversify: 8.x
+
+  '@xwiki/platform-macros-service@18.7.0-rc-1':
+    resolution: {integrity: sha512-tT51e6JSD6PoF9eWZT9FrJEYuG4r/5Ofu/G6Hkzrp8f7pBdfghv5RKI1K4LkMBWlQMZY58ThmdGSpkXIKbC5Tg==}
     peerDependencies:
       inversify: 8.x
 
@@ -7503,14 +7572,29 @@ packages:
   '@xwiki/platform-model-api@18.7.0-1785159720':
     resolution: {integrity: sha512-evayE+N8S1fl32Jb0DlmCqxGbMH4k0lqix5BZwgWTgfeXZmXpaRCwJFOiXQzH1DNDWoaz2WJz1rjb0uQgILrNw==}
 
+  '@xwiki/platform-model-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-mvYSul0+PG3rLDpU9rYsDP5gxBM9ewyhRA6Ox0qTGdG8AqTEw6fMJcYmqyTg6tNKlqhlqxVapAY426AlbNCkqA==}
+
   '@xwiki/platform-model-reference-api@18.7.0-1785159720':
     resolution: {integrity: sha512-ArvC7wnhK2xMlQTC70G5BGqexdqbVNGqdKGsfW3VGZ8hVS2OHJsvEVmwmwyQzRf8B2DPfT5QEFIGeFSf/p72bg==}
     peerDependencies:
       inversify: 8.x
       reflect-metadata: 0.x
 
+  '@xwiki/platform-model-reference-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-fdyBWX13hdDJVAqNenEX078DwHf5RTAXS/QiboIqNpSxfunTBX+1KjxRdlSitE+9wlDh6rOfX3vJ2OSjNmnEnA==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
   '@xwiki/platform-model-remote-url-api@18.7.0-1785159720':
     resolution: {integrity: sha512-9wcX7R+xSrgUyNToiCU4x4m67z0DARr/sLaYoMNsFBfF6SXlviQEhp7xo6XR13e4U5pOapelDTuzHJY3uu9n4g==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
+  '@xwiki/platform-model-remote-url-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-lfbR7DyxIuogaQSXUh9vYjwb/g31hLHib9gpgeH5zWSPfXDbknajy3/AyuF/i+kIVtRkZ+uX2o8G0/YF/1Th1A==}
     peerDependencies:
       inversify: 8.x
       reflect-metadata: 0.x
@@ -7524,8 +7608,17 @@ packages:
       inversify: 8.x
       reflect-metadata: 0.x
 
+  '@xwiki/platform-rendering-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-DnGSm6QKR0QobT2OlXzsI1H89Or3zIiW9Gsz3pI6Q2L/dS7bwGOCdWvEgTlsogVBFc1Tg0RbvSsEb6m57dt5ew==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
   '@xwiki/platform-syntaxes-config@18.7.0-1785159720':
     resolution: {integrity: sha512-5X08vWwDZbIOLz2ZIwUwYXL3EdF+CJwCTHqj02JFt99xgR9x9eionLzSQW0pCOt44lZXjEU11yKQU5AZ0rPJWQ==}
+
+  '@xwiki/platform-syntaxes-config@18.7.0-rc-1':
+    resolution: {integrity: sha512-ei3/Vg9MMiUFUf/pgL83dxLdcTknPQEduOcq1YWvUPePn4abC4bxlWUfDyueLGe0wZPc4ebTE8HzTZBYbvQ8Uw==}
 
   '@xwiki/platform-tool-apiextractorconfig@18.7.0-1785159720':
     resolution: {integrity: sha512-gKczmajJzyu4nVa4WSu+Nx6wqLwCQ36GFHaudYy9YirDr7W1LEfBGb/dHG0ajoSgItneTMRBtyrzES5n15WY5Q==}
@@ -7538,8 +7631,14 @@ packages:
   '@xwiki/platform-tool-viteconfig@18.7.0-1785159720':
     resolution: {integrity: sha512-NVT/YS8r9vDT6uJ/ayFI9NdeCLGOYKmtABT3KVFcd0dNsdTLQlG5Ev5OnY7QWIZjXe2msK7mW7g8035j+z/g2g==}
 
+  '@xwiki/platform-tool-viteconfig@18.7.0-rc-1':
+    resolution: {integrity: sha512-dlbHXU26SpFoV/BLJmzSY3GDUPT2ZAtTOX10WCZi+4wNatkIAF4Pdzd8hRkwmqybdnyM7m7y3yTxjvSTvHgITg==}
+
   '@xwiki/platform-uniast-api@18.7.0-1785159720':
     resolution: {integrity: sha512-M4a7qVTCPDcnpBL86co1qMb6FXVtsIm+IQW+ZZMhWa8JkFGp4ArODw2WTj6R7q/6mIZ6anV1s3FNnSJ4C1azgA==}
+
+  '@xwiki/platform-uniast-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-geSZQ7et5lABPVjdwHYBWCzBBNCu4F/sQeWCWybgPQkU9z59UhIyWwjtJ551h1SDyZofVvoMHL6QqEUU1g2G/A==}
 
   '@xwiki/platform-uniast-markdown-xwiki@18.7.0-1785159720':
     resolution: {integrity: sha512-kW4ILUzBhTwG1c3GYQwhMHNY56HMd90VFUW0qTotEjeDqxctxp+ch56Z+zRUVGDz/RlS4D6lMfsAY4Tq2jpCYA==}
@@ -7548,6 +7647,11 @@ packages:
 
   '@xwiki/platform-uniast-markdown@18.7.0-1785159720':
     resolution: {integrity: sha512-o2cn8TivOt0L4nM4M+8WMznCcSmUccy1FlV4r+BOt6612WWn0Hi0VExsqL3v2OTacVo6dSNTTT7A1NccCUqYDA==}
+    peerDependencies:
+      inversify: 8.x
+
+  '@xwiki/platform-uniast-markdown@18.7.0-rc-1':
+    resolution: {integrity: sha512-IEwzRPNxAnhiDTnFzOVWRmA0VRudzWzhA3ACat6kQlAVt6LF2ftfbAcOBof2FKVXB/rZLTX+0gHvmHjn7rNzmg==}
     peerDependencies:
       inversify: 8.x
 
@@ -10768,6 +10872,11 @@ packages:
     peerDependencies:
       vite: '>2.0.0-0'
 
+  vite-plugin-css-injected-by-js@5.0.2:
+    resolution: {integrity: sha512-Hvg48QfYsCL53ju9T5zTC0Ofg90XLa8t5zhhKmPYbayoMQieNcQDkkRX8pv4TAcKPZwVisLFiwDy5uBjOn+3Ow==}
+    peerDependencies:
+      vite: '>8.0.0-0'
+
   vite-plugin-dts@4.5.4:
     resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
     peerDependencies:
@@ -12800,6 +12909,12 @@ snapshots:
       vite: 7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
       vue: 3.5.38(typescript@5.9.3)
 
+  '@vitejs/plugin-vue@6.0.8(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@rolldown/pluginutils': 1.0.1
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+      vue: 3.5.38(typescript@5.9.3)
+
   '@vitest/coverage-v8@4.1.11(vitest@4.1.11)':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
@@ -13028,10 +13143,26 @@ snapshots:
       vue: 3.5.38(typescript@5.9.3)
       vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
 
+  '@xwiki/platform-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-authentication-api': 18.7.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-configuration-api': 18.7.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      vue: 3.5.38(typescript@5.9.3)
+      vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+
   '@xwiki/platform-attachments-api@18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-authentication-api': 18.7.0-1785159720(reflect-metadata@0.2.2)
       '@xwiki/platform-model-api': 18.7.0-1785159720
+      reflect-metadata: 0.2.2
+      vue: 3.5.38(typescript@5.9.3)
+
+  '@xwiki/platform-attachments-api@18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-authentication-api': 18.7.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-model-api': 18.7.0-rc-1
       reflect-metadata: 0.2.2
       vue: 3.5.38(typescript@5.9.3)
 
@@ -13051,6 +13182,10 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-authentication-api@18.7.0-1785159720(reflect-metadata@0.2.2)':
+    dependencies:
+      reflect-metadata: 0.2.2
+
+  '@xwiki/platform-authentication-api@18.7.0-rc-1(reflect-metadata@0.2.2)':
     dependencies:
       reflect-metadata: 0.2.2
 
@@ -13077,7 +13212,25 @@ snapshots:
     transitivePeerDependencies:
       - vue-router
 
+  '@xwiki/platform-collaboration-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-authentication-api': 18.7.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-document-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.7.0-rc-1
+      '@xwiki/platform-model-reference-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      vue: 3.5.38(typescript@5.9.3)
+      yjs: 13.6.30
+    transitivePeerDependencies:
+      - vue-router
+
   '@xwiki/platform-configuration-api@18.7.0-1785159720':
+    dependencies:
+      utility-types: 3.11.0
+
+  '@xwiki/platform-configuration-api@18.7.0-rc-1':
     dependencies:
       utility-types: 3.11.0
 
@@ -13085,6 +13238,16 @@ snapshots:
     dependencies:
       '@xwiki/platform-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-model-api': 18.7.0-1785159720
+      reflect-metadata: 0.2.2
+      vue: 3.5.38(typescript@5.9.3)
+    transitivePeerDependencies:
+      - inversify
+      - vue-router
+
+  '@xwiki/platform-document-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.7.0-rc-1
       reflect-metadata: 0.2.2
       vue: 3.5.38(typescript@5.9.3)
     transitivePeerDependencies:
@@ -13200,7 +13363,68 @@ snapshots:
       - vue-router
       - yaml
 
+  '@xwiki/platform-editors-blocknote-react@18.7.0-rc-1(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.1.1)(@types/react@19.2.6)(esbuild@0.28.1)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@blocknote/core': 0.51.4(@types/hast@3.0.5)
+      '@blocknote/mantine': 0.51.4(@floating-ui/dom@1.8.0)(@mantine/core@9.4.1(@mantine/hooks@9.4.1(react@19.2.8))(@types/react@19.2.6)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mantine/hooks@9.4.1(react@19.2.8))(@types/hast@3.0.5)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@blocknote/react': 0.51.4(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/react-dom@19.2.3(@types/react@19.2.6))(@types/react@19.2.6)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@mantine/core': 9.4.1(@mantine/hooks@9.4.1(react@19.2.8))(@types/react@19.2.6)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      '@mantine/hooks': 9.4.1(react@19.2.8)
+      '@types/react-dom': 19.2.3(@types/react@19.2.6)
+      '@xwiki/platform-attachments-api': 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-collaboration-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-document-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.7.0-rc-1
+      '@xwiki/platform-link-suggest-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-macros-api': 18.7.0-rc-1
+      '@xwiki/platform-macros-ast-react-jsx': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.7.0-rc-1
+      '@xwiki/platform-model-reference-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-model-remote-url-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-rendering-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@xwiki/platform-syntaxes-config': 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
+      '@xwiki/platform-uniast-api': 18.7.0-rc-1
+      '@xwiki/platform-uniast-markdown': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      i18next: 26.3.1(typescript@5.9.3)
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      lodash-es: 4.18.1
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      react-i18next: 17.0.11(i18next@26.3.1(typescript@5.9.3))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@5.9.3)
+      react-icons: 5.7.0(react@19.2.8)
+    transitivePeerDependencies:
+      - '@floating-ui/dom'
+      - '@lezer/common'
+      - '@lezer/highlight'
+      - '@types/hast'
+      - '@types/node'
+      - '@types/react'
+      - '@vitejs/devtools'
+      - esbuild
+      - highlight.js
+      - jiti
+      - less
+      - lowlight
+      - react-native
+      - reflect-metadata
+      - refractor
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugar-high
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
+      - vue-router
+      - yaml
+
   '@xwiki/platform-fn-utils@18.7.0-1785159720': {}
+
+  '@xwiki/platform-fn-utils@18.7.0-rc-1': {}
 
   '@xwiki/platform-hierarchy-api@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
@@ -13243,6 +13467,15 @@ snapshots:
       - vue
       - vue-router
 
+  '@xwiki/platform-link-suggest-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+    transitivePeerDependencies:
+      - vue
+      - vue-router
+
   '@xwiki/platform-link-suggest-xwiki@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -13258,6 +13491,8 @@ snapshots:
 
   '@xwiki/platform-macros-api@18.7.0-1785159720': {}
 
+  '@xwiki/platform-macros-api@18.7.0-rc-1': {}
+
   '@xwiki/platform-macros-ast-react-jsx@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-fn-utils': 18.7.0-1785159720
@@ -13269,9 +13504,25 @@ snapshots:
       - vue
       - vue-router
 
+  '@xwiki/platform-macros-ast-react-jsx@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-fn-utils': 18.7.0-rc-1
+      '@xwiki/platform-macros-api': 18.7.0-rc-1
+      '@xwiki/platform-model-remote-url-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+    transitivePeerDependencies:
+      - reflect-metadata
+      - vue
+      - vue-router
+
   '@xwiki/platform-macros-service@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))':
     dependencies:
       '@xwiki/platform-macros-api': 18.7.0-1785159720
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+
+  '@xwiki/platform-macros-service@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))':
+    dependencies:
+      '@xwiki/platform-macros-api': 18.7.0-rc-1
       inversify: 8.2.3(reflect-metadata@0.2.2)
 
   '@xwiki/platform-markdown-syntax-config@18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)':
@@ -13298,6 +13549,8 @@ snapshots:
 
   '@xwiki/platform-model-api@18.7.0-1785159720': {}
 
+  '@xwiki/platform-model-api@18.7.0-rc-1': {}
+
   '@xwiki/platform-model-reference-api@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -13308,10 +13561,30 @@ snapshots:
       - vue
       - vue-router
 
+  '@xwiki/platform-model-reference-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.7.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+    transitivePeerDependencies:
+      - vue
+      - vue-router
+
   '@xwiki/platform-model-remote-url-api@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-model-api': 18.7.0-1785159720
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+    transitivePeerDependencies:
+      - vue
+      - vue-router
+
+  '@xwiki/platform-model-remote-url-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.7.0-rc-1
       inversify: 8.2.3(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
@@ -13333,6 +13606,11 @@ snapshots:
       inversify: 8.2.3(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
 
+  '@xwiki/platform-rendering-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+    dependencies:
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+
   '@xwiki/platform-syntaxes-config@18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)':
     dependencies:
       '@xwiki/platform-model-api': 18.7.0-1785159720
@@ -13349,6 +13627,28 @@ snapshots:
       - sugarss
       - terser
       - tsx
+      - yaml
+
+  '@xwiki/platform-syntaxes-config@18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@xwiki/platform-model-api': 18.7.0-rc-1
+      '@xwiki/platform-tool-viteconfig': 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
       - yaml
 
   '@xwiki/platform-tool-apiextractorconfig@18.7.0-1785159720': {}
@@ -13375,9 +13675,38 @@ snapshots:
       - tsx
       - yaml
 
+  '@xwiki/platform-tool-viteconfig@18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@jridgewell/remapping': 2.3.5
+      '@vitejs/plugin-vue': 6.0.8(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))(vue@3.5.38(typescript@5.9.3))
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+      vite-plugin-css-injected-by-js: 5.0.2(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))
+      vite-plugin-dts: 4.5.4(@types/node@26.1.1)(rollup@4.62.3)(supports-color@10.2.2)(typescript@5.9.3)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
+      - yaml
+
   '@xwiki/platform-uniast-api@18.7.0-1785159720':
     dependencies:
       '@xwiki/platform-model-api': 18.7.0-1785159720
+
+  '@xwiki/platform-uniast-api@18.7.0-rc-1':
+    dependencies:
+      '@xwiki/platform-model-api': 18.7.0-rc-1
 
   '@xwiki/platform-uniast-markdown-xwiki@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
@@ -13397,6 +13726,28 @@ snapshots:
       '@xwiki/platform-macros-service': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))
       '@xwiki/platform-model-api': 18.7.0-1785159720
       '@xwiki/platform-uniast-api': 18.7.0-1785159720
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      mdast-util-gfm-strikethrough: 2.0.0(supports-color@10.2.2)
+      mdast-util-gfm-table: 2.0.0(supports-color@10.2.2)
+      mdast-util-gfm-task-list-item: 2.0.0(supports-color@10.2.2)
+      micromark-extension-gfm-strikethrough: 2.1.0
+      micromark-extension-gfm-table: 2.1.1
+      micromark-extension-gfm-task-list-item: 2.1.0
+      remark-parse: 11.0.0(supports-color@10.2.2)
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - reflect-metadata
+      - supports-color
+      - vue
+      - vue-router
+
+  '@xwiki/platform-uniast-markdown@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.7.0-rc-1
+      '@xwiki/platform-macros-service': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))
+      '@xwiki/platform-model-api': 18.7.0-rc-1
+      '@xwiki/platform-uniast-api': 18.7.0-rc-1
       inversify: 8.2.3(reflect-metadata@0.2.2)
       mdast-util-gfm-strikethrough: 2.0.0(supports-color@10.2.2)
       mdast-util-gfm-table: 2.0.0(supports-color@10.2.2)
@@ -17422,6 +17773,29 @@ snapshots:
   vite-plugin-css-injected-by-js@4.0.1(vite@7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)):
     dependencies:
       vite: 7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+
+  vite-plugin-css-injected-by-js@5.0.2(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)):
+    dependencies:
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+
+  vite-plugin-dts@4.5.4(@types/node@26.1.1)(rollup@4.62.3)(supports-color@10.2.2)(typescript@5.9.3)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)):
+    dependencies:
+      '@microsoft/api-extractor': 7.59.0(@types/node@26.1.1)
+      '@rollup/pluginutils': 5.4.0(rollup@4.62.3)
+      '@volar/typescript': 2.4.28(typescript@5.9.3)
+      '@vue/language-core': 2.2.0(typescript@5.9.3)
+      compare-versions: 6.1.1
+      debug: 4.4.3(supports-color@10.2.2)
+      kolorist: 1.8.0
+      local-pkg: 1.2.1
+      magic-string: 0.30.21
+      typescript: 5.9.3
+    optionalDependencies:
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
 
   vite-plugin-dts@4.5.4(@types/node@26.1.1)(rollup@4.62.3)(supports-color@7.2.0)(typescript@5.9.3)(vite@7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)):
     dependencies:
