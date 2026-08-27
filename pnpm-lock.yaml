@@ -164,7 +164,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-uniast-api':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-uniast-markdown':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -3531,7 +3531,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-uniast-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       lodash-es:
         specifier: 'catalog:'
         version: 4.18.1
@@ -3577,7 +3577,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-uniast-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-uniast-markdown':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -3617,7 +3617,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-uniast-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-uniast-markdown':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -3663,7 +3663,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-uniast-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-uniast-markdown':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -4095,7 +4095,7 @@ importers:
         version: 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
       '@xwiki/platform-uniast-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-uniast-markdown':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -7498,6 +7498,9 @@ packages:
   '@xwiki/platform-model-api@18.7.0-1785159720':
     resolution: {integrity: sha512-evayE+N8S1fl32Jb0DlmCqxGbMH4k0lqix5BZwgWTgfeXZmXpaRCwJFOiXQzH1DNDWoaz2WJz1rjb0uQgILrNw==}
 
+  '@xwiki/platform-model-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-mvYSul0+PG3rLDpU9rYsDP5gxBM9ewyhRA6Ox0qTGdG8AqTEw6fMJcYmqyTg6tNKlqhlqxVapAY426AlbNCkqA==}
+
   '@xwiki/platform-model-reference-api@18.7.0-1785159720':
     resolution: {integrity: sha512-ArvC7wnhK2xMlQTC70G5BGqexdqbVNGqdKGsfW3VGZ8hVS2OHJsvEVmwmwyQzRf8B2DPfT5QEFIGeFSf/p72bg==}
     peerDependencies:
@@ -7535,6 +7538,9 @@ packages:
 
   '@xwiki/platform-uniast-api@18.7.0-1785159720':
     resolution: {integrity: sha512-M4a7qVTCPDcnpBL86co1qMb6FXVtsIm+IQW+ZZMhWa8JkFGp4ArODw2WTj6R7q/6mIZ6anV1s3FNnSJ4C1azgA==}
+
+  '@xwiki/platform-uniast-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-geSZQ7et5lABPVjdwHYBWCzBBNCu4F/sQeWCWybgPQkU9z59UhIyWwjtJ551h1SDyZofVvoMHL6QqEUU1g2G/A==}
 
   '@xwiki/platform-uniast-markdown-xwiki@18.7.0-1785159720':
     resolution: {integrity: sha512-kW4ILUzBhTwG1c3GYQwhMHNY56HMd90VFUW0qTotEjeDqxctxp+ch56Z+zRUVGDz/RlS4D6lMfsAY4Tq2jpCYA==}
@@ -13289,6 +13295,8 @@ snapshots:
 
   '@xwiki/platform-model-api@18.7.0-1785159720': {}
 
+  '@xwiki/platform-model-api@18.7.0-rc-1': {}
+
   '@xwiki/platform-model-reference-api@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -13369,6 +13377,10 @@ snapshots:
   '@xwiki/platform-uniast-api@18.7.0-1785159720':
     dependencies:
       '@xwiki/platform-model-api': 18.7.0-1785159720
+
+  '@xwiki/platform-uniast-api@18.7.0-rc-1':
+    dependencies:
+      '@xwiki/platform-model-api': 18.7.0-rc-1
 
   '@xwiki/platform-uniast-markdown-xwiki@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
