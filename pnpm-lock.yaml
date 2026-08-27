@@ -101,7 +101,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-configuration-api':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-document-api':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -1425,7 +1425,7 @@ importers:
     dependencies:
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3279,7 +3279,7 @@ importers:
         version: link:../settings-api
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3328,7 +3328,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-icons':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
@@ -3734,7 +3734,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -3765,7 +3765,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -4687,7 +4687,7 @@ importers:
         version: link:../../../core/settings/settings-api
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       electron:
         specifier: 43.1.1
         version: 43.1.1(supports-color@10.2.2)
@@ -5101,7 +5101,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -5288,7 +5288,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -5537,7 +5537,7 @@ importers:
         version: link:../core/settings/settings-browser
       '@xwiki/platform-configuration-api':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       express:
         specifier: 'catalog:'
         version: 5.2.1(supports-color@10.2.2)
@@ -7424,6 +7424,9 @@ packages:
 
   '@xwiki/platform-configuration-api@18.7.0-1785159720':
     resolution: {integrity: sha512-I4b1bRFDi1zkdNUWR3vaQ4KXjpJ5DrfmWh0tY9rMV5gsLT3VGMgRYfvEOPw5B75FPWf0S0Y3P67wxOSOWjsFpA==}
+
+  '@xwiki/platform-configuration-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-pdyDpt4EkkiT0I5FBHEunmRkTd6l52pHjMOSGa/RbRP85jDOOGb8JA65Ee957Ms8FY4PQJjEZhXzrbgPIrfKLw==}
 
   '@xwiki/platform-document-api@18.7.0-1785159720':
     resolution: {integrity: sha512-5UZlk6bwYE1GRkbzgT4UHr+MI2YX6JzTc+Pid1PlORfcHmpx/ZUx7Yk190M707IZsasj5y1AAMi8IzstjZcPcQ==}
@@ -13069,6 +13072,10 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-configuration-api@18.7.0-1785159720':
+    dependencies:
+      utility-types: 3.11.0
+
+  '@xwiki/platform-configuration-api@18.7.0-rc-1':
     dependencies:
       utility-types: 3.11.0
 
