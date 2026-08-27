@@ -81,6 +81,35 @@ const eslintConfig: Config[] = defineConfig([
       "tsdoc/syntax": "error",
     },
   },
+  {
+    files: ["**/*.{js,mjs,cjs,ts,tsx,vue}"],
+    rules: {
+      "no-restricted-properties": [
+        "error",
+        {
+          object: "document",
+          property: "documentElement",
+          message:
+            "Cristal may run inside a host document, " +
+            "you should operate on the root element `#xwCristalApp` instead.",
+        },
+        {
+          object: "window",
+          property: "innerWidth",
+          message:
+            "Cristal may run inside a host document, " +
+            "you should operate on the root element `#xwCristalApp` instead.",
+        },
+        {
+          object: "window",
+          property: "innerHeight",
+          message:
+            "Cristal may run inside a host document, " +
+            "you should operate on the root element `#xwCristalApp` instead.",
+        },
+      ],
+    },
+  },
   eslintPluginPrettierRecommended,
   {
     files: ["**/*.{ts,tsx}"],
