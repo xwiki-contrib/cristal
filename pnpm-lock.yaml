@@ -173,7 +173,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-xwiki-utils':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     async-lock:
       specifier: 1.4.1
       version: 1.4.1
@@ -1289,7 +1289,7 @@ importers:
         version: 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
       '@xwiki/platform-xwiki-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -2005,7 +2005,7 @@ importers:
         version: 18.7.0-1785159720(reflect-metadata@0.2.2)
       '@xwiki/platform-xwiki-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -7390,6 +7390,14 @@ packages:
       vue: 3.x
       vue-router: 5.x
 
+  '@xwiki/platform-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-AOYKA7Xm2gC5jQqSHUkKOk+8lJgSQrZDy8aNVrhFcD5ZhKUJBoVTjU3iH52GtEbH+8k3bY7z6FFXALx0UgC/gw==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+      vue: 3.x
+      vue-router: 5.x
+
   '@xwiki/platform-attachments-api@18.7.0-1785159720':
     resolution: {integrity: sha512-VMLZ8v3fAHzM7LV6jkQn0P42Ew1oDJKQDOQbpsGo4I04Bi/xDl/pT+pbZ4KHA6+PfYOjInqUd7srpLs9UbaBUw==}
     peerDependencies:
@@ -7409,6 +7417,11 @@ packages:
     peerDependencies:
       reflect-metadata: 0.x
 
+  '@xwiki/platform-authentication-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-YlHcP3Zgb9wrceWnQGUiKJP1Zuu8mmLeg/jtSYbRD5aU/fMNkROnRyxLWm3khuMus96E7NLFpRfB7y/6SurWyQ==}
+    peerDependencies:
+      reflect-metadata: 0.x
+
   '@xwiki/platform-backend-api@18.7.0-1785159720':
     resolution: {integrity: sha512-n+bJAY4LaryqyqCFy2UcUIkM/1eet2yQJcX8lGHp6L714rxTL9awsc7LWKRw9NhThT3NwkJJ9I3H10ZAZ53iWQ==}
     peerDependencies:
@@ -7424,6 +7437,9 @@ packages:
 
   '@xwiki/platform-configuration-api@18.7.0-1785159720':
     resolution: {integrity: sha512-I4b1bRFDi1zkdNUWR3vaQ4KXjpJ5DrfmWh0tY9rMV5gsLT3VGMgRYfvEOPw5B75FPWf0S0Y3P67wxOSOWjsFpA==}
+
+  '@xwiki/platform-configuration-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-pdyDpt4EkkiT0I5FBHEunmRkTd6l52pHjMOSGa/RbRP85jDOOGb8JA65Ee957Ms8FY4PQJjEZhXzrbgPIrfKLw==}
 
   '@xwiki/platform-document-api@18.7.0-1785159720':
     resolution: {integrity: sha512-5UZlk6bwYE1GRkbzgT4UHr+MI2YX6JzTc+Pid1PlORfcHmpx/ZUx7Yk190M707IZsasj5y1AAMi8IzstjZcPcQ==}
@@ -7548,6 +7564,9 @@ packages:
 
   '@xwiki/platform-xwiki-utils@18.7.0-1785159720':
     resolution: {integrity: sha512-6I5jw1l4j3WqyDsFPFCWYXnGzr3pGSzsTgWtR/2Wyl1Kssk4IdkxnFstUWIv/MdbeBTmpjXEy/2OIlDTTo64nw==}
+
+  '@xwiki/platform-xwiki-utils@18.7.0-rc-1':
+    resolution: {integrity: sha512-NJbXllQg5uIKNR6SCOS7OFKZJV8Oy3WB+6PZYs2huit2dy91mfonlKG9m7b94ISs0frmWO/ophVc7+gpvAQpTw==}
 
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
@@ -13019,6 +13038,15 @@ snapshots:
       vue: 3.5.38(typescript@5.9.3)
       vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
 
+  '@xwiki/platform-api@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-authentication-api': 18.7.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-configuration-api': 18.7.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      vue: 3.5.38(typescript@5.9.3)
+      vue-router: 5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+
   '@xwiki/platform-attachments-api@18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-authentication-api': 18.7.0-1785159720(reflect-metadata@0.2.2)
@@ -13042,6 +13070,10 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-authentication-api@18.7.0-1785159720(reflect-metadata@0.2.2)':
+    dependencies:
+      reflect-metadata: 0.2.2
+
+  '@xwiki/platform-authentication-api@18.7.0-rc-1(reflect-metadata@0.2.2)':
     dependencies:
       reflect-metadata: 0.2.2
 
@@ -13069,6 +13101,10 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-configuration-api@18.7.0-1785159720':
+    dependencies:
+      utility-types: 3.11.0
+
+  '@xwiki/platform-configuration-api@18.7.0-rc-1':
     dependencies:
       utility-types: 3.11.0
 
@@ -13212,7 +13248,7 @@ snapshots:
       '@xwiki/platform-model-api': 18.7.0-1785159720
       '@xwiki/platform-model-reference-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-model-remote-url-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
-      '@xwiki/platform-xwiki-utils': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+      '@xwiki/platform-xwiki-utils': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       inversify: 8.2.3(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
@@ -13403,9 +13439,18 @@ snapshots:
       - vue
       - vue-router
 
-  '@xwiki/platform-xwiki-utils@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+  '@xwiki/platform-xwiki-utils@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
+    transitivePeerDependencies:
+      - inversify
+      - reflect-metadata
+      - vue
+      - vue-router
+
+  '@xwiki/platform-xwiki-utils@18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.7.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
     transitivePeerDependencies:
       - inversify
       - reflect-metadata
