@@ -140,7 +140,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-markdown-syntax-config':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-model-api':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -1176,7 +1176,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-markdown-syntax-config':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+        version: 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
       mime:
         specifier: 'catalog:'
         version: 4.1.0
@@ -1231,7 +1231,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-markdown-syntax-config':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+        version: 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -1283,7 +1283,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-markdown-syntax-config':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+        version: 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
       '@xwiki/platform-syntaxes-config':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
@@ -7241,6 +7241,13 @@ packages:
       vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
       vue: ^3.2.25
 
+  '@vitejs/plugin-vue@6.0.8':
+    resolution: {integrity: sha512-0ZjgOg7oO6farnNGup7yvoM/YXZV84OZxHAwtflItNa/6zzQyVb5LNxyea3FEKEX2XlagIKzrlH7wwxkKgtiew==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      vite: ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0
+      vue: ^3.2.25
+
   '@vitest/coverage-v8@4.1.11':
     resolution: {integrity: sha512-8MVGEFnJIcdGjcbfKmeq8z0pZHH0JlVtoVZH9Q/qwUp6wyFnEJUBMrw9DCaj+ra3vShGmhavjalMIhPNxZAUcw==}
     peerDependencies:
@@ -7497,11 +7504,14 @@ packages:
     peerDependencies:
       inversify: 8.x
 
-  '@xwiki/platform-markdown-syntax-config@18.7.0-1785159720':
-    resolution: {integrity: sha512-Irpyg5kOXYs2E56l5/6VRM9xan6f6hAPRErQRuoDcSrjMf9PC1RxYIsFfuEhsRoYlX5r78HPGjNyJ6kIKsltBw==}
+  '@xwiki/platform-markdown-syntax-config@18.7.0-rc-1':
+    resolution: {integrity: sha512-7zheRP/zKK17sWPX0QVld1rAceEZDBxsfUfWYuqwqtpi+IY+BZSV2g0CSoRVA7TN/MKOWEoFcawNYWCYIC5ogw==}
 
   '@xwiki/platform-model-api@18.7.0-1785159720':
     resolution: {integrity: sha512-evayE+N8S1fl32Jb0DlmCqxGbMH4k0lqix5BZwgWTgfeXZmXpaRCwJFOiXQzH1DNDWoaz2WJz1rjb0uQgILrNw==}
+
+  '@xwiki/platform-model-api@18.7.0-rc-1':
+    resolution: {integrity: sha512-mvYSul0+PG3rLDpU9rYsDP5gxBM9ewyhRA6Ox0qTGdG8AqTEw6fMJcYmqyTg6tNKlqhlqxVapAY426AlbNCkqA==}
 
   '@xwiki/platform-model-reference-api@18.7.0-1785159720':
     resolution: {integrity: sha512-ArvC7wnhK2xMlQTC70G5BGqexdqbVNGqdKGsfW3VGZ8hVS2OHJsvEVmwmwyQzRf8B2DPfT5QEFIGeFSf/p72bg==}
@@ -7527,8 +7537,14 @@ packages:
   '@xwiki/platform-syntaxes-config@18.7.0-1785159720':
     resolution: {integrity: sha512-5X08vWwDZbIOLz2ZIwUwYXL3EdF+CJwCTHqj02JFt99xgR9x9eionLzSQW0pCOt44lZXjEU11yKQU5AZ0rPJWQ==}
 
+  '@xwiki/platform-syntaxes-config@18.7.0-rc-1':
+    resolution: {integrity: sha512-ei3/Vg9MMiUFUf/pgL83dxLdcTknPQEduOcq1YWvUPePn4abC4bxlWUfDyueLGe0wZPc4ebTE8HzTZBYbvQ8Uw==}
+
   '@xwiki/platform-tool-apiextractorconfig@18.7.0-1785159720':
     resolution: {integrity: sha512-gKczmajJzyu4nVa4WSu+Nx6wqLwCQ36GFHaudYy9YirDr7W1LEfBGb/dHG0ajoSgItneTMRBtyrzES5n15WY5Q==}
+
+  '@xwiki/platform-tool-apiextractorconfig@18.7.0-rc-1':
+    resolution: {integrity: sha512-7p/fOE00ZyLlYCpOruvi5x8d5xkdSXCN+nVZ8sTMFhUQlpDkkDLqgUbmqE/YPzbK2T/GIiE5k4Y6uMVRBye8Bg==}
 
   '@xwiki/platform-tool-tsconfig@18.7.0-1785159720':
     resolution: {integrity: sha512-OxFNy7bdePXWqrYq5QkFzgWcpcBHaKbmNl+lObncnQxLDDE/mhW4dy+dijiBNFDLV+Glq7CWswyOLgOmUFFUsw==}
@@ -7537,6 +7553,9 @@ packages:
 
   '@xwiki/platform-tool-viteconfig@18.7.0-1785159720':
     resolution: {integrity: sha512-NVT/YS8r9vDT6uJ/ayFI9NdeCLGOYKmtABT3KVFcd0dNsdTLQlG5Ev5OnY7QWIZjXe2msK7mW7g8035j+z/g2g==}
+
+  '@xwiki/platform-tool-viteconfig@18.7.0-rc-1':
+    resolution: {integrity: sha512-dlbHXU26SpFoV/BLJmzSY3GDUPT2ZAtTOX10WCZi+4wNatkIAF4Pdzd8hRkwmqybdnyM7m7y3yTxjvSTvHgITg==}
 
   '@xwiki/platform-uniast-api@18.7.0-1785159720':
     resolution: {integrity: sha512-M4a7qVTCPDcnpBL86co1qMb6FXVtsIm+IQW+ZZMhWa8JkFGp4ArODw2WTj6R7q/6mIZ6anV1s3FNnSJ4C1azgA==}
@@ -10768,6 +10787,11 @@ packages:
     peerDependencies:
       vite: '>2.0.0-0'
 
+  vite-plugin-css-injected-by-js@5.0.2:
+    resolution: {integrity: sha512-Hvg48QfYsCL53ju9T5zTC0Ofg90XLa8t5zhhKmPYbayoMQieNcQDkkRX8pv4TAcKPZwVisLFiwDy5uBjOn+3Ow==}
+    peerDependencies:
+      vite: '>8.0.0-0'
+
   vite-plugin-dts@4.5.4:
     resolution: {integrity: sha512-d4sOM8M/8z7vRXHHq/ebbblfaxENjogAAekcfcDCCwAyvGqnPrc7f4NZbvItS+g4WTgerW0xDwSz5qz11JT3vg==}
     peerDependencies:
@@ -12800,6 +12824,12 @@ snapshots:
       vite: 7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
       vue: 3.5.38(typescript@5.9.3)
 
+  '@vitejs/plugin-vue@6.0.8(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      '@rolldown/pluginutils': 1.0.1
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+      vue: 3.5.38(typescript@5.9.3)
+
   '@vitest/coverage-v8@4.1.11(vitest@4.1.11)':
     dependencies:
       '@bcoe/v8-coverage': 1.0.2
@@ -13274,12 +13304,12 @@ snapshots:
       '@xwiki/platform-macros-api': 18.7.0-1785159720
       inversify: 8.2.3(reflect-metadata@0.2.2)
 
-  '@xwiki/platform-markdown-syntax-config@18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)':
+  '@xwiki/platform-markdown-syntax-config@18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)':
     dependencies:
-      '@xwiki/platform-model-api': 18.7.0-1785159720
-      '@xwiki/platform-syntaxes-config': 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
-      '@xwiki/platform-tool-apiextractorconfig': 18.7.0-1785159720
-      '@xwiki/platform-tool-viteconfig': 18.7.0-1785159720(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+      '@xwiki/platform-model-api': 18.7.0-rc-1
+      '@xwiki/platform-syntaxes-config': 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
+      '@xwiki/platform-tool-apiextractorconfig': 18.7.0-rc-1
+      '@xwiki/platform-tool-viteconfig': 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
       inversify: 8.2.3(reflect-metadata@0.2.2)
     transitivePeerDependencies:
       - '@types/node'
@@ -13288,15 +13318,21 @@ snapshots:
       - jiti
       - less
       - reflect-metadata
+      - rollup
       - sass
       - sass-embedded
       - stylus
       - sugarss
+      - supports-color
       - terser
       - tsx
+      - typescript
+      - vue
       - yaml
 
   '@xwiki/platform-model-api@18.7.0-1785159720': {}
+
+  '@xwiki/platform-model-api@18.7.0-rc-1': {}
 
   '@xwiki/platform-model-reference-api@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
@@ -13351,7 +13387,31 @@ snapshots:
       - tsx
       - yaml
 
+  '@xwiki/platform-syntaxes-config@18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@xwiki/platform-model-api': 18.7.0-rc-1
+      '@xwiki/platform-tool-viteconfig': 18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
+      - yaml
+
   '@xwiki/platform-tool-apiextractorconfig@18.7.0-1785159720': {}
+
+  '@xwiki/platform-tool-apiextractorconfig@18.7.0-rc-1': {}
 
   '@xwiki/platform-tool-tsconfig@18.7.0-1785159720(typescript@5.9.3)':
     dependencies:
@@ -13373,6 +13433,31 @@ snapshots:
       - sugarss
       - terser
       - tsx
+      - yaml
+
+  '@xwiki/platform-tool-viteconfig@18.7.0-rc-1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(rollup@4.62.3)(sugarss@5.0.1(postcss@8.5.23))(supports-color@7.2.0)(tsx@4.23.1)(typescript@5.9.3)(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@jridgewell/remapping': 2.3.5
+      '@vitejs/plugin-vue': 6.0.8(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))(vue@3.5.38(typescript@5.9.3))
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+      vite-plugin-css-injected-by-js: 5.0.2(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))
+      vite-plugin-dts: 4.5.4(@types/node@26.1.1)(rollup@4.62.3)(supports-color@7.2.0)(typescript@5.9.3)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0))
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
       - yaml
 
   '@xwiki/platform-uniast-api@18.7.0-1785159720':
@@ -17423,6 +17508,10 @@ snapshots:
     dependencies:
       vite: 7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
 
+  vite-plugin-css-injected-by-js@5.0.2(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)):
+    dependencies:
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+
   vite-plugin-dts@4.5.4(@types/node@26.1.1)(rollup@4.62.3)(supports-color@7.2.0)(typescript@5.9.3)(vite@7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)):
     dependencies:
       '@microsoft/api-extractor': 7.59.0(@types/node@26.1.1)
@@ -17437,6 +17526,25 @@ snapshots:
       typescript: 5.9.3
     optionalDependencies:
       vite: 7.3.5(@types/node@26.1.1)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
+
+  vite-plugin-dts@4.5.4(@types/node@26.1.1)(rollup@4.62.3)(supports-color@7.2.0)(typescript@5.9.3)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)):
+    dependencies:
+      '@microsoft/api-extractor': 7.59.0(@types/node@26.1.1)
+      '@rollup/pluginutils': 5.4.0(rollup@4.62.3)
+      '@volar/typescript': 2.4.28(typescript@5.9.3)
+      '@vue/language-core': 2.2.0(typescript@5.9.3)
+      compare-versions: 6.1.1
+      debug: 4.4.3(supports-color@7.2.0)
+      kolorist: 1.8.0
+      local-pkg: 1.2.1
+      magic-string: 0.30.21
+      typescript: 5.9.3
+    optionalDependencies:
+      vite: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.23))(tsx@4.23.1)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@types/node'
       - rollup
