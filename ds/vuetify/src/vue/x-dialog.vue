@@ -25,7 +25,9 @@ defineProps<{
 </script>
 
 <template>
-  <v-dialog :width="width" attach="#view" scrollable>
+  <!-- v-dialog needs to be attached inside Cristal DOM to fix its z-index.
+       We also reset the default z-index to set it in the style section. -->
+  <v-dialog :width="width" attach="#view" scrollable z-index="initial">
     <template #activator="{ props }">
       <span v-bind="props">
         <slot name="activator" />
@@ -45,6 +47,10 @@ defineProps<{
 </template>
 
 <style scoped>
+.v-overlay {
+  z-index: var(--cr-z-index-dialog);
+}
+
 :deep(.v-card-actions) {
   padding: var(--cr-spacing-large);
 }
