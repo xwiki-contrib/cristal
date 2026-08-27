@@ -125,7 +125,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-icons':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-link-suggest-api':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -809,7 +809,7 @@ importers:
         version: 18.7.0-1785159720(reflect-metadata@0.2.2)
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.4.4(vue@3.5.38(typescript@5.9.3))
@@ -1007,7 +1007,7 @@ importers:
         version: 18.7.0-1785159720(reflect-metadata@0.2.2)
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.4.4(vue@3.5.38(typescript@5.9.3))
@@ -2095,7 +2095,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       reflect-metadata:
         specifier: 0.x
         version: 0.2.2
@@ -3048,7 +3048,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -3331,7 +3331,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       vue-i18n:
         specifier: 'catalog:'
         version: 11.4.4(vue@3.5.38(typescript@5.9.3))
@@ -3928,7 +3928,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -4074,7 +4074,7 @@ importers:
         version: 18.7.0-1785159720
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -5400,7 +5400,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-icons':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
+        version: 18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -7463,6 +7463,12 @@ packages:
 
   '@xwiki/platform-icons@18.7.0-1785159720':
     resolution: {integrity: sha512-BzpSxBZ5S3cGAn/i48a934oWaFFUdqoicZofHMaLeV3+IiasiHZ4RO9azsyxYJ2M8QVNKyosILMPDYcJDFuwqQ==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-icons@18.7.0-rc-1':
+    resolution: {integrity: sha512-CUKhR7nfLtqLuM5wSnnCQMt13/lr4Q/upf4UdTBzTE468YC0PeO8F/EbzcYP2IYfNGpcbV6FY94lbexS8U9BAw==}
     peerDependencies:
       reflect-metadata: 0.x
       vue: 3.x
@@ -13220,6 +13226,12 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-icons@18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))':
+    dependencies:
+      bootstrap-icons: 1.13.1
+      reflect-metadata: 0.2.2
+      vue: 3.5.38(typescript@5.9.3)
+
+  '@xwiki/platform-icons@18.7.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))':
     dependencies:
       bootstrap-icons: 1.13.1
       reflect-metadata: 0.2.2
