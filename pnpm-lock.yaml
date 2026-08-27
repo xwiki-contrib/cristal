@@ -116,7 +116,7 @@ catalogs:
       version: 18.7.0-1785159720
     '@xwiki/platform-fn-utils':
       specifier: ^18.7.0-0
-      version: 18.7.0-1785159720
+      version: 18.7.0-rc-1
     '@xwiki/platform-hierarchy-api':
       specifier: ^18.7.0-0
       version: 18.7.0-1785159720
@@ -2187,7 +2187,7 @@ importers:
     dependencies:
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -2227,7 +2227,7 @@ importers:
     dependencies:
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720
@@ -3522,7 +3522,7 @@ importers:
         version: link:../../macros/macros-ast-html-converter
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))
@@ -3922,7 +3922,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-hierarchy-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -3986,7 +3986,7 @@ importers:
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-hierarchy-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -4071,7 +4071,7 @@ importers:
         version: 18.7.0-1785159720(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.1.1)(@types/react@19.2.6)(esbuild@0.28.1)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(reflect-metadata@0.2.2)(sugarss@5.0.1(postcss@8.5.23))(supports-color@10.2.2)(tsx@4.23.1)(typescript@5.9.3)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))(yaml@2.9.0)
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-icons':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
@@ -5394,7 +5394,7 @@ importers:
         version: 18.7.0-1785159720(reflect-metadata@0.2.2)(vue@3.5.38(typescript@5.9.3))
       '@xwiki/platform-fn-utils':
         specifier: 'catalog:'
-        version: 18.7.0-1785159720
+        version: 18.7.0-rc-1
       '@xwiki/platform-hierarchy-api':
         specifier: 'catalog:'
         version: 18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))
@@ -7451,6 +7451,9 @@ packages:
 
   '@xwiki/platform-fn-utils@18.7.0-1785159720':
     resolution: {integrity: sha512-EiOFKin1GYzbkVe9tiSwc+yZvjOLrZ8s18WygcqiKzFiuBNeMkE9vgskhLTKLdb0mgXDnpdcivUQw4VcM2c24A==}
+
+  '@xwiki/platform-fn-utils@18.7.0-rc-1':
+    resolution: {integrity: sha512-iiNqmMufJNqFNT0hGHJC3lZVjIy9+nzoIyUGeeGD8QoTZx7riF44GyhqPniTF17TZj2TBXIyenUrinJGeqQ6ZA==}
 
   '@xwiki/platform-hierarchy-api@18.7.0-1785159720':
     resolution: {integrity: sha512-Zuo74ZKY2xu2a8pZQARaD0dTuEKG3qUPhx8QiHWLbDCYi6HzJ+vXELmvM/31Ov+bXJGO+EBdsI+KaqXbpXWDNQ==}
@@ -13192,6 +13195,8 @@ snapshots:
       - yaml
 
   '@xwiki/platform-fn-utils@18.7.0-1785159720': {}
+
+  '@xwiki/platform-fn-utils@18.7.0-rc-1': {}
 
   '@xwiki/platform-hierarchy-api@18.7.0-1785159720(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.0.3(@vue/compiler-sfc@3.5.40)(vue@3.5.38(typescript@5.9.3)))(vue@3.5.38(typescript@5.9.3))':
     dependencies:
