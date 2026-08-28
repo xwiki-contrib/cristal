@@ -204,4 +204,4 @@ minimumReleaseAgeExclude:
 overrides:
   ## Dedupe yjs to a single instance: @xwiki/platform-collaboration-api pins 13.6.31 while
   ## @hocuspocus/provider (^13.6.8) otherwise resolves to a different patch, yielding incompatible Doc types.
-  yjs: 13.6.31
+  yjs: 13.6.32
