@@ -161,17 +161,28 @@ export class XWikiStorage extends AbstractStorage {
       },
     });
 
-    const json = await response.json();
     if (response.status == 404) {
       // Return undefined in case of missing page.
       return undefined;
     } else if (!response.ok) {
+      let reason = `HTTP ${response.status}`;
+      try {
+        const json = await response.json();
+        if (json?.message) {
+          reason = json.message;
+        }
+      } catch {
+        // The body of the returned error is not valid JSON.
+      }
+
       // TODO: Fix CRISTAL-383 (Error messages in Storages are not translated)
       this.alertsServiceProvider
         .get()
-        .error(`Could not load page ${page}. Reason: ${json.message}`);
+        .error(`Could not load page ${page}. Reason: ${reason}`);
       return undefined;
     }
+
+    const json = await response.json();
 
     const pageContentData = new DefaultPageData();
     pageContentData.syntax = json.syntax;
