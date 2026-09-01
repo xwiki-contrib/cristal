@@ -22,9 +22,9 @@ import { injectable } from "inversify";
 import type {
   BlockMacro,
   GetConcreteMacroParametersType,
-  MacroBlock,
   MacroInfos,
 } from "@xwiki/platform-macros-api";
+import type { Block } from "@xwiki/platform-uniast-api";
 
 const macroParams = {
   html: { type: "string" },
@@ -50,7 +50,7 @@ export class XWikiHtmlBlockMacro implements BlockMacro<MacroParams> {
 
   renderAs = "block" as const;
 
-  render({ html }: GetConcreteMacroParametersType<MacroParams>): MacroBlock[] {
+  render({ html }: GetConcreteMacroParametersType<MacroParams>): Block[] {
     return [{ type: "rawHtml", html }];
   }
 }
