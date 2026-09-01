@@ -202,6 +202,9 @@ minimumReleaseAgeExclude:
   - '@rushstack/ts-command-line@5.3.12'
 
 overrides:
-  ## Dedupe yjs to a single instance: @xwiki/platform-collaboration-api pins 13.6.31 while
-  ## @hocuspocus/provider (^13.6.8) otherwise resolves to a different patch, yielding incompatible Doc types.
-  yjs: 13.6.31
+  ## Dedupe yjs to a single instance: @hocuspocus/provider (^13.6.8) otherwise resolves to a different patch
+  ## than @xwiki/platform-collaboration-api, yielding incompatible Doc types.
+  ## This must stay equal to the exact version @xwiki/platform-collaboration-api depends on: electron-builder
+  ## checks every production dependency against the range its dependent declares, and fails the packaging step
+  ## when the overridden version does not satisfy that exact pin.
+  yjs: 13.6.32
