@@ -92,9 +92,17 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: [
     {
-      command: "pnpm run start",
+      /*
+       * When CRISTAL_E2E_PREBUILT is set, "dist" already holds an up-to-date build and the server only has to serve
+       * it, which starts in a few hundred milliseconds. Otherwise the application is built first, which takes over a
+       * minute and needs a startup timeout well above the 60s default.
+       */
+      command: process.env.CRISTAL_E2E_PREBUILT
+        ? "pnpm run serve"
+        : "pnpm run start",
       url: `http://localhost:${port}`,
       reuseExistingServer: !process.env.CI,
+      timeout: process.env.CRISTAL_E2E_PREBUILT ? 60_000 : 300_000,
     },
     {
       command: "pnpm run start:e2e:xwiki",

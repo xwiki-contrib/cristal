@@ -78,6 +78,11 @@ pipeline {
             }
         }
         stage('E2E Tests') {
+            environment {
+              // The Build stage has already built the web application, so the E2E web server only serves it instead
+              // of building it again.
+              CRISTAL_E2E_PREBUILT = 'true'
+            }
             steps {
                 sh 'pnpm run --filter ./web test:e2e'
             }
