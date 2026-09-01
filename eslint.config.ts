@@ -84,6 +84,10 @@ const eslintConfig: Config[] = defineConfig([
   {
     files: ["**/*.{js,mjs,cjs,ts,tsx,vue}"],
     rules: {
+      // Forbid access to properties operating on the whole HTML document.
+      // Cristal may be embedded and using any of these properties in any way
+      // does not make sense in this case. Everything should instead be scoped
+      // to the root element: `#xwCristalApp`.
       "no-restricted-properties": [
         "error",
         {
