@@ -223,8 +223,8 @@ catalogs:
       specifier: 2.32.0
       version: 2.32.0
     eslint-plugin-prettier:
-      specifier: 5.5.5
-      version: 5.5.5
+      specifier: 5.5.6
+      version: 5.5.6
     eslint-plugin-promise:
       specifier: 7.3.0
       version: 7.3.0
@@ -403,7 +403,7 @@ importers:
         version: 2.32.0(@typescript-eslint/parser@8.59.3(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.5)(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
       eslint-plugin-prettier:
         specifier: 'catalog:'
-        version: 5.5.5(eslint-config-prettier@10.1.8(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0)))(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(prettier@3.9.5)
+        version: 5.5.6(eslint-config-prettier@10.1.8(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0)))(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(prettier@3.9.5)
       eslint-plugin-promise:
         specifier: 'catalog:'
         version: 7.3.0(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))
@@ -8641,8 +8641,8 @@ packages:
       '@typescript-eslint/parser':
         optional: true
 
-  eslint-plugin-prettier@5.5.5:
-    resolution: {integrity: sha512-hscXkbqUZ2sPithAuLm5MXL+Wph+U7wHngPBv9OMWwlP8iaflyxpjTYZkmdgB4/vPIhemRlBEoLrH7UC1n7aUw==}
+  eslint-plugin-prettier@5.5.6:
+    resolution: {integrity: sha512-ifetmTcxWfz+4qRW3pH/ujdTq2jQIj59AxJMIN26K5avYgU8dxycUETQonWiW+wPrYXA0j3Try0l1CnwVQtDqQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       '@types/eslint': '>=8.0.0'
@@ -15094,7 +15094,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-prettier@5.5.5(eslint-config-prettier@10.1.8(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0)))(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(prettier@3.9.5):
+  eslint-plugin-prettier@5.5.6(eslint-config-prettier@10.1.8(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0)))(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(prettier@3.9.5):
     dependencies:
       eslint: 10.8.0(jiti@2.7.0)(supports-color@7.2.0)
       prettier: 3.9.5
