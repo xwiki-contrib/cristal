@@ -199,6 +199,15 @@ export class UniAstToBlockNoteConverter {
         return this.convertMacroBlock(block.call);
       }
 
+      case "rawHtml":
+      case "macroBlockEditableArea":
+        // These only ever occur inside a macro's own render() output, never as part of a
+        // document's own UniAst tree (the tree this converter operates on), so they can't
+        // legitimately reach this switch.
+        throw new Error(
+          `Unexpected "${block.type}" block outside of a macro's own render() output`,
+        );
+
       default:
         assertUnreachable(block);
     }
@@ -420,6 +429,18 @@ export class UniAstToBlockNoteConverter {
       case "inlineMacro": {
         return this.convertInlineMacro(inlineContent.call);
       }
+
+      case "rawHtml":
+      case "inlineMacroEditableArea":
+        // These only ever occur inside a macro's own render() output, never as part of a
+        // document's own UniAst tree (the tree this converter operates on), so they can't
+        // legitimately reach this switch.
+        throw new Error(
+          `Unexpected "${inlineContent.type}" inline content outside of a macro's own render() output`,
+        );
+
+      default:
+        assertUnreachable(inlineContent);
     }
   }
 

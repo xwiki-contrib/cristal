@@ -34,7 +34,6 @@ import { ComponentInit as DefaultPageHierarchyComponentInit } from "@xwiki/crist
 import { ComponentInit as DefaultPageHistoryComponentInit } from "@xwiki/cristal-history-default";
 import { ComponentInit as HistoryUIComponentInit } from "@xwiki/cristal-history-ui";
 import { ComponentInit as InfoActionsComponentInit } from "@xwiki/cristal-info-actions-default";
-import { ComponentInit as MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
 import { ComponentInit as MessagesMacrosComponentInit } from "@xwiki/cristal-messages-macros";
 import { ComponentInit as ClickListenerComponentInit } from "@xwiki/cristal-model-click-listener";
 import { ComponentInit as DefaultNavigationTreeComponentInit } from "@xwiki/cristal-navigation-tree-default";
@@ -94,7 +93,6 @@ async function defaultComponentsList(container: Container): Promise<void> {
   new ModelRemoteURLAPIComponentInit(container);
   new ModelReferenceAPIComponentInit(container);
   new DateAPIComponentInit(container);
-  new MacrosAstToHtmlConverter(container);
   new MacrosServiceComponentInit(container);
   new RenameComponentInit(container);
   new GithubBackendComponentInit(container);

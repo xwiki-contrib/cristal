@@ -23,8 +23,8 @@ import type {
   GetConcreteMacroParametersType,
   InlineMacro,
   MacroInfos,
-  MacroInlineContent,
 } from "@xwiki/platform-macros-api";
+import type { InlineContent } from "@xwiki/platform-uniast-api";
 
 const macroParams = {
   html: { type: "string" },
@@ -52,7 +52,7 @@ export class XWikiInlineHtmlMacro implements InlineMacro<MacroParams> {
 
   render({
     html,
-  }: GetConcreteMacroParametersType<MacroParams>): MacroInlineContent[] {
+  }: GetConcreteMacroParametersType<MacroParams>): InlineContent[] {
     return [{ type: "rawHtml", html }];
   }
 }

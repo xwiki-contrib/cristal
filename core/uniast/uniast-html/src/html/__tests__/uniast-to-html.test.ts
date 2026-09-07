@@ -19,7 +19,6 @@
  */
 
 import { DefaultUniAstToHTMLConverter } from "../default-uni-ast-to-html-converter";
-import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
 import { macrosServiceName } from "@xwiki/platform-macros-service";
 import {
   AttachmentReference,
@@ -29,7 +28,7 @@ import {
 import { Container } from "inversify";
 import { describe, expect, test } from "vitest";
 import { any, mock } from "vitest-mock-extended";
-import type { MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
+import type { MacroWithUnknownParamsType } from "@xwiki/platform-macros-api";
 import type { MacrosService } from "@xwiki/platform-macros-service";
 import type {
   ModelReferenceHandlerProvider,
@@ -51,7 +50,6 @@ function init() {
   const modelReferenceParser = mock<ModelReferenceParser>();
   const remoteURLSerializer = mock<RemoteURLSerializer>();
   const macrosService = mock<MacrosService>();
-  const macrosAstToHtmlConverter = mock<MacrosAstToHtmlConverter>();
 
   const containerMock = mock<Container>();
 
@@ -78,10 +76,6 @@ function init() {
   containerMock.get
     .calledWith(macrosServiceName)
     .mockReturnValue(macrosService);
-
-  containerMock.get
-    .calledWith(macrosAstToHtmlConverterName)
-    .mockReturnValue(macrosAstToHtmlConverter);
 
   modelReferenceParserProvider.get.mockReturnValue(modelReferenceParser);
   remoteURLSerializerProvider.get.mockReturnValue(remoteURLSerializer);
@@ -114,24 +108,18 @@ function init() {
     remoteURLSerializerProvider,
     modelReferenceParserProvider,
     macrosService,
-    macrosAstToHtmlConverter,
   };
 }
 
 // eslint-disable-next-line max-statements
 describe("UniAstToHTMLConverter", () => {
-  const {
-    remoteURLSerializerProvider,
-    modelReferenceParserProvider,
-    macrosService,
-    macrosAstToHtmlConverter,
-  } = init();
+  const { remoteURLSerializerProvider, modelReferenceParserProvider, macrosService } =
+    init();
 
   const uniAstToHTMLConverter = new DefaultUniAstToHTMLConverter(
     remoteURLSerializerProvider,
     modelReferenceParserProvider,
     macrosService,
-    macrosAstToHtmlConverter,
   );
 
   test("empty ast", () => {
@@ -594,5 +582,119 @@ describe("UniAstToHTMLConverter", () => {
     expect(res).toBe(
       '<p><a href="https://my.external.site" class="wikiexternallink">My Link</a></p>',
     );
+  });
+
+  test("rawHtml block", () => {
+    const res = uniAstToHTMLConverter.toHtml({
+      blocks: [{ type: "rawHtml", html: "<script></script><style></style>" }],
+    });
+    expect(res).toBe("<script></script><style></style>");
+  });
+
+  test("rawHtml inline content", () => {
+    const res = uniAstToHTMLConverter.toHtml({
+      blocks: [
+        {
+          type: "paragraph",
+          styles: {},
+          content: [{ type: "rawHtml", html: "<b>raw</b>" }],
+        },
+      ],
+    });
+    expect(res).toBe("<p><b>raw</b></p>");
+  });
+
+  test("block macro with a WYSIWYG editable area substitutes the macro's body HTML", () => {
+    const macro: MacroWithUnknownParamsType = {
+      renderAs: "block",
+      infos: {
+        id: "sample-macro",
+        name: "Sample Macro",
+        description: "",
+        params: {},
+        paramsDescription: {},
+        defaultParameters: {},
+        bodyType: "wysiwyg",
+      },
+      render: () => [
+        { type: "rawHtml", html: "<style>.sample{}</style>" },
+        { type: "macroBlockEditableArea", styles: { cssClasses: ["sample"] } },
+      ],
+    };
+    macrosService.get.calledWith("sample-macro").mockReturnValue(macro);
+
+    const res = uniAstToHTMLConverter.toHtml({
+      blocks: [
+        {
+          type: "macroBlock",
+          call: {
+            kind: "block",
+            id: "sample-macro",
+            params: {},
+            body: {
+              type: "inlineContents",
+              inlineContents: [
+                { type: "text", content: "Body text", styles: {} },
+              ],
+            },
+          },
+        },
+      ],
+    });
+
+    expect(res).toBe(
+      '<style>.sample{}</style><div class="sample">Body text</div>',
+    );
+  });
+
+  test("inline macro with a WYSIWYG editable area substitutes the macro's body HTML", () => {
+    const macro: MacroWithUnknownParamsType = {
+      renderAs: "inline",
+      infos: {
+        id: "sample-inline-macro",
+        name: "Sample Inline Macro",
+        description: "",
+        params: {},
+        paramsDescription: {},
+        defaultParameters: {},
+        bodyType: "wysiwyg",
+      },
+      render: () => [
+        { type: "rawHtml", html: "<b>prefix</b>" },
+        { type: "inlineMacroEditableArea" },
+      ],
+    };
+    macrosService.get
+      .calledWith("sample-inline-macro")
+      .mockReturnValue(macro);
+
+    const res = uniAstToHTMLConverter.toHtml({
+      blocks: [
+        {
+          type: "paragraph",
+          styles: {},
+          content: [
+            {
+              type: "inlineMacro",
+              call: {
+                kind: "inline",
+                id: "sample-inline-macro",
+                params: {},
+                body: {
+                  type: "inlineContent",
+                  inlineContent: {
+                    type: "text",
+                    content: "Body text",
+                    styles: {},
+                  },
+                },
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    expect(res).toBe("<p><b>prefix</b>Body text</p>");
   });
 });

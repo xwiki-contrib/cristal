@@ -17,7 +17,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-import { macrosAstToHtmlConverterName } from "@xwiki/cristal-macros-ast-html-converter";
 import {
   assertUnreachable,
   escapeHtml,
@@ -27,7 +26,6 @@ import {
 import { macrosServiceName } from "@xwiki/platform-macros-service";
 import { inject, injectable } from "inversify";
 import type { UniAstToHTMLConverter } from "./uni-ast-to-html-converter";
-import type { MacrosAstToHtmlConverter } from "@xwiki/cristal-macros-ast-html-converter";
 import type { MacrosService } from "@xwiki/platform-macros-service";
 import type { EntityReference } from "@xwiki/platform-model-api";
 import type { ModelReferenceParserProvider } from "@xwiki/platform-model-reference-api";
@@ -52,40 +50,40 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
     @inject(macrosServiceName)
     private readonly macrosService: MacrosService,
-
-    @inject(macrosAstToHtmlConverterName)
-    private readonly macrosAstToHtmlConverter: MacrosAstToHtmlConverter,
   ) {}
 
   toHtml(ast: UniAst): string | Error {
     return tryFallibleOrError(() => this.convertBlocks(ast.blocks));
   }
 
-  private convertBlocks(blocks: Block[]): string {
-    return blocks.map((block) => this.convertBlock(block)).join("");
+  private convertBlocks(blocks: Block[], htmlBody: string | null = null): string {
+    return blocks.map((block) => this.convertBlock(block, htmlBody)).join("");
   }
 
-  private convertInlineContents(inlineContents: InlineContent[]): string {
+  private convertInlineContents(
+    inlineContents: InlineContent[],
+    htmlBody: string | null = null,
+  ): string {
     return inlineContents
-      .map((inlineContent) => this.convertInlineContent(inlineContent))
+      .map((inlineContent) => this.convertInlineContent(inlineContent, htmlBody))
       .join("");
   }
 
   // eslint-disable-next-line max-statements
-  private convertBlock(block: Block): string {
+  private convertBlock(block: Block, htmlBody: string | null = null): string {
     switch (block.type) {
       case "paragraph":
         return this.produceBlockHtml(
           "p",
           block.styles,
-          this.convertInlineContents(block.content),
+          this.convertInlineContents(block.content, htmlBody),
         );
 
       case "heading":
         return this.produceBlockHtml(
           `h${block.level}`,
           block.styles,
-          this.convertInlineContents(block.content),
+          this.convertInlineContents(block.content, htmlBody),
         );
 
       case "list":
@@ -99,7 +97,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
               produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertBlocks(item.content)}`,
+                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertBlocks(item.content, htmlBody)}`,
               ),
             )
             .join(""),
@@ -109,7 +107,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         return this.produceBlockHtml(
           "blockquote",
           block.styles,
-          this.convertBlocks(block.content),
+          this.convertBlocks(block.content, htmlBody),
         );
 
       case "code":
@@ -146,7 +144,10 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
                       ? this.produceBlockHtml(
                           "th",
                           col.headerCell.styles,
-                          this.convertInlineContents(col.headerCell.content),
+                          this.convertInlineContents(
+                            col.headerCell.content,
+                            htmlBody,
+                          ),
                         )
                       : "",
                   )
@@ -165,7 +166,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
                   this.produceBlockHtml(
                     "td",
                     cell.styles,
-                    this.convertInlineContents(cell.content),
+                    this.convertInlineContents(cell.content, htmlBody),
                     {
                       colspan: cell.colSpan?.toString(),
                       rowspan: cell.rowSpan?.toString(),
@@ -189,6 +190,13 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
       case "break":
         return "<hr>";
+
+      case "rawHtml":
+        // NOTE: This HTML will not be sanitized ; it is up to the macro itself to ensure the HTML is safe for the end user
+        return block.html;
+
+      case "macroBlockEditableArea":
+        return this.produceBlockHtml("div", block.styles, htmlBody ?? "");
 
       case "macroBlock": {
         const macro = this.macrosService.get(block.call.id);
@@ -244,7 +252,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
             break;
         }
 
-        const rendered = this.macrosAstToHtmlConverter.blocksToHTML(
+        return this.convertBlocks(
           macro.render(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             block.call.params as any,
@@ -252,12 +260,6 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           ),
           htmlBody,
         );
-
-        if (rendered instanceof Error) {
-          throw rendered;
-        }
-
-        return rendered;
       }
 
       default:
@@ -279,7 +281,10 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
   }
 
   // eslint-disable-next-line max-statements
-  private convertInlineContent(inlineContent: InlineContent): string {
+  private convertInlineContent(
+    inlineContent: InlineContent,
+    htmlBody: string | null = null,
+  ): string {
     switch (inlineContent.type) {
       case "text": {
         const { content, styles } = inlineContent;
@@ -350,11 +355,17 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
               ? { class: "wikiexternallink" }
               : {}),
           },
-          this.convertInlineContents(inlineContent.content),
+          this.convertInlineContents(inlineContent.content, htmlBody),
         );
 
       case "image":
         return this.convertImage(inlineContent);
+
+      case "rawHtml":
+        return inlineContent.html;
+
+      case "inlineMacroEditableArea":
+        return htmlBody ?? "";
 
       case "inlineMacro": {
         const macro = this.macrosService.get(inlineContent.call.id);
@@ -409,7 +420,7 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
             );
         }
 
-        const rendered = this.macrosAstToHtmlConverter.inlineContentsToHTML(
+        return this.convertInlineContents(
           macro.render(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             inlineContent.call.params as any,
@@ -417,12 +428,6 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
           ),
           htmlBody,
         );
-
-        if (rendered instanceof Error) {
-          throw rendered;
-        }
-
-        return rendered;
       }
 
       default:
@@ -482,6 +487,9 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
       {
         ...attrs,
         style: cssRules !== "" ? cssRules.trim() : undefined,
+        class: styles.cssClasses?.length
+          ? styles.cssClasses.join(" ")
+          : undefined,
       },
       innerHTML,
     );
