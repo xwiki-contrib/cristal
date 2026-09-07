@@ -81,10 +81,10 @@ watch(viewportType, (newViewportType: ViewportType) => {
 let mainSidebarResizeInterval: number = 0;
 
 function updateMainSidebarWidth(newSidebarWidth: number) {
-  document.documentElement.style.setProperty(
-    "--cr-sizes-main-sidebar-width",
-    `${newSidebarWidth}px`,
-  );
+  // We reference the root element instead of the whole document.
+  document
+    .getElementById("xwCristalApp")!
+    .style.setProperty("--cr-sizes-main-sidebar-width", `${newSidebarWidth}px`);
 }
 
 function startMainSidebarResize() {

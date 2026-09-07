@@ -43,7 +43,11 @@ function useViewportType(): Ref<ViewportType> {
   }
 
   function getNewViewportType(): ViewportType {
-    if (window.innerWidth <= 600) {
+    // Cristal might be mounted in an element and now own the whole page.
+    // That element reports no width at the start, so we keep the desktop
+    // type at first.
+    const width = document.getElementById("xwCristalApp")?.clientWidth ?? 0;
+    if (width > 0 && width <= 600) {
       return ViewportType.Mobile;
     } else {
       return ViewportType.Desktop;
