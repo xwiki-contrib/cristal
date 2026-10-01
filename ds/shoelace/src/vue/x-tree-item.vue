@@ -31,7 +31,7 @@ const props = defineProps<{
   lazyLoadChildren?: (node: T) => Promise<void>;
   nodeClickAction?: (node: T) => Promise<void>;
 }>();
-const opened = defineModel<string[]>("opened", { default: [] });
+const opened = defineModel<string[]>("opened", { default: () => [] });
 const activated = defineModel<string | undefined>("activated");
 
 function updateActivated() {

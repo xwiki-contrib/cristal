@@ -24,7 +24,10 @@ import type { DisplayableTreeNode, TreeProps } from "@xwiki/platform-dsapi";
 import type { Ref } from "vue";
 
 const props = defineProps<TreeProps<T>>();
-const opened = defineModel("opened", { default: [], type: Array<string> });
+const opened = defineModel("opened", {
+  default: () => [],
+  type: Array<string>,
+});
 const activated = defineModel<string | undefined>("activated");
 
 const activatedNodes: Ref<Array<string>> = ref([]);

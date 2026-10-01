@@ -23,7 +23,7 @@ import "@shoelace-style/shoelace/dist/components/tree/tree";
 import type { DisplayableTreeNode, TreeProps } from "@xwiki/platform-dsapi";
 
 defineProps<TreeProps<T>>();
-const opened = defineModel<string[]>("opened", { default: [] });
+const opened = defineModel<string[]>("opened", { default: () => [] });
 const activated = defineModel<string | undefined>("activated");
 </script>
 
