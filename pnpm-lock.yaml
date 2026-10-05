@@ -405,8 +405,8 @@ catalogs:
       specifier: 2.0.0
       version: 2.0.0
     globals:
-      specifier: 17.6.0
-      version: 17.6.0
+      specifier: 17.13.0
+      version: 17.13.0
     inversify:
       specifier: 8.2.3
       version: 8.2.3
@@ -573,7 +573,7 @@ importers:
         version: 10.9.1(@typescript-eslint/parser@8.59.3(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3))(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(vue-eslint-parser@10.4.1(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0))
       globals:
         specifier: 'catalog:'
-        version: 17.6.0
+        version: 17.13.0
       jiti:
         specifier: 'catalog:'
         version: 2.7.0
@@ -5735,7 +5735,7 @@ importers:
         version: 18.9.0-1790768431(typescript@5.9.3)
       globals:
         specifier: 'catalog:'
-        version: 17.6.0
+        version: 17.13.0
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -8914,8 +8914,8 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
-  globals@17.6.0:
-    resolution: {integrity: sha512-sepffkT8stwnIYbsMBpoCHJuJM5l98FUF2AnE07hfvE0m/qp3R586hw4jF4uadbhvg1ooIdzuu7CsfD2jzCaNA==}
+  globals@17.13.0:
+    resolution: {integrity: sha512-RwMTC61u7hrG3ZJMkZQOK4JLJrKS8QtoTii63EmWvFXHqycY9FObBJQCbsLxSO8kjKhWE5kV1GC+Vb1g3RI0Zg==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -15289,7 +15289,7 @@ snapshots:
 
   globals@14.0.0: {}
 
-  globals@17.6.0: {}
+  globals@17.13.0: {}
 
   globalthis@1.0.4:
     dependencies:
