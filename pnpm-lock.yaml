@@ -231,8 +231,8 @@ catalogs:
       specifier: 6.0.9
       version: 6.0.9
     '@vitest/coverage-v8':
-      specifier: 4.1.11
-      version: 4.1.11
+      specifier: 5.0.3
+      version: 5.0.3
     '@vue/devtools-api':
       specifier: 8.2.1
       version: 8.2.1
@@ -540,7 +540,7 @@ importers:
         version: 6.0.9(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3))
       '@vitest/coverage-v8':
         specifier: 'catalog:'
-        version: 4.1.11(vitest@4.1.11)
+        version: 5.0.3(vitest@4.1.11)
       concurrently:
         specifier: 'catalog:'
         version: 10.0.5
@@ -609,7 +609,7 @@ importers:
         version: 4.5.4(@types/node@26.3.0)(rollup@4.63.0)(supports-color@7.2.0)(typescript@5.9.3)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
       vitest:
         specifier: 'catalog:'
-        version: 4.1.11(@types/node@26.3.0)(@vitest/coverage-v8@4.1.11)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
+        version: 4.1.11(@types/node@26.3.0)(@vitest/coverage-v8@5.0.3)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
       vue-eslint-parser:
         specifier: 'catalog:'
         version: 10.4.1(eslint@10.8.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
@@ -7419,8 +7419,25 @@ packages:
       '@vitest/browser':
         optional: true
 
+  '@vitest/coverage-v8@5.0.3':
+    resolution: {integrity: sha512-+klsyz7BvT1vCU28Zkfzms1Ia78XD0V41U3FUtRaa3S+vOr/EXvK1O6BvVD7l1RzEjm6SONR2aybOvDDf9u0mQ==}
+    peerDependencies:
+      '@vitest/browser': 5.0.3
+      vitest: 5.0.3
+    peerDependenciesMeta:
+      '@vitest/browser':
+        optional: true
+
   '@vitest/expect@4.1.11':
     resolution: {integrity: sha512-VX2x5vNJXET47KAFzwERI+KRMtTTCSWTfSMKsW7JsUsXV4psq++e3DvZpuTDOpHcxytiDs6p2nhVb2tVDiiUYw==}
+
+  '@vitest/istanbul-lib-coverage@1.0.2':
+    resolution: {integrity: sha512-9J/JMwOf9AoJhAywhrn7ScKTL38hsWQP/qPG60OtaAFcQ5OXPwKsxZFlbnuCKmZ61m8/lGgHYnFpdyQZUvG/iA==}
+    engines: {node: '>=22'}
+
+  '@vitest/istanbul-lib-report@1.0.2':
+    resolution: {integrity: sha512-gUsfXZJbzPamoIY5TvHFiMMoXESBrUMo+xqaj+rYrWI69+EnvRlYBlP96ZnHPY4vX8kyUpgAnFUCg5wZG/HkDQ==}
+    engines: {node: '>=22'}
 
   '@vitest/mocker@4.1.11':
     resolution: {integrity: sha512-2XJVD55d1o5AZous5CCGKS74g/riOj9odEt2bQpCVZeblHyHdnMeFl4jl0XjU21stf4mbjUkew2eXQZt65g5CQ==}
@@ -13004,6 +13021,19 @@ snapshots:
       std-env: 4.2.0
       tinyrainbow: 3.1.1
       vitest: 4.1.11(@types/node@26.3.0)(@vitest/coverage-v8@4.1.11)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
+    optional: true
+
+  '@vitest/coverage-v8@5.0.3(vitest@4.1.11)':
+    dependencies:
+      '@bcoe/v8-coverage': 1.0.2
+      '@vitest/istanbul-lib-coverage': 1.0.2
+      '@vitest/istanbul-lib-report': 1.0.2
+      ast-v8-to-istanbul: 1.0.5
+      magicast: 0.5.4
+      obug: 2.1.4
+      std-env: 4.2.0
+      tinyrainbow: 3.1.1
+      vitest: 4.1.11(@types/node@26.3.0)(@vitest/coverage-v8@5.0.3)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
 
   '@vitest/expect@4.1.11':
     dependencies:
@@ -13013,6 +13043,12 @@ snapshots:
       '@vitest/utils': 4.1.11
       chai: 6.2.2
       tinyrainbow: 3.1.1
+
+  '@vitest/istanbul-lib-coverage@1.0.2': {}
+
+  '@vitest/istanbul-lib-report@1.0.2':
+    dependencies:
+      '@vitest/istanbul-lib-coverage': 1.0.2
 
   '@vitest/mocker@4.1.11(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))':
     dependencies:
@@ -15400,7 +15436,8 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
 
-  html-escaper@2.0.2: {}
+  html-escaper@2.0.2:
+    optional: true
 
   html-parse-stringify@4.0.1: {}
 
@@ -15659,18 +15696,21 @@ snapshots:
 
   isomorphic.js@0.2.5: {}
 
-  istanbul-lib-coverage@3.2.2: {}
+  istanbul-lib-coverage@3.2.2:
+    optional: true
 
   istanbul-lib-report@3.0.1:
     dependencies:
       istanbul-lib-coverage: 3.2.2
       make-dir: 4.0.0
       supports-color: 7.2.0
+    optional: true
 
   istanbul-reports@3.2.0:
     dependencies:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.1
+    optional: true
 
   jackspeak@3.4.3:
     dependencies:
@@ -15877,6 +15917,7 @@ snapshots:
   make-dir@4.0.0:
     dependencies:
       semver: 7.8.5
+    optional: true
 
   make-error@1.3.6: {}
 
@@ -17897,6 +17938,35 @@ snapshots:
     optionalDependencies:
       '@types/node': 26.3.0
       '@vitest/coverage-v8': 4.1.11(vitest@4.1.11)
+      happy-dom: 20.8.4
+    transitivePeerDependencies:
+      - msw
+
+  vitest@4.1.11(@types/node@26.3.0)(@vitest/coverage-v8@5.0.3)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0)):
+    dependencies:
+      '@vitest/expect': 4.1.11
+      '@vitest/mocker': 4.1.11(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
+      '@vitest/pretty-format': 4.1.11
+      '@vitest/runner': 4.1.11
+      '@vitest/snapshot': 4.1.11
+      '@vitest/spy': 4.1.11
+      '@vitest/utils': 4.1.11
+      es-module-lexer: 2.3.2
+      expect-type: 1.4.0
+      magic-string: 0.30.21
+      obug: 2.1.4
+      pathe: 2.0.3
+      picomatch: 4.0.7
+      std-env: 4.2.0
+      tinybench: 2.9.0
+      tinyexec: 1.3.0
+      tinyglobby: 0.2.17
+      tinyrainbow: 3.1.1
+      vite: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0)
+      why-is-node-running: 2.3.0
+    optionalDependencies:
+      '@types/node': 26.3.0
+      '@vitest/coverage-v8': 5.0.3(vitest@4.1.11)
       happy-dom: 20.8.4
     transitivePeerDependencies:
       - msw
