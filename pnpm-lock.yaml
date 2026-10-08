@@ -186,8 +186,8 @@ catalogs:
       specifier: 7.59.3
       version: 7.59.3
     '@microsoft/tsdoc':
-      specifier: 0.16.0
-      version: 0.16.0
+      specifier: 0.17.1
+      version: 0.17.1
     '@microsoft/tsdoc-config':
       specifier: 0.18.3
       version: 0.18.3
@@ -525,7 +525,7 @@ importers:
         version: 7.59.3(@types/node@26.3.0)
       '@microsoft/tsdoc':
         specifier: 'catalog:'
-        version: 0.16.0
+        version: 0.17.1
       '@microsoft/tsdoc-config':
         specifier: 'catalog:'
         version: 0.18.3
@@ -6481,9 +6481,6 @@ packages:
   '@microsoft/tsdoc-config@0.18.3':
     resolution: {integrity: sha512-0I0rGXo1eJziw3EEErkDS9p/0RzBcyOiV+zbSDqOZTeURmhtut+WIvpih0LM5g+ZpZ9SyFxDfkhAcl/r8e2zGw==}
 
-  '@microsoft/tsdoc@0.16.0':
-    resolution: {integrity: sha512-xgAyonlVVS+q7Vc7qLW0UrJU7rSFcETRWsqdXZtjzRU8dF+6CkozTK4V4y1LwOX7j8r/vHphjDeMeGI4tNGeGA==}
-
   '@microsoft/tsdoc@0.17.1':
     resolution: {integrity: sha512-VHyYyyoH63jFoO3shpw9Zfijk5v/9p/VrClW35z0/q6ooK7sSmxpzOkS4iZPxs3vO4XtBW4H38HRAKkAMIK7DA==}
 
@@ -12128,8 +12125,6 @@ snapshots:
       ajv: 8.18.0
       jju: 1.4.0
       resolve: 1.22.12
-
-  '@microsoft/tsdoc@0.16.0': {}
 
   '@microsoft/tsdoc@0.17.1': {}
 
