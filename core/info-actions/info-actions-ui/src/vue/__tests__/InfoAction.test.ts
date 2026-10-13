@@ -26,9 +26,10 @@ import { Ref, ref } from "vue";
 import { useRoute } from "vue-router";
 import type { InfoAction as InfoActionAPI } from "@xwiki/cristal-info-actions-api";
 
+vi.mock("vue-router");
+
 describe("info-action", () => {
   it("Takes into account the info action values", async () => {
-    vi.mock("vue-router");
     useRoute.mockReturnValue({
       params: {
         page: "testPage",

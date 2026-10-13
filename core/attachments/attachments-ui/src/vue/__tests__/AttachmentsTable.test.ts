@@ -35,6 +35,9 @@ import type {
   ModelReferenceParserProvider,
 } from "@xwiki/platform-model-reference-api";
 
+vi.mock("vue-router");
+vi.mock("vue-i18n");
+
 function initializeMocks() {
   const cristalMock = mock<CristalApp>();
   const containerMock = mock<Container>();
@@ -67,8 +70,6 @@ function shallowMountAttachmentsTable({
   errorMessage?: string;
   isLoading: boolean;
 }) {
-  vi.mock("vue-router");
-  vi.mock("vue-i18n");
   mockI18n();
   const cristalMock = initializeMocks();
   return shallowMount(AttachmentsTable, {

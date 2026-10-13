@@ -36,6 +36,9 @@ import { mock } from "vitest-mock-extended";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
+vi.mock("vue-i18n");
+vi.mock("vue-router");
+
 // TODO: reduce the number of statements in the following method and reactivate the disabled eslint rule.
 // eslint-disable-next-line max-statements
 function mountCComponent(params: {
@@ -142,9 +145,7 @@ function mountCComponent(params: {
 
 describe("c-context", () => {
   beforeAll(() => {
-    vi.mock("vue-i18n");
     mockI18n();
-    vi.mock("vue-router");
     useRoute.mockReturnValue({
       params: {
         page: "testPage",
