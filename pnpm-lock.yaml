@@ -420,8 +420,8 @@ catalogs:
       specifier: 4.18.1
       version: 4.18.1
     mime:
-      specifier: 4.1.0
-      version: 4.1.0
+      specifier: 4.1.1
+      version: 4.1.1
     nodemon:
       specifier: 3.1.14
       version: 3.1.14
@@ -1337,7 +1337,7 @@ importers:
         version: 18.9.0-1790768431(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@7.2.0)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
       mime:
         specifier: 'catalog:'
-        version: 4.1.0
+        version: 4.1.1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4971,7 +4971,7 @@ importers:
         version: 43.1.1(supports-color@10.2.2)
       mime:
         specifier: 'catalog:'
-        version: 4.1.0
+        version: 4.1.1
     devDependencies:
       '@types/node':
         specifier: 'catalog:'
@@ -9672,8 +9672,8 @@ packages:
     engines: {node: '>=4.0.0'}
     hasBin: true
 
-  mime@4.1.0:
-    resolution: {integrity: sha512-X5ju04+cAzsojXKes0B/S4tcYtFAJ6tTMuSPBEn9CPGlrWr8Fiw7qYeLT0XyH80HSoAoqWCaz+MWKh22P7G1cw==}
+  mime@4.1.1:
+    resolution: {integrity: sha512-YAApRsTpM2+gnUFHhRNGfkX8NK0V5xj1nyQLufGlwEI+eX4xRsTcel2IXDuMEGSGjBvzykNW4VuoEACgwYe7BQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -16146,7 +16146,7 @@ snapshots:
 
   mime@2.6.0: {}
 
-  mime@4.1.0: {}
+  mime@4.1.1: {}
 
   mimic-fn@2.1.0: {}
 
