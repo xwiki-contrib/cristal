@@ -244,7 +244,7 @@ catalogs:
       version: 18.9.0-1790768431
     '@xwiki/platform-attachments-api':
       specifier: ^18.9.0-0
-      version: 18.9.0-1790768431
+      version: 18.9.0-rc-1
     '@xwiki/platform-attachments-default':
       specifier: ^18.9.0-0
       version: 18.9.0-1790768431
@@ -778,7 +778,7 @@ importers:
         version: 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       '@xwiki/platform-attachments-api':
         specifier: 'catalog:'
-        version: 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
+        version: 18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
       '@xwiki/platform-document-api':
         specifier: 'catalog:'
         version: 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
@@ -1821,7 +1821,7 @@ importers:
     dependencies:
       '@xwiki/platform-attachments-api':
         specifier: 'catalog:'
-        version: 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
+        version: 18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
       filesize.js:
         specifier: 'catalog:'
         version: 2.0.0
@@ -2419,7 +2419,7 @@ importers:
         version: 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       '@xwiki/platform-attachments-api':
         specifier: 'catalog:'
-        version: 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
+        version: 18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
       '@xwiki/platform-model-api':
         specifier: 'catalog:'
         version: 18.9.0-1790768431
@@ -7576,6 +7576,12 @@ packages:
       reflect-metadata: 0.x
       vue: 3.x
 
+  '@xwiki/platform-attachments-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-Rpzl4u5HpALvFXAGiR9MqWZ0PFt2fN33W0YthlfTWsTBQNgrRg93/Uq1KxvBS4eijZwHEbk4FqIe132F045e+Q==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
   '@xwiki/platform-attachments-default@18.9.0-1790768431':
     resolution: {integrity: sha512-lSOEMeri47AtI3NCjUIzQfC3DRvOdGqsdxZo7EDKrFWIkeB9OQRSOYCge09SL3EJLMzeHFEMQDgIMOp93k4Y7g==}
     peerDependencies:
@@ -7586,6 +7592,11 @@ packages:
 
   '@xwiki/platform-authentication-api@18.9.0-1790768431':
     resolution: {integrity: sha512-7fVRJVS7bSN0u+I9c6iakNRb2JFMwXx17cnIY0fMF4IWcvNwRNapZJqi+vkXU7k2PNR4+4/aNI1kAq8SBMVhiA==}
+    peerDependencies:
+      reflect-metadata: 0.x
+
+  '@xwiki/platform-authentication-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-S25leG4S1/v5ti6zRnPlX8y0YnmpoLAWYXF4gWOioAonRidwEndTDCVcPFkU/NB1bqnf2qt3fo5dOmSmSQt2Kw==}
     peerDependencies:
       reflect-metadata: 0.x
 
@@ -7680,6 +7691,9 @@ packages:
 
   '@xwiki/platform-model-api@18.9.0-1790768431':
     resolution: {integrity: sha512-79r3wjLMPvPHm06cIx+Wwmeu/LTlH/XCO2qowM4tgAPl1Hr/rege0dEUjx7khWpjS6njRGneEkQ7Z98oABPz6A==}
+
+  '@xwiki/platform-model-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-PGUo7PBVXSz8wOurKPe4sizFSjF0H8jtdoPEfqydiD7yB+NMBdyTglFKMyDhse1gxUkruDgraZLlPAO4iKKOfw==}
 
   '@xwiki/platform-model-reference-api@18.9.0-1790768431':
     resolution: {integrity: sha512-ttrMIm+PMmr+qWQ43wpAeIUIW3oNj7a6PrTc1G1BvWZys7vT7u+GWpaW1fHHMx0MCF/UzP51+tYp3O+bH3cQ4Q==}
@@ -12630,7 +12644,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.12.4
+      '@types/node': 26.3.0
 
   '@types/xml-escape@1.1.3': {}
 
@@ -13148,6 +13162,13 @@ snapshots:
       reflect-metadata: 0.2.2
       vue: 3.5.43(typescript@5.9.3)
 
+  '@xwiki/platform-attachments-api@18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-authentication-api': 18.9.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+
   '@xwiki/platform-attachments-default@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-attachments-api': 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
@@ -13164,6 +13185,10 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-authentication-api@18.9.0-1790768431(reflect-metadata@0.2.2)':
+    dependencies:
+      reflect-metadata: 0.2.2
+
+  '@xwiki/platform-authentication-api@18.9.0-rc-1(reflect-metadata@0.2.2)':
     dependencies:
       reflect-metadata: 0.2.2
 
@@ -13460,6 +13485,8 @@ snapshots:
       - yaml
 
   '@xwiki/platform-model-api@18.9.0-1790768431': {}
+
+  '@xwiki/platform-model-api@18.9.0-rc-1': {}
 
   '@xwiki/platform-model-reference-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
