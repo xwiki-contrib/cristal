@@ -268,7 +268,7 @@ catalogs:
       version: 18.9.0-1790768431
     '@xwiki/platform-editors-blocknote-headless':
       specifier: ^18.9.0-0
-      version: 18.9.0-1790768431
+      version: 18.9.0-rc-1
     '@xwiki/platform-editors-blocknote-react':
       specifier: ^18.9.0-0
       version: 18.9.0-1790768431
@@ -4223,7 +4223,7 @@ importers:
         version: 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
       '@xwiki/platform-editors-blocknote-headless':
         specifier: 'catalog:'
-        version: 18.9.0-1790768431(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
+        version: 18.9.0-rc-1(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
       '@xwiki/platform-editors-blocknote-react':
         specifier: 'catalog:'
         version: 18.9.0-1790768431(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
@@ -5834,6 +5834,11 @@ packages:
     resolution: {integrity: sha512-6zABk/ECA/QYSCQ1NGiVwwbQerUCZ+TQbp64Q3AgmfNvurHH0j8TtXa1qbShXA6qqkpAj4V5W8pP6mLe1mcMqA==}
     engines: {node: '>=18'}
 
+  '@blocknote/code-block@0.55.0':
+    resolution: {integrity: sha512-ctdD9YUEuK9nWbLkNcEd8jGdtmUpuSkJ2VP6iXTJm33ryMd1VnsWwaj/I1VNST1s/rMF3QvFq5Z1paIvsi4+zQ==}
+    peerDependencies:
+      '@blocknote/core': ^0.55.0
+
   '@blocknote/core@0.55.0':
     resolution: {integrity: sha512-QRRnOuVDrt0pPwaCXQ/dc4gxQ3KEGkBC8Hh4hyl4lxOU+5TMLNKKX9gZgeGkq7WKVK2EZbnPea6pcx25aS5SGA==}
     peerDependencies:
@@ -6878,8 +6883,32 @@ packages:
     resolution: {integrity: sha512-k1L7MQQEuQ1v0rsQ8pRzoZ3NRsrvSifBguWlLnl2a5iWGTTW9E0/G/B39291eAf3zF45wheybuJ2onwB/PPsfA==}
     engines: {node: '>=20.9.0'}
 
+  '@shikijs/core@4.5.0':
+    resolution: {integrity: sha512-6CIgwq+bt2JZ3OSjb/nBkkwEf/CfpHcbam+Mg5Pllco7HAGRQ2/EFhZrrJtbyNTgKwknfVS+llsXGygiDGwJWw==}
+    engines: {node: '>=20'}
+
+  '@shikijs/engine-javascript@4.5.0':
+    resolution: {integrity: sha512-Ed6UdEj84LyYkwnxM5CvSMWAD+id9ExTYri0/+x41U9zrgNifPSS9lZm0JqBP0VfYI8yr8tY5nbNq9+p9R0kFA==}
+    engines: {node: '>=20'}
+
+  '@shikijs/langs-precompiled@4.5.0':
+    resolution: {integrity: sha512-l6x3sNA4qvSQPtFogjhVj9IjjYhQ6Z4zy+E2vP5/PteFYCtT7GR7xZIjUT8QQKgA7k6glMDQXI0265qmIkJXLg==}
+    engines: {node: '>=20'}
+
+  '@shikijs/primitive@4.5.0':
+    resolution: {integrity: sha512-UM7ShlA8oz0OWxLLO8BmO9Ip6fVqdkt8yF0EH7nOCqHfrx1eEAzF0ZUVK7L+I8NEgeu1PEWSRlxaiPPeCb4iDg==}
+    engines: {node: '>=20'}
+
+  '@shikijs/themes@4.5.0':
+    resolution: {integrity: sha512-zGb87H3UBbpuI4yoh5UguB1XbU+2BDU3kflM7UfZ+Cy2hWo9lBtqjSVK20gmLY6ukYl040hAypGXMgud9vul8Q==}
+    engines: {node: '>=20'}
+
   '@shikijs/types@4.4.3':
     resolution: {integrity: sha512-UEJxmRR++MAGR6hugn0vgVS2W/6lWAts84FFSrnlH9sP0LNol7E5+NQ792pH8liWUhyMyjhTgSUH3k7iD7tc5g==}
+    engines: {node: '>=20'}
+
+  '@shikijs/types@4.5.0':
+    resolution: {integrity: sha512-drtPrtD8N0DENyD2cyt6Ajy+IWsiCLgMxODwLTpvH1UsN6a9jf90tNTPjqwHvA+0Lzu9e0txk8DjfqH1p9UJRw==}
     engines: {node: '>=20'}
 
   '@shikijs/vscode-textmate@10.0.2':
@@ -7280,6 +7309,9 @@ packages:
     resolution: {integrity: sha512-8C71BQkGjiMmXtop7pHVJu1l2NNShFdkCyD6a2ezzs5vU/L3LRtb69EtcteFwz0mYMPzIgOw0n6OV4VBUWZd7A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@ungap/structured-clone@1.4.0':
+    resolution: {integrity: sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ==}
+
   '@unrs/resolver-binding-android-arm-eabi@1.12.2':
     resolution: {integrity: sha512-g5T90pqg1bo/7mytQx6F4iBNC0Wsh9cu+z9veDbFjc7HjpesJFWD7QMS0NGStXM075+7dJPPVvBbpZlnrdpi/w==}
     cpu: [arm]
@@ -7570,8 +7602,22 @@ packages:
       vue: 3.x
       vue-router: 5.x
 
+  '@xwiki/platform-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-c/OzA+oSFJhLKlKeQROJY4ujdu8vGhF2PcOVhDFVEExA9cbNCkAl1B9cvwf1+goIqRMRP6T22Grv8aL+yZupVA==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+      vue: 3.x
+      vue-router: 5.x
+
   '@xwiki/platform-attachments-api@18.9.0-1790768431':
     resolution: {integrity: sha512-pYp8t99y23wzBYlO81xyjdlFFKYpOg6p3LKOzBobprf+6QOtJp4LbI/phWidPHji3nprLSIzy9QeGjrUB9gGFg==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-attachments-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-Rpzl4u5HpALvFXAGiR9MqWZ0PFt2fN33W0YthlfTWsTBQNgrRg93/Uq1KxvBS4eijZwHEbk4FqIe132F045e+Q==}
     peerDependencies:
       reflect-metadata: 0.x
       vue: 3.x
@@ -7589,8 +7635,16 @@ packages:
     peerDependencies:
       reflect-metadata: 0.x
 
+  '@xwiki/platform-authentication-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-S25leG4S1/v5ti6zRnPlX8y0YnmpoLAWYXF4gWOioAonRidwEndTDCVcPFkU/NB1bqnf2qt3fo5dOmSmSQt2Kw==}
+    peerDependencies:
+      reflect-metadata: 0.x
+
   '@xwiki/platform-autosave-api@18.8.0-1790768431':
     resolution: {integrity: sha512-dkGwLF0jiuGDJzyfB/73t2RkVLn/F8HHL0dXNGAkxolcOavXMRhht8AxLuryzApNuT3GWaz0wrj33+c2p5RccA==}
+
+  '@xwiki/platform-autosave-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-GImIZZaD+gq5ESLpNpLS3h9gisN/76hJsAPZSYJaQP+6QlWPhZHBASLP2QRFAsDT8KzhZ0z8a3QCXeFcZIKVew==}
 
   '@xwiki/platform-backend-api@18.9.0-1790768431':
     resolution: {integrity: sha512-3GTgsqrAMeVarlWtWx/ITPV+ZWbMq++D+6NzsZDSAernyQZ+P0w1kCVcDjdSMasAoWjCdoJhvwypVKDMlzcY6Q==}
@@ -7605,11 +7659,27 @@ packages:
       reflect-metadata: 0.x
       vue: 3.x
 
+  '@xwiki/platform-collaboration-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-0WNm5BFjpFa8Lgo3SHoZu6B4JmZ2peUv4sBs7Zsp7JLScZ4rfRcNtxYUgjXSaaDYs7N1ddu5M5WeWxvdxpCQSg==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+      vue: 3.x
+
   '@xwiki/platform-configuration-api@18.9.0-1790768431':
     resolution: {integrity: sha512-ClZ/nDMGuahlQh4C2YpkofU+ZHFNNFKUSMtoX2RVDWwlmg5SIDnndwu7kW8BD7A2spTwYEAU+kLQhfJIDKoclA==}
 
+  '@xwiki/platform-configuration-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-IbPMQqezD89u4OWGkxOg5lQ7lCXfnO3ka797aZ8Sp6wuOQJfUVAx4q//j4FQwHIDxN/MrCx18DXVrz6UmzJY1g==}
+
   '@xwiki/platform-document-api@18.9.0-1790768431':
     resolution: {integrity: sha512-fyUgke6pUCsQqTH8FduLZr/N9tlHZDu5INt2jfiokOuuUeOjZXT1C2AH9+zDkjG5mZsJPrYPuOBDZ+ZFsxYhcw==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-document-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-txZzCBRYKKL/Yk0o+ehdB4U42wRC9FeO+0Dy0juwAxlCT0KxGKYdho8xrpUbu6ER+ZGH8oYSodtW/rmsMU35TA==}
     peerDependencies:
       reflect-metadata: 0.x
       vue: 3.x
@@ -7620,8 +7690,14 @@ packages:
       reflect-metadata: 0.x
       vue: 3.x
 
-  '@xwiki/platform-editors-blocknote-headless@18.9.0-1790768431':
-    resolution: {integrity: sha512-KkDupok89u4L58bvOe2WmDE7fIXzkcSjHfCSePqPLQD7Yz2TcsZ3PsdYiimNrZxscIdMYeL1iG1p+phyHxYLLw==}
+  '@xwiki/platform-dsapi@18.9.0-rc-1':
+    resolution: {integrity: sha512-23c/zf0+xI2YT2YWRaK3kXTyWuyySzD9ju1xriCgW+LYs2Myf9A42FFTd+duxoZlNPt758oIbJP4B8FMqA0OKA==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
+  '@xwiki/platform-editors-blocknote-headless@18.9.0-rc-1':
+    resolution: {integrity: sha512-ZPQ/CUdlR5AsLq/UZPo3VV6IVcegSWHz151p70o8S/TAv4JtyQRF4vWxSoKf4Bkr7WSeX4rctIL3Mg7+KgxymQ==}
     peerDependencies:
       inversify: 8.x
       reflect-metadata: 0.x
@@ -7632,8 +7708,16 @@ packages:
     peerDependencies:
       inversify: 8.x
 
+  '@xwiki/platform-editors-blocknote-react@18.9.0-rc-1':
+    resolution: {integrity: sha512-oOtYMyqohIlZVHilgfhwTas6vdO1WzbEri3ldMM6lFy98C5fusgLspDn24OtaRe9GuisK74OQhijeuqh6uTH8g==}
+    peerDependencies:
+      inversify: 8.x
+
   '@xwiki/platform-fn-utils@18.9.0-1790768431':
     resolution: {integrity: sha512-9c01LxIdZSXrqXpPiodkRYO4j057bKU5S84rT5YvFNMhIKe0k96HwB20kd20IgtTYeNYFP1lTkkT/pSbwShA8g==}
+
+  '@xwiki/platform-fn-utils@18.9.0-rc-1':
+    resolution: {integrity: sha512-b2EYPz+zSN/J+Iw+uvb4Nu/Ng47aMRT8CUXyLC4HqsloC4KzviMKYoOgb2hwRihgOiSLkxubP3RLfSOSmMPjLQ==}
 
   '@xwiki/platform-hierarchy-api@18.9.0-1790768431':
     resolution: {integrity: sha512-LY9E4WC8CYzZ9KMtMU41+7oAFEfiuvgxAGjTxQezAHyGNiM4a8YCJdW9oji8mJRMh4K/pC41ehk+UBj5owQGkw==}
@@ -7650,8 +7734,20 @@ packages:
       reflect-metadata: 0.x
       vue: 3.x
 
+  '@xwiki/platform-icons@18.9.0-rc-1':
+    resolution: {integrity: sha512-mvhLIzi6HP+M9K+YbS4Cbg0WHPYmoOfcbYAIEQwxpAh/hsQElUcq7dj2mmotYIyjs7zI/Blde+5mTXY144sfEw==}
+    peerDependencies:
+      reflect-metadata: 0.x
+      vue: 3.x
+
   '@xwiki/platform-link-suggest-api@18.9.0-1790768431':
     resolution: {integrity: sha512-H7UdgbBH1a5CuzyM8uL8976y9e0D7e17/s6rWjcFt2jnf3zVaDFib+vOKegLpN3JyREGSg2YnvJ+P5baYXWoXw==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
+  '@xwiki/platform-link-suggest-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-rF91UWKFHhw2v3GAOoaYZjuEdWV1kxHx/OCo+WSHrogAu4Nc6AY+TcwHwallxxVRYy81mHsIPCfjfu0wXiB+Mg==}
     peerDependencies:
       inversify: 8.x
       reflect-metadata: 0.x
@@ -7665,13 +7761,26 @@ packages:
   '@xwiki/platform-macros-api@18.9.0-1790768431':
     resolution: {integrity: sha512-DnkRUqRLTrtqzL+gbRJjPwz9jknWGehVFZCMv46yZnRZpVxMYLZJiZfnwSw/PT2ixR452+tfpQ6ggaEHgvzoEw==}
 
+  '@xwiki/platform-macros-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-ARv7PtIOpwlt1wt+t9TOc1Ow0x52nLOBDWaUwbBLK5s4g5x57Hdg0jbhGdYwqShNS7ZcGBqzRFitvscr6JlmJQ==}
+
   '@xwiki/platform-macros-ast-react-jsx@18.9.0-1790768431':
     resolution: {integrity: sha512-WOCmrMC35AFB3KKGtgCgc/r8l8PEMiJyrxynr9MKOlIF6KA2RsIZ6qPv6zh8acxAHMYjWEfmaKRz2U14kZuBgA==}
     peerDependencies:
       inversify: 8.x
 
+  '@xwiki/platform-macros-ast-react-jsx@18.9.0-rc-1':
+    resolution: {integrity: sha512-KPOfJ7QzvP1n2V+YCPs08C3XwZ5SY2JEKvJVYbpY3Zr+WgNU/+9u75e1Xplp/aG2fkUDSiJzFkZ2LwW5nFRBqQ==}
+    peerDependencies:
+      inversify: 8.x
+
   '@xwiki/platform-macros-service@18.9.0-1790768431':
     resolution: {integrity: sha512-wtNuP9m64gKG1XOtisi7x/1/aQJOi3agUbSTdJ+qcfLH/H8VCfbkJkssq951jIgpGU/Peu8WwrYmOjglXv+jjA==}
+    peerDependencies:
+      inversify: 8.x
+
+  '@xwiki/platform-macros-service@18.9.0-rc-1':
+    resolution: {integrity: sha512-boMcSpgnSf+qd+hyu1vow1+FXByqvr/Y1TB2b2xwylB0HjO8M6QxhhkmJFV337+RyXNX3vzZYX2Id12yR687oQ==}
     peerDependencies:
       inversify: 8.x
 
@@ -7681,14 +7790,29 @@ packages:
   '@xwiki/platform-model-api@18.9.0-1790768431':
     resolution: {integrity: sha512-79r3wjLMPvPHm06cIx+Wwmeu/LTlH/XCO2qowM4tgAPl1Hr/rege0dEUjx7khWpjS6njRGneEkQ7Z98oABPz6A==}
 
+  '@xwiki/platform-model-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-PGUo7PBVXSz8wOurKPe4sizFSjF0H8jtdoPEfqydiD7yB+NMBdyTglFKMyDhse1gxUkruDgraZLlPAO4iKKOfw==}
+
   '@xwiki/platform-model-reference-api@18.9.0-1790768431':
     resolution: {integrity: sha512-ttrMIm+PMmr+qWQ43wpAeIUIW3oNj7a6PrTc1G1BvWZys7vT7u+GWpaW1fHHMx0MCF/UzP51+tYp3O+bH3cQ4Q==}
     peerDependencies:
       inversify: 8.x
       reflect-metadata: 0.x
 
+  '@xwiki/platform-model-reference-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-xRVKRy5n4Zsv1LYISaT7KtgtHIJAhmzF+J20V1FWN29V0i1W8YUFlcevHJedKwzPr2OdQ6dkrxULSgQoOLac7g==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
   '@xwiki/platform-model-remote-url-api@18.9.0-1790768431':
     resolution: {integrity: sha512-Q4rwn3ttdq6gB5Bnrgq+sVAF14dwGUO3n7U/qGTtP2F7lMUu4iJ1bja+EIWWtfODCEMmKUbbltPaGuKygYf2kA==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
+  '@xwiki/platform-model-remote-url-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-j7GELWMkpSfmuKZTfjWuBtQgrfOHSHFwuRL5Xn/EasyPFMiwo6JecOtu3RHorEwj5nZOLl6o55lVYVBIatcJcg==}
     peerDependencies:
       inversify: 8.x
       reflect-metadata: 0.x
@@ -7702,8 +7826,17 @@ packages:
       inversify: 8.x
       reflect-metadata: 0.x
 
+  '@xwiki/platform-rendering-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-Trg9af45duSYd4aEQUgmLMSAbQAuGCh100VTJTsxUq7wG6CdfcbDnmBnYO+15xUI2KWbDhIfC4cBZ38jmj2WpQ==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+
   '@xwiki/platform-syntaxes-config@18.9.0-1790768431':
     resolution: {integrity: sha512-HhXEcxAwxxYpd4WV+fAdQ1sCWW8+CYEUwQDHNgv9pgJljSjKYDU3jN3G7LBZsBDltd2+JzYoThFdDq6DEaVBeg==}
+
+  '@xwiki/platform-syntaxes-config@18.9.0-rc-1':
+    resolution: {integrity: sha512-HnPLgBpuMF+z3y9nNprtli4/vE97+XS6/afTedGg6SqnQFlK+vDxrgTnW/FCOkzm39HpxUtyXP0sWwjp04WpyQ==}
 
   '@xwiki/platform-tool-apiextractorconfig@18.9.0-1790768431':
     resolution: {integrity: sha512-RwrPLwfCDRGjBEM+7lW1zB18Rz1nAbMutiK8gF3TDa0JsEfKsb7p3l7f3djAxwgU2Sg4fjgzT3a8/+p8q4rBAQ==}
@@ -7716,8 +7849,14 @@ packages:
   '@xwiki/platform-tool-viteconfig@18.9.0-1790768431':
     resolution: {integrity: sha512-4rNgBhbZu8P8kgcgbNnE5aPn2XqrEK2zGx4TxuOzEsd/2EHt4fOhqRtgl2atSKSzh9rBaQ+zOs9OhO/kVZ7XQw==}
 
+  '@xwiki/platform-tool-viteconfig@18.9.0-rc-1':
+    resolution: {integrity: sha512-LA2g4SDRWUQfb8I+mESO/SRou1OMW0WdoBmojGJVhj0jQn1Fb6wpLAmCPYnFR/KVIXRWASxGBCAfgNhzZQXtOw==}
+
   '@xwiki/platform-uniast-api@18.9.0-1790768431':
     resolution: {integrity: sha512-R28Q+0Y06ZpByYOGE2yFZQgCMFu8QpUoXVSdwtU0FKvIieHEleiJI2oiZ22YhPnLiJhtVRvomKCd2alZEgNRnA==}
+
+  '@xwiki/platform-uniast-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-hS0UAI/+e3Rs2QyqOtdEK9vFpMMTsnQSo5hIrHnZFfxf7HOlNTOhVDUnULCGXpgKUaOIMwEZoduUeJAOyyBb5A==}
 
   '@xwiki/platform-uniast-markdown-xwiki@18.9.0-1790768431':
     resolution: {integrity: sha512-1xWHquXlkhV3zDCsfpEs6Oa7n9UQCnWV4SxFqsvMIYsF+NUXwzANSMQNyufmE/xyMpCMn/ElPiBn7Kwg+/YzGg==}
@@ -7726,6 +7865,11 @@ packages:
 
   '@xwiki/platform-uniast-markdown@18.9.0-1790768431':
     resolution: {integrity: sha512-tGdCd92Hjn4j0YwCZWBy+fF3lKv39eEInSFVnNow0cHo48ba34r+Zwwa5SVwbbpjPeTtlmYnlwXTdTm6+uhJKA==}
+    peerDependencies:
+      inversify: 8.x
+
+  '@xwiki/platform-uniast-markdown@18.9.0-rc-1':
+    resolution: {integrity: sha512-7bj6TMc8XZIGsUhBg0KOCPtbscUQcVi5GmXBfwzTK6DKVfP1QvSVU6UCBmfzakTdzW9ZuYfelopdaGkuzYwkpg==}
     peerDependencies:
       inversify: 8.x
 
@@ -8039,6 +8183,9 @@ packages:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
 
+  ccount@2.0.1:
+    resolution: {integrity: sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg==}
+
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
     engines: {node: '>=18'}
@@ -8050,6 +8197,12 @@ packages:
   chalk@5.6.2:
     resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
+  character-entities-html4@2.1.0:
+    resolution: {integrity: sha512-1v7fgQRj6hnSwFpq1Eu0ynr/CDEw0rXo2B61qXrLNdHZmPKgb7fqS1a2JwF0rISo9q77jDI8VMEHoApn8qDoZA==}
+
+  character-entities-legacy@3.0.0:
+    resolution: {integrity: sha512-RpPp0asT/6ufRm//AJVwpViZbGM/MkjQFxJccQRHmISF/22NBtsHqAWmL+/pmkPWoIUJdWyeVleTl1wydHATVQ==}
 
   character-entities@2.0.2:
     resolution: {integrity: sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ==}
@@ -8125,6 +8278,9 @@ packages:
 
   comlink@4.4.2:
     resolution: {integrity: sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==}
+
+  comma-separated-tokens@2.0.3:
+    resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
 
   commander@10.0.1:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
@@ -8989,6 +9145,12 @@ packages:
     resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
     engines: {node: '>= 0.4'}
 
+  hast-util-to-html@9.0.5:
+    resolution: {integrity: sha512-OguPdidb+fbHQSU4Q4ZiLKnzWo8Wwsf5bZfbvu7//a9oTYoqD/fWpe96NuHkoS9h0ccGOTe0C4NGXdtS0iObOw==}
+
+  hast-util-whitespace@3.0.0:
+    resolution: {integrity: sha512-88JUN06ipLwsnv+dVn+OIYOvAuvBMy/Qoi6O7mQHxdPXpjy+Cd6xRkWwux7DKO+4sYILtLBRIKgsdpS2gQc7qw==}
+
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
@@ -9002,6 +9164,9 @@ packages:
 
   html-parse-stringify@4.0.1:
     resolution: {integrity: sha512-0zHsZJrK7S3K2aucXWL6ycoYJ/iNtIcFHC/nYQgFklPtrv5LpJctIiSCroWZWeuoXvuyFdzp6KzjJQ+OT5MfFw==}
+
+  html-void-elements@3.0.0:
+    resolution: {integrity: sha512-bEqo66MRXsUGxWHV5IP0PUiAWwoEjba4VCzg0LjFJBpchPaTfyfCKTG6bc5F8ucKec3q5y6qOdGyYTSBEvhCrg==}
 
   http-cache-semantics@4.2.0:
     resolution: {integrity: sha512-dTxcvPXqPvXBQpq5dUr6mEMJX4oIEFv6bwom3FDwKRDsuIjjJGANqhBuoAn9c1RQJIdAKav33ED65E2ys+87QQ==}
@@ -9028,6 +9193,14 @@ packages:
 
   i18next@26.4.2:
     resolution: {integrity: sha512-RX+R0VLg13IbvRuJSxnqykUFS9vQZTl8wYpWPCIUDWVrSGjsQywB5Y+pjzrkboxGAuYfJZVH1InFTdgBdxq6ug==}
+    peerDependencies:
+      typescript: ^5 || ^6 || ^7
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  i18next@26.4.4:
+    resolution: {integrity: sha512-O+rqmQUi54OwAgnZ4SAwO6aRrbXZt36VZXWt6zvq0FpC3vJbH46oQRs6u4Uwm1vf8ZI7UqOXQiJhQVTor7vRiQ==}
     peerDependencies:
       typescript: ^5 || ^6 || ^7
     peerDependenciesMeta:
@@ -9527,6 +9700,9 @@ packages:
   mdast-util-gfm-strikethrough@2.0.0:
     resolution: {integrity: sha512-mKKb915TF+OC5ptj5bJ7WFRPdYtuHv0yTRxK2tJvi+BDqbkiG7h7u/9SI89nRAYcmap2xHQL9D+QG/6wSrTtXg==}
 
+  mdast-util-gfm-strikethrough@2.0.1:
+    resolution: {integrity: sha512-OuJHqvr455pwu2OaOrir7dbzqs4jlWKOtlu9L6GjcIjjQwNyw02VntQsr/Ek6/A13vgnXfUhBekWRUP1OkNivw==}
+
   mdast-util-gfm-table@2.0.0:
     resolution: {integrity: sha512-78UEvebzz/rJIxLvE7ZtDd/vIQ0RHv+3Mh5DR96p7cS7HsBhYIICDBCu8csTNWNO6tBWfqXPWekRuj2FNOGOZg==}
 
@@ -9535,6 +9711,9 @@ packages:
 
   mdast-util-phrasing@4.1.0:
     resolution: {integrity: sha512-TqICwyvJJpBwvGAMZjj4J2n0X8QWp21b9l0o7eXyVJ25YNWYbJDVIyD1bZXE6WtV6RmKJVYmQAKWa0zWOABz2w==}
+
+  mdast-util-to-hast@13.2.1:
+    resolution: {integrity: sha512-cctsq2wp5vTsLIcaymblUriiTcZd0CwWtCbLvrOzYCDZoWyMNV8sZ7krj09FSnsiJi3WVsHLM4k6Dq/yaPyCXA==}
 
   mdast-util-to-markdown@2.1.2:
     resolution: {integrity: sha512-xj68wMTvGXVOKonmog6LwyJKrYXZPvlwabaryTjLh9LuvovB/KAH+kvi8Gjj+7rJjsFi23nkUxRQv1KqSroMqA==}
@@ -9863,6 +10042,12 @@ packages:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
 
+  oniguruma-parser@0.12.2:
+    resolution: {integrity: sha512-6HVa5oIrgMC6aA6WF6XyyqbhRPJrKR02L20+2+zpDtO5QAzGHAUGw5TKQvwi5vctNnRHkJYmjAhRVQF2EKdTQw==}
+
+  oniguruma-to-es@4.3.6:
+    resolution: {integrity: sha512-csuQ9x3Yr0cEIs/Zgx/OEt9iBw9vqIunAPQkx19R/fiMq2oGVTgcMqO/V3Ybqefr1TBvosI6jU539ksaBULJyA==}
+
   open@8.4.2:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
     engines: {node: '>=12'}
@@ -10044,6 +10229,9 @@ packages:
 
   proper-lockfile@4.1.2:
     resolution: {integrity: sha512-TjNPblN4BwAWMXU8s9AEz4JmQxnD1NNL7bNOY/AKUzyamc379FWASUhc/K1pL2noVb+XmZKLL68cjzLsiOAMaA==}
+
+  property-information@7.2.0:
+    resolution: {integrity: sha512-IAtzIB6sUiWaJYrX9smp3V46pBGbBeLFRGdh25kg1334VcBlD8HzhPeNIWQH9zhGmo2itIe25EHt9dQP7G5hmg==}
 
   prosemirror-changeset@2.4.2:
     resolution: {integrity: sha512-ViYrjMSg3YFiXwIhKaluu+/mi3Yrxt6AR8ri14ulTaGcZtXO1CThl7A2gv79qx5fQnOw8woKwyBU2u+9PVCm3w==}
@@ -10261,6 +10449,15 @@ packages:
   reflect.getprototypeof@1.0.10:
     resolution: {integrity: sha512-00o4I+DVrefhv+nX0ulyi3biSHCPDe+yLv5o/p6d/UVlirijB8E16FtfwSAi4g3tcqrQ4lRAqQSoFEZJehYEcw==}
     engines: {node: '>= 0.4'}
+
+  regex-recursion@6.0.2:
+    resolution: {integrity: sha512-0YCaSCq2VRIebiaUviZNs0cBz1kg5kVS2UKUfNIx8YVs1cN3AV7NTctO5FOKBA+UT2BPJIWZauYHPqJODG50cg==}
+
+  regex-utilities@2.3.0:
+    resolution: {integrity: sha512-8VhliFJAWRaUiVvREIiW2NXXTmHs4vMNnSzuJVhscgmGav3g9VDxLrQndI3dZZVVdp0ZO/5v0xmX516/7M9cng==}
+
+  regex@6.1.0:
+    resolution: {integrity: sha512-6VwtthbV4o/7+OaAF9I5L5V3llLEsoPyq9P1JVXkedTP33c7MfCG0/5NOPcSJn0TzXcG9YUrR0gQSWioew3LDg==}
 
   regexp.prototype.flags@1.5.4:
     resolution: {integrity: sha512-dYqgNSZbDwkaJ2ceRd9ojCGjBq+mOm9LmtXnAnEGyHhN/5R7iDW2TRw3h+o/jCFxus3P2LfWIIiwowAjANm7IA==}
@@ -10503,6 +10700,9 @@ packages:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
 
+  space-separated-tokens@2.0.2:
+    resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
+
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
@@ -10562,6 +10762,9 @@ packages:
 
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
+
+  stringify-entities@4.0.4:
+    resolution: {integrity: sha512-IwfBptatlO+QCJUo19AqvrPNqlVMpW9YEL2LIVY+Rpv2qsjCGxaDLNRgeGsQWJhfItebuJhsGSLjaBbNSQ+ieg==}
 
   strip-ansi@6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}
@@ -10688,6 +10891,9 @@ packages:
   tree-kill@1.2.2:
     resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
     hasBin: true
+
+  trim-lines@3.0.1:
+    resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
 
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
@@ -10819,6 +11025,9 @@ packages:
 
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
+
+  unist-util-position@5.0.0:
+    resolution: {integrity: sha512-fucsC7HjXvkB5R3kTCO7kUjRdrS0BJt3M/FPxmHMBOm8JQi2BsHAHFsy27E0EolP8rp0NzXsJ+jNPyDWvOJZPA==}
 
   unist-util-stringify-position@4.0.0:
     resolution: {integrity: sha512-0ASV06AAoKCDkS2+xw5RXJywruurpbC4JZSm7nr7MOt1ojAzvyyaO+UxZf18j8FCF6kmzCZKcAgN/yu2gm2XgQ==}
@@ -11382,6 +11591,16 @@ snapshots:
       '@babel/helper-validator-identifier': 8.0.4
 
   '@bcoe/v8-coverage@1.0.2': {}
+
+  '@blocknote/code-block@0.55.0(@blocknote/core@0.55.0(@types/hast@3.0.5)(y-prosemirror@1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))':
+    dependencies:
+      '@blocknote/core': 0.55.0(@types/hast@3.0.5)(y-prosemirror@1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
+      '@shikijs/core': 4.5.0
+      '@shikijs/engine-javascript': 4.5.0
+      '@shikijs/langs-precompiled': 4.5.0
+      '@shikijs/themes': 4.5.0
+    optionalDependencies:
+      '@shikijs/types': 4.4.3
 
   '@blocknote/core@0.55.0(@types/hast@3.0.5)(y-prosemirror@1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)':
     dependencies:
@@ -12354,7 +12573,41 @@ snapshots:
     transitivePeerDependencies:
       - '@types/node'
 
+  '@shikijs/core@4.5.0':
+    dependencies:
+      '@shikijs/primitive': 4.5.0
+      '@shikijs/types': 4.5.0
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.5
+      hast-util-to-html: 9.0.5
+
+  '@shikijs/engine-javascript@4.5.0':
+    dependencies:
+      '@shikijs/types': 4.5.0
+      '@shikijs/vscode-textmate': 10.0.2
+      oniguruma-to-es: 4.3.6
+
+  '@shikijs/langs-precompiled@4.5.0':
+    dependencies:
+      '@shikijs/types': 4.5.0
+      oniguruma-to-es: 4.3.6
+
+  '@shikijs/primitive@4.5.0':
+    dependencies:
+      '@shikijs/types': 4.5.0
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.5
+
+  '@shikijs/themes@4.5.0':
+    dependencies:
+      '@shikijs/types': 4.5.0
+
   '@shikijs/types@4.4.3':
+    dependencies:
+      '@shikijs/vscode-textmate': 10.0.2
+      '@types/hast': 3.0.5
+
+  '@shikijs/types@4.5.0':
     dependencies:
       '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.5
@@ -12630,7 +12883,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.12.4
+      '@types/node': 26.3.0
 
   '@types/xml-escape@1.1.3': {}
 
@@ -12866,6 +13119,8 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.65.0
       eslint-visitor-keys: 5.0.1
+
+  '@ungap/structured-clone@1.4.0': {}
 
   '@unrs/resolver-binding-android-arm-eabi@1.12.2':
     optional: true
@@ -13141,10 +13396,26 @@ snapshots:
       vue: 3.5.43(typescript@5.9.3)
       vue-router: 5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3))
 
+  '@xwiki/platform-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-authentication-api': 18.9.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-configuration-api': 18.9.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+      vue-router: 5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3))
+
   '@xwiki/platform-attachments-api@18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-authentication-api': 18.9.0-1790768431(reflect-metadata@0.2.2)
       '@xwiki/platform-model-api': 18.9.0-1790768431
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+
+  '@xwiki/platform-attachments-api@18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-authentication-api': 18.9.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-model-api': 18.9.0-rc-1
       reflect-metadata: 0.2.2
       vue: 3.5.43(typescript@5.9.3)
 
@@ -13167,9 +13438,22 @@ snapshots:
     dependencies:
       reflect-metadata: 0.2.2
 
+  '@xwiki/platform-authentication-api@18.9.0-rc-1(reflect-metadata@0.2.2)':
+    dependencies:
+      reflect-metadata: 0.2.2
+
   '@xwiki/platform-autosave-api@18.8.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+    transitivePeerDependencies:
+      - inversify
+      - reflect-metadata
+      - vue
+      - vue-router
+
+  '@xwiki/platform-autosave-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
     transitivePeerDependencies:
       - inversify
       - reflect-metadata
@@ -13210,7 +13494,27 @@ snapshots:
     transitivePeerDependencies:
       - vue-router
 
+  '@xwiki/platform-collaboration-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-authentication-api': 18.9.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-autosave-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-document-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      '@xwiki/platform-model-reference-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+      y-protocols: 1.0.7(yjs@13.6.33)
+      yjs: 13.6.33
+    transitivePeerDependencies:
+      - vue-router
+
   '@xwiki/platform-configuration-api@18.9.0-1790768431':
+    dependencies:
+      utility-types: 3.11.0
+
+  '@xwiki/platform-configuration-api@18.9.0-rc-1':
     dependencies:
       utility-types: 3.11.0
 
@@ -13224,25 +13528,41 @@ snapshots:
       - inversify
       - vue-router
 
+  '@xwiki/platform-document-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+    transitivePeerDependencies:
+      - inversify
+      - vue-router
+
   '@xwiki/platform-dsapi@18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-fn-utils': 18.9.0-1790768431
       reflect-metadata: 0.2.2
       vue: 3.5.43(typescript@5.9.3)
 
-  '@xwiki/platform-editors-blocknote-headless@18.9.0-1790768431(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)':
+  '@xwiki/platform-dsapi@18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))':
     dependencies:
-      '@xwiki/platform-attachments-api': 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
-      '@xwiki/platform-collaboration-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
-      '@xwiki/platform-document-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
-      '@xwiki/platform-dsapi': 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
-      '@xwiki/platform-editors-blocknote-react': 18.9.0-1790768431(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
-      '@xwiki/platform-icons': 18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
-      '@xwiki/platform-link-suggest-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
-      '@xwiki/platform-macros-api': 18.9.0-1790768431
-      '@xwiki/platform-model-api': 18.9.0-1790768431
-      '@xwiki/platform-model-reference-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
-      '@xwiki/platform-model-remote-url-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.9.0-rc-1
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+
+  '@xwiki/platform-editors-blocknote-headless@18.9.0-rc-1(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@xwiki/platform-attachments-api': 18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-collaboration-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-document-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-dsapi': 18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-editors-blocknote-react': 18.9.0-rc-1(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
+      '@xwiki/platform-icons': 18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-link-suggest-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-macros-api': 18.9.0-rc-1
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      '@xwiki/platform-model-reference-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-remote-url-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       inversify: 8.2.3(reflect-metadata@0.2.2)
       lodash-es: 4.18.1
       reflect-metadata: 0.2.2
@@ -13350,7 +13670,79 @@ snapshots:
       - vue-router
       - yaml
 
+  '@xwiki/platform-editors-blocknote-react@18.9.0-rc-1(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/node@26.3.0)(@types/react@19.3.0)(esbuild@0.28.2)(inversify@8.2.3(reflect-metadata@0.2.2))(jiti@2.7.0)(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@blocknote/code-block': 0.55.0(@blocknote/core@0.55.0(@types/hast@3.0.5)(y-prosemirror@1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))
+      '@blocknote/core': 0.55.0(@types/hast@3.0.5)(y-prosemirror@1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
+      '@blocknote/mantine': 0.55.0(@floating-ui/dom@1.8.0)(@mantine/core@9.6.3(@mantine/hooks@9.6.3(react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(@mantine/hooks@9.6.3(react@19.3.0))(@types/hast@3.0.5)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(y-prosemirror@1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
+      '@blocknote/react': 0.55.0(@floating-ui/dom@1.8.0)(@types/hast@3.0.5)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(y-prosemirror@1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
+      '@floating-ui/react': 0.27.20(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@mantine/core': 9.6.3(@mantine/hooks@9.6.3(react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@mantine/hooks': 9.6.3(react@19.3.0)
+      '@types/react-dom': 19.3.0(@types/react@19.3.0)
+      '@xwiki/platform-attachments-api': 18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-collaboration-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-document-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.9.0-rc-1
+      '@xwiki/platform-link-suggest-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-macros-api': 18.9.0-rc-1
+      '@xwiki/platform-macros-ast-react-jsx': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      '@xwiki/platform-model-reference-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-remote-url-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-rendering-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
+      '@xwiki/platform-syntaxes-config': 18.9.0-rc-1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
+      '@xwiki/platform-uniast-api': 18.9.0-rc-1
+      '@xwiki/platform-uniast-markdown': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      i18next: 26.4.4(typescript@5.9.3)
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      lodash-es: 4.18.1
+      react: 19.3.0
+      react-dom: 19.3.0(react@19.3.0)
+      react-i18next: 17.0.15(i18next@26.4.4(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3)
+      react-icons: 5.7.0(react@19.3.0)
+      y-prosemirror: 1.3.7(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
+      y-protocols: 1.0.7(yjs@13.6.33)
+      yjs: 13.6.33
+    transitivePeerDependencies:
+      - '@floating-ui/dom'
+      - '@lezer/common'
+      - '@lezer/highlight'
+      - '@types/hast'
+      - '@types/node'
+      - '@types/react'
+      - '@vitejs/devtools'
+      - '@y/prosemirror'
+      - '@y/protocols'
+      - '@y/y'
+      - esbuild
+      - highlight.js
+      - jiti
+      - less
+      - lowlight
+      - prosemirror-model
+      - prosemirror-state
+      - prosemirror-view
+      - react-native
+      - reflect-metadata
+      - refractor
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugar-high
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
+      - vue-router
+      - yaml
+
   '@xwiki/platform-fn-utils@18.9.0-1790768431': {}
+
+  '@xwiki/platform-fn-utils@18.9.0-rc-1': {}
 
   '@xwiki/platform-hierarchy-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
@@ -13384,6 +13776,12 @@ snapshots:
       reflect-metadata: 0.2.2
       vue: 3.5.43(typescript@5.9.3)
 
+  '@xwiki/platform-icons@18.9.0-rc-1(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      bootstrap-icons: 1.13.1
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+
   '@xwiki/platform-link-suggest-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@24.12.4)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@24.12.4)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
@@ -13396,6 +13794,15 @@ snapshots:
   '@xwiki/platform-link-suggest-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+    transitivePeerDependencies:
+      - vue
+      - vue-router
+
+  '@xwiki/platform-link-suggest-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       inversify: 8.2.3(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
@@ -13417,6 +13824,8 @@ snapshots:
 
   '@xwiki/platform-macros-api@18.9.0-1790768431': {}
 
+  '@xwiki/platform-macros-api@18.9.0-rc-1': {}
+
   '@xwiki/platform-macros-ast-react-jsx@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-fn-utils': 18.9.0-1790768431
@@ -13428,9 +13837,25 @@ snapshots:
       - vue
       - vue-router
 
+  '@xwiki/platform-macros-ast-react-jsx@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-fn-utils': 18.9.0-rc-1
+      '@xwiki/platform-macros-api': 18.9.0-rc-1
+      '@xwiki/platform-model-remote-url-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+    transitivePeerDependencies:
+      - reflect-metadata
+      - vue
+      - vue-router
+
   '@xwiki/platform-macros-service@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))':
     dependencies:
       '@xwiki/platform-macros-api': 18.9.0-1790768431
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+
+  '@xwiki/platform-macros-service@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))':
+    dependencies:
+      '@xwiki/platform-macros-api': 18.9.0-rc-1
       inversify: 8.2.3(reflect-metadata@0.2.2)
 
   '@xwiki/platform-markdown-syntax-config@18.9.0-1790768431(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@7.2.0)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)':
@@ -13461,6 +13886,8 @@ snapshots:
 
   '@xwiki/platform-model-api@18.9.0-1790768431': {}
 
+  '@xwiki/platform-model-api@18.9.0-rc-1': {}
+
   '@xwiki/platform-model-reference-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
@@ -13471,10 +13898,30 @@ snapshots:
       - vue
       - vue-router
 
+  '@xwiki/platform-model-reference-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+    transitivePeerDependencies:
+      - vue
+      - vue-router
+
   '@xwiki/platform-model-remote-url-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       '@xwiki/platform-model-api': 18.9.0-1790768431
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+    transitivePeerDependencies:
+      - vue
+      - vue-router
+
+  '@xwiki/platform-model-remote-url-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
       inversify: 8.2.3(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
     transitivePeerDependencies:
@@ -13492,6 +13939,11 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-rendering-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
+    dependencies:
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+
+  '@xwiki/platform-rendering-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
       inversify: 8.2.3(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
@@ -13522,6 +13974,28 @@ snapshots:
     dependencies:
       '@xwiki/platform-model-api': 18.9.0-1790768431
       '@xwiki/platform-tool-viteconfig': 18.9.0-1790768431(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@7.2.0)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
+      - yaml
+
+  '@xwiki/platform-syntaxes-config@18.9.0-rc-1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      '@xwiki/platform-tool-viteconfig': 18.9.0-rc-1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)
     transitivePeerDependencies:
       - '@types/node'
       - '@vitejs/devtools'
@@ -13596,9 +14070,38 @@ snapshots:
       - vue
       - yaml
 
+  '@xwiki/platform-tool-viteconfig@18.9.0-rc-1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)':
+    dependencies:
+      '@jridgewell/remapping': 2.3.5
+      '@vitejs/plugin-vue': 6.0.9(vite@8.3.1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3))
+      vite: 8.3.1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0)
+      vite-plugin-css-injected-by-js: 5.0.2(vite@8.3.1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
+      vite-plugin-dts: 4.5.4(@types/node@26.3.0)(rollup@4.63.0)(supports-color@10.2.2)(typescript@5.9.3)(vite@8.3.1(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - rollup
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - typescript
+      - vue
+      - yaml
+
   '@xwiki/platform-uniast-api@18.9.0-1790768431':
     dependencies:
       '@xwiki/platform-model-api': 18.9.0-1790768431
+
+  '@xwiki/platform-uniast-api@18.9.0-rc-1':
+    dependencies:
+      '@xwiki/platform-model-api': 18.9.0-rc-1
 
   '@xwiki/platform-uniast-markdown-xwiki@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
@@ -13620,6 +14123,28 @@ snapshots:
       '@xwiki/platform-uniast-api': 18.9.0-1790768431
       inversify: 8.2.3(reflect-metadata@0.2.2)
       mdast-util-gfm-strikethrough: 2.0.0(supports-color@10.2.2)
+      mdast-util-gfm-table: 2.0.0(supports-color@10.2.2)
+      mdast-util-gfm-task-list-item: 2.0.0(supports-color@10.2.2)
+      micromark-extension-gfm-strikethrough: 2.1.0
+      micromark-extension-gfm-table: 2.1.2
+      micromark-extension-gfm-task-list-item: 2.1.0
+      remark-parse: 11.0.0(supports-color@10.2.2)
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - reflect-metadata
+      - supports-color
+      - vue
+      - vue-router
+
+  '@xwiki/platform-uniast-markdown@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.9.0-rc-1
+      '@xwiki/platform-macros-service': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      '@xwiki/platform-uniast-api': 18.9.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      mdast-util-gfm-strikethrough: 2.0.1(supports-color@10.2.2)
       mdast-util-gfm-table: 2.0.0(supports-color@10.2.2)
       mdast-util-gfm-task-list-item: 2.0.0(supports-color@10.2.2)
       micromark-extension-gfm-strikethrough: 2.1.0
@@ -14075,6 +14600,8 @@ snapshots:
 
   callsites@3.1.0: {}
 
+  ccount@2.0.1: {}
+
   chai@6.2.2: {}
 
   chalk@4.1.2:
@@ -14083,6 +14610,10 @@ snapshots:
       supports-color: 7.2.0
 
   chalk@5.6.2: {}
+
+  character-entities-html4@2.1.0: {}
+
+  character-entities-legacy@3.0.0: {}
 
   character-entities@2.0.2: {}
 
@@ -14155,6 +14686,8 @@ snapshots:
       delayed-stream: 1.0.0
 
   comlink@4.4.2: {}
+
+  comma-separated-tokens@2.0.3: {}
 
   commander@10.0.1: {}
 
@@ -15328,6 +15861,24 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
+  hast-util-to-html@9.0.5:
+    dependencies:
+      '@types/hast': 3.0.5
+      '@types/unist': 3.0.3
+      ccount: 2.0.1
+      comma-separated-tokens: 2.0.3
+      hast-util-whitespace: 3.0.0
+      html-void-elements: 3.0.0
+      mdast-util-to-hast: 13.2.1
+      property-information: 7.2.0
+      space-separated-tokens: 2.0.2
+      stringify-entities: 4.0.4
+      zwitch: 2.0.4
+
+  hast-util-whitespace@3.0.0:
+    dependencies:
+      '@types/hast': 3.0.5
+
   he@1.2.0: {}
 
   hookable@5.5.3: {}
@@ -15337,6 +15888,8 @@ snapshots:
       lru-cache: 6.0.0
 
   html-parse-stringify@4.0.1: {}
+
+  html-void-elements@3.0.0: {}
 
   http-cache-semantics@4.2.0: {}
 
@@ -15382,6 +15935,10 @@ snapshots:
       - supports-color
 
   i18next@26.4.2(typescript@5.9.3):
+    optionalDependencies:
+      typescript: 5.9.3
+
+  i18next@26.4.4(typescript@5.9.3):
     optionalDependencies:
       typescript: 5.9.3
 
@@ -15851,6 +16408,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  mdast-util-gfm-strikethrough@2.0.1(supports-color@10.2.2):
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-from-markdown: 2.0.3(supports-color@10.2.2)
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+
   mdast-util-gfm-table@2.0.0(supports-color@10.2.2):
     dependencies:
       '@types/mdast': 4.0.4
@@ -15874,6 +16439,18 @@ snapshots:
     dependencies:
       '@types/mdast': 4.0.4
       unist-util-is: 6.0.1
+
+  mdast-util-to-hast@13.2.1:
+    dependencies:
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+      '@ungap/structured-clone': 1.4.0
+      devlop: 1.1.0
+      micromark-util-sanitize-uri: 2.0.1
+      trim-lines: 3.0.1
+      unist-util-position: 5.0.0
+      unist-util-visit: 5.1.0
+      vfile: 6.0.3
 
   mdast-util-to-markdown@2.1.2:
     dependencies:
@@ -16414,6 +16991,14 @@ snapshots:
     dependencies:
       mimic-fn: 2.1.0
 
+  oniguruma-parser@0.12.2: {}
+
+  oniguruma-to-es@4.3.6:
+    dependencies:
+      oniguruma-parser: 0.12.2
+      regex: 6.1.0
+      regex-recursion: 6.0.2
+
   open@8.4.2:
     dependencies:
       define-lazy-prop: 2.0.0
@@ -16594,6 +17179,8 @@ snapshots:
       retry: 0.12.0
       signal-exit: 3.0.7
 
+  property-information@7.2.0: {}
+
   prosemirror-changeset@2.4.2:
     dependencies:
       prosemirror-transform: 1.12.2
@@ -16738,6 +17325,17 @@ snapshots:
       react-dom: 19.3.0(react@19.3.0)
       typescript: 5.9.3
 
+  react-i18next@17.0.15(i18next@26.4.4(typescript@5.9.3))(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(typescript@5.9.3):
+    dependencies:
+      '@babel/runtime': 7.29.7
+      html-parse-stringify: 4.0.1
+      i18next: 26.4.4(typescript@5.9.3)
+      react: 19.3.0
+      use-sync-external-store: 1.6.0(react@19.3.0)
+    optionalDependencies:
+      react-dom: 19.3.0(react@19.3.0)
+      typescript: 5.9.3
+
   react-icons@5.7.0(react@19.3.0):
     dependencies:
       react: 19.3.0
@@ -16806,6 +17404,16 @@ snapshots:
       get-intrinsic: 1.3.0
       get-proto: 1.0.1
       which-builtin-type: 1.2.1
+
+  regex-recursion@6.0.2:
+    dependencies:
+      regex-utilities: 2.3.0
+
+  regex-utilities@2.3.0: {}
+
+  regex@6.1.0:
+    dependencies:
+      regex-utilities: 2.3.0
 
   regexp.prototype.flags@1.5.4:
     dependencies:
@@ -17170,6 +17778,8 @@ snapshots:
 
   source-map@0.6.1: {}
 
+  space-separated-tokens@2.0.2: {}
+
   sprintf-js@1.0.3: {}
 
   sprintf-js@1.1.3:
@@ -17239,6 +17849,11 @@ snapshots:
   string_decoder@1.3.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  stringify-entities@4.0.4:
+    dependencies:
+      character-entities-html4: 2.1.0
+      character-entities-legacy: 3.0.0
 
   strip-ansi@6.0.1:
     dependencies:
@@ -17355,6 +17970,8 @@ snapshots:
   touch@3.1.1: {}
 
   tree-kill@1.2.2: {}
+
+  trim-lines@3.0.1: {}
 
   trough@2.2.0: {}
 
@@ -17511,6 +18128,10 @@ snapshots:
       imurmurhash: 0.1.4
 
   unist-util-is@6.0.1:
+    dependencies:
+      '@types/unist': 3.0.3
+
+  unist-util-position@5.0.0:
     dependencies:
       '@types/unist': 3.0.3
 
