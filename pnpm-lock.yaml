@@ -328,7 +328,7 @@ catalogs:
       version: 18.9.0-1790768431
     '@xwiki/platform-uniast-markdown-xwiki':
       specifier: ^18.9.0-0
-      version: 18.9.0-1790768431
+      version: 18.9.0-rc-1
     '@xwiki/platform-xwiki-utils':
       specifier: ^18.9.0-0
       version: 18.9.0-1790768431
@@ -5286,7 +5286,7 @@ importers:
         version: 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       '@xwiki/platform-uniast-markdown-xwiki':
         specifier: 'catalog:'
-        version: 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+        version: 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       reflect-metadata:
         specifier: 'catalog:'
         version: 0.2.2
@@ -7570,6 +7570,14 @@ packages:
       vue: 3.x
       vue-router: 5.x
 
+  '@xwiki/platform-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-c/OzA+oSFJhLKlKeQROJY4ujdu8vGhF2PcOVhDFVEExA9cbNCkAl1B9cvwf1+goIqRMRP6T22Grv8aL+yZupVA==}
+    peerDependencies:
+      inversify: 8.x
+      reflect-metadata: 0.x
+      vue: 3.x
+      vue-router: 5.x
+
   '@xwiki/platform-attachments-api@18.9.0-1790768431':
     resolution: {integrity: sha512-pYp8t99y23wzBYlO81xyjdlFFKYpOg6p3LKOzBobprf+6QOtJp4LbI/phWidPHji3nprLSIzy9QeGjrUB9gGFg==}
     peerDependencies:
@@ -7586,6 +7594,11 @@ packages:
 
   '@xwiki/platform-authentication-api@18.9.0-1790768431':
     resolution: {integrity: sha512-7fVRJVS7bSN0u+I9c6iakNRb2JFMwXx17cnIY0fMF4IWcvNwRNapZJqi+vkXU7k2PNR4+4/aNI1kAq8SBMVhiA==}
+    peerDependencies:
+      reflect-metadata: 0.x
+
+  '@xwiki/platform-authentication-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-S25leG4S1/v5ti6zRnPlX8y0YnmpoLAWYXF4gWOioAonRidwEndTDCVcPFkU/NB1bqnf2qt3fo5dOmSmSQt2Kw==}
     peerDependencies:
       reflect-metadata: 0.x
 
@@ -7607,6 +7620,9 @@ packages:
 
   '@xwiki/platform-configuration-api@18.9.0-1790768431':
     resolution: {integrity: sha512-ClZ/nDMGuahlQh4C2YpkofU+ZHFNNFKUSMtoX2RVDWwlmg5SIDnndwu7kW8BD7A2spTwYEAU+kLQhfJIDKoclA==}
+
+  '@xwiki/platform-configuration-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-IbPMQqezD89u4OWGkxOg5lQ7lCXfnO3ka797aZ8Sp6wuOQJfUVAx4q//j4FQwHIDxN/MrCx18DXVrz6UmzJY1g==}
 
   '@xwiki/platform-document-api@18.9.0-1790768431':
     resolution: {integrity: sha512-fyUgke6pUCsQqTH8FduLZr/N9tlHZDu5INt2jfiokOuuUeOjZXT1C2AH9+zDkjG5mZsJPrYPuOBDZ+ZFsxYhcw==}
@@ -7634,6 +7650,9 @@ packages:
 
   '@xwiki/platform-fn-utils@18.9.0-1790768431':
     resolution: {integrity: sha512-9c01LxIdZSXrqXpPiodkRYO4j057bKU5S84rT5YvFNMhIKe0k96HwB20kd20IgtTYeNYFP1lTkkT/pSbwShA8g==}
+
+  '@xwiki/platform-fn-utils@18.9.0-rc-1':
+    resolution: {integrity: sha512-b2EYPz+zSN/J+Iw+uvb4Nu/Ng47aMRT8CUXyLC4HqsloC4KzviMKYoOgb2hwRihgOiSLkxubP3RLfSOSmMPjLQ==}
 
   '@xwiki/platform-hierarchy-api@18.9.0-1790768431':
     resolution: {integrity: sha512-LY9E4WC8CYzZ9KMtMU41+7oAFEfiuvgxAGjTxQezAHyGNiM4a8YCJdW9oji8mJRMh4K/pC41ehk+UBj5owQGkw==}
@@ -7665,6 +7684,9 @@ packages:
   '@xwiki/platform-macros-api@18.9.0-1790768431':
     resolution: {integrity: sha512-DnkRUqRLTrtqzL+gbRJjPwz9jknWGehVFZCMv46yZnRZpVxMYLZJiZfnwSw/PT2ixR452+tfpQ6ggaEHgvzoEw==}
 
+  '@xwiki/platform-macros-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-ARv7PtIOpwlt1wt+t9TOc1Ow0x52nLOBDWaUwbBLK5s4g5x57Hdg0jbhGdYwqShNS7ZcGBqzRFitvscr6JlmJQ==}
+
   '@xwiki/platform-macros-ast-react-jsx@18.9.0-1790768431':
     resolution: {integrity: sha512-WOCmrMC35AFB3KKGtgCgc/r8l8PEMiJyrxynr9MKOlIF6KA2RsIZ6qPv6zh8acxAHMYjWEfmaKRz2U14kZuBgA==}
     peerDependencies:
@@ -7675,11 +7697,19 @@ packages:
     peerDependencies:
       inversify: 8.x
 
+  '@xwiki/platform-macros-service@18.9.0-rc-1':
+    resolution: {integrity: sha512-boMcSpgnSf+qd+hyu1vow1+FXByqvr/Y1TB2b2xwylB0HjO8M6QxhhkmJFV337+RyXNX3vzZYX2Id12yR687oQ==}
+    peerDependencies:
+      inversify: 8.x
+
   '@xwiki/platform-markdown-syntax-config@18.9.0-1790768431':
     resolution: {integrity: sha512-JDlTdXc8EX2pCnkjFj4JGLgUI9azbMMLiSfMaBx346Q7pI00v0llty6KuEM81jJ4+bgsoh+AqX6T+nGrTM8d/g==}
 
   '@xwiki/platform-model-api@18.9.0-1790768431':
     resolution: {integrity: sha512-79r3wjLMPvPHm06cIx+Wwmeu/LTlH/XCO2qowM4tgAPl1Hr/rege0dEUjx7khWpjS6njRGneEkQ7Z98oABPz6A==}
+
+  '@xwiki/platform-model-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-PGUo7PBVXSz8wOurKPe4sizFSjF0H8jtdoPEfqydiD7yB+NMBdyTglFKMyDhse1gxUkruDgraZLlPAO4iKKOfw==}
 
   '@xwiki/platform-model-reference-api@18.9.0-1790768431':
     resolution: {integrity: sha512-ttrMIm+PMmr+qWQ43wpAeIUIW3oNj7a6PrTc1G1BvWZys7vT7u+GWpaW1fHHMx0MCF/UzP51+tYp3O+bH3cQ4Q==}
@@ -7719,13 +7749,21 @@ packages:
   '@xwiki/platform-uniast-api@18.9.0-1790768431':
     resolution: {integrity: sha512-R28Q+0Y06ZpByYOGE2yFZQgCMFu8QpUoXVSdwtU0FKvIieHEleiJI2oiZ22YhPnLiJhtVRvomKCd2alZEgNRnA==}
 
-  '@xwiki/platform-uniast-markdown-xwiki@18.9.0-1790768431':
-    resolution: {integrity: sha512-1xWHquXlkhV3zDCsfpEs6Oa7n9UQCnWV4SxFqsvMIYsF+NUXwzANSMQNyufmE/xyMpCMn/ElPiBn7Kwg+/YzGg==}
+  '@xwiki/platform-uniast-api@18.9.0-rc-1':
+    resolution: {integrity: sha512-hS0UAI/+e3Rs2QyqOtdEK9vFpMMTsnQSo5hIrHnZFfxf7HOlNTOhVDUnULCGXpgKUaOIMwEZoduUeJAOyyBb5A==}
+
+  '@xwiki/platform-uniast-markdown-xwiki@18.9.0-rc-1':
+    resolution: {integrity: sha512-fvxAHetPQnP3OCZbOe4FNpBYZTDoysr4P2BdIeVbxHLYPqM/Uk/yTFi3B1QY2qnMPtIpGzfBkZAGBYq6NnPV1g==}
     peerDependencies:
       inversify: 8.x
 
   '@xwiki/platform-uniast-markdown@18.9.0-1790768431':
     resolution: {integrity: sha512-tGdCd92Hjn4j0YwCZWBy+fF3lKv39eEInSFVnNow0cHo48ba34r+Zwwa5SVwbbpjPeTtlmYnlwXTdTm6+uhJKA==}
+    peerDependencies:
+      inversify: 8.x
+
+  '@xwiki/platform-uniast-markdown@18.9.0-rc-1':
+    resolution: {integrity: sha512-7bj6TMc8XZIGsUhBg0KOCPtbscUQcVi5GmXBfwzTK6DKVfP1QvSVU6UCBmfzakTdzW9ZuYfelopdaGkuzYwkpg==}
     peerDependencies:
       inversify: 8.x
 
@@ -9526,6 +9564,9 @@ packages:
 
   mdast-util-gfm-strikethrough@2.0.0:
     resolution: {integrity: sha512-mKKb915TF+OC5ptj5bJ7WFRPdYtuHv0yTRxK2tJvi+BDqbkiG7h7u/9SI89nRAYcmap2xHQL9D+QG/6wSrTtXg==}
+
+  mdast-util-gfm-strikethrough@2.0.1:
+    resolution: {integrity: sha512-OuJHqvr455pwu2OaOrir7dbzqs4jlWKOtlu9L6GjcIjjQwNyw02VntQsr/Ek6/A13vgnXfUhBekWRUP1OkNivw==}
 
   mdast-util-gfm-table@2.0.0:
     resolution: {integrity: sha512-78UEvebzz/rJIxLvE7ZtDd/vIQ0RHv+3Mh5DR96p7cS7HsBhYIICDBCu8csTNWNO6tBWfqXPWekRuj2FNOGOZg==}
@@ -12630,7 +12671,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 24.12.4
+      '@types/node': 26.3.0
 
   '@types/xml-escape@1.1.3': {}
 
@@ -13141,6 +13182,15 @@ snapshots:
       vue: 3.5.43(typescript@5.9.3)
       vue-router: 5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3))
 
+  '@xwiki/platform-api@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-authentication-api': 18.9.0-rc-1(reflect-metadata@0.2.2)
+      '@xwiki/platform-configuration-api': 18.9.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      reflect-metadata: 0.2.2
+      vue: 3.5.43(typescript@5.9.3)
+      vue-router: 5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3))
+
   '@xwiki/platform-attachments-api@18.9.0-1790768431(reflect-metadata@0.2.2)(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-authentication-api': 18.9.0-1790768431(reflect-metadata@0.2.2)
@@ -13164,6 +13214,10 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-authentication-api@18.9.0-1790768431(reflect-metadata@0.2.2)':
+    dependencies:
+      reflect-metadata: 0.2.2
+
+  '@xwiki/platform-authentication-api@18.9.0-rc-1(reflect-metadata@0.2.2)':
     dependencies:
       reflect-metadata: 0.2.2
 
@@ -13211,6 +13265,10 @@ snapshots:
       - vue-router
 
   '@xwiki/platform-configuration-api@18.9.0-1790768431':
+    dependencies:
+      utility-types: 3.11.0
+
+  '@xwiki/platform-configuration-api@18.9.0-rc-1':
     dependencies:
       utility-types: 3.11.0
 
@@ -13352,6 +13410,8 @@ snapshots:
 
   '@xwiki/platform-fn-utils@18.9.0-1790768431': {}
 
+  '@xwiki/platform-fn-utils@18.9.0-rc-1': {}
+
   '@xwiki/platform-hierarchy-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-api': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
@@ -13417,6 +13477,8 @@ snapshots:
 
   '@xwiki/platform-macros-api@18.9.0-1790768431': {}
 
+  '@xwiki/platform-macros-api@18.9.0-rc-1': {}
+
   '@xwiki/platform-macros-ast-react-jsx@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
       '@xwiki/platform-fn-utils': 18.9.0-1790768431
@@ -13431,6 +13493,11 @@ snapshots:
   '@xwiki/platform-macros-service@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))':
     dependencies:
       '@xwiki/platform-macros-api': 18.9.0-1790768431
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+
+  '@xwiki/platform-macros-service@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))':
+    dependencies:
+      '@xwiki/platform-macros-api': 18.9.0-rc-1
       inversify: 8.2.3(reflect-metadata@0.2.2)
 
   '@xwiki/platform-markdown-syntax-config@18.9.0-1790768431(@types/node@26.3.0)(esbuild@0.28.2)(jiti@2.7.0)(reflect-metadata@0.2.2)(rollup@4.63.0)(sugarss@5.0.1(postcss@8.5.28))(supports-color@7.2.0)(tsx@4.23.15)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3))(yaml@2.9.0)':
@@ -13460,6 +13527,8 @@ snapshots:
       - yaml
 
   '@xwiki/platform-model-api@18.9.0-1790768431': {}
+
+  '@xwiki/platform-model-api@18.9.0-rc-1': {}
 
   '@xwiki/platform-model-reference-api@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
     dependencies:
@@ -13600,10 +13669,14 @@ snapshots:
     dependencies:
       '@xwiki/platform-model-api': 18.9.0-1790768431
 
-  '@xwiki/platform-uniast-markdown-xwiki@18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+  '@xwiki/platform-uniast-api@18.9.0-rc-1':
     dependencies:
-      '@xwiki/platform-uniast-api': 18.9.0-1790768431
-      '@xwiki/platform-uniast-markdown': 18.9.0-1790768431(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+
+  '@xwiki/platform-uniast-markdown-xwiki@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-uniast-api': 18.9.0-rc-1
+      '@xwiki/platform-uniast-markdown': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
       inversify: 8.2.3(reflect-metadata@0.2.2)
     transitivePeerDependencies:
       - reflect-metadata
@@ -13620,6 +13693,28 @@ snapshots:
       '@xwiki/platform-uniast-api': 18.9.0-1790768431
       inversify: 8.2.3(reflect-metadata@0.2.2)
       mdast-util-gfm-strikethrough: 2.0.0(supports-color@10.2.2)
+      mdast-util-gfm-table: 2.0.0(supports-color@10.2.2)
+      mdast-util-gfm-task-list-item: 2.0.0(supports-color@10.2.2)
+      micromark-extension-gfm-strikethrough: 2.1.0
+      micromark-extension-gfm-table: 2.1.2
+      micromark-extension-gfm-task-list-item: 2.1.0
+      remark-parse: 11.0.0(supports-color@10.2.2)
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - reflect-metadata
+      - supports-color
+      - vue
+      - vue-router
+
+  '@xwiki/platform-uniast-markdown@18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))':
+    dependencies:
+      '@xwiki/platform-api': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.2.0(@vue/compiler-sfc@3.5.43)(esbuild@0.28.2)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.43(typescript@5.9.3)))(rolldown@1.2.11)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.28))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.43(typescript@5.9.3)))(vue@3.5.43(typescript@5.9.3))
+      '@xwiki/platform-fn-utils': 18.9.0-rc-1
+      '@xwiki/platform-macros-service': 18.9.0-rc-1(inversify@8.2.3(reflect-metadata@0.2.2))
+      '@xwiki/platform-model-api': 18.9.0-rc-1
+      '@xwiki/platform-uniast-api': 18.9.0-rc-1
+      inversify: 8.2.3(reflect-metadata@0.2.2)
+      mdast-util-gfm-strikethrough: 2.0.1(supports-color@10.2.2)
       mdast-util-gfm-table: 2.0.0(supports-color@10.2.2)
       mdast-util-gfm-task-list-item: 2.0.0(supports-color@10.2.2)
       micromark-extension-gfm-strikethrough: 2.1.0
@@ -15844,6 +15939,14 @@ snapshots:
       - supports-color
 
   mdast-util-gfm-strikethrough@2.0.0(supports-color@10.2.2):
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-from-markdown: 2.0.3(supports-color@10.2.2)
+      mdast-util-to-markdown: 2.1.2
+    transitivePeerDependencies:
+      - supports-color
+
+  mdast-util-gfm-strikethrough@2.0.1(supports-color@10.2.2):
     dependencies:
       '@types/mdast': 4.0.4
       mdast-util-from-markdown: 2.0.3(supports-color@10.2.2)
