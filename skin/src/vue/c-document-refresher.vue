@@ -25,7 +25,7 @@ import type { DocumentService } from "@xwiki/platform-document-api";
 import type { ModelReferenceSerializerProvider } from "@xwiki/platform-model-reference-api";
 
 defineSlots<{
-  default: [];
+  default(props: { key: string }): unknown;
 }>();
 
 const cristal = inject<CristalApp>("cristal")!;

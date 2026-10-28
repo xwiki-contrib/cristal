@@ -77,8 +77,8 @@ const dialogOpen: Ref<boolean> = ref(false);
 const name: Ref<string> = ref("");
 const existingPage: Ref<PageData | undefined> = ref(undefined);
 let currentDocumentReference: DocumentReference;
-let newDocumentReference: DocumentReference;
-let newDocumentReferenceSerialized: string;
+let newDocumentReference!: DocumentReference;
+let newDocumentReferenceSerialized!: string;
 
 onMounted(() => {
   currentDocumentReference = referenceParser.parse(

@@ -75,8 +75,8 @@ const dialogOpen: Ref<boolean> = ref(false);
 const preserveChildren: Ref<boolean> = ref(true);
 const existingPage: Ref<PageData | undefined> = ref(undefined);
 const locationReference: Ref<SpaceReference | undefined> = ref(undefined);
-let newDocumentReference: DocumentReference;
-let newDocumentReferenceSerialized: string;
+let newDocumentReference!: DocumentReference;
+let newDocumentReferenceSerialized!: string;
 
 async function movePage() {
   newDocumentReference = referenceHandler.createDocumentReference(
