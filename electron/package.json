@@ -14,7 +14,11 @@
     "url": "https://jira.xwiki.org/projects/CRISTAL/"
   },
   "main": "./main/dist/index.cjs",
-  "files": [],
+  "files": [
+    "main/dist",
+    "preload/dist",
+    "renderer/dist"
+  ],
   "scripts": {
     "build:linux": "electron-builder --linux snap deb rpm flatpak AppImage --x64 --config .electron-builder.config.js --dir --publish onTag",
     "build:mac": "electron-builder --mac dmg zip --x64 --arm64 --config .electron-builder.config.js --dir --publish onTag",
