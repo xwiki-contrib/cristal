@@ -407,6 +407,9 @@ catalogs:
     globals:
       specifier: 17.13.0
       version: 17.13.0
+    happy-dom:
+      specifier: 21.0.4
+      version: 21.0.4
     inversify:
       specifier: 8.2.3
       version: 8.2.3
@@ -574,6 +577,9 @@ importers:
       globals:
         specifier: 'catalog:'
         version: 17.13.0
+      happy-dom:
+        specifier: 'catalog:'
+        version: 21.0.4
       jiti:
         specifier: 'catalog:'
         version: 2.7.0
@@ -609,7 +615,7 @@ importers:
         version: 4.5.4(@types/node@26.3.0)(rollup@4.63.0)(supports-color@7.2.0)(typescript@5.9.3)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vue-eslint-parser:
         specifier: 'catalog:'
         version: 10.4.1(eslint@10.13.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
@@ -824,7 +830,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vitest-mock-extended:
         specifier: 'catalog:'
         version: 5.1.1(typescript@5.9.3)(vitest@5.0.5)
@@ -1004,7 +1010,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vue:
         specifier: 'catalog:'
         version: 3.5.44(typescript@5.9.3)
@@ -1141,7 +1147,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vue:
         specifier: 'catalog:'
         version: 3.5.44(typescript@5.9.3)
@@ -1202,7 +1208,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vue:
         specifier: 'catalog:'
         version: 3.5.44(typescript@5.9.3)
@@ -2481,7 +2487,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
 
   core/model/model-reference/model-reference-filesystem:
     dependencies:
@@ -2635,7 +2641,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vitest-mock-extended:
         specifier: 'catalog:'
         version: 5.1.1(typescript@5.9.3)(vitest@5.0.5)
@@ -3031,7 +3037,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vitest-mock-extended:
         specifier: 'catalog:'
         version: 5.1.1(typescript@5.9.3)(vitest@5.0.5)
@@ -3529,7 +3535,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vitest-mock-extended:
         specifier: 'catalog:'
         version: 5.1.1(typescript@5.9.3)(vitest@5.0.5)
@@ -4025,7 +4031,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vue:
         specifier: 'catalog:'
         version: 3.5.44(typescript@5.9.3)
@@ -5604,7 +5610,7 @@ importers:
         version: 7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)
       vitest:
         specifier: 'catalog:'
-        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+        version: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
       vitest-mock-extended:
         specifier: 'catalog:'
         version: 5.1.1(typescript@5.9.3)(vitest@5.0.5)
@@ -7992,6 +7998,10 @@ packages:
   buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
+  buffer-image-size@0.6.4:
+    resolution: {integrity: sha512-nEh+kZOPY1w+gcCMobZ6ETUp9WfibndnosbpwB1iJk/8Gt5ZF2bhS6+B6bPYz424KtwsR6Rflc3tCz1/ghX2dQ==}
+    engines: {node: '>=4.0'}
+
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
 
@@ -8922,8 +8932,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  happy-dom@20.8.4:
-    resolution: {integrity: sha512-GKhjq4OQCYB4VLFBzv8mmccUadwlAusOZOI7hC1D9xDIT5HhzkJK17c4el2f6R6C715P9xB4uiMxeKUa2nHMwQ==}
+  happy-dom@21.0.4:
+    resolution: {integrity: sha512-tFm+GaLBgo6o0awHnvHaNoraVo27qJ+2tZEtZ+cIa08hXbeitrxAJajLI05hsUy/2/YTKcUjQYzHe5mCcraLBw==}
     engines: {node: '>=20.0.0'}
 
   has-bigints@1.1.0:
@@ -12664,8 +12674,7 @@ snapshots:
   '@types/use-sync-external-store@1.5.0':
     optional: true
 
-  '@types/whatwg-mimetype@3.0.2':
-    optional: true
+  '@types/whatwg-mimetype@3.0.2': {}
 
   '@types/ws@8.18.1':
     dependencies:
@@ -12915,7 +12924,7 @@ snapshots:
       obug: 3.0.0
       std-env: 4.3.0
       tinyrainbow: 3.2.0
-      vitest: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+      vitest: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
 
   '@vitest/istanbul-lib-coverage@1.0.2': {}
 
@@ -13947,6 +13956,10 @@ snapshots:
       fill-range: 7.1.1
 
   buffer-from@1.1.2: {}
+
+  buffer-image-size@0.6.4:
+    dependencies:
+      '@types/node': 24.19.2
 
   buffer@5.7.1:
     dependencies:
@@ -15198,18 +15211,18 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  happy-dom@20.8.4:
+  happy-dom@21.0.4:
     dependencies:
-      '@types/node': 26.3.0
+      '@types/node': 24.19.2
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.1
+      buffer-image-size: 0.6.4
       entities: 7.0.1
       whatwg-mimetype: 3.0.0
       ws: 8.21.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
-    optional: true
 
   has-bigints@1.1.0: {}
 
@@ -17690,9 +17703,9 @@ snapshots:
     dependencies:
       ts-essentials: 10.2.1(typescript@5.9.3)
       typescript: 5.9.3
-      vitest: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
+      vitest: 5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
 
-  vitest@5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@20.8.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)):
+  vitest@5.0.5(@types/node@26.3.0)(@vitest/coverage-v8@5.0.5)(happy-dom@21.0.4)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0)):
     dependencies:
       '@types/chai': 5.2.3
       '@vitest/mocker': 5.0.5(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))
@@ -17711,7 +17724,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 26.3.0
       '@vitest/coverage-v8': 5.0.5(vitest@5.0.5)
-      happy-dom: 20.8.4
+      happy-dom: 21.0.4
     transitivePeerDependencies:
       - msw
 
@@ -17856,8 +17869,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  whatwg-mimetype@3.0.0:
-    optional: true
+  whatwg-mimetype@3.0.0: {}
 
   when-exit@2.1.5: {}
 
