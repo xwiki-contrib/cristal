@@ -175,7 +175,7 @@ catalog:
   ts-essentials: 10.2.1
   ts-node: 10.9.2
   tsx: 4.23.15
-  typescript: 5.9.3
+  typescript: 6.0.3
   typescript-eslint: 8.72.1
   vite: 7.3.5
   vite-plugin-css-injected-by-js: 4.0.1
@@ -209,3 +209,6 @@ overrides:
   ## checks every production dependency against the range its dependent declares, and fails the packaging step
   ## when the overridden version does not satisfy that exact pin.
   yjs: 13.6.33
+  ## eslint-plugin-tsdoc pins @typescript-eslint/utils ~8.56.0, which does not accept TypeScript 6. Align it with the
+  ## typescript-eslint version of the catalog. Remove this override once eslint-plugin-tsdoc supports TypeScript 6.
+  eslint-plugin-tsdoc>@typescript-eslint/utils: 8.72.1

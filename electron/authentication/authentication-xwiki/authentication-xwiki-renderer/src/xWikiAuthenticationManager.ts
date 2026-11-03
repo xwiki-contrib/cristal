@@ -26,8 +26,8 @@ import type {
 } from "@xwiki/platform-authentication-api";
 
 // TODO: find out how to move the type declaration to a separate location.
-// eslint-disable-next-line @typescript-eslint/prefer-namespace-keyword, @typescript-eslint/no-namespace
-declare module window {
+// eslint-disable-next-line @typescript-eslint/no-namespace
+declare namespace window {
   interface authenticationXWiki {
     login: (oidcUrl: string) => void;
 

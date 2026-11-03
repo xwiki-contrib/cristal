@@ -22,13 +22,11 @@ import "reflect-metadata";
 import { restoreOrCreateWindow } from "./mainWindow";
 import { loadFile } from "./reload";
 import "./security-restrictions";
-// @ts-expect-error shouldn't happen, but we need to generate the types for the whole project once.
 import { default as loadBrowser } from "@xwiki/cristal-browser-electron/main";
 import { load as loadGitHubAuthentication } from "@xwiki/cristal-electron-authentication-github-main";
 import { load as loadNextcloudAuthentication } from "@xwiki/cristal-electron-authentication-nextcloud-main";
 import { load as loadXWikiAuthentication } from "@xwiki/cristal-electron-authentication-xwiki-main";
 import { load as loadSettings } from "@xwiki/cristal-electron-settings-main";
-// @ts-expect-error shouldn't happen, but we need to generate the types for the whole project once.
 import load from "@xwiki/cristal-electron-storage/main";
 import { BrowserWindow, app } from "electron";
 import { platform } from "node:process";
