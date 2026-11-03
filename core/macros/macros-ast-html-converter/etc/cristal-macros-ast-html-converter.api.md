@@ -4,9 +4,9 @@
 
 ```ts
 
+import { Block } from '@xwiki/platform-uniast-api';
 import { Container } from 'inversify';
-import { MacroBlock } from '@xwiki/platform-macros-api';
-import { MacroInlineContent } from '@xwiki/platform-macros-api';
+import { InlineContent } from '@xwiki/platform-uniast-api';
 
 // @beta (undocumented)
 export class ComponentInit {
@@ -15,8 +15,8 @@ export class ComponentInit {
 
 // @beta
 export interface MacrosAstToHtmlConverter {
-    blocksToHTML(blocks: MacroBlock[], htmlBody: string | null): string | Error;
-    inlineContentsToHTML(inlineContents: MacroInlineContent[], htmlBody: string | null): string | Error;
+    blocksToHTML(blocks: Block[], htmlBody: string | null): string | Error;
+    inlineContentsToHTML(inlineContents: InlineContent[], htmlBody: string | null): string | Error;
 }
 
 // @beta (undocumented)

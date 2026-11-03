@@ -25,14 +25,15 @@ import {
 } from "@xwiki/platform-fn-utils";
 import { inject, injectable } from "inversify";
 import type { MacrosAstToHtmlConverter } from "./macros-ast-to-html-converter";
-import type {
-  MacroBlock,
-  MacroBlockStyles,
-  MacroInlineContent,
-  MacroLinkTarget,
-} from "@xwiki/platform-macros-api";
 import type { ModelReferenceParserProvider } from "@xwiki/platform-model-reference-api";
 import type { RemoteURLSerializerProvider } from "@xwiki/platform-model-remote-url-api";
+import type {
+  Block,
+  BlockStyles,
+  Image,
+  InlineContent,
+  LinkTarget,
+} from "@xwiki/platform-uniast-api";
 
 /**
  * Converter that transforms a macro's returned AST to HTML
@@ -50,12 +51,12 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
     private readonly remoteURLSerializerProvider: RemoteURLSerializerProvider,
   ) {}
 
-  blocksToHTML(blocks: MacroBlock[], htmlBody: string | null): string | Error {
+  blocksToHTML(blocks: Block[], htmlBody: string | null): string | Error {
     return tryFallibleOrError(() => this.convertBlocks(blocks, htmlBody));
   }
 
   inlineContentsToHTML(
-    inlineContents: MacroInlineContent[],
+    inlineContents: InlineContent[],
     htmlBody: string | null,
   ): string | Error {
     return tryFallibleOrError(() =>
@@ -63,12 +64,12 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
     );
   }
 
-  private convertBlocks(blocks: MacroBlock[], htmlBody: string | null): string {
+  private convertBlocks(blocks: Block[], htmlBody: string | null): string {
     return blocks.map((block) => this.convertBlock(block, htmlBody)).join("");
   }
 
   private convertInlineContents(
-    inlineContents: MacroInlineContent[],
+    inlineContents: InlineContent[],
     htmlBody: string | null,
   ): string {
     return inlineContents
@@ -78,7 +79,7 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
       .join("");
   }
 
-  private convertBlock(block: MacroBlock, htmlBody: string | null): string {
+  private convertBlock(block: Block, htmlBody: string | null): string {
     switch (block.type) {
       case "paragraph":
         return this.produceBlockHtml(
@@ -96,14 +97,16 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
 
       case "list":
         return this.produceBlockHtml(
-          block.numbered ? "ol" : "ul",
+          block.items.length > 0 && block.items[0].number !== undefined
+            ? "ol"
+            : "ul",
           block.styles,
           block.items
             .map((item) =>
               produceHtmlEl(
                 "li",
                 {},
-                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertInlineContents(item.content, htmlBody)}`,
+                `${item.checked !== undefined ? produceHtmlEl("input", { type: "checkbox", checked: item.checked.toString(), readonly: "true" }, false) : ""}${this.convertBlocks(item.content, htmlBody)}`,
               ),
             )
             .join(""),
@@ -187,16 +190,10 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
       }
 
       case "image":
-        return produceHtmlEl(
-          "img",
-          {
-            src: this.getTargetUrl(block.target),
-            alt: block.alt,
-            width: block.widthPx ? `${block.widthPx}px` : undefined,
-            height: block.heightPx ? `${block.heightPx}px` : undefined,
-          },
-          false,
-        );
+        return this.convertImage(block);
+
+      case "break":
+        return "<hr>";
 
       case "rawHtml":
         // NOTE: This HTML will not be sanitized ; it is up to the macro itself to ensure the HTML is safe for the end user
@@ -215,7 +212,7 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
 
   // eslint-disable-next-line max-statements
   private convertInlineContent(
-    inlineContent: MacroInlineContent,
+    inlineContent: InlineContent,
     htmlBody: string | null,
   ): string {
     switch (inlineContent.type) {
@@ -286,6 +283,9 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
           this.convertInlineContents(inlineContent.content, htmlBody),
         );
 
+      case "image":
+        return this.convertImage(inlineContent);
+
       case "rawHtml":
         return inlineContent.html;
 
@@ -300,7 +300,20 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
     }
   }
 
-  private getTargetUrl(target: MacroLinkTarget): string {
+  private convertImage(image: Image): string {
+    return produceHtmlEl(
+      "img",
+      {
+        src: this.getTargetUrl(image.target),
+        alt: image.alt || undefined,
+        width: image.widthPx ? `${image.widthPx}px` : undefined,
+        height: image.heightPx ? `${image.heightPx}px` : undefined,
+      },
+      false,
+    );
+  }
+
+  private getTargetUrl(target: LinkTarget): string {
     if (target.type === "external") {
       return target.url;
     }
@@ -329,7 +342,7 @@ export class DefaultMacrosAstToHtmlConverter implements MacrosAstToHtmlConverter
 
   private produceBlockHtml(
     tagName: string,
-    styles: MacroBlockStyles,
+    styles: BlockStyles,
     innerHTML: string,
     attrs?: Record<string, string | undefined>,
   ): string {

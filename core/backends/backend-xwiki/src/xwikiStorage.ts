@@ -343,7 +343,7 @@ export class XWikiStorage extends AbstractStorage {
   async saveAttachments(
     page: string,
     files: File[],
-  ): Promise<undefined | (undefined | string)[]> {
+  ): Promise<undefined | (PageAttachment | undefined)[]> {
     await Promise.all(files.map((file) => this.saveAttachment(page, file)));
     return undefined;
   }

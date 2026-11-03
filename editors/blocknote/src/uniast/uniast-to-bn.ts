@@ -199,6 +199,14 @@ export class UniAstToBlockNoteConverter {
         return this.convertMacroBlock(block.call);
       }
 
+      case "rawHtml":
+        throw new Error("Raw HTML blocks are not supported in BlockNote");
+
+      case "macroBlockEditableArea":
+        throw new Error(
+          "Macro editable-area blocks are not supported in BlockNote",
+        );
+
       default:
         assertUnreachable(block);
     }
@@ -420,6 +428,19 @@ export class UniAstToBlockNoteConverter {
       case "inlineMacro": {
         return this.convertInlineMacro(inlineContent.call);
       }
+
+      case "rawHtml":
+        throw new Error(
+          "Raw HTML inline content is not supported in BlockNote",
+        );
+
+      case "inlineMacroEditableArea":
+        throw new Error(
+          "Macro editable-area inline content is not supported in BlockNote",
+        );
+
+      default:
+        assertUnreachable(inlineContent);
     }
   }
 

@@ -277,16 +277,16 @@ export class GitHubStorage extends AbstractStorage {
   async saveAttachments(
     page: string,
     files: File[],
-  ): Promise<undefined | (string | undefined)[]> {
-    const urls: Promise<string | undefined>[] = [];
+  ): Promise<undefined | (PageAttachment | undefined)[]> {
+    const attachments: Promise<PageAttachment | undefined>[] = [];
 
     for (const file of files) {
       const fileUrl = `${this.getPageRestMetaURL(page, "")}/${this.ATTACHMENTS}/${file.name}`;
       const sha = await this.computeAttachmentSHA(fileUrl);
 
-      urls.push(this.uploadAttachment(fileUrl, file, sha, page));
+      attachments.push(this.uploadAttachment(fileUrl, file, sha, page));
     }
-    return Promise.all(urls);
+    return Promise.all(attachments);
   }
 
   private async computeAttachmentSHA(fileUrl: string) {
@@ -308,7 +308,7 @@ export class GitHubStorage extends AbstractStorage {
     file: File,
     sha: string | undefined,
     page: string,
-  ): Promise<string | undefined> {
+  ): Promise<PageAttachment | undefined> {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = async () => {
@@ -334,7 +334,24 @@ export class GitHubStorage extends AbstractStorage {
             );
           resolve(undefined);
         } else {
-          resolve((await putResponse.json()).content.download_url as string);
+          const { content, commit } = (await putResponse.json()) as {
+            content: {
+              download_url: string;
+              name: string;
+              path: string;
+              size: number;
+            };
+            commit: { author: { name: string; date: string } };
+          };
+          resolve({
+            reference: content.name,
+            id: content.path,
+            size: content.size,
+            href: content.download_url,
+            mimetype: mime.getType(content.name) ?? "",
+            date: new Date(commit.author.date),
+            author: commit.author.name,
+          });
         }
       };
       reader.readAsDataURL(file);

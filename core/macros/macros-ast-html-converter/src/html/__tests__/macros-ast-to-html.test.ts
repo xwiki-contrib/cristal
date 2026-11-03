@@ -26,10 +26,6 @@ import {
 import { describe, expect, test } from "vitest";
 import { any, mock } from "vitest-mock-extended";
 import type {
-  MacroBlockStyles,
-  MacroInlineContent,
-} from "@xwiki/cristal-macros-api";
-import type {
   ModelReferenceParser,
   ModelReferenceParserProvider,
 } from "@xwiki/platform-model-reference-api";
@@ -37,6 +33,11 @@ import type {
   RemoteURLSerializer,
   RemoteURLSerializerProvider,
 } from "@xwiki/platform-model-remote-url-api";
+import type {
+  Block,
+  BlockStyles,
+  InlineContent,
+} from "@xwiki/platform-uniast-api";
 import type { Container } from "inversify";
 
 // eslint-disable-next-line max-statements
@@ -86,7 +87,7 @@ describe("MacrosAstToHtmlConverter", () => {
   );
 
   function expectInlineContentToBe(
-    inlineContents: MacroInlineContent[],
+    inlineContents: InlineContent[],
     expectedHtml: string,
   ) {
     expect(converter.inlineContentsToHTML(inlineContents, null)).toBe(
@@ -152,7 +153,11 @@ describe("MacrosAstToHtmlConverter", () => {
           content: [
             { type: "text", content: "I am an internal link", styles: {} },
           ],
-          target: { type: "internal", rawReference: "A.B@image.png" },
+          target: {
+            type: "internal",
+            rawReference: "A.B@image.png",
+            parsedReference: null,
+          },
         },
       ],
       '<a href="https://my.site/A/B/image.png">I am an internal link</a>',
@@ -175,10 +180,11 @@ describe("MacrosAstToHtmlConverter", () => {
   });
 
   test("all block types", () => {
-    const content: MacroInlineContent[] = [
+    const content: InlineContent[] = [
       { type: "text", content: "Hello!", styles: {} },
     ];
-    const styles: MacroBlockStyles = { cssClasses: ["class1", "class2"] };
+    const styles: BlockStyles = { cssClasses: ["class1", "class2"] };
+    const itemContent: Block[] = [{ type: "paragraph", content, styles }];
 
     const res = converter.blocksToHTML(
       [
@@ -191,21 +197,19 @@ describe("MacrosAstToHtmlConverter", () => {
         { type: "heading", level: 6, content, styles },
         {
           type: "list",
-          numbered: false,
           items: [
-            { content, styles },
-            { checked: false, content, styles },
-            { checked: true, content, styles },
+            { content: itemContent, styles },
+            { checked: false, content: itemContent, styles },
+            { checked: true, content: itemContent, styles },
           ],
           styles,
         },
         {
           type: "list",
-          numbered: true,
           items: [
-            { content, styles },
-            { checked: false, content, styles },
-            { checked: true, content, styles },
+            { number: 1, content: itemContent, styles },
+            { number: 2, checked: false, content: itemContent, styles },
+            { number: 3, checked: true, content: itemContent, styles },
           ],
           styles,
         },
@@ -231,18 +235,41 @@ describe("MacrosAstToHtmlConverter", () => {
         },
         {
           type: "image",
-          target: { type: "internal", rawReference: "A.B@image.png" },
+          target: {
+            type: "internal",
+            rawReference: "A.B@image.png",
+            parsedReference: null,
+          },
+          styles: {},
         },
         {
           type: "image",
-          target: { type: "internal", rawReference: "A.B@image.png" },
+          target: {
+            type: "internal",
+            rawReference: "A.B@image.png",
+            parsedReference: null,
+          },
           alt: "Some alt caption",
           widthPx: 100,
           heightPx: 200,
+          styles: {},
         },
         {
           type: "image",
           target: { type: "external", url: "https://picsum.photos/536/354" },
+          styles: {},
+        },
+        { type: "break" },
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "image",
+              target: { type: "external", url: "https://picsum.photos/20/20" },
+              styles: {},
+            },
+          ],
+          styles,
         },
         {
           type: "rawHtml",
@@ -275,13 +302,14 @@ describe("MacrosAstToHtmlConverter", () => {
         '<h5 class="class1 class2">Hello!</h5>',
         '<h6 class="class1 class2">Hello!</h6>',
         '<ul class="class1 class2">',
-        "<li>Hello!</li>",
-        '<li><input type="checkbox" checked="false" readonly="true">Hello!</li>',
-        '<li><input type="checkbox" checked="true" readonly="true">Hello!</li>',
+        '<li><p class="class1 class2">Hello!</p></li>',
+        '<li><input type="checkbox" checked="false" readonly="true"><p class="class1 class2">Hello!</p></li>',
+        '<li><input type="checkbox" checked="true" readonly="true"><p class="class1 class2">Hello!</p></li>',
         "</ul>",
         '<ol class="class1 class2">',
-        '<li>Hello!</li><li><input type="checkbox" checked="false" readonly="true">Hello!</li>',
-        '<li><input type="checkbox" checked="true" readonly="true">Hello!</li>',
+        '<li><p class="class1 class2">Hello!</p></li>',
+        '<li><input type="checkbox" checked="false" readonly="true"><p class="class1 class2">Hello!</p></li>',
+        '<li><input type="checkbox" checked="true" readonly="true"><p class="class1 class2">Hello!</p></li>',
         "</ol>",
         '<blockquote class="class1 class2"><p class="class1 class2">Hello!</p></blockquote>',
         "<pre>Some code here</pre>",
@@ -290,6 +318,8 @@ describe("MacrosAstToHtmlConverter", () => {
         '<img src="https://my.site/A/B/image.png">',
         '<img src="https://my.site/A/B/image.png" alt="Some alt caption" width="100px" height="200px">',
         '<img src="https://picsum.photos/536/354">',
+        "<hr>",
+        '<p class="class1 class2"><img src="https://picsum.photos/20/20"></p>',
         "<script></script><style></style>",
         "<div><!-- Macro editable area's HTML content --></div>",
         '<p class="class1 class2"><!-- Macro editable area\'s HTML content --></p>',

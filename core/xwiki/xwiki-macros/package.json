@@ -30,7 +30,8 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@xwiki/platform-macros-api": "catalog:"
+    "@xwiki/platform-macros-api": "catalog:",
+    "@xwiki/platform-uniast-api": "catalog:"
   },
   "peerDependencies": {
     "inversify": "8.x"

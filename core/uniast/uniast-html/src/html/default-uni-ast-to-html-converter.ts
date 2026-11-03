@@ -260,6 +260,15 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
         return rendered;
       }
 
+      case "rawHtml":
+        // NOTE: This HTML is not sanitized, the producer of the AST is responsible for its safety.
+        return block.html;
+
+      case "macroBlockEditableArea":
+        throw new Error(
+          "Macro editable-area blocks are only supported in a macro's rendered content",
+        );
+
       default:
         assertUnreachable(block);
     }
@@ -424,6 +433,15 @@ export class DefaultUniAstToHTMLConverter implements UniAstToHTMLConverter {
 
         return rendered;
       }
+
+      case "rawHtml":
+        // NOTE: This HTML is not sanitized, the producer of the AST is responsible for its safety.
+        return inlineContent.html;
+
+      case "inlineMacroEditableArea":
+        throw new Error(
+          "Macro editable-area inline content is only supported in a macro's rendered content",
+        );
 
       default:
         assertUnreachable(inlineContent);
