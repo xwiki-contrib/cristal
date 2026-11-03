@@ -29,7 +29,10 @@
     "build": {
       "inputs": [
         "default",
-        "^default"
+        "^default",
+        {
+          "env": "VITE_CRISTAL_XWIKI_LEGACY_REST"
+        }
       ],
       "dependsOn": [
         "^build",
