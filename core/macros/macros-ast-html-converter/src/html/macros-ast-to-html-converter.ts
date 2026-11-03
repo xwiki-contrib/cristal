@@ -18,10 +18,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-import type {
-  MacroBlock,
-  MacroInlineContent,
-} from "@xwiki/platform-macros-api";
+import type { Block, InlineContent } from "@xwiki/platform-uniast-api";
 
 /**
  * Convert macros' AST to HTML.
@@ -39,7 +36,7 @@ export interface MacrosAstToHtmlConverter {
    *
    * @returns The HTML render
    */
-  blocksToHTML(blocks: MacroBlock[], htmlBody: string | null): string | Error;
+  blocksToHTML(blocks: Block[], htmlBody: string | null): string | Error;
 
   /**
    * Render a macro's AST inline contents to an HTML string.
@@ -51,7 +48,7 @@ export interface MacrosAstToHtmlConverter {
    * @returns The HTML render
    */
   inlineContentsToHTML(
-    inlineContents: MacroInlineContent[],
+    inlineContents: InlineContent[],
     htmlBody: string | null,
   ): string | Error;
 }
