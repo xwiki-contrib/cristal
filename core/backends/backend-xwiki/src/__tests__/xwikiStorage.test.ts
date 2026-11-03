@@ -21,7 +21,7 @@
 import "reflect-metadata";
 import { XWikiStorage } from "../xwikiStorage";
 import { DefaultLogger } from "@xwiki/platform-api";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { anyObject, mock } from "vitest-mock-extended";
 import type { AlertsServiceProvider } from "@xwiki/cristal-alerts-api";
 import type {
@@ -88,5 +88,111 @@ describe("getPageFromViewURL", () => {
       ),
       anyObject(),
     );
+  });
+});
+
+const legacyUrl =
+  "http://baseurl/rest/cristal/wikis/xwiki/spaces/Sandbox/pages/TestPage1?format=jsonld";
+
+function createStorage(): XWikiStorage {
+  const storage = new XWikiStorage(
+    new DefaultLogger(),
+    { get: () => undefined } as AuthenticationManagerProvider,
+    mock<AlertsServiceProvider>(),
+  );
+  storage.setWikiConfig({ baseURL: "http://baseurl" } as WikiConfig);
+  return storage;
+}
+
+function jsonResponse(body: unknown, ok = true): Response {
+  return {
+    ok,
+    status: ok ? 200 : 500,
+    json: () => Promise.resolve(body),
+  } as Response;
+}
+
+// A page as returned by XWiki < 18.1: no rights and no rendered content.
+function oldPage() {
+  return {
+    syntax: "xwiki/2.1",
+    content: "= Title =",
+    hierarchy: { items: [{ name: "Sandbox" }, { name: "TestPage1" }] },
+  };
+}
+
+function mockFetch(legacy: Response) {
+  global.fetch = vi.fn((url: string | URL) =>
+    Promise.resolve(
+      url.toString().includes("/rest/cristal/")
+        ? legacy
+        : jsonResponse(oldPage()),
+    ),
+  );
+}
+
+describe("legacy XWiki REST fallback", () => {
+  const xwikiStorage = createStorage();
+
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("does nothing when the flag is not set", async () => {
+    mockFetch(jsonResponse({ canEdit: true, html: "<h1>Title</h1>" }));
+    const page = await xwikiStorage.getPageContent("Sandbox.TestPage1", "html");
+    expect(global.fetch).toHaveBeenCalledOnce();
+    expect(page?.canEdit).toBe(false);
+    expect(page?.html).toBeUndefined();
+  });
+
+  it("reads the edit right and the html from the legacy endpoint", async () => {
+    vi.stubEnv("VITE_CRISTAL_XWIKI_LEGACY_REST", "true");
+    mockFetch(jsonResponse({ canEdit: true, html: "<h1>Title</h1>" }));
+    const page = await xwikiStorage.getPageContent("Sandbox.TestPage1", "html");
+    expect(global.fetch).toHaveBeenCalledTimes(2);
+    expect(global.fetch).toHaveBeenLastCalledWith(legacyUrl, anyObject());
+    expect(page?.canEdit).toBe(true);
+    expect(page?.html).toBe("<h1>Title</h1>");
+  });
+
+  it("skips the legacy endpoint when the backend returns everything", async () => {
+    vi.stubEnv("VITE_CRISTAL_XWIKI_LEGACY_REST", "true");
+    global.fetch = vi.fn(() =>
+      Promise.resolve(
+        jsonResponse({
+          ...oldPage(),
+          rights: [{ name: "edit", value: true }],
+          renderedContent: "<h1>Title</h1>",
+        }),
+      ),
+    );
+    const page = await xwikiStorage.getPageContent("Sandbox.TestPage1", "html");
+    expect(global.fetch).toHaveBeenCalledOnce();
+    expect(page?.canEdit).toBe(true);
+  });
+
+  it("keeps the default values when the legacy endpoint fails", async () => {
+    vi.stubEnv("VITE_CRISTAL_XWIKI_LEGACY_REST", "true");
+    mockFetch(jsonResponse({}, false));
+    const page = await xwikiStorage.getPageContent("Sandbox.TestPage1", "html");
+    expect(page?.canEdit).toBe(false);
+    expect(page?.html).toBeUndefined();
+  });
+
+  it("only fetches the html for revisions", async () => {
+    vi.stubEnv("VITE_CRISTAL_XWIKI_LEGACY_REST", "true");
+    mockFetch(jsonResponse({ canEdit: true, html: "<h1>Old</h1>" }));
+    const page = await xwikiStorage.getPageContent(
+      "Sandbox.TestPage1",
+      "html",
+      "1.1",
+    );
+    expect(global.fetch).toHaveBeenLastCalledWith(
+      `${legacyUrl}&revision=1.1`,
+      anyObject(),
+    );
+    expect(page?.canEdit).toBe(false);
+    expect(page?.html).toBe("<h1>Old</h1>");
   });
 });

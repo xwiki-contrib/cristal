@@ -203,6 +203,8 @@ export class XWikiStorage extends AbstractStorage {
         (right: { value: boolean; name: string }) => right.name == "edit",
       )?.value ?? false;
 
+    await this.applyLegacyRestFallback(pageContentData, json, page, revision);
+
     pageContentData.document = new JSONLDDocument({
       encodingFormat: pageContentData.syntax,
       name: pageContentData.name,
@@ -401,6 +403,68 @@ export class XWikiStorage extends AbstractStorage {
       headers["Authorization"] = authorizationHeader;
     }
     return headers;
+  }
+
+  /**
+   * Fill in the edit right and the rendered content when the backend is too old to return them.
+   *
+   * XWiki returns the edit right only since 18.1.0 (`checkRight`) and the rendered content only since 18.2.0
+   * (`supportedSyntax`). Without them, Cristal never offers to edit and displays non-Markdown pages as raw
+   * source. When the `VITE_CRISTAL_XWIKI_LEGACY_REST` build flag is `"true"`, the missing values are read from the
+   * `/rest/cristal/wikis/.../pages/...?format=jsonld` endpoint of cristal-integration-rest-server 1.4.0 or older.
+   * This endpoint was removed in 1.5.0.
+   */
+  private async applyLegacyRestFallback(
+    pageContentData: PageData,
+    json: { rights?: unknown; renderedContent?: string; syntax: string },
+    page: string,
+    revision?: string,
+  ): Promise<void> {
+    // Rights are never requested for revisions, which are read-only.
+    const missingRights = !revision && json.rights === undefined;
+    const missingHtml =
+      json.syntax !== "markdown/1.2" && json.renderedContent === undefined;
+    if (
+      import.meta.env.VITE_CRISTAL_XWIKI_LEGACY_REST !== "true" ||
+      (!missingRights && !missingHtml)
+    ) {
+      return;
+    }
+
+    const legacyJson = await this.fetchLegacyPage(page, revision);
+    if (missingRights && legacyJson?.canEdit !== undefined) {
+      pageContentData.canEdit = legacyJson.canEdit;
+    }
+    if (missingHtml && legacyJson?.html !== undefined) {
+      pageContentData.html = legacyJson.html;
+    }
+  }
+
+  private async fetchLegacyPage(
+    page: string,
+    revision?: string,
+  ): Promise<{ canEdit?: boolean; html?: string } | undefined> {
+    try {
+      const response = await fetch(
+        this.getPageRestURL(page, "jsonld", revision),
+        {
+          cache: "no-store",
+          headers: { ...(await this.getCredentials()) },
+        },
+      );
+      if (response.ok) {
+        return await response.json();
+      }
+      this.logger?.warn(
+        `Legacy XWiki REST fallback failed for page ${page}: HTTP ${response.status}`,
+      );
+    } catch (e) {
+      this.logger?.warn(
+        `Legacy XWiki REST fallback failed for page ${page}`,
+        e,
+      );
+    }
+    return undefined;
   }
 
   private buildPageRestBaseURL(page: string, segments: string[]) {
