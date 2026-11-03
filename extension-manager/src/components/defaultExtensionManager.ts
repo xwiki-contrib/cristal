@@ -93,7 +93,7 @@ export class DefaultExtensionManager
       // css loading
       try {
         const cssModule = await import(/* @vite-ignore */ cssImportPath, {
-          assert: { type: "text/css" },
+          with: { type: "text/css" },
         });
         document.adoptedStyleSheets = [cssModule.default];
       } catch {

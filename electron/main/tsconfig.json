@@ -4,7 +4,7 @@
     "module": "esnext",
     "target": "esnext",
     "sourceMap": false,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
@@ -15,13 +15,7 @@
     "types": [
       "node",
       "vite/client"
-    ],
-    "baseUrl": ".",
-    "paths": {
-      "/@/*": [
-        "./src/*"
-      ]
-    }
+    ]
   },
   "include": [
     "src/**/*.ts",
