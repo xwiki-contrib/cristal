@@ -51,6 +51,8 @@ const rules = computed(() => {
     :label="label"
     :messages="help"
     :items="items"
+    item-title="label"
+    item-value="value"
     :rules="rules"
     :clearable="!required"
   ></v-select>
