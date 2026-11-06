@@ -156,6 +156,11 @@ const contextForMacros: ContextForMacros = {
   openParamsEditor(/*macro, params, update*/) {
     alert("TODO: params editor for macros in Cristal");
   },
+
+  openInsertionEditor(prefill) {
+    console.debug({ prefill });
+    alert("TODO: insertion editor for macros in Cristal");
+  },
 };
 
 /**
