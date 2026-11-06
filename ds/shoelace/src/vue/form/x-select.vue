@@ -20,11 +20,20 @@
 <script lang="ts" setup>
 import "@shoelace-style/shoelace/dist/components/option/option";
 import "@shoelace-style/shoelace/dist/components/select/select";
+import { computed } from "vue";
 import type { SelectProps } from "@xwiki/platform-dsapi";
 
-defineProps<SelectProps>();
+const { items } = defineProps<SelectProps>();
 
 const selected = defineModel<string>();
+
+// An item is either a string, used both as the value and as the label, or an object with a distinct value and label
+// (see SelectItem in @xwiki/platform-dsapi).
+const options = computed(() =>
+  items.map((item: string | { value: string; label: string }) =>
+    typeof item === "string" ? { value: item, label: item } : item,
+  ),
+);
 </script>
 <template>
   <sl-select
@@ -36,8 +45,11 @@ const selected = defineModel<string>();
     @sl-change="selected = $event.target.value"
     @sl-hide.stop
   >
-    <sl-option v-for="item in items" :key="item" :value="item">{{
-      item
-    }}</sl-option>
+    <sl-option
+      v-for="option in options"
+      :key="option.value"
+      :value="option.value"
+      >{{ option.label }}</sl-option
+    >
   </sl-select>
 </template>
