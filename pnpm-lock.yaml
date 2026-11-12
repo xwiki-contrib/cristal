@@ -336,8 +336,8 @@ catalogs:
       specifier: 1.4.1
       version: 1.4.1
     axios:
-      specifier: 1.21.0
-      version: 1.21.0
+      specifier: 1.21.1
+      version: 1.21.1
     comlink:
       specifier: 4.4.2
       version: 4.4.2
@@ -889,7 +889,7 @@ importers:
         version: 18.10.0-1793113903(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.21.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
+        version: 1.21.1(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.8
@@ -1035,7 +1035,7 @@ importers:
         version: 1.4.1
       axios:
         specifier: 'catalog:'
-        version: 1.21.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
+        version: 1.21.1(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.8
@@ -1230,7 +1230,7 @@ importers:
         version: 18.10.0-1793113903(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.21.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
+        version: 1.21.1(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
       js-cookie:
         specifier: 'catalog:'
         version: 3.0.8
@@ -4349,7 +4349,7 @@ importers:
         version: 18.10.0-1793113903(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.21.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
+        version: 1.21.1(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
       electron:
         specifier: 43.1.1
         version: 43.1.1(supports-color@10.2.2)
@@ -4442,7 +4442,7 @@ importers:
         version: 18.10.0-1793113903(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.21.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
+        version: 1.21.1(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
       electron:
         specifier: 43.1.1
         version: 43.1.1(supports-color@10.2.2)
@@ -4544,7 +4544,7 @@ importers:
         version: 18.10.0-1793113903(reflect-metadata@0.2.2)
       axios:
         specifier: 'catalog:'
-        version: 1.21.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
+        version: 1.21.1(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2)
       electron:
         specifier: 43.1.1
         version: 43.1.1(supports-color@10.2.2)
@@ -7894,8 +7894,8 @@ packages:
   axios@1.18.1:
     resolution: {integrity: sha512-3nTvFlvpn9Zu/RkHUqtc7/+al4UpRW5az71ap5zccp6e8RAYEzhMTecX8Dz1wWDYrPpUoB1HAQEGEAEvUr7S9g==}
 
-  axios@1.21.0:
-    resolution: {integrity: sha512-YCzXMB53Q9PZBsh7yN7wtapit4WepwcHS2fP8QhGsBxSz5YtgYobV7GGlWlAJi+RxfU77GQTQi2DSLUma42EYA==}
+  axios@1.21.1:
+    resolution: {integrity: sha512-6eI5Q/Y4u/Um9dDlsRoq5pY2rxnUTv+L4PpLitnbk/i4jb3MxLZ5CsN5Ih3IysbeRYK4pR+P7qfMsOQl9fwwFQ==}
 
   bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
@@ -8750,6 +8750,15 @@ packages:
 
   follow-redirects@1.16.0:
     resolution: {integrity: sha512-y5rN/uOsadFT/JfYwhxRS5R7Qce+g3zG97+JrtFZlC9klX/W5hD7iiLzScI4nZqUS7DNUdhPgw4xI8W2LuXlUw==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
+  follow-redirects@1.16.3:
+    resolution: {integrity: sha512-toOSoqN6d51Wjf1aOFJYcoVv1aND9rj/CwjLU0Vz40oDuSpWDayCeKe4JpL5NL0WdFvoOOCI3BRo69HahjbR1A==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -13775,9 +13784,9 @@ snapshots:
       - debug
       - supports-color
 
-  axios@1.21.0(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2):
+  axios@1.21.1(debug@4.4.3(supports-color@10.2.2))(supports-color@10.2.2):
     dependencies:
-      follow-redirects: 1.16.0(debug@4.4.3(supports-color@10.2.2))
+      follow-redirects: 1.16.3(debug@4.4.3(supports-color@10.2.2))
       form-data: 4.0.6
       https-proxy-agent: 5.0.1(supports-color@10.2.2)
       proxy-from-env: 2.1.0
@@ -14935,13 +14944,13 @@ snapshots:
 
   flatted@3.4.4: {}
 
-  follow-redirects@1.16.0(debug@4.4.3(supports-color@10.2.2)):
-    optionalDependencies:
-      debug: 4.4.3(supports-color@10.2.2)
-
   follow-redirects@1.16.0(debug@4.4.3(supports-color@7.2.0)):
     optionalDependencies:
       debug: 4.4.3(supports-color@7.2.0)
+
+  follow-redirects@1.16.3(debug@4.4.3(supports-color@10.2.2)):
+    optionalDependencies:
+      debug: 4.4.3(supports-color@10.2.2)
 
   for-each@0.3.5:
     dependencies:
