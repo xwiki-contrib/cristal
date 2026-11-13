@@ -140,13 +140,9 @@ async function conditionalComponentsList(
     (await import("./github")).load(container);
   }
 
-  if (
-    configuration.editor === "blocknote" ||
-    configuration.editor === undefined
-  ) {
-    const { ComponentInit } = await import("@xwiki/cristal-editors-blocknote");
-    new ComponentInit(container);
-  }
+  // NOTE: When new editors are supported, switch the imports depending on the value of `configuration.editor`
+  const { ComponentInit } = await import("@xwiki/cristal-editors-blocknote");
+  new ComponentInit(container);
 }
 
 export { conditionalComponentsList, defaultComponentsList };
