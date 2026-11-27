@@ -292,7 +292,7 @@ catalogs:
       version: 18.10.0-1793113903
     '@xwiki/platform-macros-api':
       specifier: ^18.10.0-0
-      version: 18.10.0-1793113903
+      version: 18.10.0-rc-1
     '@xwiki/platform-macros-service':
       specifier: ^18.10.0-0
       version: 18.10.0-1793113903
@@ -2355,7 +2355,7 @@ importers:
         version: 18.10.0-1793113903
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.10.0-1793113903
+        version: 18.10.0-rc-1
       '@xwiki/platform-model-reference-api':
         specifier: 'catalog:'
         version: 18.10.0-1793113903(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.44(typescript@6.0.3)))(vue@3.5.44(typescript@6.0.3))
@@ -2395,7 +2395,7 @@ importers:
         version: 18.10.0-1793113903
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.10.0-1793113903
+        version: 18.10.0-rc-1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -3961,7 +3961,7 @@ importers:
     dependencies:
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.10.0-1793113903
+        version: 18.10.0-rc-1
     devDependencies:
       '@xwiki/cristal-dev-config':
         specifier: workspace:*
@@ -4242,7 +4242,7 @@ importers:
         version: 18.10.0-1793113903(reflect-metadata@0.2.2)(vue@3.5.44(typescript@6.0.3))
       '@xwiki/platform-macros-api':
         specifier: 'catalog:'
-        version: 18.10.0-1793113903
+        version: 18.10.0-rc-1
       '@xwiki/platform-macros-service':
         specifier: 'catalog:'
         version: 18.10.0-1793113903(inversify@8.2.3(reflect-metadata@0.2.2))
@@ -7633,6 +7633,9 @@ packages:
   '@xwiki/platform-macros-api@18.10.0-1793113903':
     resolution: {integrity: sha512-nQcNivlZuJg9SWXQUD8txtbtrO3yAbz9wshEEJI3If1S55PkT7OjLAqWnnaFL0+Yo/5FmtdeR18o6tgaUFMTMQ==}
 
+  '@xwiki/platform-macros-api@18.10.0-rc-1':
+    resolution: {integrity: sha512-a8TNnHPKPR/jpGR/N/TQXtypslaKCSnBAZZ3RoZbEBLcL7PVmeoCZe7087GijbGbgeT3uu5AscNA1vp/jdSIdA==}
+
   '@xwiki/platform-macros-ast-react-jsx@18.10.0-1793113903':
     resolution: {integrity: sha512-D2vJpu4Z5qDEDISk4oyYSNfsyun7dNuUYVfzm2trttcOfk+zSCfyf5dY4D6jrSIiqWY2pgal8sovnmWNKliWCA==}
     peerDependencies:
@@ -7648,6 +7651,9 @@ packages:
 
   '@xwiki/platform-model-api@18.10.0-1793113903':
     resolution: {integrity: sha512-P1BRhJTWxqYdETnM+z4NRQnDxKFZfcm9s8jeeek/twR8aGwQ+aa2qG+YvCJt2JWGQqqg0sbKuuBqSLlNBwaAQg==}
+
+  '@xwiki/platform-model-api@18.10.0-rc-1':
+    resolution: {integrity: sha512-p0fGL3fRYR2YewOE1cTa0AT4ZlmPHHvtyCj1cL253lXaDYzo6sLR6O9JxEWya9l0/hOvPfUHNm7KN7hBCkazGg==}
 
   '@xwiki/platform-model-reference-api@18.10.0-1793113903':
     resolution: {integrity: sha512-+kzvAMas/F9xtwLloo304zlIn8eBgOe3j2hz7tZS+4Gc+wxNWUkqHgGKXrVra2xvKg1AsILS7GEuZGKJJZYXXw==}
@@ -7686,6 +7692,9 @@ packages:
 
   '@xwiki/platform-uniast-api@18.10.0-1793113903':
     resolution: {integrity: sha512-vXavfN+TQyw6XQtXbv+fQAYJvXrt4kYnWchOBbbJV5+RqKVcWxLMdgakllGAoWl2qo0J1QIb6xbfkspKoC0Ymg==}
+
+  '@xwiki/platform-uniast-api@18.10.0-rc-1':
+    resolution: {integrity: sha512-ln7eL39PGO6QCiMw+HTc0tfVLxfjjI/k7GflZ97lvmzxKwn1W5Iw6elLcdejZaTcmw61WjxI/hQOyCIUND9HJQ==}
 
   '@xwiki/platform-uniast-markdown-xwiki@18.10.0-1793113903':
     resolution: {integrity: sha512-kDEdMEynUo9bxiWWnqAMq8pcUvab/hI1l/UmjYqz9rJiCZs055bJtS1YJXM/3hV+23ZXnDAJY0/HnbyQ8FF4Gg==}
@@ -13286,6 +13295,10 @@ snapshots:
 
   '@xwiki/platform-macros-api@18.10.0-1793113903': {}
 
+  '@xwiki/platform-macros-api@18.10.0-rc-1':
+    dependencies:
+      '@xwiki/platform-uniast-api': 18.10.0-rc-1
+
   '@xwiki/platform-macros-ast-react-jsx@18.10.0-1793113903(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.44(typescript@6.0.3)))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@xwiki/platform-fn-utils': 18.10.0-1793113903
@@ -13329,6 +13342,8 @@ snapshots:
       - yaml
 
   '@xwiki/platform-model-api@18.10.0-1793113903': {}
+
+  '@xwiki/platform-model-api@18.10.0-rc-1': {}
 
   '@xwiki/platform-model-reference-api@18.10.0-1793113903(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.44(typescript@6.0.3)))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
@@ -13468,6 +13483,10 @@ snapshots:
   '@xwiki/platform-uniast-api@18.10.0-1793113903':
     dependencies:
       '@xwiki/platform-model-api': 18.10.0-1793113903
+
+  '@xwiki/platform-uniast-api@18.10.0-rc-1':
+    dependencies:
+      '@xwiki/platform-model-api': 18.10.0-rc-1
 
   '@xwiki/platform-uniast-markdown-xwiki@18.10.0-1793113903(inversify@8.2.3(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)(supports-color@10.2.2)(vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(esbuild@0.28.2)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(rollup@4.63.0)(vite@7.3.5(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(sugarss@5.0.1(postcss@8.5.32))(tsx@4.23.15)(yaml@2.9.0))(vue@3.5.44(typescript@6.0.3)))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
